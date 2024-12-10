@@ -1,0 +1,25 @@
+{
+  "extends": "../../../../../tsconfig.build.settings.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es6",
+    "lib": ["ES2022","dom","dom.iterable"],
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "dist",
+    "types": ["node", "eslint"],
+    "paths": {
+      "flexiness": ["../../types"],
+    }
+  },
+  "include": [
+    "src/**/*",
+    "src/.eslintrc.cts",
+    "types/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist/**/*",
+  ]
+}

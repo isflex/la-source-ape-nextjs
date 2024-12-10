@@ -1,0 +1,44 @@
+// https://www.sensedeep.com/blog/posts/2021/how-to-create-single-source-npm-module.html
+{
+  "compilerOptions": {
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "lib": ["ES2022","dom","dom.iterable"],
+    "noEmit": false,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    "listEmittedFiles": false,
+    "listFiles": false,
+    "pretty": true,
+    "traceResolution": false,
+    "types": ["node", "jest"],
+    "baseUrl": "./",
+    "rootDir": "src",
+    "paths": {
+      "flexiness": ["../..types"]
+    }
+  },
+  "compileOnSave": false,
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist/**/*"
+  ],
+  "references": [
+  ]
+}

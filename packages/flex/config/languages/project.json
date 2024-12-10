@@ -1,0 +1,25 @@
+{
+  "name": "@flexiness/languages",
+  "prefix": "@flexiness",
+  "sourceRoot": "packages/flex/config/languages",
+  "projectType": "library",
+  "targets": {
+    "build:lib": {
+      "executor": "nx:run-script",
+      "inputs": [
+        "{projectRoot}/package.json",
+        "{projectRoot}/tsconfig.json",
+        "{projectRoot}/tsconfig.build.json",
+        "{projectRoot}/src"
+      ],
+      "outputs": [
+        "{projectRoot}/dist"
+      ],
+      "options": {
+        "script": "build:lib"
+      }
+    }
+  },
+  "implicitDependencies": [],
+  "tags": ["scope:flexiness-staging"]
+}

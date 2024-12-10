@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "exactOptionalPropertyTypes": true,
+    "isolatedModules": true,
+    "lib": ["ES2022","dom","dom.iterable"],
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "noUncheckedIndexedAccess": true,
+    "baseUrl": ".",
+    "strict": true,
+    "target": "ES2022",
+    "useUnknownInCatchVariables": true,
+    "typeRoots": [
+      "index.d.ts"
+    ],
+    "paths": {
+      // "flex_design_system_react_ts_client": ["../design-system-react-ts/src/styled-default.ts"],
+      // "flex_design_system_react_ts_server": ["../design-system-react-ts/src/server-async-styled"],
+    },
+  },
+  "include": [
+    "./definitions/**/*"
+  ],
+  "references": [
+    // { "path": "../config/aws/tsconfig.build.json" }
+  ]
+}

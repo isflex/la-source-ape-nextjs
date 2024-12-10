@@ -1,0 +1,25 @@
+{
+  "extends": "../../../tsconfig.build.settings.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "useDefineForClassFields": true,
+    "baseUrl": ".",
+    "outDir": "dist",
+    "rootDir": "src",
+    "paths": {
+      "flexiness": ["../types"]
+    },
+    "types": ["node", "google.maps"],
+    "customConditions": ["@flexiness/source"],
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist/**/*",
+  ],
+  "references": [
+    { "path": "../domain-utils/tsconfig.esm.build.json" },
+  ]
+}

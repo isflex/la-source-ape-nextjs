@@ -1,0 +1,140 @@
+{
+  "gateway": {
+    "components": {
+      "options_panel": {
+        "debug": {
+          "label": "Debug this website here !!"
+        },
+        "css_mode": {
+          "label": "Use {{ cssMode }} !!"
+        }
+      },
+      "change_language": {
+        "label": "Show in english"
+      }
+    },
+    "navigation": {
+      "title": {
+        "a": "A",
+        "by-flexiness": "BY FLEXINESS",
+        "experiment": "Experiment",
+        "frontend": "Frontend",
+        "micro": "Micro"
+      }
+    },
+    "home": {
+      "show_slides": "Tell me more",
+      "next_js": {
+        "welcome": "Welcome to <LinkNEXTJS>Next.js!</LinkNEXTJS>",
+        "get_started": "Get started by editing",
+        "find_info": {
+          "title": "Documentation",
+          "txt": "Find in-depth information about Next.js features and API."
+        },
+        "learn_about": {
+          "title": "Learn",
+          "txt": "Learn about Next.js in an interactive course with quizzes!"
+        },
+        "discover_and_deploy": {
+          "title": "Examples",
+          "txt": "Discover and deploy boilerplate example Next.js projects."
+        },
+        "deploy": {
+          "title": "Deploy",
+          "txt": "Instantly deploy your Next.js site to a public URL with Vercel."
+        },
+        "powered_by": "Powered by"
+      },
+      "flexiness": {
+        "welcome": "Welcome to",
+        "everywhere": "Microfrontends everywhere and design systems anywhere !!",
+        "get_started": "Get started by navigating the various microfrontends inside this Next.js gateway",
+        "discover_huge_microfrontend": {
+          "title": "Case study",
+          "txt": "Discover how a complexe corporate website can be intergrated as a microfrontend",
+          "bytel": {
+            "suptitle": "User account portal",
+            "button": "Access here"
+          }
+        },
+        "learn_about_microfrontends": {
+          "title": "Storyboard",
+          "txt": "Learn about the different levels of microfrontend interactivity"
+        },
+        "find_info_about_design_systems": {
+          "title": "Storybook",
+          "txt": "See how design systems are catalysts to mastering complex microfrontend intergrations",
+          "design_systems": {
+            "title": "Examples",
+            "txt": "Storybook is a frontend workshop for building UI components and pages in isolation."
+          },
+          "story_book": {
+            "title": "Documentation",
+            "txt": "As a product's UI expands, Storybook becomes a living directory that organizes every UI component and its stories."
+          }
+        },
+        "powered_by": "Powered by"
+      },
+      "microfrontend": {
+        "slide1": {
+          "suptitle": "Stand-alone bundles",
+          "title": "Separate microfrontend shells",
+          "paragraph2": "Each build is comprised of local modules and has the potential to load remote modules from other containers at runtime. Remote modules can be shared, scoped and version controlled.",
+          "button": "See it here"
+        },
+        "slide2": {
+          "suptitle": "Consumed server-side",
+          "title": "Microfrontends as SSR remotes",
+          "paragraph2": "Each build acts as a container and also consumes other builds as containers.",
+          "button": "See it here"
+        },
+        "slide3": {
+          "suptitle": "Nested client-side",
+          "title": "Microfrontends as a two-way host",
+          "paragraph2": "Containers can use modules from other containers and manage circular dependencies between containers.",
+          "button": "See it here"
+        },
+        "slide4": {
+          "suptitle": "Optimised dynamic imports, chunk loading and tree shaking",
+          "title": "Microfrontends as NextJS pages",
+          "paragraph2": "Multiple separate builds can form a single page application. By efficiently binding routing mechanisms with react state management, we can achieve seamless navigation between different microfrontends (history back)",
+          "button": "See it here"
+        }
+      }
+    }
+  },
+  "portfolio": {
+    "greetings": {
+      "title": "Hi there, I'm Inoe",
+      "description1":
+        "A design system architect, specializing in <LinkDRY>DRY</LinkDRY> microfrontend solutions to DRIVE your React and React-Native projects.",
+      "description2":
+        "Typically I create processes that transform <LinkLESS>LESS</LinkLESS> or <LinkSASS>SASS</LinkSASS> into <LinkCSSMODULES>CSS Modules</LinkCSSMODULES> by way of <LinkWEBPACK>Webpack</LinkWEBPACK>, <LinkPOSTCSS>PostCSS</LinkPOSTCSS> and <LinkTYPESCRIPT>Typescript</LinkTYPESCRIPT> that feed into <LinkEMOTION>Emotion</LinkEMOTION> and <LinkSTYLEDCOMPONENT>Styled-components</LinkSTYLEDCOMPONENT> libraries",
+      "description3":
+        "Designers can interact with the framework thru <LinkSTORYBOOK>Storybook</LinkSTORYBOOK> and <LinkFIGMA>Figma</LinkFIGMA> while developers will consume and RE-USE these design components in their everyday tasks. Productivity is streamlined across different teams and departments helping to establish a coherent brand throughout the company.",
+      "description4":
+        "All this with a blistering fast <LinkCICD>CI/CD pipeline</LinkCICD> that includes proper <LinkEND2END>End-to-End testing</LinkEND2END> with <LinkCYPRESS>Cypress</LinkCYPRESS> or <LinkPUPPETEER>Jest Puppeteer</LinkPUPPETEER>. Each stage is exported as a <LinkDOCKER>Docker</LinkDOCKER> image to facilitate sharing and deployment",
+      "description5":
+        "Over the many years working as a fullstack web developper and css intergrator, I have adopted a more <LinkDEVOPS>DevOps</LinkDEVOPS> role for <LinkBACKFORFRONT>Back for Front</LinkBACKFORFRONT> structures. My focus today is implementing solutions necessary to manage large monorepos on <LinkGITLAB>Gitlab</LinkGITLAB> and <LinkGITHUB>Github</LinkGITHUB> within the context of complex <LinkMF>microfrontend architectures</LinkMF>.",
+      "resumeBtn": "See My Resume",
+      "resumeLink": "https://docs.google.com/document/d/1gIy6_-6wHKV2eTC8mC7lkf43rXduBIvA"
+    }
+  },
+  "doggie-store": {
+    "navigation": {
+      "tabs": {
+        "store": "Frenchie Doggie Store"
+      }
+    }
+  },
+  "seo": {
+    "portfolio": {
+      "title": "Inoe's Portfolio",
+      "description": "A passionate Full Stack Web Developer and Mobile App Developer."
+    },
+    "carjager": {
+      "title": "Technical test Carjager",
+      "description": "Access our large catalog of vintage cars and sport vehicles that we offer for sale. Browse our ads to find your old, your youngtimer or your sports GT. We will accompany you all the way through the purchase or sale of your car."
+    }
+  }
+}

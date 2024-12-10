@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  // "extends": "@flexiness/tsconfig/build.esm.json", // rspack error https://www.rspack.dev/config/resolve#resolvetsconfigpath
+  "compilerOptions": {
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "lib": ["ES2022","dom","dom.iterable"],
+    "preserveSymlinks": false,
+    "disableSourceOfProjectReferenceRedirect": false,
+    // "explainFiles": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "strict": true,
+    "noEmitHelpers": true,
+    "pretty": true,
+    "baseUrl": ".",
+    "rootDir": ".",
+    "paths": {
+      "flexiness": ["./packages/flex/types"],
+
+      "flex-design-system-framework/main/all.module.scss": ["./packages/flex/design-system-framework/src/modules3/main/all.module.scss"],
+      "flex-design-system-framework/standalone/flexslider.module.scss": ["./packages/flex/design-system-framework/src/modules3/standalone/flexslider.module.scss"],
+      "flex-design-system-framework/types/default": ["./packages/flex/design-system-framework/types/__generated__/default/src/modules3/main/all.module.scss.d.ts"],
+
+      "flex_design_system_react_ts_client": ["./packages/flex/design-system-react-ts/src/styled-default.ts"],
+      "flex_design_system_react_ts_server": ["./packages/flex/design-system-react-ts/src/server-async-styled-default.ts"],
+
+      "flex-webpack/*": ["./packages/flex/config/webpack/src/*"],
+
+      "flex-languages/*": ["./packages/flex/config/languages/src/*"],
+    },
+  },
+  "exclude": [
+    "node_modules",
+    "**/node_modules",
+    "**/aws-exports.js",
+    "**/amplifyconfiguration.json",
+    "**/dist"
+  ]
+}

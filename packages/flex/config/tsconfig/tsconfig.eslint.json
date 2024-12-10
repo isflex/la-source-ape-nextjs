@@ -1,0 +1,20 @@
+{
+  "extends": "tsconfig/base.esm.json",
+  "compilerOptions": {
+    "types": ["node", "jest"],
+    "noEmit": true
+  },
+  "include": [
+    // "apps/**/.eslintrc.cjs",
+    // "packages/**/.eslintrc.cjs",
+    // "apps/**/*.ts?(x)",
+    // "packages/**/*.ts?(x)",
+    // "apps/**/*.ts",
+    // "packages/**/*.ts",
+    // "apps/**/*.tsx",
+    // "packages/**/*.tsx",
+    "./apps/**/src/**/*.{ts, tsx}",
+    "./packages/**/src/**/*.{ts, tsx}"
+  ],
+  "exclude": ["node_modules", "**/build", "**/dist"]
+}

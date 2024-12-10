@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "mrmlnc.vscode-duplicate",
+    "meganrogge.template-string-converter",
+    "jinsihou.diff-tool",
+    "ms-azuretools.vscode-docker",
+    "hashicorp.hcl",
+    "firsttris.vscode-jest-runner",
+    "arcanis.vscode-zipfs",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "gitlab.gitlab-workflow",
+    "figma.figma-vscode-extension",
+    "unional.vscode-sort-package-json"
+  ]
+}

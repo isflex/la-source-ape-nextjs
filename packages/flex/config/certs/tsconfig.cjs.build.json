@@ -1,0 +1,44 @@
+{
+  "extends": "../../../../tsconfig.build.settings.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es6",
+    "lib": ["ES2022","dom","dom.iterable"],
+    "noEmit": false,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    "listEmittedFiles": false,
+    "listFiles": false,
+    "pretty": true,
+    "traceResolution": false,
+    "types": ["node", "jest"],
+    "baseUrl": "./",
+    "outDir": "dist/cjs",
+    "rootDir": "src",
+    "paths": {
+      "flexiness": ["../..types"]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist/**/*"
+  ],
+  "references": [
+  ]
+}

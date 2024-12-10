@@ -1,0 +1,67 @@
+{
+  "name": "@flexiness/domain-utils",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Utilities module for micro frontend development",
+  "keywords": [],
+  "license": "MIT",
+  "author": "Flexiness <hello@flexiness.com>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./style-loader-esm": "./dist/esm/utils/style-loader.js",
+    "./style-loader-cjs": "./dist/cjs/utils/style-loader.js",
+    "./package.json": "./package.json"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "clean:compile": "pnpm exec rimraf '{dist,*.tsbuildinfo}'",
+    "clean:compile:buildinfo": "pnpm exec rimraf '{*.tsbuildinfo}'",
+    "clean:lib": "pnpm clean:source && pnpm clean:compile",
+    "clean:source": "pnpm exec rimraf '{src/**/*.d.ts,src/**/*.js,src/**/*.js.map}'",
+    "compile:tsup": "tsup-node",
+    "lint": "pnpm lint:legacy",
+    "lint:fix": "pnpm lint --fix",
+    "lint:flat": "cross-env ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.{ts,tsx}\" --debug",
+    "lint:legacy": "cross-env ESLINT_USE_FLAT_CONFIG=false pnpm eslint \"./src/**/*.{ts,tsx}\" --color --cache --config ./.eslintrc.cjs --resolve-plugins-relative-to $FLEX_PROJ_ROOT/packages/flex/config/eslint/legacy",
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "@aws-crypto/sha256-browser": "5.2.0",
+    "@aws-crypto/sha256-js": "5.2.0",
+    "crypto-browserify": "3.12.0",
+    "helmet-csp": "3.4.0",
+    "loglevel": "1.8.0",
+    "psl": "1.9.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "tslib": "^2.4.0",
+    "uuid": "8.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.4",
+    "@babel/plugin-transform-runtime": "7.24.3",
+    "@rushstack/eslint-patch": "1.10.3",
+    "@types/cors": "2.8.17",
+    "@types/express": "4.17.21",
+    "@types/node": "22.10.1",
+    "@types/psl": "1.1.3",
+    "@types/react": "18.3.2",
+    "@types/react-dom": "18.3.0",
+    "@types/uuid": "9.0.3",
+    "csstype": "3.1.3",
+    "flexiness": "workspace:*",
+    "rimraf": "6.0.1",
+    "ts-node": "10.9.2",
+    "tsup": "^8.0.2",
+    "typescript": "5.4.5"
+  }
+}

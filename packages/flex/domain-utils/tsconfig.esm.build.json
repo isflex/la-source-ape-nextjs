@@ -1,0 +1,27 @@
+{
+  "extends": "../../../tsconfig.build.settings.json",
+  "compilerOptions": {
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "lib": ["ES2022","dom","dom.iterable"],
+    "jsx": "react",
+    "baseUrl": ".",
+    "outDir": "./dist/esm",
+    "rootDir": "src",
+    "paths": {
+      "flexiness": ["../types"],
+
+    },
+    "types": ["node", "express", "cors", "psl"]
+  },
+  "include": [
+    "src/**/*",
+    "types/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist/**/*",
+    "src/**/*.cts",
+  ]
+}

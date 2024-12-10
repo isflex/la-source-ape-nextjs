@@ -1,0 +1,11 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "compile:tsup": {
+      "outputs": ["dist/*"],
+      "cache": true,
+      "persistent": false
+    }
+  }
+}

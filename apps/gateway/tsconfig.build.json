@@ -1,0 +1,68 @@
+{
+  "extends": "../../tsconfig.build.settings.json",
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    // "target": "ES2022",
+    // "lib": [
+    //   "ES2022",
+    //   "dom",
+    //   "dom.iterable"
+    // ],
+    "jsx": "preserve",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "baseUrl": "./",
+    "rootDir": "./",
+    "outDir": "dist",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "flexiness": [
+        "../../packages/flex/types"
+      ],
+      "flex-design-system-framework/main/all.module.scss": ["../../packages/flex/design-system-framework/src/modules3/main/all.module.scss"],
+      "flex-design-system-framework/standalone/flexslider.module.scss": ["../../packages/flex/design-system-framework/src/modules3/standalone/flexslider.module.scss"],
+      "flex-design-system-framework/types/default": ["../../packages/flex/design-system-framework/types/__generated__/default/src/modules3/main/all.module.scss.d.ts"],
+      "flex_design_system_react_ts_client": ["../../packages/flex/design-system-react-ts/src/styled-default.ts"],
+      "flex_design_system_react_ts_server": ["../../packages/flex/design-system-react-ts/src/server-async-styled-default.ts"],
+      "flex-aws-schema": [
+        "../../packages/flex/config/aws/cloud/on-board/models/schema.js",
+      ],
+      "flex-aws-models": [
+        "../../packages/flex/config/aws/cloud/on-board/models/index.js",
+      ],
+      "@src/*": ["./src/*"],
+      "@amplify/*": ["./amplify/*"],
+      "@root/*": ["./*"],
+    }
+  },
+  "include": [
+    "src/**/*",
+    "public/**/*",
+    "next-env.d.ts",
+    "types/**/*.d.ts",
+    ".next/types/**/*.ts",
+    "build/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "next.config.ts",
+    ".next/**/*",
+    "build/**/*",
+    "dist/**/*",
+    "amplify"
+  ],
+}

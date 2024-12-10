@@ -1,20 +1,79 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+env/*
+# /!\ Must keep env/public
+!env/public
+
+# /!\ Must hide env/public/.env.keys
+env/public/.env.keys
+
+packages/flex/config/jest/puppeteer/output.json
+packages/flex/config/jest/puppeteer/junit.xml
+
+packages/flex/config/cypress/report.json
+packages/flex/config/cypress/junit.xml
+packages/flex/config/cypress/cypress/screenshots/*
+packages/flex/config/cypress/cypress/videos/*
+packages/flex/config/cypress/cypress/reports/*
+packages/flex/config/cypress/cypress/downloads/*
+
+# local env files
+.env*.local
+
+**/.docker-data
+
+# webpack
+**/.yarn/.cache/webpack
+**/assets.json
+**/.webpack-cache
+
 # dependencies
-/node_modules
+**/node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
 
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/folders.json
+# !.vscode/tasks.json
+# !.vscode/launch.json
+!.vscode/extensions.json
+
+######### If you're using Zero-Installs:
+
+.yarn/*
+!.yarn/cache/
+!.yarn/patches
+!.yarn/plugins/
+!.yarn/releases/
+!.yarn/sdks/
+!.yarn/versions/
+
+######### If you're not using Zero-Installs:
+# .pnp.*
+# .yarn/*
+# !.yarn/patches
+# !.yarn/plugins
+# !.yarn/releases
+# !.yarn/sdks
+# !.yarn/versions
+
 # testing
-/coverage
+**/coverage
 
 # next.js
-/.next/
-/out/
+**/.next/
+**/out/
+
+# development
+**/dist
+# !packages/flex/config/aws/dist
 
 # production
-/build
+**/build
 
 # misc
 .DS_Store
@@ -25,17 +84,31 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env*.local
+.parcel-cache
+.rollup.cache
 
 # vercel
 .vercel
 
+# turbo
+**/.turbo
+
+# nx
+.nx/cache
+
+# linting
+**/.eslintcache
+
+# rollup
+**/.rollup
+
 # typescript
-*.tsbuildinfo
 next-env.d.ts
 
+# typescript project references
+**/*.tsbuildinfo
+
 # amplify
-.amplify
-amplify_outputs*
-amplifyconfiguration*
+**/.amplify
+**/amplify_outputs*
+**/amplifyconfiguration*

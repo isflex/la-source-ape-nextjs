@@ -1,0 +1,27 @@
+{
+  "extends": "../../../tsconfig.build.settings.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es6",
+    "lib": ["ES2022","dom","dom.iterable"],
+    "jsx": "react",
+    "baseUrl": ".",
+    "outDir": "./dist/cjs",
+    "rootDir": "src",
+    "paths": {
+      "flexiness": ["../types"],
+
+    },
+    "types": ["node", "express", "cors", "psl"]
+  },
+  "include": [
+    "src/**/*",
+    "types/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist/**/*",
+    "src/**/*.mts",
+  ]
+}

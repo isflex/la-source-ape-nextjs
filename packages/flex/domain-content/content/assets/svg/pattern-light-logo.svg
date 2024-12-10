@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="231px" height="192px" viewBox="0 0 231 192" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 62 (91390) - https://sketch.com -->
+    <title>Combined Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <radialGradient cx="50%" cy="53.3254881%" fx="50%" fy="53.3254881%" r="100%" gradientTransform="translate(0.500000,0.533255),scale(0.830714,1.000000),rotate(90.000000),translate(-0.500000,-0.533255)" id="radialGradient-1">
+            <stop stop-color="#EEEEEE" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="Styles-&amp;-Marque" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Trilogy-NPM/Fond-&amp;-Pattern/Desktop/Gris/Sans-Grain-BIG" transform="translate(-134.000000, -16.000000)" fill="url(#radialGradient-1)">
+            <g id="BG">
+                <g id="Group-18" transform="translate(-109.000000, 16.000000)">
+                    <path d="M392.96729,105.123003 C416.64189,70.8428924 448.338496,53.249902 464.775698,64.5968498 C481.208591,75.9430373 475.340896,112.889306 451.666549,147.167389 C427.99499,181.446993 395.477779,199.986407 379.044886,188.639459 L379.044886,188.639459 C362.613769,177.292511 369.295731,139.400326 392.96729,105.123003 Z M324.1286,105.123003 C347.800158,139.400326 354.482121,177.292511 338.050749,188.639459 C321.617857,199.986407 289.100646,181.446993 265.429341,147.167389 C241.75474,112.889306 235.887299,75.9430373 252.320191,64.5968498 C268.757393,53.249902 300.453999,70.8428924 324.1286,105.123003 Z M358.534141,4.97379915e-14 C400.239241,4.97379915e-14 434.047822,16.164737 434.047822,36.1050309 C434.047822,56.0453248 400.239241,72.2100618 358.534141,72.2100618 C316.829041,72.2100618 283.02046,56.0453248 283.02046,36.1050309 C283.02046,16.164737 316.829041,4.97379915e-14 358.534141,4.97379915e-14 Z" id="Combined-Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

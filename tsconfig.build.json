@@ -1,0 +1,40 @@
+{
+  "files": [],
+  "references": [
+    // { "path": "./packages/flex/domain-lib-mobx-react-router/tsconfig.build.json" },
+    // { "path": "./packages/flex/domain-lib-global-react/tsconfig.build.json" },
+
+    { "path": "./packages/flex/domain-utils/tsconfig.esm.build.json" },
+    { "path": "./packages/flex/domain-utils/tsconfig.cjs.build.json" },
+
+    { "path": "./packages/flex/config/certs/tsconfig.esm.build.json" },
+    { "path": "./packages/flex/config/certs/tsconfig.cjs.build.json" },
+
+    // { "path": "./packages/flex/config/aws/tsconfig.build.json" },
+
+    { "path": "./packages/flex/config/eslint/flat-config/tsconfig.build.json" },
+    { "path": "./packages/flex/config/eslint/legacy/tsconfig.build.json" },
+
+    { "path": "./packages/flex/config/languages/tsconfig.build.json" },
+
+    // { "path": "./packages/flex/domain-tailwind/tsconfig.build.json" },
+
+    // { "path": "./packages/flex/design-system-framework/tsconfig.build.json" },
+    // { "path": "./packages/flex/design-system-react-ts/tsconfig.build.json" },
+
+    { "path": "./packages/flex/domain-store/tsconfig.build.json" },
+
+    // { "path": "./packages/flex/domain-app/tsconfig.build.json" },
+
+    // { "path": "./packages/flex/domain-database/nestjs-with-graphql/tsconfig.build.json" },
+
+    // { "path": "./pipeline-ci/build-bake/tsconfig.build.json" },
+
+    // { "path": "./apps/on-board/api/tsconfig.build.json" },
+    // { "path": "./apps/on-board/common/tsconfig.build.json" },
+    // { "path": "./apps/on-board/client/tsconfig.build.json" },
+    // { "path": "./apps/on-board/server/tsconfig.build.json" },
+
+    // { "path": "./apps/gateway/tsconfig.build.json" },
+  ]
+}

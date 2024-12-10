@@ -1,0 +1,15 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build:lib": {
+      "dependsOn": ["//#compile:clean:sh"],
+      "outputs": [
+        "dist/locales/**",
+        "../../../../packages/gateway/public/locales/**"
+      ],
+      "cache": true,
+      "persistent": false
+    }
+  }
+}

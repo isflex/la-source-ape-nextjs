@@ -1,0 +1,62 @@
+{
+  "name": "@flexiness/eslint-config-flat",
+  "version": "1.0.2",
+  "private": true,
+  "description": "",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/eslint.config.mjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./dist/eslint.config.mjs": "./dist/eslint.config.mjs",
+    "./package.json": "./package.json"
+  },
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "tslib": "^2.4.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "3.0.2",
+    "@eslint/js": "8.57.0",
+    "@flexiness/tsconfig": "workspace:*",
+    "@next/eslint-plugin-next": "14.2.3",
+    "@types/eslint": "8.56.6",
+    "@types/eslint-config-prettier": "6.11.3",
+    "@types/eslint__eslintrc": "2.1.1",
+    "@types/eslint__js": "8.42.3",
+    "@types/node": "22.10.1",
+    "@types/react": "18.3.2",
+    "@typescript-eslint/parser": "7.8.0",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.1.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-import-resolver-typescript": "3.6.1",
+    "eslint-plugin-cypress": "^2.13.2",
+    "eslint-plugin-i18n-json": "4.0.0",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-jest": "^27.6.0",
+    "eslint-plugin-jsonc": "2.13.0",
+    "eslint-plugin-jsx-a11y": "6.8.0",
+    "eslint-plugin-prettier": "5.1.2",
+    "eslint-plugin-react": "7.34.1",
+    "eslint-plugin-react-hooks": "4.6.2",
+    "eslint-plugin-simple-import-sort": "10.0.0",
+    "eslint-plugin-storybook": "^0.6.11",
+    "eslint-plugin-unused-imports": "3.1.0",
+    "globals": "14.0.0",
+    "jsonc-eslint-parser": "2.4.0",
+    "prettier": "3.4.2",
+    "ts-node": "10.9.2",
+    "tsconfig-paths": "4.2.0",
+    "typescript": "5.7.2",
+    "typescript-eslint": "7.8.0",
+    "webpack": "5.93.0"
+  }
+}

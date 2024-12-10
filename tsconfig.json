@@ -1,21 +1,45 @@
 {
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "lib": ["ES2022","dom","dom.iterable"],
+    "preserveSymlinks": false,
     "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
+    "declaration": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "removeComments": false,
+    "noEmitHelpers": true,
+    "pretty": true,
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "paths": {
-      "@/*": ["./*"]
-    }
+    "downlevelIteration": true,
+    "preserveConstEnums": true,
+    "forceConsistentCasingInFileNames": false,
+    "baseUrl": ".",
+    "rootDir": ".",
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "amplify"]
+  "files": [
+    "package.json"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/node_modules",
+    "**/.amplify",
+    "**/aws-exports.js",
+    "**/amplify_outputs*",
+    "**/amplifyconfiguration*",
+  ]
 }

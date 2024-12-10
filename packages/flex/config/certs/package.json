@@ -1,0 +1,34 @@
+{
+  "name": "@flexiness/certs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "scripts": {
+    "clean": "pnpm exec rimraf dist",
+    "compile:cjs": "tsc -p tsconfig.cjs.json",
+    "compile:esm": "tsc -p tsconfig.esm.json",
+    "compile:tsc": "pnpm clean && pnpm compile:esm && pnpm compile:cjs",
+    "compile:tsup": "tsup",
+    "publish:fix": "./fixup.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "tslib": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/jest": "29.5.4",
+    "@types/node": "22.10.1",
+    "flexiness": "workspace:*",
+    "tsconfig-paths": "4.2.0",
+    "tsup": "^8.0.2",
+    "typescript": "5.4.5"
+  }
+}

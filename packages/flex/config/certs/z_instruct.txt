@@ -1,0 +1,61 @@
+
+##########################################################################################################################
+
+Using mkcert (https://github.com/FiloSottile/mkcert)
+https://github.com/FiloSottile/mkcert
+https://blog.stephane-robert.info/post/homelab-certificats-https-ssl-mkcert/
+https://github.com/FiloSottile/mkcert/issues/76
+https://github.com/FiloSottile/mkcert/issues/214
+
+# As User
+cd $HOME && \
+mkdir -p certs/$FLEX_DOMAIN_NAME/mkcert && \
+cd certs/$FLEX_DOMAIN_NAME/mkcert && \
+# Become root
+mkcert -install && \
+echo $(mkcert -CAROOT) && \
+ls -al /usr/local/share/ca-certificates && \
+mkcert -key-file privkey.pem -cert-file cert.pem $FLEX_DOMAIN_NAME "*.$FLEX_DOMAIN_NAME" localhost 127.0.0.1 ::1 && \
+cat cert.pem > fullchain.pem && \
+cat "$(mkcert -CAROOT)/rootCA.pem" >> fullchain.pem && \
+chmod -R 644 *
+
+mkcert -install && \
+echo $(mkcert -CAROOT) && \
+ls -al /usr/local/share/ca-certificates && \
+mkcert -key-file privkey.pem -cert-file cert.pem localhost 127.0.0.1 ::1 && \
+cat cert.pem > fullchain.pem && \
+cat "$(mkcert -CAROOT)/rootCA.pem" >> fullchain.pem && \
+chmod -R 644 *
+
+##########################################################################################################################
+
+Uninstall | mkcert (https://github.com/FiloSottile/mkcert)
+
+mkcert -uninstall
+
+https://unix.stackexchange.com/questions/97244/list-all-available-ssl-ca-certificates
+
+Key files go into
+  /etc/ssl/private
+System-provided actual files are located at
+  /usr/share/ca-certificates
+Custom certificates go into
+  /usr/local/share/ca-certificates
+Whenever you put a certificate in one of the above mentioned paths, run update-ca-certificates to update list in
+  /etc/ssl/certs
+
+https://superuser.com/questions/1328413/removing-certificate-and-re-running-update-ca-certificates-leaves-lingering-syml
+  update-ca-certificates --fresh --verbose
+
+##########################################################################################################################
+
+https://community.letsencrypt.org/t/public-and-private-keys/25493/2?u=emahuni
+
+##########################################################################################################################
+
+https://blog.wbgneto.com/how-to-set-up-local-ssl-with-nextjs
+https://github.com/davewasmer/devcert
+https://www.npmjs.com/package/devcert
+
+NODE_EXTRA_CA_CERTS=\"$(cat $HOME/certs/$FLEX_DOMAIN_NAME/.capath)\"
