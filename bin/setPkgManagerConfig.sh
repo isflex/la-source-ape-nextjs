@@ -8,6 +8,7 @@ then
   pnpm config set auto-install-peers false;
   pnpm config set node-linker 'hoisted';
   pnpm config set enable-pre-post-scripts true;
+  pnpm config set store-dir '.pnpm-store';
 else
   echo 'local mode';
   cd $FLEX_PROJ_ROOT/bin;
