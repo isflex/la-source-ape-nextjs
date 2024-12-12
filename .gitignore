@@ -33,7 +33,6 @@ packages/flex/config/cypress/cypress/downloads/*
 .pnp.js
 .yarn/install-state.gz
 
-
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json

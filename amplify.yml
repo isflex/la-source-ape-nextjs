@@ -3,39 +3,51 @@ applications:
   -
     backend:
       phases:
-        # build:
-        #   commands:
-        #     - 'nvm install 20.15.0'
-        #     - 'nvm use 20.15.0'
-        #     - 'npm install --package-lock-only --dry-run'
-        #     - 'npm ci --cache .npm --prefer-offline'
-        #     - 'pwd'
-        #     - 'npx ampx info'
-        #     - 'npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID'
         preBuild:
           commands:
             - 'nvm install 20.15.0'
             - 'nvm use 20.15.0'
-            # - 'npm install -g pnpm'
-            - 'corepack enable'
-            - 'corepack prepare pnpm@latest-9 --activate'
+            - 'cd ../../'
+            - 'rm pnpm-workspace.yaml || true'
+            - 'rm pnpm-lock.yaml || true'
+            - 'npm install --package-lock-only'
+            - 'npm ci --cache .npm'
+            - 'cd apps/gateway'
         build:
           commands:
-            - 'pnpm install --frozen-lockfile'
             - 'pwd'
-            - 'pnpm ampx info'
-            - 'pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug'
-            # - npx --use-pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
-            # - pnpm dlx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
+            - 'npx ampx info'
+            - 'npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID'
+      #   preBuild:
+      #     commands:
+      #       - 'nvm install 20.15.0'
+      #       - 'nvm use 20.15.0'
+      #       - 'npm install -g pnpm'
+      #       # - 'corepack enable'
+      #       # - 'corepack prepare pnpm@latest-9 --activate'
+      #   build:
+      #     commands:
+      #       - 'pnpm install --frozen-lockfile'
+      #       - 'pwd'
+      #       - 'pnpm ampx info'
+      #       - 'pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug'
+      #       # - npx --use-pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
+      #       # - pnpm dlx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
       cache:
         paths:
-          - .pnpm-store
+          - '.npm/**/*'
           - 'node_modules/**/*'
     frontend:
       phases:
         preBuild:
           commands:
+            - 'nvm install 20.15.0'
+            - 'nvm use 20.15.0'
+            - 'cd ../../'
+            - 'rm package-lock.json || true'
             - 'npm install -g pnpm'
+            - 'pnpm install --frozen-lockfile'
+            - 'cd apps/gateway'
         build:
           commands:
             - 'pnpm turbo run build --filter=gateway'

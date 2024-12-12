@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# npm install --package-lock-only --dry-run;
+# pnpm import && rm package-lock.json && pnpm i --frozen-lockfile --shamefully-hoist;
+
 if [[ ! -z ${CI} ]]
 then
   echo 'CI mode';
@@ -21,3 +24,6 @@ source ~/.profile;
 
 echo "prefer-frozen-lockfile : $(pnpm config get prefer-frozen-lockfile)";
 echo "auto-install-peers : $(pnpm config get auto-install-peers)";
+echo "node-linker : $(pnpm config get node-linker)";
+echo "enable-pre-post-scripts : $(pnpm config get enable-pre-post-scripts)";
+echo "store-dir : $(pnpm config get store-dir)";
