@@ -5,6 +5,7 @@ applications:
       phases:
         preBuild:
           commands:
+            - export NODE_OPTIONS="--max-old-space-size=32768"
             - sudo fallocate -l 40G /swapfile
             - sudo chmod 600 /swapfile
             - sudo mkswap /swapfile
@@ -27,7 +28,7 @@ applications:
         preBuild:
           commands:
             # - 'nvm install 20.15.0'
-            # - 'nvm use 20.15.0'
+            - 'nvm use 20.15.0'
             - 'npm install -g pnpm'
             - 'pnpm install --frozen-lockfile'
         build:
