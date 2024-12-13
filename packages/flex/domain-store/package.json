@@ -32,8 +32,6 @@
     "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@flexiness/eslint-config-flat": "workspace:../config/eslint/flat-config",
-    "@flexiness/eslint-config-legacy": "workspace:../config/eslint/legacy",
     "@rushstack/eslint-patch": "1.10.3",
     "@types/cors": "2.8.17",
     "@types/deep-diff": "1.0.5",

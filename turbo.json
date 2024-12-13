@@ -33,37 +33,21 @@
     },
     "//#compile:clean:sh": {
       "dependsOn": [
-        "@flexiness/certs#compile:tsup",
         "@flexiness/domain-utils#compile:tsup"
         // "@flexiness/aws#compile:tsup",
       ],
       "outputs": [
-        "packages/flex/domain-store/dist/**",
-        "packages/flex/config/eslint/flat-config/dist/**",
-        "packages/flex/config/eslint/legacy/dist/**"
-        // "packages/flex/domain-tailwind/dist/**",
-        // "apps/la-source/ape/on-board/api/dist/**",
-        // "apps/la-source/ape/on-board/client/dist/**",
-        // "apps/la-source/ape/on-board/common/dist/**",
-        // "apps/la-source/ape/on-board/server/dist/**",
-        // "packages/flex/design-system-react-ts/dist/**",
-        // "packages/flex/config/aws/dist/**",
+        "packages/flex/domain-store/dist/**"
+        // "packages/flex/domain-tailwind/dist/**"
+        // "packages/flex/config/aws/dist/**"
       ],
       "cache": true,
       "persistent": false
     },
     "//#compile:watch:sh": {
       "outputs": [
-        "packages/flex/domain-store/dist/**",
-        "packages/flex/config/eslint/flat-config/dist/**",
-        "packages/flex/config/eslint/legacy/dist/**"
-        // "packages/flex/domain-tailwind/dist/**",
-        // "apps/la-source/ape/on-board/api/dist/**",
-        // "apps/la-source/ape/on-board/client/dist/**",
-        // "apps/la-source/ape/on-board/common/dist/**",
-        // "apps/la-source/ape/on-board/server/dist/**",
-        // "packages/flex/design-system-react-ts/dist/**",
-        // "packages/flex/config/aws/dist/**",
+        "packages/flex/domain-store/dist/**"
+        // "packages/flex/config/aws/dist/**"
       ],
       "cache": false,
       "persistent": false
@@ -115,8 +99,6 @@
     "start:client:transit": {
       "dependsOn": [
         "@flexiness/domain-content#start"
-        // "on-board-event-server#turbo:start",
-        // "on-board-event-client#start"
       ],
       "env": [
         "AWS_*",

@@ -5,6 +5,7 @@ applications:
       phases:
         preBuild:
           commands:
+            - 'pwd'
             - export NODE_OPTIONS="--max-old-space-size=32768"
             - sudo fallocate -l 40G /swapfile
             - sudo chmod 600 /swapfile
@@ -16,31 +17,36 @@ applications:
             - 'npm install --cache .npm --prefer-offline'
         build:
           commands:
-            # - 'pwd'
-            # - 'npx ampx info'
+            # - 'cd apps/gateway'
+            - 'npx ampx info'
             - 'npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID'
       cache:
         paths:
           - '.npm/**/*'
           - 'node_modules/**/*'
     frontend:
+      buildPath: apps/gateway
+      # buildPath: '/'  # run install and build from monorepo project root
       phases:
         preBuild:
           commands:
+            - 'pwd'
             # - 'nvm install 20.15.0'
             - 'nvm use 20.15.0'
             - 'npm install -g pnpm'
             - 'pnpm install --frozen-lockfile'
         build:
           commands:
-            - 'pnpm turbo run build --filter=gateway'
+            - 'pnpm build'
       artifacts:
         baseDirectory: .next
+        # baseDirectory: apps/gateway/.next
         files:
           - '**/*'
       cache:
         paths:
           - '.next/cache/**/*'
           - 'node_modules/**/*'
-      buildPath: apps/gateway
+          # - 'apps/gateway/.next/cache/**/*'
+          # - 'node_modules/**/*'
     appRoot: apps/gateway

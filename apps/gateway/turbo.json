@@ -2,10 +2,16 @@
   "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "tasks": {
-    "compile:tsup": {
-      "outputs": ["dist/*"],
+    "dev": {
+      "cache": false
+    },
+    "build": {
+      "outputs": [".next/cache/**/*"],
       "cache": true,
       "persistent": false
+    },
+    "start": {
+      "cache": false
     }
   }
 }

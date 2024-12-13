@@ -10,14 +10,12 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.7.1",
-    "@flexiness/certs": "@flexiness/certs@1.0.0",
     "@flexiness/domain-store": "@flexiness/domain-store@0.1.0",
     "@flexiness/domain-utils": "@flexiness/domain-utils@0.0.1",
-    "@flexiness/languages": "@flexiness/languages@1.0.0",
     "aws-amplify": "^6.10.2",
     "next": "15.0.4",
-    "react": "^18",
-    "react-dom": "^18"
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
     "@aws-amplify/auth-construct": "^1.5.1",
@@ -47,7 +45,6 @@
     "aws-cdk": "^2.137.0",
     "aws-cdk-lib": "^2.137.0",
     "constructs": "^10.4.2",
-    "esbuild": "^0.24.0",
     "eslint": "^8",
     "eslint-config-next": "14.1.4",
     "flexiness": "@types/flexiness@0.0.1",
@@ -56,6 +53,8 @@
   },
   "peerDependencies": {
     "@aws-sdk/client-s3": "*",
+    "@aws-sdk/client-sso-oidc": "3.699.0",
+    "@aws-sdk/client-sts": "3.699.0",
     "@aws-sdk/types": "*",
     "aws-cdk": "*",
     "aws-cdk-lib": "*",
