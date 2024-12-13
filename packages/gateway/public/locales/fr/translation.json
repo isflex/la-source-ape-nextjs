@@ -1,0 +1,140 @@
+{
+  "gateway": {
+    "components": {
+      "options_panel": {
+        "debug": {
+          "label": "Déboguez ce site ici !!"
+        },
+        "css_mode": {
+          "label": "Utilisez {{ cssMode }} !!"
+        }
+      },
+      "change_language": {
+        "label": "Affichez en français"
+      }
+    },
+    "navigation": {
+      "title": {
+        "a": "Un",
+        "by-flexiness": "PAR FLEXINESS",
+        "experiment": "Projet",
+        "frontend": "Frontend",
+        "micro": "Micro"
+      }
+    },
+    "home": {
+      "show_slides": "Montre moi plus encore",
+      "next_js": {
+        "welcome": "Bienvenue à <LinkNEXTJS>Next.js!</LinkNEXTJS>",
+        "get_started": "Commencez par modifier",
+        "find_info": {
+          "title": "Documentation",
+          "txt": "Trouvez des informations détaillées sur les fonctionnalités et l'API de Next.js."
+        },
+        "learn_about": {
+          "title": "Apprendre",
+          "txt": "Découvrez Next.js dans un cours interactif avec des quiz !"
+        },
+        "discover_and_deploy": {
+          "title": "Exemples",
+          "txt": "Découvrez et déployez des exemples de projets Next.js."
+        },
+        "deploy": {
+          "title": "Déployer",
+          "txt": "Déployez instantanément votre site Next.js vers une URL publique avec Vercel."
+        },
+        "powered_by": "Propulsé par"
+      },
+      "flexiness": {
+        "welcome": "Bienvenue à",
+        "everywhere": "Des microfrontends de partout et des design systèmes n'import où !!",
+        "get_started": "Commencez par naviguer dans les différents microfrontends à l'intérieur de cette passerelle Next.js",
+        "discover_huge_microfrontend": {
+          "title": "Étude de cas",
+          "txt": "Découvrez comment un site web d'une complexité de niveau entreprise peut s'intégrer en tant que microfrontend",
+          "bytel": {
+            "suptitle": "Portail espace client",
+            "button": "Accéder ici"
+          }
+        },
+        "learn_about_microfrontends": {
+          "title": "Storyboard",
+          "txt": "En savoir plus sur les différents niveaux d'interactivité microfrontend"
+        },
+        "find_info_about_design_systems": {
+          "title": "Storybook",
+          "txt": "Découvrez comment les systèmes de conception sont des catalyseurs pour maîtriser les intégrations microfrontend complexes",
+          "design_systems": {
+            "title": "Exemples",
+            "txt": "Storybook est un module collaborative front-end permettant de créer des composants d'interface utilisateur et des pages de manière isolée."
+          },
+          "story_book": {
+            "title": "Documents",
+            "txt": "Au fur et à mesure que l'interface utilisateur d'un produit se développe, Storybook devient un répertoire vivant qui organise chaque composant de l'interface utilisateur et ses histoires."
+          }
+        },
+        "powered_by": "Propulsé par"
+      },
+      "microfrontend": {
+        "slide1": {
+          "suptitle": "Bundles autonome",
+          "title": "Microfrontend en shell distinct",
+          "paragraph2": "Chaque livrable est composée de modules locaux mais peut incorporer des modules distants provenant d'autres conteneurs au moment de l'exécution. Les modules distants peuvent être partagés, délimités et versionnés.",
+          "button": "Voir ici"
+        },
+        "slide2": {
+          "suptitle": "Consommé côté serveur",
+          "title": "Microfrontend en remote SSR",
+          "paragraph2": "Chaque livrable agit comme un conteneur et consomme également d'autres livrables en tant que conteneurs.",
+          "button": "Voir ici"
+        },
+        "slide3": {
+          "suptitle": "Imbriqués côté client",
+          "title": "Microfrontend comme hôte bidirectionnel",
+          "paragraph2": "Les conteneurs peuvent utiliser des modules d'autres conteneurs et même autoriser des dépendances circulaires entre conteneurs.",
+          "button": "Voir ici"
+        },
+        "slide4": {
+          "suptitle": "Imports dynamiques et chargement optimisé",
+          "title": "Microfrontends comme pages NextJS",
+          "paragraph2": "Plusieurs livrable distincts forme une application à page unique. En associant les mécanismes de routage avec la gestion des états react, on peut aboutir à une navigation transparente entre microfrontends (history back)",
+          "button": "Voir ici"
+        }
+      }
+    }
+  },
+  "portfolio": {
+    "greetings": {
+      "title": "Salut, je m'appelle Inoe",
+      "description1":
+        "Je suis architecte de systèmes d'intégration, spécialisé dans les solutions microfrontend <LinkDRY>DRY</LinkDRY> pour piloter vos projets React et React-Native.",
+      "description2":
+        "Typiquement, je crée des processus qui transforment <LinkLESS>LESS</LinkLESS> ou <LinkSASS>SASS</LinkSASS> en <LinkCSSMODULES>Modules CSS</LinkCSSMODULES> à travers <LinkWEBPACK>Webpack</LinkWEBPACK>, <LinkPOSTCSS>PostCSS</LinkPOSTCSS> et <LinkTYPESCRIPT>Typescript</LinkTYPESCRIPT> pour alimenter des bibliothèques <LinkEMOTION>Emotion</LinkEMOTION> et <LinkSTYLEDCOMPONENT>Styled-components</LinkSTYLEDCOMPONENT>.",
+      "description3":
+        "Les concepteurs peuvent interagir avec le framework via <LinkSTORYBOOK>Storybook</LinkSTORYBOOK> et <LinkFIGMA>Figma</LinkFIGMA> tandis que les développeurs RÉUTILISERONT ces composants dans leurs tâches quotidiennes. La productivité est rationalisée entre les différentes équipes et départements, ce qui permet d'établir une marque cohérente dans toute l'entreprise.",
+      "description4":
+        "Tout cela avec un <LinkCICD>pipeline CI/CD</LinkCICD> ultra-rapide qui comprend des <LinkEND2END>tests de bout en bout</LinkEND2END> appropriés avec <LinkCYPRESS>Cypress</LinkCYPRESS> ou <LinkPUPPETEER>Jest Puppeteer</LinkPUPPETEER>. Chaque étape est exporté comme image <LinkDOCKER>Docker</LinkDOCKER> pour faciliter le partage et le déploiement.",
+      "description5":
+        "Au cours des nombreuses années passées en tant que développeur Web fullstack et intégrateur CSS, j'ai endossé le rôle de <LinkDEVOPS>DevOps</LinkDEVOPS> pour des structures <LinkBACKFORFRONT>Back for Front</LinkBACKFORFRONT>. Aujourd'hui, je me concentre sur la mise en œuvre des solutions nécessaires à la gestion de référentiel de code unique sur <LinkGITLAB>Gitlab</LinkGITLAB> et <LinkGITHUB>Github</LinkGITHUB> dans le contexte <LinkMF>d'architectures microfrontend complexe</LinkMF>.",
+      "resumeBtn": "Voir mon resumé",
+      "resumeLink": "https://docs.google.com/document/d/1srBni_m_eDsQJW3IIDrl-2rkGzMRI9GD"
+    }
+  },
+  "doggie-store": {
+    "navigation": {
+      "tabs": {
+        "store": "Boutique Toutou frenchiouille"
+      }
+    }
+  },
+  "seo": {
+    "portfolio": {
+      "title": "Portfolio d'Inoe",
+      "description": "Un développeur Web Full Stack passionné et un développeur d'applications mobiles"
+    },
+    "carjager": {
+      "title": "Test technique Carjager",
+      "description": "Accédez à notre large catalogue d'annonces de voitures de collection et de véhicules sportifs que nous proposons à la vennte. Parcourez nos annonces pour chercher votre ancienne, votre youngtimer ou votre GT sportive. Nous vous accompagnerons pour l’achat ou la vente de votre voiture."
+    }
+  }
+}

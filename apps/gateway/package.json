@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.7.1",
+    "@flexiness/certs": "@flexiness/certs@1.0.0",
+    "@flexiness/domain-store": "@flexiness/domain-store@0.1.0",
+    "@flexiness/domain-utils": "@flexiness/domain-utils@0.0.1",
+    "@flexiness/languages": "@flexiness/languages@1.0.0",
     "aws-amplify": "^6.10.2",
     "next": "15.0.4",
     "react": "^18",
@@ -46,6 +50,7 @@
     "esbuild": "^0.24.0",
     "eslint": "^8",
     "eslint-config-next": "14.1.4",
+    "flexiness": "@types/flexiness@0.0.1",
     "tsx": "^4.7.2",
     "typescript": "^5.4.5"
   },

@@ -30,12 +30,12 @@
     "tsc": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@flexiness/certs": "workspace:*",
-    "@flexiness/domain-utils": "workspace:*",
+    "@dotenvx/dotenvx": "1.5.0",
+    "@flexiness/certs": "workspace:../certs",
+    "@flexiness/domain-utils": "workspace:../domain-utils",
     "accepts": "1.3.8",
     "cross-env": "7.0.3",
     "detect-port": "1.5.1",
-    "@dotenvx/dotenvx": "1.5.0",
     "dotenv-cli": "7.4.2",
     "express": "5.0.1",
     "i18next": "^22.4.14",
@@ -56,7 +56,7 @@
     "@types/express-serve-static-core": "5.0.2",
     "@types/jest": "29.5.4",
     "@types/node": "22.10.1",
-    "flexiness": "workspace:*",
+    "flexiness": "workspace:../../types",
     "typescript": "5.4.5"
   }
 }

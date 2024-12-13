@@ -1,0 +1,58 @@
+{
+  "participants": {
+    "addTooltip": "Ajouter un participant",
+    "addAriaLabel": "Bouton Ajouter aux participants",
+    "removeTooltip": "Supprimer",
+    "removeAriaLabel": "Bouton Supprimer",
+    "upAriaLabel": "Déplacer l'élément vers le haut",
+    "up": "Vers le haut",
+    "down": "Vers le bas",
+    "downAriaLabel": "Déplacer l'élément vers le bas",
+    "noDataMessage": "Il n'y a aucun participant à cet événement pour l'instant",
+    "noSelection": "Aucune sélection",
+    "deleteDialogTitle": "Confirmer la suppression",
+    "deleteDialogMessage": "Êtes-vous sûr de vouloir supprimer l'entrée sélectionnée ?",
+    "deleteDialogAccept": "Oui",
+    "deleteDialogDecline": "Non",
+    "schoollevel": {
+      "label": "Niveau scolaire"
+    }
+  },
+  "responsables": {
+    "addTooltip": "Ajouter un responsable",
+    "addAriaLabel": "Bouton Ajouter aux responsables",
+    "removeTooltip": "Supprimer",
+    "removeAriaLabel": "Bouton Supprimer",
+    "upAriaLabel": "Déplacer l'élément vers le haut",
+    "up": "En haut",
+    "down": "En bas",
+    "downAriaLabel": "Déplacer l'élément vers le bas",
+    "noDataMessage": "Il n'y a aucun responsable pour cet événement pour l'instant",
+    "noSelection": "Aucune sélection",
+    "deleteDialogTitle": "Confirmer la suppression",
+    "deleteDialogMessage": "Êtes-vous sûr de vouloir supprimer l'entrée sélectionnée ?",
+    "deleteDialogAccept": "Oui",
+    "deleteDialogDecline": "Non",
+    "schoollevel": {
+      "label": "Niveau scolaire"
+    }
+  },
+  "root": {
+    "error": {
+      "custom": "champ requis",
+      "required": "champ requis"
+    }
+  },
+  "firstName": {
+    "error": {
+      "custom": "le champ Prénom est requis",
+      "required": "le champ Prénom est requis"
+    }
+  },
+  "lastName": {
+    "error": {
+      "custom": "le champ Nom est requis",
+      "required": "le champ Nom est requis"
+    }
+  }
+}
