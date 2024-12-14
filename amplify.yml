@@ -37,6 +37,7 @@ applications:
             - 'pnpm install --frozen-lockfile'
         build:
           commands:
+            - 'cd ../../'
             - 'pnpm build'
       artifacts:
         baseDirectory: .next

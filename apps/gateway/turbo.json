@@ -6,7 +6,10 @@
       "cache": false
     },
     "build": {
-      "outputs": [".next/cache/**/*"],
+      "dependsOn": [
+        "//#compile:clean:sh"
+      ],
+      "outputs": [".next/**/*"],
       "cache": true,
       "persistent": false
     },
