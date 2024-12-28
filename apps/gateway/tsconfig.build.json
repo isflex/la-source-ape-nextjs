@@ -65,4 +65,7 @@
     "dist/**/*",
     "amplify"
   ],
+  "references": [
+    { "path": "../../packages/flex/domain-store/tsconfig.build.json" },
+  ],
 }

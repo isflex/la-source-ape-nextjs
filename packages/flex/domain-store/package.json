@@ -15,9 +15,8 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "lint": "pnpm lint:legacy",
-    "lint:fix": "pnpm lint --fix",
-    "lint:flat": "cross-env ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.ts\" --debug",
+    "lint": "pnpm lint:flat",
+    "lint:flat": "ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.ts\" --fix --debug",
     "lint:legacy": "cross-env ESLINT_USE_FLAT_CONFIG=false pnpm eslint \"./src/**/*.ts\" --color --cache --config ./.eslintrc.cjs --resolve-plugins-relative-to $FLEX_PROJ_ROOT/packages/flex/config/eslint/legacy"
   },
   "dependencies": {
@@ -32,6 +31,7 @@
     "tslib": "^2.4.0"
   },
   "devDependencies": {
+    "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
     "@rushstack/eslint-patch": "1.10.3",
     "@types/cors": "2.8.17",
     "@types/deep-diff": "1.0.5",
@@ -43,6 +43,6 @@
     "@types/react": "18.3.2",
     "@types/react-dom": "18.3.0",
     "@types/regex-escape": "3.4.1",
-    "typescript": "5.4.5"
+    "typescript": "5.7.2"
   }
 }

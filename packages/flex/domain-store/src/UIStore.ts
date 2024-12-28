@@ -46,6 +46,7 @@ export class UserInterfaceStore {
       setNavigationState: action,
       demoPage: observable,
       setDemoPage: action,
+      status: observable,
       setStatus: action,
       setPrefetchData: action,
       flexI18next: observable,

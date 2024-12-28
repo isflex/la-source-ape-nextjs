@@ -24,7 +24,7 @@
       "flexiness": ["../types"],
 
     },
-    "types": ["node", "express", "cors", "psl"]
+    "types": ["node", "express", "cors", "psl"],
   },
   "include": [
     "src/**/*",

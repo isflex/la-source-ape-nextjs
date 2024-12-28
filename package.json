@@ -16,8 +16,9 @@
     "compile:tsc:project:references:watch": "pnpm tsc -b ./tsconfig.build.json --watch --preserveWatchOutput",
     "compile:watch": "turbo run compile:watch:sh",
     "compile:watch:sh": "./bin/run-compile-watch.sh",
-    "dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run dev:gateway",
-    "start": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run start:gateway"
+    "dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run dev",
+    "lint": "turbo run lint",
+    "start": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run start"
   },
   "browserslist": {
     "production": [
@@ -33,17 +34,19 @@
   },
   "dependencies": {
     "@dotenvx/dotenvx": "1.5.0",
+    "@flexiness/domain-store": "@flexiness/domain-store@0.1.0",
+    "@flexiness/domain-utils": "@flexiness/domain-utils@0.0.1",
     "mobx": "6.13.1",
     "mobx-react-lite": "4.0.7",
-    "next": "15.0.4",
+    "next": "15.1.0",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
   "devDependencies": {
+    "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
     "@flexiness/tsconfig": "@flexiness/tsconfig@0.0.0",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "18.3.2",
+    "@types/react-dom": "18.3.0",
     "css-loader": "7.1.2",
     "file-loader": "6.2.0",
     "flexiness": "@types/flexiness@0.0.1",
@@ -60,20 +63,28 @@
     "tsx": "^4.7.3",
     "turbo": "2.0.6",
     "typescript": "5.7.2",
-    "webpack-cli": "5.1.4",
+    "webpack": "5.97.1",
     "zod": "3.24.1"
   },
   "packageManager": "pnpm@9.5.0",
   "pnpm": {
     "overrides": {
       "flexiness": "workspace:./packages/flex/types",
+      "@flexiness/eslint-config-flat": "workspace:./packages/flex/config/eslint/flat-config",
       "@flexiness/tsconfig": "workspace:./packages/flex/config/tsconfig",
       "gateway": "workspace:./apps/gateway",
       "@flexiness/domain-utils": "workspace:./packages/flex/domain-utils",
       "@flexiness/domain-store": "workspace:./packages/flex/domain-store",
       "graphql": "16.8.1",
+      "next": "15.1.0",
+      "react": "18.3.1",
+      "react-dom": "18.3.1",
+      "@types/react": "18.3.2",
+      "@types/react-dom": "18.3.0",
       "@aws-sdk/client-sts": "3.699.0",
-      "@aws-sdk/client-sso-oidc": "3.699.0"
+      "@aws-sdk/client-sso-oidc": "3.699.0",
+      "webpack": "5.97.1",
+      "@jridgewell/gen-mapping": "0.3.8"
     }
   }
 }

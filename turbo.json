@@ -11,25 +11,16 @@
     "GIT_COMMIT_SHORT_SHA"
   ],
   "tasks": {
-    "//#dev:compile": {
-      "cache": false
-    },
     "dev:compile:transit": {
       "dependsOn": [
         "//#compile:watch:sh"
       ]
-    },
-    "//#dev:packages": {
-      "cache": false
     },
     "dev:packages:transit": {
       "dependsOn": [
         "^dev:compile:transit"
         // "^@flexiness/domain-tailwind#dev:tailwind"
       ]
-    },
-    "//#dev:design": {
-      "cache": false
     },
     "//#compile:clean:sh": {
       "dependsOn": [
@@ -52,18 +43,10 @@
       "cache": false,
       "persistent": false
     },
-    "lint:legacy": {
+    "lint": {
       "dependsOn": [
         "//#compile:clean:sh",
-        "^lint:legacy"
-      ],
-      "cache": true,
-      "persistent": false
-    },
-    "lint:fix": {
-      "dependsOn": [
-        "//#compile:clean:sh",
-        "^lint:fix"
+        "^lint"
       ],
       "cache": true,
       "persistent": false

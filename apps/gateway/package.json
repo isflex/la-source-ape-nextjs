@@ -4,16 +4,22 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "next:dev": "NODE_OPTIONS='--inspect' next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
+    "start": "next start ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.7.1",
     "@flexiness/domain-store": "@flexiness/domain-store@0.1.0",
     "@flexiness/domain-utils": "@flexiness/domain-utils@0.0.1",
+    "@loadable/component": "5.13.2",
+    "@module-federation/enhanced": "0.8.5",
     "aws-amplify": "^6.10.2",
-    "next": "15.0.4",
+    "cors": "2.8.5",
+    "escape-string-regexp": "5.0.0",
+    "framer-motion": "11.0.3",
+    "next": "15.1.0",
+    "next-recompose-plugins": "3.0.0",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
@@ -39,9 +45,12 @@
     "@aws-amplify/plugin-types": "^1.6.0",
     "@aws-amplify/sandbox": "^1.2.7",
     "@aws-amplify/schema-generator": "^1.2.6",
+    "@svgr/webpack": "8.1.0",
+    "@types/cors": "2.8.17",
+    "@types/loadable__component": "5.13.4",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "18.3.2",
+    "@types/react-dom": "18.3.0",
     "aws-cdk": "^2.137.0",
     "aws-cdk-lib": "^2.137.0",
     "constructs": "^10.4.2",
@@ -49,7 +58,8 @@
     "eslint-config-next": "14.1.4",
     "flexiness": "@types/flexiness@0.0.1",
     "tsx": "^4.7.2",
-    "typescript": "^5.4.5"
+    "typescript": "5.7.2",
+    "webpack": "5.97.1"
   },
   "peerDependencies": {
     "@aws-sdk/client-s3": "*",

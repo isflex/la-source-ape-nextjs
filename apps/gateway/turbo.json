@@ -2,7 +2,17 @@
   "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "tasks": {
+    "next:dev": {
+      "cache": false,
+      "env": [
+        "FLEX_*"
+      ]
+    },
     "dev": {
+      "dependsOn": [
+        "^dev:packages:transit",
+        "next:dev"
+      ],
       "cache": false
     },
     "build": {
@@ -11,10 +21,20 @@
       ],
       "outputs": [".next/**/*"],
       "cache": true,
-      "persistent": false
+      "persistent": false,
+      "env": [
+        "AWS_*",
+        "DOTENV_*",
+        "FLEX_*",
+        "GIT_*",
+        "NEXT_PUBLIC_*"
+      ]
     },
     "start": {
-      "cache": false
+      "cache": false,
+      "env": [
+        "FLEX_*"
+      ]
     }
   }
 }

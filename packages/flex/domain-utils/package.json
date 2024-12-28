@@ -28,9 +28,8 @@
     "clean:lib": "pnpm clean:source && pnpm clean:compile",
     "clean:source": "pnpm exec rimraf '{src/**/*.d.ts,src/**/*.js,src/**/*.js.map}'",
     "compile:tsup": "tsup-node",
-    "lint": "pnpm lint:legacy",
-    "lint:fix": "pnpm lint --fix",
-    "lint:flat": "cross-env ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.{ts,tsx}\" --debug",
+    "lint": "pnpm lint:flat",
+    "lint:flat": "ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.{ts,tsx}\" --fix --debug",
     "lint:legacy": "cross-env ESLINT_USE_FLAT_CONFIG=false pnpm eslint \"./src/**/*.{ts,tsx}\" --color --cache --config ./.eslintrc.cjs --resolve-plugins-relative-to $FLEX_PROJ_ROOT/packages/flex/config/eslint/legacy",
     "tsc": "tsc"
   },
@@ -49,6 +48,7 @@
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@babel/plugin-transform-runtime": "7.24.3",
+    "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
     "@rushstack/eslint-patch": "1.10.3",
     "@types/cors": "2.8.17",
     "@types/express": "4.17.21",
@@ -62,6 +62,6 @@
     "rimraf": "6.0.1",
     "ts-node": "10.9.2",
     "tsup": "^8.0.2",
-    "typescript": "5.4.5"
+    "typescript": "5.7.2"
   }
 }
