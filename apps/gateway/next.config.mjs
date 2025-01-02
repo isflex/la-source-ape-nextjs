@@ -4,6 +4,10 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
+// require.resolve for ES modules
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+
 import subprocess from 'node:child_process'
 import { promisify } from 'node:util'
 const execPromise = promisify(subprocess.exec)
@@ -23,86 +27,7 @@ async function getGitCommitSHA() {
   }
 }
 
-let _nonce = ''
 let _gitCommitSHA = ''
-
-// const mainConfig = (async () => {
-
-//   await getGitCommitSHA()
-//   /** @type {import('next').NextConfig} */
-//   const nextConfig = {
-
-//     serverRuntimeConfig: {
-//       PROJECT_ROOT: __dirname,
-//       FLEX_CSP_NONCE: _nonce,
-//       FLEX_BUILD_ID: _gitCommitSHA,
-//       FLEX_GATEWAY_NAME: process.env.FLEX_GATEWAY_NAME,
-//       FLEX_POKER_CLIENT_NAME: process.env.FLEX_POKER_CLIENT_NAME,
-//       FLEX_POKER_CLIENT_DEPLOYED_REMOTE_HOST: process.env.FLEX_POKER_CLIENT_DEPLOYED_REMOTE_HOST,
-//     },
-
-//     transpilePackages: [
-//       '@types/flexiness',
-//       '@flexiness/domain-utils',
-//       '@flexiness/domain-store'
-//     ],
-
-//     reactStrictMode: true,
-
-//     generateBuildId: async () => {
-//       // You can, for example, get the latest git commit hash here
-//       return _gitCommitSHA
-//     },
-
-//     webpack: (config, options) => {
-//       const { isServer } = options
-//       return {
-//         ...config,
-//         // target: isServer? 'async-node20' : 'browserslist:last 1 chrome version',
-
-//         module: {
-//           ...config.module,
-//           rules: [
-//             ...config.module.rules,
-//             {
-//               test: /\.svg$/,
-//               use: ['@svgr/webpack'],
-//             },
-//           ],
-//         },
-
-//         plugins: [
-//           ...config.plugins,
-//         ],
-
-//         experiments: {
-//           css: true,
-//           topLevelAwait: true,
-//           // outputModule: true,
-//           layers: true
-//         },
-
-//         infrastructureLogging: {
-//           level: 'none',
-//           // colors: true,
-//           // level: 'verbose',
-//           // debug: [/PackFileCache/]
-//         },
-//       }
-//     },
-
-//     // experimental: {
-//     //   turbo: {
-//     //     rules: {
-//     //       '*.svg': {
-//     //         loaders: ['@svgr/webpack'],
-//     //         as: '*.js',
-//     //       },
-//     //     },
-//     //   },
-//     // },
-//   }
-// })
 
 const mainConfig = new Config(async (phase, args) => {
   await getGitCommitSHA()
@@ -112,8 +37,6 @@ const mainConfig = new Config(async (phase, args) => {
 
     serverRuntimeConfig: {
       PROJECT_ROOT: __dirname,
-      FLEX_CSP_NONCE: _nonce,
-      FLEX_BUILD_ID: _gitCommitSHA,
       FLEX_GATEWAY_NAME: process.env.FLEX_GATEWAY_NAME,
       FLEX_POKER_CLIENT_NAME: process.env.FLEX_POKER_CLIENT_NAME,
       FLEX_POKER_CLIENT_DEPLOYED_REMOTE_HOST: process.env.FLEX_POKER_CLIENT_DEPLOYED_REMOTE_HOST,
@@ -132,11 +55,18 @@ const mainConfig = new Config(async (phase, args) => {
       return _gitCommitSHA
     },
 
+    crossOrigin: 'anonymous',
+
+    sassOptions: {
+      implementation: 'sass-embedded',
+    },
+
     webpack: (config, options) => {
       const { isServer } = options
       return {
         ...config,
-        // target: isServer? 'async-node20' : 'browserslist:last 1 chrome version',
+
+        // target: isServer? 'async-node' : 'browserslist:last 1 chrome version',
 
         module: {
           ...config.module,

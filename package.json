@@ -53,7 +53,7 @@
     "html-webpack-plugin": "5.6.0",
     "mini-css-extract-plugin": "2.9.0",
     "node-polyfill-webpack-plugin": "3.0.0",
-    "sass": "1.77.2",
+    "sass": "1.83.0",
     "sass-loader": "14.2.1",
     "style-loader": "4.0.0",
     "ts-loader": "9.5.1",
@@ -84,6 +84,7 @@
       "@aws-sdk/client-sts": "3.699.0",
       "@aws-sdk/client-sso-oidc": "3.699.0",
       "webpack": "5.97.1",
+      "sass": "1.83.0",
       "@jridgewell/gen-mapping": "0.3.8"
     }
   }

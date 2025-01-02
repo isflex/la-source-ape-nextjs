@@ -1,10 +1,10 @@
 import React from 'react'
 import Head from 'next/head'
 import Script from 'next/script'
+// import {BrowserRouter as Router } from 'react-router'
 import { observer, enableStaticRendering } from 'mobx-react-lite'
 import { getStores, StoreProvider } from '@src/stores'
 import { isServer } from '@src/utils'
-import '@src/styles/app.css'
 import
 App,
 {
@@ -53,11 +53,39 @@ const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
         }}
       />
       <StoreProvider value={stores}>
-        <Component {...pageProps}/>
+        <Component {...pageProps} />
       </StoreProvider>
     </>
   )
 }
+
+// https://colinhacks.com/essays/building-a-spa-with-nextjs
+// const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
+//   const [render, setRender] = React.useState(false)
+//   React.useEffect(() => setRender(true), [])
+//   return render ? (
+//     <>
+//       <Head>
+//         {/* Required for CSS-in-JS <style data-jss /> tags -> injected into HEAD by Material UI v4 -> CSP style-src 'unsafe-inline' */}
+//         {/* https://cssinjs.org/csp/?v=v10.10.0 */}
+//         <meta nonce={pageProps._nonce} property='csp-nonce' content={`${pageProps._nonce}`} />
+//       </Head>
+//       {/* Required for react-helmet */}
+//       <Script
+//         nonce={pageProps._nonce}
+//         id='webpackNonce'
+//         dangerouslySetInnerHTML={{
+//           __html: `window.__webpack_nonce__="${pageProps._nonce}"`
+//         }}
+//       />
+//       <StoreProvider value={stores}>
+//         <Router>
+//           <Component {...pageProps} />
+//         </Router>
+//       </StoreProvider>
+//     </>
+//   ) : null
+// }
 
 MyApp.getInitialProps = async (context: AppContext) => {
   // log.info('_app getInitialProps context:', context)
@@ -89,24 +117,11 @@ MyApp.getInitialProps = async (context: AppContext) => {
   const appProps = await App.getInitialProps(context)
   pageProps = { ...pageProps, ...appProps }
 
-  // https://github.com/borekb/nextjs-with-mobx
-  // On server-side, this runs once and creates new stores
-  // On client-side, this always reuses existing stores
-  // const mobxStores = getStores();
-
-  // // Make stores available to page's `getInitialProps`
-  // context.ctx.mobxStores = mobxStores;
-
   const _nonce = req?.headers?.['x-nonce'] || '---CSP-nonce---'
 
   return {
     pageProps: {
       ...pageProps,
-      host: `${process.env.FLEX_GATEWAY_NAME}`,
-      mf: `${process.env.FLEX_POKER_CLIENT_NAME}`,
-      remote: `${process.env.FLEX_POKER_CLIENT_DEPLOYED_REMOTE_HOST}`,
-      // gitCommitSHA: '',
-      gitCommitSHA: '2ae9eceb',
       _nonce: _nonce,
     }
   }

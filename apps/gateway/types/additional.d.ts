@@ -72,23 +72,22 @@ export interface NextRouteOptions {
   shallow?: boolean
 }
 
-interface PageStaticData {
-  pageName: string,
-  demoFile?: string,
-  host?: string,
-  mf?: mf,
-  remote?: string,
+interface ModFedData {
   gitCommitSHA?: string,
 }
 
-interface PageAppProps extends PageStaticData {
+interface PageStaticData {
+  pageName: string,
+  demoFile?: string,
+}
+
+interface PageAppProps extends PageStaticData, ModFedData {
   error?: Error,
   // _i18n?: I18next,
   _i18n?: FlexI18next,
   _initLng?: FlexI18next['language'],
   stores: Stores,
   _nonce?: string,
-  MFReactComponent?: React.ComponentType<any>,
   // dehydratedState?: DehydratedState
 }
 

@@ -33,7 +33,8 @@
     "start": {
       "cache": false,
       "env": [
-        "FLEX_*"
+        "FLEX_*",
+        "NEXT_PUBLIC_*"
       ]
     }
   }
