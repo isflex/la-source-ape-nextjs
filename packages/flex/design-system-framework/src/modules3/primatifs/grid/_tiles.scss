@@ -1,0 +1,38 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+// @use "@bulvar/bulma/sass/grid/tiles";
+@use "../utilities/vendors/bulma-extensions/tiles";
+
+$tile-spacing: variables.$column-gap !default;
+
+.tile {
+    flex-basis: inherit;
+
+    &.is-parent.is-multiline {
+        > .tile.is-child {
+            > *:last-child {
+                margin-bottom: functions.size(2em);
+            }
+        }
+    }
+
+    &:not(.is-child) {
+        display: flex;
+    }
+
+    @include mixins.mobile {
+        @for $i from 1 through 12 {
+            &.is-#{$i}-mobile {
+                flex: none;
+                width: calc($i / 12) * 100%;
+            }
+        }
+
+        &.is-vertical-mobile {
+            flex-direction: column;
+        }
+    }
+}

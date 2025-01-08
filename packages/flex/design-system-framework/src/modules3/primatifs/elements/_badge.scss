@@ -1,0 +1,91 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+.title .badge {
+    margin-left: 0.6em;
+    margin-right: 0.6em;
+}
+
+@mixin badge {
+    display: inline-flex;
+    border-radius: 99em;
+    color: var(--flex-white, #{variables.$white});
+    background: variables.$secondary;
+    font-size: variables.$text-10;
+    height: variables.$text-26;
+    width: variables.$text-26;
+    justify-content: center;
+    align-items: center;
+
+    &:empty {
+        min-width: variables.$text-10;
+        min-height: variables.$text-10;
+    }
+
+    &.is-up {
+        position: absolute;
+        left: 50%;
+        top: variables.$text-10;
+        right: variables.$text-26;
+    }
+
+    &.is-inverted {
+        color: var(--flex-primary, #{variables.$primary});
+        background: variables.$white;
+    }
+
+    .is-admin & {
+        background-color: var(--flex-admin-invert, #{variables.$admin-invert});
+        color: var(--flex-admin, #{variables.$admin});
+    }
+
+    ul.menu-list li a & {
+        margin: 0 variables.$text-15;
+        // max-height: functions.size(1.7em);
+    }
+}
+
+.badge {
+    @include badge;
+}
+
+.badge-and-text {
+    display: flex;
+    align-items: center;
+
+    p {
+        margin-bottom: 0 !important;
+
+        + .badge {
+            @include badge;
+
+            &.is-level {
+                position: relative;
+                margin-left: functions.size(0.6em);
+            }
+        }
+    }
+}
+
+.flexiness-root [data-badge-number] {
+    position: relative;
+
+    &::after {
+        content: attr(data-badge-number);
+        position: absolute;
+        margin-left: functions.size(-1.5em);
+        top: functions.size(-0.7em);
+        color: var(--flex-white, #{variables.$white});
+        left: 100%;
+        background: variables.$primary;
+        font-size: variables.$text-10;
+        height: variables.$text-26;
+        width: variables.$text-26;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+    }
+}

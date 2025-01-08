@@ -18,8 +18,8 @@ interface DocumentProps extends DocumentInitialProps {
   remoteOnBoardClient: string
   remoteOnBoardClientEntryAsset: string | null
   flexFrameworkStylesAsset: string | null
-  remoteFlexComponents: string
-  remoteFlexComponentsEntryAsset: string | null
+  // remoteFlexComponents: string
+  // remoteFlexComponentsEntryAsset: string | null
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
@@ -38,22 +38,26 @@ const MyDocument = (props: DocumentProps) => {
     remoteOnBoardClient,
     remoteOnBoardClientEntryAsset,
     flexFrameworkStylesAsset,
-    remoteFlexComponents,
-    remoteFlexComponentsEntryAsset
+    // remoteFlexComponents,
+    // remoteFlexComponentsEntryAsset
   } = props
   return (
     <Html lang='fr' style={styles.reset}>
       <Head nonce={_nonce}>
         <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteOnBoardClient}/mf-manifest.json`} crossOrigin='anonymous' />
         <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteOnBoardClient}/loadable-stats.json`} crossOrigin='anonymous' />
+        {/*
         <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteFlexComponents}/node/mf-manifest.json`} crossOrigin='anonymous' />
         <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteFlexComponents}/node/loadable-stats.json`} crossOrigin='anonymous' />
+        */}
         {remoteOnBoardClientEntryAsset && (
           <link nonce={_nonce} rel='preload' as='script' href={`${remoteOnBoardClient}/${remoteOnBoardClientEntryAsset}`} crossOrigin='anonymous' />
         )}
+        {/*
         {remoteFlexComponentsEntryAsset && (
           <link nonce={_nonce} rel='preload' as='script' href={`${remoteFlexComponents}/${remoteFlexComponentsEntryAsset}`} crossOrigin='anonymous' />
         )}
+        */}
         {flexFrameworkStylesAsset && (
           <>
             <link nonce={_nonce} rel='preload' as='style' href={`${remoteOnBoardClient}/${flexFrameworkStylesAsset}`} crossOrigin='anonymous' />
@@ -64,9 +68,6 @@ const MyDocument = (props: DocumentProps) => {
       <body style={styles.reset}>
         <Main />
         <NextScript nonce={_nonce} />
-        {/* {remoteOnBoardClientEntryAsset && (
-          <Script nonce={_nonce} src={`${remoteOnBoardClient}/${remoteOnBoardClientEntryAsset}`} strategy='beforeInteractive'></Script>
-        )} */}
       </body>
     </Html>
   );
@@ -131,11 +132,11 @@ MyDocument.getInitialProps = async (
     const resultOnBoardClient = await responseOnBoardClient.json()
     // console.log(resultOnBoardClient?.assetsByChunkName)
 
-    const responseFlexComponents = await fetch(`${process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HOST}/loadable-stats.json`)
-    if (!responseFlexComponents.ok) {
-      throw new Error(`HTTP error! status: ${responseFlexComponents.status}`)
-    }
-    const resultFlexComponents = await responseFlexComponents.json()
+    // const responseFlexComponents = await fetch(`${process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HOST}/loadable-stats.json`)
+    // if (!responseFlexComponents.ok) {
+    //   throw new Error(`HTTP error! status: ${responseFlexComponents.status}`)
+    // }
+    // const resultFlexComponents = await responseFlexComponents.json()
     // console.log(resultFlexComponents?.assetsByChunkName)
 
     init({
@@ -148,13 +149,16 @@ MyDocument.getInitialProps = async (
           alias: 'App',
           type: 'global',
         },
-        {
-          name: process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_NAME as string,
-          entry: `${process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HOST}/mf-manifest.json`,
-          // entry: `${process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HOST}/remoteEntry_${process.env.FLEX_DESIGN_SYS_REACT_TS_NAME}_${props.gitCommitSHA}.js`,
-          alias: 'Styled',
-          type: 'global',
-        },
+        // {
+        //   name: process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_NAME as string,
+        //   entry: `${process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HOST}/mf-manifest.json`,
+        //   // entry: `${process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HOST}/node/mf-manifest.json`,
+        //   // entry: `${process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HOST}/remoteEntry_${process.env.FLEX_DESIGN_SYS_REACT_TS_NAME}_${props.gitCommitSHA}.js`,
+        //   alias: 'Styled',
+        //   // alias: 'ModulesDefault',
+        //   type: 'global',
+        //   // type: 'esm',
+        // },
       ],
       shared: {
         react: {
@@ -191,7 +195,7 @@ MyDocument.getInitialProps = async (
     return {
       remoteEntryOnBoardClient: resultOnBoardClient?.assetsByChunkName?.['flex_poker_client_modfed'][0] as string || null,
       flexFrameworkStyles: resultOnBoardClient?.assetsByChunkName?.['flex-framework-styles'][0] as string || null,
-      remoteEntryFlexComponents: resultFlexComponents?.assetsByChunkName?.['flex_design_system_react_ts_modfed'][0] as string || null,
+      // remoteEntryFlexComponents: resultFlexComponents?.assetsByChunkName?.['flex_design_system_react_ts_modfed'][0] as string || null,
     }
   }
 
@@ -205,8 +209,8 @@ MyDocument.getInitialProps = async (
     remoteOnBoardClient: process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST!,
     remoteOnBoardClientEntryAsset: resultModFeds?.remoteEntryOnBoardClient as string | null,
     flexFrameworkStylesAsset: resultModFeds?.flexFrameworkStyles as string | null,
-    remoteFlexComponents: process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HOST!,
-    remoteFlexComponentsEntryAsset: resultModFeds?.remoteEntryFlexComponents as string | null,
+    // remoteFlexComponents: process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HOST!,
+    // remoteFlexComponentsEntryAsset: resultModFeds?.remoteEntryFlexComponents as string | null,
   }
 
   return {

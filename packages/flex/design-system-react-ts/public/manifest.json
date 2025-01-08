@@ -1,0 +1,25 @@
+{
+  "short_name": "flexiness_design_system_react_ts",
+  "name": "Flexiness Design System React TS",
+  "icons": [
+    {
+      "src": "logo/flexiness/favicon-128.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo/flexiness/Logo_192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo/flexiness/Logo_512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

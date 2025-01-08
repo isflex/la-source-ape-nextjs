@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 660 660" style="enable-background:new 0 0 660 660;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#009DCC;}
+	.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#00C099;}
+	.st2{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}
+</style>
+<g>
+	<path class="st0" d="M374.3,297c3.4,10.7,8.2,20.7,14.2,30H88v120h200v-30c0-5.5,4.5-10,10-10h40c5.5,0,10,4.5,10,10v30h200v-70
+		c10.8-4.5,20.9-10.4,30-17.6V447c0,16.6-13.4,30-30,30h-20v30h-70v-30H348v10c0,5.5-4.5,10-10,10h-40c-5.5,0-10-4.5-10-10v-10H188
+		v30h-70v-30H88c-16.6,0-30-13.4-30-30V327c0-16.6,13.4-30,30-30H374.3z M148,362c0,8.3-6.7,15-15,15s-15-6.7-15-15s6.7-15,15-15
+		S148,353.7,148,362z M198,362c0,8.3-6.7,15-15,15s-15-6.7-15-15s6.7-15,15-15S198,353.7,198,362z M248,362c0,8.3-6.7,15-15,15
+		s-15-6.7-15-15s6.7-15,15-15S248,353.7,248,362z"/>
+	<g transform="translate(38 11)">
+		<circle class="st1" cx="460" cy="246" r="104"/>
+		<path class="st2" d="M500.8,198.7c4.8-5.5,13.5-6.3,19.3-1.7s6.6,12.8,1.8,18.3l-68.4,78c-5.5,6.2-15.6,6.2-21,0l-34.2-38.9
+			c-4.8-5.5-4-13.7,1.8-18.3s14.4-3.8,19.3,1.7l23.7,26.9L500.8,198.7z"/>
+	</g>
+</g>
+</svg>

@@ -1,0 +1,17 @@
+export declare const animateFromRight: string
+export declare const animateFromTop: string
+export declare const flexinessRoot: string
+export declare const fromRight: string
+export declare const fromTop: string
+export declare const hasAddons: string
+export declare const isDanger: string
+export declare const isGapless: string
+export declare const isInverted: string
+export declare const isSecondary: string
+export declare const isSuccess: string
+export declare const isWarning: string
+export declare const placeHolderShimmer: string
+export declare const spinAround: string
+export declare const tag: string
+export declare const tags: string
+export declare const useGrid: string

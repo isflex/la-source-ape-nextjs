@@ -1,0 +1,113 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$bg-color: #34495e;
+$default-size: 10em;
+$radial-progress-bar-label-font-size: 2.4em;
+
+// -- mixins
+@mixin size($width, $height) {
+    height: $height;
+    width: $width;
+}
+
+@mixin draw-progress($progress) {
+    $angle: 180deg + $progress * 3.6deg;
+
+    .pie::after {
+        transform: rotate($angle);
+    }
+}
+
+.radial-progress-bars {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.radial-progress-bar {
+    @include size($default-size, $default-size);
+
+    margin: 0.1em;
+    position: relative;
+    flex-shrink: 0;
+
+    .pie {
+        @include size(100%, 100%);
+
+        clip: rect(auto, auto, auto, auto);
+        position: absolute;
+        z-index: functions.zindex('small');
+
+        &::before,
+        &::after {
+            @include size(100%, 100%);
+
+            content: " ";
+            border-radius: 50%;
+            border: 0.2em solid var(--flex-border, #{variables.$border});
+            clip: rect(0, calc($default-size / 2), $default-size, 0);
+            position: absolute;
+        }
+    }
+
+    .label,
+    .description {
+        position: absolute;
+        left: calc($radial-progress-bar-label-font-size / 10);
+        right: calc($radial-progress-bar-label-font-size / 10);
+        color: var(--flex-instit, #{variables.$instit});
+        text-align: center;
+    }
+
+    .label {
+        font-weight: lighter;
+        display: block;
+        font-size: $radial-progress-bar-label-font-size;
+        line-height: $radial-progress-bar-label-font-size * 1.5;
+        top: calc($radial-progress-bar-label-font-size / 10);
+        margin-bottom: 0;
+        max-height: 100%;
+        overflow: hidden;
+
+        &.has-description {
+            line-height: $radial-progress-bar-label-font-size * 1.3;
+        }
+    }
+
+    .description {
+        font-size: 0.85em;
+        font-weight: bold;
+        text-transform: uppercase;
+        bottom: 3.5em;
+    }
+
+    &::after {
+        @include size(100%, 100%);
+
+        content: " ";
+        position: absolute;
+        background: url('---URL-REPLACE---/assets/svg/progress-circle.svg');
+        z-index: functions.zindex('medium');
+    }
+
+    @for $i from 0 through 100 {
+        &.progress-#{$i} {
+            @include draw-progress($i);
+        }
+    }
+
+    &[class*="progress-5"]:not([class$="progress-5"]) .pie,
+    &[class*="progress-6"]:not([class$="progress-6"]) .pie,
+    &[class*="progress-7"]:not([class$="progress-7"]) .pie,
+    &[class*="progress-8"]:not([class$="progress-8"]) .pie,
+    &[class*="progress-9"]:not([class$="progress-9"]) .pie,
+    &.progress-100 .pie {
+        clip-path: polygon(0 0, 50% 0%, 50% 100%, 0% 100%);
+
+        &::before {
+            display: none;
+        }
+    }
+}

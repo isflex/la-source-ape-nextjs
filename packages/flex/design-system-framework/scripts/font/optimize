@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+const fontkit = require('fontkit')
+const fs = require('fs')
+const { argv } = process
+
+const GLYPHS_WHITELIST = `!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_\`abcdefghijklmnopqrstuvwxyz{|}«»çàèùâêîôûéäëïöüÀÈÙÂÊÎÔÛÉÄËÏÖÜœ’€  `
+
+// open the font file
+const file = argv[2]
+const font = fontkit.openSync(file)
+
+// create a font subset
+const run = font.layout(GLYPHS_WHITELIST)
+const subset = font.createSubset()
+run.glyphs.forEach(glyph => {
+  subset.includeGlyph(glyph)
+})
+
+// optimize the font
+subset.encodeStream().pipe(fs.createWriteStream(file))

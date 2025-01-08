@@ -1,0 +1,12 @@
+import { ClickEvent } from '../../events/index.js'
+import { GenericChildren } from '../../generics/index.js'
+
+export interface SliceProps {
+  children?: GenericChildren | string
+  className?: string
+  classList?: string[]
+  onClick?: ClickEvent
+  disabled?: boolean
+  longCta?: boolean
+  selectable?: boolean
+}

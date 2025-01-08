@@ -70,6 +70,7 @@ packages/flex/config/cypress/cypress/downloads/*
 # development
 **/dist
 # !packages/flex/config/aws/dist
+!packages/flex/config/typed-scss-modules/dist
 
 # production
 **/build

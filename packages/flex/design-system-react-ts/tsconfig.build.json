@@ -1,0 +1,37 @@
+{
+  "extends": "../../../tsconfig.build.settings.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "allowJs": true,
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "rootDirs": [
+      "./src",
+      "./types"
+    ],
+    "paths": {
+      "flexiness": ["../types"],
+      "flex-webpack/*": ["../config/webpack/src/*"]
+    },
+    "types": ["node", "lodash", "react"],
+    "customConditions": ["@flexiness/source"],
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/assets/fonts/icons/*.json",
+    "types/**/*.d.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "build/**/*",
+    "dist/**/*",
+    "src/**/*.native.tsx",
+    "webpack*config.js",
+  ],
+  "references": [
+    { "path": "../design-system-framework/tsconfig.build.json" },
+  ]
+}

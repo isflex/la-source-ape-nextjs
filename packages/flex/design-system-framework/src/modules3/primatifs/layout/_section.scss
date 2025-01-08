@@ -1,0 +1,150 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$section-padding-y: functions.size(2rem);
+$section-padding-x: $section-padding-y;
+$section-padding-small-y: $section-padding-y;
+$section-padding-small-x: $section-padding-y;
+$section-padding-medium-y: functions.size(4rem);
+$section-padding-medium-x: $section-padding-y;
+$section-padding-large-y: functions.size(6rem);
+$section-padding-large-x: $section-padding-y;
+
+$section-padding-desktop-y: functions.size(3rem);
+$section-padding-desktop-x: functions.size(4rem);
+$section-padding-desktop-small-y: $section-padding-desktop-y;
+$section-padding-desktop-small-x: $section-padding-desktop-x;
+$section-padding-desktop-medium-y: functions.size(6rem);
+$section-padding-desktop-medium-x: $section-padding-desktop-x;
+$section-padding-desktop-large-y: functions.size(9rem);
+$section-padding-desktop-large-x: $section-padding-desktop-x;
+
+$overlap-section: functions.size(1.5rem) !default;
+$overlap-section-desktop: functions.size(1.5rem) !default;
+
+// @use "@bulvar/bulma/sass/layout/section";
+@use "../utilities/vendors/bulma-extensions/section";
+
+.section {
+    padding: $section-padding-y $section-padding-x;
+
+    @include mixins.desktop {
+        padding: $section-padding-desktop-y $section-padding-desktop-x;
+    }
+
+    &.has-overlap > .container {
+        margin-top: -$section-padding-y - $overlap-section;
+
+        @include mixins.desktop {
+            margin-top: -$section-padding-desktop-y - $overlap-section-desktop;
+        }
+    }
+
+    &.is-small {
+        padding: $section-padding-small-y $section-padding-small-x;
+
+        @include mixins.desktop {
+            padding: $section-padding-desktop-small-y $section-padding-desktop-small-x;
+        }
+
+        &.has-overlap > .container {
+            margin-top: -$section-padding-small-y - $overlap-section;
+
+            @include mixins.desktop {
+                margin-top: -$section-padding-desktop-small-y  - $overlap-section-desktop;
+            }
+        }
+    }
+
+    &.is-medium {
+        padding: $section-padding-medium-y $section-padding-medium-x;
+
+        @include mixins.desktop {
+            padding: $section-padding-desktop-medium-y $section-padding-desktop-medium-x;
+        }
+
+        &.has-overlap > .container {
+            margin-top: -$section-padding-medium-y - $overlap-section;
+
+            @include mixins.desktop {
+                margin-top: -$section-padding-desktop-medium-y  - $overlap-section-desktop;
+            }
+        }
+    }
+
+    &.is-large {
+        padding: $section-padding-large-y $section-padding-large-x;
+
+        @include mixins.desktop {
+            padding: $section-padding-desktop-large-y $section-padding-desktop-large-x;
+        }
+
+        &.has-overlap > .container {
+            margin-top: -$section-padding-large-y - $overlap-section;
+
+            @include mixins.desktop {
+                margin-top: -$section-padding-desktop-large-y - $overlap-section-desktop;
+            }
+        }
+    }
+
+    &:nth-child(even):not([class*="has-background-"]) {
+        background-color: var(--flex-section-fill-dark, #{variables.$grey-lighter});
+    }
+
+    &:nth-child(odd):not([class*="has-background-"]) {
+        background-color: var(--flex-section-fill-light, #{variables.$white});
+    }
+
+    &.is-info {
+        background-color: var(--flex-info, #{variables.$info});
+        color: var(--flex-white, #{variables.$white});
+    }
+
+    &.has-overlay {
+        position: relative;
+        z-index: functions.zindex('void');
+        color: var(--flex-white, #{variables.$white});
+
+        &::before {
+            @include mixins.overlay;
+
+            content: '';
+            z-index: functions.zindex('subzero');
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+    }
+
+    &.has-pattern-light {
+        @include mixins.pattern-light(70%, 180px, -30px);
+    }
+
+    &.has-mixins.pattern-dark {
+        @include mixins.pattern-dark(120%, 260px, -30%);
+    }
+}
+
+.section.is-inverted,
+.section.is-inverted ~ .section {
+    &:nth-child(odd):not([class*="has-background-"]) {
+        background-color: var(--flex-section-fill-dark, #{variables.$grey-lighter});
+    }
+
+    &:nth-child(even):not([class*="has-background-"]) {
+        background-color: var(--flex-section-fill-light, #{variables.$white});
+    }
+
+    // &:nth-child(odd):not([class*="has-background-"]) {
+    //     background-color: var(--flex-grey-lighter, #{variables.$grey-lighter});
+    // }
+
+    // &:nth-child(even):not([class*="has-background-"]) {
+    //     background-color: var(--flex-white, #{variables.$white});
+    // }
+}
+
+.section.is-transparent-only {
+    background-color: transparent !important;
+}

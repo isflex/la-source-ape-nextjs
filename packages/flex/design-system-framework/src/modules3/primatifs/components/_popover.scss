@@ -1,0 +1,163 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$popover-background-color: rgba(variables.$tertiary, .95);
+
+.popover {
+    position: relative;
+    display: inline-block;
+
+    .popover-content {
+        background-color: var(--flex-popover-background-color, #{$popover-background-color});
+        border-radius: variables.$radius-small;
+        box-shadow: variables.$shadow;
+        color: var(--flex-white, #{variables.$white});
+        display: inline-block;
+        font-size: functions.size(1.2em);
+        opacity: 0;
+        visibility: hidden;
+        padding: functions.size(1em) functions.size(1.2em);
+        position: absolute;
+        top: auto !important;
+        bottom: 100% !important;
+        left: 50% !important;
+        right: auto !important;
+        text-align: center;
+        transform: translate(-50%, -0.7em) !important;
+        max-width: functions.size(21em);
+        width: max-content;
+        z-index: functions.zindex('popover');
+
+        ul {
+            padding-left: functions.size(1.4em);
+        }
+
+        // dessine la flèche sur le contour de la popover
+        &::before {
+            content: '';
+            border-color: transparent;
+            border-bottom-color: var(--flex-popover-background-color, #{$popover-background-color});
+            border-bottom-color: var(--flex-popover-background-color, #{$popover-background-color});
+            border-style: solid;
+            border-width: functions.size(0.4em);
+            pointer-events: none;
+            position: absolute;
+            bottom: auto !important;
+            right: auto !important;
+            top: 100%;
+            left: 50%;
+            margin-left: functions.size(-0.4em);
+            margin-top: functions.size(-0.4em);
+            transform: rotate(-45deg);
+            transform-origin: center;
+            height: 0;
+            width: 0;
+        }
+
+        .title,
+        .suptitle,
+        .paragraph,
+        .text,
+        p {
+            color: var(--flex-white, #{variables.$white});
+        }
+    }
+
+    &.is-popover-right .popover-content {
+        top: auto !important;
+        bottom: 50% !important;
+        left: 100% !important;
+        right: auto !important;
+        transform: translate(0.7em, 50%) !important;
+
+        // flèche sur le contour de la popover
+        &::before {
+            top: 50% !important;
+            bottom: auto !important;
+            left: 0 !important;
+            right: auto !important;
+            transform: rotate(45deg);
+        }
+    }
+
+    &.is-popover-bottom .popover-content {
+        top: 100% !important;
+        bottom: auto !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translate(-50%, .7em) !important;
+
+        // flèche sur le contour de la popover
+        &::before {
+            top: 0 !important;
+            bottom: auto !important;
+            right: auto !important;
+            left: 50% !important;
+            transform: rotate(135deg);
+        }
+    }
+
+    &.is-popover-left .popover-content {
+        top: auto !important;
+        bottom: 50% !important;
+        left: auto !important;
+        right: 100% !important;
+        transform: translate(-0.7em, 50%) !important;
+
+        // flèche sur le contour de la popover
+        &::before {
+            top: 50% !important;
+            bottom: auto !important;
+            left: 100% !important;
+            right: auto !important;
+            transform: rotate(-135deg);
+        }
+    }
+
+    &.is-popover-right,
+    &.is-popover-left {
+        &.is-arrow-start .popover-content::before {
+            top: 20% !important;
+        }
+
+        &.is-arrow-end .popover-content::before {
+            top: 80% !important;
+        }
+    }
+
+    &.is-popover-right {
+        &.is-arrow-start .popover-content::before,
+        &.is-arrow-end .popover-content::before {
+            left: 0 !important;
+        }
+    }
+
+    &.is-popover-left {
+        &.is-arrow-start .popover-content::before,
+        &.is-arrow-end .popover-content::before {
+            left: 100% !important;
+        }
+    }
+
+    // Par défaut pour une Popover positionné en haut ou en bas
+    &.is-arrow-start .popover-content::before {
+        left: 10% !important;
+    }
+
+    &.is-arrow-end .popover-content::before {
+        left: 90% !important;
+    }
+
+    &.is-popover-active .popover-content,
+    &:hover .popover-content {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .popover-trigger:focus ~ .popover-content {
+        opacity: 1;
+        visibility: visible;
+    }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#E33535;}
+	.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}
+</style>
+<g>
+	<circle class="st0" cx="100" cy="100" r="80"/>
+	<path class="st1" d="M100,85.2l22.2-22.2c4.1-4.1,10.7-4.1,14.8,0s4.1,10.7,0,14.8L114.8,100l22.2,22.2c4.1,4.1,4.1,10.7,0,14.8
+		s-10.7,4.1-14.8,0L100,114.8l-22.2,22.2c-4.1,4.1-10.7,4.1-14.8,0s-4.1-10.7,0-14.8L85.2,100L63.1,77.8c-4.1-4.1-4.1-10.7,0-14.8
+		s10.7-4.1,14.8,0L100,85.2z"/>
+</g>
+</svg>

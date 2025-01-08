@@ -1,0 +1,111 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$modal-content-width: functions.size(64em) !default;
+$modal-content-margin-mobile: functions.size(2em) !default;
+$modal-close-dimensions: functions.size(4em) !default;
+
+.modal {
+    @include mixins.overlay;
+
+    align-items: center;
+    display: none;
+    justify-content: center;
+    overflow: hidden;
+    position: fixed;
+    z-index: functions.zindex('modal');
+
+    &::after {
+        content: ' ';
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-color: rgba(variables.$black, 0.86);
+    }
+
+    &.is-active {
+        display: flex;
+    }
+
+    // Cette classe n'a plus d'utilité mais doit être gardé pour la rétrocompatibilité
+    .modal-background {
+        display: none;
+    }
+
+    .modal-close {
+        @include mixins.delete;
+
+        background: none;
+        position: absolute;
+        top: functions.size(0.6em);
+        right: functions.size(0.6em);
+        height: $modal-close-dimensions;
+        width: $modal-close-dimensions;
+        z-index: functions.zindex('tiny');
+
+        &:hover {
+            background-color: var(--flex-grey-light, #{variables.$grey-light});
+        }
+
+        &::after,
+        &::before {
+            background-color: var(--flex-tertiary, #{variables.$tertiary});
+        }
+    }
+
+    .modal-content {
+        background-color: var(--flex-white, #{variables.$white});
+        border-radius: variables.$radius;
+        border-radius: .6em;
+        color: var(--flex-text, #{variables.$text});
+        overflow: auto;
+        position: relative;
+        padding: functions.size(3em);
+        margin: 0 $modal-content-margin-mobile;
+        max-height: calc(100vh - #{functions.size(4em)});
+        text-align: center;
+        width: 100%;
+        z-index: functions.zindex('tiny');
+
+        @include mixins.tablet {
+            margin: 0 auto;
+            max-height: calc(100vh - #{functions.size(12em)});
+            width: $modal-content-width;
+        }
+
+        // Annulation des propriétés du composant box, se trouvant dans une modal
+        > .box {
+            background-color: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0;
+            max-height: inherit;
+
+            .box-content {
+                background-color: transparent;
+                border-radius: 0;
+                padding: 0;
+                padding-bottom: functions.size(3em);
+                margin: 0;
+                text-align: inherit;
+            }
+        }
+    }
+
+    .modal-title {
+        color: var(--flex-text, #{variables.$text});
+        font-family: variables.$family-sans-serif;
+        font-size: variables.$size-3;
+        font-weight: variables.$weight-semibold;
+        margin-bottom: functions.size(1.5em);
+        line-height: 1.1;
+
+        @include mixins.desktop {
+            font-size: variables.$size-3-desktop;
+        }
+    }
+}

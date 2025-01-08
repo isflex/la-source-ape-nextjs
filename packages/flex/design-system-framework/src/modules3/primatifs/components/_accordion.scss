@@ -1,0 +1,295 @@
+@use "sass:color";
+@use "sass:list";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$accordion-background-color: transparent !default;
+$accordion-radius: 0 !default;
+$accordion-header-background-color: transparent !default;
+$accordion-header-color: variables.$text !default;
+$accordion-header-padding: functions.size(1.5em) 0 !default;
+$accordion-header-radius: 0 !default;
+
+$accordion-content-border: none !default;
+$accordion-content-color: variables.$text !default;
+$accordion-content-padding-top: 0 !default;
+$accordion-content-padding-left: 0 !default;
+$accordion-content-radius: 0 !default;
+
+$accordion-content-pre-background-color: variables.$white !default;
+$accordion-content-pre-code-background-color: transparent !default;
+
+@use "../utilities/vendors/bulma-extensions/_accordion.sass";
+
+.accordions {
+    padding-left: 0;
+    padding-right: 0;
+
+    &.is-boxed {
+        box-shadow: variables.$shadow;
+        background-color: var(--flex-accordion-pre-fill, #{$accordion-content-pre-background-color});
+
+        .accordion {
+            padding: 0 3em;
+        }
+    }
+
+    .accordion {
+        &:hover,
+        &.is-active {
+            .accordion-header {
+                cursor: pointer;
+                color: var(--flex-secondary, #{variables.$secondary});
+
+                .toggle {
+                    &::before {
+                        content: "\f101";
+                        color: var(--flex-instit, #{variables.$instit});
+                    }
+                }
+            }
+        }
+
+        &.is-active {
+            .accordion-header {
+                .toggle {
+                    &::before {
+                        content: "\f105"; /* arrow-up */
+                    }
+
+                    &.button.is-bordered {
+                        border-color: var(--flex-blue, #{variables.$blue});
+
+                        &::before {
+                            color: var(--flex-blue, #{variables.$blue});
+                            border-width: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.is-static {
+            &.is-active {
+                .accordion-body {
+                    max-height: none;
+                }
+            }
+        }
+
+        &:not(:last-child) {
+            border-bottom: functions.size(0.1em) solid var(--flex-accordion-border, #{variables.$border-grey-light});
+        }
+
+        .accordion-header {
+            color: var(--flex-text, #{variables.$text});
+            height: auto;
+            padding: $accordion-header-padding;
+            line-height: inherit;
+            transition: 300ms all ease;
+            justify-content: normal;
+
+            &.is-grouped {
+                > *:first-child {
+                    flex-grow: 0;
+                }
+            }
+
+            .field:not(:last-child) {
+                margin-bottom: 0;
+            }
+
+            .accordion-title {
+                .title {
+                    margin: 0;
+                }
+
+                @include mixins.mobile() {
+                    flex-grow: 1;
+                }
+            }
+
+            .toggle {
+                margin-left: auto;
+                padding: 0 0 0 1em;
+                background-color: transparent;
+
+                &::before {
+                    @include mixins.arrow(variables.$grey-dark);
+
+                    top: -.5em;
+                    width: functions.size(1em);
+                    height: functions.size(.5em);
+                    margin: auto;
+                    transition: 300ms all ease;
+                }
+
+                &.button.is-bordered {
+                    border: functions.size(0.2em) solid var(--flex-border-grey-dark, #{variables.$border-grey-dark});
+                    border-radius: functions.size(0.4em);
+                    transition: 300ms all ease;
+
+                    &::before {
+                        margin: 0;
+                        top: 6px;
+                        left: 5px;
+                        font-size: functions.size(1.8em);
+                        color: var(--flex-grey-dark, #{variables.$grey-dark});
+                    }
+                }
+            }
+
+            p {
+                margin-bottom: 0;
+            }
+
+            & + .accordion-body {
+                .accordion-body-content {
+                    color: var(--flex-text, #{variables.$text});
+                    background-color: var(--flex-accordion-content-fill, #{variables.$grey-lighter});
+                    border-radius: variables.$radius;
+                    padding: variables.$box-padding * 2;
+                    margin-bottom: functions.size(1em);
+
+                    @include mixins.mobile() {
+                        padding: functions.size(1.5em);
+                    }
+
+                    .input,
+                    .select > select {
+                        background: variables.$white;
+                    }
+
+                    .is-checkradio[type="radio"]:not(:checked) + label::before {
+                        background-color: var(--flex-white, #{variables.$white});
+                    }
+                }
+
+                &.with-action {
+                    .accordion-body-content {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .accordion {
+        &.version-2 {
+            .accordion-header {
+                padding: 0.5rem 0;
+                border-radius: #{variables.$radius};
+                background-color: transparent;
+
+                .accordion-header-content {
+                    width: 100%;
+                }
+
+                & + .accordion-body {
+                    .accordion-body-content {
+                        border-radius: 0 0 #{variables.$radius} #{variables.$radius};
+                    }
+                }
+            }
+
+            &.is-active {
+                .accordion-header {
+                    border-radius: #{variables.$radius} #{variables.$radius} 0 0;
+                }
+            }
+
+            @each $name, $pair in variables.$colors {
+                $color: list.nth($pair, 1);
+                $invert: list.nth($pair, 2);
+
+                &.has-text-#{$name} {
+                    .accordion-header {
+                        color: var(#{'--flex-'}#{$name}, #{$color});
+                    }
+                }
+
+                &.has-text-#{$name}-invert {
+                    .accordion-header {
+                        color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invert});
+                    }
+                }
+
+                &.with-highlight-#{$name} {
+                    .accordion-header {
+                        color: var(#{'--flex-'}#{$name}, #{$color});
+                        border: functions.size(0.1em) solid var(#{'--flex-'}#{$name}, #{$color});
+
+                        .accordion-header-content {
+                            .title,
+                            .link,
+                            .text,
+                            .button,
+                            .is-switch + label {
+                                color: var(#{'--flex-'}#{$name}, #{$color});
+                            }
+                        }
+                    }
+                }
+
+                &:hover,
+                &.is-active {
+                    &.with-highlight-#{$name} {
+                        .accordion-header {
+                            color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invert});
+                            background-color: var(#{'--flex-'}#{$name}, #{$color});
+
+                            .accordion-header-content {
+                                .title,
+                                .link,
+                                .text,
+                                .button,
+                                .is-switch + label {
+                                    color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invert});
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.with-highlight-#{$name}-invert {
+                    .accordion-header {
+                        color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invert});
+                        border: functions.size(0.1em) solid var(#{'--flex-'}#{$name}#{'-invert'}, #{$invert});
+
+                        .accordion-header-content {
+                            .title,
+                            .link,
+                            .text,
+                            .button,
+                            .is-switch + label {
+                                color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invert});
+                            }
+                        }
+                    }
+                }
+
+                &:hover,
+                &.is-active {
+                    &.with-highlight-#{$name}-invert {
+                        .accordion-header {
+                            color: var(#{'--flex-'}#{$name}, #{$color});
+                            background-color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invert});
+
+                            .accordion-header-content {
+                                .title,
+                                .link,
+                                .text,
+                                .button,
+                                .is-switch + label {
+                                    color: var(#{'--flex-'}#{$name}, #{$color});
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

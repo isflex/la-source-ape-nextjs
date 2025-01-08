@@ -1,0 +1,208 @@
+@use "sass:list";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+a.notification {
+    cursor: pointer;
+    transition: box-shadow variables.$animation-duration;
+
+    &:hover,
+    &:active,
+    &:focus {
+        box-shadow: variables.$shadow;
+    }
+
+    .icon,
+    .call-to-action {
+        color: var(--flex-text, #{variables.$text});
+    }
+}
+
+.notification {
+    padding: 2em 2em;
+    background-color: var(--flex-notification-fill, #{variables.$white});
+    border-radius: variables.$radius;
+    position: relative;
+    margin-bottom: functions.size(2em);
+
+    @include mixins.apply-shadow-box();
+
+    @include mixins.mobile {
+        flex-wrap: wrap;
+    }
+
+    a:not(.button) {
+        color: currentColor;
+        text-decoration: underline;
+    }
+
+    strong {
+        color: currentColor;
+    }
+
+    code,
+    pre {
+        background: variables.$white;
+    }
+
+    pre code {
+        background: transparent;
+    }
+
+    & > .delete {
+        position: absolute;
+        right: 0.5em;
+        top: 0.5em;
+    }
+
+    @each $name, $pair in variables.$colors {
+        $color: list.nth($pair, 1);
+        $color-invert: list.nth($pair, 2);
+
+        &.is-#{$name} {
+            .icon,
+            .title {
+                color: var(#{'--flex-'}#{$name}, #{$color});
+            }
+
+            .call-to-action .button {
+                background-color: var(--flex-primary, #{variables.$primary});
+                border-color: var(--flex-primary, #{variables.$primary});
+                // color: var(--flex-color-invert, #{variables.$color-invert});
+                color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+            }
+        }
+    }
+
+    &.is-banner {
+        box-shadow: none;
+        border-radius: 0;
+        margin-bottom: 0;
+        padding: functions.size(1.6em);
+
+        @include mixins.desktop {
+            padding-left: functions.size(15em);
+            padding-right: functions.size(15em);
+        }
+    }
+
+    &:not(.has-description) > .icon {
+        align-self: center;
+    }
+
+    &.has-description {
+        @include mixins.tablet {
+          .icon {
+              margin-top: -0.3em;
+          }
+        }
+
+        @include mixins.mobile {
+            justify-content: center;
+            text-align: center;
+
+            .icon {
+                padding: 0;
+                margin-bottom: functions.size(3em);
+            }
+
+            .body {
+                flex: 0 1 auto;
+            }
+        }
+    }
+
+    &.has-body {
+        display: flex;
+    }
+
+    &.is-admin {
+        background-color: var(--flex-admin, #{variables.$admin});
+        color: var(--flex-admin-invert, #{variables.$admin-invert});
+
+        &::before {
+            @include mixins.ui-icon;
+
+            content: "\f106";
+            margin: 0;
+            position: absolute;
+            background-color: var(--flex-white, #{variables.$white});
+            border-radius: 100%;
+            color: var(--flex-grey, #{variables.$grey});
+            width: 2.5em;
+            height: 2.5em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            top: functions.size(0.5em);
+            right: functions.size(0.5em);
+            padding: functions.size(0.5em);
+        }
+    }
+
+    > .icon {
+        flex: none;
+        // align-self: start;
+        align-self: flex-start;
+        padding-right: functions.size(2.7em);
+        display: block;
+        width: functions.size(5.4em);
+        height: 100%;
+        // margin-top: functions.size(-0.54em);
+        margin-top: 0;
+
+        [class^="flexi-"]::before,
+        [class*=" flexi-"]::before {
+            font-size: functions.size(3.2em);
+        }
+    }
+
+    > .body {
+        align-self: center;
+        color: var(--flex-text, #{variables.$text});
+        margin-bottom: 0;
+        flex-grow: 1;
+        padding: 1px; /* Fixes flex behavior on Safari mobile */
+
+        @include mixins.mobile {
+            flex: 1;
+        }
+    }
+
+    > .call-to-action {
+        padding-left: 4em;
+        align-self: center;
+        flex: none;
+
+        @include mixins.mobile {
+            flex: 0 1 100%;
+            margin-top: functions.size(2em);
+            padding-left: 0;
+        }
+    }
+
+    &.is-small {
+        background-color: rgba(variables.$secondary, 0.1);
+        box-shadow: none;
+        padding: functions.size(1.4em);
+
+        > .icon {
+            padding-right: 1em;
+            margin: 0;
+            width: 4em;
+
+            [class^="flexi-"]::before,
+            [class*=" flexi-"]::before {
+                font-size: functions.size(2em);
+            }
+        }
+
+        .title,
+        .text,
+        .paragraph {
+            font-size: variables.$text-14 !important;
+        }
+    }
+}

@@ -1,0 +1,274 @@
+@use "sass:list";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$space-between-tiles: functions.size(0.5em);
+$padding-box: functions.size(1.5em);
+$padding-content: functions.size(2em);
+$padding-content-desktop: functions.size(3em);
+
+a.box {
+    cursor: pointer;
+    transition: box-shadow variables.$animation-duration;
+
+    &:hover,
+    &:active,
+    &:focus {
+        box-shadow: variables.$focus-shadow;
+    }
+}
+
+.box {
+    @include mixins.apply-shadow-box();
+
+    background-color: var(--flex-box-fill, #{variables.$white});
+    border-radius: variables.$radius;
+    color: var(--flex-text, #{variables.$text});
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    padding: $padding-box;
+
+    &:not(:last-child) {
+        margin-bottom: functions.size(1.5em);
+    }
+
+    &.has-background {
+        background-repeat: no-repeat;
+
+        &.is-inverted {
+            .box-content {
+                color: var(--flex-white, #{variables.$white});
+            }
+
+            .title,
+            .subtitle,
+            .text,
+            .paragraph,
+            p {
+                color: var(--flex-white, #{variables.$white});
+            }
+        }
+
+        .box-content {
+            background-color: transparent;
+        }
+    }
+
+    &.is-fullheight {
+        .box-content {
+            flex-grow: 1;
+        }
+    }
+
+    &.is-flat {
+        box-shadow: none;
+        border: functions.size(0.1em) solid var(--flex-border-grey-dark, #{variables.$border-grey-dark});
+
+        &.is-thick {
+            border-width: functions.size(0.2em);
+        }
+
+        &.is-flat-primary {
+            border-color: var(--flex-primary, #{variables.$primary});
+        }
+
+        &.is-flat-secondary {
+            border-color: var(--flex-secondary, #{variables.$secondary});
+        }
+
+        &.is-flat-tertiary {
+            border-color: var(--flex-tertiary, #{variables.$tertiary});
+        }
+
+        &.is-flat-quaternary {
+            border-color: var(--flex-quaternary, #{variables.$quaternary});
+        }
+
+        &.is-flat-flex-pink {
+            border-color: var(--flex-pink, #{variables.$flex-pink});
+        }
+
+        &.is-flat-flex-purple {
+            border-color: var(--flex-purple, #{variables.$flex-purple});
+        }
+
+        &.is-flat-flex-green {
+            border-color: var(--flex-green, #{variables.$flex-green});
+        }
+
+        &.is-flat-flex-orange {
+            border-color: var(--flex-orange, #{variables.$flex-orange});
+        }
+
+        &.has-hat > .is-hat {
+            left: functions.size(-0.1em);
+            right: functions.size(-0.1em);
+        }
+
+        .box-header {
+            margin-top: calc(-#{$padding-box} - #{functions.size(0.1em)});
+            margin-left: calc(-#{$padding-box} - #{functions.size(0.1em)});
+            margin-right: calc(-#{$padding-box} - #{functions.size(0.1em)});
+        }
+    }
+
+    &.is-admin {
+        > .box-content {
+            background-color: var(--flex-admin, #{variables.$admin});
+            color: var(--flex-admin-invert, #{variables.$admin-invert});
+
+            &::before {
+                @include mixins.ui-icon;
+
+                content: "\f106";
+                margin: 0;
+                position: absolute;
+                top: functions.size(0.5em);
+                right: functions.size(0.5em);
+                background-color: var(--flex-white, #{variables.$white});
+                padding: functions.size(0.5em);
+                border-radius: 100%;
+                color: var(--flex-grey, #{variables.$grey});
+                width: 2.5em;
+                height: 2.5em;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    .box-header {
+        background-color: var(--flex-tertiary, #{variables.$tertiary});
+        color: var(--flex-tertiary-invert, #{variables.$tertiary-invert});
+        margin-top: -$padding-box;
+        margin-left: -$padding-box;
+        margin-right: -$padding-box;
+        padding: calc($padding-content / 2) $padding-content;
+        box-shadow: none;
+        border-radius: variables.$radius variables.$radius 0 0;
+        font-size: functions.size(1.5em);
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        font-weight: variables.$weight-semibold;
+
+        @include mixins.tablet {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        > p:not(:last-child),
+        > .paragraph:not(:last-child) {
+            margin: 0 0 0.3em;
+
+            @include mixins.tablet {
+                align-self: center;
+                margin: 0 3em 0 0;
+            }
+        }
+
+        ~ .box-content {
+            margin-top: 0;
+            border-radius: 0 0 variables.$radius variables.$radius;
+        }
+    }
+
+    .box-content {
+        background-color: var(--flex-box-fill, #{variables.$white});
+        color: var(--flex-text, #{variables.$text});
+        margin: -$padding-box;
+        padding: $padding-content;
+        text-align: center;
+
+        @include mixins.desktop {
+            padding: $padding-content-desktop;
+            text-align: left;
+        }
+
+        &:first-child {
+            border-radius: variables.$radius variables.$radius 0 0;
+        }
+
+        &:last-child {
+            border-radius: 0 0 variables.$radius variables.$radius;
+        }
+
+        &:only-child {
+            border-radius: variables.$radius;
+        }
+
+        > .is-unboxed {
+            margin-left: -$padding-content;
+            margin-right: -$padding-content;
+            width: auto;
+
+            @include mixins.desktop {
+                margin-left: -$padding-content-desktop;
+                margin-right: -$padding-content-desktop;
+            }
+        }
+
+        > .is-unboxed-mobile {
+            margin-left: -$padding-content;
+            margin-right: -$padding-content;
+            width: auto;
+
+            @include mixins.desktop {
+                margin-left: 0;
+                margin-right: 0;
+                width: 100%;
+            }
+        }
+
+        &.is-grey,
+        &.tiles-container {
+            padding: $padding-box;
+
+            .tile.is-parent,
+            .tile.is-child:not(.box) {
+                padding: $space-between-tiles;
+            }
+
+            .tile.is-vertical > .tile.is-child:not(:last-child) {
+                margin-bottom: ($space-between-tiles * 2) !important;
+            }
+
+            .box {
+                box-shadow: none;
+                padding: $padding-content;
+            }
+        }
+
+        &.is-transparent {
+            background-color: transparent;
+        }
+    }
+
+    .box-footer {
+        padding-top: $padding-content;
+        border-top: functions.size(0.1em) solid var(--flex-border-grey, #{variables.$border-grey});
+        margin: functions.size(1.25em) functions.size(0.75em) functions.size(0.75em);
+    }
+
+    @each $name, $pair in variables.$colors {
+        $color: list.nth($pair, 1);
+        $invertedColor: list.nth($pair, 2);
+
+        &.is-#{$name} {
+            background-color: var(#{'--flex-'}#{$name}, #{$color});
+            color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invertedColor});
+
+            .box-header {
+                background-color: var(#{'--flex-'}#{$name}, #{$color});
+                color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invertedColor});
+            }
+        }
+    }
+}

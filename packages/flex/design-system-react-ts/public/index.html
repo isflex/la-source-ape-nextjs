@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang='fr'>
+  <head>
+    <meta charset='utf-8' />
+    <link rel='icon' href='logo/flexiness/favicon-128.ico' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <meta name='theme-color' content='#000000' />
+    <meta
+      name='description'
+      content="Flexiness Design System React Typescript"
+    />
+    <link rel='apple-touch-icon' href='logo/flexiness/Logo_192.png' />
+    <link rel='manifest' href='manifest.json' />
+    <title>Flexiness Design System React TS</title>
+    <script nonce='<?=nonce?>'>globalThis.__webpack_nonce__='<?=nonce?>'</script>
+    <% for (key in htmlWebpackPlugin.files.js) { %>
+      <script type='text/javascript' defer='defer' nonce='<?=nonce?>' src='<%= htmlWebpackPlugin.files.js[key] %>'></script>
+    <% } %>
+    <link rel='preload' as='style' href='<?=flexFrameworkStyles?>'>
+    <link type='text/css' rel='stylesheet' nonce='<?=nonce?>' href='<?=flexFrameworkStyles?>'>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id='root'></div>
+  </body>
+</html>

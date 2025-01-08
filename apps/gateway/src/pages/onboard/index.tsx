@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import React, { Suspense } from 'react'
+import React from 'react'
 // import { headers } from 'next/headers'
 // import Script from 'next/script'
 // import type { NextPage } from 'next'
@@ -40,15 +40,15 @@ const LogoAPE = dynamic(() => import('@src/components/logo-ape-la-source'), { ss
 const OnBoardMF = dynamic(async () => await import('@src/components/onboard-mf'), { ssr: true })
 // const OnBoardMF = React.lazy(async () => await import('@src/components/onboard-mf'))
 
-const FlexComponents = dynamic(async () => await import('@src/components/flex-components-mf'), { ssr: true })
-
 const stores = getStores()
+
+import { Text, Title, View } from '@flex-design-system/react-ts/client-sync-styled-default'
+import { default as styles, type Styles } from '@flex-design-system/framework'
 
 const MFOnBoardPage: NextPage<PageAppProps> = observer((
   props
 ) => {
   const { status } = stores.UIStore
-  // const { Title } = FlexComponents as React.ComponentType<any>
 
   const Loader = () => {
     return (
@@ -79,7 +79,7 @@ const MFOnBoardPage: NextPage<PageAppProps> = observer((
             justifyContent: 'center',
             marginTop: '1rem'
           }}>
-            <span>... Loading</span>
+            <Text>... Loading</Text>
           </div>
         </div>
       </div>

@@ -1,7 +1,6 @@
 {
   "files": [],
   "references": [
-    // { "path": "./packages/flex/domain-lib-mobx-react-router/tsconfig.build.json" },
     // { "path": "./packages/flex/domain-lib-global-react/tsconfig.build.json" },
 
     { "path": "./packages/flex/domain-utils/tsconfig.esm.build.json" },
@@ -19,8 +18,8 @@
 
     // { "path": "./packages/flex/domain-tailwind/tsconfig.build.json" },
 
-    // { "path": "./packages/flex/design-system-framework/tsconfig.build.json" },
-    // { "path": "./packages/flex/design-system-react-ts/tsconfig.build.json" },
+    { "path": "./packages/flex/design-system-framework/tsconfig.build.json" },
+    { "path": "./packages/flex/design-system-react-ts/tsconfig.build.json" },
 
     { "path": "./packages/flex/domain-store/tsconfig.build.json" },
 

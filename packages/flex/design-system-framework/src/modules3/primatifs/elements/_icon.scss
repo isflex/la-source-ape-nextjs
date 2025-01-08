@@ -1,0 +1,483 @@
+@use "sass:list";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$icon-dimensions-default: functions.size(1.5em) !default;
+
+$icon-dimensions-small: functions.size(2em) !default;
+$icon-container-small: functions.size(3em) !default;
+
+$icon-dimensions-medium: functions.size(3.2em) !default;
+$icon-container-medium: functions.size(4.8em) !default;
+
+$icon-dimensions-large: functions.size(4.4em) !default;
+$icon-dimensions-large-desktop: functions.size(6.6em) !default;
+$icon-container-large: functions.size(6.6em) !default;
+
+$icon-dimensions-huge: functions.size(6.6em) !default;
+$icon-container-huge: functions.size(9.9em) !default;
+
+$icon-stretching-level: 16deg !default;
+$icon-stretching-height: inherit;
+
+[class*="flexi-"] {
+    @include mixins.apply-colors();
+}
+
+button.icon {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: $icon-dimensions-default;
+    width: $icon-dimensions-default;
+
+    > i {
+        display: flex;
+    }
+
+    svg {
+        min-height: functions.size(2em);
+        min-width: functions.size(2em);
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+    [class^="flexi-"]::before,
+    [class*=" flexi-"]::before {
+        width: auto;
+        margin: auto;
+
+        .button & {
+            overflow: hidden;
+        }
+    }
+
+    &.is-small {
+        width: $icon-container-small;
+        height: $icon-container-small;
+
+        [class^="flexi-"]::before,
+        [class*=" flexi-"]::before {
+            font-size: $icon-dimensions-small;
+        }
+    }
+
+    &.is-medium {
+        width: $icon-container-medium;
+        height: $icon-container-medium;
+
+        [class^="flexi-"]::before,
+        [class*=" flexi-"]::before {
+            font-size: $icon-dimensions-medium;
+        }
+    }
+
+    &.is-large {
+        width: $icon-container-large;
+        height: $icon-container-large;
+
+        [class^="flexi-"]::before,
+        [class*=" flexi-"]::before {
+            font-size: $icon-dimensions-large;
+        }
+    }
+
+    &.is-huge {
+        width: $icon-container-huge;
+        height: $icon-container-huge;
+
+        [class^="flexi-"]::before,
+        [class*=" flexi-"]::before {
+            font-size: $icon-dimensions-huge;
+        }
+    }
+
+    @each $name, $pair in variables.$colors {
+        $color: list.nth($pair, 1);
+        $color-invert: list.nth($pair, 2);
+
+        &.is-circled-#{$name} {
+            background-color: var(#{'--flex-'}#{$name}, #{$color});
+
+            .is-admin & {
+                background-color: var(--flex-admin, #{variables.$admin});
+            }
+        }
+
+        &.is-#{$name} {
+            color: var(#{'--flex-'}#{$name}, #{$color});
+
+            .is-admin & {
+                color: var(--flex-admin-invert, #{variables.$admin-invert});
+            }
+        }
+    }
+
+    &.is-circled {
+        border-radius: 100%;
+        text-align: center;
+
+        .is-admin & {
+            background-color: transparent;
+            border: 1px solid var(--flex-admin-invert, #{variables.$admin-invert});
+        }
+    }
+
+    &.is-stretched {
+        transform: skewX(-#{$icon-stretching-level});
+        border-top-right-radius: variables.$radius-large;
+        background-color: var(--flex-tertiary, #{variables.$tertiary});
+        height: $icon-stretching-height;
+
+        > i {
+            transform: skewX($icon-stretching-level);
+            color: var(--flex-tertiary-invert, #{variables.$tertiary-invert});
+        }
+
+        .is-admin & {
+            background-color: transparent;
+            border: 1px solid var(--flex-admin-invert, #{variables.$admin-invert});
+        }
+    }
+
+    @each $name, $shade in variables.$shades {
+        &.is-circled-#{$name} {
+            background-color: var(#{'--flex-'}#{$name}, #{$shade});
+
+            .is-admin & {
+                background-color: var(--flex-admin, #{variables.$admin});
+            }
+        }
+
+        &.is-#{$name} {
+            color: var(#{'--flex-'}#{$name}, #{$shade});
+
+            .is-admin & {
+                color: var(--flex-admin-invert, #{variables.$admin-invert});
+            }
+        }
+    }
+
+    &[class^="is-circled-"],
+    &[class*=" is-circled-"] {
+        margin-left: functions.size(-1em);
+        margin-right: functions.size(-1em);
+    }
+
+    &.is-stacked {
+        flex-direction: column;
+        line-height: functions.size(0.5em) !important;
+        position: relative;
+
+        .flexi-notification_top {
+            font-size: 85%;
+        }
+
+        .flexi-notification_bottom {
+            font-size: 0.125em;
+            width: 100%;
+            margin-top: functions.size(0.1em);
+
+            &::before {
+                width: auto;
+            }
+        }
+    }
+
+    &.is-animated {
+        .flexi-notification_top {
+            animation-name: bellring;
+            animation-duration: 6s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            animation-delay: -2s;
+            animation-direction: backwards;
+            transform-origin: center top;
+            -moz-animation: none;
+            -moz-transform-origin: center top;
+
+            @keyframes bellring {
+                0% {
+                    transform: rotate(-5deg);
+                }
+
+                10% {
+                    transform: rotate(-5deg);
+                }
+
+                25% {
+                    transform: rotate(10deg);
+                }
+
+                35% {
+                    transform: rotate(-25deg);
+                }
+
+                45% {
+                    transform: rotate(20deg);
+                }
+
+                55% {
+                    transform: rotate(-15deg);
+                }
+
+                60% {
+                    transform: rotate(10deg);
+                }
+
+                70% {
+                    transform: rotate(-5deg);
+                }
+
+                100% {
+                    transform: rotate(-5deg);
+                }
+            }
+        }
+
+        .flexi-notification_bottom {
+            animation-name: bellbounce !important;
+            animation-duration: 6s;
+            animation-iteration-count: infinite;
+            animation-timing-function: normal;
+            animation-delay: -2s;
+            animation-direction: normal;
+            transform-origin: center top;
+            -moz-animation: none;
+
+            @keyframes bellbounce {
+                0% {
+                    transform: translateX(-1px) rotate(-5deg);
+                }
+
+                10% {
+                    transform: translateX(-1px) rotate(-5deg);
+                }
+
+                17% {
+                    transform: translateX(1px) rotate(8deg);
+                }
+
+                25% {
+                    transform: translateX(2px) rotate(10deg);
+                }
+
+                36% {
+                    transform: translateX(6px) rotate(-25deg);
+                }
+
+                47% {
+                    transform: translateX(-5px) rotate(15deg);
+                }
+
+                58% {
+                    transform: translateX(6px) rotate(-10deg);
+                }
+
+                62% {
+                    transform: translateX(-6px) rotate(5deg);
+                }
+
+                71% {
+                    transform: translateX(6px) rotate(-10deg);
+                }
+
+                76% {
+                    transform: translateX(-1px) rotate(-5deg);
+                }
+
+                100% {
+                    transform: translateX(-1px) rotate(-5deg);
+                }
+            }
+        }
+    }
+
+    &.has-status {
+        &.is-ancestor {
+            > [class^="flexi-"],
+            > [class*=" flexi-"] {
+                display: flex;
+                align-items: center;
+                position: relative;
+                width: functions.size(4em);
+                height: functions.size(4em);
+
+                &::before {
+                    font-size: functions.size(3.5em) !important;
+                }
+
+                .icon.is-descendant {
+                    position: absolute;
+                    width: $icon-dimensions-default;
+                    height: $icon-dimensions-default;
+                    background: #fff;
+
+                    > [class^="flexi-"],
+                    > [class*=" flexi-"] {
+                        width: inherit;
+                        height: inherit;
+                        display: flex;
+
+                        &::before {
+                            font-size: inherit;
+                        }
+                    }
+
+                    &.is-bottom,
+                    &.is-bottom-right {
+                        bottom: 0;
+                        right: 0;
+                    }
+
+                    &.is-top {
+                        top: 0;
+                        right: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.icon-and-text {
+    display: inline-flex;
+    align-items: center;
+
+    > .icon {
+        line-height: 0;
+        margin-right: 0.5em;
+    }
+
+    > span + .icon {
+        margin: 0 0 0 0.5em;
+    }
+
+    &.is-alternate {
+        align-items: flex-start;
+
+        > .icon {
+            flex: none;
+
+            > i {
+                margin-bottom: functions.size(0.7em);
+            }
+        }
+    }
+
+    &.is-stacked {
+        flex-direction: column;
+        padding: functions.size(0.5em);
+
+        > .icon {
+            margin: 0 0 0.5em 0;
+        }
+
+        > span + .icon {
+            margin: 0.5em 0 0 0;
+        }
+    }
+
+    @include mixins.mobile {
+        &.is-stacked-mobile {
+            flex-direction: column;
+            padding: functions.size(0.5em);
+
+            > .icon {
+                margin: 0 0 0.5em 0;
+            }
+
+            > span + .icon {
+                margin: 0.5em 0 0 0;
+            }
+        }
+    }
+
+    @include mixins.tablet {
+        &.is-stacked-tablet {
+            flex-direction: column;
+            padding: functions.size(0.5em);
+
+            > .icon {
+                margin: 0 0 0.5em 0;
+            }
+
+            > span + .icon {
+                margin: 0.5em 0 0 0;
+            }
+        }
+    }
+
+    @include mixins.desktop {
+        &.is-stacked-desktop {
+            flex-direction: column;
+            padding: functions.size(0.5em);
+
+            > .icon {
+                margin: 0 0 0.5em 0;
+            }
+
+            > span + .icon {
+                margin: 0.5em 0 0 0;
+            }
+        }
+    }
+
+    @include mixins.widescreen {
+        &.is-stacked-widescreen {
+            flex-direction: column;
+            padding: functions.size(0.5em);
+
+            > .icon {
+                margin: 0 0 0.5em 0;
+            }
+
+            > span + .icon {
+                margin: 0.5em 0 0 0;
+            }
+        }
+    }
+}
+
+.flexi-faciliti::before {
+    font-family: flexi-picto !important;
+    content: "\f101";
+}
+
+.flexi-handicapzero::before {
+    font-family: flexi-picto !important;
+    content: "\f102";
+}
+
+.flexi-la-fibre::before {
+    font-family: flexi-picto !important;
+    content: "\f103";
+}
+
+.flexi-payment-cb::before {
+    font-family: flexi-picto !important;
+    content: "\f104";
+}
+
+.flexi-payment-mastercard::before {
+    font-family: flexi-picto !important;
+    content: "\f105";
+}
+
+.flexi-payment-paypal::before {
+    font-family: flexi-picto !important;
+    content: "\f106";
+}
+
+.flexi-payment-visa::before {
+    font-family: flexi-picto !important;
+    content: "\f107";
+}

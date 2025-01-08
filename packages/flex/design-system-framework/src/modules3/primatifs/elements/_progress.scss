@@ -1,0 +1,264 @@
+@use "sass:list";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$progress-bar-background-color: variables.$border !default;
+$progress-value-background-color: variables.$text !default;
+$progressbar-height: functions.size(1em);
+$progressbar-small: functions.size(0.5em);
+
+.progress {
+    @include mixins.block;
+
+    border: none;
+    border-radius: variables.$radius-rounded;
+    display: block;
+    height: $progressbar-height;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    &::-webkit-progress-bar {
+        background-color: var(--flex-progress-bar-background-color, #{$progress-bar-background-color});
+        border-radius: $progressbar-height;
+    }
+
+    &::-webkit-progress-value {
+        background-color: var(--flex-progress-value-background-color, #{$progress-value-background-color});
+        border-radius: $progressbar-height;
+    }
+
+    &::-moz-progress-bar {
+        background-color: var(--flex-progress-value-background-color, #{$progress-value-background-color});
+        border-radius: $progressbar-height;
+    }
+
+    &::-ms-fill {
+        background-color: var(--flex-progress-value-background-color, #{$progress-value-background-color});
+        border: none;
+        border-radius: $progressbar-height;
+    }
+
+    &:not(:last-child) {
+        margin-bottom: functions.size(0.75em);
+    }
+
+    // Colors
+    @each $name, $pair in variables.$colors {
+        $color: list.nth($pair, 1);
+
+        &.is-#{$name} {
+            &::-webkit-progress-value {
+                background-color: var(#{'--flex-'}#{$name}, #{$color});
+            }
+
+            &::-moz-progress-bar {
+                background-color: var(#{'--flex-'}#{$name}, #{$color});
+            }
+
+            &::-ms-fill {
+                background-color: var(#{'--flex-'}#{$name}, #{$color});
+            }
+        }
+    }
+
+    // Sizes
+    &.is-small {
+        height: $progressbar-small;
+    }
+}
+
+.progress.is-stacked {
+    display: flex;
+    background-color: var(--flex-progress-bar-background-color, #{$progress-bar-background-color});
+    border-radius: $progressbar-height;
+
+    .progress-bar {
+        height: $progressbar-height;
+        background-color: var(--flex-info, #{variables.$info});
+
+        &:first-child {
+            border-radius: $progressbar-height 0 0 $progressbar-height;
+        }
+
+        &:last-child {
+            border-radius: 0 $progressbar-height $progressbar-height 0;
+        }
+
+        @each $name, $pair in variables.$colors {
+            $color: list.nth($pair, 1);
+            $color-invert: list.nth($pair, 2);
+
+            &.is-#{$name} {
+                background-color: var(#{'--flex-'}#{$name}, #{$color});
+            }
+        }
+    }
+}
+
+.is-volume-control {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &:not(:last-child) {
+        margin-bottom: functions.size(1.5em);
+    }
+
+    .wrapper {
+        position: relative;
+        width: calc(100% - 4em);
+        left: functions.size(4em);
+
+        .progress {
+            margin-bottom: 0;
+        }
+
+        .knob {
+            position: absolute;
+            top: 0;
+
+            &::after {
+                position: absolute;
+                width: functions.size(1.6em);
+                height: functions.size(1.6em);
+                left: functions.size(-1.5em);
+                top: functions.size(-0.3em);
+                content: " ";
+                background: #fff;
+                border-radius: 100%;
+                border: functions.size(0.2em) solid var(--flex-blue, #{variables.$blue});
+            }
+        }
+    }
+
+    .icon {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: functions.size(-1.5em);
+        font-size: functions.size(3em);
+
+        > i::before {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+// Progress Bar circle
+$progress-circle-slices: (
+    secondary: variables.$secondary,
+    tertiary: variables.$tertiary,
+    warning: variables.$warning,
+    empty: variables.$grey-light
+);
+
+.progress-circle {
+    --progress-circle-size: 140px;
+    --progress-circle-border-width: 8px;
+    --progress-circle-spacing: 0;
+    --progress-circle-spacing-color: 255, 255, 255;
+    --progress-circle-spacing-deg: calc(1deg * var(--progress-circle-spacing));
+
+    border-radius: 50%;
+    height: var(--progress-circle-size);
+    margin: functions.size(4em);
+    position: relative;
+    width: var(--progress-circle-size);
+}
+
+.progress-circle-content {
+    left: 50%;
+    line-height: 1.5;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+}
+
+.progress-circle-title {
+    color: rgba(variables.$tertiary, 0.7);
+    font-size: functions.size(2.8em);
+    font-weight: variables.$weight-semibold;
+}
+
+.progress-circle-sub {
+    color: var(--flex-text, #{variables.$text});
+    font-size: functions.size(1.5em);
+    font-weight: variables.$weight-semibold;
+    letter-spacing: 0.05em;
+}
+
+.progress-circle-slice {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.progress-circle-slice::before,
+.progress-circle-slice::after {
+    border: var(--progress-circle-border-width) solid rgba(0,0,0,0);
+    border-radius: 50%;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform: rotate(45deg);
+    width: 100%;
+}
+
+.progress-circle-slice::before {
+    border-width: calc(var(--progress-circle-border-width) + 1px);
+    box-shadow: 0 0 1px 0 #{'rgba(var(--progress-circle-spacing-color), calc(100 * var(--progress-circle-spacing)))'};
+}
+
+$slides-concat: '';
+
+@each $slice in $progress-circle-slices {
+    $name: list.nth($slice, 1);
+    $color: list.nth($slice, 2);
+    $i: list.index($progress-circle-slices, $slice);
+
+    @if $i > 1 {
+        .progress-circle-background-#{$name} {
+            --#{$name}-start: calc(#{$slides-concat});
+            --#{$name}-check: max(calc(var(--#{$name}-start) - .5), 0);
+
+            clip-path: inset(0 calc(50% * (var(--#{$name}-check) / var(--#{$name}-check))) 0 0);
+        }
+    }
+
+    @else {
+        .progress-circle-background-#{$name} {
+            --#{$name}-start: 0;
+        }
+    }
+
+    .progress-circle-background-#{$name}::before {
+        border-top-color: #{'rgba(var(--progress-circle-spacing-color), calc(100 * var(--progress-circle-spacing)))'};
+        transform: rotate(calc(360deg * var(--#{$name}-start) + 45deg));
+    }
+
+    .progress-circle-background-#{$name}::after {
+        border-top-color: rgba($color, 1);
+        border-right-color: rgba($color, calc(100 * (var(--#{$name}) - .25)));
+        border-bottom-color: rgba($color, calc(100 * (var(--#{$name}) - .5)));
+        border-left-color: rgba($color, calc(100 * (var(--#{$name}) - .75)));
+        transform: rotate(calc(360deg * var(--#{$name}-start) + 45deg + var(--progress-circle-spacing-deg)));
+    }
+
+    @if $i == 1 {
+        $slides-concat: var(--#{$name});
+    }
+
+    @else {
+        $slides-concat: $slides-concat + ' + ' + var(--#{$name});
+    }
+}

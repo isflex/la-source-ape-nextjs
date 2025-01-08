@@ -37,6 +37,7 @@ applications:
         build:
           commands:
             - 'cd ../../'
+            - export FLEX_PROJ_ROOT=$(pwd)
             - 'pnpm build'
       artifacts:
         baseDirectory: .next

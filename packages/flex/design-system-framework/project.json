@@ -1,0 +1,70 @@
+{
+  "name": "@flex-design-system/framework",
+  "prefix": "@flex-design-system",
+  "sourceRoot": "flex/design-system-framework/src",
+  "projectType": "library",
+  "targets": {
+    "build:fonts": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/src/assets/fonts",
+        "{projectRoot}/src/webfonts",
+        "{projectRoot}/docs/partials/icons"
+      ],
+      "options": {
+        "script": "build:fonts"
+      }
+    },
+    "build:css:rollup": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/flexiness-ds.css",
+        "{projectRoot}/dist/allv3.module.css"
+      ],
+      "options": {
+        "script": "build:css:rollup"
+      }
+    },
+    "build:css:namespace:gulp": {
+      "executor": "nx:run-script",
+      "inputs": ["{projectRoot}/dist/flexiness-ds.css"],
+      "outputs": ["{projectRoot}/dist/flexiness-ds-namespaced.css"],
+      "options": {
+        "script": "build:css:namespace:gulp"
+      },
+      "dependsOn": ["build:css:rollup"]
+    },
+    "build:types:modules3:default": {
+      "executor": "nx:run-script",
+      "outputs": ["{projectRoot}/types/__generated__/default"],
+      "options": {
+        "script": "build:types:modules3:default"
+      }
+    },
+    "build:types:modules3:named": {
+      "executor": "nx:run-script",
+      "outputs": ["{projectRoot}/types/__generated__/named"],
+      "options": {
+        "script": "build:types:modules3:named"
+      }
+    },
+    "build:lib": {
+      "executor": "nx:run-commands",
+      "inputs": [
+        "{projectRoot}/package.json",
+        "{projectRoot}/tsconfig.build.json",
+        "{projectRoot}/src/assets/fonts",
+        "{projectRoot}/src/modules3",
+        "{projectRoot}/dist"
+      ],
+      "outputs": [
+        "{workspaceRoot}/packages/flex/domain-content/content/assets/fonts",
+        "{workspaceRoot}/packages/flex/domain-content/content/css"],
+      "options": {
+        "command": "pnpm --filter @flex-design-system/framework 'build:lib'"
+      }
+    }
+  },
+  "implicitDependencies": [],
+  "tags": ["scope:flexiness-staging"]
+}

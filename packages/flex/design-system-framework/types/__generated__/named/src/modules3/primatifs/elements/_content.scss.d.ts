@@ -1,0 +1,11 @@
+export declare const content: string;
+export declare const flexinessRoot: string;
+export declare const isLarge: string;
+export declare const isLowerAlpha: string;
+export declare const isLowerRoman: string;
+export declare const isMedium: string;
+export declare const isNormal: string;
+export declare const isSmall: string;
+export declare const isUpperAlpha: string;
+export declare const isUpperRoman: string;
+export declare const tabs: string;

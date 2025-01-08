@@ -1,0 +1,516 @@
+@use "sass:color";
+@use "sass:list";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$button-background-color: variables.$white !default;
+$button-border-width: functions.size(0.2em) !default;
+$button-padding-vertical: calc(0.375em - #{$button-border-width}) !default;
+
+$button-hover-color: variables.$white !default;
+$button-hover-border-color: variables.$link-hover-border !default;
+
+$button-focus-color: variables.$link-focus !default;
+$button-focus-border-color: variables.$link-focus-border !default;
+$button-focus-box-shadow-size: 0 0 0 0.125em !default;
+$button-focus-box-shadow-color: rgba(variables.$link, 0.25) !default;
+
+$button-active-color: variables.$link-active !default;
+$button-active-border-color: variables.$link-active-border !default;
+
+$button-disabled-background-color: variables.$grey-light !default;
+$button-disabled-border-color: variables.$grey-light !default;
+$button-disabled-shadow: none !default;
+$button-disabled-opacity: 1 !default;
+
+$button-static-color: variables.$grey !default;
+$button-static-background-color: variables.$white !default;
+$button-static-border-color: variables.$grey-light !default;
+
+$is-check-button-icon-pos-left: functions.size(0.5em);
+
+.buttons {
+    width: 100%;
+
+    @include mixins.tablet {
+        display: flex;
+        align-items: center;
+        width: auto;
+    }
+
+    &.is-centered,
+    &.has-text-centered,
+    .has-text-centered & {
+        justify-content: center;
+    }
+
+    .button {
+        margin: functions.size(0.7em) 0;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        @include mixins.tablet {
+            margin-right: functions.size(0.7em);
+        }
+    }
+
+    .link {
+        @include mixins.tablet {
+            margin: 0 functions.size(2.6em);
+        }
+    }
+}
+
+.button {
+    @include mixins.control;
+    @include mixins.unselectable;
+
+    background-color: var(--flex-button-background-color, #{$button-background-color});
+    border-width: $button-border-width;
+    border-radius: functions.size(0.4em);
+    cursor: pointer;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    height: functions.size(4.5em);
+    padding: functions.size(.3em) functions.size(2.2em) $button-padding-vertical;
+    font-size: variables.$text-15;
+    text-decoration: inherit;
+    min-width: functions.size(12em);
+    font-weight: variables.$weight-semibold;
+
+    @include mixins.mobile {
+        width: 100%;
+    }
+
+    &.is-small,
+    &.is-small-mobile {
+        height: functions.size(3.5em);
+        font-size: variables.$text-15;
+        min-width: functions.size(12em);
+    }
+
+    &.is-loading {
+        color: transparent !important;
+        pointer-events: none;
+
+        &::after {
+            @include mixins.loader;
+            @include mixins.center(1em);
+
+            position: absolute !important;
+        }
+    }
+
+    /**
+    * @deprecated 02/10/2019
+    */
+    &.is-text {
+        text-decoration: underline;
+    }
+
+    &[class*="is-"] {
+        &:hover,
+        &.is-hovered {
+            opacity: 0.8;
+        }
+
+        &:focus,
+        &.is-focused,
+        &:active,
+        &.is-active {
+            filter: brightness(95%);
+        }
+
+        &[disabled] {
+            @extend %disabled;
+
+            background-color: var(--flex-grey-light, #{variables.$grey-light});
+            border-color: transparent;
+            box-shadow: none;
+            color: var(--flex-grey, #{variables.$grey});
+            filter: brightness(90%);
+
+            &:hover {
+                color: var(--flex-grey, #{variables.$grey});
+                opacity: 1;
+            }
+        }
+
+        /**
+        * @deprecated 02/10/2019
+        */
+        &.is-text {
+            background: none;
+            border: 0;
+            text-decoration: underline;
+            white-space: normal;
+
+            &:focus,
+            &:hover,
+            &.is-focused {
+                box-shadow: none;
+                background: none;
+            }
+
+            .is-admin & {
+                color: var(--flex-admin-invert, #{variables.$admin-invert});
+            }
+        }
+
+        &.is-inverted {
+            color: var(--flex-grey-dark, #{variables.$grey-dark});
+            border-color: transparent;
+
+            &[disabled] {
+                color: var(--flex-grey, #{variables.$grey});
+            }
+
+            &.is-outlined {
+                background-color: transparent;
+
+                &[disabled] {
+                    opacity: .6;
+                    box-shadow: none;
+                }
+            }
+
+            .is-admin & {
+                background-color: var(--flex-admin-invert, #{variables.$admin-invert});
+                color: var(--flex-admin, #{variables.$admin});
+                border-color: var(--flex-admin-invert, #{variables.$admin-invert});
+            }
+        }
+
+        &.is-outlined {
+            background-color: transparent;
+
+            &[disabled],
+            &[disabled]:hover {
+                background-color: transparent;
+                border-color: var(--flex-grey-light, #{variables.$grey-light});
+                box-shadow: none;
+                color: var(--flex-grey-light, #{variables.$grey-light});
+                filter: none;
+            }
+
+            .is-admin & {
+                color: var(--flex-admin-invert, #{variables.$admin-invert});
+                border-color: var(--flex-admin-invert, #{variables.$admin-invert});
+            }
+        }
+
+        &.is-admin {
+            &::before {
+                @include mixins.ui-icon;
+
+                content: "\f106";
+                margin-left: 0;
+                margin-right: functions.size(1em);
+                position: relative;
+                background-color: var(--flex-white, #{variables.$white});
+                padding: functions.size(0.5em);
+                border-radius: 100%;
+                color: var(--flex-grey, #{variables.$grey});
+                width: 2.5em;
+                height: 2.5em;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    @each $name, $pair in variables.$colors {
+        $color: list.nth($pair, 1);
+        $color-invert: list.nth($pair, 2);
+
+        &.is-#{$name} {
+            background-color: var(#{'--flex-'}#{$name}, #{$color});
+            border-color: var(#{'--flex-'}#{$name}, #{$color});
+            // color: var(--flex-color-invert, #{variables.$color-invert});
+            color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+
+            &:hover,
+            &.is-hovered,
+            &:focus,
+            &.is-focused,
+            &:active,
+            &.is-active {
+                // color: var(--flex-color-invert, #{variables.$color-invert});
+                color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+            }
+
+            &:focus,
+            &.is-focused {
+                box-shadow: $button-focus-box-shadow-size rgba($color, 0.25);
+            }
+
+            &.is-inverted {
+                // background-color: var(--flex-color-invert, #{variables.$color-invert});
+                background-color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+
+                &:hover:not([disabled]),
+                &.is-hovered:not([disabled]) {
+                    // background-color: var(--flex-color-invert, #{variables.$color-invert});
+                    background-color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+                    color: color.scale($color, $alpha: -20%);
+                    opacity: 1;
+                }
+
+                &:focus,
+                &.is-focused {
+                    box-shadow: $button-focus-box-shadow-size rgba($color-invert, 0.25);
+                }
+
+                /**
+                * @deprecated 02/10/2019
+                */
+                &.is-text {
+                    // color: var(--flex-color-invert, #{variables.$color-invert});
+                    color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+                }
+            }
+
+            &.is-text,
+            &.is-outlined {
+                color: var(#{'--flex-'}#{$name}, #{$color});
+            }
+
+            &.is-outlined {
+                color: var(#{'--flex-'}#{$name}, #{$color});
+
+                &:hover,
+                &.is-hovered,
+                &:focus,
+                &.is-focused {
+                    background-color: rgba($color, 0.05);
+                    color: var(#{'--flex-'}#{$name}, #{$color});
+                }
+
+                &:active,
+                &.is-active {
+                    background-color: rgba($color, 0.1);
+                }
+
+                &.is-active[disabled],
+                &.is-focused[disabled] {
+                    background-color: transparent;
+                    border-color: var(--flex-button-disabled-border-color, #{$button-disabled-border-color});
+                    color: var(--flex-grey-light, #{variables.$grey-light});
+                }
+
+                &:focus,
+                &.is-focused {
+                    box-shadow: $button-focus-box-shadow-size rgba($color, 0.25);
+                }
+
+                &.is-download {
+                    border-style: dashed;
+
+                    .icon {
+                        margin-left: functions.size(-1em);
+                        padding-right: functions.size(1em);
+                        font-size: functions.size(1.6em);
+                    }
+                }
+            }
+
+            &.is-inverted.is-outlined {
+                // border-color: var(--flex-color-invert, #{variables.$color-invert});
+                border-color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+                // color: var(--flex-color-invert, #{variables.$color-invert});
+                color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+
+                &:hover,
+                &.is-hovered {
+                    background-color: rgba($color-invert, 0.1);
+                    // color: var(--flex-color-invert, #{variables.$color-invert});
+                    color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+                }
+
+                &:focus,
+                &.is-focused {
+                    border-color: rgba($color-invert, 0.1);
+                    box-shadow: $button-focus-box-shadow-size rgba($color-invert, 0.25);
+                }
+
+                &:active,
+                &.is-active {
+                    background-color: rgba($color-invert, 0.2);
+                    // color: var(--flex-color-invert, #{variables.$color-invert});
+                    color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+                }
+
+                &[disabled] {
+                    opacity: .6;
+                    background-color: rgba($color-invert, .2);
+                    // border-color: var(--flex-color-invert, #{variables.$color-invert});
+                    border-color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+                    // color: var(--flex-color-invert, #{variables.$color-invert});
+                    color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+                }
+
+                &.is-loading {
+                    &::after {
+                        border-color: transparent transparent $color-invert $color-invert !important;
+                    }
+                }
+            }
+
+            .is-admin & {
+                background-color: var(--flex-admin-invert, #{variables.$admin-invert});
+                color: var(--flex-admin, #{variables.$admin});
+                border-color: var(--flex-admin-invert, #{variables.$admin-invert});
+            }
+        }
+    }
+
+    &.is-primary {
+        &.is-inverted {
+            color: var(--flex-primary, #{variables.$primary});
+        }
+    }
+
+    &.is-primary.is-outlined,
+    &.is-secondary {
+        background-color: transparent;
+        border-color: var(--flex-secondary, #{variables.$secondary});
+        color: var(--flex-secondary, #{variables.$secondary});
+
+        &[disabled] {
+            background-color: var(--flex-grey-lighter, #{variables.$grey-lighter});
+            border-color: var(--flex-grey, #{variables.$grey});
+            color: var(--flex-grey, #{variables.$grey});
+        }
+
+        &:not([disabled]) {
+            &:hover,
+            &.is-hovered {
+                background-color: var(--flex-secondary, #{variables.$secondary});
+                color: var(--flex-secondary-invert, #{variables.$secondary-invert});
+                opacity: 1;
+            }
+
+            &:active,
+            &.is-active,
+            &:focus,
+            &.is-focused {
+                background-color: var(--flex-secondary, #{variables.$secondary});
+                color: var(--flex-secondary-invert, #{variables.$secondary-invert});
+            }
+        }
+
+        &.is-inverted {
+            color: var(--flex-white, #{variables.$white});
+            background-color: transparent;
+            border-color: var(--flex-white, #{variables.$white});
+
+            &[disabled] {
+                border-color: var(--flex-grey-light, #{variables.$grey-light});
+                color: var(--flex-grey-light, #{variables.$grey-light});
+            }
+
+            &:not([disabled]) {
+                &:hover,
+                &.is-hovered {
+                    background-color: var(--flex-white, #{variables.$white});
+                    color: color.scale(variables.$secondary, $alpha: -20%);
+                }
+
+                &:active,
+                &.is-active,
+                &:focus,
+                &.is-focused {
+                    background-color: var(--flex-white, #{variables.$white});
+                    color: var(--flex-secondary, #{variables.$secondary});
+                }
+            }
+        }
+    }
+
+    %disabled {
+        background-color: var(--flex-button-disabled-background-color, #{$button-disabled-background-color});
+        border-color: var(--flex-button-disabled-border-color, #{$button-disabled-border-color});
+        color: var(--flex-grey, #{variables.$grey});
+        box-shadow: $button-disabled-shadow;
+        opacity: $button-disabled-opacity;
+    }
+
+    /**
+    * @deprecated 02/10/2019
+    */
+    &.link:not([disabled]) {
+        text-decoration: none;
+        min-width: 0;
+        padding: 0;
+        border: solid transparent;
+        border-width: functions.size(1.2em) functions.size(2.6em);
+        height: auto;
+
+        &.is-small {
+            border-width: functions.size(0.45em) functions.size(2.2em);
+        }
+    }
+
+    &.is-striked {
+        @extend %disabled;
+
+        background: transparent;
+        border-color: var(--flex-border-grey-dark, #{variables.$border-grey-dark});
+        color: var(--flex-border-grey-dark, #{variables.$border-grey-dark});
+        overflow: hidden;
+        position: relative;
+
+        &,
+        &:hover {
+            cursor: not-allowed;
+            filter: none;
+        }
+
+        &,
+        &.small {
+            &::after {
+                background: variables.$border-grey-dark;
+                content: '';
+                height: functions.size(0.1em);
+                position: absolute;
+                width: 110%;
+            }
+        }
+
+        &::after {
+            transform: rotate(20deg);
+        }
+
+        &.small {
+            &::after {
+                transform: rotate(15deg);
+            }
+        }
+    }
+
+    &.is-icon-holder {
+        background: transparent;
+        border: solid transparent;
+        overflow: hidden;
+        min-width: auto;
+        width: inherit;
+    }
+
+    &.is-text-ellipsis-holder {
+        background: transparent;
+        border: solid transparent;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        min-width: auto;
+        width: inherit;
+        height: inherit;
+        display: block;
+    }
+}

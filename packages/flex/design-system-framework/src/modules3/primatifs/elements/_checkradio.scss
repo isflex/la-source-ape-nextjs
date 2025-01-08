@@ -1,0 +1,209 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+.is-checkradio[type="radio"],
+.is-checkradio[type="checkbox"] {
+    outline: 0;
+    user-select: none;
+    display: inline-block;
+    position: absolute;
+    opacity: 0;
+
+    + label {
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            &::before {
+                animation-duration: 0.4s;
+                animation-fill-mode: both;
+                animation-name: hover-color;
+            }
+        }
+
+        &::before,
+        &::after {
+            content: '';
+        }
+
+        &::before {
+            // border: functions.size(0.1em) solid variables.$grey;
+            // border: functions.size(0.1em) solid var(--flex-border-grey, #{variables.$border-grey});
+            // margin-right: functions.size(1em);
+            // min-width: functions.size(1.6em);
+            // min-height: functions.size(1.6em);
+            // border: 0.07em solid variables.$grey;
+            border: 0.07em solid var(--flex-border-grey, #{variables.$border-grey});
+            margin-right: 0.8em;
+            min-width: 1em;
+            min-height: 1em;
+        }
+
+        &::after {
+            position: absolute;
+            display: none;
+        }
+
+        &.is-descriptive {
+            flex-wrap: wrap;
+
+            &::after {
+                top: 8px;
+            }
+
+            span {
+                flex-basis: 100%;
+                display: inline-block;
+                padding-left: functions.size(2.5em);
+                margin-top: functions.size(0.5em);
+                font-size: variables.$text-13;
+                color: var(--flex-grey, #{variables.$grey});
+            }
+        }
+    }
+
+    &:focus {
+        + label {
+            &::before {
+                outline: 1px dotted variables.$grey-light;
+            }
+        }
+    }
+
+    &:hover:not([disabled]) {
+        + label {
+            &::before {
+                border-color: var(--flex-grey-dark, #{variables.$grey-dark});
+            }
+        }
+    }
+
+    &:checked {
+        + label {
+            &::before {
+                animation-name: none;
+                border-color: var(--flex-grey, #{variables.$grey});
+                color: var(--flex-secondary, #{variables.$secondary});
+            }
+
+            &::after {
+                display: inline-flex;
+            }
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+
+            + label {
+                opacity: 0.5;
+            }
+        }
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
+
+        + label {
+            opacity: 0.5;
+            cursor: not-allowed;
+
+            &:hover,
+            &::before,
+            &::after {
+                cursor: not-allowed;
+            }
+        }
+
+        &:hover {
+            cursor: not-allowed;
+
+            &::before {
+                animation-name: none;
+            }
+        }
+
+        &::before,
+        &::after {
+            cursor: not-allowed;
+        }
+    }
+
+    &.is-inverted {
+        + label::before,
+        &:hover:not([disabled]) + label::before,
+        &:checked + label::before {
+            border-color: var(--flex-white, #{variables.$white});
+        }
+
+        + label,
+        &:checked + label::before {
+            color: var(--flex-white, #{variables.$white});
+        }
+    }
+}
+
+.is-checkradio[type="checkbox"] {
+    + label {
+        &::before {
+            border-radius: variables.$radius-small;
+        }
+
+        &::after {
+            @include mixins.ui-icon;
+
+            content: '\f102';
+            display: none;
+            color: var(--flex-secondary, #{variables.$secondary});
+            top: 0.75em;
+            left: 0.05em;
+            line-height: 0;
+            margin: 0;
+        }
+    }
+
+    &.is-inverted {
+        + label::after {
+            color: var(--flex-white, #{variables.$white});
+        }
+    }
+}
+
+.is-checkradio[type="radio"] {
+    + label {
+        line-height: 1;
+
+        &::before,
+        &::after {
+            border-radius: 100%;
+        }
+
+        &::after {
+            top: 50%;
+            transform: translateY(-50%);
+            // left: 2px;
+            // width: functions.size(1.2em);
+            // height: functions.size(1.2em);
+            left: 0.14em;
+            width: calc(1em - (2 * 0.14em));
+            height: calc(1em - (2 * 0.14em));
+        }
+    }
+
+    &:checked {
+        + label {
+            &::after {
+                background-color: var(--flex-secondary, #{variables.$secondary});
+            }
+        }
+    }
+
+    &.is-inverted {
+        &:checked + label::after {
+            background-color: var(--flex-white, #{variables.$white});
+        }
+    }
+}

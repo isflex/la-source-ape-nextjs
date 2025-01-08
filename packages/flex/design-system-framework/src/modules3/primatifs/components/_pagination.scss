@@ -1,0 +1,41 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$pagination-active-color: variables.$blue;
+$pagination-active-border-color: variables.$blue;
+$pagination-border-color: variables.$transparent;
+
+// @use "@bulvar/bulma/sass/components/pagination";
+@use "../utilities/vendors/bulma-extensions/pagination";
+
+.pagination {
+    justify-content: center;
+
+    &.is-rounded {
+        .pagination-link,
+        .pagination-previous,
+        .pagination-next {
+            height: functions.size(3.5em);
+            min-width: var(--pagination-min-width, 2.5rem);
+        }
+
+        .pagination-previous,
+        .pagination-next {
+            width: functions.size(3.5em);
+        }
+
+        .pagination-list {
+            flex: 0 0 auto;
+
+            .pagination-link {
+                &.is-current {
+                    color: var(--flex-white, #{variables.$white});
+                    background: var(--flex-pagination-active-color, #{$pagination-active-color});
+                    border-color: var(--flex-pagination-active-border-color, #{$pagination-active-border-color});
+                }
+            }
+        }
+    }
+}

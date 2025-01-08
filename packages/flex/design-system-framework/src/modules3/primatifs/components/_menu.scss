@@ -1,0 +1,232 @@
+@use "sass:color";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$menu-item-color: variables.$text;
+$menu-item-hover-color: variables.$secondary;
+$menu-item-hover-background-color: transparent;
+$menu-item-active-color: variables.$secondary;
+$menu-item-active-background-color: variables.$grey-light;
+
+$menu-label-color: variables.$instit;
+
+$menu-top: functions.size(6em);
+$menu-top-desktop: functions.size(8em);
+
+$menu-item-height: 3.125em;
+$menu-item-line-height: calc($menu-item-height / 2);
+$menu-dropdown-item-height: 2em;
+
+.menu {
+    font-size: variables.$text-14;
+
+    &.is-small {
+        font-size: variables.$size-small;
+    }
+
+    &.is-medium {
+        font-size: variables.$size-medium;
+    }
+
+    &.is-large {
+        font-size: variables.$size-large;
+    }
+
+    &.is-fixed {
+        position: fixed;
+        max-width: functions.size(37.4em);
+    }
+
+    li {
+        // border-bottom: functions.size(.1em) solid color.adjust(variables.$grey-light, $lightness: 7%);
+        border-bottom: functions.size(0.1em) solid var(--flex-menu-border, #{variables.$border-grey-light});
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    &:not([class*="has-background-"]) {
+      li {
+        border-bottom: functions.size(0.1em) solid transparent;
+      }
+    }
+
+    .navbar.navbar-header .navbar-menu & {
+        top: $menu-top;
+
+        @include mixins.desktop {
+            top: $menu-top-desktop;
+        }
+    }
+}
+
+.menu-title {
+    padding-left: functions.size(1em);
+}
+
+.menu-list {
+    line-height: 1.25;
+    padding: functions.size(1em) 0;
+    border-bottom: functions.size(0.1em) solid var(--flex-border, #{variables.$border});
+
+    a {
+        @include mixins.unselectable;
+
+        color: var(--flex-menu-item-color, #{$menu-item-color});
+        padding: functions.size(1em) 0.75em;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-decoration: inherit;
+
+        &:hover {
+            background-color: var(--flex-menu-item-hover-background-color, #{$menu-item-hover-background-color});
+            color: var(--flex-menu-item-hover-color, #{$menu-item-hover-color});
+        }
+
+        &.with-arrow::after {
+            @include mixins.arrow(variables.$tertiary);
+
+            content: '\f107';
+            right: 0.75em;
+        }
+
+        &.is-active {
+            background-color: var(--flex-menu-item-active-background-color, #{$menu-item-active-background-color});
+            color: var(--flex-menu-item-active-color, #{$menu-item-active-color});
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: functions.size(.4em);
+                height: 100%;
+                background-color: var(--flex-instit, #{variables.$instit});
+            }
+        }
+
+        .badge {
+            margin-top: functions.size(0.1em);
+        }
+
+        .icon {
+            margin: functions.size(-0.1em) functions.size(1em) 0 0;
+        }
+    }
+
+    li {
+        ul {
+            margin: 0.75em;
+            padding-left: 0.75em;
+        }
+    }
+
+    &.dropdown-menu-list,
+    &.aside-menu-list {
+        color: var(--flex-text, #{variables.$text});
+        border: 0;
+        background-color: var(--flex-menu-list-fill, #{variables.$white});
+        padding: 0;
+
+        li {
+            ul {
+                padding: 0;
+                margin: 0.4em 0 0.8em;
+
+                li {
+                    padding: 0;
+
+                    a {
+                        min-height: $menu-dropdown-item-height;
+                        line-height: $menu-dropdown-item-height;
+                        padding: 0 2.4em;
+                    }
+                }
+            }
+        }
+
+        li.is-active a,
+        a.is-active {
+            box-shadow: inset functions.size(0.4em) 0 0 0 variables.$instit;
+            color: var(--flex-instit, #{variables.$instit});
+            background: inherit;
+        }
+
+        a {
+            padding: 0 1.2em;
+            color: var(--flex-menu-item-color, #{$menu-item-color});
+            min-height: $menu-dropdown-item-height;
+            line-height: $menu-dropdown-item-height;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+
+            &:hover {
+                color: var(--flex-instit, #{variables.$instit});
+                background-color: var(--flex-grey-lighter, #{variables.$grey-lighter});
+            }
+
+            sub {
+                display: inline-block;
+                height: functions.size(2em);
+                margin: functions.size(0.3em);
+            }
+
+            .tag {
+                height: functions.size(2em);
+                padding: functions.size(0.5em);
+                margin-left: functions.size(0.5em);
+            }
+        }
+    }
+
+    &.aside-menu-list {
+        border-right: functions.size(0.1em) solid variables.$border;
+
+        a {
+            padding-left: 1.2em;
+            padding-top: 0.8em;
+            min-height: $menu-item-height;
+            line-height: $menu-item-line-height;
+            color: var(--flex-menu-item-color, #{$menu-item-color});
+
+            &:hover {
+                color: var(--flex-instit, #{variables.$instit});
+                background-color: var(--flex-grey-lighter, #{variables.$grey-lighter});
+            }
+        }
+    }
+}
+
+.menu-label {
+    color: var(--flex-menu-label-color, #{$menu-label-color});
+    font-size: functions.size(1.4em);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: variables.$weight-semibold;
+    padding-bottom: 1em;
+    border-bottom: functions.size(.2em) solid $menu-label-color;
+
+    &:not(:first-child) {
+        margin-top: 1em;
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 1em;
+    }
+}
+
+aside.menu {
+    > div {
+        padding: functions.size(1em);
+    }
+}
+
+.is-sidebar-menu ul.menu-list {
+    height: 100%;
+}

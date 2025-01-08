@@ -1,0 +1,164 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+.flexiness-root [data-slider=true] {
+    position: relative;
+
+    [data-slider-pages] {
+        overflow: hidden;
+
+        &.columns {
+            width: calc(100% + (#{variables.$column-gap} * 6));
+            margin-left: calc(-#{variables.$column-gap} * 3);
+            margin-right: calc(-#{variables.$column-gap} * 3);
+        }
+
+        @include mixins.tablet {
+            &.columns {
+                width: calc(100% + (#{variables.$column-gap} * 6));
+                margin-left: calc(-#{variables.$column-gap} * 3);
+                margin-right: calc(-#{variables.$column-gap} * 3);
+            }
+        }
+
+        @include mixins.desktop {
+            &.columns {
+                width: 100%;
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+    }
+
+    [data-slider-page] {
+
+        &.column {
+            max-width: 100%;
+            display: grid;
+
+            .card-image image {
+                width: 100%;
+            }
+        }
+
+        &.column:not(.is-12-mobile) {
+            min-width: 0;
+        }
+    }
+
+    &.show-more {
+        [data-slider-pages] {
+            overflow: visible;
+            
+            &.columns {
+                width: calc(100% + (#{variables.$column-gap} * 3));
+                margin-left: 0;
+                margin-right: 0;
+    
+                .column {
+                    width: calc(100% - 2rem);
+                }
+            }
+    
+            @include mixins.tablet {
+                overflow: visible;
+
+                &.columns {
+                    width: calc(100% + (#{variables.$column-gap} * 3));
+                    margin-left: 0;
+                    margin-right: 0;
+    
+                    .column {
+                        width: calc(100% - 2rem);
+                    }
+                }
+            }
+    
+            @include mixins.desktop {
+                overflow: hidden;
+
+                &.columns {
+                    width: 100%;
+                    margin-left: 0;
+                    margin-right: 0;
+
+                    .column {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    [data-slider-dots] {
+        position: absolute;
+        left: 50%;
+        bottom: functions.size(-2em);
+        transform: translateX(-50%);
+
+        &:not(.is-inverted) {
+            .slider-dot {
+                background-color: var(--flex-white, #{variables.$white});
+            }
+        }
+
+        .slider-dot {
+            width: functions.size(0.7em);
+            height: functions.size(0.7em);
+            background-color: var(--flex-grey, #{variables.$grey});
+            border-radius: 100%;
+            margin: functions.size(0.4em);
+            padding: 0;
+            opacity: 1;
+
+            &.is-active {
+                background-color: var(--flex-secondary, #{variables.$secondary});
+            }
+        }
+    }
+
+    [data-slider-prev],
+    [data-slider-next] {
+        box-shadow: 0 2px 4px 0 rgba(variables.$black, 0.1);
+        position: absolute;
+        z-index: functions.zindex("tiny");
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        display: none;
+
+        @include mixins.desktop {
+            display: flex;
+        }
+    }
+
+    [data-slider-prev] {
+        right: auto;
+        left: 0;
+        // left: functions.size(3em);
+    }
+
+    [data-slider-next] {
+        left: auto;
+        right: 0;
+        // right: functions.size(3em);
+    }
+
+    &.is-motionless-desktop {
+        @include mixins.desktop {
+            pointer-events: none;
+
+            a,
+            .link,
+            .button {
+                pointer-events: auto;
+            }
+
+            [data-slider-page] {
+                min-width: auto;
+            }
+        }
+    }
+}

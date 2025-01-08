@@ -1,0 +1,28 @@
+{
+  "extends": "../../../tsconfig.build.settings.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "outDir": "./compile",
+    "rootDir": "src",
+    "paths": {
+      "flexiness": ["../types"],
+
+    },
+    "rootDirs": [
+      "./src",
+      "./types/__generated__/default/src",
+    ],
+  },
+  "include": [
+    "src/**/*",
+    "./types/__generated__/default/src/**/*",
+  ],
+  "exclude": [
+    "node_modules",
+    "docs",
+    "gulp",
+    "scripts",
+    "rollup*.config.js"
+  ]
+}

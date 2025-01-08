@@ -1,0 +1,34 @@
+{
+  "name": "@flexiness/webpack",
+  "version": "1.0.0",
+  "private": true,
+  "exports": {
+    "./cssLoader.cjs": "./src/partial/loaders/cssLoader.cjs",
+    "./cssLoaderCustomStyleLoader.cjs": "./src/partial/loaders/cssLoaderCustomStyleLoader.cjs",
+    "./cssLoaderOnlyCssLoader.cjs": "./src/partial/loaders/cssLoaderOnlyCssLoader.cjs",
+    "./cssLoaderOnlyCustomStyleLoader.cjs": "./src/partial/loaders/cssLoaderOnlyCustomStyleLoader.cjs",
+    "./cssLoaderOnlyMiniExtract.cjs": "./src/partial/loaders/cssLoaderOnlyMiniExtract.cjs",
+    "./modularSass.cjs": "./src/partial/loaders/modularSass.cjs",
+    "./modularSassCustomStyleLoader.cjs": "./src/partial/loaders/modularSassCustomStyleLoader.cjs",
+    "./modularSassOnlyCssLoader.cjs": "./src/partial/loaders/modularSassOnlyCssLoader.cjs",
+    "./modularSassOnlyCustomStyleLoader.cjs": "./src/partial/loaders/modularSassOnlyCustomStyleLoader.cjs",
+    "./modularSassOnlyMiniExtract.cjs": "./src/partial/loaders/modularSassOnlyMiniExtract.cjs",
+    "./modularSassOnlyStyleLoaderDev.cjs": "./src/partial/loaders/modularSassOnlyStyleLoaderDev.cjs"
+  },
+  "dependencies": {
+    "@flexiness/domain-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "css-loader": "7.1.2",
+    "mini-css-extract-plugin": "2.9.0",
+    "postcss": "8.4.38",
+    "postcss-import": "16.1.0",
+    "postcss-loader": "8.1.1",
+    "postcss-nested": "6.0.1",
+    "postcss-scss": "4.0.9",
+    "sass": "1.83.1",
+    "sass-loader": "14.2.1",
+    "style-loader": "4.0.0",
+    "webpack": "5.97.1"
+  }
+}

@@ -1,0 +1,2313 @@
+@use "sass:color";
+@use "sass:list";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$colors-navbar: null;
+
+$navbar-box-shadow-size: 0;
+$navbar-height: functions.size(6em);
+$navbar-height-desktop: functions.size(8em);
+$navbar-border: #d8d8d8;
+
+$navbar-item-color: #7d7d7d;
+$navbar-item-hover-color: #454545;
+$navbar-item-hover-background-color: initial;
+$navbar-item-active-color: #454545;
+$navbar-item-width: functions.size(9.1em);
+$navbar-item-width-tablet: functions.size(6.1em);
+
+$navbar-tab-hover-background-color: inherit;
+$navbar-tab-hover-border-bottom-color: transparent;
+$navbar-tab-active-color: variables.$instit;
+$navbar-tab-active-border-bottom-color: variables.$instit;
+
+$navbar-dropdown-boxed-shadow: 0 functions.size(0.8em) functions.size(0.8em) rgba(#454545, 0.1), 0 0 0 functions.size(0.1em) rgba(#454545, 0.1);
+$navbar-dropdown-background-color: variables.$white;
+
+$navbar-dropdown-item-hover-color: variables.$primary;
+$navbar-dropdown-item-hover-background-color: initial;
+$navbar-dropdown-item-active-color: variables.$primary;
+$navbar-dropdown-item-active-background-color: initial;
+
+$navbar-divider-background-color: rgba(#7d7d7d, 0.2);
+$navbar-divider-height: functions.size(0.1em);
+
+// Used
+$navbar-fill: variables.$white !default;
+
+$navbar-touch-margin-horizontal: functions.size(2em);
+
+$navbar-section-padding: #{variables.$box-padding * 2};
+$navbar-accordion-active-border-size: functions.size(0.5em);
+$navbar-dropdown-padding-between-items: functions.size(1em);
+
+.navbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    height: $navbar-height;
+    min-height: $navbar-height;
+    background-color: var(--flex-navbar-fill, #{$navbar-fill});
+    border-bottom: functions.size(0.1em) solid $navbar-border;
+
+    @include mixins.unselectable;
+
+    @include mixins.desktop {
+        height: $navbar-height-desktop;
+        min-height: $navbar-height-desktop;
+    }
+
+    .bg-connected {
+        background-color: var(--flex-quaternary, #{variables.$quaternary});
+    }
+
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+        width: variables.$logo-width;
+
+        @include mixins.tablet {
+            width: variables.$logo-width-desktop;
+        }
+
+        .navbar-item {
+            border: 0;
+            padding: functions.size(0.5em) 0 functions.size(0.5em) functions.size(1em);
+
+            @include mixins.tablet {
+                padding: 0.5em 2em;
+            }
+
+            img {
+                display: block;
+                max-height: functions.size(5em);
+            }
+        }
+    }
+
+    .navbar-title {
+        &::before {
+            content: "";
+            background: #ececec;
+            width: functions.size(0.1em);
+            height: functions.size(1.4em);
+            margin-right: functions.size(2.4em);
+        }
+
+        padding: functions.size(.5em) functions.size(2em);
+        display: flex;
+        align-items: center;
+        font-weight: variables.$weight-semibold;
+    }
+
+    .navbar-start {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        margin-right: auto;
+    }
+
+    .navbar-end {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+        padding: 0;
+    }
+
+    .navbar-menu {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+    }
+
+    .navbar-item {
+        color: #7d7d7d;
+        font-weight: variables.$weight-semibold;
+        padding: functions.size(.5em) functions.size(2em);
+        position: relative;
+
+        .navbar-link {
+            color: #7d7d7d;
+        }
+    }
+
+    .navbar-links,
+    .navbar-icons {
+        .navbar-item {
+            &.is-megadropdown-parent {
+                position: initial;
+
+                .navbar-dropdown {
+                    padding: $navbar-section-padding;
+                    top: calc(100% + #{functions.size(0.1em)});
+                    right: 0;
+                    left: 0;
+                    border-radius: 0;
+                    background-color: var(--flex-white, #{variables.$white});
+
+                    @include mixins.touch {
+                        margin: 0;
+                        box-shadow: none;
+
+                        &::before {
+                            display: none;
+                        }
+                    }
+
+                    .column:not(:last-child) {
+                        .navbar-dropdown-section {
+                            @include mixins.widescreen {
+                                border-right: functions.size(0.1em) solid variables.$border-grey;
+                            }
+                        }
+                    }
+
+                    .navbar-dropdown-section {
+                        padding: functions.size(2.5em);
+                        display: flex;
+                        flex-direction: column;
+
+                        .navbar-category-title {
+                            color: var(--flex-info, #{variables.$info});
+                            font-size: variables.$size-6;
+                            font-weight: variables.$weight-semibold;
+                            margin-bottom: functions.size(1em);
+                            text-transform: uppercase;
+
+                            a {
+                                color: var(--flex-info, #{variables.$info});
+                            }
+                        }
+
+                        @include mixins.mobile {
+                            margin-left: -$navbar-section-padding;
+                            margin-right: -$navbar-section-padding;
+
+                            &:first-child {
+                                margin-top: -$navbar-section-padding;
+                            }
+
+                            &:last-child {
+                                margin-bottom: -$navbar-section-padding;
+                            }
+
+                            &:nth-child(even) {
+                                background: #f3f3f3;
+                            }
+                        }
+
+                        @include mixins.widescreen {
+                            padding: 0 functions.size(2.5em);
+                        }
+
+                        .title {
+                            align-self: center;
+
+                            @include mixins.widescreen {
+                                align-self: flex-start;
+                                color: var(--flex-info, #{variables.$info});
+                            }
+                        }
+
+                        .navbar-item-accordion {
+                            width: calc(100% + #{$navbar-section-padding} * 2);
+                            margin-left: -$navbar-section-padding;
+                            margin-right: -$navbar-section-padding;
+                            padding-left: calc(#{$navbar-section-padding} - #{$navbar-accordion-active-border-size});
+                            padding-right: $navbar-section-padding;
+                            border-left: $navbar-accordion-active-border-size solid transparent;
+
+                            > .navbar-item-accordion-content {
+                                transition: max-height 0.5s ease-out;
+                                max-height: functions.size(50em);
+                                overflow: hidden;
+                            }
+
+                            > .navbar-item-accordion-content > .navbar-link,
+                            > .navbar-item-accordion-content > .navbar-item {
+                                display: flex;
+                                width: 100%;
+                                margin-left: functions.size(2em);
+                                padding-left: functions.size(1.5em);
+                                font-size: functions.size(1.3em);
+                                color: #7d7d7d;
+                                position: relative;
+                                align-items: flex-start;
+
+                                &::before {
+                                    content: '\2022';
+                                    position: absolute;
+                                    left: 0;
+                                }
+                            }
+
+                            .navbar-item-accordion-header {
+                                width: 100%;
+                                position: relative;
+                                padding-top: $navbar-dropdown-padding-between-items;
+                                padding-bottom: $navbar-dropdown-padding-between-items;
+
+                                &::after {
+                                    @include mixins.arrow(#454545);
+
+                                    right: 0;
+                                    top: functions.size(1.2em);
+                                }
+                            }
+
+                            &.is-active {
+                                border-left: $navbar-accordion-active-border-size solid variables.$info;
+
+                                .navbar-item-accordion-header {
+                                    color: var(--flex-info, #{variables.$info});
+                                    font-weight: variables.$weight-semibold;
+
+                                    &::after {
+                                        content: "\f105"; /* arrow-up */
+                                        color: var(--flex-info, #{variables.$info});
+                                    }
+                                }
+                            }
+
+                            &:not(.is-active) {
+                                .navbar-item-accordion-content {
+                                    max-height: 0;
+                                }
+                            }
+                        }
+
+                        .navbar-item {
+                            padding-left: 0;
+                            padding-right: 0;
+
+                            &.has-ending-arrow {
+                                &::after {
+                                    @include mixins.arrow(#7d7d7d);
+
+                                    top: 50%;
+                                    right: 0;
+                                    transform: translateY(-50%) rotate(-90deg);
+                                }
+
+                                &:hover::after,
+                                &:focus::after {
+                                    color: var(--flex-instit, #{variables.$instit});
+                                }
+                            }
+                        }
+
+                        .navbar-item,
+                        .navbar-link,
+                        .navbar-item-accordion {
+                            font-weight: variables.$weight-normal;
+
+                            &::after {
+                                content: none;
+                            }
+
+                            &.is-highlighted {
+                                font-size: functions.size(1.5em);
+                                font-weight: variables.$weight-semibold;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.is-active,
+            &.is-hoverable:hover {
+                .navbar-dropdown {
+                    display: flex;
+                }
+            }
+        }
+    }
+
+    .navbar-links {
+        display: flex;
+        height: 100%;
+
+        > .navbar-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            height: calc(100% + #{functions.size(0.1em)});
+
+            &.is-active,
+            &:hover {
+                color: var(--flex-instit, #{variables.$instit});
+                border-bottom-color: variables.$info;
+
+                > .navbar-link {
+                    color: var(--flex-instit, #{variables.$instit});
+                }
+            }
+
+            &:not(:last-of-type)::after {
+                content: " ";
+                position: relative;
+                left: functions.size(2em);
+                height: functions.size(1.5em);
+                width: functions.size(.1em);
+                background-color: #7d7d7d;
+            }
+
+            &.is-megadropdown-parent {
+                .navbar-dropdown {
+                    margin-top: 0;
+
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .navbar-icons {
+        height: 100%;
+        display: flex;
+
+        > .navbar-item {
+            height: 100%;
+            min-width: $navbar-item-width;
+            font-size: functions.size(1.1em);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: functions.size(0.5em);
+            border-left: functions.size(0.1em) solid #d8d8d8;
+            cursor: pointer;
+
+            @include mixins.mobile {
+                min-width: $navbar-item-width-tablet;
+                border-left-width: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+
+            // au survol + element actif
+            @include mixins.tablet {
+                &:hover,
+                &.is-active {
+                    color: var(--flex-info, #{variables.$info});
+                    position: relative;
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        z-index: functions.zindex('small');
+                        bottom: 0;
+                        height: functions.size(0.3em);
+                        background-color: var(--flex-info, #{variables.$info});
+                        left: functions.size(-0.1em);
+                        right: functions.size(-0.1em);
+                    }
+                }
+
+                &:hover {
+                    background-color: #f3f3f3;
+                }
+            }
+
+            // item alternatif + element actif
+            &.is-alternate,
+            &.is-secondary {
+                background-color: #f3f3f3;
+            }
+
+            // item alternatif au survol + item alternatif actif
+            &.is-secondary:hover,
+            &.is-alternate:hover,
+            &.is-secondary.is-active,
+            &.is-alternate.is-active {
+                color: var(--flex-instit, #{variables.$instit});
+                background-color: color.adjust(#f3f3f3, $lightness: -5%);
+
+                .navbar-link {
+                    color: var(--flex-instit, #{variables.$instit});
+                }
+
+                &::after {
+                    content: none;
+                }
+            }
+
+            // styles spécifiques pour le dropdown utilisateur non connecté
+            @include mixins.desktop {
+                &.is-fourth.is-megadropdown-parent {
+                    .navbar-dropdown {
+                        width: 380px;
+                        padding: 20px 0;
+                    }
+                }
+            }
+
+            // styles spécifiques pour le lien enfant d'item
+            .navbar-link {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            > .icon,
+            > .navbar-link > .icon {
+                font-size: functions.size(2.4em);
+                line-height: 1;
+
+                // specifique pour utilisateur loggué
+                &.is-small {
+                    transform: translateY(50%);
+                }
+            }
+        }
+
+        $colors-navbar: (
+            "info": (variables.$info, variables.$info-invert, color.adjust(variables.$info, $lightness: -5%)), // deprecated
+            "success": (#00c099, variables.$success-invert, color.adjust(#00c099, $lightness: -5%)), // deprecated
+            "second": (variables.$secondary, variables.$secondary-invert, color.adjust(variables.$secondary, $lightness: -5%)), // new way of declaring ; to reflect ASAP globally
+            "fourth": (#00c099, variables.$quaternary-invert, color.adjust(#00c099, $lightness: -5%)), // new way of declaring ; to reflect ASAP globally
+        );
+
+        @each $name, $pair in $colors-navbar {
+            $color: list.nth($pair, 1);
+            $color-invert: list.nth($pair, 2);
+            $color-darken: list.nth($pair, 3);
+
+            .navbar-item {
+                &.is-#{$name} {
+                    background-color: var(#{'--flex-'}#{$name}, #{$color});
+                    color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+
+                    > .navbar-link {
+                        color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+                    }
+
+                    &:hover {
+                        background-color: $color-darken;
+                    }
+
+                    &::after {
+                        display: none;
+                    }
+                }
+
+                @include mixins.mobile {
+                    &.is-fourth {
+                        background-color: transparent;
+                        color: var(#{'--flex-'}#{$name}, #{$color});
+
+                        &:hover {
+                            background-color: transparent;
+                        }
+
+                        .navbar-link {
+                            color: var(#{'--flex-'}#{$name}, #{$color});
+                        }
+                    }
+                }
+            }
+        }
+
+        @include mixins.tablet {
+            .navbar-item {
+                &.is-active {
+                    .navbar-dropdown {
+                        left: auto;
+                    }
+                }
+            }
+        }
+    }
+
+    .has-dropdown-arrow {
+        padding: 0 functions.size(1.5em) 0 functions.size(.8em);
+        position: relative;
+
+        &::after {
+            border: functions.size(0.1em) solid currentColor;
+            border-right: 0;
+            border-top: 0;
+            content: " ";
+            display: block;
+            height: .5em;
+            pointer-events: none;
+            position: absolute;
+            transform: rotate(-45deg);
+            width: .5em;
+            left: auto;
+            right: functions.size(.5em);
+            bottom: functions.size(.6em);
+        }
+    }
+
+    .navbar-dropdown {
+        letter-spacing: initial;
+        margin-top: functions.size(1em);
+        border: none;
+        background: var(--flex-navbar-dropdown-background-color, #{$navbar-dropdown-background-color});
+        border-radius: variables.$radius-small;
+        box-shadow: variables.$shadow;
+        padding: functions.size(1em) 0;
+        position: absolute;
+        top: 100%;
+        z-index: functions.zindex('medium');
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        text-align: left;
+        cursor: auto;
+
+        &.is-right-aligned {
+            right: 0;
+            left: auto;
+        }
+
+        &::before {
+            content: '';
+            display: block;
+            background: var(--flex-navbar-dropdown-background-color, #{$navbar-dropdown-background-color});
+            width: functions.size(1em);
+            height: functions.size(1em);
+            position: absolute;
+            transform: rotate(135deg);
+            top: functions.size(-0.5em);
+            right: calc($navbar-item-width / 2);
+            border: rgba(variables.$grey-shadow, .01) solid;
+            border-width: functions.size(0.1em) 0 0 functions.size(0.1em);
+            box-shadow: functions.size(-0.1em) functions.size(0.1em) functions.size(0.2em) rgba(10, 10, 10, 0.2);
+        }
+
+        .navbar-item {
+            padding: functions.size(0.5em) functions.size(3em);
+
+            &:hover {
+                color: var(--flex-instit, #{variables.$instit});
+            }
+        }
+
+        .navbar-item,
+        .navbar-item-accordion {
+            justify-content: flex-start;
+            flex-direction: row;
+            font-size: variables.$text-15;
+            font-weight: variables.$weight-semibold;
+            height: auto;
+            white-space: nowrap;
+        }
+
+        .navbar-link {
+            padding-top: functions.size(0.5em);
+            padding-bottom: functions.size(0.5em);
+            font-weight: variables.$weight-normal;
+
+            &:hover {
+                color: var(--flex-instit, #{variables.$instit});
+            }
+        }
+
+        .navbar-divider {
+            margin: functions.size(0.5em) functions.size(3em);
+            background-color: #d8d8d8;
+            height: 1px;
+        }
+    }
+}
+
+.is-npm {
+    $navbar-box-shadow-size: 0;
+    $navbar-height: functions.size(6em);
+    $navbar-height-desktop: functions.size(7em);
+    $navbar-border: #eee;
+
+    $navbar-item-color: #7d7d7d;
+    $navbar-item-hover-color: variables.$text;
+    $navbar-item-hover-background-color: initial;
+    $navbar-item-active-color: variables.$text;
+    $navbar-item-width: functions.size(8em);
+    $navbar-item-width-tablet: functions.size(6.1em);
+
+    $navbar-tab-hover-background-color: inherit;
+    $navbar-tab-hover-border-bottom-color: transparent;
+    $navbar-tab-active-color: variables.$instit;
+    $navbar-tab-active-border-bottom-color: variables.$instit;
+
+    $navbar-dropdown-boxed-shadow: 0 functions.size(0.8em) functions.size(0.8em) rgba(#454545, 0.1), 0 0 0 functions.size(0.1em) rgba(#454545, 0.1);
+    $navbar-dropdown-background-color: variables.$white;
+
+    $navbar-dropdown-item-hover-color: variables.$primary;
+    $navbar-dropdown-item-hover-background-color: initial;
+    $navbar-dropdown-item-active-color: variables.$primary;
+    $navbar-dropdown-item-active-background-color: initial;
+
+    $navbar-divider-background-color: rgba(#7d7d7d, 0.2);
+    $navbar-divider-height: functions.size(0.1em);
+
+    // Used
+    $navbar-fill: variables.$white !default;
+
+    $navbar-touch-margin-horizontal: functions.size(2em);
+
+    $navbar-section-padding: #{variables.$box-padding * 2};
+    $navbar-accordion-active-border-size: functions.size(0.5em);
+    $navbar-dropdown-padding-between-items: functions.size(1em);
+
+    &.navbar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        height: $navbar-height;
+        min-height: $navbar-height;
+        background-color: var(--flex-navbar-fill, #{$navbar-fill});
+        border-bottom: functions.size(0.1em) solid $navbar-border;
+
+        @include mixins.unselectable;
+
+        @include mixins.desktop {
+            height: $navbar-height-desktop;
+            min-height: $navbar-height-desktop;
+        }
+
+        .bg-connected {
+            background-color: var(--flex-quaternary, #{variables.$quaternary});
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            width: variables.$logo-width;
+
+            @include mixins.tablet {
+                width: variables.$logo-width-desktop;
+            }
+
+            .navbar-item {
+                border: 0;
+                padding: functions.size(0.5em) 0 functions.size(0.5em) functions.size(1em);
+
+                @include mixins.tablet {
+                    padding: 0.5em 2em;
+                }
+
+                img {
+                    display: block;
+                    max-height: functions.size(4.5em);
+                }
+            }
+        }
+
+        .navbar-title {
+            &::before {
+                content: "";
+                background: #ececec;
+                width: functions.size(0.1em);
+                height: functions.size(1.4em);
+                margin-right: functions.size(2.4em);
+            }
+
+            padding: functions.size(.5em) functions.size(2em);
+            display: flex;
+            align-items: center;
+            font-weight: variables.$weight-semibold;
+
+            @include mixins.desktop {
+                justify-content: flex-start;
+            }
+        }
+
+        .navbar-menu {
+            @include mixins.desktop {
+                justify-content: center;
+            }
+        }
+
+        .navbar-menu,
+        .navbar-title {
+            height: 100%;
+
+            @include mixins.desktop {
+                flex: 1 1 auto;
+                display: flex;
+            }
+        }
+
+        .navbar-menu ~ .navbar-menu,
+        .navbar-title ~ .navbar-menu {
+            @include mixins.desktop {
+                flex: 0 1 auto;
+                justify-content: flex-start;
+            }
+        }
+
+        .navbar-start {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            margin-right: 0;
+        }
+
+        .navbar-end {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .navbar-item {
+            color: #454545;
+            font-weight: variables.$weight-semibold;
+            padding: functions.size(.5em) functions.size(2em);
+            position: relative;
+
+            .navbar-link {
+                color: #7d7d7d;
+            }
+        }
+
+        .navbar-links,
+        .navbar-icons {
+            .navbar-item {
+                &.is-megadropdown-parent {
+                    position: initial;
+
+                    .navbar-dropdown {
+                        padding: $navbar-section-padding;
+                        top: calc(100% + #{functions.size(0.1em)});
+                        right: 0;
+                        left: 0;
+                        border-radius: 0;
+                        background-color: var(--flex-white, #{variables.$white});
+
+                        @include mixins.touch {
+                            margin: 0;
+                            box-shadow: none;
+
+                            &::before {
+                                display: none;
+                            }
+                        }
+
+                        .column:not(:last-child) {
+                            .navbar-dropdown-section {
+                                @include mixins.widescreen {
+                                    border-right: functions.size(0.1em) solid variables.$border-grey;
+                                }
+                            }
+                        }
+
+                        .navbar-dropdown-section {
+                            padding: functions.size(2.5em);
+                            display: flex;
+                            flex-direction: column;
+
+                            .navbar-category-title {
+                                color: var(--flex-info, #{variables.$info});
+                                font-size: variables.$size-6;
+                                font-weight: variables.$weight-semibold;
+                                margin-bottom: functions.size(1em);
+                                text-transform: uppercase;
+
+                                a {
+                                    color: var(--flex-info, #{variables.$info});
+                                }
+                            }
+
+                            @include mixins.mobile {
+                                margin-left: -$navbar-section-padding;
+                                margin-right: -$navbar-section-padding;
+
+                                &:first-child {
+                                    margin-top: -$navbar-section-padding;
+                                }
+
+                                &:last-child {
+                                    margin-bottom: -$navbar-section-padding;
+                                }
+
+                                &:nth-child(even) {
+                                    background: #f6f6f6;
+                                }
+                            }
+
+                            @include mixins.widescreen {
+                                padding: 0 functions.size(2.5em);
+                            }
+
+                            .title {
+                                align-self: center;
+
+                                @include mixins.widescreen {
+                                    align-self: flex-start;
+                                    color: var(--flex-info, #{variables.$info});
+                                }
+                            }
+
+                            .navbar-item-accordion {
+                                width: calc(100% + #{$navbar-section-padding} * 2);
+                                margin-left: -$navbar-section-padding;
+                                margin-right: -$navbar-section-padding;
+                                padding-left: calc(#{$navbar-section-padding} - #{$navbar-accordion-active-border-size});
+                                padding-right: $navbar-section-padding;
+                                border-left: $navbar-accordion-active-border-size solid transparent;
+
+                                > .navbar-item-accordion-content {
+                                    transition: max-height 0.5s ease-out;
+                                    max-height: functions.size(50em);
+                                    overflow: hidden;
+                                }
+
+                                > .navbar-item-accordion-content > .navbar-link,
+                                > .navbar-item-accordion-content > .navbar-item {
+                                    display: flex;
+                                    width: 100%;
+                                    margin-left: functions.size(2em);
+                                    padding-left: functions.size(1.5em);
+                                    font-size: functions.size(1.3em);
+                                    color: #7d7d7d;
+                                    position: relative;
+                                    align-items: flex-start;
+
+                                    &::before {
+                                        content: '\2022';
+                                        position: absolute;
+                                        left: 0;
+                                    }
+                                }
+
+                                .navbar-item-accordion-header {
+                                    width: 100%;
+                                    position: relative;
+                                    padding-top: $navbar-dropdown-padding-between-items;
+                                    padding-bottom: $navbar-dropdown-padding-between-items;
+
+                                    &::after {
+                                        @include mixins.arrow(#454545);
+
+                                        right: 0;
+                                        top: functions.size(1.2em);
+                                    }
+                                }
+
+                                &.is-active {
+                                    border-left: $navbar-accordion-active-border-size solid variables.$info;
+
+                                    .navbar-item-accordion-header {
+                                        color: var(--flex-info, #{variables.$info});
+                                        font-weight: variables.$weight-semibold;
+
+                                        &::after {
+                                            content: "\f105"; /* arrow-up */
+                                            color: var(--flex-info, #{variables.$info});
+                                        }
+                                    }
+                                }
+
+                                &:not(.is-active) {
+                                    .navbar-item-accordion-content {
+                                        max-height: 0;
+                                    }
+                                }
+                            }
+
+                            .navbar-item {
+                                padding-left: 0;
+                                padding-right: 0;
+
+                                &.has-ending-arrow {
+                                    &::after {
+                                        @include mixins.arrow(#7d7d7d);
+
+                                        top: 50%;
+                                        right: 0;
+                                        transform: translateY(-50%) rotate(-90deg);
+                                    }
+
+                                    &:hover::after,
+                                    &:focus::after {
+                                        color: var(--flex-instit, #{variables.$instit});
+                                    }
+                                }
+                            }
+
+                            .navbar-item,
+                            .navbar-link,
+                            .navbar-item-accordion {
+                                font-weight: variables.$weight-normal;
+
+                                &::after {
+                                    content: none;
+                                }
+
+                                &.is-highlighted {
+                                    font-size: functions.size(1.5em);
+                                    font-weight: variables.$weight-semibold;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.is-active,
+                &.is-hoverable:hover {
+                    .navbar-dropdown {
+                        display: flex;
+                    }
+                }
+            }
+        }
+
+        .navbar-links {
+            display: flex;
+            height: 100%;
+
+            > .navbar-item {
+                position: relative;
+                height: calc(100% + #{functions.size(0.1em)});
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                border-bottom: 3px solid transparent;
+                white-space: nowrap;
+                font-size: functions.size(1.4em);
+                text-transform: capitalize;
+
+                &.is-active,
+                &:hover {
+                    color: var(--flex-instit, #{variables.$instit});
+                    border-bottom-color: variables.$info;
+
+                    > .navbar-link {
+                        color: var(--flex-instit, #{variables.$instit});
+                    }
+                }
+
+                &.is-megadropdown-parent {
+                    .navbar-dropdown {
+                        margin-top: 0;
+
+                        &::before {
+                            display: none;
+                        }
+                    }
+                }
+
+                &::after {
+                    content: none;
+                }
+            }
+        }
+
+        .navbar-icons {
+            height: 100%;
+            display: flex;
+
+            > .navbar-item {
+                height: 100%;
+                min-width: $navbar-item-width;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                padding: functions.size(0.5em);
+                cursor: pointer;
+
+                @include mixins.mobile {
+                    min-width: $navbar-item-width-tablet;
+                    border-left-width: 0;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+
+                // au survol + element actif
+                @include mixins.tablet {
+                    &:hover,
+                    &.is-active {
+                        color: var(--flex-info, #{variables.$info});
+                        position: relative;
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            z-index: functions.zindex('small');
+                            bottom: 0;
+                            height: functions.size(0.3em);
+                            background-color: var(--flex-info, #{variables.$info});
+                            left: functions.size(-0.1em);
+                            right: functions.size(-0.1em);
+                        }
+                    }
+                }
+
+                /// @deprecated .is-fourth once the html is modified by 'first'
+                &.is-fourth,
+                &.is-first {
+                    min-width: functions.size(7em);
+                }
+
+                // item alternatif + element actif
+                &.is-alternate,
+                &.is-secondary {
+                    background-color: #f6f6f6;
+                }
+
+                // item alternatif au survol + item alternatif actif
+                &.is-secondary:hover,
+                &.is-alternate:hover,
+                &.is-secondary.is-active,
+                &.is-alternate.is-active {
+                    color: var(--flex-instit, #{variables.$instit});
+                    background-color: color.adjust(#f6f6f6, $lightness: -5%);
+
+                    .navbar-link {
+                        color: var(--flex-instit, #{variables.$instit});
+                    }
+
+                    &::after {
+                        display: none;
+                    }
+                }
+
+                // styles spécifiques pour le dropdown utilisateur non connecté
+                /// @deprecated is-fourth once the html is modified by 'first'
+                @include mixins.desktop {
+                    &.is-fourth.is-megadropdown-parent,
+                    &.is-first.is-megadropdown-parent {
+                        .navbar-dropdown {
+                            width: 380px;
+                            padding: 20px 0;
+                        }
+                    }
+                }
+
+                // styles spécifiques pour le lien enfant d'item
+                .navbar-link {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: 100%;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                > .icon,
+                > .navbar-link > .icon {
+                    font-size: functions.size(2.4em);
+                    line-height: 1;
+                    height: inherit;
+                    width: inherit;
+
+                    // specifique pour utilisateur loggué
+                    &.is-small {
+                        transform: translateY(50%);
+                    }
+                }
+
+                > .icon + span,
+                > .navbar-link > .icon + span {
+                    display: none;
+                }
+            }
+
+            $colors-navbar: (
+                "info": (variables.$info, variables.$info-invert, color.adjust(variables.$info, $lightness: -5%)), /// @deprecated
+                "success": (#00c099, variables.$success-invert, color.adjust(#00c099, $lightness: -5%)), /// @deprecated
+                "second": (variables.$secondary, variables.$secondary-invert, color.adjust(variables.$secondary, $lightness: -5%)), // new way of declaring ; to reflect ASAP globally
+                "fourth": (#00c099, variables.$secondary-invert, color.adjust(#00c099, $lightness: -5%)), /// @deprecated once the html is modified by 'first'
+                "first": (variables.$secondary, variables.$secondary-invert, color.adjust(variables.$secondary, $lightness: -5%)), /// @todo replaces 'fourth' once the html is modified
+            );
+
+            @each $name, $pair in $colors-navbar {
+                $color: list.nth($pair, 1);
+                $color-invert: list.nth($pair, 2);
+                $color-darken: list.nth($pair, 3);
+
+                .navbar-item {
+                    &.is-#{$name} {
+                        background-color: var(#{'--flex-'}#{$name}, #{$color});
+                        color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+
+                        > .navbar-link {
+                            color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+                        }
+
+                        &:hover {
+                            background-color: $color-darken;
+                        }
+
+                        &::after {
+                            display: none;
+                        }
+                    }
+
+                    @include mixins.mobile {
+                        /// @deprecated is-fourth once the html is modified by 'first'
+                        &.is-fourth,
+                        &.is-first {
+                            background-color: transparent;
+                            color: var(#{'--flex-'}#{$name}, #{$color});
+
+                            &:hover {
+                                background-color: transparent;
+                            }
+
+                            .navbar-link {
+                                color: var(#{'--flex-'}#{$name}, #{$color});
+                            }
+                        }
+                    }
+                }
+            }
+
+            @include mixins.tablet {
+                .navbar-item {
+                    &.is-active {
+                        .navbar-dropdown {
+                            left: auto;
+                        }
+                    }
+                }
+            }
+        }
+
+        .has-dropdown-arrow {
+            padding: 0 functions.size(1.5em) 0 functions.size(.8em);
+            position: relative;
+
+            &::after {
+                border: functions.size(0.1em) solid currentColor;
+                border-right: 0;
+                border-top: 0;
+                content: " ";
+                display: block;
+                height: .5em;
+                pointer-events: none;
+                position: absolute;
+                transform: rotate(-45deg);
+                width: .5em;
+                left: auto;
+                right: functions.size(.5em);
+                bottom: functions.size(.6em);
+            }
+        }
+
+        .navbar-dropdown {
+            letter-spacing: initial;
+            margin-top: functions.size(1em);
+            border: none;
+            background: var(--flex-navbar-dropdown-background-color, #{$navbar-dropdown-background-color});
+            border-radius: variables.$radius-small;
+            box-shadow: variables.$shadow;
+            padding: functions.size(1em) 0;
+            position: absolute;
+            top: 100%;
+            z-index: functions.zindex('medium');
+            display: none;
+            flex-direction: column;
+            align-items: stretch;
+            text-align: left;
+            cursor: auto;
+
+            &.is-right-aligned {
+                right: 0;
+                left: auto;
+            }
+
+            // dessine la flèche en haut du menu déroulé
+            &::before {
+                content: '';
+                display: block;
+                background: var(--flex-navbar-dropdown-background-color, #{$navbar-dropdown-background-color});
+                width: functions.size(1em);
+                height: functions.size(1em);
+                position: absolute;
+                transform: rotate(135deg);
+                top: functions.size(-0.5em);
+                right: calc($navbar-item-width / 2);
+                border: rgba(variables.$grey-shadow, .01) solid;
+                border-width: functions.size(0.1em) 0 0 functions.size(0.1em);
+                box-shadow: functions.size(-0.1em) functions.size(0.1em) functions.size(0.2em) rgba(10, 10, 10, 0.2);
+            }
+
+            .navbar-item {
+                padding: functions.size(0.5em) functions.size(3em);
+
+                &:hover {
+                    color: var(--flex-instit, #{variables.$instit});
+                }
+            }
+
+            .navbar-item,
+            .navbar-item-accordion {
+                justify-content: flex-start;
+                flex-direction: row;
+                font-size: variables.$text-15;
+                font-weight: variables.$weight-semibold;
+                height: auto;
+                white-space: nowrap;
+            }
+
+            .navbar-link {
+                padding-top: functions.size(0.5em);
+                padding-bottom: functions.size(0.5em);
+                font-weight: variables.$weight-normal;
+
+                &:hover {
+                    color: var(--flex-instit, #{variables.$instit});
+                }
+            }
+
+            .navbar-divider {
+                margin: functions.size(0.5em) functions.size(3em);
+                background-color: #eee;
+                height: 1px;
+            }
+        }
+    }
+}
+
+.is-new {
+    $navbar-height: functions.size(5.1em);
+    $navbar-height-desktop: functions.size(12.4em);
+    $navbar-border: variables.$grey-light;
+    $navbar-item-width: auto;
+    $navbar-item-width-mobile: auto;
+    $navbar-dropdown-background-color: variables.$white;
+    $navbar-fill: variables.$white !default;
+    $navbar-section-padding: functions.size(2em);
+    $navbar-section-padding-desktop: functions.size(3em);
+    $navbar-dropdown-padding-between-items: functions.size(1em);
+    $navbar-alternate-item-height: functions.size(4em);
+    $navbar-separator-logo-and-search: functions.size(4em);
+
+    &.navbar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        height: $navbar-height;
+        min-height: $navbar-height;
+        background-color: var(--flex-navbar-fill, #{$navbar-fill});
+        border-bottom: functions.size(0.1em) solid variables.$grey-light;
+
+        @include mixins.unselectable;
+
+        @include mixins.desktop {
+            height: $navbar-height-desktop;
+            min-height: $navbar-height-desktop;
+        }
+
+        // vient de Bulma : https://bulma.io/documentation/components/navbar/
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            width: auto;
+
+            .navbar-item {
+                border: 0;
+                padding: 0 0 0 functions.size(1.8em);
+
+                @include mixins.tablet {
+                    padding: 0 $navbar-separator-logo-and-search;
+                }
+
+                img {
+                    display: block;
+                    max-height: functions.size(5em);
+                }
+            }
+        }
+
+        .navbar-title {
+            &::before {
+                content: "";
+                background: #ececec;
+                width: functions.size(0.1em);
+                height: functions.size(1.4em);
+                margin-right: functions.size(2.4em);
+            }
+
+            padding: functions.size(.5em) functions.size(2em);
+            display: flex;
+            align-items: center;
+            font-weight: variables.$weight-medium;
+        }
+
+        // moteur de recherche, lien spécifique, etc.
+        .navbar-extras {
+            @include mixins.widescreen {
+                width: 35%;
+            }
+
+            // séparateur vertical entre logo et search
+            @include mixins.desktop {
+                padding-left: 0;
+                position: relative;
+
+                &::before {
+                    position: absolute;
+                    content: '';
+                    width: 1px;
+                    height: 50%;
+                    top: 50%;
+                    left: -20px;
+                    transform: translateY(-50%);
+                    background-color: none;
+                }
+
+                ~ .navbar-extras {
+                  &::before {
+                    background-color: var(--flex-grey-light, #{variables.$grey-light});
+                  }
+                }
+            }
+
+            @include mixins.widescreen {
+                padding-left: $navbar-separator-logo-and-search;
+                margin-right: $navbar-separator-logo-and-search;
+
+                &::before {
+                    left: 0;
+                }
+            }
+
+            .control {
+                .input {
+                    height: functions.size(4em);
+                    padding-left: functions.size(2em);
+                    border-radius: functions.size(2.2em);
+                    // background-color: transparent;
+                    border: functions.size(0.1em) solid var(--flex-border-grey-light, #{variables.$border-grey-light});
+                }
+
+                .has-dynamic-placeholder {
+                    label {
+                        left: functions.size(2em);
+                    }
+
+                    .icon ::before {
+                        font-weight: variables.$weight-semibold;
+                    }
+                }
+
+                .flexi-ui-search {
+                    color: var(--flex-text, #{variables.$text});
+                }
+            }
+
+            @include mixins.mobile {
+                &.is-active {
+                    min-height: 100vh;
+                    background: variables.$white;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: functions.zindex('large');
+                    width: 100%;
+                    overflow-y: scroll;
+
+                    .control {
+                        padding: $navbar-section-padding;
+                        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+
+                        &.has-dynamic-placeholder {
+                            .input-dynamic-placeholder {
+                                display: none;
+                            }
+
+                            .input {
+                                padding-top: 0;
+                                padding-bottom: 0;
+                            }
+
+                            .icon {
+                                right: $navbar-section-padding;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // vient de Bulma : https://bulma.io/documentation/components/navbar/
+        .navbar-start,
+        .navbar-end,
+        .navbar-menu,
+        .navbar-links,
+        .navbar-icons {
+            height: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        // vient de Bulma : https://bulma.io/documentation/components/navbar/
+        .navbar-end {
+            margin-left: auto;
+            padding-left: 0;
+        }
+
+        // vient de Bulma : https://bulma.io/documentation/components/navbar/
+        .navbar-menu {
+            flex-grow: 1;
+
+            // gestion du passage sur deux lignes
+            &:not(:last-child) {
+                min-width: 100%;
+                flex-basis: 100%;
+                order: 1;
+                border-top: functions.size(0.1em) solid variables.$grey-light;
+            }
+
+            // recalage au centre
+            .navbar-start {
+                margin: auto;
+            }
+
+            // ajustement pour menu en version mobile
+            @include mixins.touch {
+                &:last-child,
+                .navbar-end,
+                .navbar-icons {
+                    height: 100%;
+                }
+            }
+        }
+
+        // vient de Bulma : https://bulma.io/documentation/components/navbar/
+        .navbar-item {
+            color: var(--flex-text, #{variables.$text});
+            font-weight: variables.$weight-medium;
+            padding: 0 functions.size(1.5em);
+            position: relative;
+
+            .navbar-link {
+                color: var(--flex-text, #{variables.$text});
+            }
+
+            // tous les menus de type dropdown (navigation mobile, desktop, connexion/membre)
+            .navbar-dropdown {
+                display: none;
+                position: absolute;
+                top: $navbar-height;
+                right: 0;
+                left: 0;
+                box-shadow: none;
+                border-radius: 0;
+                margin: 0;
+                z-index: functions.zindex('large');
+                background: var(--flex-navbar-dropdown-background-color, #{$navbar-dropdown-background-color});
+                flex-direction: column;
+                align-items: stretch;
+                text-align: left;
+                padding: $navbar-section-padding;
+                cursor: auto;
+
+                @include mixins.desktop {
+                    top: calc(100% + 1px);
+                    flex-direction: row;
+                    padding: $navbar-section-padding-desktop;
+                    box-shadow: 0 5px 15px -3px rgba(69, 69, 69, 0.2), 0 5px 3px 0 rgba(69, 69, 69, 0.15);
+                }
+
+                // suppression de la petite flèche décorative
+                &::before {
+                    content: none;
+                }
+
+                // doit être commun à tous les dropdown pour architecture cohérente
+                .navbar-dropdown-section {
+                    padding: $navbar-section-padding;
+                    display: flex;
+                    flex-direction: column;
+
+                    @include mixins.mobile {
+                        margin-left: -$navbar-section-padding;
+                        margin-right: -$navbar-section-padding;
+                        line-height: 1.69;
+
+                        &:first-child {
+                            margin-top: -$navbar-section-padding;
+                        }
+
+                        &:last-child {
+                            margin-bottom: -$navbar-section-padding;
+                        }
+
+                        &:nth-child(even) {
+                            background: variables.$grey-lighter;
+                        }
+                    }
+
+                    // spécificités pour le dropdown sur desktop, reproduisant 3 colonnes
+                    @include mixins.desktop {
+                        padding: 0 functions.size(2.5em);
+                        flex-basis: 100%;
+                    }
+
+                    .navbar-item,
+                    .navbar-link {
+                        font-weight: variables.$weight-normal;
+
+                        &.is-highlighted {
+                            @include mixins.touch {
+                                color: var(--flex-secondary, #{variables.$secondary});
+                            }
+
+                            @include mixins.desktop {
+                                font-size: functions.size(1.4em) !important;
+                                font-weight: variables.$weight-medium !important;
+                            }
+                        }
+                    }
+                }
+
+                .navbar-item,
+                .navbar-item-accordion {
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    font-size: variables.$text-15;
+                    font-weight: variables.$weight-normal;
+                    height: auto;
+                    white-space: normal;
+                }
+
+                .navbar-link {
+                    padding-top: functions.size(0.5em);
+                    padding-bottom: functions.size(0.5em);
+                    font-weight: variables.$weight-normal;
+
+                    &:hover {
+                        color: var(--flex-instit, #{variables.$instit});
+                    }
+                }
+
+                .navbar-divider {
+                    margin: 0;
+                    background-color: var(--flex-grey-light, #{variables.$grey-light});
+                    height: 1px;
+                }
+            }
+        }
+
+        // liens de navigation principale (deuxième ligne de la navbar sur desktop)
+        .navbar-links {
+            > .navbar-item {
+                position: relative;
+                cursor: pointer;
+                white-space: normal;
+                border-bottom-width: 0;
+                font-size: functions.size(1.4em);
+
+                > .navbar-link {
+                    position: relative;
+                    display: flex;
+                    padding-top: functions.size(1.5em);
+                    padding-bottom: functions.size(1.5em);
+
+                    // barre soulignée sous l'item de navigation
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        height: 2px;
+                        width: 100%;
+                        background-color: transparent;
+                        left: 0;
+                        bottom: -1px;
+                    }
+
+                    // surcharge de la hauteur du container d'une icone, afin de ne pas bousiller le line-height de tout le menu
+                    .icon {
+                        height: auto;
+                        width: auto;
+
+                        [class^="flexi-"]::before,
+                        [class*=" flexi-"]::before {
+                            font-size: functions.size(2.2em);
+                        }
+                    }
+                }
+
+                // décoration des éléments du menu au hover/active
+                &.is-active,
+                &.is-highlighted,
+                &:hover {
+                    > .navbar-link {
+                        color: var(--flex-secondary, #{variables.$secondary});
+
+                        // emplissage de la barre soulignée au hover
+                        &::after {
+                            background-color: var(--flex-secondary, #{variables.$secondary});
+                        }
+
+                        // spécificité pour les opérations commerciales
+                        &.has-text-primary::after {
+                            background-color: var(--flex-primary, #{variables.$primary});
+                        }
+                    }
+                }
+
+                // menu déroulant affiché sur desktop
+                .navbar-dropdown {
+                    background-color: var(--flex-grey-lighter, #{variables.$grey-lighter});
+
+                    > .container {
+                        display: flex;
+                    }
+
+                    .navbar-dropdown-section {
+                        height: 100%;
+
+                        .navbar-category-title {
+                            color: var(--flex-text, #{variables.$text});
+                            font-size: variables.$size-6;
+                            font-weight: variables.$weight-semibold;
+                            margin-bottom: 0;
+                            text-transform: uppercase;
+
+                            a {
+                                color: var(--flex-text, #{variables.$text});
+                            }
+
+                            &:not(:first-child) {
+                                margin-top: functions.size(4em);
+                            }
+                        }
+
+                        .navbar-link {
+                            padding-left: functions.size(3.5em);
+                        }
+                    }
+                }
+
+                // suppression de la barre de décoration entre chaque lien du menu de navigation
+                &::after {
+                    content: none;
+                }
+
+                // surcharge comportement de base du navbar-item s'il s'agit d'un menu dropdown sur desktop (défini plus haut en "position: relative")
+                &.is-megadropdown-parent {
+                    position: static;
+
+                    // suppression de la séparation verticale entre les colonnes dans le menu dropdown
+                    // déprécié (si code HTML respecté) mais nécessaire pour surcharger la navbar par défaut
+                    // peut être supprimé une fois que "is-new" est la navbar par défaut
+                    @include mixins.widescreen {
+                        .column:not(:last-child) {
+                            .navbar-dropdown-section {
+                                border-right-width: 0;
+                            }
+                        }
+                    }
+
+                    // affiche le menu au hover/active (surcharge le display: none par défaut)
+                    &.is-active,
+                    &:hover {
+                        .navbar-dropdown {
+                            display: flex;
+                        }
+                    }
+                }
+            }
+
+            // seconde série de liens après la navigation principale (particuliers, pro/entreprise, etc.)
+            + .navbar-links {
+                margin-left: functions.size(2em);
+                padding-left: functions.size(2em); // doit être reflété sur la propriété "left" du "before" lignes suivantes
+
+                &::before {
+                    position: relative;
+                    content: '';
+                    width: 1px;
+                    height: 20px;
+                    background-color: var(--flex-grey-light, #{variables.$grey-light});
+                    top: 0;
+                    left: functions.size(-2em);
+                    transform: translateY(0);
+                }
+
+                > .navbar-item {
+                    font-weight: variables.$weight-normal;
+                }
+            }
+        }
+
+        // liens/icones de droite
+        .navbar-icons {
+            @include mixins.desktop {
+                height: functions.size(7em);
+            }
+
+            > .navbar-item {
+                min-width: $navbar-item-width;
+                line-height: 1;
+                color: var(--flex-text, #{variables.$text});
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                white-space: nowrap;
+                border-left-width: 0;
+                text-transform: uppercase;
+                padding: 0 functions.size(1.5em);
+
+                @include mixins.mobile {
+                    // toutes les icones sauf la dernière
+                    padding: 0 functions.size(1.8em);
+
+                    // séparateur gris entre chaque icône
+                    &:not(:last-child) {
+                        &::after {
+                            position: absolute;
+                            content: '';
+                            width: 1px;
+                            height: 50%;
+                            background-color: var(--flex-grey-light, #{variables.$grey-light});
+                            top: 50%;
+                            right: 0;
+                            transform: translateY(-50%);
+                        }
+                    }
+                }
+
+                @include mixins.desktop {
+                    font-size: functions.size(1.4em);
+                    font-weight: variables.$weight-normal;
+                }
+
+                &:hover {
+                    background-color: transparent;
+                    color: var(--flex-secondary, #{variables.$secondary});
+
+                    // suppression du soulignement sur desktop
+                    @include mixins.desktop {
+                        &::after {
+                            content: none;
+                        }
+                    }
+                }
+
+                .icon {
+                    @include mixins.desktop {
+                        margin-right: functions.size(0.6em);
+                    }
+
+                    &.is-stacked {
+                        @include mixins.desktop {
+                            margin-right: functions.size(1.2em);
+                        }
+
+                        .badge {
+                            min-height: functions.size(1.6em);
+                            min-width: functions.size(1.6em);
+                            background-color: var(--flex-primary, #{variables.$primary});
+
+                            &.is-up {
+                                left: auto;
+                                top: functions.size(-0.8em);
+                                right: functions.size(-0.8em);
+                            }
+                        }
+                    }
+                }
+
+                // cosmétique des icônes/textes y compris lien de connexion/membre
+                > .icon,
+                > .navbar-link > .icon {
+                    width: functions.size(2.5em);
+                    height: functions.size(2.5em);
+
+                    [class^="flexi-"]::before,
+                    [class*=" flexi-"]::before {
+                        font-size: functions.size(2.5em);
+                    }
+
+                    @include mixins.desktop {
+                        min-width: functions.size(2em);
+                        height: functions.size(2em);
+
+                        [class^="flexi-"]::before,
+                        [class*=" flexi-"]::before {
+                            font-size: functions.size(2em);
+                        }
+                    }
+
+                    + span {
+                        display: inline;
+                    }
+                }
+
+                // lien de connexion/membre et son menu dropdown
+                &.is-alternate {
+                    position: relative;
+                    overflow: hidden;
+                    background-color: transparent;
+                    -webkit-tap-highlight-color: transparent;
+
+                    &:hover,
+                    &.is-active {
+                        color: var(--flex-text, #{variables.$text});
+                    }
+
+                    > .navbar-link {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+                        text-transform: uppercase;
+                        color: var(--flex-text, #{variables.$text});
+                    }
+
+                    .navbar-dropdown {
+                        display: flex;
+                        flex-direction: column;
+                        width: 100vw;
+                        min-height: calc(100vh - #{$navbar-height});
+                        left: auto;
+                        color: var(--flex-text, #{variables.$text});
+                        font-size: variables.$text-14;
+                        text-transform: none;
+                        overflow: hidden;
+                        overflow-y: scroll;
+                        transition: left 250ms ease-in-out;
+
+                        > *:not(.is-active) {
+                            transition: opacity 100ms ease-in-out;
+                            opacity: 1;
+
+                            .navbar-item-accordion-content {
+                                display: none;
+                            }
+                        }
+
+                        &.is-active {
+                            > *:not(.is-active) {
+                                opacity: 0;
+                            }
+                        }
+
+                        .navbar-dropdown-close {
+                            @include mixins.delete;
+
+                            height: 32px;
+                            max-height: 32px;
+                            max-width: 32px;
+                            min-height: 32px;
+                            min-width: 32px;
+                            width: 32px;
+                            margin-left: auto;
+                            background-color: transparent;
+
+                            &:hover {
+                                background-color: var(--flex-tertiary, #{variables.$tertiary});
+
+                                &::before,
+                                &::after {
+                                    background-color: var(--flex-white, #{variables.$white});
+                                }
+                            }
+
+                            &::before,
+                            &::after {
+                                background-color: var(--flex-tertiary, #{variables.$tertiary});
+                            }
+                        }
+
+                        .navbar-item {
+                            padding: 0;
+
+                            &.has-ending-arrow {
+                                &::after {
+                                    @include mixins.arrow(variables.$tertiary, 'right');
+
+                                    top: 50%;
+                                    right: 0;
+                                    transform: translateY(calc(-50% - 0.75em));
+                                }
+
+                                &:hover::after,
+                                &:focus::after {
+                                    color: var(--flex-text, #{variables.$text});
+                                }
+
+                                &:last-child::after {
+                                    transform: translateY(-50%);
+                                }
+                            }
+                        }
+
+                        .navbar-dropdown-section {
+                            // navbar-item d'une dropdown-section
+                            > .navbar-item:not(:last-child) {
+                                padding-bottom: functions.size(1em);
+                            }
+
+                            // accordéon utilisé uniquement sur mobile
+                            .navbar-item-accordion {
+                                width: calc(100% + #{$navbar-section-padding} * 2);
+                                margin-left: -$navbar-section-padding;
+                                margin-right: -$navbar-section-padding;
+                                padding-left: $navbar-section-padding;
+                                padding-right: $navbar-section-padding;
+                                border-left-width: 0;
+
+                                &:not(:last-child) {
+                                    padding-bottom: functions.size(1em);
+                                }
+
+                                .navbar-item-accordion-header {
+                                    display: flex;
+                                    width: 100%;
+                                    position: relative;
+                                    color: var(--flex-text, #{variables.$text});
+                                    padding-top: 0;
+                                    padding-bottom: 0;
+
+                                    // flèche vers la droite en face de l'item de menu
+                                    &::after {
+                                        @include mixins.arrow(variables.$tertiary, 'right');
+
+                                        top: 50%;
+                                        right: 0;
+                                        transform: translateY(-50%);
+                                    }
+                                }
+
+                                // contenu de l'arrodéon caché pour utiliser un effet de transition
+                                .navbar-item-accordion-content {
+                                    transition: all 250ms ease-in-out;
+                                    position: absolute;
+                                    z-index: functions.zindex('large');
+                                    top: 0;
+                                    left: 100vw;
+                                    width: 100%;
+                                    min-height: calc(100vh - #{$navbar-height});
+                                    padding-left: functions.size(1.5em);
+                                    padding-right: $navbar-section-padding;
+                                    padding-bottom: functions.size(2em);
+                                    background-color: var(--flex-grey-lighter, #{variables.$grey-lighter});
+
+                                    .navbar-item-accordion-back {
+                                        display: block;
+                                        position: relative;
+                                        line-height: 44px;
+                                        font-size: functions.size(1.5em);
+                                        color: var(--flex-text, #{variables.$text});
+                                        padding-left: functions.size(4em);
+                                        margin-left: functions.size(-1.5em);
+
+                                        // flèche vers la gauche
+                                        &::before {
+                                            @include mixins.arrow(variables.$tertiary, 'left');
+
+                                            top: 50%;
+                                            left: functions.size(2em);
+                                            transform: translateY(-50%);
+                                        }
+                                    }
+
+                                    .navbar-item-accordion-title {
+                                        line-height: 44px;
+                                        margin-left: functions.size(-1.5em);
+                                        width: 100vw;
+                                        color: var(--flex-secondary, #{variables.$secondary});
+                                        background-color: var(--flex-grey-light, #{variables.$grey-light});
+                                        font-size: functions.size(1.5em);
+                                        font-weight: variables.$weight-medium;
+                                        padding-left: $navbar-section-padding;
+                                        padding-right: $navbar-section-padding;
+                                    }
+
+                                    .navbar-category-title {
+                                        text-transform: uppercase;
+                                        color: var(--flex-text, #{variables.$text});
+                                        font-size: functions.size(1.5em);
+                                        font-weight: variables.$weight-semibold;
+                                        margin-top: functions.size(2em);
+
+                                        a {
+                                            color: var(--flex-text, #{variables.$text});
+                                        }
+                                    }
+
+                                    .navbar-link,
+                                    .navbar-item {
+                                        display: block;
+                                        margin-left: 0;
+                                        padding: functions.size(0.4em) 0 functions.size(0.4em) functions.size(3.5em);
+                                        font-size: functions.size(1.4em);
+                                        color: var(--flex-text, #{variables.$text});
+                                    }
+                                }
+
+                                &.is-active {
+                                    left: calc(-100vw + 100%);
+
+                                    .navbar-item-accordion-content {
+                                        left: 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    &.is-active {
+                        overflow: visible;
+
+                        .navbar-dropdown {
+                            left: 0;
+                        }
+                    }
+
+                    // spécifique login sur mobile
+                    &#user,
+                    &#login,
+                    .user-menu {
+                        .navbar-dropdown {
+                            // rapprochement des champs de connexion
+                            .field:nth-child(2) {
+                                margin-top: 0;
+                            }
+                        }
+
+                        @include mixins.touch {
+                            .navbar-dropdown {
+                                left: 200%;
+
+                                // ajout d'une marge à tous les éléments fils directs du dropdown
+                                > *:not(:last-child) {
+                                    margin-bottom: functions.size(1.5em);
+                                }
+                            }
+
+                            &.is-active {
+                                .navbar-dropdown {
+                                    left: calc(-100vw + 200%);
+                                    top: 0;
+                                    min-height: 100vh;
+                                }
+                            }
+                        }
+
+                        @include mixins.desktop {
+                            .navbar-dropdown {
+                                // ajout d'une marge à tous les éléments fils directs du dropdown
+                                > *:not(:last-child) {
+                                    margin-bottom: functions.size(1.8em);
+                                }
+                            }
+                        }
+
+                        &:not(.is-active) {
+                            .navbar-dropdown {
+                                display: none;
+                            }
+                        }
+                    }
+
+                    // spécifique menu burger sur mobile
+                    &#menu,
+                    .burger-menu {
+                        @include mixins.touch {
+                            // icône de fermeture du menu burger qui va toggle
+                            #menu-close {
+                                display: none;
+                            }
+
+                            .navbar-dropdown {
+                                left: 100%;
+                            }
+
+                            &.is-active {
+                                .navbar-dropdown {
+                                    left: calc(-100vw + 100%);
+                                }
+
+                                #menu-open {
+                                    display: none;
+                                }
+
+                                #menu-close {
+                                    display: flex;
+                                }
+                            }
+                        }
+                    }
+
+                    // bouton "se connecter" / membre sur desktop
+                    @include mixins.desktop {
+                        position: static;
+                        display: flex;
+                        align-items: center;
+                        background-color: var(--flex-tertiary, #{variables.$tertiary});
+                        color: var(--flex-tertiary-invert, #{variables.$tertiary-invert});
+                        height: $navbar-alternate-item-height;
+                        border-top-left-radius: calc($navbar-alternate-item-height / 2);
+                        border-bottom-left-radius: calc($navbar-alternate-item-height / 2);
+                        box-shadow: 0 functions.size(0.2em) functions.size(0.6em) 0 rgba(175, 175, 175, 0.5);
+                        margin-left: functions.size(1.5em);
+                        padding-left: 0;
+                        padding-right: 0;
+                        max-width: 170px;
+
+                        &:hover,
+                        &.is-active {
+                            background-color: color.scale(variables.$tertiary, $alpha: -20%);
+                            color: var(--flex-white, #{variables.$white});
+                        }
+
+                        &.is-active {
+                            .navbar-dropdown {
+                                left: calc(100% - 384px);
+                            }
+                        }
+
+                        > .navbar-link {
+                            display: flex;
+                            height: 100%;
+                            padding-left: functions.size(2em);
+                            padding-right: functions.size(1.2em);
+                            color: var(--flex-tertiary-invert, #{variables.$tertiary-invert});
+
+                            .icon {
+                                margin-right: functions.size(0.8em);
+                            }
+
+                            :last-of-type {
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                        }
+
+                        .navbar-dropdown {
+                            top: 0;
+                            left: 100vw;
+                            width: 384px;
+                            min-height: 100vh;
+                            height: auto;
+                            padding: functions.size(3em) functions.size(5.2em);
+                            overflow-y: hidden;
+
+                            // supprime la petite flèche au-dessus du menu dropdown de connexion
+                            &::before {
+                                content: none;
+                            }
+
+                            .navbar-divider {
+                                margin-left: functions.size(-5.2em);
+                                margin-right: functions.size(-5.2em);
+                            }
+
+                            .navbar-dropdown-section {
+                                padding-left: 0;
+                                padding-right: 0;
+                            }
+                        }
+                    }
+                }
+
+                // surcharge pour version NPM transitoire
+                .navbar-link {
+                    height: auto;
+                    flex-direction: row;
+                }
+            }
+        }
+    }
+}
+
+// sticky navbar
+@include mixins.desktop {
+    header.is-sticky {
+        position: sticky;
+        top: -1px;
+        box-shadow: variables.$shadow;
+
+        .navbar.is-new {
+            height: auto;
+            min-height: auto;
+            padding-top: 1px;
+
+            .navbar-brand .navbar-item img {
+                max-height: 3.5em;
+            }
+
+            .navbar-extras .control {
+                .input {
+                    height: 3em;
+                    font-size: 1.2em;
+                    padding-top: mixins.$control-padding-vertical;
+                }
+
+                .input-dynamic-placeholder {
+                    display: none;
+                }
+            }
+
+            .navbar-links {
+                > .navbar-item {
+                    > .navbar-link {
+                        padding-top: 1em;
+                        padding-bottom: 1em;
+                    }
+                }
+            }
+
+            .navbar-icons {
+                height: 5em;
+
+                > .navbar-item.is-alternate {
+                    height: 3em;
+
+                    > .navbar-link {
+                        padding-left: 0.8em;
+
+                        .icon {
+                            margin-left: 0.6em;
+
+                            [class^=flexi-]::before {
+                                font-size: 1.8em;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.container > .navbar,
+.navbar > .container {
+    &.is-fluid {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .navbar-menu {
+        @include mixins.desktop {
+            margin-right: 0;
+        }
+    }
+
+    .navbar-brand {
+        @include mixins.desktop {
+            margin-left: 0;
+        }
+    }
+}

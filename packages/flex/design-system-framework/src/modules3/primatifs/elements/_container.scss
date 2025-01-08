@@ -1,0 +1,67 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+// @use "@bulvar/bulma/sass/elements/container";
+@use "../utilities/vendors/bulma-extensions/container";
+
+.container {
+    &.is-fullhd {
+        width: auto;
+    }
+
+    &:not(.is-fluid) {
+        /**
+        * FIXME : ameliorer le calcul
+        */
+        @include mixins.desktop {
+            width: 904px;
+            max-width: 904px;
+        }
+
+        @include mixins.widescreen {
+            width: 1160px;
+            max-width: 1160px;
+        }
+
+        @include mixins.fullhd {
+            width: 1308px;
+            max-width: 1308px;
+        }
+    }
+
+    &.is-fluid {
+        @include mixins.fullhd {
+            margin: 0 auto;
+            max-width: variables.$fullhd - 2 * variables.$gap;
+        }
+    }
+
+    &.is-medium {
+        max-width: 960px;
+        margin: auto;
+    }
+
+    &.is-fullwidth {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+main,
+header .navbar,
+header,
+footer {
+    > .container {
+        &.is-fluid {
+            @include mixins.desktop {
+                margin: 0 auto;
+            }
+
+            @include mixins.fullhd {
+                max-width: 100%;
+            }
+        }
+    }
+}

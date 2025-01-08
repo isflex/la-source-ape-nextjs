@@ -1,0 +1,102 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+.options {
+    display: flex;
+    align-items: center;
+
+    &.use-grid {
+        display: grid;
+    }
+
+    .field {
+        margin: functions.size(1.5em) functions.size(2em) functions.size(1.5em) 0;
+        min-width: functions.size(7em);
+
+        input[type=radio] {
+            position: absolute;
+            opacity: 0;
+
+            + label {
+                border: functions.size(0.2em) solid rgba(variables.$grey, 0.7);
+                border-radius: functions.size(0.4em);
+                display: block;
+                color: rgba(variables.$grey, 0.7);
+                cursor: pointer;
+                font-weight: variables.$weight-medium;
+                padding: functions.size(0.6em) functions.size(1.5em);
+                position: relative;
+
+                &:hover {
+                    border-color: var(--flex-grey, #{variables.$grey});
+                    color: var(--flex-grey, #{variables.$grey});
+                }
+            }
+
+            &:checked {
+                + label {
+                    border-color: var(--flex-secondary, #{variables.$secondary});
+                    color: var(--flex-secondary, #{variables.$secondary});
+
+                    &::after {
+                        @include mixins.ui-icon;
+
+                        content: '\f102';
+                        background-color: var(--flex-secondary, #{variables.$secondary});
+                        border-radius: 100%;
+                        color: var(--flex-white, #{variables.$white});
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: functions.size(1.7em);
+                        position: absolute;
+                        transform: translate(50%, -50%);
+                        top: 0;
+                        right: 0;
+                        margin: 0;
+                        height: functions.size(1.6em);
+                        width: functions.size(1.6em);
+                    }
+                }
+            }
+
+            &[disabled] + label {
+                cursor: not-allowed;
+                color: rgba(variables.$grey, 0.5);
+                overflow: hidden;
+
+                &:hover {
+                    border-color: rgba(variables.$grey, 0.7);
+                    color: rgba(variables.$grey, 0.5);
+                }
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    background: linear-gradient(to left top, transparent 49.5%, variables.$grey 49.5%, variables.$grey 50.5%, transparent 51.5%);
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+
+    &.is-inverted {
+        input[type=radio]:checked {
+            + label {
+                border-color: var(--flex-white, #{variables.$white});
+                color: var(--flex-white, #{variables.$white});
+
+                &::after {
+                    background-color: var(--flex-white, #{variables.$white});
+                    color: var(--flex-secondary, #{variables.$secondary});
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,172 @@
+@use "sass:color";
+@use "sass:list";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$input-hover-color: variables.$tertiary;
+
+$select-lateral-padding: functions.size(1.5em);
+
+$input-arrow: variables.$link;
+
+$input-disabled-color: variables.$grey;
+$input-disabled-border-color: variables.$grey-lighter;
+
+.select {
+    display: inline-block;
+    max-width: 100%;
+    position: relative;
+    vertical-align: top;
+
+    &:not(.is-multiple) {
+        height: functions.size(4.6em);
+
+        select {
+            height: functions.size(4.6em);
+            padding-left: $select-lateral-padding;
+
+            option:checked {
+                font-weight: variables.$weight-semibold;
+            }
+        }
+
+        &:not(.is-loading) {
+            &::after {
+                @include mixins.arrow($input-arrow);
+
+                left: auto;
+                right: functions.size(1.5em);
+                top: 0;
+                display: flex;
+                align-items: center;
+                color: var(--flex-grey, #{variables.$grey});
+                height: 100%;
+                pointer-events: none;
+                z-index: functions.zindex('small');
+            }
+
+            &:hover {
+                &::after {
+                    border-color: var(--flex-input-hover-color, #{$input-hover-color});
+                }
+            }
+        }
+    }
+
+    &.is-rounded {
+        select {
+            border-radius: variables.$radius-rounded;
+            padding-left: 1em;
+        }
+    }
+
+    select {
+        @include mixins.input;
+
+        cursor: pointer;
+        display: block;
+        font-size: 1em;
+        max-width: 100%;
+        outline: none;
+
+        &::-ms-expand {
+            display: none;
+        }
+
+        &[disabled]:hover {
+            border-color: var(--flex-input-disabled-border-color, #{$input-disabled-border-color});
+        }
+
+        &:not([multiple]) {
+            padding-right: 2.5em;
+        }
+
+        &[multiple] {
+            height: initial;
+            padding: 0;
+
+            option {
+                padding: 0.5em 1em;
+            }
+        }
+    }
+
+    // Colors
+    @each $name, $pair in variables.$colors {
+        $color: list.nth($pair, 1);
+
+        &.is-#{$name} {
+            &:not(:hover)::after {
+                border-color: var(#{'--flex-'}#{$name}, #{$color});
+            }
+
+            select {
+                border-color: var(#{'--flex-'}#{$name}, #{$color});
+
+                &:hover,
+                &.is-hovered {
+                    border-color: color.adjust($color, $lightness: -5%);
+                }
+            }
+        }
+    }
+
+    // Sizes
+    &.is-small {
+        @include mixins.control-small;
+    }
+
+    &.is-medium {
+        @include mixins.control-medium;
+    }
+
+    &.is-large {
+        @include mixins.control-large;
+    }
+
+    // Modifiers
+    &.is-disabled {
+        &::after {
+            border-color: var(--flex-input-disabled-color, #{$input-disabled-color});
+        }
+    }
+
+    &.is-fullwidth {
+        // width: 100%;
+        // @extend .is-fullwidth;
+        @include mixins.fullwidth;
+
+        select {
+            // width: 100%;
+            // @extend .is-fullwidth;
+            @include mixins.fullwidth;
+        }
+    }
+
+    &.is-loading {
+        &::after {
+            @include mixins.loader;
+
+            margin-top: 0;
+            position: absolute;
+            right: 0.625em;
+            top: 0.625em;
+            transform: none;
+        }
+
+        &.is-small::after {
+            font-size: variables.$size-small;
+        }
+
+        &.is-medium::after {
+            font-size: variables.$size-medium;
+        }
+
+        &.is-large::after {
+            font-size: variables.$size-large;
+        }
+    }
+}
+

@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "lib": ["ES2022","dom","dom.iterable"],
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
+    "declaration": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "removeComments": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "downlevelIteration": true,
+    "preserveConstEnums": true,
+    "forceConsistentCasingInFileNames": false,
+    "allowImportingTsExtensions": true,
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "rootDirs": [
+      "./src",
+      "./types"
+    ],
+    "paths": {
+      "flexiness": ["../types"],
+      "flex-webpack/*": ["../config/webpack/src/*"]
+    },
+    "types": ["node", "lodash", "react"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/assets/fonts/icons/*.json",
+    "types/**/*.d.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "build/**/*",
+    "dist/**/*",
+    "src/**/*.native.tsx",
+  ],
+  "references": [
+    { "path": "../design-system-framework/tsconfig.build.json" },
+  ]
+}

@@ -1,0 +1,32 @@
+@use "sass:math"
+
+@use "../../variables" as vars
+@use "utilities" as bulvarUtilities
+
+$container-offset: (2 * vars.$gap) !default
+$container-max-width: vars.$fullhd !default
+
+.container
+  flex-grow: 1
+  margin: 0 auto
+  position: relative
+  width: auto
+  &.is-fluid
+    max-width: none !important
+    padding-left: vars.$gap
+    padding-right: vars.$gap
+    width: 100%
+  +bulvarUtilities.desktop
+    max-width: vars.$desktop - $container-offset
+  +bulvarUtilities.until-widescreen
+    &.is-widescreen:not(.is-max-desktop)
+      max-width: math.min(vars.$widescreen, $container-max-width) - $container-offset
+  +bulvarUtilities.until-fullhd
+    &.is-fullhd:not(.is-max-desktop):not(.is-max-widescreen)
+      max-width: math.min(vars.$fullhd, $container-max-width) - $container-offset
+  +bulvarUtilities.widescreen
+    &:not(.is-max-desktop)
+      max-width: math.min(vars.$widescreen, $container-max-width) - $container-offset
+  +bulvarUtilities.fullhd
+    &:not(.is-max-desktop):not(.is-max-widescreen)
+      max-width: math.min(vars.$fullhd, $container-max-width) - $container-offset

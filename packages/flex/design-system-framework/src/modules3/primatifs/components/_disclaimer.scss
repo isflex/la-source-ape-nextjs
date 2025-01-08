@@ -1,0 +1,116 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+.disclaimer.accordions {
+    .accordion {
+        .disclaimer-header {
+            padding-left: functions.size(1em);
+            margin-left: 0;
+            justify-content: flex-start;
+
+            .toggle.button {
+                max-height: functions.size(2em);
+                max-width: functions.size(2em);
+                min-height: functions.size(2em);
+                min-width: functions.size(2em);
+                height: functions.size(2em);
+                width: functions.size(2em);
+                margin: 0 functions.size(1em) 0 0;
+                top: functions.size(-0.1em);
+
+                &.is-bordered {
+                    min-height: functions.size(3.2em);
+                    min-width: functions.size(3.2em);
+                }
+            }
+
+            .title {
+                margin: 0 0 0 functions.size(1.5em);
+            }
+        }
+
+        .disclaimer-content {
+            padding-left: functions.size(2em);
+            margin-left: functions.size(3.2em);
+            position: relative;
+            color: #7d7d7d;
+
+            .disclaimer-marker {
+                margin-left: functions.size(3em);
+            }
+
+            .disclaimer-item {
+                margin-left: functions.size(2em);
+
+                .heading {
+                    font-weight: variables.$weight-normal;
+                }
+
+                a {
+                    font-weight: variables.$weight-semibold;
+                    text-decoration: underline;
+                }
+
+                p {
+                    &:not(.heading) {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: #ececec;
+                display: block;
+                width: .1em;
+                height: 100%;
+            }
+
+            &.is-active {
+                background-color: var(--flex-grey-lighter, #{variables.$grey-lighter});
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    background-color: var(--flex-blue, #{variables.$blue});
+                    bottom: -.6em;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    width: functions.size(0.5em);
+                }
+            }
+
+            &.has-text-grey {
+                &::before {
+                    background-color: var(--flex-grey, #{variables.$grey});
+                    opacity: 0.5;
+                }
+            }
+        }
+
+        &.is-active {
+            color: var(--flex-blue, #{variables.$blue});
+
+            .title {
+                color: var(--flex-blue, #{variables.$blue});
+            }
+
+            .disclaimer-header .toggle.button::before {
+                border: functions.size(0.2em) solid var(--flex-blue, #{variables.$blue});
+            }
+        }
+
+        .heading {
+            font-size: variables.$text-13;
+            color: var(--flex-grey, #{variables.$grey});
+            margin-bottom: 0.75em;
+            text-transform: inherit;
+        }
+    }
+}

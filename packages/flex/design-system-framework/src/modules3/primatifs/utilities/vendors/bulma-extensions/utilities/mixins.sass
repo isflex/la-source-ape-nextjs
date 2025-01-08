@@ -1,0 +1,410 @@
+@use "sass:color"
+@use "sass:list"
+@use "sass:meta"
+@use "sass:string"
+
+@use "../../../variables" as vars
+@use "functions" as fn_sass
+
+=clearfix
+  &::after
+    clear: both
+    content: " "
+    display: table
+
+=center($width, $height: 0)
+  position: absolute
+  @if $height != 0
+    left: calc(50% - (#{$width} * 0.5))
+    top: calc(50% - (#{$height} * 0.5))
+  @else
+    left: calc(50% - (#{$width} * 0.5))
+    top: calc(50% - (#{$width} * 0.5))
+
+=fa($size, $dimensions)
+  --fa-dimensions: #{$dimensions}
+  --fa-font-size: #{$size}
+  display: inline-block
+  font-size: var(--fa-font-size)
+  height: var(--fa-dimensions)
+  line-height: var(--fa-dimensions)
+  text-align: center
+  vertical-align: top
+  width: var(--fa-dimensions)
+
+=hamburger($dimensions)
+  --hamburger-dimensions: #{$dimensions}
+  appearance: none
+  background: none
+  border: none
+  cursor: pointer
+  display: block
+  height: var(--hamburger-dimensions)
+  position: relative
+  width: var(--hamburger-dimensions)
+  span
+    background-color: currentColor
+    display: block
+    height: 1px
+    left: calc(50% - 8px)
+    position: absolute
+    transform-origin: center
+    transition-duration: var(--speed)
+    transition-property: background-color, opacity, transform
+    transition-timing-function: var(--easing)
+    width: 16px
+    &:nth-child(1)
+      top: calc(50% - 6px)
+    &:nth-child(2)
+      top: calc(50% - 1px)
+    &:nth-child(3)
+      top: calc(50% + 4px)
+  &:hover
+    background-color: fn_sass.bulmaRgba(black, 0.05)
+  // Modifers
+  &.is-active
+    span
+      &:nth-child(1)
+        transform: translateY(5px) rotate(45deg)
+      &:nth-child(2)
+        opacity: 0
+      &:nth-child(3)
+        transform: translateY(-5px) rotate(-45deg)
+
+=overflow-touch
+  -webkit-overflow-scrolling: touch
+
+=placeholder
+  $placeholders: ':-moz' ':-webkit-input' '-moz' '-ms-input'
+  @each $placeholder in $placeholders
+    &:#{$placeholder}-placeholder
+      @content
+
+=reset
+  appearance: none
+  background: none
+  border: none
+  color: currentColor
+  font-family: inherit
+  font-size: 1em
+  margin: 0
+  padding: 0
+
+=typography-size($target:'')
+  @each $size in vars.$sizes
+    $i: list.index(vars.$sizes, $size)
+    .is-size-#{$i}#{if($target == '', '', '-' + $target)}
+      font-size: $size !important
+
+// Responsiveness
+
+=from($device)
+  @media screen and (min-width: $device)
+    @content
+
+=until($device)
+  @media screen and (max-width: $device - 1px)
+    @content
+
+=between($from, $until)
+  @media screen and (min-width: $from) and (max-width: $until - 1px)
+    @content
+
+=mobile
+  @media screen and (max-width: vars.$tablet - 1px)
+    @content
+
+=tablet
+  @media screen and (min-width: vars.$tablet), print
+    @content
+
+=tablet-only
+  @media screen and (min-width: vars.$tablet) and (max-width: vars.$desktop - 1px)
+    @content
+
+=touch
+  @media screen and (max-width: vars.$desktop - 1px)
+    @content
+
+=desktop
+  @media screen and (min-width: vars.$desktop)
+    @content
+
+=desktop-only
+  @if vars.$widescreen-enabled
+    @media screen and (min-width: vars.$desktop) and (max-width: vars.$widescreen - 1px)
+      @content
+
+=until-widescreen
+  @if vars.$widescreen-enabled
+    @media screen and (max-width: vars.$widescreen - 1px)
+      @content
+
+=widescreen
+  @if vars.$widescreen-enabled
+    @media screen and (min-width: vars.$widescreen)
+      @content
+
+=widescreen-only
+  @if vars.$widescreen-enabled and vars.$fullhd-enabled
+    @media screen and (min-width: vars.$widescreen) and (max-width: vars.$fullhd - 1px)
+      @content
+
+=until-fullhd
+  @if vars.$fullhd-enabled
+    @media screen and (max-width: vars.$fullhd - 1px)
+      @content
+
+=fullhd
+  @if vars.$fullhd-enabled
+    @media screen and (min-width: vars.$fullhd)
+      @content
+
+=ie11
+  @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none)
+    @content
+
+=breakpoint($name)
+  $breakpoint: map-get(vars.$breakpoints, $name)
+  @if $breakpoint
+    $from: map-get($breakpoint, "from")
+    $until: map-get($breakpoint, "until")
+    @if $from and $until
+      +between($from, $until)
+        @content
+    @else if $from
+      +from($from)
+        @content
+    @else if $until
+      +until($until)
+        @content
+
+=ltr
+  @if not vars.$rtl
+    @content
+
+=rtl
+  @if vars.$rtl
+    @content
+
+=ltr-property($property, $spacing, $right: true)
+  $normal: if($right, "right", "left")
+  $opposite: if($right, "left", "right")
+  +rtl
+    #{$property}-#{$opposite}: $spacing
+  +ltr
+    #{$property}-#{$normal}: $spacing
+
+=ltr-position($spacing, $right: true)
+  $normal: if($right, "right", "left")
+  $opposite: if($right, "left", "right")
+  +rtl
+    #{$opposite}: $spacing
+  +ltr
+    #{$normal}: $spacing
+
+// Placeholders
+
+=unselectable
+  user-select: none
+
+=arrow($color: transparent)
+  --arrow-color: #{$color}
+  border: 3px solid var(--arrow-color)
+  border-radius: 2px
+  border-right: 0
+  border-top: 0
+  content: " "
+  display: block
+  height: 0.625em
+  margin-top: -0.4375em
+  pointer-events: none
+  position: absolute
+  top: 50%
+  transform: rotate(-45deg)
+  transform-origin: center
+  width: 0.625em
+
+=block($spacing: vars.$block-spacing)
+  --block-spacing: #{$spacing}
+  &:not(:last-child)
+    margin-bottom: var(--block-spacing)
+
+=delete
+  --delete-height: 20px
+  --delete-width: 20px
+  @extend %unselectable
+  appearance: none
+  background-color: rgba(var(--scheme-invert-rgb), 0.2)
+  border: none
+  border-radius: var(--radius-rounded)
+  cursor: pointer
+  pointer-events: auto
+  display: inline-block
+  flex-grow: 0
+  flex-shrink: 0
+  font-size: 0
+  height: var(--delete-height)
+  max-height: var(--delete-height)
+  max-width: var(--delete-width)
+  min-height: var(--delete-height)
+  min-width: var(--delete-width)
+  outline: none
+  position: relative
+  vertical-align: top
+  width: var(--delete-width)
+  &::before,
+  &::after
+    background-color: var(--scheme-main)
+    content: ""
+    display: block
+    left: 50%
+    position: absolute
+    top: 50%
+    transform: translateX(-50%) translateY(-50%) rotate(45deg)
+    transform-origin: center center
+  &::before
+    height: 2px
+    width: 50%
+  &::after
+    height: 50%
+    width: 2px
+  &:hover,
+  &:focus
+    background-color: rgba(var(--scheme-invert-rgb), 0.3)
+  &:active
+    background-color: rgba(var(--scheme-invert-rgb), 0.4)
+  // Sizes
+  &.is-small
+    --delete-height: 16px
+    --delete-width: 16px
+  &.is-medium
+    --delete-height: 24px
+    --delete-width: 24px
+  &.is-large
+    --delete-height: 32px
+    --delete-width: 32px
+
+=loader
+  --loader-border-color: var(--grey-lighter)
+  animation: spinAround 500ms infinite linear
+  border: 2px solid var(--loader-border-color)
+  border-radius: var(--radius-rounded)
+  border-right-color: transparent
+  border-top-color: transparent
+  content: ""
+  display: block
+  height: 1em
+  position: relative
+  width: 1em
+
+=overlay($offset: 0)
+  bottom: $offset
+  left: $offset
+  position: absolute
+  right: $offset
+  top: $offset
+
+
+//
+// Additional @mixins for bulvar
+//
+
+=sizes($target:'')
+  @each $size in vars.$sizes
+    $i: list.index(vars.$sizes, $size)
+    &.is-#{$i}
+      font-size: $size
+
+// 🧩 register :export {}
+
+=exportCSSVar($name, $value)
+  @if vars.$export
+    @at-root :export
+      #{fn_sass.camel-case($name)}: #{$value}
+
+=exportCSSVars($list)
+  @if vars.$export
+    @at-root :export
+      @each $name, $value in $list
+        #{fn_sass.camel-case($name)}: #{$value}
+
+// 🧩 register var() base on $at-root flag
+
+=registerCSSVar($name, $value, $at-root: true)
+  @if $at-root
+    @at-root :root
+      --#{$name}: #{$value}
+  @else
+    --#{$name}: #{$value}
+
+=registerCSSVars($list, $at-root: true)
+  @if $at-root
+    @at-root :root
+      @each $name, $value in $list
+        --#{$name}: #{$value}
+  @else
+    @each $name, $value in $list
+      --#{$name}: #{$value}
+
+// 🧩 register var() JUST(⚠️) for colors in $colors map
+
+=registerCSSVarColor($name, $components, $prefix: '')
+  $base: $prefix + $name
+
+  // Base color
+  $color: list.nth($components, 1)
+  --#{$base}-h: #{color.hue($color)}
+  --#{$base}-s: #{color.saturation($color)}
+  --#{$base}-l: #{color.lightness($color)}
+  --#{$base}-a: 1
+  --#{$base}: hsla(var(--#{$base}-h), var(--#{$base}-s), var(--#{$base}-l), var(--#{$base}-a))
+
+  // Invert color
+  $color-invert: list.nth($components, 2)
+  --#{$base}-invert: #{$color-invert}
+  @if meta.type-of($color-invert) == 'color'
+    --#{$base}-invert-bis: #{fn_sass.findColorState($color-invert, 5%)}
+    --#{$base}-invert-ter: #{fn_sass.findColorState($color-invert, 10%)}
+  @else
+    --#{$base}-invert-bis: var(--#{fn_sass.unwrap($color-invert)}-bis)
+    --#{$base}-invert-ter: var(--#{fn_sass.unwrap($color-invert)}-ter)
+
+  // Light color
+  $color-light: if(list.length($components) >= 3, list.nth($components, 3), fn_sass.findLightColor($color))
+  $light-l: color.lightness($color-light)
+  --#{$base}-light-l: #{$light-l}
+  --#{$base}-light: hsla(var(--#{$base}-h), var(--#{$base}-s), var(--#{$base}-light-l), var(--#{$base}-a))
+
+  // Dark color
+  $color-dark: if(list.length($components) >= 4, list.nth($components, 4), fn_sass.findDarkColor($color))
+  $dark-l: color.lightness($color-dark)
+  --#{$base}-dark-l: #{$dark-l}
+  --#{$base}-dark: hsla(var(--#{$base}-h), var(--#{$base}-s), var(--#{$base}-dark-l), var(--#{$base}-a))
+
+=registerCSSVarColors($colors, $prefix: '')
+  @each $name, $components in $colors
+    +registerCSSVarColor($name, $components, $prefix)
+
+// If declare variables only in component's root selector, i.e. .card
+// .card-item, .card-header etc. wont have acces to CSS Vars due to the scoping
+// so if $at-root is false, use starts-with selector
+
+// turns list of string that represent root casses
+// i.e. ('tag', 'tags')
+// into ('.tag', 'class^=tag', '.tags', 'class^=tags')
+// to use as dynamic selector
+=registerComponentCSSVars($component-class, $map, $has-starts-from: true)
+  @if $component-class == null or $component-class == ''
+    +registerCSSVars($map, true)
+  @else
+    $list: if(meta.type-of($component-class) == 'list', $component-class, ($component-class))
+    $new-list: ()
+
+    @each $name in $component-class
+      $new-list: list.append($new-list, '.#{$name}', comma)
+      @if $has-starts-from
+        $new-list: list.append($new-list, '.flexiness-root [class^=#{$name}-]', comma)
+
+    #{$new-list}
+      +registerCSSVars($map, vars.$at-root)

@@ -1,0 +1,16 @@
+export declare const animateFromRight: string
+export declare const animateFromTop: string
+export declare const flexinessRoot: string
+export declare const fromRight: string
+export declare const fromTop: string
+export declare const hasSlice: string
+export declare const isDanger: string
+export declare const isDebug: string
+export declare const isFlexPink: string
+export declare const isInfo: string
+export declare const isInverted: string
+export declare const isSuccess: string
+export declare const isSwitch: string
+export declare const isWarning: string
+export declare const placeHolderShimmer: string
+export declare const spinAround: string

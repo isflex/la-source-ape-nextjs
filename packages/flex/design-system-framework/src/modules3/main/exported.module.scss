@@ -1,0 +1,289 @@
+@use "../primatifs/utilities/variables";
+
+// Map Local variables
+$_css-vars-map-light: (
+  'flex-primary': variables.$primary,
+  'flex-secondary': variables.$secondary,
+  'flex-tertiary': variables.$tertiary,
+  'flex-quaternary': variables.$quaternary,
+
+  'flex-pink': variables.$flex-pink,
+  'flex-purple': variables.$flex-purple,
+  'flex-green': variables.$flex-green,
+  'flex-orange': variables.$flex-orange,
+
+  'flex-primary-invert': variables.$primary-invert,
+  'flex-secondary-invert': variables.$secondary-invert,
+  'flex-tertiary-invert': variables.$tertiary-invert,
+  'flex-quaternary-invert': variables.$quaternary-invert,
+
+  'flex-pink-invert': variables.$flex-pink-invert,
+  'flex-purple-invert': variables.$flex-purple-invert,
+  'flex-green-invert': variables.$flex-green-invert,
+  'flex-orange-invert': variables.$flex-orange-invert,
+
+  'flex-text': variables.$tertiary,
+  'flex-text-invert': variables.$white,
+
+  'flex-link': variables.$secondary,
+  'flex-link-hover': variables.$secondary,
+  'flex-link-inverted': variables.$white,
+  'flex-link-hover-inverted': variables.$white,
+  'flex-link-focus': variables.$secondary,
+  'flex-link-focus-border': variables.$blue,
+  'flex-tabs-link-color': variables.$tertiary,
+  'flex-tabs-link-hover-color': variables.$secondary,
+
+  'flex-body-color': variables.$tertiary,
+  'flex-title-color': variables.$tertiary,
+  'flex-suptitle-color': variables.$tertiary,
+  'flex-menu-item-color': variables.$tertiary,
+  'flex-table-cell-color': variables.$tertiary,
+  'flex-input-color': variables.$tertiary,
+
+  'flex-white': variables.$white,
+
+  'flex-grey-darker': variables.$grey-darker,
+  'flex-grey-dark': variables.$grey-dark,
+  'flex-grey': variables.$grey,
+  'flex-grey-light': variables.$grey-light,
+  'flex-grey-lighter': variables.$grey-lighter,
+
+  'flex-black': variables.$black,
+
+  'flex-section-fill-light': variables.$white,
+  'flex-section-fill-dark': variables.$white,
+
+  'flex-box-fill': variables.$white,
+
+  'flex-accordion-pre-fill': variables.$white,
+  'flex-accordion-content-fill': variables.$grey-lighter,
+
+  'flex-card-fill': variables.$white,
+
+  'flex-menu-list-fill': variables.$white,
+
+  'flex-switch-highlight': variables.$white,
+
+  'flex-notification-fill': variables.$white,
+
+  'flex-pricing-plan-product-fill': variables.$white,
+
+  'flex-table-head-fill': variables.$grey-lighter,
+  'flex-subtable-fill': variables.$grey-lighter,
+
+  'flex-navbar-fill': variables.$white,
+
+  'flex-slice-fill': variables.$white,
+
+  'flex-input-fill': variables.$grey-lighter,
+
+  'flex-border': variables.$border-grey-light,
+  'flex-toolbar-border': variables.$border-grey-light,
+  'flex-accordion-border': variables.$border-grey-light,
+  'flex-menu-border': variables.$border-grey-light,
+
+  // 'flex-background': variables.$grey-light,
+  // 'flex-border-hover': variables.$grey-light,
+);
+
+$_css-vars-map-dark: (
+  'flex-primary': variables.$primary,
+  'flex-secondary': variables.$secondary,
+  'flex-tertiary': variables.$tertiary,
+  'flex-quaternary': variables.$quaternary,
+
+  'flex-pink': variables.$flex-pink,
+  'flex-purple': variables.$flex-purple,
+  'flex-green': variables.$flex-green,
+  'flex-orange': variables.$flex-orange,
+
+  'flex-primary-invert': variables.$primary-invert,
+  'flex-secondary-invert': variables.$secondary-invert,
+  'flex-tertiary-invert': variables.$tertiary-invert,
+  'flex-quaternary-invert': variables.$quaternary-invert,
+
+  'flex-pink-invert': variables.$flex-pink-invert,
+  'flex-purple-invert': variables.$flex-purple-invert,
+  'flex-green-invert': variables.$flex-green-invert,
+  'flex-orange-invert': variables.$flex-orange-invert,
+
+  'flex-text': variables.$white,
+  'flex-text-invert': variables.$tertiary,
+
+  'flex-link': variables.$white,
+  'flex-link-hover': variables.$white,
+  'flex-link-inverted': variables.$secondary,
+  'flex-link-hover-inverted': variables.$secondary,
+  'flex-link-focus': variables.$white,
+  'flex-link-focus-border': variables.$secondary,
+  'flex-tabs-link-color': variables.$white,
+  'flex-tabs-link-hover-color': variables.$secondary,
+
+  'flex-body-color': variables.$white,
+  'flex-title-color': variables.$white,
+  'flex-suptitle-color': variables.$white,
+  'flex-menu-item-color': variables.$white,
+  'flex-table-cell-color': variables.$white,
+  'flex-input-color': variables.$white,
+
+  'flex-white': variables.$white,
+
+  'flex-grey-darker': variables.$grey-lighter,
+  'flex-grey-dark': variables.$grey-light,
+  'flex-grey': variables.$grey,
+  'flex-grey-light': variables.$grey-dark,
+  'flex-grey-lighter': variables.$grey-darker,
+
+  'flex-black': variables.$black,
+
+  'flex-section-fill-light': variables.$black-ter,
+  'flex-section-fill-dark': variables.$black-bis,
+
+  'flex-box-fill': variables.$gateway-tertiary-dark,
+
+  'flex-accordion-pre-fill': variables.$gateway-tertiary-dark,
+  'flex-accordion-content-fill': variables.$black,
+
+  'flex-card-fill': variables.$gateway-tertiary-dark,
+
+  'flex-menu-list-fill': variables.$gateway-tertiary-dark,
+
+  'flex-switch-highlight': variables.$black,
+
+  'flex-notification-fill': variables.$gateway-tertiary-dark,
+
+  'flex-pricing-plan-product-fill': variables.$gateway-tertiary-dark,
+
+  'flex-table-head-fill': variables.$gateway-tertiary-dark,
+  'flex-subtable-fill': variables.$gateway-tertiary-dark,
+
+  'flex-navbar-fill': variables.$gateway-tertiary-dark,
+
+  'flex-slice-fill': variables.$gateway-tertiary-dark,
+
+  'flex-input-fill': variables.$tertiary,
+
+  'flex-border': variables.$black-ter,
+  'flex-toolbar-border': variables.$tertiary,
+  'flex-accordion-border': variables.$tertiary,
+  'flex-menu-border': variables.$tertiary,
+
+  // 'flex-background': variables.$grey-light,
+  // 'flex-border-hover': variables.$grey-light,
+);
+
+$_vars-inherited-bulvar: (
+  'section-padding': 3rem 1.5rem,
+  'section-padding-medium': 9rem 4.5rem,
+  'section-padding-large': 18rem 6rem,
+
+  'table-color': var(--flex-grey-darker),
+  'table-cell-border-width': 0 0 1px,
+  'table-cell-border': 1px solid var(--flex-border),
+  'table-cell-heading-color': var(--flex-grey-darker),
+  'table-cell-text-align': left,
+  'table-cell-padding': 0.5em 0.75em,
+  'table-head-cell-border-width': 0 0 2px,
+  'table-head-cell-color': var(--flex-grey-darker),
+  'table-foot-cell-border-width': 2px 0 0,
+  'table-foot-cell-color': var(--flex-grey-darker),
+  'table-head-background-color': transparent,
+  'table-body-background-color': transparent,
+  'table-foot-background-color': transparent,
+  'table-row-hover-background-color': variables.$white-bis,
+  'table-row-active-background-color': var(--flex-primary),
+  'table-row-active-color': var(--flex-primary-invert),
+  'table-striped-row-even-background-color': variables.$white-bis,
+  'table-striped-row-even-hover-background-color': variables.$white-ter,
+
+  'number-background': variables.$background,
+  'number-radius-rounded': variables.$radius-rounded,
+  'number-font-size': variables.$size-medium,
+
+  'breadcrumb-font-size': variables.$size-normal,
+  'breadcrumb-item-color': #109db9,
+  'breadcrumb-item-hover-color': #109db9,
+  'breadcrumb-item-active-color': #25465f,
+  'breadcrumb-item-separator-color': variables.$border-hover,
+  'breadcrumb-item-padding-vertical': 0,
+  'breadcrumb-item-padding-horizontal': 0.75em,
+  'breadcrumb-li-content': #{'/'},
+
+  'pagination-color': var(--flex-grey-darker),
+  'pagination-border-color': var(--flex-border),
+  'pagination-font-size': variables.$size-normal,
+  'pagination-margin': -0.25rem,
+  'pagination-min-width': var(--control-height),
+  'pagination-item-font-size': 1em,
+  'pagination-item-margin': 0.25rem,
+  'pagination-item-padding-left': 0.5em,
+  'pagination-item-padding-right': 0.5em,
+  'pagination-nav-padding-left': 0.75em,
+  'pagination-nav-padding-right': 0.75em,
+  'pagination-hover-color': var(--flex-link-hover),
+  'pagination-hover-border-color': var(--flex-border),
+  'pagination-focus-color': var(--flex-link-focus),
+  'pagination-focus-border-color': var(--flex-link-focus-border),
+  'pagination-disabled-color': var(--text-light),
+  'pagination-disabled-background-color': var(--flex-border),
+  'pagination-disabled-border-color': var(--flex-border),
+  'pagination-current-color': var(--flex-link-inverted),
+  'pagination-current-background-color': var(--flex-link),
+  'pagination-current-border-color': var(--flex-link),
+  'pagination-ellipsis-color': var(--flex-grey-light),
+  'pagination-shadow-inset': inset 0 1px 2px rgba(0, 0, 0, 0.2),
+
+  'tile-spacing': 0.75rem,
+);
+
+@mixin registerCSSVar($name, $value, $at-root: true) {
+  @if $at-root {
+    // @at-root :root {
+    //   --#{$name}: #{$value};
+    // }
+    @at-root .flexiness-root {
+      --#{$name}: #{$value};
+    }
+  }
+
+  @else {
+    --#{$name}: #{$value};
+  }
+}
+
+@mixin registerCSSVars($list, $at-root: true) {
+  @if $at-root {
+    // @at-root :root {
+    //   @each $name, $value in $list {
+    //     --#{$name}: #{$value};
+    //   }
+    // }
+    @at-root .flexiness-root {
+      @each $name, $value in $list {
+        --#{$name}: #{$value};
+      }
+    }
+  }
+  @else {
+    @each $name, $value in $list {
+      --#{$name}: #{$value};
+    }
+  }
+}
+
+.flexiness-root[data-flex-theme=light] {
+  @include registerCSSVars($_css-vars-map-light, $at-root: false);
+}
+
+.flexiness-root[data-flex-theme=dark] {
+  @include registerCSSVars($_css-vars-map-dark, $at-root: false);
+}
+
+@include registerCSSVar('flex-font-family', variables.$family-flexiness, $at-root: true);
+@include registerCSSVar('flex-radius-rounded', variables.$radius-rounded, $at-root: true);
+@include registerCSSVars($_vars-inherited-bulvar, $at-root: true);
+
+@include registerCSSVar('flex-box-padding-mobile', variables.$box-padding-mobile, $at-root: true);
+@include registerCSSVar('flex-box-padding', variables.$box-padding, $at-root: true);
+@include registerCSSVar('flex-column-gap', variables.$column-gap, $at-root: true);

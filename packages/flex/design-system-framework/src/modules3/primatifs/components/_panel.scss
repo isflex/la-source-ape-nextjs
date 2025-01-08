@@ -1,0 +1,5 @@
+@use "../utilities/variables" as *;
+@use "../utilities/mixins" as *;
+
+@forward "../utilities/vendors/bulma-extensions/utilities/extends.sass";
+@forward "../utilities/vendors/bulma-extensions/_panel.sass";

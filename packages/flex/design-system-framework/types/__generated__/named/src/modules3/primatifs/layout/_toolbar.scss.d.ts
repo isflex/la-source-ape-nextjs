@@ -1,0 +1,15 @@
+export declare const animateFromRight: string
+export declare const animateFromTop: string
+export declare const container: string
+export declare const flexinessRoot: string
+export declare const fromRight: string
+export declare const fromTop: string
+export declare const isClippedToBottom: string
+export declare const isElastic: string
+export declare const placeHolderShimmer: string
+export declare const spinAround: string
+export declare const toolbar: string
+export declare const toolbarGroup: string
+export declare const toolbarItem: string
+export declare const toolbarRow: string
+export declare const toolbarSpace: string

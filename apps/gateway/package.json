@@ -4,13 +4,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "next build",
+    "build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build",
     "lint": "next lint",
-    "next:dev": "NODE_OPTIONS='--inspect' next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
-    "start": "FEDERATION_DEBUG='true' next start ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME"
+    "next:dev": "FEDERATION_DEBUG='true' NODE_OPTIONS='--inspect' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
+    "start": "FEDERATION_DEBUG='false' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next start ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.7.1",
+    "@flex-design-system/framework": "@flex-design-system/framework@0.0.1",
+    "@flex-design-system/react-ts": "@flex-design-system/react-ts@0.0.1",
     "@flexiness/domain-store": "@flexiness/domain-store@0.1.0",
     "@flexiness/domain-utils": "@flexiness/domain-utils@0.0.1",
     "@loadable/component": "5.13.2",
@@ -60,6 +62,7 @@
     "eslint-config-next": "14.1.4",
     "flexiness": "@types/flexiness@0.0.1",
     "sass-embedded": "1.83.0",
+    "tsconfig-paths-webpack-plugin": "4.1.0",
     "tsx": "^4.7.2",
     "typescript": "5.7.2",
     "webpack": "5.97.1"

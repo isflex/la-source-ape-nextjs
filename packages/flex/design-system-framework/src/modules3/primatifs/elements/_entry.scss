@@ -1,0 +1,94 @@
+@use "sass:list";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+@use "form";
+
+.input,
+.textarea {
+    @include mixins.input;
+
+    padding-left: form.$input-lateral-padding;
+    padding-right: form.$input-lateral-padding;
+    max-width: 100%;
+    width: 100%;
+
+    // Colors
+    @each $name, $pair in variables.$colors {
+        $color: list.nth($pair, 1);
+
+        &.is-#{$name} {
+            border-color: var(#{'--flex-'}#{$name}, #{$color});
+        }
+    }
+
+    // Sizes
+    &.is-small {
+        @include mixins.control-small;
+    }
+
+    &.is-medium {
+        @include mixins.control-medium;
+    }
+
+    &.is-large {
+        @include mixins.control-large;
+    }
+
+    &.is-fullwidth {
+        display: block;
+        width: 100%;
+    }
+
+    &.is-inline {
+        display: inline;
+    }
+}
+
+.input {
+    &::-ms-clear {
+        display: none;
+    }
+
+    &.is-medium {
+        height: functions.size(4.1em);
+    }
+
+    &.is-small {
+        height: functions.size(2.4em);
+    }
+
+    &.is-rounded {
+        border-radius: variables.$radius-rounded;
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+
+    &.is-static {
+        background-color: transparent;
+        border-color: transparent;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.textarea {
+    display: block;
+    max-width: 100%;
+    min-width: 100%;
+    resize: vertical;
+
+    &:not([rows]) {
+        max-height: 600px;
+        min-height: 120px;
+    }
+
+    &[rows] {
+        height: initial;
+    }
+
+    &.has-fixed-size {
+        resize: none;
+    }
+}

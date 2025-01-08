@@ -1,0 +1,170 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$table-background-color: transparent;
+$table-color: variables.$grey-dark;
+$table-cell-padding-x: functions.size(2em);
+$table-cell-padding-y: functions.size(2em);
+$table-cell-padding: $table-cell-padding-y $table-cell-padding-x;
+$table-head-fill: variables.$grey-lighter;
+
+$table-cell-color: variables.$text;
+$table-cell-border: functions.size(0.1em) solid var(--flex-border-grey-light, #{variables.$border-grey-light});
+$table-cell-border-width: 0 0 0;
+$table-head-cell-border-width: 0 0 functions.size(0.1em);
+
+$subtable-fill: variables.$grey-lighter;
+
+// @use "@bulvar/bulma/sass/elements/table";
+@use "../utilities/vendors/bulma-extensions/table";
+
+/**
+* @deprecated "Use box.is-paddingless instead"
+*/
+.table-container.box {
+    padding: 0;
+}
+
+.table {
+    &:not(:last-child) {
+        margin-bottom: functions.size(3em);
+    }
+
+    /**
+    * @deprecated "Use multiples <tr><th> instead"
+    */
+    tbody .is-body-header {
+        background-color: var(--flex-grey-light, #{variables.$grey-light});
+    }
+
+    tr {
+        th {
+            background-color: var(--flex-table-head-fill, #{$table-head-fill});
+        }
+
+        th,
+        td {
+            color: var(--flex-table-cell-color, #{$table-cell-color});
+            vertical-align: middle;
+            padding: $table-cell-padding;
+        }
+
+        td {
+            border-bottom: functions.size(0.1em) solid variables.$grey-light;
+
+            > p {
+                margin: 0;
+            }
+        }
+
+        &.is-expanded,
+        &.is-expandable:hover {
+            td {
+                color: var(--flex-secondary, #{variables.$secondary});
+                cursor: pointer;
+            }
+        }
+
+        &.is-expandable + .is-expansion {
+            display: none;
+        }
+
+        &.is-expanded + .is-expansion {
+            display: table-row;
+        }
+
+        &.is-expanded {
+            > td {
+                border-bottom: 0;
+            }
+
+            .toggle {
+                transform: rotate(180deg);
+                color: inherit;
+            }
+
+            + tr > td {
+                border-top: 0;
+            }
+        }
+    }
+
+    &:not(.is-bordered).is-comparative {
+        th {
+            border-right: functions.size(0.1em) solid variables.$grey-lighter;
+        }
+
+        td {
+            &:not(:last-child) {
+                border-right: functions.size(0.1em) solid variables.$grey-light;
+            }
+        }
+    }
+
+    &.is-compact {
+        td,
+        th {
+            padding: calc($table-cell-padding-x / 3) calc($table-cell-padding-x / 3);
+        }
+    }
+
+    &.is-large {
+        thead {
+            height: functions.size(5em);
+
+            th {
+                color: var(--flex-info, #{variables.$info});
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+        }
+
+        tbody {
+            border-top: functions.size(0.1em) solid #d8d8d8;
+
+            tr {
+                td {
+                    height: functions.size(4em);
+                }
+
+                &:not(.is-body-header) td {
+                    height: functions.size(9.6em);
+                }
+            }
+        }
+    }
+
+    .subtable {
+        background-color: var(--flex-subtable-fill, #{$subtable-fill});
+        border-radius: variables.$radius;
+        padding: variables.$box-padding * 2;
+
+        @include mixins.mobile() {
+            padding: functions.size(1.5em);
+        }
+
+        .table {
+            background: transparent;
+
+            tr:not(:first-child) {
+                td {
+                    border-top: functions.size(0.1em) solid variables.$border-grey-dark;
+                }
+            }
+
+            td {
+                border: 0;
+
+                &:first-child {
+                    padding-left: 0;
+                }
+
+                &:last-child {
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,49 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+.countdown {
+    border: 1px solid var(--flex-tertiary, #{variables.$tertiary});
+    border-radius: functions.size(0.5em);
+    display: inline-flex;
+    padding: functions.size(1em) 0;
+
+    .count {
+        color: var(--flex-text, #{variables.$text});
+        font-family: variables.$family-serif;
+        font-size: variables.$text-14;
+        font-weight: variables.$weight-normal;
+        list-style-type: none;
+        text-align: center;
+        padding: 0 functions.size(1em);
+        position: relative;
+        min-width: functions.size(7em);
+
+        &:not(:last-child)::before {
+            content: ' ';
+            border-left: 1px solid variables.$tertiary;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+        }
+
+        .value {
+            font-size: variables.$text-28;
+        }
+    }
+
+    &.is-inverted {
+        border-color: var(--flex-white, #{variables.$white});
+
+        .count {
+            color: var(--flex-white, #{variables.$white});
+
+            &:not(:last-child)::before {
+                border-color: var(--flex-white, #{variables.$white});
+            }
+        }
+    }
+}

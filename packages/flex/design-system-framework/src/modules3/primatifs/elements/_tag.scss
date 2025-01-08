@@ -1,0 +1,174 @@
+@use "sass:list";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$tag-background-color: rgba(variables.$tertiary, 0.1) !default;
+$tag-color: variables.$text !default;
+$tag-radius: variables.$radius-rounded !default;
+$tag-delete-margin: functions.size(0.1em) !default;
+
+// container pour multi-tags ou tags avec actions
+.tags {
+    &:not(.use-grid) {
+        align-items: center;
+        display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    &.use-grid {
+        display: grid;
+    }
+
+    // multi-tags : ajout d'une marge bottom, supprimable par facette
+    &:not(.is-gapless) {
+        &:not(:last-child) {
+            margin-right: functions.size(0.5em);
+        }
+
+        .tag {
+            margin-bottom: functions.size(1em);
+        }
+    }
+
+    // multi-tags : ajout d'une marge à droite de chaque tag
+    .tag:not(:last-child) {
+        margin-right: functions.size(0.5em);
+    }
+
+    // tags avec actions
+    &.has-addons {
+        cursor: pointer;
+
+        .tag {
+            margin-right: 0;
+
+            &:not(:first-child) {
+                border-bottom-left-radius: 0;
+                border-top-left-radius: 0;
+            }
+
+            &:not(:last-child) {
+                border-bottom-right-radius: 0;
+                border-top-right-radius: 0;
+            }
+
+            &:first-child {
+                padding-right: functions.size(0.5em);
+            }
+
+            + .tag {
+                padding: 0;
+                position: relative;
+                width: functions.size(2.5em);
+                border-width: 0;
+
+                // fixme : cette règle ne devrait-elle pas s'appliquer à TOUS les buttons ?
+                cursor: inherit;
+
+                // affichage d'une fausse croix avec 2 traits penchés
+                &:empty {
+                    &::before,
+                    &::after {
+                        position: absolute;
+                        content: '';
+                        height: functions.size(1em);
+                        width: functions.size(0.2em);
+                        background-color: currentColor;
+                        top: 50%;
+                        left: 30%;
+                    }
+
+                    &::before {
+                        transform: translate(50%,-50%) rotate(45deg);
+                    }
+
+                    &::after {
+                        transform: translate(50%,-50%) rotate(-45deg);
+                    }
+                }
+            }
+        }
+
+        &.is-inverted {
+            .tag {
+                background-color: var(--flex-white, #{variables.$white});
+            }
+        }
+
+        &.is-secondary {
+            .tag {
+                background-color: rgba(variables.$secondary, 0.1);
+            }
+
+            &.is-inverted {
+                .tag {
+                    color: var(--flex-secondary, #{variables.$secondary});
+                    background-color: var(--flex-white, #{variables.$white});
+                }
+            }
+        }
+
+        @each $name, $pair in variables.$colors-feedback {
+            $color: list.nth($pair, 1);
+
+            &.is-#{$name} {
+                .tag {
+                    color: var(--flex-text, #{variables.$text});
+                    background-color: rgba($color, 0.1);
+                }
+
+                &.is-inverted {
+                    .tag {
+                        color: var(#{'--flex-'}#{$name}, #{$color});
+                        background-color: var(--flex-white, #{variables.$white});
+                    }
+                }
+            }
+        }
+    }
+}
+
+.tag {
+    align-items: center;
+    background-color: var(--flex-tag-background-color, #{$tag-background-color});
+    border-radius: $tag-radius;
+    color: var(--flex-tag-color, #{$tag-color});
+    display: inline-flex;
+    font-size: variables.$size-small;
+    font-weight: variables.$weight-semibold;
+    height: functions.size(2.5em);
+    justify-content: center;
+    line-height: 1.5;
+    padding: functions.size(0.5em) functions.size(1.3em);
+    white-space: nowrap;
+
+    &.is-inverted {
+        background-color: var(--flex-white, #{variables.$white});
+    }
+
+    &.is-secondary {
+        background-color: rgba(variables.$secondary, 0.1);
+
+        &.is-inverted {
+            color: var(--flex-secondary, #{variables.$secondary});
+            background-color: var(--flex-white, #{variables.$white});
+        }
+    }
+
+    @each $name, $pair in variables.$colors-feedback {
+        $color: list.nth($pair, 1);
+
+        &.is-#{$name} {
+            color: var(--flex-text, #{variables.$text});
+            background-color: rgba($color, 0.1);
+
+            &.is-inverted {
+                color: var(#{'--flex-'}#{$name}, #{$color});
+                background-color: var(--flex-white, #{variables.$white});
+            }
+        }
+    }
+}

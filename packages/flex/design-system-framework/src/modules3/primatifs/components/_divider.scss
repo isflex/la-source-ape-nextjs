@@ -1,0 +1,55 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$divider-color: variables.$grey-dark;
+$divider-background-color: variables.$border-grey;
+$divider-border-color: rgba(variables.$grey,0.7);
+
+.is-divider[data-content]::before {
+    background-color: var(--flex-divider-border-color, #{$divider-border-color});
+    border-radius: functions.size(4em);
+    width: functions.size(4em);
+    height: functions.size(4em);
+    position: absolute;
+    top: functions.size(-2em);
+    transform: none;
+    content: attr(data-content);
+    left: calc(100% + #{functions.size(2em)});
+    text-align: center;
+    font-size: functions.size(1.4em);
+    line-height: functions.size(3.8em);
+    font-weight: bold;
+}
+
+.is-divider[data-content]::after {
+    background-color: var(--flex-divider-border-color, #{$divider-border-color});
+    height: 1px;
+    position: relative;
+    left: calc(100% + #{functions.size(8em)});
+    content: " ";
+    width: 100%;
+    display: block;
+}
+
+.is-divider[data-content] {
+    width: calc(50% - #{functions.size(4em)});
+    margin-top: functions.size(4em);
+    margin-bottom: functions.size(4em);
+
+    ::after {
+        background: var(--flex-divider-background-color, #{$divider-background-color});
+        color: var(--flex-divider-color, #{$divider-color});
+    }
+}
+
+.is-divider {
+    height: functions.size(0.1em);
+    width: 100%;
+    position: relative;
+    background-color: var(--flex-divider-border-color, #{$divider-border-color});
+    margin: functions.size(2em) 0;
+    overflow: initial;
+    border: none;
+}

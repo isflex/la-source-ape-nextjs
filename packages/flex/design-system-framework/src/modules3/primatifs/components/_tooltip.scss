@@ -1,0 +1,25 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+// @use "bulma-extensions/bulma-tooltip/dist/css/bulma-tooltip";
+
+.tooltip.is-tooltip-active {
+    &::before {
+        font-size: functions.size(1.3em);
+        background-color: var(--flex-grey-light, #{variables.$grey-light});
+        color: var(--flex-text, #{variables.$text});
+        max-width: functions.size(20em);
+        min-width: functions.size(15em);
+        white-space: normal;
+    }
+
+    &::after {
+        border-color: var(--flex-grey-light transparent transparent, #{variables.$grey-light transparent transparent});
+    }
+}
+
+.tooltip.is-tooltip-active:not(.is-loading)::after {
+    border-color: var(--flex-grey-light transparent transparent, #{variables.$grey-light transparent transparent});
+}

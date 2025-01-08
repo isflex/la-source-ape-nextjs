@@ -1,0 +1,16 @@
+<div class="columns is-multiline">
+    {{#each names}}
+    <div class="column is-3 static-icon-snippet" data-icon-name="{{ replaceFirst ../classPrefix 'picto-' '' }}{{this}}">
+        <a class="box has-text-centered">
+            <div class="box-content has-text-centered">
+                <span class="icon is-large is-marginless">
+                    <i class="{{../classPrefix}}{{this}}"></i>
+                </span>
+            </div>
+            <div class="box-footer">
+                <span class="tag is-primary">{{ replaceFirst ../classPrefix 'picto-' '' }}{{this}}</span>
+            </div>
+        </a>
+    </div>
+    {{/each}}
+</div>

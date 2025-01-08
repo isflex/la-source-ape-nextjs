@@ -1,0 +1,16 @@
+.cache
+.npmrc
+.sass-cache
+.stylelintcache
+build
+build-docs
+dist
+node_modules
+
+src/assets/fonts/flexi-*
+docs/partials/icons
+docs/templates-gallery/previews/
+docs/templates-gallery/index.hbs
+tests/backstop_data/bitmaps_test
+tests/backstop_data/bitmaps_references
+tests/backstop_data/html_report

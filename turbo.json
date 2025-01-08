@@ -19,18 +19,16 @@
     "dev:packages:transit": {
       "dependsOn": [
         "^dev:compile:transit"
-        // "^@flexiness/domain-tailwind#dev:tailwind"
       ]
     },
     "//#compile:clean:sh": {
       "dependsOn": [
         "@flexiness/domain-utils#compile:tsup"
-        // "@flexiness/aws#compile:tsup",
       ],
       "outputs": [
-        "packages/flex/domain-store/dist/**"
-        // "packages/flex/domain-tailwind/dist/**"
-        // "packages/flex/config/aws/dist/**"
+        "packages/flex/design-system-react-ts/dist/**",
+        "packages/flex/domain-store/dist/**",
+        "packages/flex/config/eslint/flat-config/dist/**"
       ],
       "cache": true,
       "persistent": false
@@ -38,7 +36,6 @@
     "//#compile:watch:sh": {
       "outputs": [
         "packages/flex/domain-store/dist/**"
-        // "packages/flex/config/aws/dist/**"
       ],
       "cache": false,
       "persistent": false

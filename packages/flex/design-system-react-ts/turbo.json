@@ -1,0 +1,25 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "compile:tsup": {
+      "outputs": ["dist/*"],
+      "cache": true,
+      "persistent": false
+    },
+    "clean:source": {
+    },
+    "build": {
+      "dependsOn": [
+        "//#compile:clean:sh",
+        "@flex-design-system/framework#build:lib"
+      ],
+      "outputs": ["build/**"],
+      "cache": true,
+      "persistent": false
+    },
+    "start": {
+      "cache": false
+    }
+  }
+}

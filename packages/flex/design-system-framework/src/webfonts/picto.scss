@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'flexi-picto';
+    src: url('https://after-school.flexiness.com:3992/assets/fonts/flexi-picto.woff2') format('woff2'), url('https://after-school.flexiness.com:3992/assets/fonts/flexi-picto.woff') format('woff');
+    font-style: normal;
+    font-weight: normal;
+}
+
+.icon [class^="flexi-picto-"]::before,
+.icon [class*=" flexi-picto-"]::before {
+    font-family: flexi-picto;
+    font-style: normal;
+    font-weight: normal;
+    display: inline-block;
+    text-decoration: inherit;
+    margin-right: .2em;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+    margin-left: .2em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flexi-picto-payment-visa::before {
+    content: "\f101";
+}
+
+.flexi-picto-payment-paypal::before {
+    content: "\f102";
+}
+
+.flexi-picto-payment-mastercard::before {
+    content: "\f103";
+}
+
+.flexi-picto-payment-cb::before {
+    content: "\f104";
+}
+
+.flexi-picto-la-fibre::before {
+    content: "\f105";
+}
+
+.flexi-picto-handicapzero::before {
+    content: "\f106";
+}
+
+.flexi-picto-faciliti::before {
+    content: "\f107";
+}
+

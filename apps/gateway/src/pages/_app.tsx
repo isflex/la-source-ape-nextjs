@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Script from 'next/script'
+// import dynamic from 'next/dynamic'
 // import {BrowserRouter as Router } from 'react-router'
 import { observer, enableStaticRendering } from 'mobx-react-lite'
 import { getStores, StoreProvider } from '@src/stores'
@@ -36,6 +37,9 @@ enableStaticRendering(isServer)
 const stores = getStores()
 Amplify.configure(outputs)
 
+// const LogoFlex = dynamic(() => import('@src/components/logo-flexiness'), { ssr: true })
+// const FlexComponents = dynamic(async () => await import('@src/components/flex-components-mf'), { ssr: true })
+
 const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
   return (
     <>
@@ -61,9 +65,38 @@ const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
 
 // https://colinhacks.com/essays/building-a-spa-with-nextjs
 // const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
-//   const [render, setRender] = React.useState(false)
-//   React.useEffect(() => setRender(true), [])
-//   return render ? (
+//   const [fullyRendered, setFullyRendered] = React.useState(false)
+//   React.useEffect(() => {
+//     setFullyRendered(true)
+//   }, [Boolean(globalThis?.Flexiness?.domainApp?.FlexComponents !== null)])
+//   const Loader = () => {
+//     return (
+//       <div style={{
+//         // background: 'linear-gradient(180deg, rgb(117, 81, 194), rgb(255, 255, 255))',
+//         height: '100vh',
+//         width: '100vw',
+//         display: 'flex',
+//         flexDirection: 'column',
+//         justifyContent: 'flex-start',
+//         alignItems: 'center',
+//       }}>
+//         <div style={{
+//           height: '65vh',
+//           display: 'flex',
+//           flexDirection: 'column',
+//           justifyContent: 'center',
+//           alignItems: 'center',
+//         }}>
+//           <div style={{
+//             width: '100%',
+//           }}>
+//             <LogoFlex />
+//           </div>
+//         </div>
+//       </div>
+//     )
+//   }
+//   return (
 //     <>
 //       <Head>
 //         {/* Required for CSS-in-JS <style data-jss /> tags -> injected into HEAD by Material UI v4 -> CSP style-src 'unsafe-inline' */}
@@ -78,13 +111,19 @@ const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
 //           __html: `window.__webpack_nonce__="${pageProps._nonce}"`
 //         }}
 //       />
-//       <StoreProvider value={stores}>
-//         <Router>
-//           <Component {...pageProps} />
-//         </Router>
-//       </StoreProvider>
+//       {fullyRendered ? (
+//         <StoreProvider value={stores}>
+//           <Router>
+//             <Component {...pageProps} />
+//           </Router>
+//         </StoreProvider>
+//         ) : (<>
+//           <Loader />
+//           <FlexComponents />
+//         </>
+//       )}
 //     </>
-//   ) : null
+//   )
 // }
 
 MyApp.getInitialProps = async (context: AppContext) => {

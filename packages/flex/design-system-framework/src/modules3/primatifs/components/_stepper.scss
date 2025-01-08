@@ -1,0 +1,205 @@
+@use "sass:meta";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$step-width: functions.size(4.5em);
+$step-circle-radius: functions.size(3em);
+$step-font-size: functions.size(1.8em);
+$step-gap: $step-width;
+$step-gap-desktop: calc($step-width * 5);
+$step-gap-tablet: calc($step-width * 2.5);
+$step-gap-mobile: calc($step-width * 1.75);
+
+.stepper {
+    display: inline-flex;
+    position: relative;
+
+    @include mixins.mobile {
+        &::after {
+            content: attr(data-label-mobile);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            font-weight: variables.$weight-semibold;
+            color: var(--flex-secondary, #{variables.$secondary});
+        }
+    }
+
+    .step {
+        position: relative;
+        z-index: functions.zindex('void');
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: $step-circle-radius;
+        height: $step-circle-radius;
+        border-radius: 100%;
+        background: variables.$grey-light;
+        color: var(--flex-white, #{variables.$white});
+        font-size: $step-font-size;
+        transition: background .15s ease;
+
+        &.is-done {
+            background: variables.$tertiary;
+        }
+
+        &.is-current,
+        &.is-active {
+            background: variables.$secondary;
+        }
+
+        &.is-validated {
+            background: variables.$quaternary;
+        }
+    }
+
+    .step + .step {
+        margin-left: $step-gap;
+
+        @include mixins.desktop {
+            margin-left: $step-gap-desktop;
+        }
+
+        @include mixins.tablet-only {
+            margin-left: $step-gap-tablet;
+        }
+
+        @include mixins.mobile {
+            margin-left: $step-gap-mobile;
+        }
+
+        &::before {
+            content: '';
+            height: functions.size(0.4em);
+            width: $step-gap;
+            display: block;
+            position: absolute;
+            z-index: functions.zindex('subzero');
+            left: -$step-gap;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: background .15s ease;
+            background-color: var(--flex-grey-light, #{variables.$grey-light});
+
+            @include mixins.desktop {
+                width: $step-gap-desktop;
+                margin-left: -$step-gap-desktop + $step-width;
+            }
+
+            @include mixins.tablet-only {
+                width: $step-gap-tablet;
+                margin-left: -$step-gap-tablet + $step-width;
+            }
+
+            @include mixins.mobile {
+                width: $step-gap-mobile;
+                margin-left: -$step-gap-mobile + $step-width;
+            }
+        }
+    }
+
+    // done steps successively
+    .step.is-done + .step.is-done::before {
+        background: variables.$tertiary;
+    }
+
+    // validated step followed by done step
+    .step.is-validated + .step.is-done::before {
+        background: linear-gradient(90deg, variables.$quaternary, variables.$tertiary);
+    }
+
+    // done step followed by current step
+    .step.is-done + .step.is-current::before {
+        background: linear-gradient(90deg, variables.$tertiary, variables.$secondary);
+    }
+
+    // active step followed by done step(s)
+    .step.is-active + .step.is-done::before {
+        background: linear-gradient(90deg, variables.$secondary, variables.$tertiary);
+    }
+
+    // current step followed by unvisited step(s)
+    .step.is-current + .step::before {
+        background: linear-gradient(90deg, variables.$secondary, variables.$grey-light 75%);
+    }
+
+    // labels
+    .step {
+        &[data-label],
+        &[data-label-tablet],
+        &[data-label-mobile] {
+            margin-bottom: functions.size(4em);
+
+            // @debug "$step-width: #{functions.size(3em)}";
+            // @debug "$step-gap-desktop = ($step-width * 3) => #{calc($step-width * 3)}";
+            // @debug "$step-gap-desktop: #{$step-gap-desktop}";
+            // @debug "calc(#{$step-gap-desktop} / 2): -#{calc($step-gap-desktop / 2)}";
+            // @debug "type-of $step-width: #{meta.type-of($step-width)}";
+            // @debug "type-of $step-gap-desktop: #{meta.type-of($step-gap-desktop)}";
+            // @debug "margin-left = (-$step-gap-desktop + $step-width) => #{-$step-gap-desktop + $step-width}";
+
+            &::after {
+                position: absolute;
+                color: var(--flex-grey, #{variables.$grey});
+                // font-size: variables.$size-7;
+                font-size: variables.$size-8;
+                font-weight: variables.$weight-semibold;
+                top: functions.size(5em);
+                text-align: center;
+            }
+
+            // active or current step
+            &.is-current::after,
+            &.is-active::after {
+                color: var(--flex-secondary, #{variables.$secondary});
+            }
+
+            // done highlighted step
+            &.is-done.is-highlighted::after {
+                color: var(--flex-tertiary, #{variables.$tertiary});
+            }
+
+            // validated highlighted step
+            &.is-validated.is-highlighted::after {
+                color: var(--flex-quaternary, #{variables.$quaternary});
+            }
+        }
+
+        &[data-label] {
+            &::after {
+                @include mixins.desktop {
+                    left: -#{calc($step-gap-desktop / 2)};
+                    right: -#{calc($step-gap-desktop / 2)};
+                    content: attr(data-label);
+                }
+            }
+        }
+
+        &[data-label-tablet] {
+            &::after {
+                @include mixins.tablet-only {
+                    left: -#{calc($step-gap-tablet / 2)};
+                    right: -#{calc($step-gap-tablet / 2)};
+                    content: attr(data-label-tablet);
+                }
+            }
+        }
+
+        &[data-label-mobile] {
+            &::after {
+                @include mixins.mobile {
+                    left: -#{calc($step-gap-mobile / 2)};
+                    right: -#{calc($step-gap-mobile / 2)};
+                    content: attr(data-label-mobile);
+                }
+            }
+        }
+    }
+}
+
+// back to grey label when going back in steps: the current step is followed by the active step
+.step[data-label].is-active ~ .step[data-label].is-current::after {
+    color: var(--flex-grey, #{variables.$grey});
+}

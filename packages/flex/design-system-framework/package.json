@@ -1,0 +1,116 @@
+{
+  "name": "@flex-design-system/framework",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Flexiness design system",
+  "keywords": [
+    "Flexiness",
+    "design system",
+    "framework",
+    "bulma",
+    "css"
+  ],
+  "license": "UNLICENSED",
+  "author": "Flexiness <hello@flexiness.com>",
+  "exports": {
+    ".": {
+      "sass": "./src/modules3/main/all.module.scss",
+      "import": "./src/modules3/main/all.module.scss",
+      "types": "./types/__generated__/default/src/modules3/main/all.module.scss.d.ts"
+    },
+    "./main/all.module.scss": {
+      "sass": "./src/modules3/main/all.module.scss",
+      "import": "./src/modules3/main/all.module.scss",
+      "types": "./types/__generated__/default/src/modules3/main/all.module.scss.d.ts"
+    },
+    "./flexslider.scss": {
+      "sass": "./src/modules3/standalone/flexslider.module.scss",
+      "import": "./src/modules3/standalone/flexslider.module.scss",
+      "types": "./types/__generated__/default/src/modules3/standalone/flexslider.module.scss.d.ts"
+    },
+    "./standalone/flexslider.scss": {
+      "sass": "./src/modules3/standalone/flexslider.module.scss",
+      "import": "./src/modules3/standalone/flexslider.module.scss",
+      "types": "./types/__generated__/default/src/modules3/standalone/flexslider.module.scss.d.ts"
+    },
+    "./package.json": "./package.json",
+    "./all.module.css": "./dist/modules/allv3.module.css"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "build:all": "pnpm turbo run build:fonts && pnpm turbo run build:types:modules3:default",
+    "build:all:old": "mkdir -p dist && pnpm build:fonts && pnpm build:css && pnpm build:framework:default && pnpm build:framework:named",
+    "build:css": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm build:css:all && pnpm cp:css",
+    "build:css:all": "pnpm clean:css && pnpm build:css:rollup && pnpm build:css:namespace:gulp",
+    "build:css:global:rollup": "pnpm rollup -c rollup.global.config.js",
+    "build:css:modules3:rollup": "pnpm rollup -c rollup.modules3.config.js",
+    "build:css:namespace:gulp": "pnpm gulp namespace-css",
+    "build:css:rollup": "pnpm build:css:global:rollup && pnpm build:css:modules3:rollup",
+    "build:fonts": "pnpm gulp content-fonts && pnpm gulp webfonts && pnpm cp:fonts",
+    "build:framework:default": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm build:types:modules3:default",
+    "build:framework:named": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm build:types:modules3:named",
+    "build:lib": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm build:all",
+    "build:types:modules3": "pnpm typed-scss-modules \"./src/modules3/**/*.scss\" --exportType default --implementation sass --aliasPrefixes.~ ../../../node_modules/",
+    "build:types:modules3:default": "pnpm typed-scss-modules \"./src/modules3/**/*.scss\" --exportType default --implementation sass --aliasPrefixes.~ ../../../node_modules/ --outputFolder \"./types/__generated__/default\" --updateStaleOnly",
+    "build:types:modules3:named": "pnpm typed-scss-modules \"./src/modules3/**/*.scss\" --exportType named --implementation sass --aliasPrefixes.~ ../../../node_modules/ --outputFolder \"./types/__generated__/named\" --updateStaleOnly",
+    "clean:css": "pnpm exec rimraf '{dist/flexiness*.css,dist/modules/*.module.css,../domain-content/content/css/flexiness*.css,../domain-content/content/css/modules/*.css}'",
+    "clean:types": "pnpm exec rimraf -g ./src/modules3/**/*.d.ts",
+    "cp:css": "cp dist/flexiness*.css ../domain-content/content/css/ && mkdir -p ../domain-content/content/css/modules && cp dist/modules/*.module.css ../domain-content/content/css/modules/",
+    "cp:fonts": "cp -v src/assets/fonts/flexi*.{woff,woff2} ../domain-content/content/assets/fonts/",
+    "lint": "pnpm lint:js && pnpm lint:css",
+    "lint:css": "stylelint --cache './src/**/*.{sc,sa,le,c}ss'",
+    "lint:css:fix": "pnpm lint:css --fix",
+    "lint:js": "eslint **.js",
+    "lint:js:fix": "pnpm lint:js --fix"
+  },
+  "dependencies": {
+    "tslib": "^2.4.0"
+  },
+  "devDependencies": {
+    "@bulvar/bulma": "0.11.10",
+    "@dotenvx/dotenvx": "1.5.0",
+    "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
+    "@vusion/webfonts-generator": "0.8.0",
+    "autoprefixer": "^10.4.14",
+    "bulma": "1.0.3",
+    "bulma-extensions": "6.2.7",
+    "bulma-popover": "1.1.1",
+    "cross-env": "7.0.3",
+    "css-byebye": "4.0.1",
+    "cssnano": "6.1.2",
+    "dotenv-cli": "7.4.2",
+    "event-stream": "4.0.1",
+    "fancy-log": "2.0.0",
+    "fontsubset": "0.2.0",
+    "glob": "10.3.12",
+    "gulp": "5.0.0",
+    "gulp-all": "1.1.0",
+    "gulp-concat": "2.6.1",
+    "gulp-rename": "2.0.0",
+    "gulp-replace": "1.1.4",
+    "plugin-error": "2.0.1",
+    "postcss": "8.4.38",
+    "postcss-cli": "10.1.0",
+    "postcss-flexbugs-fixes": "5.0.2",
+    "postcss-import": "16.1.0",
+    "postcss-load-config": "4.0.1",
+    "postcss-nested": "6.0.1",
+    "postcss-preset-env": "9.5.4",
+    "postcss-scss": "4.0.9",
+    "rimraf": "6.0.1",
+    "rollup": "^2.76.0",
+    "rollup-plugin-postcss": "4.0.2",
+    "rollup-plugin-scss": "4.0.0",
+    "sass": "1.83.1",
+    "stylelint": "16.11.0",
+    "stylelint-config-standard": "36.0.1",
+    "stylelint-config-standard-scss": "14.0.0",
+    "ttf2woff": "3.0.0",
+    "ttf2woff2": "4.0.5",
+    "typed-scss-modules": "@flexiness/typed-scss-modules@8.1.0",
+    "util": "0.12.4"
+  }
+}

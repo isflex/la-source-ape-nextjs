@@ -1,8 +1,7 @@
 import React from 'react'
 import type { NextPage, GetServerSideProps } from 'next'
 import { PageAppProps, PageStaticData } from '@root/types/additional'
-import loadable, { LoadableLibrary } from '@loadable/component'
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
 import { observer } from 'mobx-react-lite'
 
 import { generateClient } from 'aws-amplify/data'
@@ -11,15 +10,8 @@ import styles from '@src/styles/scss/todo.module.scss'
 
 const client = generateClient<Schema>()
 
-// import { getFlexComponents } from '@src/components/flex-components'
-// // @ts-expect-error
-// const { Title } = await getFlexComponents()
-// console.log('Title', Title)
-
-// const FlexComponents = await import('@src/components/flex-components-mf')
-const FlexComponents = dynamic(async () => await import('@src/components/flex-components-mf'), { ssr: true })
-// console.log('anyhow')
-// console.log('FlexComponents', FlexComponents)
+import { Text, Title, View } from '@flex-design-system/react-ts/client-sync-styled-default'
+import { default as stylesFlex, type Styles } from '@flex-design-system/framework'
 
 const TodoPage: NextPage<PageAppProps> = observer((
   props
@@ -50,8 +42,8 @@ const TodoPage: NextPage<PageAppProps> = observer((
     <div className={styles.todoApp}>
       {/* <FlexComponents /> */}
       <main>
-        <h1>My todos</h1>
-        {/* <Title>My todos</Title> */}
+        {/* <h1>My todos</h1> */}
+        <Title>My todos</Title>
         <button onClick={createTodo}>+ new</button>
         <ul>
           {todos.map((todo) => (

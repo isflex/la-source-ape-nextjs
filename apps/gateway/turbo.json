@@ -17,7 +17,8 @@
     },
     "build": {
       "dependsOn": [
-        "//#compile:clean:sh"
+        "//#compile:clean:sh",
+        "@flex-design-system/react-ts#build"
       ],
       "outputs": [".next/**/*"],
       "cache": true,

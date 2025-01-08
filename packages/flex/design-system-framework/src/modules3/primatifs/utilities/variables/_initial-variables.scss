@@ -1,0 +1,160 @@
+// @use "functions";
+
+// Colors
+$black: hsl(0, 0%, 4%) !default;
+$black-bis: hsl(0, 0%, 9%) !default;
+$black-ter: hsl(0, 0%, 14%) !default;
+
+$grey-darker: hsl(0, 0%, 21%) !default;
+$grey-dark: #7d7d7d !default;
+$grey: #b3b3b3 !default;
+$grey-light: #eee !default;
+$grey-lighter: #f9f9f9 !default;
+
+$grey-shadow: rgba(0,0,0,0.25) !default;
+
+$border-grey-darker: #7d7d7d !default;
+$border-grey-dark: #ccc !default;
+$border-grey: #ececec !default;
+$border-grey-light: #eee !default;
+$border-grey-lighter: #f9f9f9 !default;
+
+$white-ter: hsl(0, 0%, 96%) !default;
+$white-bis: hsl(0, 0%, 98%) !default;
+$white: #fff !default;
+
+$transparent: transparent !default;
+
+$yellow: hsl(48, 100%, 67%) !default;
+$turquoise: hsl(171, 100%, 41%) !default;
+$cyan: hsl(204, 86%, 53%) !default;
+$purple: #b86bff !default;
+$pink: #c8007b !default;
+$blue: #009dcc !default;
+$cobalt: #0055a4 !default;
+$green: #009060 !default;
+$orange: #f6b027;
+$red: #d42d02 !default;
+$spray: #109db9 !default;
+$arapawa: #25465f !default;
+$sunset: #fe544b !default;
+
+// Typography OS-regular
+$family-flexiness: 'Commissioner',
+  ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+  "Fira Sans", "Droid Sans", "Helvetica Neue",  Arial, "Noto Sans", sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$family-sans-serif: 'Commissioner', BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif !default;
+$family-serif: 'Commissioner', 'Poppins', 'Arial Black', 'Arial Bold', serif !default;
+$family-monospace: monospace !default;
+$render-mode: optimizeLegibility !default;
+
+// $text-8:  functions.size(0.8em) !default;
+// $text-9:  functions.size(0.9em) !default;
+// $text-10:   functions.size(1em) !default;
+// $text-11: functions.size(1.1em) !default;
+// $text-12: functions.size(1.2em) !default;
+// $text-13: functions.size(1.3em) !default;
+// $text-14: functions.size(1.4em) !default;
+// $text-15: functions.size(1.5em) !default;
+// $text-16: functions.size(1.6em) !default;
+// $text-17: functions.size(1.7em) !default;
+// $text-18: functions.size(1.8em) !default;
+// $text-20:   functions.size(2em) !default;
+// $text-24: functions.size(2.4em) !default;
+// $text-26: functions.size(2.6em) !default;
+// $text-28: functions.size(2.8em) !default;
+// $text-32: functions.size(3.2em) !default;
+// $text-36: functions.size(3.6em) !default;
+// $text-38: functions.size(3.8em) !default;
+// $text-40:   functions.size(4em) !default;
+// $text-44: functions.size(4.4em) !default;
+// $text-48: functions.size(4.8em) !default;
+// $text-50:   functions.size(5em) !default;
+// $text-54: functions.size(5.4em) !default;
+// $text-60:   functions.size(6em) !default;
+// $text-80:   functions.size(8em) !default;
+
+// $size-1: $text-32;
+// $size-2: $text-28;
+// $size-3: $text-24;
+// $size-4: $text-20;
+// $size-5: $text-18;
+// $size-6: functions.size(1.4999em) !default;
+// $size-7: $text-15;
+// $size-8: $text-11;
+
+// $size-1-desktop: $text-48;
+// $size-2-desktop: $text-38;
+// $size-3-desktop: $text-28;
+// $size-4-desktop: $text-24;
+// $size-5-desktop: $text-18;
+// $size-6-desktop: functions.size(1.4999em) !default;
+// $size-7-desktop: $text-15;
+// $size-8-desktop: $text-11;
+
+$weight-extrathin: 400 !default;
+$weight-thin: 400 !default;
+$weight-light: 400 !default;
+$weight-normal: 400 !default;
+$weight-medium: 500 !default;
+$weight-semibold: 700 !default;
+$weight-bold: 700 !default;
+$weight-extrabold: 700 !default;
+$weight-black: 700 !default;
+
+// Spacing
+$block-spacing: 1.5rem !default;
+$item-padding: 0.375rem 1rem !default;
+
+// Responsiveness
+// The container horizontal gap, which acts as the offset for breakpoints
+$gap: 20px !default;
+
+// 960, 1152, and 1344 have been chosen because they are divisible by both 12 and 16
+$tablet: 768px !default;
+
+// 960px container + 3em
+//$desktop: 960px + 2 * $gap !default;
+$desktop: 984px + 2 * $gap !default;
+
+// 1152px container + 3em
+$widescreen: 1200px + 2 * $gap !default;
+$widescreen-enabled: true !default;
+
+// 1348px container + 3em
+$fullhd: 1348px + 2 * $gap !default;
+$fullhd-enabled: true !default;
+
+// Logo sizes
+// $logo-width: functions.size(15em);
+// $logo-width-desktop: functions.size(20em);
+
+// Miscellaneous
+// $radius-small: 2px !default
+// $radius: 4px !default
+// $radius-large: 6px !default
+// $radius-small: functions.size(0.4em) !default;
+// $radius: functions.size(0.6em) !default;
+// $radius-large: functions.size(0.9em) !default;
+$radius-rounded: 6685px !default;
+$speed: 86ms !default;
+
+// Flags
+$variable-columns: true !default;
+
+// Animations
+$has-prefix: true !default;
+$easing: ease-out !default;
+$animation-duration: .3s;
+$animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+$speed: 86ms !default;
+
+// Flags
+$variable-columns: true !default;
+$rtl: false !default;
+
+// Css vars flags
+$css-variables: true !default;
+$at-root: false !default;
+$export: false !default;

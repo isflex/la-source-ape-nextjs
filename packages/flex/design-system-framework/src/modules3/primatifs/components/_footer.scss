@@ -1,0 +1,224 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$max-width-large-screen: functions.size(128em);
+
+.footer {
+    @include mixins.pattern-dark(100%, 280px, -240px);
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    padding-top: functions.size(9em);
+
+    .is-footer-desktop {
+        &.accordions {
+            max-width: $max-width-large-screen;
+
+            .accordion {
+                margin-left: functions.size(2em);
+                margin-right: functions.size(2em);
+
+                .accordion-header {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    padding-top: functions.size(4em);
+                    padding-bottom: functions.size(4em);
+                    order: 1;
+
+                    .logo {
+                        display: none;
+                        width: functions.size(12em);
+                        height: functions.size(4.5em);
+                        flex-basis: 100%;
+                        margin-bottom: functions.size(3em);
+                    }
+
+                    > div {
+                        display: flex;
+                        flex-grow: 1;
+                        justify-content: space-between;
+
+                        a {
+                            color: var(--flex-white, #{variables.$white});
+                            font-weight: variables.$weight-normal;
+
+                            &::after {
+                                content: none;
+                            }
+
+                            &:first-child {
+                                margin-left: 0;
+                            }
+
+                            &:last-child {
+                                margin-right: 0;
+                            }
+                        }
+                    }
+
+                    .toggle {
+                        display: none;
+                        margin-left: inherit;
+
+                        &::before {
+                            color: var(--flex-white, #{variables.$white});
+                        }
+
+                        &.button.is-bordered {
+                            border: 0;
+
+                            &::before {
+                                border: 0;
+                                color: var(--flex-white, #{variables.$white});
+                                left: auto;
+                            }
+
+                            &:active,
+                            &:hover {
+                                filter: none;
+                            }
+                        }
+                    }
+                }
+
+                .accordion-content {
+                    padding: functions.size(4em) 0;
+                    background-color: inherit;
+                    overflow: hidden;
+                    // border-top: functions.size(0.1em) solid lighten(variables.$instit, 5%);
+                    border-radius: 0;
+                    margin-bottom: 0;
+
+                    // change in the structure, no need for a HR, border-top instead (see above)
+                    > hr.is-divider {
+                        display: none;
+                    }
+
+                    .subfooter-title,
+                    h6 {
+                        color: var(--flex-white, #{variables.$white});
+                        font-size: variables.$size-6;
+                        font-weight: variables.$weight-medium;
+                        text-transform: uppercase;
+                        margin-bottom: functions.size(5em);
+                    }
+
+                    .subfooter-link,
+                    a {
+                        display: block;
+                        color: var(--flex-white, #{variables.$white});
+                        opacity: 0.7;
+                        transition: opacity 150ms linear;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+
+                        &:not(:last-child) {
+                            margin-bottom: functions.size(2em);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .is-footer-mobile {
+        padding-bottom: functions.size(1.5em);
+
+        .image {
+            &.logo {
+                max-width: functions.size(14em);
+                margin: functions.size(1.5em) auto;
+            }
+        }
+
+        a {
+            margin: functions.size(.5em) auto;
+            color: var(--flex-white, #{variables.$white});
+
+            svg {
+                width: functions.size(13.9em);
+                height: functions.size(4.8em);
+            }
+        }
+    }
+
+    .is-footer-sub {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        > div {
+            margin-left: functions.size(2em);
+            margin-right: functions.size(2em);
+            width: 100%;
+            max-width: $max-width-large-screen;
+            padding: functions.size(1.5em) 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            a,
+            span {
+                color: var(--flex-white, #{variables.$white});
+                margin: 0 1em;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+
+            .social-icons {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+
+                @include mixins.touch {
+                    justify-content: space-around;
+                    flex-grow: 1;
+                }
+
+                .icon {
+                    width: auto;
+                    height: auto;
+                    margin: functions.size(.5em) functions.size(1em) 0;
+                    cursor: pointer;
+                }
+            }
+
+            .partners-icons {
+                display: flex;
+                align-items: center;
+
+                .icon {
+                    display: inline-table;
+                    text-align: center;
+
+                    i {
+                        display: table-header-group;
+                    }
+                }
+            }
+
+            @include mixins.touch {
+                justify-content: center;
+            }
+        }
+    }
+}
+
+// Ugly overriding for specific needs. I'm so ashamed, feel free to punish me.
+@include mixins.mobile {
+    .bytelFooter .sub-footer > .is-flex {
+        padding-bottom: 5em !important;
+    }
+}

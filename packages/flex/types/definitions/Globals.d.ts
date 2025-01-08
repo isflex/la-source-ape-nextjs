@@ -49,6 +49,7 @@ export interface Flexiness extends FlexGlobalThis {
     // FlexComponents?: typeof import('flex_design_system_react_ts_client')
     // FlexServerComponents?: typeof import('@flex-design-system/react-ts/server-async-styled-default')
     // FlexServerComponents?: typeof import('flex_design_system_react_ts_server')
+    FlexComponents?: React.ReactNode[]
     UIStore?: UserInterfaceStore
     React?: typeof React
     FlexCSPNonce?: Nonce

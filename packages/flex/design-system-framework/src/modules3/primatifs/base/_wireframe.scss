@@ -1,0 +1,83 @@
+@use "../utilities/variables/initial-variables" as initial-variables;
+@use "../utilities/variables/derived-variables" as derived-variables;
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+@mixin add-label($label) {
+    &::before {
+        position: absolute;
+        top: functions.size(0.5em);
+        right: functions.size(0.5em);
+        background-color: rgba(25, 25, 25, 0.5);
+        padding: functions.size(0.2em) functions.size(0.6em);
+        border-radius: 8px;
+        font-size: 8px;
+        font-weight: bold;
+        color: #fff;
+        z-index: zindex('void');
+        content: $label;
+    }
+}
+
+@mixin show-padding {
+    &:not(.hero-body):not(.box) {
+        background-image: linear-gradient(to bottom, #f3f3f3 0%, #f3f3f3 100%), linear-gradient(to bottom, #dadada 0%, #dadada 100%);
+    }
+
+    &:not(.hero-body):not(.box):hover {
+        background-image: linear-gradient(to bottom, #f3f3f3 0%, #f3f3f3 100%), linear-gradient(to bottom, #cacaca 0%, #cacaca 100%);
+    }
+
+    background-clip: content-box, padding-box;
+    position: relative;
+}
+
+.is-wireframe,
+.is-wireframe *,
+.has-wireframes * {
+    &:not(.button) {
+        @include show-padding();
+    }
+
+    position: relative;
+    border: 1px dashed rgba(0, 0, 0, 0.5);
+    color: var(--flex-grey-dark, #{initial-variables.$grey-dark}) !important;
+}
+
+.has-wireframes,
+.is-wireframe *,
+.has-wireframes * {
+    body,
+    header,
+    .main-content,
+    footer {
+        border-radius: 4px;
+        margin-bottom: 2px;
+        position: relative;
+    }
+
+    .main-content {
+        @include add-label("Main");
+    }
+
+    .section {
+        @include add-label("Section");
+    }
+
+    .column {
+        @include add-label("Colonne");
+    }
+
+    header {
+        @include add-label("Header");
+    }
+
+    footer {
+        @include add-label("Footer");
+    }
+
+    div.container {
+        @include add-label("Conteneur");
+    }
+}

@@ -1,0 +1,433 @@
+@use "sass:math";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+@use "plus-symbol" as plus-symb-partial;
+
+$pricing-item-height: functions.size(4em);
+$pricing-item-height-1: $pricing-item-height * 1;
+$pricing-item-height-2: $pricing-item-height * 2;
+$pricing-item-height-3: $pricing-item-height * 3;
+$pricing-item-height-4: $pricing-item-height * 4;
+$pricing-item-height-5: $pricing-item-height * 5;
+$pricing-plan-extra-margin: functions.size(6em);
+
+$pricing-padding-item: functions.size(1em);
+
+$height-price-area-classic: functions.size(15em);
+$height-price-area-hightlighted: functions.size(20em);
+
+@mixin apply-pricing-plan-item-sizes {
+    &.is-1 {
+        height: $pricing-item-height-1 !important;
+    }
+
+    &.is-2 {
+        height: $pricing-item-height-2 !important;
+    }
+
+    &.is-3 {
+        height: $pricing-item-height-3 !important;
+    }
+
+    &.is-4 {
+        height: $pricing-item-height-4 !important;
+    }
+
+    &.is-5 {
+        height: $pricing-item-height-5 !important;
+    }
+}
+
+@mixin extras {
+    height: $pricing-item-height-3;
+    margin-bottom: $pricing-plan-extra-margin;
+    display: inline-flex; /* This prevents the margin from collapsing with a sticker hat */
+    width: 100%;
+    position: relative;
+
+    &::after {
+        position: absolute;
+        bottom: -#{calc(($pricing-plan-extra-margin + plus-symb-partial.$plus-symbol-size) / 2)};
+        left: calc((100% - #{plus-symb-partial.$plus-symbol-size}) / 2);
+    }
+
+    > * {
+        flex-grow: 1;
+    }
+
+    @include apply-pricing-plan-item-sizes();
+    @include plus-symb-partial.plus-symbol(variables.$white, variables.$grey-dark);
+}
+
+.pricing-table {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-left: -(variables.$column-gap);
+    margin-right: -(variables.$column-gap);
+    margin-top: -(variables.$column-gap);
+
+    @include mixins.tablet() {
+        flex-direction: row;
+        justify-content: space-around;
+        justify-content: space-evenly;
+
+        @supports (-ms-ime-align: auto) {
+            justify-content: space-around;
+        }
+    }
+
+    &.is-fullwidth {
+        width: calc(100% + #{variables.$column-gap * 2});
+    }
+
+    &:last-child {
+        margin-bottom: -(variables.$column-gap);
+    }
+
+    &:not(:last-child) {
+        margin-bottom: calc(1.5em - #{variables.$column-gap});
+    }
+
+    .pricing-table-extra {
+        padding: 0 functions.size(1em);
+
+        @include extras();
+    }
+
+    .pricing-plan {
+        flex-grow: 1;
+        padding: variables.$column-gap;
+        flex-basis: 0;
+
+        @for $i from 1 through 12 {
+            &.is-#{$i} {
+                width: math.percentage(calc($i / 12));
+                flex: none;
+            }
+
+            &.is-#{$i}-mobile {
+                @include mixins.mobile {
+                    width: math.percentage(calc($i / 12));
+                    flex: none;
+                }
+            }
+
+            &.is-#{$i}-tablet {
+                @include mixins.tablet-only {
+                    width: math.percentage(calc($i / 12));
+                    flex: none;
+                }
+            }
+
+            &.is-#{$i}-desktop {
+                @include mixins.desktop {
+                    width: math.percentage(calc($i / 12));
+                    flex: none;
+                }
+            }
+        }
+
+        &.is-centered {
+            .plan-header {
+                text-align: center;
+            }
+
+            .plan-item,
+            .plan-price {
+                align-items: center;
+                text-align: center;
+            }
+
+            .plan-footer {
+                justify-content: center;
+            }
+        }
+
+        .pricing-plan-extra {
+            @include extras();
+        }
+
+        .plan-footer {
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            padding: functions.size(1.5em) functions.size(2.5em);
+
+            &::before {
+                content: '';
+                display: block;
+                position: absolute;
+                left: #{variables.$box-padding * 2};
+                right: #{variables.$box-padding * 2};
+                top: 0;
+                height: functions.size(0.1em);
+                background: variables.$border;
+            }
+        }
+
+        .pricing-plan-product {
+            @include mixins.apply-shadow-box();
+
+            border-radius: variables.$radius;
+            background-color: var(--flex-pricing-plan-product-fill, #{variables.$white});
+        }
+
+        .plan-items {
+            background-color: var(--flex-pricing-plan-product-fill, #{variables.$white});
+
+            &:not(:first-child) {
+                border-top: functions.size(0.1em) solid variables.$border;
+            }
+        }
+
+        .plan-item,
+        .plan-price,
+        .plan-call-to-action,
+        .plan-header {
+            @include apply-pricing-plan-item-sizes();
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            padding: $pricing-padding-item #{variables.$box-padding * 2};
+            text-align: left;
+
+            &.is-narrow {
+                height: auto;
+            }
+        }
+
+        .plan-header {
+            background-color: var(--flex-tertiary, #{variables.$tertiary});
+            color: var(--flex-white, #{variables.$white});
+            border-radius: functions.size(0.6em) functions.size(0.6em) 0 0;
+
+            .title {
+                color: var(--flex-white, #{variables.$white});
+                font-size: functions.size(4.4em);
+                font-weight: 600;
+                margin-bottom: 0;
+            }
+
+            .text {
+                color: var(--flex-white, #{variables.$white});
+            }
+
+            .details {
+                color: var(--flex-white, #{variables.$white});
+                font-size: variables.$size-6 !important;
+                font-weight: normal;
+            }
+
+            &.is-inverted {
+                background-color: var(--flex-white, #{variables.$white});
+
+                .title,
+                .text,
+                .details {
+                    color: var(--flex-text, #{variables.$text});
+                }
+            }
+        }
+
+        .plan-price {
+            height: $pricing-item-height-2;
+        }
+
+        .plan-item {
+            height: $pricing-item-height;
+            border: initial;
+
+            .plan-item-title {
+                font-weight: 600;
+            }
+
+            .plan-item-details {
+                color: var(--flex-text, #{variables.$text});
+                font-size: functions.size(1.3em);
+
+                .link {
+                    font-size: functions.size(1.3em);
+                }
+            }
+        }
+
+        .plan-call-to-action {
+            height: $pricing-item-height - 2;
+            padding: 0.75em variables.$box-padding * 2;
+        }
+    }
+
+    &.is-special {
+        .pricing-plan {
+            max-width: 335px;
+
+            .plan-item,
+            .plan-price,
+            .plan-call-to-action,
+            .plan-header {
+                height: inherit;
+            }
+
+            .has-hat {
+                .is-hat {
+                    background-color: var(--flex-secondary, #{variables.$secondary});
+                    color: var(--flex-info-invert, #{variables.$info-invert});
+                }
+            }
+
+            .plan-items {
+                @include mixins.apply-shadow-box();
+
+                border-top-width: 0;
+                background-color: var(--flex-white, #{variables.$white});
+                margin-left: functions.size(-2.5em);
+                margin-right: functions.size(-2.5em);
+                border-radius: variables.$radius;
+                position: relative;
+                z-index: functions.zindex('small');
+
+                // Annulation de certains styles définis ci-dessus, équivaut à un :first-of-class qui n'existe pas en CSS
+                // https://stackoverflow.com/questions/2717480/css-selector-for-first-element-with-class/8539107#8539107
+                ~ .plan-items {
+                    box-shadow: none;
+                    margin-left: 0;
+                    margin-right: 0;
+                    border-radius: 0;
+                    z-index: inherit;
+
+                    .plan-item {
+                        align-items: flex-start;
+                        text-align: left;
+                    }
+                }
+            }
+
+            .plan-price {
+                height: $height-price-area-classic;
+                background-color: var(--flex-info, #{variables.$info});
+                color: var(--flex-info-invert, #{variables.$info-invert});
+                padding-top: #{variables.$box-padding * 2};
+                padding-bottom: #{variables.$box-padding * 2};
+                border-top-left-radius: variables.$radius;
+                border-top-right-radius: variables.$radius;
+
+                .is-main-price {
+                    color: var(--flex-white, #{variables.$white});
+                }
+
+                .specification {
+                    font-weight: variables.$weight-normal;
+                }
+            }
+
+            .plan-sticker {
+                @include mixins.apply-shadow-box();
+
+                border-radius: 100px;
+                background-color: var(--flex-white, #{variables.$white});
+                color: var(--flex-info, #{variables.$info});
+                display: inline-flex;
+                font-weight: variables.$weight-normal;
+                font-size: variables.$size-7;
+                padding: functions.size(0.75em) functions.size(1.5em);
+                transform: translateY(-50%);
+
+                @include mixins.tablet() {
+                    font-size: variables.$size-7-desktop;
+                }
+
+                .icon {
+                    i::before {
+                        font-size: functions.size(2em);
+                    }
+                }
+            }
+
+            .plan-item {
+                padding: variables.$box-padding;
+
+                &:last-of-type {
+                    padding: #{variables.$box-padding * 2};
+                }
+
+                .plan-item-details {
+                    color: inherit;
+
+                    &:not(:last-of-type) {
+                        margin-bottom: functions.size(0.25em);
+                    }
+
+                    &.is-included {
+                        .icon,
+                        .important {
+                            color: var(--flex-secondary, #{variables.$secondary});
+                        }
+                    }
+
+                    &.is-unavailable {
+                        color: var(--flex-grey-light, #{variables.$grey-light});
+
+                        .icon,
+                        .important {
+                            color: var(--flex-grey-light, #{variables.$grey-light});
+                        }
+                    }
+
+                    .icon {
+                        width: functions.size(4em);
+                        height: functions.size(4em);
+                        min-width: functions.size(4em);
+                        min-height: functions.size(4em);
+
+                        [class^=flexi-]::before {
+                            font-size: functions.size(2.6em);
+                        }
+                    }
+                }
+            }
+
+            // specifications pour les éléments mis en avant
+            &.is-highlighted {
+                margin-top: -1 * ($height-price-area-hightlighted - $height-price-area-classic);
+
+                .has-hat {
+                    .is-hat {
+                        background-color: var(--flex-secondary, #{variables.$secondary});
+                        color: var(--flex-secondary-invert, #{variables.$secondary-invert});
+                    }
+                }
+
+                .plan-price {
+                    height: $height-price-area-hightlighted;
+                    background-color: var(--flex-tertiary, #{variables.$tertiary});
+                }
+            }
+        }
+    }
+
+    &.is-brief {
+        .pricing-plan {
+            .plan-price {
+                height: inherit;
+            }
+
+            &.is-highlighted {
+                margin-top: 0;
+
+                .plan-price {
+                    height: inherit;
+                }
+            }
+
+            .plan-item {
+                padding-top: #{variables.$box-padding * 2};
+            }
+        }
+    }
+}

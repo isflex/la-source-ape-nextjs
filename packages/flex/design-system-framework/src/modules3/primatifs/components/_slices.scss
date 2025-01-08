@@ -1,0 +1,329 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+.slices {
+    display: flex;
+    background-color: var(--flex-slice-fill, #{variables.$white});
+    flex-direction: column;
+
+    .is-admin & {
+        background-color: var(--flex-admin, #{variables.$admin});
+    }
+
+    > .slice:not(:last-child),
+    > .slice-group:not(:last-child) {
+        border-bottom: functions.size(0.1em) solid variables.$grey-light;
+    }
+
+    &.is-transparent {
+        background-color: var(--flex-transparent, #{variables.$transparent});
+
+        .slice {
+            background-color: var(--flex-transparent, #{variables.$transparent});
+        }
+    }
+}
+
+.slice {
+    padding: functions.size(2em) 0;
+    display: flex;
+    background-color: var(--flex-slice-fill, #{variables.$white});
+
+    .is-admin & {
+        background-color: var(--flex-admin, #{variables.$admin});
+    }
+
+    &:not(.is-disabled):hover {
+        cursor: pointer;
+
+        .title {
+            color: var(--flex-secondary, #{variables.$secondary});
+
+            .is-admin & {
+                color: var(--flex-admin-invert, #{variables.$admin-invert});
+                opacity: 0.6;
+            }
+        }
+
+        .slice-icon,
+        .slice-image {
+            @include mixins.tablet {
+                padding-left: functions.size(0.5em);
+                transition: padding-left 150ms ease-in-out;
+            }
+        }
+
+        .slice-call-to-action {
+            color: var(--flex-secondary, #{variables.$secondary});
+
+            @include mixins.tablet {
+                padding-right: functions.size(0.5em);
+                transition: padding-right 150ms ease-in-out;
+            }
+        }
+    }
+
+    > * {
+        align-self: center;
+    }
+
+    .slice-icon,
+    .slice-image {
+        flex-grow: 0;
+        margin-right: functions.size(3em);
+    }
+
+    .slice-image {
+        .image {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            height: functions.size(10em);
+            width: functions.size(10em);
+
+            img {
+                max-height: 100%;
+                max-width: 100%;
+            }
+
+            .is-rounded {
+                max-height: 65%;
+                max-width: 65%;
+            }
+        }
+    }
+
+    &:not(.is-illustrated-mobile) {
+        .slice-icon,
+        .slice-image {
+            @include mixins.mobile {
+                display: none;
+            }
+        }
+    }
+
+    &.has-long-cta {
+        @include mixins.mobile {
+            flex-wrap: wrap;
+
+            > * {
+                align-self: flex-start;
+            }
+        }
+
+        .slice-call-to-action {
+            @include mixins.mobile {
+                flex: 0 1 100%;
+                margin-top: functions.size(2em);
+            }
+        }
+
+        .slice-icon ~ .slice-call-to-action,
+        .slice-image ~ .slice-call-to-action {
+            text-align: center;
+        }
+    }
+
+    .slice-content {
+        flex: 1;
+        padding: functions.size(0.1em); /* Fix flex behavior on safari mobile */
+        margin-right: functions.size(2em);
+        text-align: left;
+
+        p {
+            margin: 0;
+        }
+
+        p:not(.title) {
+            font-size: functions.size(1.3em);
+            color: var(--flex-text, #{variables.$text});
+
+            .is-admin & {
+                color: var(--flex-admin-invert, #{variables.$admin-invert});
+            }
+        }
+    }
+
+    .slice-call-to-action {
+        flex-grow: 0;
+        white-space: nowrap;
+
+        @include mixins.mobile {
+            .button.is-text {
+                display: inline;
+                white-space: pre-wrap;
+            }
+        }
+
+        .flexi-ui-arrow-right-r {
+            font-size: functions.size(2em);
+        }
+    }
+
+    > .field {
+        width: 100%;
+
+        > .control {
+            position: relative;
+            display: flex;
+            align-items: center;
+            min-height: functions.size(4.5em);
+
+            .is-checkradio[type="checkbox"] {
+                &:checked {
+                    + label {
+                        &::after {
+                            top: 0.5em;
+                        }
+                    }
+                }
+            }
+
+            .is-checkradio[type="radio"] {
+                + label {
+                    &::before,
+                    &::after {
+                        width: functions.size(2.2em);
+                        height: functions.size(2.2em);
+                    }
+
+                    &::before {
+                        transform: translateY(0) translateY(0);
+                    }
+
+                    &::after {
+                        transform: scale(0.5) translateY(0) translateY(0);
+                        display: none;
+                    }
+                }
+
+                &:checked {
+                    + label {
+                        &::after {
+                            content: '';
+                            display: inline-block;
+                            top: 50%;
+                            margin-top: functions.size(-1.1em);
+                            margin-left: functions.size(0.4em);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.slice-select {
+    .slice {
+        .slice-body {
+            align-items: center;
+            display: flex;
+            width: 100%;
+
+            @include mixins.mobile {
+                flex-wrap: wrap;
+            }
+
+            .slice-call-to-action {
+                display: none;
+
+                @include mixins.mobile {
+                    width: 100%;
+                }
+            }
+        }
+
+        & > .field > .control > {
+            .is-checkradio[type="checkbox"],
+            .is-checkradio[type="radio"] {
+                &:checked {
+                    ~ .slice-body {
+                        .slice-icon,
+                        .slice-image {
+                            @include mixins.tablet {
+                                padding-left: functions.size(0.5em);
+                            }
+                        }
+
+                        .title {
+                            color: var(--flex-secondary, #{variables.$secondary});
+                        }
+
+                        .slice-call-to-action {
+                            display: block;
+                            margin-top: functions.size(1.5em);
+
+                            @include mixins.tablet {
+                                padding-right: functions.size(0.5em);
+                                margin-top: functions.size(0);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* TODO: code obsolète, à effacer quand select-line (sélecteur de ligne) ne sera plus */
+.is-select-line.slices {
+    .slice {
+        padding: 0;
+
+        > .field > .control {
+            flex-direction: row;
+
+            @include mixins.mobile {
+                flex-wrap: wrap;
+            }
+
+            .slice-call-to-action {
+                display: none;
+                padding-right: functions.size(1.5em);
+
+                @include mixins.mobile {
+                    justify-content: center;
+                    padding-right: 0;
+                    width: 100%;
+                    margin-bottom: functions.size(2em);
+                }
+            }
+
+            .is-checkradio[type="checkbox"],
+            .is-checkradio[type="radio"] {
+                + label {
+                    padding: functions.size(2em) functions.size(1.25em) functions.size(2em) functions.size(5em);
+                    margin: 0;
+                    flex-direction: row;
+
+                    &::before {
+                        left: functions.size(-3.6em);
+                    }
+                }
+            }
+
+            .is-checkradio[type="checkbox"]:checked + label::after {
+                margin-left: functions.size(1.3em);
+            }
+
+            .is-checkradio[type="radio"]:checked + label::after {
+                margin-left: functions.size(1.4em);
+            }
+        }
+    }
+
+    &.is-mutually-exclusive {
+        .slice > .field > .control {
+            .is-checkradio[type="checkbox"],
+            .is-checkradio[type="radio"] {
+                &:checked {
+                    ~ .slice-call-to-action {
+                        display: flex;
+                    }
+                }
+            }
+        }
+    }
+}

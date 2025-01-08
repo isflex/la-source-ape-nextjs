@@ -14,6 +14,11 @@ const HOST = `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_NAME}`
 const MF = `${process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_NAME}`
 const REMOTE = `${process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HOST}`
 
+import type {
+  FlexGlobalThis
+} from 'flexiness'
+declare let globalThis: FlexGlobalThis
+
 // const stores = getStores()
 
 // const LogoAPE = dynamic(() => import('@src/components/logo-ape-la-source').then(mod => mod.default), { ssr: true })
@@ -30,8 +35,11 @@ const FlexComponents: React.FC = observer(() => {
       {
         name: MF as string,
         entry: `${REMOTE}/mf-manifest.json`,
+        // entry: `${REMOTE}/node/mf-manifest.json`,
         alias: 'Styled',
+        // alias: 'ModulesDefault',
         type: 'global',
+        // type: 'esm',
       },
     ],
     shared: {
@@ -75,18 +83,24 @@ const FlexComponents: React.FC = observer(() => {
     },
   })
 
+  // const FlexComponentsRemote = loadable(async () => loadRemote(`${MF}/ModulesDefault`).then((m: any) => {
+  //   return m.default as React.ComponentType<any>
+  // }))
+
+  // return (
+  //   <FlexComponentsRemote isStandalone={false} />
+  // )
+
   const FlexComponentsRemote = loadable.lib(async () => loadRemote(`${MF}/Styled`).then((m: any) => {
-    // return m.default
-    // return m
-    // return m.default || m
-    return m.ClientSyncStyled
+    const FlexComponents = m.ClientSyncStyled
+    globalThis.Flexiness = {
+      ...globalThis?.Flexiness,
+      domainApp: { ...globalThis?.Flexiness?.domainApp, FlexComponents }
+    }
+    return FlexComponents
   }))
 
-  // return FlexComponentsRemote.preload()
-
-  return (
-    <FlexComponentsRemote />
-  )
+  return FlexComponentsRemote.preload()
 })
 
 export default FlexComponents

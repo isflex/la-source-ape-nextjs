@@ -1,0 +1,11 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+.dot {
+    display: inline-block;
+    width: functions.size(1em);
+    height: functions.size(1em);
+    border-radius: 100%;
+}

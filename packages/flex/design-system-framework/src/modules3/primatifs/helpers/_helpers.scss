@@ -1,0 +1,584 @@
+@use "sass:color";
+@use "sass:list";
+@use "../utilities/variables/initial-variables" as initial-variables;
+@use "../utilities/variables/derived-variables" as derived-variables;
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+// Float
+.is-clearfix {
+    @include mixins.clearfix;
+}
+
+.is-pulled-left {
+    float: left !important;
+}
+
+.is-pulled-right {
+    float: right !important;
+}
+
+// Overflow
+.is-clipped {
+    overflow: hidden !important;
+}
+
+// Overlay
+.is-overlay {
+    @include mixins.overlay;
+}
+
+.has-inherited-color {
+    color: inherit;
+}
+
+$alignments: ("centered": "center", "justified": "justify", "left": "left", "right": "right");
+
+@each $alignment, $text-align in $alignments {
+    .has-text-#{$alignment} {
+        text-align: #{$text-align} !important;
+    }
+}
+
+@each $alignment, $text-align in $alignments {
+    @include mixins.mobile {
+        .has-text-#{$alignment}-mobile {
+            text-align: #{$text-align} !important;
+        }
+    }
+
+    @include mixins.tablet {
+        .has-text-#{$alignment}-tablet {
+            text-align: #{$text-align} !important;
+        }
+    }
+
+    @include mixins.tablet-only {
+        .has-text-#{$alignment}-tablet-only {
+            text-align: #{$text-align} !important;
+        }
+    }
+
+    @include mixins.touch {
+        .has-text-#{$alignment}-touch {
+            text-align: #{$text-align} !important;
+        }
+    }
+
+    @include mixins.desktop {
+        .has-text-#{$alignment}-desktop {
+            text-align: #{$text-align} !important;
+        }
+    }
+
+    @include mixins.desktop-only {
+        .has-text-#{$alignment}-desktop-only {
+            text-align: #{$text-align} !important;
+        }
+    }
+
+    @include mixins.widescreen {
+        .has-text-#{$alignment}-widescreen {
+            text-align: #{$text-align} !important;
+        }
+    }
+
+    @include mixins.widescreen-only {
+        .has-text-#{$alignment}-widescreen-only {
+            text-align: #{$text-align} !important;
+        }
+    }
+
+    @include mixins.fullhd {
+        .has-text-#{$alignment}-fullhd {
+            text-align: #{$text-align} !important;
+        }
+    }
+}
+
+// Typography
+@mixin typography-size($target: "") {
+    @each $size in derived-variables.$sizes {
+        $i: list.index(derived-variables.$sizes, $size);
+
+        .is-size-#{$i}#{if($target == "", "", "-" + $target)} {
+            font-size: $size !important;
+        }
+    }
+}
+
+@include typography-size;
+
+@include mixins.mobile {
+    @include typography-size("mobile");
+}
+
+@include mixins.tablet {
+    @include typography-size("tablet");
+}
+
+@include mixins.touch {
+    @include typography-size("touch");
+}
+
+@include mixins.desktop {
+    @include typography-size("desktop");
+}
+
+@include mixins.widescreen {
+    @include typography-size("widescreen");
+}
+
+@include mixins.fullhd {
+    @include typography-size("fullhd");
+}
+
+.is-underline {
+    text-decoration: underline;
+}
+
+.is-capitalized {
+    text-transform: capitalize !important;
+}
+
+.is-lowercase {
+    text-transform: lowercase !important;
+}
+
+.is-uppercase {
+    text-transform: uppercase !important;
+}
+
+.is-italic {
+    font-style: italic !important;
+}
+
+.has-variant {
+    font-feature-settings: 'ss01';
+}
+
+// DEPRECATED : "light" retourne désormais du 400 pour assurer la rétrocpatibilité mais ne doit plus exister
+.has-text-weight-light {
+    font-weight: initial-variables.$weight-normal !important;
+}
+
+.has-text-weight-normal {
+    font-weight: initial-variables.$weight-normal !important;
+}
+
+.has-text-weight-medium {
+    font-weight: initial-variables.$weight-medium !important;
+}
+
+.has-text-weight-semibold {
+    font-weight: initial-variables.$weight-semibold !important;
+}
+
+// DEPRECATED : "bold" retourne désormais du 600 pour assurer la rétrocpatibilité mais ne doit plus exister
+.has-text-weight-bold {
+    font-weight: initial-variables.$weight-semibold !important;
+}
+
+// DEPRECATED : "extrabold" retourne désormais du 600 pour assurer la rétrocpatibilité mais ne doit plus exister
+.has-text-weight-extrabold {
+    font-weight: initial-variables.$weight-semibold !important;
+}
+
+// Colors
+@each $name, $pair in derived-variables.$colors {
+    $color: list.nth($pair, 1);
+    $invert: list.nth($pair, 2);
+
+    .has-text-#{$name} {
+        color: var(#{'--flex-'}#{$name}, #{$color}) !important;
+    }
+
+    .has-text-#{$name}-invert {
+        color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invert}) !important;
+    }
+
+    a.has-text-#{$name} {
+        &:hover,
+        &:focus {
+            color: color.adjust($color, $lightness: -10%) !important;
+        }
+    }
+
+    .has-background-#{$name} {
+        // @debug "$name: #{$name}";
+        background-color: var(#{'--flex-'}#{$name}, #{$color}) !important;
+
+        &:not(.has-background-white) {
+            .title,
+            .suptitle,
+            .paragraph,
+            .text,
+            p {
+                color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invert});
+            }
+        }
+    }
+}
+
+@each $name, $shade in derived-variables.$shades {
+    .has-text-#{$name} {
+        color: var(#{'--flex-'}#{$name}, #{$shade}) !important;
+    }
+
+    .has-background-#{$name} {
+        background-color: var(#{'--flex-'}#{$name}, #{$shade}) !important;
+    }
+}
+
+[class*="has-background-"] {
+    &.is-admin,
+    .is-admin & {
+        background-color: var(--flex-admin, #{derived-variables.$admin}) !important;
+    }
+}
+
+[class*="has-text-"] {
+    &.is-admin,
+    .is-admin & {
+        color: var(--flex-admin-invert, #{derived-variables.$admin-invert}) !important;
+    }
+}
+
+// Visibility
+$displays: "block" "flex" "inline" "inline-block" "inline-flex";
+
+@each $display in $displays {
+    .is-#{$display} {
+        display: #{$display} !important;
+    }
+
+    @include mixins.mobile {
+        .is-#{$display}-mobile {
+            display: #{$display} !important;
+        }
+    }
+
+    @include mixins.tablet {
+        .is-#{$display}-tablet {
+            display: #{$display} !important;
+        }
+    }
+
+    @include mixins.tablet-only {
+        .is-#{$display}-tablet-only {
+            display: #{$display} !important;
+        }
+    }
+
+    @include mixins.touch {
+        .is-#{$display}-touch {
+            display: #{$display} !important;
+        }
+    }
+
+    @include mixins.desktop {
+        .is-#{$display}-desktop {
+            display: #{$display} !important;
+        }
+    }
+
+    @include mixins.desktop-only {
+        .is-#{$display}-desktop-only {
+            display: #{$display} !important;
+        }
+    }
+
+    @include mixins.widescreen {
+        .is-#{$display}-widescreen {
+            display: #{$display} !important;
+        }
+    }
+
+    @include mixins.widescreen-only {
+        .is-#{$display}-widescreen-only {
+            display: #{$display} !important;
+        }
+    }
+
+    @include mixins.fullhd {
+        .is-#{$display}-fullhd {
+            display: #{$display} !important;
+        }
+    }
+}
+
+.is-hidden {
+    display: none !important;
+}
+
+@include mixins.mobile {
+    .is-hidden-mobile {
+        display: none !important;
+    }
+}
+
+@include mixins.tablet {
+    .is-hidden-tablet {
+        display: none !important;
+    }
+}
+
+@include mixins.tablet-only {
+    .is-hidden-tablet-only {
+        display: none !important;
+    }
+}
+
+@include mixins.touch {
+    .is-hidden-touch {
+        display: none !important;
+    }
+}
+
+@include mixins.desktop {
+    .is-hidden-desktop {
+        display: none !important;
+    }
+}
+
+@include mixins.desktop-only {
+    .is-hidden-desktop-only {
+        display: none !important;
+    }
+}
+
+@include mixins.widescreen {
+    .is-hidden-widescreen {
+        display: none !important;
+    }
+}
+
+@include mixins.widescreen-only {
+    .is-hidden-widescreen-only {
+        display: none !important;
+    }
+}
+
+@include mixins.fullhd {
+    .is-hidden-fullhd {
+        display: none !important;
+    }
+}
+
+.is-invisible {
+    visibility: hidden !important;
+}
+
+@include mixins.mobile {
+    .is-invisible-mobile {
+        visibility: hidden !important;
+    }
+}
+
+@include mixins.tablet {
+    .is-invisible-tablet {
+        visibility: hidden !important;
+    }
+}
+
+@include mixins.tablet-only {
+    .is-invisible-tablet-only {
+        visibility: hidden !important;
+    }
+}
+
+@include mixins.touch {
+    .is-invisible-touch {
+        visibility: hidden !important;
+    }
+}
+
+@include mixins.desktop {
+    .is-invisible-desktop {
+        visibility: hidden !important;
+    }
+}
+
+@include mixins.desktop-only {
+    .is-invisible-desktop-only {
+        visibility: hidden !important;
+    }
+}
+
+@include mixins.widescreen {
+    .is-invisible-widescreen {
+        visibility: hidden !important;
+    }
+}
+
+@include mixins.widescreen-only {
+    .is-invisible-widescreen-only {
+        visibility: hidden !important;
+    }
+}
+
+@include mixins.fullhd {
+    .is-invisible-fullhd {
+        visibility: hidden !important;
+    }
+}
+
+// Other
+.is-marginless {
+    margin: 0 !important;
+}
+
+.is-paddingless {
+    padding: 0 !important;
+}
+
+.is-radiusless {
+    border-radius: 0 !important;
+}
+
+.is-shadowless {
+    box-shadow: none !important;
+}
+
+.is-unselectable {
+    @include mixins.unselectable;
+}
+
+.is-multiline {
+    flex-wrap: wrap !important;
+}
+
+.is-rounded {
+    border-radius: 50% !important;
+}
+
+.is-bordered {
+    border: 1px solid var(--flex-border, #{derived-variables.$border});
+}
+
+.is-vcentered {
+    align-items: center;
+}
+
+.is-vcentered-mobile {
+    @include mixins.mobile {
+        align-items: center;
+    }
+}
+
+.is-vcentered-tablet {
+    @include mixins.tablet-only {
+        align-items: center;
+    }
+}
+
+.is-vcentered-desktop {
+    @include mixins.desktop {
+        align-items: center;
+    }
+}
+
+.is-centered-mobile {
+    @include mixins.mobile {
+        justify-content: center;
+    }
+}
+
+.is-centered-tablet {
+    @include mixins.tablet-only {
+        justify-content: center;
+    }
+}
+
+.is-centered-desktop {
+    @include mixins.desktop {
+        justify-content: center;
+    }
+}
+
+// Radius
+$radius-list: ("radius-small": derived-variables.$radius-small, "radius": derived-variables.$radius, "radius-large": derived-variables.$radius-large);
+
+@each $label, $radius-size in $radius-list {
+    .has-border-#{$label} {
+        border-radius: $radius-size;
+    }
+}
+
+// Dimensions
+.is-fullheight {
+    height: 100%;
+}
+
+.is-fullwidth {
+    width: 100%;
+}
+
+.is-fullwidth-mobile {
+    @include mixins.mobile {
+        width: 100%;
+    }
+}
+
+$justifications: ("center": "center", "start": "flex-start", "end": "flex-end");
+
+@each $justification, $justify-content in $justifications {
+    .is-justified-#{$justification} {
+        justify-content: #{$justify-content} !important;
+    }
+
+    @include mixins.mobile {
+        .is-justified-#{$justification}-mobile {
+            justify-content: #{$justify-content} !important;
+        }
+    }
+
+    @include mixins.tablet {
+        .is-justified-#{$justification}-tablet {
+            justify-content: #{$justify-content} !important;
+        }
+    }
+
+    @include mixins.tablet-only {
+        .is-justified-#{$justification}-tablet-only {
+            justify-content: #{$justify-content} !important;
+        }
+    }
+
+    @include mixins.touch {
+        .is-justified-#{$justification}-touch {
+            justify-content: #{$justify-content} !important;
+        }
+    }
+
+    @include mixins.desktop {
+        .is-justified-#{$justification}-desktop {
+            justify-content: #{$justify-content} !important;
+        }
+    }
+
+    @include mixins.desktop-only {
+        .is-justified-#{$justification}-desktop-only {
+            justify-content: #{$justify-content} !important;
+        }
+    }
+
+    @include mixins.widescreen {
+        .is-justified-#{$justification}-widescreen {
+            justify-content: #{$justify-content} !important;
+        }
+    }
+
+    @include mixins.widescreen-only {
+        .is-justified-#{$justification}-widescreen-only {
+            justify-content: #{$justify-content} !important;
+        }
+    }
+
+    @include mixins.fullhd {
+        .is-justified-#{$justification}-fullhd {
+            justify-content: #{$justify-content} !important;
+        }
+    }
+}

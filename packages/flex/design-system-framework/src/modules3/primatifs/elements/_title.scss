@@ -1,0 +1,245 @@
+@use "sass:list";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$title-color: variables.$tertiary;
+$title-size: variables.$text-32;
+$title-weight: variables.$weight-semibold;
+$title-size-tablet: variables.$text-40;
+$title-line-height: 1.1;
+$title-strong-color: inherit;
+$title-strong-weight: inherit;
+$title-sub-size: 0.5em;
+$title-sup-size: 0.5em;
+
+$subtitle-color: variables.$tertiary;
+$subtitle-size: variables.$text-14;
+$subtitle-weight: variables.$weight-normal;
+$subtitle-size-tablet: variables.$text-16;
+$subtitle-size: variables.$size-5;
+$subtitle-line-height: 1.2;
+$subtitle-strong-color: variables.$grey-darker;
+$subtitle-strong-weight: variables.$weight-semibold;
+$subtitle-negative-margin: functions.size(-1em);
+
+$suptitle-color: variables.$tertiary;
+$suptitle-size: variables.$text-12;
+$suptitle-line-height: 1.4;
+$suptitle-size-tablet: variables.$text-14;
+$suptitle-weight: variables.$weight-semibold;
+
+.title,
+.subtitle,
+.suptitle {
+  @include mixins.block;
+
+  word-break: break-word;
+
+  em,
+  span {
+    font-weight: inherit;
+  }
+
+  .tag {
+    vertical-align: middle;
+  }
+}
+
+.title {
+  font-family: variables.$family-secondary;
+  font-size: $title-size;
+  font-weight: $title-weight;
+  line-height: $title-line-height;
+  color: var(--flex-title-color, #{$title-color});
+
+  // typographie fluide, basé sur un viewport minimum de 375px
+  @each $size-fluid in variables.$sizes-fluid {
+    $i: list.index(variables.$sizes-fluid, $size-fluid);
+    $min: list.nth($size-fluid, 1);
+    $max: list.nth($size-fluid, 2);
+
+    &.is-#{$i} {
+
+      // https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/35750bd7-390a-4608-bfa8-add0c1257e1f/advanced-calc-800-opt.png
+      @if functions.$font-convert-to-px {
+        font-size: calc(#{$min} + (#{functions.strip-unit($max)} - #{functions.strip-unit($min)}) * ((100vw - 375px) / (#{functions.strip-unit(variables.$fullhd)} - 375)));
+      }
+
+      @else {
+        font-size: calc(#{$min} + ((#{functions.strip-unit($max)} - #{functions.strip-unit($min)}) * 10) * ((100vw - 375px) / (#{functions.strip-unit(variables.$fullhd)} - 375)));
+      }
+    }
+  }
+
+  // typographie fixe pour les tailles supérieures à fullhd
+  @include mixins.fullhd {
+    @each $size-desktop in variables.$sizes-desktop {
+      $i: list.index(variables.$sizes-desktop, $size-desktop);
+
+      &.is-#{$i} {
+        font-size: $size-desktop;
+      }
+    }
+  }
+
+  &.is-1,
+  &.is-2 {
+    font-family: variables.$family-secondary;
+  }
+
+  &.is-3,
+  &.is-4,
+  &.is-5,
+  &.is-6,
+  &.is-7 {
+    font-family: variables.$family-primary;
+    font-weight: $title-weight;
+  }
+
+  &.is-4 {
+    font-weight: variables.$weight-medium;
+  }
+
+  &.is-7 {
+    text-transform: uppercase;
+  }
+
+  &.is-inverted {
+    // color: var(--flex-color-invert, #{variables.$color-invert});
+    color: var(--flex-text-invert, #{variables.$text-invert});
+  }
+
+  .is-admin & {
+    color: var(--flex-admin-invert, #{variables.$admin-invert});
+  }
+
+  .details {
+    font-size: 80%;
+    color: var(--flex-grey, #{variables.$grey});
+    font-weight: variables.$weight-normal;
+  }
+
+  &.is-section-title {
+    text-align: center;
+    margin-bottom: functions.size(4em);
+
+    @include mixins.desktop {
+      margin-bottom: functions.size(6em);
+    }
+  }
+
+  &.is-2:not(:first-child),
+  &.is-3:not(:first-child),
+  &.is-4:not(:first-child),
+  &.is-5:not(:first-child),
+  &.is-6:not(:first-child),
+  &.is-7:not(:first-child) {
+    margin-top: functions.size(1.5em);
+  }
+
+  &.is-2:not(:last-child),
+  &.is-3:not(:last-child),
+  &.is-4:not(:last-child),
+  &.is-5:not(:last-child),
+  &.is-6:not(:last-child),
+  &.is-7:not(:last-child) {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &.is-2:not(:last-child):not(.is-section-title),
+  &.is-3:not(:last-child):not(.is-section-title) {
+    margin-bottom: functions.size(1.5em);
+  }
+
+  &.is-4:not(:last-child):not(.is-section-title) {
+    margin-bottom: functions.size(1em);
+  }
+
+  &.is-5:not(:last-child):not(.is-section-title) {
+    margin-bottom: functions.size(0.5em);
+  }
+
+  &.is-6:not(:last-child):not(.is-section-title),
+  &.is-7:not(:last-child):not(.is-section-title) {
+    margin-bottom: 0;
+  }
+
+  @include mixins.tablet {
+    font-size: $title-size-tablet;
+  }
+
+  &:not(.is-spaced) + .subtitle {
+    margin-top: $subtitle-negative-margin;
+  }
+
+  strong {
+    color: var(--flex-title-strong-color, #{$title-strong-color});
+    font-weight: $title-strong-weight;
+  }
+
+  sup {
+    top: -.5em;
+    font-size: $title-sup-size;
+  }
+
+  sub {
+    bottom: -.5em;
+    font-size: $title-sub-size;
+  }
+
+  &.is-centered {
+    text-align: center;
+  }
+
+  &.has-inherited-color {
+    color: inherit;
+  }
+}
+
+.subtitle {
+  color: var(--flex-subtitle-color, #{$subtitle-color});
+  font-size: $subtitle-size;
+  font-weight: $subtitle-weight;
+  line-height: $subtitle-line-height;
+
+  strong {
+    color: var(--flex-subtitle-strong-color, #{$subtitle-strong-color});
+    font-weight: $subtitle-strong-weight;
+  }
+
+  &:not(.is-spaced) + .title {
+    margin-top: $subtitle-negative-margin;
+  }
+
+  @each $size in variables.$sizes {
+    $i: list.index(variables.$sizes, $size);
+
+    &.is-#{$i} {
+      font-size: $size;
+    }
+  }
+}
+
+.suptitle {
+  font-size: $suptitle-size;
+  font-weight: $suptitle-weight;
+  line-height: $suptitle-line-height;
+  text-transform: uppercase;
+  color: var(--flex-suptitle-color, #{$suptitle-color});
+
+  @include mixins.tablet {
+    font-size: $suptitle-size-tablet;
+  }
+
+  &:not(.is-spaced) + .title {
+    margin-top: calc($subtitle-negative-margin / 2);
+  }
+
+  .is-admin & {
+    color: var(--flex-admin-invert, #{variables.$admin-invert});
+  }
+}

@@ -1,0 +1,181 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+.flexiness-root p,
+.paragraph {
+    font-size: inherit;
+
+    &:not(:last-child) {
+        margin-bottom: 1em;
+    }
+
+    &.text {
+        &.is-1,
+        &.is-2,
+        &.is-3,
+        &.is-4 {
+            color: var(--flex-text, #{variables.$text});
+            font-family: variables.$family-primary;
+            font-size: variables.$text-14;
+            font-weight: variables.$weight-normal;
+        }
+
+        &.is-2 {
+            font-weight: variables.$weight-semibold;
+        }
+
+        &.is-3,
+        &.is-4 {
+            font-weight: variables.$weight-medium;
+        }
+
+        &.is-3 {
+            font-size: variables.$text-12;
+        }
+
+        &.is-4 {
+            font-size: variables.$text-9;
+        }
+
+        .is-admin & {
+            color: var(--flex-admin-invert, #{variables.$admin-invert});
+        }
+
+        &.is-inverted {
+            // color: var(--flex-color-invert, #{variables.$color-invert});
+            color: var(--flex-text-invert, #{variables.$text-invert});
+        }
+
+        &.has-inherited-color {
+            color: inherit;
+        }
+    }
+
+    &.is-wrapped {
+        word-break: break-word;
+    }
+}
+
+.is-nowrap {
+    white-space: nowrap;
+}
+
+/**
+This allows to put whole blocks inside links without getting the text underlined
+*/
+.flexiness-root a/*:not(.link)*/ {
+    text-decoration: none;
+
+    &.has-inherited-color {
+        color: inherit;
+    }
+}
+
+.link:not([disabled]) {
+    cursor: pointer;
+    position: relative;
+    font-size: functions.size(1.5em);
+    font-weight: variables.$weight-medium;
+    text-decoration: none;
+    color: var(--flex-link, #{variables.$link});
+    padding-bottom: functions.size(0.2em);
+    border-bottom: solid functions.size(0.2em) currentColor;
+    box-decoration-break: clone;
+
+    > * {
+      font-size: functions.size(1.5em);
+      font-weight: variables.$weight-medium;
+    }
+
+    &:hover {
+        opacity: 0.9;
+        color: var(--flex-link-hover, #{variables.$link-hover});
+    }
+
+    @include mixins.desktop {
+        &:not(.is-static) {
+            display: inline-flex;
+            border-bottom-width: 0;
+
+            &::after {
+                content: '';
+                background: currentColor;
+                height: functions.size(0.2em);
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+
+                .text.is-3 & {
+                    .flexiness-root & {
+                        height: 0.12em;
+                        bottom: 4px;
+                    }
+                }
+            }
+
+            &:hover {
+                &::after {
+                    animation: sliding-link 1s cubic-bezier(0.654, 0.045, 0.355, 1);
+                }
+            }
+        }
+    }
+
+    &.is-plain {
+        border-bottom-width: 0;
+
+        @include mixins.desktop {
+            &::after {
+                content: normal;
+            }
+        }
+    }
+
+    &.is-inverted {
+        // color: var(--flex-color-invert, #{variables.$color-invert});
+        color: var(--flex-link-inverted, #{variables.$link-inverted});
+
+        &:hover {
+            opacity: 0.9;
+            color: var(--flex-link-hover-inverted, #{variables.$link-hover-inverted});
+        }
+    }
+
+    &.has-inherited-color {
+        color: inherit;
+
+        &:hover {
+            opacity: 0.9;
+            color: inherit;
+        }
+    }
+
+    @include mixins.touch {
+        white-space: normal !important;
+        box-decoration-break: clone;
+        display: inline;
+    }
+
+    .is-admin & {
+        color: var(--flex-admin-invert, #{variables.$admin-invert});
+    }
+
+    .is-flex-purple & {
+        color: var(--flex-purple, #{variables.$flex-purple});
+    }
+}
+
+@keyframes sliding-link {
+    50% {
+        left: 100%;
+        right: 0;
+    }
+
+    50.01% {
+        left: 0;
+        right: 100%;
+    }
+}

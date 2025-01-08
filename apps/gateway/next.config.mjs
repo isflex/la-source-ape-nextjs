@@ -12,25 +12,29 @@ import subprocess from 'node:child_process'
 import { promisify } from 'node:util'
 const execPromise = promisify(subprocess.exec)
 
+import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 import { Config } from 'next-recompose-plugins'
 
-async function getGitCommitSHA() {
-  if ('GIT_COMMIT_SHA' in process.env) {
-    return process.env.GIT_COMMIT_SHA
-  } else {
-    const result = await execPromise(`git rev-parse --short HEAD`)
-    const { stdout } = result
-    if (!stdout) return result
-    _gitCommitSHA = stdout.trim()
-    // console.log(`Git Commit SHA :`, _gitCommitSHA)
-    return _gitCommitSHA
-  }
-}
-
 let _gitCommitSHA = ''
+let _buildId = ''
+async function getGitCommitSHA() {
+  const result = await execPromise(`${process.env.FLEX_PROJ_ROOT}/bin/run-get-git-commit.sh`)
+  const { stdout, stderr } = result
+  if (stderr) Promise.reject(stderr)
+  return Promise.resolve(stdout.trim())
+}
+_gitCommitSHA = await getGitCommitSHA()
+console.log(`Git Commit SHA :`, _gitCommitSHA)
+async function getBuildId() {
+  const result = await execPromise(`git rev-parse --short HEAD`)
+  const { stdout, stderr } = result
+  if (stderr) Promise.reject(stderr)
+  return Promise.resolve(stdout.trim())
+}
+_buildId = await getBuildId()
+console.log(`Build Id :`, _buildId)
 
 const mainConfig = new Config(async (phase, args) => {
-  await getGitCommitSHA()
 
   /** @type {import('next').NextConfig} */
   const nextConfig = {
@@ -44,21 +48,34 @@ const mainConfig = new Config(async (phase, args) => {
 
     transpilePackages: [
       '@types/flexiness',
+      '@flex-design-system/framework',
+      '@flex-design-system/react-ts',
       '@flexiness/domain-utils',
       '@flexiness/domain-store'
     ],
+
+    typescript: {
+      ignoreBuildErrors: false,
+      tsconfigPath: './tsconfig.json'
+    },
+
+    eslint: {
+      ignoreDuringBuilds: false,
+      dirs: ['src'],
+    },
 
     reactStrictMode: true,
 
     generateBuildId: async () => {
       // You can, for example, get the latest git commit hash here
-      return _gitCommitSHA
+      return _buildId
     },
 
     crossOrigin: 'anonymous',
 
     sassOptions: {
       implementation: 'sass-embedded',
+      silenceDeprecations: ['legacy-js-api'],
     },
 
     webpack: (config, options) => {
@@ -78,6 +95,21 @@ const mainConfig = new Config(async (phase, args) => {
             },
           ],
         },
+
+        // /!\ Just don't
+        // resolve: {
+        //   plugins: [
+        //     ...config.resolve.plugins,
+        //     new TsconfigPathsPlugin({
+        //       configFile: path.resolve(__dirname, 'tsconfig.build.json')
+        //     })
+        //   ],
+        //   alias: {
+        //     ...config.resolve.alias,
+        //     'flex-design-system-framework/main/all.module.scss': '@flex-design-system/framework',
+        //     'flex-design-system-framework/standalone/flexslider.module.scss': '@flex-design-system/framework/flexslider.scss'
+        //   }
+        // },
 
         plugins: [
           ...config.plugins,

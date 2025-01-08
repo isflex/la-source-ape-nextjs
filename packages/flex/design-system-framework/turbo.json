@@ -1,0 +1,50 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build:fonts": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!src/modules3/**/*.scss"
+      ],
+      "outputs": [
+        "src/modules3/primatifs/base/**",
+        "src/modules3/primatifs/utilities/mixins/**",
+        "src/modules3/primatifs/components/**",
+        "src/assets/fonts/**",
+        "../domain-content/content/assets/fonts/**"
+      ],
+      "env": [
+        "FLEX_*",
+        "GIT_*"
+      ],
+      "cache": true,
+      "persistent": false
+    },
+    "build:types:modules3:default": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!src/assets/*.template.scss",
+        "!src/assets/icon/ui/*.svg",
+        "!src/assets/icon/picto/*.svg",
+        "!src/assets/icon/illustrations/*.svg"
+      ],
+      "outputs": [
+        "types/__generated__/default/**"
+      ],
+      "env": [
+        "FLEX_*",
+        "GIT_*"
+      ],
+      "cache": true,
+      "persistent": false
+    },
+    "build:lib": {
+      "dependsOn": [
+        "//#compile:clean:sh"
+      ],
+      "cache": true,
+      "persistent": false
+    }
+  }
+}

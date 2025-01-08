@@ -1,0 +1,1512 @@
+@font-face {
+    font-family: 'flexi-all';
+    src: url('https://after-school.flexiness.com:3992/assets/fonts/flexi-all.woff2') format('woff2'), url('https://after-school.flexiness.com:3992/assets/fonts/flexi-all.woff') format('woff');
+    font-style: normal;
+    font-weight: normal;
+}
+
+.icon [class^="flexi-"]::before,
+.icon [class*=" flexi-"]::before {
+    font-family: flexi-all;
+    font-style: normal;
+    font-weight: normal;
+    display: inline-block;
+    text-decoration: inherit;
+    margin-right: .2em;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+    margin-left: .2em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flexi-workshop::before {
+    content: "\f101";
+}
+
+.flexi-workplace-layout::before {
+    content: "\f102";
+}
+
+.flexi-window::before {
+    content: "\f103";
+}
+
+.flexi-wifi::before {
+    content: "\f104";
+}
+
+.flexi-wifi-medium::before {
+    content: "\f105";
+}
+
+.flexi-wifi-low::before {
+    content: "\f106";
+}
+
+.flexi-webcam::before {
+    content: "\f107";
+}
+
+.flexi-watch::before {
+    content: "\f108";
+}
+
+.flexi-waste-reduction::before {
+    content: "\f109";
+}
+
+.flexi-wall::before {
+    content: "\f10a";
+}
+
+.flexi-vtc-taxi-motorbike::before {
+    content: "\f10b";
+}
+
+.flexi-volume-on::before {
+    content: "\f10c";
+}
+
+.flexi-volume-off::before {
+    content: "\f10d";
+}
+
+.flexi-voicemail::before {
+    content: "\f10e";
+}
+
+.flexi-voice-assistance::before {
+    content: "\f10f";
+}
+
+.flexi-visually-impaired::before {
+    content: "\f110";
+}
+
+.flexi-visor::before {
+    content: "\f111";
+}
+
+.flexi-victory::before {
+    content: "\f112";
+}
+
+.flexi-v-sign::before {
+    content: "\f113";
+}
+
+.flexi-users::before {
+    content: "\f114";
+}
+
+.flexi-users-shield-star-s::before {
+    content: "\f115";
+}
+
+.flexi-users-shield-s::before {
+    content: "\f116";
+}
+
+.flexi-user::before {
+    content: "\f117";
+}
+
+.flexi-user-tie::before {
+    content: "\f118";
+}
+
+.flexi-user-headset::before {
+    content: "\f119";
+}
+
+.flexi-usbkey::before {
+    content: "\f11a";
+}
+
+.flexi-unlimited::before {
+    content: "\f11b";
+}
+
+.flexi-unavailable::before {
+    content: "\f11c";
+}
+
+.flexi-tv::before {
+    content: "\f11d";
+}
+
+.flexi-tv-vod::before {
+    content: "\f11e";
+}
+
+.flexi-tv-multi::before {
+    content: "\f11f";
+}
+
+.flexi-tv-multi-optical-fiber::before {
+    content: "\f120";
+}
+
+.flexi-tv-infinity::before {
+    content: "\f121";
+}
+
+.flexi-tv-hd::before {
+    content: "\f122";
+}
+
+.flexi-tv-curved::before {
+    content: "\f123";
+}
+
+.flexi-tv-btv::before {
+    content: "\f124";
+}
+
+.flexi-tv-8k::before {
+    content: "\f125";
+}
+
+.flexi-tv-4k::before {
+    content: "\f126";
+}
+
+.flexi-turkey::before {
+    content: "\f127";
+}
+
+.flexi-truck::before {
+    content: "\f128";
+}
+
+.flexi-truck-speed::before {
+    content: "\f129";
+}
+
+.flexi-travel-policies::before {
+    content: "\f12a";
+}
+
+.flexi-travel-agency::before {
+    content: "\f12b";
+}
+
+.flexi-trash::before {
+    content: "\f12c";
+}
+
+.flexi-transport::before {
+    content: "\f12d";
+}
+
+.flexi-training-diploma::before {
+    content: "\f12e";
+}
+
+.flexi-top-news::before {
+    content: "\f12f";
+}
+
+.flexi-tools::before {
+    content: "\f130";
+}
+
+.flexi-times::before {
+    content: "\f131";
+}
+
+.flexi-times-circle::before {
+    content: "\f132";
+}
+
+.flexi-thunder-redo::before {
+    content: "\f133";
+}
+
+.flexi-th::before {
+    content: "\f134";
+}
+
+.flexi-team-meal::before {
+    content: "\f135";
+}
+
+.flexi-tablet::before {
+    content: "\f136";
+}
+
+.flexi-sync::before {
+    content: "\f137";
+}
+
+.flexi-sustainable-development::before {
+    content: "\f138";
+}
+
+.flexi-sun-euro::before {
+    content: "\f139";
+}
+
+.flexi-store::before {
+    content: "\f13a";
+}
+
+.flexi-store-locator::before {
+    content: "\f13b";
+}
+
+.flexi-stopwatch::before {
+    content: "\f13c";
+}
+
+.flexi-stopwatch-click-collect::before {
+    content: "\f13d";
+}
+
+.flexi-stopwatch-click-collect-2h::before {
+    content: "\f13e";
+}
+
+.flexi-stopwatch-2h::before {
+    content: "\f13f";
+}
+
+.flexi-steering-wheel::before {
+    content: "\f140";
+}
+
+.flexi-sports::before {
+    content: "\f141";
+}
+
+.flexi-social-youtube::before {
+    content: "\f142";
+}
+
+.flexi-social-twitter::before {
+    content: "\f143";
+}
+
+.flexi-social-instagram::before {
+    content: "\f144";
+}
+
+.flexi-social-facebook::before {
+    content: "\f145";
+}
+
+.flexi-sms-info::before {
+    content: "\f146";
+}
+
+.flexi-smile::before {
+    content: "\f147";
+}
+
+.flexi-smile-plus::before {
+    content: "\f148";
+}
+
+.flexi-smile-nocircled::before {
+    content: "\f149";
+}
+
+.flexi-sim-cards::before {
+    content: "\f14a";
+}
+
+.flexi-sim-card::before {
+    content: "\f14b";
+}
+
+.flexi-sim-card-unlock::before {
+    content: "\f14c";
+}
+
+.flexi-sim-card-redo::before {
+    content: "\f14d";
+}
+
+.flexi-shopping-bag::before {
+    content: "\f14e";
+}
+
+.flexi-shooting-star::before {
+    content: "\f14f";
+}
+
+.flexi-shield::before {
+    content: "\f150";
+}
+
+.flexi-shield-private-life::before {
+    content: "\f151";
+}
+
+.flexi-shield-exclamation::before {
+    content: "\f152";
+}
+
+.flexi-shield-check::before {
+    content: "\f153";
+}
+
+.flexi-shield-at::before {
+    content: "\f154";
+}
+
+.flexi-security-health::before {
+    content: "\f155";
+}
+
+.flexi-search::before {
+    content: "\f156";
+}
+
+.flexi-sd-Card::before {
+    content: "\f157";
+}
+
+.flexi-scan::before {
+    content: "\f158";
+}
+
+.flexi-satellite-antenna::before {
+    content: "\f159";
+}
+
+.flexi-samples::before {
+    content: "\f15a";
+}
+
+.flexi-samples-plus-circle::before {
+    content: "\f15b";
+}
+
+.flexi-samples-exclamation-mark-circle::before {
+    content: "\f15c";
+}
+
+.flexi-samples-cogs-circle::before {
+    content: "\f15d";
+}
+
+.flexi-rules::before {
+    content: "\f15e";
+}
+
+.flexi-rotation-360::before {
+    content: "\f15f";
+}
+
+.flexi-ringtone-welcomeSound::before {
+    content: "\f160";
+}
+
+.flexi-restricted-area::before {
+    content: "\f161";
+}
+
+.flexi-repeater::before {
+    content: "\f162";
+}
+
+.flexi-repeater-alt::before {
+    content: "\f163";
+}
+
+.flexi-remote::before {
+    content: "\f164";
+}
+
+.flexi-reduce-co2-emission::before {
+    content: "\f165";
+}
+
+.flexi-redo::before {
+    content: "\f166";
+}
+
+.flexi-redo-7-days::before {
+    content: "\f167";
+}
+
+.flexi-redo-30-days::before {
+    content: "\f168";
+}
+
+.flexi-redo-14-days::before {
+    content: "\f169";
+}
+
+.flexi-recycle::before {
+    content: "\f16a";
+}
+
+.flexi-priority-path::before {
+    content: "\f16b";
+}
+
+.flexi-printing-stationery::before {
+    content: "\f16c";
+}
+
+.flexi-printer::before {
+    content: "\f16d";
+}
+
+.flexi-plus::before {
+    content: "\f16e";
+}
+
+.flexi-plus-circle::before {
+    content: "\f16f";
+}
+
+.flexi-plug-check::before {
+    content: "\f170";
+}
+
+.flexi-plexi-exchange::before {
+    content: "\f171";
+}
+
+.flexi-play-circle::before {
+    content: "\f172";
+}
+
+.flexi-play-beginning::before {
+    content: "\f173";
+}
+
+.flexi-physical-disability::before {
+    content: "\f174";
+}
+
+.flexi-phone::before {
+    content: "\f175";
+}
+
+.flexi-phone-switzerland::before {
+    content: "\f176";
+}
+
+.flexi-phone-plus-sim-card::before {
+    content: "\f177";
+}
+
+.flexi-phone-outgoing-call::before {
+    content: "\f178";
+}
+
+.flexi-phone-notes::before {
+    content: "\f179";
+}
+
+.flexi-phone-infinity::before {
+    content: "\f17a";
+}
+
+.flexi-phone-incoming-call::before {
+    content: "\f17b";
+}
+
+.flexi-phone-globe::before {
+    content: "\f17c";
+}
+
+.flexi-phone-europe::before {
+    content: "\f17d";
+}
+
+.flexi-phone-euro::before {
+    content: "\f17e";
+}
+
+.flexi-phone-burger::before {
+    content: "\f17f";
+}
+
+.flexi-phone-africa::before {
+    content: "\f180";
+}
+
+.flexi-person-door::before {
+    content: "\f181";
+}
+
+.flexi-payment-americanexpress::before {
+    content: "\f182";
+}
+
+.flexi-pause::before {
+    content: "\f183";
+}
+
+.flexi-parcel::before {
+    content: "\f184";
+}
+
+.flexi-paperclip::before {
+    content: "\f185";
+}
+
+.flexi-package-preparation::before {
+    content: "\f186";
+}
+
+.flexi-optician::before {
+    content: "\f187";
+}
+
+.flexi-office-supply::before {
+    content: "\f188";
+}
+
+.flexi-notes::before {
+    content: "\f189";
+}
+
+.flexi-notebook-tarifs::before {
+    content: "\f18a";
+}
+
+.flexi-newspapers::before {
+    content: "\f18b";
+}
+
+.flexi-network::before {
+    content: "\f18c";
+}
+
+.flexi-network-antenna::before {
+    content: "\f18d";
+}
+
+.flexi-moving-persons-goods::before {
+    content: "\f18e";
+}
+
+.flexi-mouse::before {
+    content: "\f18f";
+}
+
+.flexi-motivation::before {
+    content: "\f190";
+}
+
+.flexi-modem-3g::before {
+    content: "\f191";
+}
+
+.flexi-mobile::before {
+    content: "\f192";
+}
+
+.flexi-mobile-up-down::before {
+    content: "\f193";
+}
+
+.flexi-mobile-tools::before {
+    content: "\f194";
+}
+
+.flexi-mobile-sync::before {
+    content: "\f195";
+}
+
+.flexi-mobile-recovery::before {
+    content: "\f196";
+}
+
+.flexi-mobile-reconditioned::before {
+    content: "\f197";
+}
+
+.flexi-mobile-plus-sim-cards::before {
+    content: "\f198";
+}
+
+.flexi-mobile-percentage::before {
+    content: "\f199";
+}
+
+.flexi-mobile-lock::before {
+    content: "\f19a";
+}
+
+.flexi-mobile-infinity::before {
+    content: "\f19b";
+}
+
+.flexi-mobile-hand::before {
+    content: "\f19c";
+}
+
+.flexi-mobile-globe::before {
+    content: "\f19d";
+}
+
+.flexi-mobile-eye::before {
+    content: "\f19e";
+}
+
+.flexi-mobile-euro::before {
+    content: "\f19f";
+}
+
+.flexi-mobile-comment::before {
+    content: "\f1a0";
+}
+
+.flexi-mobile-cloud::before {
+    content: "\f1a1";
+}
+
+.flexi-mobile-broken::before {
+    content: "\f1a2";
+}
+
+.flexi-mobile-ban::before {
+    content: "\f1a3";
+}
+
+.flexi-mobile-08-slash::before {
+    content: "\f1a4";
+}
+
+.flexi-mobile-07-slash::before {
+    content: "\f1a5";
+}
+
+.flexi-mobile-06-slash::before {
+    content: "\f1a6";
+}
+
+.flexi-microwaves::before {
+    content: "\f1a7";
+}
+
+.flexi-mental-handicap::before {
+    content: "\f1a8";
+}
+
+.flexi-mental-disability::before {
+    content: "\f1a9";
+}
+
+.flexi-massage::before {
+    content: "\f1aa";
+}
+
+.flexi-marker::before {
+    content: "\f1ab";
+}
+
+.flexi-map-marker::before {
+    content: "\f1ac";
+}
+
+.flexi-maker::before {
+    content: "\f1ad";
+}
+
+.flexi-mailbox-marker::before {
+    content: "\f1ae";
+}
+
+.flexi-mail::before {
+    content: "\f1af";
+}
+
+.flexi-lock::before {
+    content: "\f1b0";
+}
+
+.flexi-link::before {
+    content: "\f1b1";
+}
+
+.flexi-link-copy::before {
+    content: "\f1b2";
+}
+
+.flexi-lines-speed::before {
+    content: "\f1b3";
+}
+
+.flexi-lightbulb-on::before {
+    content: "\f1b4";
+}
+
+.flexi-laptop::before {
+    content: "\f1b5";
+}
+
+.flexi-laptop-tablet-mobile::before {
+    content: "\f1b6";
+}
+
+.flexi-ip::before {
+    content: "\f1b7";
+}
+
+.flexi-iot::before {
+    content: "\f1b8";
+}
+
+.flexi-internal-fraud::before {
+    content: "\f1b9";
+}
+
+.flexi-immersive-content-people::before {
+    content: "\f1ba";
+}
+
+.flexi-immersive-content-glass::before {
+    content: "\f1bb";
+}
+
+.flexi-identity::before {
+    content: "\f1bc";
+}
+
+.flexi-hydro-gel::before {
+    content: "\f1bd";
+}
+
+.flexi-hourglass::before {
+    content: "\f1be";
+}
+
+.flexi-hotspot::before {
+    content: "\f1bf";
+}
+
+.flexi-home::before {
+    content: "\f1c0";
+}
+
+.flexi-home-tools::before {
+    content: "\f1c1";
+}
+
+.flexi-heart::before {
+    content: "\f1c2";
+}
+
+.flexi-headphones::before {
+    content: "\f1c3";
+}
+
+.flexi-handsfree::before {
+    content: "\f1c4";
+}
+
+.flexi-hands-helping::before {
+    content: "\f1c5";
+}
+
+.flexi-hand-tools::before {
+    content: "\f1c6";
+}
+
+.flexi-hand-mobile::before {
+    content: "\f1c7";
+}
+
+.flexi-hairdresser::before {
+    content: "\f1c8";
+}
+
+.flexi-good-practices::before {
+    content: "\f1c9";
+}
+
+.flexi-gift::before {
+    content: "\f1ca";
+}
+
+.flexi-gauge::before {
+    content: "\f1cb";
+}
+
+.flexi-gauge-plus-circle::before {
+    content: "\f1cc";
+}
+
+.flexi-gauge-exclamation-circle::before {
+    content: "\f1cd";
+}
+
+.flexi-gauge-cogs-circle::before {
+    content: "\f1ce";
+}
+
+.flexi-games-console::before {
+    content: "\f1cf";
+}
+
+.flexi-gamepad::before {
+    content: "\f1d0";
+}
+
+.flexi-frown::before {
+    content: "\f1d1";
+}
+
+.flexi-france::before {
+    content: "\f1d2";
+}
+
+.flexi-france-marker::before {
+    content: "\f1d3";
+}
+
+.flexi-flower-order::before {
+    content: "\f1d4";
+}
+
+.flexi-flash-sell::before {
+    content: "\f1d5";
+}
+
+.flexi-first-rural-area::before {
+    content: "\f1d6";
+}
+
+.flexi-fingerprint::before {
+    content: "\f1d7";
+}
+
+.flexi-film::before {
+    content: "\f1d8";
+}
+
+.flexi-file-pdf::before {
+    content: "\f1d9";
+}
+
+.flexi-file-new::before {
+    content: "\f1da";
+}
+
+.flexi-file-management::before {
+    content: "\f1db";
+}
+
+.flexi-file-list::before {
+    content: "\f1dc";
+}
+
+.flexi-file-euro::before {
+    content: "\f1dd";
+}
+
+.flexi-file-euro-question-circle::before {
+    content: "\f1de";
+}
+
+.flexi-file-euro-lock-circle::before {
+    content: "\f1df";
+}
+
+.flexi-file-euro-info-circle::before {
+    content: "\f1e0";
+}
+
+.flexi-file-euro-exclamation-circle::before {
+    content: "\f1e1";
+}
+
+.flexi-file-euro-check-circle::before {
+    content: "\f1e2";
+}
+
+.flexi-file-euro-check-circle-s::before {
+    content: "\f1e3";
+}
+
+.flexi-file-attached::before {
+    content: "\f1e4";
+}
+
+.flexi-facemask-2::before {
+    content: "\f1e5";
+}
+
+.flexi-facemask-1::before {
+    content: "\f1e6";
+}
+
+.flexi-exclamation::before {
+    content: "\f1e7";
+}
+
+.flexi-exclamation-triangle::before {
+    content: "\f1e8";
+}
+
+.flexi-exclamation-redo::before {
+    content: "\f1e9";
+}
+
+.flexi-exclamation-circle::before {
+    content: "\f1ea";
+}
+
+.flexi-euros::before {
+    content: "\f1eb";
+}
+
+.flexi-europe::before {
+    content: "\f1ec";
+}
+
+.flexi-ethics::before {
+    content: "\f1ed";
+}
+
+.flexi-esim::before {
+    content: "\f1ee";
+}
+
+.flexi-environmental-footprint::before {
+    content: "\f1ef";
+}
+
+.flexi-envelope::before {
+    content: "\f1f0";
+}
+
+.flexi-envelope-plus-circle::before {
+    content: "\f1f1";
+}
+
+.flexi-energy::before {
+    content: "\f1f2";
+}
+
+.flexi-energy-optimization::before {
+    content: "\f1f3";
+}
+
+.flexi-electrical-plug::before {
+    content: "\f1f4";
+}
+
+.flexi-electrical-overload::before {
+    content: "\f1f5";
+}
+
+.flexi-electric-car::before {
+    content: "\f1f6";
+}
+
+.flexi-ecoresponsible-digital::before {
+    content: "\f1f7";
+}
+
+.flexi-ecommerce-promo-label::before {
+    content: "\f1f8";
+}
+
+.flexi-ecommerce-product-return::before {
+    content: "\f1f9";
+}
+
+.flexi-eco-conception::before {
+    content: "\f1fa";
+}
+
+.flexi-earth::before {
+    content: "\f1fb";
+}
+
+.flexi-ear-slash::before {
+    content: "\f1fc";
+}
+
+.flexi-duplicata::before {
+    content: "\f1fd";
+}
+
+.flexi-dont-touch::before {
+    content: "\f1fe";
+}
+
+.flexi-distance::before {
+    content: "\f1ff";
+}
+
+.flexi-diagnostic::before {
+    content: "\f200";
+}
+
+.flexi-desktop::before {
+    content: "\f201";
+}
+
+.flexi-cse::before {
+    content: "\f202";
+}
+
+.flexi-crippling-disease::before {
+    content: "\f203";
+}
+
+.flexi-credit-cards::before {
+    content: "\f204";
+}
+
+.flexi-credit-cards-12::before {
+    content: "\f205";
+}
+
+.flexi-credit-card::before {
+    content: "\f206";
+}
+
+.flexi-credit-card-lock::before {
+    content: "\f207";
+}
+
+.flexi-credit-card-accepted::before {
+    content: "\f208";
+}
+
+.flexi-courier::before {
+    content: "\f209";
+}
+
+.flexi-corporate-card::before {
+    content: "\f20a";
+}
+
+.flexi-contactless-payment::before {
+    content: "\f20b";
+}
+
+.flexi-contact::before {
+    content: "\f20c";
+}
+
+.flexi-concierge::before {
+    content: "\f20d";
+}
+
+.flexi-community::before {
+    content: "\f20e";
+}
+
+.flexi-comments-question-dots::before {
+    content: "\f20f";
+}
+
+.flexi-comment::before {
+    content: "\f210";
+}
+
+.flexi-comment-voicemail::before {
+    content: "\f211";
+}
+
+.flexi-comment-question::before {
+    content: "\f212";
+}
+
+.flexi-comment-eye::before {
+    content: "\f213";
+}
+
+.flexi-comment-exclamation-circle::before {
+    content: "\f214";
+}
+
+.flexi-comment-earth::before {
+    content: "\f215";
+}
+
+.flexi-collaborative-library::before {
+    content: "\f216";
+}
+
+.flexi-cogs::before {
+    content: "\f217";
+}
+
+.flexi-co2-emission::before {
+    content: "\f218";
+}
+
+.flexi-cloud::before {
+    content: "\f219";
+}
+
+.flexi-cloud-save::before {
+    content: "\f21a";
+}
+
+.flexi-cloud-plus-circle::before {
+    content: "\f21b";
+}
+
+.flexi-cloud-infinity::before {
+    content: "\f21c";
+}
+
+.flexi-cloud-globe::before {
+    content: "\f21d";
+}
+
+.flexi-cloud-exclamation-circle::before {
+    content: "\f21e";
+}
+
+.flexi-cloud-cogs-circle::before {
+    content: "\f21f";
+}
+
+.flexi-cloud-check::before {
+    content: "\f220";
+}
+
+.flexi-cloud-check-s::before {
+    content: "\f221";
+}
+
+.flexi-cloud-70go::before {
+    content: "\f222";
+}
+
+.flexi-cloud-50go::before {
+    content: "\f223";
+}
+
+.flexi-cloud-30go::before {
+    content: "\f224";
+}
+
+.flexi-cloud-20go::before {
+    content: "\f225";
+}
+
+.flexi-cloud-100go::before {
+    content: "\f226";
+}
+
+.flexi-closed::before {
+    content: "\f227";
+}
+
+.flexi-clipboard-checklist::before {
+    content: "\f228";
+}
+
+.flexi-click-collect-2h::before {
+    content: "\f229";
+}
+
+.flexi-clean-surface::before {
+    content: "\f22a";
+}
+
+.flexi-clapperboard::before {
+    content: "\f22b";
+}
+
+.flexi-chip::before {
+    content: "\f22c";
+}
+
+.flexi-children-access::before {
+    content: "\f22d";
+}
+
+.flexi-check::before {
+    content: "\f22e";
+}
+
+.flexi-check-circle::before {
+    content: "\f22f";
+}
+
+.flexi-catering::before {
+    content: "\f230";
+}
+
+.flexi-carpooling::before {
+    content: "\f231";
+}
+
+.flexi-car-rent::before {
+    content: "\f232";
+}
+
+.flexi-car-park::before {
+    content: "\f233";
+}
+
+.flexi-camera::before {
+    content: "\f234";
+}
+
+.flexi-calendar::before {
+    content: "\f235";
+}
+
+.flexi-calendar-unavailable::before {
+    content: "\f236";
+}
+
+.flexi-calendar-question-circle::before {
+    content: "\f237";
+}
+
+.flexi-calendar-plus-circle::before {
+    content: "\f238";
+}
+
+.flexi-calendar-info-circle::before {
+    content: "\f239";
+}
+
+.flexi-calendar-exclamation-circle::before {
+    content: "\f23a";
+}
+
+.flexi-calendar-cogs-circle::before {
+    content: "\f23b";
+}
+
+.flexi-calendar-clock-circle::before {
+    content: "\f23c";
+}
+
+.flexi-business-trip::before {
+    content: "\f23d";
+}
+
+.flexi-btvplus::before {
+    content: "\f23e";
+}
+
+.flexi-btv::before {
+    content: "\f23f";
+}
+
+.flexi-btv-illimite::before {
+    content: "\f240";
+}
+
+.flexi-box::before {
+    content: "\f241";
+}
+
+.flexi-box-unavailable::before {
+    content: "\f242";
+}
+
+.flexi-box-stethoscope::before {
+    content: "\f243";
+}
+
+.flexi-box-smartTV::before {
+    content: "\f244";
+}
+
+.flexi-box-redo::before {
+    content: "\f245";
+}
+
+.flexi-box-mobile::before {
+    content: "\f246";
+}
+
+.flexi-box-info-cogs::before {
+    content: "\f247";
+}
+
+.flexi-box-info-circle::before {
+    content: "\f248";
+}
+
+.flexi-box-exclamation-circle::before {
+    content: "\f249";
+}
+
+.flexi-box-eole::before {
+    content: "\f24a";
+}
+
+.flexi-box-check-circle::before {
+    content: "\f24b";
+}
+
+.flexi-box-check-circle-s::before {
+    content: "\f24c";
+}
+
+.flexi-box-add::before {
+    content: "\f24d";
+}
+
+.flexi-box-FAQ::before {
+    content: "\f24e";
+}
+
+.flexi-box-4g::before {
+    content: "\f24f";
+}
+
+.flexi-bluetooth::before {
+    content: "\f250";
+}
+
+.flexi-bell-ringing::before {
+    content: "\f251";
+}
+
+.flexi-beautician::before {
+    content: "\f252";
+}
+
+.flexi-bduo::before {
+    content: "\f253";
+}
+
+.flexi-battery::before {
+    content: "\f254";
+}
+
+.flexi-barcode-search::before {
+    content: "\f255";
+}
+
+.flexi-ball::before {
+    content: "\f256";
+}
+
+.flexi-badges::before {
+    content: "\f257";
+}
+
+.flexi-babyphone::before {
+    content: "\f258";
+}
+
+.flexi-audio-visual::before {
+    content: "\f259";
+}
+
+.flexi-at::before {
+    content: "\f25a";
+}
+
+.flexi-at-unavailable::before {
+    content: "\f25b";
+}
+
+.flexi-at-plus-circle::before {
+    content: "\f25c";
+}
+
+.flexi-at-info::before {
+    content: "\f25d";
+}
+
+.flexi-at-infinity-circle::before {
+    content: "\f25e";
+}
+
+.flexi-at-globe::before {
+    content: "\f25f";
+}
+
+.flexi-at-exclamation-circle::before {
+    content: "\f260";
+}
+
+.flexi-at-cogs-circle::before {
+    content: "\f261";
+}
+
+.flexi-at-check-s::before {
+    content: "\f262";
+}
+
+.flexi-artist-chair::before {
+    content: "\f263";
+}
+
+.flexi-artificial-intelligence::before {
+    content: "\f264";
+}
+
+.flexi-archiving::before {
+    content: "\f265";
+}
+
+.flexi-air-travel::before {
+    content: "\f266";
+}
+
+.flexi-africa::before {
+    content: "\f267";
+}
+
+.flexi-advisor::before {
+    content: "\f268";
+}
+
+.flexi-addcalendar-rdv::before {
+    content: "\f269";
+}
+
+.flexi-accomodation::before {
+    content: "\f26a";
+}
+
+.flexi-accessibility::before {
+    content: "\f26b";
+}
+
+.flexi-Flexymoov-bicycle::before {
+    content: "\f26c";
+}
+
+.flexi-Bank::before {
+    content: "\f26d";
+}
+
+.flexi-Autoplan::before {
+    content: "\f26e";
+}
+
+.flexi-5g::before {
+    content: "\f26f";
+}
+
+.flexi-4g::before {
+    content: "\f270";
+}
+
+.flexi-4g-plus::before {
+    content: "\f271";
+}
+
+.flexi-4g-5g::before {
+    content: "\f272";
+}
+
+.flexi-4g-5g-plus::before {
+    content: "\f273";
+}
+
+.flexi-4G4Gplus::before {
+    content: "\f274";
+}
+

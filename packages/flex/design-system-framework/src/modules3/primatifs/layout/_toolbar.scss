@@ -1,0 +1,105 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$toolbar-height: functions.size(6rem) !default;
+
+.toolbar {
+    height: $toolbar-height;
+    border-bottom: functions.size(0.1em) solid var(--flex-toolbar-border, #{variables.$border});
+    display: flex;
+    align-items: center;
+
+    > .container {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+    }
+
+    > .container > .toolbar-row,
+    > .toolbar-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 100%;
+        border-right: functions.size(0.1em) solid var(--flex-toolbar-border, #{variables.$border});
+
+        &:empty {
+            border-right: none;
+        }
+    }
+
+    > .container > .toolbar-group,
+    > .container > .toolbar-row > .toolbar-group,
+    > .toolbar-group,
+    > .toolbar-row > .toolbar-group {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 0 functions.size(1rem);
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        &:not(:first-of-type) {
+            border-left: functions.size(0.1em) solid var(--flex-toolbar-border, #{variables.$border});
+        }
+
+        > .toolbar-item {
+            padding-left: functions.size(1rem);
+            padding-right: functions.size(1rem);
+            white-space: nowrap;
+
+            &.is-clipped-to-bottom {
+                align-self: flex-end;
+            }
+        }
+    }
+
+    @include mixins.mobile {
+        flex-direction: column;
+        align-items: stretch;
+        height: auto;
+        padding: 0;
+
+        > .container {
+            flex-direction: column;
+            align-items: stretch;
+            height: auto;
+            padding: 0;
+        }
+
+        > .container > .toolbar-group,
+        > .container > .toolbar-row > .toolbar-group,
+        > .toolbar-group,
+        > .toolbar-row > .toolbar-group {
+            height: $toolbar-height;
+
+            &:not(:last-of-type) {
+                border-right: 0;
+                border-bottom: functions.size(0.1em) solid var(--flex-toolbar-border, #{variables.$border});
+            }
+        }
+
+        > .container > .toolbar-row,
+        > .toolbar-row {
+            height: $toolbar-height;
+            border-right: 0;
+
+            > .toolbar-group {
+                border-bottom: functions.size(0.1em) solid var(--flex-toolbar-border, #{variables.$border});
+                flex-grow: 1;
+
+                &:not(:last-of-type) {
+                    border-right: functions.size(0.1em) solid var(--flex-toolbar-border, #{variables.$border});
+                }
+            }
+        }
+    }
+
+    .is-elastic,
+    .toolbar-space {
+        flex-grow: 1;
+    }
+}

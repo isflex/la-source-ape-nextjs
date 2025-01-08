@@ -1,0 +1,95 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$timeline-marker-size: .8em !default;
+$timeline-marker-border-size: .1em !default;
+$timeline-marker-color: variables.$grey-light !default;
+$timeline-marker-icon-size: 2.4em !default;
+$timeline-marker-border: $timeline-marker-border-size solid $timeline-marker-color !default;
+$timeline-line-color: variables.$border-grey !default;
+
+@use "../utilities/vendors/bulma-extensions/timeline";
+
+.timeline {
+    .timeline-header {
+        padding-left: functions.size(1em);
+        margin-left: 0;
+    }
+
+    .timeline-item {
+        padding-left: functions.size(1em);
+        margin-left: 0;
+
+        .timeline-marker {
+            margin-left: functions.size(3em);
+            background-color: var(--flex-border-grey, #{variables.$border-grey});
+            border-color: var(--flex-border-grey, #{variables.$border-grey});
+
+            &.is-icon {
+              background-color: var(--flex-border-grey, #{variables.$border-grey});
+              border-color: var(--flex-border-grey, #{variables.$border-grey});
+            }
+        }
+
+        .timeline-content {
+            margin-left: functions.size(2em);
+
+            .heading {
+                font-weight: variables.$weight-normal;
+            }
+
+            p {
+                &:not(.heading) {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        &::before {
+            top: $timeline-marker-icon-size + 1em;
+            left: functions.size(3em);
+            bottom: -1.4em;
+            height: auto;
+            background-color: var(--flex-border-grey, #{variables.$border-grey});
+            z-index: functions.zindex('small');
+        }
+
+        &:last-child {
+            &::before {
+                display: none;
+            }
+        }
+
+        &.active {
+            background-color: var(--flex-grey-lighter, #{variables.$grey-lighter});
+
+            &::after {
+                content: '';
+                position: absolute;
+                background-color: var(--flex-blue, #{variables.$blue});
+                bottom: -.6em;
+                height: 100%;
+                top: 0;
+                left: 0;
+                width: functions.size(0.5em);
+            }
+        }
+    }
+
+    .heading {
+        font-size: variables.$text-13;
+        color: var(--flex-grey, #{variables.$grey});
+        margin-bottom: 0.75em;
+        text-transform: inherit;
+    }
+
+    &.notifications {
+        .timeline-item {
+            &::before {
+                visibility: hidden;
+            }
+        }
+    }
+}

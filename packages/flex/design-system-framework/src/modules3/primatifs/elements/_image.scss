@@ -1,0 +1,127 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+.image {
+    display: block;
+    position: relative;
+
+    img {
+        display: block;
+        max-width: 100%;
+
+        &.b-loaded {
+            height: auto;
+        }
+    }
+}
+
+.b-lazy {
+    transition: opacity 250ms ease-in-out;
+    opacity: 0;
+
+    &.b-loaded {
+        opacity: 1;
+
+        &.has-bg-image {
+            &.has-bg-gradient {
+                &::before {
+                    opacity: 0;
+                }
+            }
+        }
+    }
+
+    &.has-bg-image {
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+
+        &.has-bg-gradient {
+            z-index: functions.zindex('void');
+            opacity: 1;
+
+            &::before {
+                content: '';
+                opacity: 1;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: functions.zindex('tiny');
+                transition: opacity 750ms ease-in-out;
+            }
+        }
+    }
+}
+
+.image-list-root {
+    display: grid;
+    overflow-y: auto;
+    list-style: none;
+    padding: 0;
+    // Add iOS momentum scrolling for iOS < 13.0
+    -webkit-overflow-scrolling: touch;
+
+    &:not(.image-list-masonry) {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+    }
+
+    @include mixins.mobile {
+        &:not(.image-list-masonry) {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+    }
+
+    &.image-list-masonry {
+        display: block;
+        column-count: 2;
+        column-gap: 4;
+    }
+
+    .image-list-item-root {
+        display: block;
+        position: relative;
+
+        &.image-list-item-standard {
+            // For titlebar under list item
+            display: flex;
+            flex-direction: column;
+        }
+
+        &.image-list-item-woven {
+            height: 100%;
+            align-self: center;
+
+            &:nth-of-type(2n) {
+              height: 70%;
+            }
+        }
+
+        img {
+
+            &.image-list-item-img {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+                display: block;
+
+                .image-list-item-standard & {
+                  height: auto;
+                  flex-grow: 1;
+                }
+            }
+        }
+    }
+}
+

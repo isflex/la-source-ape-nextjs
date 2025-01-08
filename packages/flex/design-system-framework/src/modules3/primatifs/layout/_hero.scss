@@ -1,0 +1,280 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$hero-padding-y: functions.size(2rem);
+$hero-padding-x: $hero-padding-y;
+$hero-padding-small-y: $hero-padding-y;
+$hero-padding-small-x: $hero-padding-y;
+$hero-padding-medium-y: functions.size(4rem);
+$hero-padding-medium-x: $hero-padding-y;
+$hero-padding-large-y: functions.size(6rem);
+$hero-padding-large-x: $hero-padding-y;
+
+$hero-padding-desktop-y: functions.size(3rem);
+$hero-padding-desktop-x: $hero-padding-desktop-y;
+$hero-padding-desktop-small-y: $hero-padding-desktop-y;
+$hero-padding-desktop-small-x: $hero-padding-desktop-y;
+$hero-padding-desktop-medium-y: functions.size(6rem);
+$hero-padding-desktop-medium-x: $hero-padding-desktop-y;
+$hero-padding-desktop-large-y: functions.size(9rem);
+$hero-padding-desktop-large-x: $hero-padding-desktop-y;
+
+$overlap: functions.size(3rem);
+$overlap-desktop: functions.size(3rem);
+
+.hero {
+    align-items: stretch;
+    background-color: var(--flex-white, #{variables.$white});
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+
+    .hero-body {
+        flex-grow: 1;
+        flex-shrink: 0;
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: functions.size(2rem);
+
+        @include mixins.desktop {
+            padding: functions.size(3rem) functions.size(2rem);
+        }
+
+        .hero-back {
+            position: relative;
+            flex-basis: 100%;
+            opacity: .7;
+            margin-bottom: functions.size(2rem);
+            min-width: 100%;
+            padding-left: functions.size(2.6rem);
+            transition: opacity 300ms linear;
+
+            &::before {
+                @include mixins.arrow(inherit);
+
+                transform: rotate(90deg);
+                top: 0;
+                bottom: 0;
+                left: functions.size(.5rem);
+                width: functions.size(1.1rem);
+                height: functions.size(.6rem);
+                font-size: functions.size(1.2rem);
+                margin: auto;
+            }
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        > .container {
+            flex: 1;
+            flex-basis: 100%;
+        }
+
+        .title {
+            font-size: functions.size(2.4rem);
+
+            @include mixins.desktop {
+                font-size: functions.size(3.6rem);
+            }
+        }
+    }
+
+    &.has-mixins.pattern-dark,
+    &.is-instit {
+        @include mixins.pattern-dark(105%, 50%, 35%);
+
+        p,
+        strong,
+        .paragraph,
+        .suptitle,
+        .title,
+        .subtitle,
+        a:not(.button):not(.tag) {
+            color: var(--flex-info-invert, #{variables.$info-invert});
+        }
+
+        .subtitle {
+            strong,
+            a:not(.button) {
+                color: var(--flex-info-invert, #{variables.$info-invert});
+            }
+        }
+    }
+
+    &.is-overlapped {
+        .hero-body {
+            padding-bottom: functions.size(5rem);
+        }
+
+        + .section {
+            > .container {
+                margin-top: -$hero-padding-y - $overlap;
+
+                @include mixins.desktop {
+                    margin-top: -$hero-padding-desktop-y - $overlap-desktop;
+                }
+            }
+
+            &.is-small {
+                > .container {
+                    margin-top: -$hero-padding-small-y - $overlap;
+
+                    @include mixins.desktop {
+                        margin-top: -$hero-padding-desktop-small-y  - $overlap-desktop;
+                    }
+                }
+            }
+
+            &.is-medium {
+                > .container {
+                    margin-top: -$hero-padding-medium-y - $overlap;
+
+                    @include mixins.desktop {
+                        margin-top: -$hero-padding-desktop-medium-y  - $overlap-desktop;
+                    }
+                }
+            }
+
+            &.is-large {
+                > .container {
+                    margin-top: -$hero-padding-large-y - $overlap;
+
+                    @include mixins.desktop {
+                        margin-top: -$hero-padding-desktop-large-y - $overlap-desktop;
+                    }
+                }
+            }
+        }
+    }
+
+    &.has-background {
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    &.has-mixins.pattern-dark,
+    &.has-background {
+        .hero-body {
+            text-align: center;
+            padding: functions.size(10rem) functions.size(2rem);
+
+            @include mixins.desktop {
+                text-align: left;
+                padding-top: functions.size(8rem);
+                padding-bottom: functions.size(8rem);
+            }
+
+            .suptitle {
+                display: none;
+
+                @include mixins.desktop {
+                    display: block;
+                    margin-bottom: functions.size(3rem);
+                    font-size: functions.size(1.9rem);
+                    text-transform: uppercase;
+                }
+            }
+
+            .title {
+                font-size: functions.size(3.2rem);
+                margin-bottom: functions.size(2.5rem);
+
+                @include mixins.desktop {
+                    font-size: functions.size(5.2rem);
+                }
+            }
+
+            .button {
+                width: auto;
+            }
+        }
+
+        &.is-overlapped {
+            .hero-body {
+                padding: functions.size(3rem) functions.size(2rem) functions.size(6rem);
+
+                @include mixins.desktop {
+                    padding: functions.size(6rem) functions.size(2rem);
+                }
+            }
+        }
+    }
+
+    &.is-centered {
+        text-align: center;
+    }
+
+    &.is-primary {
+        color: var(--flex-hero-invert, #{variables.$hero-invert});
+
+        p,
+        strong,
+        .paragraph,
+        .suptitle,
+        .title,
+        .subtitle,
+        a:not(.button):not(.tag) {
+            color: var(--flex-hero-invert, #{variables.$hero-invert});
+        }
+
+        .subtitle {
+            strong,
+            a:not(.button) {
+                color: var(--flex-hero-invert, #{variables.$hero-invert});
+            }
+        }
+    }
+
+    &.is-info {
+        background: variables.$info;
+
+        p,
+        strong,
+        .paragraph,
+        .suptitle,
+        .title,
+        .subtitle,
+        a:not(.button):not(.tag) {
+            color: var(--flex-info-invert, #{variables.$info-invert});
+        }
+
+        .subtitle {
+            strong,
+            a:not(.button) {
+                color: var(--flex-info-invert, #{variables.$info-invert});
+            }
+        }
+    }
+
+    .hero-buttons {
+        margin-top: functions.size(1.5rem);
+
+        .button {
+            display: flex;
+
+            &:not(:last-child) {
+                margin-bottom: functions.size(0.75rem);
+            }
+        }
+
+        @include mixins.tablet {
+            display: flex;
+            justify-content: center;
+
+            .button:not(:last-child) {
+                margin-right: functions.size(1.5rem);
+            }
+        }
+    }
+
+    // .subtitle {
+    //     padding-left: 0.2em;
+    // }
+}

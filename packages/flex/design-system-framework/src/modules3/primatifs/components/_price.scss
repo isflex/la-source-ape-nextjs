@@ -1,0 +1,163 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+.price {
+    font-size: functions.size(3.2em);
+    display: inline-flex;
+
+    // the price itself
+    .main {
+        font-weight: variables.$weight-semibold;
+        line-height: 0.8;
+        margin-bottom: 0;
+    }
+
+    // the details : cents + period
+    &:not(.is-huge) .price-details {
+        margin-left: 0.04em;
+    }
+
+    .price-details {
+        .cents,
+        .centimes,
+        .periode,
+        .period {
+            line-height: 1;
+            display: block;
+        }
+
+        .cents,
+        .centimes {
+            font-weight: 600;
+            font-size: 0.475em;
+            vertical-align: top;
+            text-align: left;
+
+            sup {
+                font-weight: variables.$weight-medium;
+                padding-left: functions.size(0.2em);
+                top: -0.3em;
+            }
+        }
+
+        .period,
+        .periode {
+            font-size: 0.375em;
+            margin-top: 0;
+            padding-left: 0.1em;
+            text-align: left;
+        }
+    }
+
+    &.is-1 {
+        font-size: functions.size(5.6em);
+    }
+
+    &.is-2 {
+        font-size: functions.size(4.4em);
+    }
+
+    &.is-3 {
+        font-size: functions.size(3.2em);
+    }
+
+    &.is-4 {
+        font-size: functions.size(2.9em);
+    }
+
+    &.is-5 {
+        font-size: functions.size(2.3em);
+    }
+
+    &.is-6 {
+        font-size: functions.size(1.4em);
+    }
+
+    &.is-huge {
+        font-size: functions.size(6.2em);
+    }
+
+    &.is-main-price {
+        color: var(--flex-secondary, #{variables.$secondary});
+    }
+
+    &.is-inverted {
+        color: var(--flex-white, #{variables.$white});
+    }
+
+    &.has-description {
+        .cents,
+        .centimes {
+            align-items: flex-start;
+            display: flex;
+        }
+
+        .icon {
+            height: inherit;
+            font-size: inherit;
+            line-height: 0;
+            width: inherit;
+        }
+    }
+
+    &.is-inlined {
+        .price-details {
+            display: inline-flex;
+            margin-left: 0;
+
+            .cents,
+            .centimes,
+            .periode,
+            .period {
+                font-size: inherit;
+                line-height: 0.8;
+                padding-left: 0;
+            }
+        }
+
+        &.is-striked {
+            &::before {
+                transform: rotate(-12deg);
+            }
+        }
+    }
+
+    &.is-striked {
+        position: relative;
+        color: rgba(variables.$tertiary, 0.55);
+
+        &::before {
+            position: absolute;
+            content: "";
+            left: 0;
+            top: 50%;
+            right: 0;
+            border-top: functions.size(0.2em) solid;
+            border-color: var(--flex-tertiary, #{variables.$tertiary});
+            border-radius: functions.size(0.5em);
+            transform: rotate(-20deg);
+        }
+
+        &.is-main-price {
+            color: rgba(variables.$secondary, 0.55);
+
+            &::before {
+                border-color: var(--flex-secondary, #{variables.$secondary});
+            }
+        }
+
+        &.is-inverted {
+            color: rgba(variables.$white, 0.55);
+
+            &::before {
+                border-color: var(--flex-white, #{variables.$white});
+            }
+        }
+    }
+
+    .is-admin & {
+        color: var(--flex-admin-invert, #{variables.$admin-invert});
+    }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "@flex-design-system/react-ts",
+  "prefix": "@flex-design-system",
+  "sourceRoot": "packages/flex/design-system-react-ts/src",
+  "projectType": "application",
+  "targets": {
+    "start": {
+      "executor": "nx:run-script",
+      "inputs": [
+        "{projectRoot}/package.json",
+        "{projectRoot}/tsconfig.build.json",
+        "{projectRoot}/webpack.config.js",
+        "{projectRoot}/public",
+        "{projectRoot}/dist"
+      ],
+      "outputs": [
+        "{projectRoot}/build"
+      ],
+      "options": {
+        "script": "start"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "inputs": [
+        "{projectRoot}/package.json",
+        "{projectRoot}/tsconfig.build.json",
+        "{projectRoot}/webpack.config.js",
+        "{projectRoot}/public",
+        "{projectRoot}/dist"
+      ],
+      "outputs": [
+        "{projectRoot}/build"
+      ],
+      "options": {
+        "command": "pnpm --filter @flex-design-system/react-ts build"
+      }
+    },
+    "launch-nx": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run @flex-design-system/react-ts:substitute-nx-project --output-style=static",
+          "nx run @flex-design-system/react-ts:launch --output-style=static"
+        ],
+        "readyWhen": "INFO: Accepting connections at http://localhost:7707",
+        "parallel": true
+      }
+    }
+  },
+  "implicitDependencies": [],
+  "tags": [
+    "scope:flexiness-staging"
+  ]
+}

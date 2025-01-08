@@ -1,0 +1,139 @@
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$dropdown-content-background-color: variables.$white !default;
+$dropdown-content-arrow: variables.$link !default;
+$dropdown-content-offset: 4px !default;
+$dropdown-content-radius: variables.$radius !default;
+$dropdown-content-shadow: 0 2px 3px rgba(variables.$black, 0.1), 0 0 0 1px rgba(variables.$black, 0.1) !default;
+$dropdown-content-z: 20 !default;
+
+$dropdown-item-color: variables.$grey-dark !default;
+$dropdown-item-hover-color: variables.$black !default;
+$dropdown-item-hover-background-color: variables.$background !default;
+$dropdown-item-active-color: variables.$link-inverted !default;
+$dropdown-item-active-background-color: variables.$link !default;
+
+$dropdown-divider-background-color: variables.$border !default;
+
+.dropdown {
+    display: inline-flex;
+    position: relative;
+    vertical-align: top;
+
+    &.is-active,
+    &.is-hoverable:hover {
+        .dropdown-menu {
+            display: block;
+        }
+    }
+
+    &.is-active {
+        .dropdown-menu {
+            z-index: functions.zindex('dropdown');
+
+            .dropdown-content {
+                border: functions.size(0.1em) solid var(--flex-blue, #{variables.$blue});
+            }
+        }
+    }
+
+    &.is-right {
+        .dropdown-menu {
+            left: auto;
+            right: 0;
+        }
+    }
+
+    &.is-up {
+        .dropdown-menu {
+            bottom: 100%;
+            padding-bottom: $dropdown-content-offset;
+            padding-top: initial;
+            top: auto;
+        }
+    }
+
+    .react-autosuggest__container {
+        width: 100%;
+
+        .dropdown-menu .dropdown-content {
+            overflow-y: auto;
+            max-height: 25vh;
+
+            .dropdown-item {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .dropdown-trigger {
+        width: 100%;
+
+        .select {
+            cursor: pointer;
+
+            select {
+                pointer-events: none;
+            }
+        }
+    }
+
+    .dropdown-menu {
+        display: none;
+        left: 0;
+        min-width: functions.size(12em);
+        padding-top: $dropdown-content-offset;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        z-index: $dropdown-content-z;
+
+        .dropdown-content {
+            background-color: var(--flex-dropdown-content-background-color, #{$dropdown-content-background-color});
+            border-radius: $dropdown-content-radius;
+            box-shadow: var(--flex-dropdown-content-shadow, #{$dropdown-content-shadow});
+            font-size: inherit;
+            padding: functions.size(0.5em) functions.size(1em);
+
+            .dropdown-item {
+                color: var(--flex-dropdown-item-color, #{$dropdown-item-color});
+                display: block;
+                font-size: inherit;
+                line-height: 1.5;
+                padding: functions.size(0.375em) functions.size(1em);
+                position: relative;
+            }
+        }
+    }
+
+    .control.has-dynamic-placeholder .select > select:active ~ label,
+    .control.has-dynamic-placeholder .select > select:focus ~ label {
+        display: flex;
+    }
+}
+
+a.dropdown-item {
+    padding-right: functions.size(3em);
+    white-space: nowrap;
+
+    &:hover {
+        background-color: var(--flex-dropdown-item-hover-background-color, #{$dropdown-item-hover-background-color});
+        color: var(--flex-dropdown-item-hover-color, #{$dropdown-item-hover-color});
+    }
+
+    &.is-active {
+        background-color: var(--flex-dropdown-item-active-background-color, #{$dropdown-item-active-background-color});
+        color: var(--flex-dropdown-item-active-color, #{$dropdown-item-active-color});
+    }
+}
+
+.dropdown-divider {
+    background-color: var(--flex-dropdown-divider-background-color, #{$dropdown-divider-background-color});
+    border: none;
+    display: block;
+    height: 1px;
+    margin: functions.size(0.5em) 0;
+}

@@ -1,0 +1,66 @@
+@use "sass:map";
+@use "sass:math";
+@use "sass:meta";
+
+$font-ratio: 0.675 !default;
+$font-convert-to-px: false !default;
+
+// Z-index : DO NOT TOUCH.
+$zindex: (
+    subzero: -1,
+    void: 0,
+    tiny: 1,
+    small: 10,
+    medium: 100,
+    large: 1000,
+    dropdown: 5000,
+    sticky: 6000,
+    fixed: 7000,
+    modal: 8000,
+    popover: 9000,
+    tooltip: 9999
+);
+
+/// Remove the unit of a length
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip-unit($number) {
+    // @debug "$number type-of: #{meta.type-of($number)}";
+    // @debug "$number is-unitless: #{math.is-unitless($number)}";
+    // @debug "Are $number & 1 compatible: #{math.compatible(($number * 0), 1)}";
+
+    @if meta.type-of($number) == 'number' and not math.is-unitless($number) {
+        // FIXME: Why are these not the same ??
+        // @return calc($number / ($number * 0 + 1));
+        @return math.div($number, ($number * 0 + 1));
+    }
+
+
+    @return $number;
+}
+
+@function num($input) {
+    @if meta.type-of($input) != number {
+        @return null;
+    }
+
+    @return $input/($input*0+1);
+}
+
+@function size($size) {
+    @if $font-convert-to-px {
+        $pxSize: num($size * $font-ratio * 10) + 0px;
+
+        @return $pxSize;
+    }
+
+    @else {
+        $emSize: $size * $font-ratio;
+
+        @return $emSize;
+    }
+}
+
+@function zindex($key) {
+    @return map.get($zindex, $key);
+}

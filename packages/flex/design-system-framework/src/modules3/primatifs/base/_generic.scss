@@ -1,0 +1,254 @@
+@use "sass:color";
+@use "../utilities/variables";
+@use "../utilities/mixins";
+@use "../utilities/animations";
+@use "../utilities/functions";
+
+$body-background-color: #f8f8f8;
+$body-size: 10px;
+$body-rendering: optimizeLegibility !default;
+$body-family: variables.$family-primary !default;
+$body-color: variables.$text !default;
+$body-weight: variables.$weight-normal !default;
+$body-line-height: 1.5 !default;
+
+$code-family: variables.$family-code !default;
+$code-padding: 0.25em 0.5em 0.25em !default;
+$code-weight: normal !default;
+$code-size: 0.875em !default;
+
+$hr-background-color: color.adjust(variables.$grey-light, $lightness: 8%);
+$hr-height: 2px !default;
+$hr-margin: functions.size(2em) 0;
+
+$strong-color: inherit;
+$strong-weight: variables.$weight-semibold !default;
+
+html {
+    background-color: var(--flex-body-background-color, #{$body-background-color});
+    font-size: $body-size;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    min-width: 300px;
+    text-rendering: $body-rendering;
+    text-size-adjust: 100%;
+    overflow-x: inherit;
+    overflow-y: inherit;
+    min-height: 100vh;
+}
+
+article,
+aside,
+figure,
+footer,
+header,
+hgroup,
+section {
+    display: block;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    font-family: $body-family;
+}
+
+code,
+pre {
+    -moz-osx-font-smoothing: auto;
+    -webkit-font-smoothing: auto;
+    font-family: $code-family;
+}
+
+body {
+    color: var(--flex-body-color, #{$body-color});
+    font-weight: $body-weight;
+    line-height: $body-line-height;
+    font-size: variables.$size-6;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 100vh;
+
+    &.is-clipped {
+        overflow: hidden !important;
+    }
+
+    &::before {
+        content: ' ';
+        background-color: transparent;
+        transition: background-color 250ms ease-in-out;
+    }
+
+    &.has-overlay {
+        &::before {
+            @include mixins.overlay;
+
+            position: fixed;
+            background-color: rgba(variables.$black, 0.86);
+            z-index: zindex('small');
+        }
+    }
+}
+
+/**
+To be used when standalone namespaced builds are used
+*/
+.flexiness-root {
+    text-size-adjust: 100%;
+    font-family: $body-family;
+    box-sizing: border-box;
+    color: var(--flex-body-color, #{$body-color});
+    font-size: functions.size(1em);
+    font-weight: $body-weight;
+    line-height: $body-line-height;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: $body-rendering;
+
+    > * {
+        font-size: variables.$size-6;
+    }
+}
+
+a {
+    color: var(--flex-link, #{variables.$link});
+    cursor: pointer;
+    text-decoration: underline;
+
+    strong {
+        color: currentColor;
+    }
+
+    &:hover {
+        color: var(--flex-link-hover, #{variables.$link-hover});
+    }
+}
+
+code {
+    background-color: var(--flex-code-background, #{variables.$code-background});
+    color: var(--flex-code, #{variables.$code});
+    font-size: $code-size;
+    font-weight: $code-weight;
+    padding: $code-padding;
+}
+
+hr {
+    background-color: var(--flex-hr-background-color, #{$hr-background-color});
+    border: none;
+    display: block;
+    height: $hr-height;
+    margin: $hr-margin;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    vertical-align: baseline;
+}
+
+small {
+    font-size: 0.875em;
+}
+
+span {
+    font-style: inherit;
+    font-weight: inherit;
+}
+
+strong {
+    color: $strong-color;
+    font-weight: $strong-weight;
+}
+
+sup {
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    top: -.4em;
+    font-size: .7em;
+}
+
+pre {
+    @include mixins.overflow-touch;
+
+    background-color: var(--flex-pre-background, #{variables.$pre-background});
+    color: var(--flex-pre, #{variables.$pre});
+    font-size: 0.875em;
+    overflow-x: auto;
+    padding: 1.25em 1.5em;
+    white-space: pre;
+    word-wrap: normal;
+
+    code {
+        background-color: transparent;
+        color: currentColor;
+        font-size: 1em;
+        padding: 0;
+    }
+}
+
+header:not(.box-header) {
+    z-index: zindex('large');
+}
+
+table {
+    td,
+    th {
+        text-align: left;
+        vertical-align: top;
+    }
+
+    th {
+        color: variables.$text-strong;
+    }
+}
+
+ul.icon-list > li {
+    display: flex;
+    align-items: center;
+
+    span[disabled] {
+        opacity: 0.5;
+    }
+}
+
+dl.dl {
+    dt {
+        font-weight: variables.$weight-semibold;
+        margin-bottom: functions.size(0.5em);
+
+        &:not(:first-child) {
+            margin-top: functions.size(2em);
+        }
+    }
+
+    dd {
+        color: var(--flex-text, #{variables.$text});
+        font-size: variables.$size-7;
+    }
+
+    &:not(:first-child) {
+        margin-top: functions.size(2em);
+    }
+
+    &.is-alternate {
+        dt {
+            color: var(--flex-text, #{variables.$text});
+            font-size: variables.$size-7;
+        }
+
+        dd {
+            color: var(--flex-text, #{variables.$text});
+            font-size: variables.$size-6;
+        }
+    }
+}

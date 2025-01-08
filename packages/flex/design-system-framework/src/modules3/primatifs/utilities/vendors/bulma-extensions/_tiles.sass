@@ -1,0 +1,45 @@
+@use "sass:math"
+
+@use "utilities" as bulvarUtilities
+
+$tile-denominator: 12 !default
+$tile-spacing: 0.75rem !default
+
+// Map Local variables
+$-css-vars-map: ('tile-spacing': $tile-spacing)
+// +bulvarUtilities.exportCSSVars($-css-vars-map)
++bulvarUtilities.registerComponentCSSVars("tile", $-css-vars-map)
+// --tile-spacing: #{$tile-spacing}
+
+.tile
+  align-items: stretch
+  display: block
+  flex-basis: 0
+  flex-grow: 1
+  flex-shrink: 1
+  min-height: min-content
+  // Modifiers
+  &.is-ancestor
+    margin-left: calc(-1 * var(--tile-spacing))
+    margin-right: calc(-1 * var(--tile-spacing))
+    margin-top: calc(-1 * var(--tile-spacing))
+    &:last-child
+      margin-bottom: calc(-1 * var(--tile-spacing))
+    &:not(:last-child)
+      margin-bottom: var(--tile-spacing)
+  &.is-child
+    margin: 0 !important
+  &.is-parent
+    padding: var(--tile-spacing)
+  &.is-vertical
+    flex-direction: column
+    & > .tile.is-child:not(:last-child)
+      margin-bottom: 1.5rem !important
+  // Responsiveness
+  +bulvarUtilities.tablet
+    &:not(.is-child)
+      display: flex
+    @for $i from 1 through $tile-denominator
+      &.is-#{$i}
+        flex: none
+        width: (math.div($i, $tile-denominator)) * 100%

@@ -1,0 +1,12 @@
+node_modules
+dist
+lib
+coverage
+build
+public
+
+src/styled.d.ts
+src/styled.js.map
+src/styled.js
+
+src/**/*.native.tsx
