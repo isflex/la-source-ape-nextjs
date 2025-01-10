@@ -1,7 +1,6 @@
 // import { default as styles, type Styles } from '@flex-design-system/framework'
 import { default as styles, type Styles } from '@flex-design-system/framework'
-// import styles from 'flex-design-system-framework/main/all.module.scss'
-// import { type Styles } from '@flex-design-system/framework/main/all.module.scss'
+// import { default as styles, type Styles } from '@flex-design-system/framework/main/all.module.scss'
 
 const toClassNames = (arr: string[]) => arr.filter(Boolean).join(' ')
 const validate = (classList: string[] | undefined) => {

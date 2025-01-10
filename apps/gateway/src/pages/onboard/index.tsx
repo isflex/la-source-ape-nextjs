@@ -34,16 +34,16 @@ import { getStores } from '@src/stores'
 // import type I18next from 'i18next'
 // let i18n: FlexI18next
 
+// import classNames from 'classnames'
+import { Text, Title, View, flexStyles } from '@flex-design-system/react-ts/client-sync-styled-default'
+
+const stores = getStores()
+
 const LogoAPE = dynamic(() => import('@src/components/logo-ape-la-source'), { ssr: true })
 // const LogoFlex = dynamic(() => import('@src/components/logo-flexiness').then(mod => mod.default), { ssr: true })
 
 const OnBoardMF = dynamic(async () => await import('@src/components/onboard-mf'), { ssr: true })
 // const OnBoardMF = React.lazy(async () => await import('@src/components/onboard-mf'))
-
-const stores = getStores()
-
-import { Text, Title, View } from '@flex-design-system/react-ts/client-sync-styled-default'
-import { default as styles, type Styles } from '@flex-design-system/framework'
 
 const MFOnBoardPage: NextPage<PageAppProps> = observer((
   props
@@ -79,7 +79,7 @@ const MFOnBoardPage: NextPage<PageAppProps> = observer((
             justifyContent: 'center',
             marginTop: '1rem'
           }}>
-            <Text>... Loading</Text>
+            <Text className={flexStyles.hasTextSuccess}>... Loading</Text>
           </div>
         </div>
       </div>

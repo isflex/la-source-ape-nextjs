@@ -11,8 +11,7 @@ import { Link as RouterLink } from 'react-router'
 // ///////////////////////////////////////////////////////////////////////////
 // /!\ When typed-scss-modules --exportType default
 import { default as styles, type Styles } from '@flex-design-system/framework'
-// import styles from 'flex-design-system-framework/main/all.module.scss'
-// import { type Styles } from '@flex-design-system/framework/main/all.module.scss'
+// import { default as styles, type Styles } from '@flex-design-system/framework/main/all.module.scss'
 // ///////////////////////////////////////////////////////////////////////////
 
 /**

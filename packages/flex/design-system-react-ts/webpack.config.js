@@ -76,7 +76,9 @@ const getConfig = async (target) => {
   // const modularSass = (target, _gitCommitSHA) => prod
   //   ? require(`@flexiness/webpack/modularSassOnlyMiniExtract.cjs`)(target, _gitCommitSHA)
   //   : require(`@flexiness/webpack/modularSassOnlyStyleLoaderDev.cjs`)(target, _gitCommitSHA)
-  const modularSass = (target, _gitCommitSHA) => require(`@flexiness/webpack/modularSassOnlyStyleLoaderDev.cjs`)(target, _gitCommitSHA)
+  const modularSass = (target, _gitCommitSHA) => require(`@flexiness/webpack/modularSassOnlyMiniExtract.cjs`)(target, _gitCommitSHA)
+  // const modularSass = (target, _gitCommitSHA) => require(`@flexiness/webpack/modularSassOnlyStyleLoaderDev.cjs`)(target, _gitCommitSHA)
+  // const modularSass = (target, _gitCommitSHA) => require(`@flexiness/webpack/modularSassOnlyCssLoader.cjs`)(target, _gitCommitSHA)
 
   return webpackMerge(
 

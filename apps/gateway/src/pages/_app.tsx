@@ -14,6 +14,13 @@ App,
 } from 'next/app'
 import { Amplify } from 'aws-amplify'
 import outputs from '@root/amplify_outputs.json'
+import classNames from 'classnames'
+import {
+  View as FlexRootView,
+  flexStyles,
+ } from '@flex-design-system/react-ts/client-sync-styled-default'
+// import { default as flexStyles } from '@flex-design-system/framework'
+// import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import '@aws-amplify/ui-react/styles.css'
 
 import {
@@ -57,7 +64,9 @@ const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
         }}
       />
       <StoreProvider value={stores}>
-        <Component {...pageProps} />
+        <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped)} theme='light'>
+          <Component {...pageProps} />
+        </FlexRootView>
       </StoreProvider>
     </>
   )

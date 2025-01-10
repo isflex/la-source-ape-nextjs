@@ -24,6 +24,9 @@
       "import": "./dist/server-async-styled-default-module-components/*/index.js",
       "types": "./dist/server-async-styled-default-module-components/index.d.ts"
     },
+    "./assets/*": {
+      "asset": "./build/webpack/web/"
+    },
     "./package.json": "./package.json"
   },
   "main": "src/index",

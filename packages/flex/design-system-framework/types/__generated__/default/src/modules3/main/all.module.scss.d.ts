@@ -1561,7 +1561,6 @@ export type Styles = {
   navbarMenu: string;
   navbarStart: string;
   navbarTitle: string;
-  none: string;
   notification: string;
   notifications: string;
   number: string;

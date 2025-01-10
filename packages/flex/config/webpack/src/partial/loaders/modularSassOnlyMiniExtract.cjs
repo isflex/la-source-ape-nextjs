@@ -47,7 +47,12 @@ module.exports = (target, _gitCommitSHA) => {
               loader: require.resolve('sass-loader'),
               options: {
                 implementation: require.resolve('sass'),
-                sourceMap: mode === 'development'
+                sourceMap: mode === 'development',
+                api: 'modern-compiler',
+                sassOptions: {
+                  // style: `compressed`,
+                  silenceDeprecations: ['legacy-js-api'],
+                },
               },
             },
           ],
@@ -72,7 +77,12 @@ module.exports = (target, _gitCommitSHA) => {
               loader: require.resolve('sass-loader'),
               options: {
                 implementation: require.resolve('sass'),
-                sourceMap: mode === 'development'
+                sourceMap: mode === 'development',
+                api: 'modern-compiler',
+                sassOptions: {
+                  // style: `compressed`,
+                  silenceDeprecations: ['legacy-js-api'],
+                },
               },
             },
           ],
@@ -87,6 +97,7 @@ module.exports = (target, _gitCommitSHA) => {
         chunkFilename: '[id].[contenthash].css',
         linkType: 'text/css',
         runtime: false, // loading mechanism deferred to node express server to allow csp nonce
+        // runtime: true,
       }),
     ],
     optimization: {

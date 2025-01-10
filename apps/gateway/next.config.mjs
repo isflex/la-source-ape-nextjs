@@ -12,8 +12,10 @@ import subprocess from 'node:child_process'
 import { promisify } from 'node:util'
 const execPromise = promisify(subprocess.exec)
 
-import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
+// import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 import { Config } from 'next-recompose-plugins'
+
+import camelCase from 'lodash/camelCase.js'
 
 let _gitCommitSHA = ''
 let _buildId = ''
@@ -80,6 +82,65 @@ const mainConfig = new Config(async (phase, args) => {
 
     webpack: (config, options) => {
       const { isServer } = options
+
+      // // https://www.youtube.com/watch?v=mqcUWfdiXUg
+      // // https://github.com/vercel/next.js/issues/71638#issuecomment-2464405044
+      const regexEqual = (x, y) =>
+        x instanceof RegExp &&
+        y instanceof RegExp &&
+        x.source === y.source &&
+        x.global === y.global &&
+        x.ignoreCase === y.ignoreCase &&
+        x.multiline === y.multiline;
+
+      function cssLoaderOptions(modules) {
+        const { getLocalIdent, ...others } = modules;
+        return {
+          ...others,
+          getLocalIdent: (context, _, exportName, options) => {
+            // const localIdent = getLocalIdent(context, _, exportName, options);
+            // return localIdent
+            const customIdent = `${camelCase(exportName)}__${_gitCommitSHA}`
+            return customIdent
+          },
+          exportLocalsConvention: 'camelCaseOnly',
+        }
+      }
+
+      const oneOf = config.module.rules.find(
+        (rule) => typeof rule.oneOf === 'object'
+      )
+
+      if (oneOf) {
+
+        const moduleSassRule = oneOf.oneOf.find((rule) =>
+          regexEqual(rule.test, /\.module\.(scss|sass)$/)
+        )
+
+        // console.log('moduleSassRule', moduleSassRule)
+
+        if (moduleSassRule) {
+          const cssLoader = moduleSassRule.use.find(({ loader }) =>
+            loader.includes('css-loader')
+          )
+          if (cssLoader) {
+            cssLoader.options = {
+              ...cssLoader.options,
+              modules: cssLoaderOptions(cssLoader.options.modules),
+            }
+            // console.log('cssLoader options', cssLoader.options)
+          }
+        }
+      }
+
+      // https://github.com/vercel/next.js/issues/12079
+      // Find and remove NextJS css rules.
+      // const cssRulesIdx = config.module.rules.findIndex(r => r.oneOf)
+      // if (cssRulesIdx === -1) {
+      //   throw new Error('Could not find NextJS CSS rule to overwrite.')
+      // }
+      // config.module.rules.splice(cssRulesIdx, 1)
+
       return {
         ...config,
 

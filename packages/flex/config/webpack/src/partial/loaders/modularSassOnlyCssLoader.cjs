@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const mode = process.env.FLEX_MODE || 'development'
 const prod = mode === 'production'
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-module.exports = (target) => {
+module.exports = (target, _gitCommitSHA) => {
   // console.log('modularSass target', target)
   return {
     module: {
@@ -24,8 +23,8 @@ module.exports = (target) => {
                       namedExport: false,
                       exportLocalsConvention: 'camel-case-only',
                       mode: 'local',
-                      // localIdentName: mode === 'development' ? '[path][name]__[local]' : '[local]__[hash:base64:5]',
-                      localIdentName: '[local]__[hash:base64:5]',
+                      localIdentName: `[local]__${_gitCommitSHA}`,
+                      exportOnlyLocals: false,
                     },
                   } : null),
                 ...(process.env.FLEX_GATEWAY_MODULE_CSS === 'named'
@@ -34,7 +33,8 @@ module.exports = (target) => {
                       namedExport: true,
                       exportLocalsConvention: 'camel-case-only',
                       mode: 'local',
-                      localIdentName: '[local]__[hash:base64:5]',
+                      localIdentName: `[local]__${_gitCommitSHA}`,
+                      exportOnlyLocals: true,
                     }
                   } : null),
               },
@@ -42,8 +42,13 @@ module.exports = (target) => {
             {
               loader: require.resolve('sass-loader'),
               options: {
-                implementation: require('sass'),
-                sourceMap: mode === 'development'
+                implementation: require.resolve('sass'),
+                sourceMap: mode === 'development',
+                api: 'modern-compiler',
+                sassOptions: {
+                  // style: `compressed`,
+                  silenceDeprecations: ['legacy-js-api'],
+                },
               },
             },
           ],
@@ -59,17 +64,18 @@ module.exports = (target) => {
                 esModule: true,
                 sourceMap: mode === 'development',
                 importLoaders: 1,
-                modules: {
-                  mode: 'icss',
-                  localIdentName: mode === 'development' ? '[path][name]__[local]' : '[local]__[hash:base64:5]',
-                }
               }
             },
             {
               loader: require.resolve('sass-loader'),
               options: {
-                implementation: require('sass'),
-                sourceMap: mode === 'development'
+                implementation: require.resolve('sass'),
+                sourceMap: mode === 'development',
+                api: 'modern-compiler',
+                sassOptions: {
+                  // style: `compressed`,
+                  silenceDeprecations: ['legacy-js-api'],
+                },
               },
             },
           ],
