@@ -41,6 +41,27 @@ const mainConfig = new Config(async (phase, args) => {
   /** @type {import('next').NextConfig} */
   const nextConfig = {
 
+    trailingSlash: true,
+    async rewrites() {
+      return [
+        {
+          source: '/',
+          destination: '/onboard/',
+        },
+      ];
+    },
+
+    // async redirects() {
+    //   return [
+    //     // Basic redirect
+    //     {
+    //       source: '/',
+    //       destination: '/onboard',
+    //       permanent: true,
+    //     },
+    //   ]
+    // },
+
     serverRuntimeConfig: {
       PROJECT_ROOT: __dirname,
       FLEX_GATEWAY_NAME: process.env.FLEX_GATEWAY_NAME,
