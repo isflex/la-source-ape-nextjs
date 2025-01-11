@@ -10,6 +10,7 @@
     "start": "FEDERATION_DEBUG='false' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next start ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME"
   },
   "dependencies": {
+    "@aws-amplify/adapter-nextjs": "1.4.0",
     "@aws-amplify/ui-react": "^6.7.1",
     "@flex-design-system/framework": "@flex-design-system/framework@0.0.1",
     "@flex-design-system/react-ts": "@flex-design-system/react-ts@0.0.1",

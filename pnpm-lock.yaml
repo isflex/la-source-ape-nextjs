@@ -164,6 +164,9 @@ importers:
 
   apps/gateway:
     dependencies:
+      '@aws-amplify/adapter-nextjs':
+        specifier: 1.4.0
+        version: 1.4.0(aws-amplify@6.12.0)(next@15.1.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.83.1))
       '@aws-amplify/ui-react':
         specifier: ^6.7.1
         version: 6.8.1(@aws-amplify/core@6.9.0)(@types/react@18.3.2)(aws-amplify@6.12.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(xstate@4.38.3)
@@ -1336,6 +1339,12 @@ packages:
   '@ardatan/sync-fetch@0.0.1':
     resolution: {integrity: sha512-xhlTqH0m31mnsG0tIP4ETgfSB6gXDaYYsUWTrlUV93fFQPI9dd8hE0Ot6MHLCtqgB32hwJAC3YZMWlXZw7AleA==}
     engines: {node: '>=14'}
+
+  '@aws-amplify/adapter-nextjs@1.4.0':
+    resolution: {integrity: sha512-I+CJjIx45ARVfeALWGxPAfh8v3FT6GjDXhNzP5H1JfpdgmCQjPqgmSScJVwF5L661mPmKjunkKfEMaCeHFt1lQ==}
+    peerDependencies:
+      aws-amplify: ^6.0.7
+      next: 15.1.0
 
   '@aws-amplify/analytics@7.0.65':
     resolution: {integrity: sha512-sOvwygyslqi92eJf2YF326bN1jDip9fDStQS10Pmel3I05wCmoNnGK675OJEOZckTu0l7V738bXgThzSffmXzQ==}
@@ -6977,6 +6986,10 @@ packages:
     resolution: {integrity: sha512-RN9Y/+MBht0xBwFVKSOwEGBSf/8Q31zwZmRkH9psWHpW24NbB9/frICRqIiWFqiedlNdLdjYkcwP2U4V6Ud6AQ==}
     engines: {node: '>= 14.15.0'}
     hasBin: true
+
+  aws-jwt-verify@4.0.1:
+    resolution: {integrity: sha512-kzvi71eD3w/mCpYRUY7cz6DX4bfYihGdI2yV3FYQ2JuZZenqAqDPz0gWj0ew6vlAtdEVBNb7p+Dm2TAIxpVYMA==}
+    engines: {node: '>=14.0.0'}
 
   axe-core@4.7.0:
     resolution: {integrity: sha512-M0JtH+hlOL5pLQwHOLNYZaXuhqmvS8oExsqB1SBYgA4Dk7u/xx+YdGHXaK5pyUfed5mYXdlYiphWq3G8cRi5JQ==}
@@ -15406,6 +15419,13 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
+  '@aws-amplify/adapter-nextjs@1.4.0(aws-amplify@6.12.0)(next@15.1.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.83.1))':
+    dependencies:
+      aws-amplify: 6.12.0
+      aws-jwt-verify: 4.0.1
+      cookie: 0.7.1
+      next: 15.1.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.83.1)
+
   '@aws-amplify/analytics@7.0.65(@aws-amplify/core@6.9.0)':
     dependencies:
       '@aws-amplify/core': 6.9.0
@@ -23768,6 +23788,8 @@ snapshots:
   aws-cdk@2.174.0:
     optionalDependencies:
       fsevents: 2.3.2
+
+  aws-jwt-verify@4.0.1: {}
 
   axe-core@4.7.0: {}
 

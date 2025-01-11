@@ -12,8 +12,12 @@ App,
   AppContext,
   AppProps
 } from 'next/app'
-import { Amplify } from 'aws-amplify'
-import outputs from '@root/amplify_outputs.json'
+
+// import { Amplify } from 'aws-amplify'
+// import outputs from '@root/amplify_outputs.json'
+// Amplify.configure(outputs)
+import ConfigureAmplifyClientSide from '@src/components/ConfigureAmplify'
+
 import classNames from 'classnames'
 import {
   View as FlexRootView,
@@ -42,7 +46,6 @@ import {
 declare let globalThis: FlexGlobalThis
 enableStaticRendering(isServer)
 const stores = getStores()
-Amplify.configure(outputs)
 
 // const LogoFlex = dynamic(() => import('@src/components/logo-flexiness'), { ssr: true })
 // const FlexComponents = dynamic(async () => await import('@src/components/flex-components-mf'), { ssr: true })
@@ -63,6 +66,7 @@ const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
           __html: `window.__webpack_nonce__="${pageProps._nonce}"`
         }}
       />
+      <ConfigureAmplifyClientSide />
       <StoreProvider value={stores}>
         <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped)} theme='light'>
           <Component {...pageProps} />

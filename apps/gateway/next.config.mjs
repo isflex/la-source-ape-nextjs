@@ -41,6 +41,8 @@ const mainConfig = new Config(async (phase, args) => {
   /** @type {import('next').NextConfig} */
   const nextConfig = {
 
+    // https://nextjs.org/docs/pages/api-reference/config/next-config-js/rewrites
+    // https://www.giovannibenussi.com/blog/redirects-and-rewrites-on-nextjs
     trailingSlash: true,
     async rewrites() {
       return [
@@ -104,8 +106,8 @@ const mainConfig = new Config(async (phase, args) => {
     webpack: (config, options) => {
       const { isServer } = options
 
-      // // https://www.youtube.com/watch?v=mqcUWfdiXUg
-      // // https://github.com/vercel/next.js/issues/71638#issuecomment-2464405044
+      // https://www.youtube.com/watch?v=mqcUWfdiXUg
+      // https://github.com/vercel/next.js/issues/71638#issuecomment-2464405044
       const regexEqual = (x, y) =>
         x instanceof RegExp &&
         y instanceof RegExp &&
@@ -164,8 +166,6 @@ const mainConfig = new Config(async (phase, args) => {
 
       return {
         ...config,
-
-        // target: isServer? 'async-node' : 'browserslist:last 1 chrome version',
 
         module: {
           ...config.module,
