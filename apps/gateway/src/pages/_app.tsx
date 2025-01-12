@@ -16,7 +16,8 @@ App,
 // import { Amplify } from 'aws-amplify'
 // import outputs from '@root/amplify_outputs.json'
 // Amplify.configure(outputs)
-import ConfigureAmplifyClientSide from '@src/components/ConfigureAmplify'
+// import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplify'
+import AuthProvider from '@src/components/auth/AuthProvider'
 
 import classNames from 'classnames'
 import {
@@ -66,12 +67,14 @@ const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
           __html: `window.__webpack_nonce__="${pageProps._nonce}"`
         }}
       />
-      <ConfigureAmplifyClientSide />
-      <StoreProvider value={stores}>
-        <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped)} theme='light'>
-          <Component {...pageProps} />
-        </FlexRootView>
-      </StoreProvider>
+      {/* <ConfigureAmplifyClientSide /> */}
+      <AuthProvider>
+        <StoreProvider value={stores}>
+          <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped)} theme='light'>
+            <Component {...pageProps} />
+          </FlexRootView>
+        </StoreProvider>
+      </AuthProvider>
     </>
   )
 }

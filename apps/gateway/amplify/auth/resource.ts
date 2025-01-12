@@ -11,6 +11,8 @@ export const auth = defineAuth({
   },
 });
 
+// // https://github.com/aws-amplify/amplify-backend/issues/1548#issuecomment-2401421204
+
 // export const auth = defineAuth({
 //   loginWith: {
 //     email: true,
@@ -51,6 +53,8 @@ export const auth = defineAuth({
 // });
 
 // import { referenceAuth } from '@aws-amplify/backend'
+
+// // https://github.com/aws-amplify/amplify-backend/issues/2287
 
 // export const auth = referenceAuth({
 //   userPoolId: process.env.FLEX_AWS_COGNITO_USER_POOL_ID!,

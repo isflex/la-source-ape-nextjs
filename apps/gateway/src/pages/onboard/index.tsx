@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 
 import React from 'react'
-// import { headers } from 'next/headers'
 // import Script from 'next/script'
 // import type { NextPage } from 'next'
 import type { NextPage, GetServerSideProps } from 'next'
@@ -14,6 +13,9 @@ import dynamic from 'next/dynamic'
 // import { useRouter as useNextRouter } from 'next/router'
 
 // import log from 'loglevel'
+
+import { getCurrentUser } from 'aws-amplify/auth/server'
+import { runWithAmplifyServerContext } from '@src/utils/amplify-server-util'
 
 import { observer } from 'mobx-react-lite'
 import { getStores } from '@src/stores'
@@ -139,6 +141,11 @@ export const getServerSideProps: GetServerSideProps = async (
     gitCommitSHA: '',
   }
 
+  const currentUser = await runWithAmplifyServerContext({
+    nextServerContext: { request: req, response: res },
+    operation: (contextSpec) => getCurrentUser(contextSpec)
+  })
+
   const _nonce = req.headers?.['x-nonce'] || '---CSP-nonce---'
 
   return {
@@ -146,6 +153,7 @@ export const getServerSideProps: GetServerSideProps = async (
       ...pageStaticData,
       ...modFedData,
       _nonce: _nonce,
+      user: currentUser,
     }
   }
 }

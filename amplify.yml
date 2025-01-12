@@ -18,6 +18,7 @@ applications:
         build:
           commands:
             - 'npx ampx info'
+            # - 'npx dotenvx run -f ../..//env/public/.env.$FLEX_MODE -- ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID'
             - 'npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID'
       cache:
         paths:
