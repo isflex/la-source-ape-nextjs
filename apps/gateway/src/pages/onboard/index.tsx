@@ -141,10 +141,14 @@ export const getServerSideProps: GetServerSideProps = async (
     gitCommitSHA: '',
   }
 
-  const currentUser = await runWithAmplifyServerContext({
-    nextServerContext: { request: req, response: res },
-    operation: (contextSpec) => getCurrentUser(contextSpec)
-  })
+  // User needs to be authenticated to call this API
+  // Requires : Manage Auth session with the Next.js Middleware
+  // https://docs.amplify.aws/nextjs/build-a-backend/server-side-rendering/#with-nextjs-pages-router
+
+  // const currentUser = await runWithAmplifyServerContext({
+  //   nextServerContext: { request: req, response: res },
+  //   operation: (contextSpec) => getCurrentUser(contextSpec)
+  // })
 
   const _nonce = req.headers?.['x-nonce'] || '---CSP-nonce---'
 
@@ -153,7 +157,7 @@ export const getServerSideProps: GetServerSideProps = async (
       ...pageStaticData,
       ...modFedData,
       _nonce: _nonce,
-      user: currentUser,
+      // user: currentUser,
     }
   }
 }

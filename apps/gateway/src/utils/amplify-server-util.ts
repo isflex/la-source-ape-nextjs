@@ -1,5 +1,8 @@
 // https://docs.amplify.aws/nextjs/build-a-backend/server-side-rendering/nextjs-app-router-server-components/#configure-amplify-server-side
 // https://articles.wesionary.team/next-js-14-aws-amplify-authentication-how-to-setup-and-configure-in-your-app-f30b70bc9377
+// https://docs.amplify.aws/nextjs/build-a-backend/data/connect-from-server-runtime/nextjs-server-runtime/
+// https://docs.amplify.aws/nextjs/build-a-backend/server-side-rendering/#with-nextjs-pages-router
+// https://docs.amplify.aws/gen1/nextjs/build-a-backend/server-side-rendering/nextjs/
 
 // App router
 // import { cookies } from 'next/headers';

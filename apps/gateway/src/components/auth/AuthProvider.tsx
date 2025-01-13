@@ -9,8 +9,8 @@ import { Amplify, type ResourcesConfig } from 'aws-amplify'
 import { AMPLIFY_AUTH_CONFIG_V2 } from '@src/utils/amplify-configure'
 import { Authenticator } from '@aws-amplify/ui-react'
 
-import { CookieStorage } from 'aws-amplify/utils'
-import { cognitoUserPoolsTokenProvider } from 'aws-amplify/auth/cognito'
+// import { CookieStorage } from 'aws-amplify/utils'
+// import { cognitoUserPoolsTokenProvider } from 'aws-amplify/auth/cognito'
 
 const _getConfig = () => {
   // if (process.env.FLEX_MODE === 'development' && process.env.FLEX_GATEWAY_USE_AMPLIFY_SANDBOX === 'true') {
@@ -32,7 +32,7 @@ const _getConfig = () => {
 
 Amplify.configure(_getConfig(), { ssr: true })
 
-cognitoUserPoolsTokenProvider.setKeyValueStorage(new CookieStorage());
+// cognitoUserPoolsTokenProvider.setKeyValueStorage(new CookieStorage());
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   return <Authenticator.Provider>{children}</Authenticator.Provider>
