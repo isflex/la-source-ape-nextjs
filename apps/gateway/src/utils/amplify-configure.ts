@@ -27,7 +27,8 @@ const AMPLIFY_AUTH_CONFIG_V2: ResourcesConfig = {
             `${process.env.FLEX_GATEWAY_HOST as string}/`,
             `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_DOMAIN_NAME as string}:${process.env.FLEX_PROXY_PORT as string}/`,
             `http://localhost:${process.env.FLEX_GATEWAY_PORT!}/`,
-            `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_HOST as string}/`,
+            // `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_HOST as string}/`,
+            `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_HOSTNAME as string}/`,
           ],
           redirectSignOut: [
             `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_DOMAIN_NAME as string}/`,
@@ -35,7 +36,8 @@ const AMPLIFY_AUTH_CONFIG_V2: ResourcesConfig = {
             `${process.env.FLEX_GATEWAY_HOST as string}/`,
             `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_DOMAIN_NAME as string}:${process.env.FLEX_PROXY_PORT as string}/`,
             `http://localhost:${process.env.FLEX_GATEWAY_PORT!}/`,
-            `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_HOST as string}/`,
+            // `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_HOST as string}/`,
+            `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_HOSTNAME as string}/`,
           ],
           responseType: 'code', // or 'token', note that REFRESH token will only be generated when the responseType is code
           providers: ['Google'],

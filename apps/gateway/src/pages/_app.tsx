@@ -1,7 +1,7 @@
 import React from 'react'
 // import Head from 'next/head'
 // import Script from 'next/script'
-// import dynamic from 'next/dynamic'
+import dynamic from 'next/dynamic'
 // import {BrowserRouter as Router } from 'react-router'
 import { observer, enableStaticRendering } from 'mobx-react-lite'
 import { StoreProvider } from '@flexiness/domain-store'
@@ -13,7 +13,7 @@ import
   AppProps
 } from 'next/app'
 
-// import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplify'
+// import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplifyOutputs'
 import AuthProvider from '@src/components/auth/AuthProvider'
 
 import classNames from 'classnames'
@@ -35,7 +35,7 @@ import {
 import {
   // AppPropsWithLayout,
   // NextRouteOptions,
-  // LayoutProps,
+  LayoutProps,
   PageAppProps,
   // PageStaticData,
   // GenericProps
@@ -47,6 +47,8 @@ enableStaticRendering(isServer)
 // const LogoFlex = dynamic(() => import('@src/components/logo-flexiness'), { ssr: true })
 // const FlexComponents = dynamic(async () => await import('@src/components/flex-components-mf'), { ssr: true })
 
+const Layout: React.ComponentType<LayoutProps> = dynamic(() => import('../components/layout'))
+
 const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
   return (
     <>
@@ -54,7 +56,9 @@ const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
       <AuthProvider>
         <StoreProvider>
           <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped)} theme='light'>
-            <Component {...pageProps} />
+            <Layout props={pageProps }>
+              <Component {...pageProps}/>
+            </Layout>
           </FlexRootView>
         </StoreProvider>
       </AuthProvider>

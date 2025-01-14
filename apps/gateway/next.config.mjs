@@ -47,24 +47,24 @@ const mainConfig = new Config(async (phase, args) => {
     async rewrites() {
       return [
         {
-          source: '/',
-          destination: '/onboard/',
+          source: '/:path*',
+          destination: '/onboard/:path*',
         },
       ];
     },
 
-    ...(process.env.FLEX_MODE === 'production' && {
-      async redirects() {
-        return [
-          // Basic redirect
-          {
-            source: `/:3001/:path*`,
-            destination: `/:path*`,
-            permanent: true,
-          },
-        ]
-      },
-    }),
+    // ...(process.env.FLEX_MODE === 'production' && {
+    //   async redirects() {
+    //     return [
+    //       // Basic redirect
+    //       {
+    //         source: `/:path*`,
+    //         destination: `/onboard/:path*`,
+    //         permanent: true,
+    //       },
+    //     ]
+    //   },
+    // }),
 
     serverRuntimeConfig: {
       PROJECT_ROOT: __dirname,

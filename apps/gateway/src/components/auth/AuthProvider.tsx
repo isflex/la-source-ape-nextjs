@@ -5,9 +5,11 @@
 import React from 'react'
 import { isServer } from '@flexiness/domain-utils'
 import { Amplify, type ResourcesConfig } from 'aws-amplify'
-// import { parseAmplifyConfig } from '@aws-amplify/core/internals/utils'
-import { AMPLIFY_AUTH_CONFIG_V2 } from '@src/utils/amplify-configure'
+import { parseAmplifyConfig } from '@aws-amplify/core/internals/utils'
 import { Authenticator } from '@aws-amplify/ui-react'
+
+import outputs from '@root/amplify_outputs.json'
+import { AMPLIFY_AUTH_CONFIG_V2 } from '@src/utils/amplify-configure'
 
 // import { CookieStorage } from 'aws-amplify/utils'
 // import { cognitoUserPoolsTokenProvider } from 'aws-amplify/auth/cognito'
@@ -24,13 +26,16 @@ const _getConfig = () => {
   //       console.log(err)
   //     })
   // }
-  const prodConfig = {
-    ...AMPLIFY_AUTH_CONFIG_V2,
-  } as ResourcesConfig
-  return prodConfig
+
+  return {
+    ...outputs,
+    // ...(AMPLIFY_AUTH_CONFIG_V2 as ResourcesConfig),
+  }
 }
 
 Amplify.configure(_getConfig(), { ssr: true })
+
+console.log(`Amplify config`, Amplify.getConfig())
 
 // cognitoUserPoolsTokenProvider.setKeyValueStorage(new CookieStorage());
 

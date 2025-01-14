@@ -65,7 +65,7 @@ type mf = string
 
 interface LayoutProps {
   children: React.ReactNode
-  props: PageStaticData
+  props: PageAppProps
 }
 
 export interface NextRouteOptions {
