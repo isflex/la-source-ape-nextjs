@@ -53,16 +53,18 @@ const mainConfig = new Config(async (phase, args) => {
       ];
     },
 
-    // async redirects() {
-    //   return [
-    //     // Basic redirect
-    //     {
-    //       source: '/',
-    //       destination: '/onboard',
-    //       permanent: true,
-    //     },
-    //   ]
-    // },
+    ...(process.env.FLEX_MODE === 'production' && {
+      async redirects() {
+        return [
+          // Basic redirect
+          {
+            source: `/:3001/:path*`,
+            destination: `/:path*`,
+            permanent: true,
+          },
+        ]
+      },
+    }),
 
     serverRuntimeConfig: {
       PROJECT_ROOT: __dirname,
@@ -89,7 +91,7 @@ const mainConfig = new Config(async (phase, args) => {
       dirs: ['src'],
     },
 
-    reactStrictMode: true,
+    reactStrictMode: false,
 
     generateBuildId: async () => {
       // You can, for example, get the latest git commit hash here

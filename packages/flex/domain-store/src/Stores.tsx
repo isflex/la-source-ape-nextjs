@@ -5,11 +5,11 @@ import { getUIStore, UserInterfaceStore } from './UIStore.js'
 // export { getServerStore, ServerStoreMobxStore } from './ServerStore.js'
 import { isServer } from './utils/index.js'
 
-interface Stores {
+interface ClientSideStores {
   UIStore: UserInterfaceStore
 }
 
-let clientSideStores: Stores
+let clientSideStores: ClientSideStores
 
 function getStores() {
   if (isServer) {
@@ -28,7 +28,7 @@ function getStores() {
 }
 
 interface StoreContextType {
-  stores?: Stores
+  stores?: ClientSideStores
 }
 
 interface StoreProviderProps {
@@ -40,6 +40,17 @@ const StoreContext = React.createContext<StoreContextType | null>(null)
 
 const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
   return <StoreContext.Provider value={{ stores: getStores() }}>{children}</StoreContext.Provider>
+}
+
+// const defaultValue = null
+// const StoreContext = React.createContext(defaultValue)
+
+// const StoreProvider = (props: any) => {
+//   return <StoreContext.Provider value={props.value}>{props.children}</StoreContext.Provider>
+// }
+
+function useMobxStores() {
+  return React.useContext(StoreContext)
 }
 
 export { getStores, StoreProvider }

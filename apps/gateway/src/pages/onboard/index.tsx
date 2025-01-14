@@ -14,8 +14,8 @@ import dynamic from 'next/dynamic'
 
 // import log from 'loglevel'
 
-import { getCurrentUser } from 'aws-amplify/auth/server'
-import { runWithAmplifyServerContext } from '@src/utils/amplify-server-util'
+// import { getCurrentUser } from 'aws-amplify/auth/server'
+// import { runWithAmplifyServerContext } from '@src/utils/amplify-server-util'
 
 import { observer } from 'mobx-react-lite'
 import { getStores } from '@src/stores'
@@ -50,6 +50,7 @@ const OnBoardMF = dynamic(async () => await import('@src/components/onboard-mf')
 const MFOnBoardPage: NextPage<PageAppProps> = observer((
   props
 ) => {
+
   const { status } = stores.UIStore
 
   const Loader = () => {

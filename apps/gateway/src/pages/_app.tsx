@@ -1,21 +1,18 @@
 import React from 'react'
-import Head from 'next/head'
-import Script from 'next/script'
+// import Head from 'next/head'
+// import Script from 'next/script'
 // import dynamic from 'next/dynamic'
 // import {BrowserRouter as Router } from 'react-router'
 import { observer, enableStaticRendering } from 'mobx-react-lite'
-import { getStores, StoreProvider } from '@src/stores'
+import { StoreProvider } from '@flexiness/domain-store'
 import { isServer } from '@src/utils'
 import
-App,
+// App,
 {
-  AppContext,
+  // AppContext,
   AppProps
 } from 'next/app'
 
-// import { Amplify } from 'aws-amplify'
-// import outputs from '@root/amplify_outputs.json'
-// Amplify.configure(outputs)
 // import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplify'
 import AuthProvider from '@src/components/auth/AuthProvider'
 
@@ -46,7 +43,6 @@ import {
 
 declare let globalThis: FlexGlobalThis
 enableStaticRendering(isServer)
-const stores = getStores()
 
 // const LogoFlex = dynamic(() => import('@src/components/logo-flexiness'), { ssr: true })
 // const FlexComponents = dynamic(async () => await import('@src/components/flex-components-mf'), { ssr: true })
@@ -54,22 +50,9 @@ const stores = getStores()
 const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
   return (
     <>
-      <Head>
-        {/* Required for CSS-in-JS <style data-jss /> tags -> injected into HEAD by Material UI v4 -> CSP style-src 'unsafe-inline' */}
-        {/* https://cssinjs.org/csp/?v=v10.10.0 */}
-        <meta nonce={pageProps._nonce} property='csp-nonce' content={`${pageProps._nonce}`} />
-      </Head>
-      {/* Required for react-helmet */}
-      <Script
-        nonce={pageProps._nonce}
-        id='webpackNonce'
-        dangerouslySetInnerHTML={{
-          __html: `window.__webpack_nonce__="${pageProps._nonce}"`
-        }}
-      />
       {/* <ConfigureAmplifyClientSide /> */}
       <AuthProvider>
-        <StoreProvider value={stores}>
+        <StoreProvider>
           <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped)} theme='light'>
             <Component {...pageProps} />
           </FlexRootView>
@@ -142,44 +125,44 @@ const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
 //   )
 // }
 
-MyApp.getInitialProps = async (context: AppContext) => {
-  // log.info('_app getInitialProps context:', context)
-  const {
-    Component,
-    // router,
-    ctx
-  } = context
-  const {
-    req,
-    res,
-    pathname,
-    query,
-    asPath
-  } = ctx
+// MyApp.getInitialProps = async (context: AppContext) => {
+//   // log.info('_app getInitialProps context:', context)
+//   const {
+//     Component,
+//     // router,
+//     ctx
+//   } = context
+//   const {
+//     req,
+//     res,
+//     pathname,
+//     query,
+//     asPath
+//   } = ctx
 
-  let pageProps = {}
-  if (Component.getInitialProps) {
-    try {
-      pageProps = await Component.getInitialProps(ctx)
-    } catch (error) {
-      pageProps = { error }
-    }
-  }
+//   let pageProps = {}
+//   if (Component.getInitialProps) {
+//     try {
+//       pageProps = await Component.getInitialProps(ctx)
+//     } catch (error) {
+//       pageProps = { error }
+//     }
+//   }
 
-  // https://nextjs.org/docs/advanced-features/custom-app
-  // calls page's `getInitialProps` and fills `appProps.pageProps`
+//   // https://nextjs.org/docs/advanced-features/custom-app
+//   // calls page's `getInitialProps` and fills `appProps.pageProps`
 
-  const appProps = await App.getInitialProps(context)
-  pageProps = { ...pageProps, ...appProps }
+//   const appProps = await App.getInitialProps(context)
+//   pageProps = { ...pageProps, ...appProps }
 
-  const _nonce = req?.headers?.['x-nonce'] || '---CSP-nonce---'
+//   const _nonce = req?.headers?.['x-nonce'] || '---CSP-nonce---'
 
-  return {
-    pageProps: {
-      ...pageProps,
-      _nonce: _nonce,
-    }
-  }
-}
+//   return {
+//     pageProps: {
+//       ...pageProps,
+//       _nonce: _nonce,
+//     }
+//   }
+// }
 
 export default observer(MyApp)
