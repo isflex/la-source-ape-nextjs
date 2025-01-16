@@ -68,6 +68,10 @@ const MyDocument = (props: DocumentProps) => {
         {/* https://cssinjs.org/csp/?v=v10.10.0 */}
         <meta nonce={_nonce} property='csp-nonce' content={`${_nonce}`} />
         <link nonce={_nonce} type='image/x-icon' rel='ico' href={`/logo/la_source/favicon-128.ico`} />
+        <link nonce={_nonce} rel='apple-touch-icon' sizes='192x192' href={`/logo/la_source/Icon_192.png`} />
+        <link nonce={_nonce} rel='apple-touch-icon' sizes='512x512' href={`/logo/la_source/Icon_512.png`} />
+        <link nonce={_nonce} rel='icon' type='image/png' sizes='192x192' href={`/logo/la_source/Icon_192.png`} />
+        <link nonce={_nonce} rel='icon' type='image/png' sizes='512x512' href={`/logo/la_source/Icon_512.png`} />
       </Head>
       <body style={{ ...styles.reset }}>
         <Main />

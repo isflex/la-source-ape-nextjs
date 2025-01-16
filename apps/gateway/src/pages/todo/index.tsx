@@ -128,7 +128,8 @@ export const getServerSideProps: GetServerSideProps = async (
 
   // https://github.com/vercel/next.js/discussions/21061
   const activeRoutes = fs
-    .readdirSync("src/pages", { withFileTypes: true })
+    // .readdirSync('src/pages', { withFileTypes: true })
+    .readdirSync(`${process.env.FLEX_PROJ_ROOT}/apps/gateway/src/pages`, { withFileTypes: true })
     .filter((file) => file.isDirectory())
     .map((folder) => folder.name)
     .filter(
