@@ -6,6 +6,7 @@ import React from 'react'
 import type { NextPage, GetServerSideProps } from 'next'
 import { PageAppProps, PageStaticData, ModFedData } from '@root/types/additional'
 import dynamic from 'next/dynamic'
+import fs from 'node:fs'
 
 // import getConfig from 'next/config'
 // const { serverRuntimeConfig } = getConfig()
@@ -41,7 +42,7 @@ import { Text, Title, View, flexStyles } from '@flex-design-system/react-ts/clie
 
 const stores = getStores()
 
-const LogoAPE = dynamic(() => import('@src/components/logo-ape-la-source'), { ssr: true })
+const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 // const LogoFlex = dynamic(() => import('@src/components/logo-flexiness').then(mod => mod.default), { ssr: true })
 
 const OnBoardMF = dynamic(async () => await import('@src/components/onboard-mf'), { ssr: true })
@@ -105,7 +106,7 @@ const MFOnBoardPage: NextPage<PageAppProps> = observer((
       {status !== 'done' && (
         <Loader />
       )}
-      <div style={{ visibility: status === 'done' ? 'visible' : 'hidden' }}>
+      <div style={{ visibility: status === 'done' ? 'visible' : 'hidden', margin: '1rem' }}>
         <OnBoardMF { ...props } />
       </div>
     </div>
@@ -153,11 +154,22 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const _nonce = req.headers?.['x-nonce'] || '---CSP-nonce---'
 
+  // https://github.com/vercel/next.js/discussions/21061
+  const activeRoutes = fs
+    .readdirSync("src/pages", { withFileTypes: true })
+    .filter((file) => file.isDirectory())
+    .map((folder) => folder.name)
+    .filter(
+      (folder) =>
+        !folder.startsWith('_') && folder !== 'api' && folder !== pageStaticData.pageName,
+    )
+
   return {
     props: {
       ...pageStaticData,
       ...modFedData,
       _nonce: _nonce,
+      activeRoutes: activeRoutes
       // user: currentUser,
     }
   }

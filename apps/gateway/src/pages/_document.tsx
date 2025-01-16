@@ -68,7 +68,7 @@ const MyDocument = (props: DocumentProps) => {
         {/* https://cssinjs.org/csp/?v=v10.10.0 */}
         <meta nonce={_nonce} property='csp-nonce' content={`${_nonce}`} />
       </Head>
-      <body style={styles.reset}>
+      <body style={{ ...styles.reset }}>
         <Main />
         <NextScript nonce={_nonce} />
         <Script

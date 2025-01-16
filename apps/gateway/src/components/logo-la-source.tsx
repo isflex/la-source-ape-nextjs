@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import LogoSvg from '@root/public/logo/filled/rectangle/logo_flexiness_2.svg'
+import LogoSvg from '@root/public/logo/la_source/LaSource.svg'
 import { LogoProps } from '@root/types/additional'
 import { getStores } from '@flexiness/domain-store'
 
@@ -12,10 +12,13 @@ const Logo: React.FC<LogoProps> = () => {
   return (
     <div
       className={`flex-gateway-logo ${navigationState}`}
-      // className={`flex-gateway-logo`}
-      style={{ margin: '0 auto', width: '25vw', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+      style={{
+        zoom: '0.4', order: '2', padding: '1rem 4rem',
+        // width: '100%',
+        margin: '0 auto', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'
+      }}
     >
-      <LogoSvg id='logo_flexiness_2' />
+      <LogoSvg id='LaSource_white' />
     </div>
   )
 }

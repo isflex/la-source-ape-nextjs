@@ -2,6 +2,7 @@ import React from 'react'
 import type { NextPage, GetServerSideProps } from 'next'
 import { PageAppProps, PageStaticData } from '@root/types/additional'
 import dynamic from 'next/dynamic'
+import fs from 'node:fs'
 import { observer } from 'mobx-react-lite'
 
 import { generateClient } from 'aws-amplify/data'
@@ -25,7 +26,7 @@ import {
 // import { default as flexStyles } from '@flex-design-system/framework'
 // import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
-const LogoAPE = dynamic(() => import('@src/components/logo-ape-la-source'), { ssr: true })
+const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 
 const TodoPage: NextPage<PageAppProps> = observer((
   props
@@ -125,10 +126,21 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const _nonce = req.headers?.['x-nonce'] || '---CSP-nonce---'
 
+  // https://github.com/vercel/next.js/discussions/21061
+  const activeRoutes = fs
+    .readdirSync("src/pages", { withFileTypes: true })
+    .filter((file) => file.isDirectory())
+    .map((folder) => folder.name)
+    .filter(
+      (folder) =>
+        !folder.startsWith('_') && folder !== 'api' && folder !== pageStaticData.pageName,
+    )
+
   return {
     props: {
       ...pageStaticData,
       _nonce: _nonce,
+      activeRoutes: activeRoutes,
     }
   }
 }

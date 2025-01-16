@@ -35,7 +35,7 @@ const _getConfig = () => {
 
 Amplify.configure(_getConfig(), { ssr: true })
 
-console.log(`Amplify config`, Amplify.getConfig())
+// console.log(`Amplify config`, Amplify.getConfig())
 
 // cognitoUserPoolsTokenProvider.setKeyValueStorage(new CookieStorage());
 

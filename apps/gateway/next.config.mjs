@@ -13,6 +13,7 @@ import { promisify } from 'node:util'
 const execPromise = promisify(subprocess.exec)
 
 // import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
+// import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
 import { Config } from 'next-recompose-plugins'
 
 import camelCase from 'lodash/camelCase.js'
@@ -197,6 +198,7 @@ const mainConfig = new Config(async (phase, args) => {
 
         plugins: [
           ...config.plugins,
+          // new NodePolyfillPlugin(),
         ],
 
         experiments: {
