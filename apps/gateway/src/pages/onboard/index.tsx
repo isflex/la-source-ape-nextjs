@@ -1,12 +1,17 @@
 /* eslint-disable no-console */
 
+import * as path from 'path'
+import { fileURLToPath } from 'url'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+import fs from 'node:fs'
+
 import React from 'react'
 // import Script from 'next/script'
 // import type { NextPage } from 'next'
 import type { NextPage, GetServerSideProps } from 'next'
 import { PageAppProps, PageStaticData, ModFedData } from '@root/types/additional'
 import dynamic from 'next/dynamic'
-import fs from 'node:fs'
 
 // import getConfig from 'next/config'
 // const { serverRuntimeConfig } = getConfig()
@@ -157,14 +162,14 @@ export const getServerSideProps: GetServerSideProps = async (
   // https://github.com/vercel/next.js/discussions/21061
   const activeRoutes = fs
     // .readdirSync('src/pages', { withFileTypes: true })
-    .readdirSync(`${process.env.FLEX_PROJ_ROOT}/apps/gateway/src/pages`, { withFileTypes: true })
+    .readdirSync(path.resolve(__dirname, '../../pages'), { withFileTypes: true })
+    // .readdirSync(`${process.env.FLEX_PROJ_ROOT}/apps/gateway/src/pages`, { withFileTypes: true })
     .filter((file) => file.isDirectory())
     .map((folder) => folder.name)
     .filter(
       (folder) =>
         !folder.startsWith('_') && folder !== 'api' && folder !== pageStaticData.pageName,
     )
-  console.log(activeRoutes)
 
   return {
     props: {

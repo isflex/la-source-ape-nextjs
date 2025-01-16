@@ -1,8 +1,13 @@
+import * as path from 'path'
+import { fileURLToPath } from 'url'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+import fs from 'node:fs'
+
 import React from 'react'
 import type { NextPage, GetServerSideProps } from 'next'
 import { PageAppProps, PageStaticData } from '@root/types/additional'
 import dynamic from 'next/dynamic'
-import fs from 'node:fs'
 import { observer } from 'mobx-react-lite'
 
 import { generateClient } from 'aws-amplify/data'
@@ -129,7 +134,8 @@ export const getServerSideProps: GetServerSideProps = async (
   // https://github.com/vercel/next.js/discussions/21061
   const activeRoutes = fs
     // .readdirSync('src/pages', { withFileTypes: true })
-    .readdirSync(`${process.env.FLEX_PROJ_ROOT}/apps/gateway/src/pages`, { withFileTypes: true })
+    .readdirSync(path.resolve(__dirname, '../../pages'), { withFileTypes: true })
+    // .readdirSync(`${process.env.FLEX_PROJ_ROOT}/apps/gateway/src/pages`, { withFileTypes: true })
     .filter((file) => file.isDirectory())
     .map((folder) => folder.name)
     .filter(

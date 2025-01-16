@@ -25,7 +25,6 @@ declare let globalThis: FlexGlobalThis
 const stores = getStores()
 
 const Navbar: React.FC<PageAppProps> = observer((props) => {
-  console.log(pagesMeta)
   return (
     <div className={stylesPage.navBarContainer}>
       {props?.activeRoutes?.map((route, index) => {
