@@ -67,7 +67,7 @@ const MyDocument = (props: DocumentProps) => {
         {/* Required for CSS-in-JS <style data-jss /> tags -> injected into HEAD by Material UI v4 -> CSP style-src 'unsafe-inline' */}
         {/* https://cssinjs.org/csp/?v=v10.10.0 */}
         <meta nonce={_nonce} property='csp-nonce' content={`${_nonce}`} />
-        <link nonce={_nonce} type="image/x-icon" rel='ico' href={`/logo/la_source/favicon-128.ico`} />
+        <link nonce={_nonce} type='image/x-icon' rel='ico' href={`/logo/la_source/favicon-128.ico`} />
       </Head>
       <body style={{ ...styles.reset }}>
         <Main />

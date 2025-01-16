@@ -156,13 +156,14 @@ export const getServerSideProps: GetServerSideProps = async (
 
   // https://github.com/vercel/next.js/discussions/21061
   const activeRoutes = fs
-    .readdirSync("src/pages", { withFileTypes: true })
+    .readdirSync('src/pages', { withFileTypes: true })
     .filter((file) => file.isDirectory())
     .map((folder) => folder.name)
     .filter(
       (folder) =>
         !folder.startsWith('_') && folder !== 'api' && folder !== pageStaticData.pageName,
     )
+  console.log(activeRoutes)
 
   return {
     props: {
