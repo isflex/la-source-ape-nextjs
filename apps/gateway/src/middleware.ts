@@ -27,6 +27,8 @@ export function middleware(request: NextRequest) {
   //   contentSecurityPolicyHeaderValue
   // )
 
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+
   const response = NextResponse.next({
     request: {
       headers: requestHeaders,

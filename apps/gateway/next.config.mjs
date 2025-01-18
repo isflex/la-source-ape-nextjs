@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename)
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 
+import fs, { writeFileSync } from 'node:fs'
 import subprocess from 'node:child_process'
 import { promisify } from 'node:util'
 const execPromise = promisify(subprocess.exec)
@@ -36,6 +37,28 @@ async function getBuildId() {
 }
 _buildId = await getBuildId()
 console.log(`Build Id :`, _buildId)
+
+// https://github.com/vercel/next.js/discussions/21061
+async function getActiveRoutes() {
+  const jsonData = JSON.stringify(fs
+    // .readdirSync('src/pages', { withFileTypes: true })
+    .readdirSync(path.resolve(__dirname, 'src/pages'), { withFileTypes: true })
+    // .readdirSync(`${process.env.FLEX_PROJ_ROOT}/apps/gateway/src/pages`, { withFileTypes: true })
+    .filter((file) => file.isDirectory())
+    .map((folder) => folder.name)
+    .filter(
+      (folder) =>
+        !folder.startsWith('_') && folder !== 'api',
+    )
+  )
+
+  try {
+    writeFileSync('./pages.active.routes.json', jsonData, 'utf8')
+  } catch (error) {
+    console.log('An error has occurred writing file to disk', error)
+  }
+}
+getActiveRoutes()
 
 const mainConfig = new Config(async (phase, args) => {
 

@@ -1,9 +1,3 @@
-import * as path from 'path'
-import { fileURLToPath } from 'url'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-import fs from 'node:fs'
-
 import React from 'react'
 import type { NextPage, GetServerSideProps } from 'next'
 import { PageAppProps, PageStaticData } from '@root/types/additional'
@@ -131,23 +125,10 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const _nonce = req.headers?.['x-nonce'] || '---CSP-nonce---'
 
-  // https://github.com/vercel/next.js/discussions/21061
-  const activeRoutes = fs
-    .readdirSync('src/pages', { withFileTypes: true })
-    // .readdirSync(path.resolve(__dirname, '../../pages'), { withFileTypes: true })
-    // .readdirSync(`${process.env.FLEX_PROJ_ROOT}/apps/gateway/src/pages`, { withFileTypes: true })
-    .filter((file) => file.isDirectory())
-    .map((folder) => folder.name)
-    .filter(
-      (folder) =>
-        !folder.startsWith('_') && folder !== 'api' && folder !== pageStaticData.pageName,
-    )
-
   return {
     props: {
       ...pageStaticData,
       _nonce: _nonce,
-      activeRoutes: activeRoutes,
     }
   }
 }
