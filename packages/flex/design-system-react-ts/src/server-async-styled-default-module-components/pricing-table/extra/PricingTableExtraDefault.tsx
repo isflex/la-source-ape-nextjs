@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -18,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param children {ReactNode} Title child
  * @param className {string} Additionnal css classes
  */
-const PricingTableExtra = async ({ className, classList, ...others }: PricingTableExtraWebProps): Promise<React.JSX.Element> => {
+const PricingTableExtra = async ({ className, classList, ...others }: PricingTableExtraWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.pricingTableExtra, className, validate(classList))
 
   return <div className={classes} {...others} />

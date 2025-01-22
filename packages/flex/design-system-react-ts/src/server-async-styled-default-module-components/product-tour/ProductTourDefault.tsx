@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -38,7 +36,7 @@ const ProductTour = async ({
   avatarSrc,
   avatarDirection,
   ...others
-}: ProductTourWebProps): Promise<React.JSX.Element> => {
+}: ProductTourWebProps): Promise<React.AwaitedReactNode> => {
   const [display, setDisplay] = React.useState<boolean>(active || false)
 
   React.useEffect(() => {

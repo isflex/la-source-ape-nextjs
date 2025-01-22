@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -12,7 +10,7 @@ import { TableBodyProps } from './TableBodyProps.js'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const TableBody = async ({ className, ...others }: TableBodyProps): Promise<React.JSX.Element> => {
+const TableBody = async ({ className, ...others }: TableBodyProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(className)
 
   return <tbody className={classes} {...others} />

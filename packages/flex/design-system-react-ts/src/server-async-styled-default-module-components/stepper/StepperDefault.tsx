@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -20,7 +18,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param classList {array} Additionnal css classes
  * @param centered Center the stepper
  */
-const Stepper = async ({ className, classList, centered, ...others }: StepperProps): Promise<React.JSX.Element> => {
+const Stepper = async ({ className, classList, centered, ...others }: StepperProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.stepper, className, validate(classList))
 
   const centerClasses = classNames(styles.section, styles[camelCase(has('text-centered')) as keyof Styles], className)

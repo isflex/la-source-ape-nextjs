@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -14,7 +12,7 @@ import { Icon } from '../../icon/index.js'
  * @param iconName {IconName} Name for icon
  * @param iconColor {IconColor} Custom color for icon
  */
-const SliceIcon = async ({ className, iconSize, iconName, iconColor, ...others }: SliceIconProps): Promise<React.JSX.Element> => {
+const SliceIcon = async ({ className, iconSize, iconName, iconColor, ...others }: SliceIconProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('slice-icon', className)
 
   return (

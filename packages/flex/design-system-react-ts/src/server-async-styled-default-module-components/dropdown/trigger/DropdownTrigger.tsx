@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -15,7 +13,7 @@ import { has, is } from '../../../services/index.js'
  * @param label {string} Trigger label
  * @param placeholder {string} Trigger placeholder
  */
-const DropdownTrigger = async ({ className, active, onClick, label, name, ...others }: DropdownTriggerWebProps): Promise<React.JSX.Element> => {
+const DropdownTrigger = async ({ className, active, onClick, label, name, ...others }: DropdownTriggerWebProps): Promise<React.AwaitedReactNode> => {
   const [triggered, setTriggered] = React.useState<boolean>(active || false)
 
   const classes = classNames('dropdown-trigger', triggered && is('triggered'), className)

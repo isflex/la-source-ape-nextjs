@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -17,7 +15,7 @@ import { PaginationProps, Pager } from './PaginationProps.js'
  * * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal css classes
  */
-const Pagination = async ({ className, count, defaultPage = 1, pageSize = 10, onClick, ...others }: PaginationProps): Promise<React.JSX.Element> => {
+const Pagination = async ({ className, count, defaultPage = 1, pageSize = 10, onClick, ...others }: PaginationProps): Promise<React.AwaitedReactNode> => {
   const [currentPage, setCurrentPage] = React.useState<number>(defaultPage)
   const [arrayPage] = React.useState<Array<number>>(Array.from(Array(count + 1).keys()))
   const [pager, setPager] = React.useState<Pager>({

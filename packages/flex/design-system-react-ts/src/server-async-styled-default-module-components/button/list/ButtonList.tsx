@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -10,7 +8,7 @@ import { ButtonListWebProps } from './ButtonListProps.js'
  * Button List Component
  * @param className {string} Additionnal CSS Classes
  */
-const ButtonList = async ({ className, ...others }: ButtonListWebProps): Promise<React.JSX.Element> => (
+const ButtonList = async ({ className, ...others }: ButtonListWebProps): Promise<React.AwaitedReactNode> => (
   <div className={classNames('buttons', className)} {...others} />
 )
 

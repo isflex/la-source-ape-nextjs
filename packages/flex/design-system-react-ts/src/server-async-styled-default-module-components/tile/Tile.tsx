@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -33,7 +31,7 @@ const Tile = async ({
   parent,
   vertical,
   ...others
-}: TileProps): Promise<React.JSX.Element> => {
+}: TileProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('tile', ancestor && is('ancestor'), child && is('child'), parent && is('parent'), vertical && is('vertical'), className)
 
   const Tag = markup

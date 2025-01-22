@@ -1,7 +1,5 @@
 'use server'
 
-// @ts-nocheck
-
 import React from 'react'
 import classNames from 'classnames'
 import { is, validate } from '../../services/index.js'
@@ -38,7 +36,7 @@ const Title = async ({
   skeleton,
   inverted,
   ...others
-}: TitleProps): Promise<React.JSX.Element> => {
+}: TitleProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     {
       [styles.title]: true,

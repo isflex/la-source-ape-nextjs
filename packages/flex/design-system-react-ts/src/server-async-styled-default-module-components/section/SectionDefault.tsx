@@ -1,7 +1,5 @@
 'use server'
 
-// @ts-nocheck
-
 import React from 'react'
 import classNames from 'classnames'
 import { is, validate } from '../../services/index.js'
@@ -21,7 +19,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param skeleton
  * @param others
  */
-const Section = async ({ className, classList, skeleton, ...others }: SectionWebProps): Promise<React.JSX.Element> => {
+const Section = async ({ className, classList, skeleton, ...others }: SectionWebProps): Promise<React.AwaitedReactNode> => {
   return (
     <section
       className={classNames(

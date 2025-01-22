@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -19,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param classList {array} Additionnal css classes
  */
-const FooterWrapper = async ({ className, classList, ...others }: FooterWrapperWebProps): Promise<React.JSX.Element> => {
+const FooterWrapper = async ({ className, classList, ...others }: FooterWrapperWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.accordion, styles.isActive, className, validate(classList))
 
   return <article className={classes} {...others} />

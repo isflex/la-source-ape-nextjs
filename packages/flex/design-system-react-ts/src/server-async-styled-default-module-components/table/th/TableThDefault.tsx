@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -22,7 +20,7 @@ import { TableThProps } from './TableThProps.js'
  * @param rowSpan {number} Specifies the number of rows a cell should span
  * @param colSpan {number} Defines the number of columns a cell should span
  */
-const TableTh = async ({ className, classList, colSpan, rowSpan, ...others }: TableThProps): Promise<React.JSX.Element> => {
+const TableTh = async ({ className, classList, colSpan, rowSpan, ...others }: TableThProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(className, validate(classList))
 
   return <th className={classes} colSpan={colSpan} rowSpan={rowSpan} {...others} />

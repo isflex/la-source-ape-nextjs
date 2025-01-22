@@ -491,6 +491,7 @@ const getConfig = async (env, argv) => {
                   mode: 'local',
                   localIdentName: `[local]__${_gitCommitSHA}`,
                   exportOnlyLocals: false,
+                  url: false,
                 }
               },
             },
@@ -591,6 +592,7 @@ const getConfig = async (env, argv) => {
                   exportOnlyLocals: true,
                 }
               } : null),
+            url: false,
           },
         },
         {
@@ -619,6 +621,7 @@ const getConfig = async (env, argv) => {
             esModule: true,
             sourceMap: !prod,
             importLoaders: 1,
+            url: false,
           }
         },
         {

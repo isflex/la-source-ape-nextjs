@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -22,7 +20,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param size {number} Sizes available => 1 - 12
  */
-const InfoBlockContent = async ({ className, classList, size, children, ...others }: InfoBlockContentProps): Promise<React.JSX.Element> => {
+const InfoBlockContent = async ({ className, classList, size, children, ...others }: InfoBlockContentProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('info-block-content', styles.hasTextCentered, className, validate(classList))
 
   return (

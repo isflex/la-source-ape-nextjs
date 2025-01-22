@@ -16,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal css classes
  * @param classList {array} Additionnal css classes
  */
-const ButtonList = async ({ className, classList, ...others }: ButtonListWebProps): Promise<React.JSX.Element> => (
+const ButtonList = async ({ className, classList, ...others }: ButtonListWebProps): Promise<React.AwaitedReactNode> => (
   <div className={classNames(styles.buttons, className, validate(classList))} {...others} />
 )
 

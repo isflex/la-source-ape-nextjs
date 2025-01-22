@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -36,7 +34,7 @@ const Link = async ({
   title,
   onClick,
   ...others
-}: LinkProps): Promise<React.JSX.Element> => {
+}: LinkProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(!removeLinkClass && 'link', fixed && is('static'), plain && is('plain'), tertiary && has('text-tertiary'), className)
 
   if (to) {

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -18,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param children {ReactNode} Children for Slice Cta
  */
-const SliceCta = async ({ children, className, classList, ...others }: SliceCtaProps): Promise<React.JSX.Element> => {
+const SliceCta = async ({ children, className, classList, ...others }: SliceCtaProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.sliceCallToAction, className, validate(classList))
 
   return (

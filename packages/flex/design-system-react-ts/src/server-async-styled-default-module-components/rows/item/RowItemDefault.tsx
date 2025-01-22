@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -19,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * - -------------------------- WEB PROPERTIES -------------------
  *  @param className {string} additionnal CSS Classes
  */
-const RowItem = async ({ className, classList, narrow, ...others }: RowsItemProps): Promise<React.JSX.Element> => {
+const RowItem = async ({ className, classList, narrow, ...others }: RowsItemProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.row, narrow && styles.isNarrow, className, validate(classList))
 
   return <div className={classes} {...others} />

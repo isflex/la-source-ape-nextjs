@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -31,7 +29,7 @@ const Slice = async ({
   longCta,
   selectable,
   ...others
-}: SliceProps): Promise<React.JSX.Element> => {
+}: SliceProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.slice, disabled && styles.isDisabled, longCta && styles.hasLongCta, className, validate(classList))
 
   if (selectable) {

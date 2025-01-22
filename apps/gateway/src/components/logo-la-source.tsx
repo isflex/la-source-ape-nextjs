@@ -13,7 +13,8 @@ const Logo: React.FC<LogoProps> = () => {
     <div
       className={`flex-gateway-logo ${navigationState}`}
       style={{
-        zoom: '0.4', order: '2', padding: '1rem 4rem',
+        order: '2',
+        zoom: '0.4', padding: '1rem 4rem',
         // width: '100%',
         margin: '0 auto', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'
       }}

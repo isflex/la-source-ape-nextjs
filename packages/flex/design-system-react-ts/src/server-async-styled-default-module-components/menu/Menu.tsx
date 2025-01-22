@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -15,7 +13,7 @@ const a11y = { role: 'menu' }
  *  @param notASide {ReactNode} Menu is in MenuScrolling
  */
 
-const Menu = async ({ className, notASide, ...others }: MenuWebProps): Promise<React.JSX.Element> => (
+const Menu = async ({ className, notASide, ...others }: MenuWebProps): Promise<React.AwaitedReactNode> => (
   <ul className={classNames('menu-list', !notASide && 'aside-menu-list', className)} {...a11y} {...others} />
 )
 

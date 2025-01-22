@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -10,7 +8,7 @@ import { ToolbarSpaceWebProps } from './ToolbarSpaceProps.js'
  * Toolbar Space Component
  * @param className {string} Additionnal CSS Classes
  */
-const ToolbarSpace = async ({ className, ...others }: ToolbarSpaceWebProps): Promise<React.JSX.Element> => (
+const ToolbarSpace = async ({ className, ...others }: ToolbarSpaceWebProps): Promise<React.AwaitedReactNode> => (
   <div className={classNames('toolbar-space', className)} {...others} />
 )
 

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -21,7 +19,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  */
 
-const ListItem = async ({ className, classList, children, customIcon, status, title, description }: ListItemProps): Promise<React.JSX.Element> => {
+const ListItem = async ({ className, classList, children, customIcon, status, title, description }: ListItemProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(className, validate(classList))
 
   if (customIcon) {

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -42,7 +40,7 @@ const DropdownItem = async ({
   onClick,
   onChange,
   ...others
-}: DropdownItemWebProps): Promise<React.JSX.Element> => {
+}: DropdownItemWebProps): Promise<React.AwaitedReactNode> => {
   const [_checked, setChecked] = React.useState<boolean>(checked || false)
 
   const classes = classNames(styles.dropdownItem, className, validate(classList))

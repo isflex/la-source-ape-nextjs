@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -37,7 +35,7 @@ const CardContent = async ({
   text,
   textLevel,
   ...others
-}: CardContentProps): Promise<React.JSX.Element> => {
+}: CardContentProps): Promise<React.AwaitedReactNode> => {
   if (children) {
     return (
       <div className={classNames('card-content', className)} {...others}>

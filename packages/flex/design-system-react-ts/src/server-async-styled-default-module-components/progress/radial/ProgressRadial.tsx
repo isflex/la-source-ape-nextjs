@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -19,7 +17,7 @@ import { has } from '../../../services/index.js'
  * @param full {boolean} Full progressRadial
  * @param disk {boolean} Disk ProgressRadial
  */
-const ProgressRadial = async ({ className, percent, label, description, ...others }: ProgressRadialProps): Promise<React.JSX.Element> => {
+const ProgressRadial = async ({ className, percent, label, description, ...others }: ProgressRadialProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('radial-progress-bar', percent && `progress-${percent}`, className)
 
   return (

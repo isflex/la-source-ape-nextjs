@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -16,7 +14,7 @@ import { SelectOptionProps } from './SelectOptionProps.js'
  * @param className {string} Additionnal CSS Classes
  * @param placeholder Select Option Placeholder
  */
-const SelectOption = async ({ id, className, selected, value, disabled, ...others }: SelectOptionProps): Promise<React.JSX.Element> => {
+const SelectOption = async ({ id, className, selected, value, disabled, ...others }: SelectOptionProps): Promise<React.AwaitedReactNode> => {
   const idGenerated = nanoid()
 
   return <option id={id || idGenerated} className={classNames(className)} selected={selected} value={value} disabled={disabled} {...others} />

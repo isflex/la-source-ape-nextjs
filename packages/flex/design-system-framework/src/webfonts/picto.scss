@@ -1,12 +1,17 @@
 @font-face {
     font-family: 'flexi-picto';
-    src: url('https://after-school.flexiness.com:3992/assets/fonts/flexi-picto.woff2') format('woff2'), url('https://after-school.flexiness.com:3992/assets/fonts/flexi-picto.woff') format('woff');
+    src: 
+          url('../../../../../apps/gateway/public/assets/fonts/flexi-picto.woff2') format('woff2'),
+          url('../../../../../apps/gateway/public/assets/fonts/flexi-picto.woff') format('woff'),
+          url('https://main.d3u8f9h1p0qxra.amplifyapp.com/assets/fonts/flexi-picto.woff2') format('woff2'),
+          url('https://main.d3u8f9h1p0qxra.amplifyapp.com/assets/fonts/flexi-picto.woff') format('woff')
+        ;
     font-style: normal;
     font-weight: normal;
 }
 
-.icon [class^="flexi-picto-"]::before,
-.icon [class*=" flexi-picto-"]::before {
+.icon [class^="flexi-webfont-picto-"]::before,
+.icon [class*=" flexi-webfont-picto-"]::before {
     font-family: flexi-picto;
     font-style: normal;
     font-weight: normal;
@@ -22,31 +27,31 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.flexi-picto-payment-visa::before {
+.flexi-webfont-picto-payment-visa::before {
     content: "\f101";
 }
 
-.flexi-picto-payment-paypal::before {
+.flexi-webfont-picto-payment-paypal::before {
     content: "\f102";
 }
 
-.flexi-picto-payment-mastercard::before {
+.flexi-webfont-picto-payment-mastercard::before {
     content: "\f103";
 }
 
-.flexi-picto-payment-cb::before {
+.flexi-webfont-picto-payment-cb::before {
     content: "\f104";
 }
 
-.flexi-picto-la-fibre::before {
+.flexi-webfont-picto-la-fibre::before {
     content: "\f105";
 }
 
-.flexi-picto-handicapzero::before {
+.flexi-webfont-picto-handicapzero::before {
     content: "\f106";
 }
 
-.flexi-picto-faciliti::before {
+.flexi-webfont-picto-faciliti::before {
     content: "\f107";
 }
 

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -11,7 +9,7 @@ import { DropdownMenuWebProps } from './DropdownMenuProps.js'
  * @param children {ReactNode} Children for Dropdown menu (Dropdown item)
  * @param className {string} Additionnal CSS Classes
  */
-const DropdownMenu = async ({ children, className, ...others }: DropdownMenuWebProps): Promise<React.JSX.Element> => {
+const DropdownMenu = async ({ children, className, ...others }: DropdownMenuWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('dropdown-menu', className)
 
   return (

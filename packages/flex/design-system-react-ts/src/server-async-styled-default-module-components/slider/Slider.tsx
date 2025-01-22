@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -21,7 +19,7 @@ import { is, has } from '../../services/index.js'
 
 type children = true | React.ReactChild | React.ReactFragment | React.ReactPortal
 
-const Slider = async ({ className, iconClassName, children, motionLess, ...others }: SliderProps): Promise<React.JSX.Element> => {
+const Slider = async ({ className, iconClassName, children, motionLess, ...others }: SliderProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(motionLess && is('motionless-desktop'), className)
   const dotsClasses = classNames(has('text-centered'), is('fullwidth'))
 

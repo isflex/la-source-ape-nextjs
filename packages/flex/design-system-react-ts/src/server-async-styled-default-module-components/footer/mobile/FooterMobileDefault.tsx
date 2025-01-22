@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -19,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param classList {array} Additionnal css classes
  */
-const FooterMobile = async ({ children, className, classList, ...others }: FooterMobileWebProps): Promise<React.JSX.Element> => {
+const FooterMobile = async ({ children, className, classList, ...others }: FooterMobileWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.isFooterMobile, styles.isHiddenDesktop, className, validate(classList))
 
   // Mobile Footer

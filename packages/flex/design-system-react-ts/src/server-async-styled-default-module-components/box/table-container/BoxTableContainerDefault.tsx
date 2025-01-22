@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -19,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param classList {array} Additionnal css classes
  * @param children {ReactNode} Children
  */
-const BoxTableContainer = async ({ className, classList, ...others }: BoxTableContainerProps): Promise<React.JSX.Element> => (
+const BoxTableContainer = async ({ className, classList, ...others }: BoxTableContainerProps): Promise<React.AwaitedReactNode> => (
   <div className={classNames(styles.box, styles.tableContainer, className, validate(classList))} {...others} />
 )
 

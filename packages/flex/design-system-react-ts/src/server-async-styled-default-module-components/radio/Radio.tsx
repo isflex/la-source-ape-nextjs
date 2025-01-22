@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -36,7 +34,7 @@ const Radio = async ({
   value,
   inverted,
   ...others
-}: RadioProps): Promise<React.JSX.Element> => {
+}: RadioProps): Promise<React.AwaitedReactNode> => {
   const [_checked, setChecked] = React.useState<boolean>(checked || false)
 
   const classes = classNames(

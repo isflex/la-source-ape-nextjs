@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -25,7 +23,7 @@ const ColumnsItem = async ({
   desktopSize,
   narrow,
   ...others
-}: ColumnsItemProps): Promise<React.JSX.Element> => {
+}: ColumnsItemProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     'column',
     size && is(`${size}`),

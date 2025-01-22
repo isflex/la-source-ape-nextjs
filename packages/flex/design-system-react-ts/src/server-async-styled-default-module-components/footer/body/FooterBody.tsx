@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -11,7 +9,7 @@ import { FooterBodyWebProps } from './FooterBodyProps.js'
  * @param children {ReactNode} Children for Subfooter
  * @param className {string} Additionnal CSS Classes
  */
-const FooterHeader = async ({ children, className, ...others }: FooterBodyWebProps): Promise<React.JSX.Element> => {
+const FooterHeader = async ({ children, className, ...others }: FooterBodyWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('accordion-body', className)
 
   const classesContent = classNames('accordion-content')

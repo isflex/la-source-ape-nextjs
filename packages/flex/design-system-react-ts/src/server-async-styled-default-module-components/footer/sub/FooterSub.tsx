@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -12,7 +10,7 @@ import { is } from '../../../services/index.js'
  * @param children {ReactNode} Children for Subfooter
  * @param className {string} Additionnal CSS Classes
  */
-const FooterSub = async ({ children, className, ...others }: FooterSubWebProps): Promise<React.JSX.Element> => {
+const FooterSub = async ({ children, className, ...others }: FooterSubWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(is('footer-sub'), className)
 
   return (

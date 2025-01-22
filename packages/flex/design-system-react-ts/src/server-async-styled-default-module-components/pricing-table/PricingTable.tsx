@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -13,7 +11,7 @@ import { is } from '../../services/index.js'
  * @param className {string} Additionnal css classes
  * @param special {boolean} New offers Pricing Table
  */
-const PricingTable = async ({ className, special, ...others }: PricingTableWebProps): Promise<React.JSX.Element> => {
+const PricingTable = async ({ className, special, ...others }: PricingTableWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('pricing-table', special && is('special'), className)
 
   return <div className={classes} {...others} />

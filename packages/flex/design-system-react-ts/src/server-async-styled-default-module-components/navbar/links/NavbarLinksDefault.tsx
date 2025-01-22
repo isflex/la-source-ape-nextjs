@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -18,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param children {ReactNode} Navbar Links Child
  * @param className {string} Additionnal css classes
  */
-const NavbarLinks = async ({ className, classList, ...others }: NavbarLinksWebProps): Promise<React.JSX.Element> => {
+const NavbarLinks = async ({ className, classList, ...others }: NavbarLinksWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.navbarLinks, className, validate(classList))
 
   return <div className={classes} {...others} />

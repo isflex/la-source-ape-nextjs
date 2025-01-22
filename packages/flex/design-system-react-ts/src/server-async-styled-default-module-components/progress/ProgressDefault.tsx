@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -44,7 +42,7 @@ const Progress = async ({
   firstExtremLegend,
   secondExtremLegend,
   ...others
-}: ProgressProps): Promise<React.JSX.Element> => {
+}: ProgressProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     styles.progress,
     alert && styles[camelCase(is(alert.getClassName())) as keyof Styles],

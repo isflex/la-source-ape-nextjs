@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -29,7 +27,7 @@ const OptionsItem = async ({
   onChange,
   onClick,
   ...others
-}: OptionsItemProps): Promise<React.JSX.Element> => {
+}: OptionsItemProps): Promise<React.AwaitedReactNode> => {
   const [_checked, setChecked] = React.useState<boolean>(Boolean(checked) || false)
 
   React.useEffect(() => {

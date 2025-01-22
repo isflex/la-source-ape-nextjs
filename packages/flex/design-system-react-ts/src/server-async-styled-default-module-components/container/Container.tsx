@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -13,7 +11,7 @@ import { is } from '../../services/index.js'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const Container = async ({ className, fluid, ...others }: ContainerProps): Promise<React.JSX.Element> => {
+const Container = async ({ className, fluid, ...others }: ContainerProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('container', fluid && is('fluid'), className)
 
   return <div className={classes} {...others} />

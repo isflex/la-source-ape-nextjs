@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -15,7 +13,7 @@ import { VariantState } from '../../../objects/facets/index.js'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const InfoBlockAction = async ({ className, children, onClick, ...others }: InfoBlockActionProps): Promise<React.JSX.Element> => {
+const InfoBlockAction = async ({ className, children, onClick, ...others }: InfoBlockActionProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('info-block-action', has('text-centered'), className)
 
   return (

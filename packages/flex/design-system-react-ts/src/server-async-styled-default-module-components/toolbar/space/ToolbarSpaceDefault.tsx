@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -18,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param classList {array} Additionnal css classes
  */
-const ToolbarSpace = async ({ className, classList, ...others }: ToolbarSpaceWebProps): Promise<React.JSX.Element> => (
+const ToolbarSpace = async ({ className, classList, ...others }: ToolbarSpaceWebProps): Promise<React.AwaitedReactNode> => (
   <div className={classNames(styles.toolbarSpace, className, validate(classList))} {...others} />
 )
 

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -11,7 +9,7 @@ import { TimelineWebProps } from './TimelineProps.js'
  * @param className {string} Additionnal CSS Classes
  * @param notifications {boolean} Timeline notification rendering
  */
-const Timeline = async ({ className, notifications, ...others }: TimelineWebProps): Promise<React.JSX.Element> => {
+const Timeline = async ({ className, notifications, ...others }: TimelineWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('timeline', notifications && notifications, className)
 
   return <div className={classes} {...others} />

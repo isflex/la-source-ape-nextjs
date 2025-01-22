@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -29,7 +27,7 @@ const Title = async ({
   skeleton,
   inverted,
   ...others
-}: TitleProps): Promise<React.JSX.Element> => {
+}: TitleProps): Promise<React.AwaitedReactNode> => {
   const [isLoading, setIsLoading] = React.useState<boolean>(skeleton || false)
   const classes = classNames(
     {

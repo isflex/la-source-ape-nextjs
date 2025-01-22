@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -20,7 +18,7 @@ import { TableHeadProps } from './TableHeadProps.js'
  * @param className {string} Additionnal css classes
  * @param classList {array} Additionnal css classes
  */
-const TableHead = async ({ className, classList, ...others }: TableHeadProps): Promise<React.JSX.Element> => {
+const TableHead = async ({ className, classList, ...others }: TableHeadProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(className, validate(classList))
 
   return <thead className={classes} {...others} />

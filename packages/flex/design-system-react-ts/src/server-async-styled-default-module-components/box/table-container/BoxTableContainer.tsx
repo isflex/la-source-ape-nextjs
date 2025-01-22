@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -11,7 +9,7 @@ import { BoxTableContainerProps } from './BoxTableContainerProps.js'
  * @param className {string} Additionnal CSS Classes
  * @param children {ReactNode} Children
  */
-const BoxTableContainer = async ({ className, ...others }: BoxTableContainerProps): Promise<React.JSX.Element> => (
+const BoxTableContainer = async ({ className, ...others }: BoxTableContainerProps): Promise<React.AwaitedReactNode> => (
   <div className={classNames('box table-container', className)} {...others} />
 )
 

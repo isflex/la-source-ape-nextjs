@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -11,7 +9,7 @@ import { SliceContentProps } from './SliceContentProps.js'
  * @param className {string} Additionnal CSS Classes
  * @param children {ReactNode} Children for Slice Content
  */
-const SliceContent = async ({ children, className, ...others }: SliceContentProps): Promise<React.JSX.Element> => {
+const SliceContent = async ({ children, className, ...others }: SliceContentProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('slice-content', className)
 
   return (

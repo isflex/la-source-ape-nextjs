@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -11,7 +9,7 @@ import { PricingPlanFooterWebProps } from './PricingPlanFooterProps.js'
  * @param children {ReactNode} Children
  * @param className {string} Additionnal css classes
  */
-const PricingPlanFooter = async ({ className, ...others }: PricingPlanFooterWebProps): Promise<React.JSX.Element> => {
+const PricingPlanFooter = async ({ className, ...others }: PricingPlanFooterWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('plan-footer', className)
 
   return <div className={classes} {...others} />

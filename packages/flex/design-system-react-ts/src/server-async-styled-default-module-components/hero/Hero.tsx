@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -15,7 +13,7 @@ import { is, has } from '../../services/index.js'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const Hero = async ({ children, className, backgroundSrc, variant, ...others }: HeroProps): Promise<React.JSX.Element> => {
+const Hero = async ({ children, className, backgroundSrc, variant, ...others }: HeroProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     'hero',
     variant && has(`background-${variant.getClassName()}`),

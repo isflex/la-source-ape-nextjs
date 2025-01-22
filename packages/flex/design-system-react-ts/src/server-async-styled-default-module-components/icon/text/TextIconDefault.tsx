@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -24,7 +22,7 @@ const TextIcon = async ({
   position,
   markup,
   ...others
-}: IconProps): Promise<React.JSX.Element> => {
+}: IconProps): Promise<React.AwaitedReactNode> => {
   // }: IconProps): React.JSX.Element & React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> => {
   const Tag = markup && (markup in TextIconMarkup || Object.values(TextIconMarkup).includes(markup)) ? markup : 'span'
 

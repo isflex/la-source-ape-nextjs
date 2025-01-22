@@ -1,39 +1,13 @@
+'use client'
+
 import React from 'react'
-import { isServer } from '@src/utils'
-import { getUIStore, UserInterfaceStore } from '@flexiness/domain-store'
+import { RootStore } from '@src/stores/root-store'
 
-interface ClientSideStores {
-  UIStore: UserInterfaceStore
+export const StoreContext = React.createContext(RootStore)
+
+export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
+  return <StoreContext.Provider value={RootStore}>{children}</StoreContext.Provider>
 }
-
-let clientSideStores: ClientSideStores
-
-// https://github.com/vercel/next.js/tree/master/examples/with-mobx
-// https://www.themikelewis.com/post/nextjs-with-mobx
-// https://github.com/borekb/nextjs-with-mobx
-
-export function getStores() {
-  if (isServer) {
-    return {
-      UIStore: getUIStore(),
-    }
-  }
-  if (!clientSideStores) {
-    clientSideStores = {
-      UIStore: getUIStore(),
-    }
-  }
-
-  return clientSideStores
-}
-
-const defaultValue = null
-const StoreContext = React.createContext(defaultValue)
-
-export const StoreProvider = (props: any) => {
-  return <StoreContext.Provider value={props.value}>{props.children}</StoreContext.Provider>
-}
-
-export function useMobxStores() {
+export function useStores() {
   return React.useContext(StoreContext)
 }

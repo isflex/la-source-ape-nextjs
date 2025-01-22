@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -18,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param clippedToBottom {boolean} Is clipped to bottom
  */
-const ToolbarItem = async ({ className, classList, clippedToBottom, ...others }: ToolbarItemWebProps): Promise<React.JSX.Element> => {
+const ToolbarItem = async ({ className, classList, clippedToBottom, ...others }: ToolbarItemWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.toolbarItem, clippedToBottom && styles.isClippedToBottom, className, validate(classList))
 
   return <div className={classes} {...others} />

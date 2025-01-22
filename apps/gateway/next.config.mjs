@@ -40,20 +40,27 @@ console.log(`Build Id :`, _buildId)
 
 // https://github.com/vercel/next.js/discussions/21061
 async function getActiveRoutes() {
-  const jsonData = JSON.stringify(fs
-    // .readdirSync('src/pages', { withFileTypes: true })
-    .readdirSync(path.resolve(__dirname, 'src/pages'), { withFileTypes: true })
-    // .readdirSync(`${process.env.FLEX_PROJ_ROOT}/apps/gateway/src/pages`, { withFileTypes: true })
-    .filter((file) => file.isDirectory())
-    .map((folder) => folder.name)
-    .filter(
-      (folder) =>
-        !folder.startsWith('_') && folder !== 'api',
-    )
-  )
+  const jsonData = JSON.stringify([
+    ...fs
+      .readdirSync(path.resolve(__dirname, 'src/pages'), { withFileTypes: true })
+      .filter((file) => file.isDirectory())
+      .map((folder) => folder.name)
+      .filter(
+        (folder) =>
+          !folder.startsWith('_') && folder !== 'api',
+      ),
+    ...fs
+      .readdirSync(path.resolve(__dirname, 'src/app'), { withFileTypes: true })
+      .filter((file) => file.isDirectory())
+      .map((folder) => folder.name)
+      .filter(
+        (folder) =>
+          !folder.startsWith('layout') && folder !== 'api',
+      )
+  ])
 
   try {
-    writeFileSync('./pages.active.routes.json', jsonData, 'utf8')
+    writeFileSync('./routes.active.json', jsonData, 'utf8')
   } catch (error) {
     console.log('An error has occurred writing file to disk', error)
   }
@@ -134,6 +141,9 @@ const mainConfig = new Config(async (phase, args) => {
 
       // https://www.youtube.com/watch?v=mqcUWfdiXUg
       // https://github.com/vercel/next.js/issues/71638#issuecomment-2464405044
+      // https://stackoverflow.com/questions/74038400/convert-css-module-kebab-case-class-names-to-camelcase-in-next-js
+      // https://stackoverflow.com/questions/78042657/hash-classnames-nextjs-v14
+
       const regexEqual = (x, y) =>
         x instanceof RegExp &&
         y instanceof RegExp &&
@@ -142,37 +152,54 @@ const mainConfig = new Config(async (phase, args) => {
         x.ignoreCase === y.ignoreCase &&
         x.multiline === y.multiline;
 
+      // function cssLoaderOptions(modules) {
+      //   const { getLocalIdent, ...others } = modules;
+      //   return {
+      //     ...others,
+      //     getLocalIdent: (context, _, exportName, options) => {
+      //       // const localIdent = getLocalIdent(context, _, exportName, options);
+      //       // return localIdent
+      //       const customIdent = `${camelCase(exportName)}__${_gitCommitSHA}`
+      //       return customIdent
+      //     },
+      //     exportLocalsConvention: 'camelCaseOnly',
+      //   }
+      // }
+
       function cssLoaderOptions(modules) {
-        const { getLocalIdent, ...others } = modules;
+        const { getLocalIdent, ...others } = modules
         return {
           ...others,
           getLocalIdent: (context, _, exportName, options) => {
-            // const localIdent = getLocalIdent(context, _, exportName, options);
-            // return localIdent
-            const customIdent = `${camelCase(exportName)}__${_gitCommitSHA}`
+            // const customIdent = exportName.startsWith('flexi-webfont')
+            const webFontRegex = new RegExp(/flexi-webfont/g)
+            const customIdent = webFontRegex.test(exportName)
+              ? `${exportName}__${_buildId}` : `${camelCase(exportName)}__${_buildId}`
+            // const customIdent =`${camelCase(exportName)}__${_buildId}`
             return customIdent
           },
+          // exportLocalsConvention: 'asIs',
           exportLocalsConvention: 'camelCaseOnly',
+          // exportLocalsConvention: 'camelCase',
         }
       }
 
       const oneOf = config.module.rules.find(
         (rule) => typeof rule.oneOf === 'object'
       )
-
       if (oneOf) {
-
         const moduleSassRule = oneOf.oneOf.find((rule) =>
           regexEqual(rule.test, /\.module\.(scss|sass)$/)
         )
-
         // console.log('moduleSassRule', moduleSassRule)
-
         if (moduleSassRule) {
-          const cssLoader = moduleSassRule.use.find(({ loader }) =>
-            loader.includes('css-loader')
-          )
+          const cssLoader = moduleSassRule.use.find(({ loader }) => {
+            // console.log('loader', loader)
+            return loader.includes('webpack/loaders/css-loader')
+          })
           if (cssLoader) {
+            // console.log('cssLoader', cssLoader)
+            // console.log('cssLoader options', cssLoader.options)
             cssLoader.options = {
               ...cssLoader.options,
               modules: cssLoaderOptions(cssLoader.options.modules),
@@ -181,6 +208,25 @@ const mainConfig = new Config(async (phase, args) => {
           }
         }
       }
+
+      // const rules = config.module.rules
+      //   .find((rule) => typeof rule.oneOf === 'object')
+      //   .oneOf.filter((rule) => Array.isArray(rule.use));
+
+      // rules.forEach((rule) => {
+      //   rule.use.forEach((moduleLoader) => {
+      //     if (
+      //       moduleLoader.loader?.includes('css-loader')
+      //       && !moduleLoader.loader?.includes('postcss-loader')
+      //       && moduleLoader.options.modules
+      //     ) {
+      //       moduleLoader.options = {
+      //         ...moduleLoader.options,
+      //         modules: cssLoaderOptions(moduleLoader.options.modules),
+      //       }
+      //     }
+      //   });
+      // });
 
       // https://github.com/vercel/next.js/issues/12079
       // Find and remove NextJS css rules.

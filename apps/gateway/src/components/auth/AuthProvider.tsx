@@ -3,13 +3,13 @@
 'use client'
 
 import React from 'react'
-import { isServer } from '@flexiness/domain-utils'
+// import { isServer } from '@flexiness/domain-utils'
 import { Amplify, type ResourcesConfig } from 'aws-amplify'
-import { parseAmplifyConfig } from '@aws-amplify/core/internals/utils'
+// import { parseAmplifyConfig } from '@aws-amplify/core/internals/utils'
 import { Authenticator } from '@aws-amplify/ui-react'
 
 import outputs from '@root/amplify_outputs.json'
-import { AMPLIFY_AUTH_CONFIG_V2 } from '@src/utils/amplify-configure'
+// import { AMPLIFY_AUTH_CONFIG_V2 } from '@src/utils/amplify/configure'
 
 // import { CookieStorage } from 'aws-amplify/utils'
 // import { cognitoUserPoolsTokenProvider } from 'aws-amplify/auth/cognito'

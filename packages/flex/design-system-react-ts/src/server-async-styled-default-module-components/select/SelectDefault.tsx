@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -44,7 +42,7 @@ const Select = async ({
   placeholder,
   nullable,
   ...others
-}: SelectProps): Promise<React.JSX.Element> => {
+}: SelectProps): Promise<React.AwaitedReactNode> => {
   const wrapperClasses = classNames(styles.field, className, validate(classList))
 
   const controlClasses = classNames(styles.control, dynamicPlaceholder && label && styles.hasDynamicPlaceholder)

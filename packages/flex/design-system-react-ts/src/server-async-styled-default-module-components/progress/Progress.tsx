@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -35,7 +33,7 @@ const Progress = async ({
   firstExtremLegend,
   secondExtremLegend,
   ...others
-}: ProgressProps): Promise<React.JSX.Element> => {
+}: ProgressProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('progress', alert && is(alert.getClassName()), !alert && is('primary'), small && is('small'), className)
 
   const stackedClasses = classNames('progress', stacked && is('stacked'), className)

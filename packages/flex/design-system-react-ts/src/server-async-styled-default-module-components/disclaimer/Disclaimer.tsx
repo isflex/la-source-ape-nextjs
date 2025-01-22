@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -17,7 +15,7 @@ import { Text } from '../text/index.js'
  * @param title {string} Disclaimer Title
  * @param active {boolean} Active Disclaimer Bar
  */
-const Disclaimer = async ({ children, className, title, active, ...others }: DisclaimerWebProps): Promise<React.JSX.Element> => {
+const Disclaimer = async ({ children, className, title, active, ...others }: DisclaimerWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('disclaimer', is('tri'), className)
 
   const wrapperClasses = classNames('disclaimer-header', is('grouped'), is('tri'))

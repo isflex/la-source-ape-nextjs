@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -16,7 +14,7 @@ import { has, is } from '../../services/index.js'
  * @param longCta {boolean} Change to the CTA line
  * @param selectable {boolean} Apply Field, Control classes wrapped
  */
-const Slice = async ({ children, className, onClick, disabled, longCta, selectable, ...others }: SliceProps): Promise<React.JSX.Element> => {
+const Slice = async ({ children, className, onClick, disabled, longCta, selectable, ...others }: SliceProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('slice', disabled && is('disabled'), longCta && has('long-cta'), className)
 
   if (selectable) {

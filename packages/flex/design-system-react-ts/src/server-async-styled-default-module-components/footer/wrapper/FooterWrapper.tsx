@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -12,7 +10,7 @@ import { is } from '../../../services/index.js'
  * @param children {ReactNode} Children for Subfooter
  * @param className {string} Additionnal CSS Classes
  */
-const FooterWrapper = async ({ className, ...others }: FooterWrapperWebProps): Promise<React.JSX.Element> => {
+const FooterWrapper = async ({ className, ...others }: FooterWrapperWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('accordion', is('active'), className)
 
   return <article className={classes} {...others} />

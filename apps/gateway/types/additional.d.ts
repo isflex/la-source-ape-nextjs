@@ -88,7 +88,6 @@ interface PageAppProps extends PageStaticData, ModFedData {
   _initLng?: FlexI18next['language'],
   stores: Stores,
   _nonce?: string,
-  activeRoutes?: string[]
   // dehydratedState?: DehydratedState
 }
 

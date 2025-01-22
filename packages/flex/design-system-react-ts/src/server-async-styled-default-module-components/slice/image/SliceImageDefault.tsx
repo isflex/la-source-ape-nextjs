@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -21,7 +19,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param alt {string} Image alt
  * @param rounded {boolean} Rounded Slice Image
  */
-const SliceImage = async ({ children, className, classList, src, alt, rounded, ...others }: SliceImageProps): Promise<React.JSX.Element> => {
+const SliceImage = async ({ children, className, classList, src, alt, rounded, ...others }: SliceImageProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.sliceImage, className, validate(classList))
 
   if (children) {

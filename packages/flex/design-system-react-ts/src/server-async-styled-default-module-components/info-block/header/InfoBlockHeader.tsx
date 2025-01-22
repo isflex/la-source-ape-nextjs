@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -19,7 +17,7 @@ import { Title, TitleLevel } from '../../title/index.js'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const InfoBlockHeader = async ({ className, status, children, customIcon, ...others }: InfoBlockHeaderProps): Promise<React.JSX.Element> => {
+const InfoBlockHeader = async ({ className, status, children, customIcon, ...others }: InfoBlockHeaderProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('info-block-header', has('text-centered'), className)
 
   return (

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -10,7 +8,7 @@ import { ListItemDescriptionProps } from './ListItemDescriptionProps.js'
  * @param className {string} Additionnal CSS Classes
  */
 
-const ListItemDescription = async ({ children, className }: ListItemDescriptionProps): Promise<React.JSX.Element> => {
+const ListItemDescription = async ({ children, className }: ListItemDescriptionProps): Promise<React.AwaitedReactNode> => {
   return <dd className={className}>{children}</dd>
 }
 

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -14,7 +12,7 @@ import { InfoBlockProps } from './InfoBlockProps.js'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const InfoBlock = async ({ className, boxed, children, ...others }: InfoBlockProps): Promise<React.JSX.Element> => {
+const InfoBlock = async ({ className, boxed, children, ...others }: InfoBlockProps): Promise<React.AwaitedReactNode> => {
   if (boxed) {
     return (
       <Box>

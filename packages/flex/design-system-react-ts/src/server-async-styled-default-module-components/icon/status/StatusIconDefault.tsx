@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -8,6 +6,7 @@ import { is, validate } from '../../../services/index.js'
 import { camelCase } from 'lodash'
 import { IconProps } from '../IconProps.js'
 import { IconName } from '../IconNameEnum.js'
+// import { IconName } from '$IconNameEnumCamelCase.js'
 import { IconStatus } from '../IconEnum.js'
 
 // ///////////////////////////////////////////////////////////////////////////
@@ -16,7 +15,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
 // import { default as styles, type Styles } from '@flex-design-system/framework/main/all.module.scss'
 // ///////////////////////////////////////////////////////////////////////////
 
-const StatusIcon = async ({ className, classList, name, status, statusPosition, size, ...others }: IconProps): Promise<React.JSX.Element> => {
+const StatusIcon = async ({ className, classList, name, status, statusPosition, size, ...others }: IconProps): Promise<React.AwaitedReactNode> => {
   // }: IconProps): React.JSX.Element & React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> => {
   const ancestorClasses = classNames(
     styles.icon,

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -22,7 +20,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal css classes
  * @param classList {array} Additionnal css classes
  */
-const TableTr = async ({ className, classList, expandable, expanded, ...others }: TableTrProps): Promise<React.JSX.Element> => {
+const TableTr = async ({ className, classList, expandable, expanded, ...others }: TableTrProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     expandable && styles[camelCase(is('expandable')) as keyof Styles],
     expanded ? styles[camelCase(is('expanded')) as keyof Styles] : null,

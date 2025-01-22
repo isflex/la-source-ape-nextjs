@@ -1,5 +1,6 @@
 import { ClickEvent } from '../../../events/index.js'
 import { IconName } from './../../icon/IconNameEnum.js'
+// import { IconName } from '$IconNameEnumCamelCase.js'
 import { GenericChildren } from '../../../generics/index.js'
 
 /**

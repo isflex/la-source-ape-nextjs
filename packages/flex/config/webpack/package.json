@@ -13,7 +13,8 @@
     "./modularSassOnlyCssLoader.cjs": "./src/partial/loaders/modularSassOnlyCssLoader.cjs",
     "./modularSassOnlyCustomStyleLoader.cjs": "./src/partial/loaders/modularSassOnlyCustomStyleLoader.cjs",
     "./modularSassOnlyMiniExtract.cjs": "./src/partial/loaders/modularSassOnlyMiniExtract.cjs",
-    "./modularSassOnlyStyleLoaderDev.cjs": "./src/partial/loaders/modularSassOnlyStyleLoaderDev.cjs"
+    "./modularSassOnlyStyleLoaderDev.cjs": "./src/partial/loaders/modularSassOnlyStyleLoaderDev.cjs",
+    "./modularSassOnlyMiniExtractIgnoreUrls.cjs": "./src/partial/loaders/modularSassOnlyMiniExtractIgnoreUrls.cjs"
   },
   "dependencies": {
     "@flexiness/domain-utils": "workspace:*"

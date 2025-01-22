@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -16,7 +14,7 @@ import { is } from '../../services/index.js'
  * @param className {string} Additionnal CSS Classes (ONLY FOR WEB)
 
  */
-const Divider = async ({ className, unboxed, content, marginless, ...others }: DividerProps): Promise<React.JSX.Element> => {
+const Divider = async ({ className, unboxed, content, marginless, ...others }: DividerProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(is('divider'), unboxed && is('unboxed'), marginless && is('marginless'), className)
 
   if (content) {

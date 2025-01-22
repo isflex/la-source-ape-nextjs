@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -33,7 +31,7 @@ const NavbarLink = async ({
   content,
   onClick,
   ...others
-}: NavbarLinkWebProps): Promise<React.JSX.Element> => {
+}: NavbarLinkWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.navbarLink, highlighted && styles.isHighlighted, className, validate(classList))
 
   if (to) {

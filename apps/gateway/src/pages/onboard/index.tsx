@@ -15,10 +15,10 @@ import dynamic from 'next/dynamic'
 // import log from 'loglevel'
 
 // import { getCurrentUser } from 'aws-amplify/auth/server'
-// import { runWithAmplifyServerContext } from '@src/utils/amplify-server-util'
+// import { runWithAmplifyServerContext } from '@src/utils/amplify/pages-router'
 
 import { observer } from 'mobx-react-lite'
-import { getStores } from '@src/stores'
+import { getStores } from '@flexiness/domain-store'
 
 // import { isServer } from '@src/utils'
 

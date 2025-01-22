@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -25,7 +23,7 @@ const Popover = async ({
   arrowPosition,
   content,
   ...others
-}: PopoverWebProps): Promise<React.JSX.Element> => {
+}: PopoverWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     'popover',
     direction != null && is(`popover-${direction}`),

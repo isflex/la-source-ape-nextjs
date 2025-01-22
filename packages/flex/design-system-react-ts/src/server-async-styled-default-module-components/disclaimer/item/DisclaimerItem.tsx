@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -11,7 +9,7 @@ import { DisclaimerItemWebProps } from './DisclaimerItemProps.js'
  * @param children {ReactNode} Diclaimer Item Children
  * @param className {string} Additionnal css classes
  */
-const DisclaimerItem = async ({ className, ...others }: DisclaimerItemWebProps): Promise<React.JSX.Element> => {
+const DisclaimerItem = async ({ className, ...others }: DisclaimerItemWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('disclaimer-item', className)
 
   return <div className={classes} {...others} />

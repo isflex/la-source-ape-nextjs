@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -11,7 +9,7 @@ import { NavbarEndWebProps } from './NavbarEndProps.js'
  * @param children {ReactNode} Children
  * @param className {string} Additionnal css classes
  */
-const NavbarEnd = async ({ children, className, ...others }: NavbarEndWebProps): Promise<React.JSX.Element> => {
+const NavbarEnd = async ({ children, className, ...others }: NavbarEndWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('navbar-end', className)
 
   return (

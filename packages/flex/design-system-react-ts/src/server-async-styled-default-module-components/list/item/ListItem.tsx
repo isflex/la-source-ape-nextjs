@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -13,7 +11,7 @@ import { Icon, IconSize } from '../../icon/index.js'
  * @param className {string} Additionnal CSS Classes
  */
 
-const ListItem = async ({ className, children, customIcon, status, title, description }: ListItemProps): Promise<React.JSX.Element> => {
+const ListItem = async ({ className, children, customIcon, status, title, description }: ListItemProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(className)
 
   if (customIcon) {

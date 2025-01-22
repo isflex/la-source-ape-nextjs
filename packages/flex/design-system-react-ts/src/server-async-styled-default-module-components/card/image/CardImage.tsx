@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -14,7 +12,7 @@ import { is } from '../../../services/index.js'
  * @param className Additionnal CSS Classes
  * @param size Image Card size on horizontal align
  */
-const CardImage = async ({ src, alt, className, size, ...others }: CardImageProps): Promise<React.JSX.Element> => {
+const CardImage = async ({ src, alt, className, size, ...others }: CardImageProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('card-image', size && is(`${size}`), className)
 
   return (

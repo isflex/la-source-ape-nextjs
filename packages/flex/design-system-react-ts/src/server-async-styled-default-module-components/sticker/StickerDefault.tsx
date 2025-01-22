@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -41,7 +39,7 @@ const Sticker = async ({
   markup,
   inverted,
   ...others
-}: StickerProps): Promise<React.JSX.Element> => {
+}: StickerProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     styles.sticker,
     stretched && styles[camelCase(is('stretched')) as keyof Styles],

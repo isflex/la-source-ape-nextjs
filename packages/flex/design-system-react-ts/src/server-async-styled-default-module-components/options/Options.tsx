@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -12,7 +10,7 @@ import { is } from '../../services/index.js'
  * @param className {string} Additionnal CSS Classes
  * @param inverted {boolean} Inverted options
  */
-const Options = async ({ className, inverted, ...others }: OptionsProps): Promise<React.JSX.Element> => {
+const Options = async ({ className, inverted, ...others }: OptionsProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('options', inverted && is('inverted'), className)
 
   return <div className={classes} {...others} />

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -80,7 +78,7 @@ const Input = async ({
   ref,
   id,
   ...others
-}: InputProp): Promise<React.JSX.Element> => {
+}: InputProp): Promise<React.AwaitedReactNode> => {
   const [_value, setValue] = React.useState<string>(defaultValue ?? '')
   const [isHovered, setIsHovered] = React.useState<boolean>(hovered ?? false)
   const [isFocused, setIsFocused] = React.useState<boolean>(focused ?? false)

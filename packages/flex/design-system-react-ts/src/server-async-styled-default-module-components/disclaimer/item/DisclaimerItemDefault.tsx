@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -20,7 +18,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal css classes
  * @param classList {array} Additionnal css classes
  */
-const DisclaimerItem = async ({ className, classList, ...others }: DisclaimerItemWebProps): Promise<React.JSX.Element> => {
+const DisclaimerItem = async ({ className, classList, ...others }: DisclaimerItemWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.disclaimerItem, className, validate(classList))
 
   return <div className={classes} {...others} />

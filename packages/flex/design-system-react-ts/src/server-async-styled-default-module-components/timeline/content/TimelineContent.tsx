@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -28,7 +26,7 @@ const TimelineContent = async ({
   link,
   contentLink,
   ...others
-}: TimelineContentWebProps): Promise<React.JSX.Element> => {
+}: TimelineContentWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('timeline-content', className)
 
   if (children) {

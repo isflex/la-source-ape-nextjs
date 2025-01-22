@@ -1,7 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -17,7 +15,7 @@ import { TabsItemProps } from './TabsItemProps.js'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const TabsItem = async ({ active, children, className, onClick, ...others }: TabsItemProps): Promise<React.JSX.Element> => {
+const TabsItem = async ({ active, children, className, onClick, ...others }: TabsItemProps): Promise<React.AwaitedReactNode> => {
   const [activeItem, setActiveItem] = React.useState<boolean>(active || false)
 
   // accessibility

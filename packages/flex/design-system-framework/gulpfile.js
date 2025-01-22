@@ -40,7 +40,10 @@ const paths = {
 
 function contentUrlFonts () {
   return gulp.src('src/assets/_fonts.template.scss')
-    .pipe(replace(/---URL-REPLACE---/g, `${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}`))
+    // .pipe(replace(/---URL-REPLACE---/g, `${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}`))
+    .pipe(replace(/---URL-REPLACE---/g, '../../../../../../../apps/gateway/public'))
+    // .pipe(replace(/---URL-REPLACE---/g, `${process.env.FLEX_PROJ_ROOT}/apps/gateway/public`))
+    // .pipe(replace(/---URL-REPLACE---/g, `${path.resolve(__dirname, '../../../../../../../apps/gateway/public')}`))
     .pipe(rename('_fonts.scss'))
     .pipe(gulp.dest('src/modules3/primatifs/base/'))
 }
@@ -73,8 +76,17 @@ async function generateWebfont({ name, fileName, source, fontWeight, codepoints,
         classPrefix,
         baseSelector,
         fontWeight: fontWeight || 'normal',
-        src: `url('${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}/assets/fonts/${fontName}.woff2') format('woff2'), url('${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}/assets/fonts/${fontName}.woff') format('woff')`
+        // src: `url('${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}/assets/fonts/${fontName}.woff2') format('woff2'), url('${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}/assets/fonts/${fontName}.woff') format('woff')`
         // src: `url('./assets/fonts/${fontName}.woff2') format('woff2'), url('./assets/fonts/${fontName}.woff') format('woff')`
+        // src: `url('../../../../../apps/gateway/public/assets/fonts/${fontName}.woff2') format('woff2'), url('../../../../../apps/gateway/public/assets/fonts/${fontName}.woff') format('woff')`
+        // src: `url('${process.env.FLEX_PROJ_ROOT}/apps/gateway/public/assets/fonts/${fontName}.woff2') format('woff2'), url('${process.env.FLEX_PROJ_ROOT}/apps/gateway/public/assets/fonts/${fontName}.woff') format('woff')`
+        // src: `url('${path.resolve(__dirname, `../../../../../apps/gateway/public/assets/fonts/${fontName}.woff2`)}') format('woff2'), url('${path.resolve(__dirname, `../../../../../apps/gateway/public/assets/fonts/${fontName}.woff`)}') format('woff')`
+        src: `
+          url('../../../../../apps/gateway/public/assets/fonts/${fontName}.woff2') format('woff2'),
+          url('../../../../../apps/gateway/public/assets/fonts/${fontName}.woff') format('woff'),
+          url('${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}/assets/fonts/${fontName}.woff2') format('woff2'),
+          url('${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}/assets/fonts/${fontName}.woff') format('woff')
+        `
       },
       codepoints,
       cssTemplate: getAbsPath(paths.templates.css.default),
@@ -104,21 +116,12 @@ gulp.task('icons-illustrations-webfonts', async () => {
   return generateWebfont({
     name: `all`,
     source: paths.src.illustrations,
-    classPrefix: 'flexi-',
-    baseSelector: '.flexi',
+    classPrefix: 'flexi-webfont-',
+    // classPrefix: 'flexiWebfont',
+    baseSelector: '.flexi-webfont',
     fileName: 'flexi-all'
   })
 })
-
-// function generateIconsIllustrationsWebfonts() {
-//   return generateWebfont({
-//     name: `all`,
-//     source: paths.src.illustrations,
-//     classPrefix: 'flexi-',
-//     baseSelector: '.flexi',
-//     fileName: 'flexi-all'
-//   })
-// }
 
 /**
  * This tasks generates UI icons webfonts
@@ -127,8 +130,9 @@ gulp.task('icons-ui-webfonts', async () => {
   return generateWebfont({
     name: 'ui',
     source: paths.src.ui,
-    classPrefix: 'flexi-ui-',
-    baseSelector: '.flexi-ui',
+    classPrefix: 'flexi-webfont-ui-',
+    // classPrefix: 'flexiWebfontUi',
+    baseSelector: '.flexi-webfont-ui',
     fileName: 'flexi-ui',
     codepoints: {
       // we fix this icon, to be used in `utilities/_mixins.scss` in the `arrow` mixin
@@ -145,29 +149,6 @@ gulp.task('icons-ui-webfonts', async () => {
   })
 })
 
-// function generateIconsUIWebfonts() {
-//   console.log('running!')
-//   return generateWebfont({
-//     name: 'ui',
-//     source: paths.src.ui,
-//     classPrefix: 'flexi-ui-',
-//     baseSelector: '.flexi-ui',
-//     fileName: 'flexi-ui',
-//     codepoints: {
-//       // we fix this icon, to be used in `utilities/_mixins.scss` in the `arrow` mixin
-//       // which needs a very specific codepoint to address this particular icon.
-//       'arrow-down': 0xf101,
-//       check: 0xf102,
-//       'times-r': 0xf103,
-//       plus: 0xf104,
-//       'arrow-up': 0xf105,
-//       logo: 0xf106,
-//       'arrow-right': 0xf107,
-//       'arrow-left': 0xf108
-//     }
-//   })
-// }
-
 /**
  * This tasks generates picto icons webfonts
  * Cette task n'est utile que pour assurer la génération de la police
@@ -177,21 +158,13 @@ gulp.task('icons-picto-webfonts', async () => {
   return generateWebfont({
     name: 'picto',
     source: paths.src.picto,
-    classPrefix: 'flexi-picto-',
-    baseSelector: '.flexi-picto',
+    // classPrefix: 'flexi-picto-',
+    // baseSelector: '.flexi-picto',
+    classPrefix: 'flexi-webfont-picto-',
+    baseSelector: '.flexi-webfont-picto',
     fileName: 'flexi-picto',
   })
 })
-
-// function generateIconsPictoWebfonts() {
-//   return generateWebfont({
-//     name: 'picto',
-//     source: paths.src.picto,
-//     classPrefix: 'flexi-picto-',
-//     baseSelector: '.flexi-picto',
-//     fileName: 'flexi-picto',
-//   })
-// }
 
 /**
  * This tasks generates all icon webfonts
@@ -202,11 +175,6 @@ gulp.task('webfonts',
     'icons-picto-webfonts',
     'icons-illustrations-webfonts'
   )
-  // gulp.series(
-  //   generateIconsIllustrationsWebfonts,
-  //   generateIconsUIWebfonts,
-  //   generateIconsPictoWebfonts,
-  // )
 )
 
 gulp.task('namespace-css', async () => {

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -42,7 +40,7 @@ const Tabs = async ({
   fullwidth,
   centered,
   ...others
-}: TabsProps): Promise<React.JSX.Element> => {
+}: TabsProps): Promise<React.AwaitedReactNode> => {
   const [activateIndex, setActivateIndex] = React.useState<number>(activeIndex || 0)
 
   const classes = classNames(

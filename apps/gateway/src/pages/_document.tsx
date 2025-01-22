@@ -11,6 +11,7 @@ Document,
 } from 'next/document'
 import Script from 'next/script'
 import { observer } from 'mobx-react-lite'
+import { inlineStyles } from '@src/styles/inlineStyles'
 // import { init, preloadRemote, registerRemotes, loadRemote } from '@module-federation/enhanced/runtime'
 
 interface DocumentProps extends DocumentInitialProps {
@@ -22,16 +23,6 @@ interface DocumentProps extends DocumentInitialProps {
   // remoteFlexComponentsEntryAsset: string | null
 }
 
-const styles: { [key: string]: React.CSSProperties } = {
-  reset: {
-    margin: 0,
-    padding: 0,
-    maxWidth: '100vw',
-    overflowX: 'hidden',
-    boxSizing: 'border-box'
-  }
-};
-
 const MyDocument = (props: DocumentProps) => {
   const {
     _nonce,
@@ -42,7 +33,7 @@ const MyDocument = (props: DocumentProps) => {
     // remoteFlexComponentsEntryAsset
   } = props
   return (
-    <Html lang='fr' style={styles.reset}>
+    <Html lang='fr' style={{ ...inlineStyles.reset }}>
       <Head nonce={_nonce}>
         <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteOnBoardClient}/mf-manifest.json`} crossOrigin='anonymous' />
         <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteOnBoardClient}/loadable-stats.json`} crossOrigin='anonymous' />
@@ -73,7 +64,7 @@ const MyDocument = (props: DocumentProps) => {
         <link nonce={_nonce} rel='icon' type='image/png' sizes='192x192' href={`/logo/la_source/Icon_192.png`} />
         <link nonce={_nonce} rel='icon' type='image/png' sizes='512x512' href={`/logo/la_source/Icon_512.png`} />
       </Head>
-      <body style={{ ...styles.reset }}>
+      <body style={{ ...inlineStyles.reset }}>
         <Main />
         <NextScript nonce={_nonce} />
         <Script

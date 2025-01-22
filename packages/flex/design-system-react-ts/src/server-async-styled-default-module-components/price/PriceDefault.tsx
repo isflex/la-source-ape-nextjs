@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -41,7 +39,7 @@ const Price = async ({
   huge,
   inverted,
   ...others
-}: PriceProps): Promise<React.JSX.Element> => {
+}: PriceProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     styles.price,
     variant && styles[camelCase(is(`${variant}`)) as keyof Styles],

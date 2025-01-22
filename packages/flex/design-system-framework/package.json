@@ -59,17 +59,19 @@
     "clean:css": "pnpm exec rimraf '{dist/flexiness*.css,dist/modules/*.module.css,../domain-content/content/css/flexiness*.css,../domain-content/content/css/modules/*.css}'",
     "clean:types": "pnpm exec rimraf -g ./src/modules3/**/*.d.ts",
     "cp:css": "cp dist/flexiness*.css ../domain-content/content/css/ && mkdir -p ../domain-content/content/css/modules && cp dist/modules/*.module.css ../domain-content/content/css/modules/",
-    "cp:fonts": "cp -v src/assets/fonts/flexi*.{woff,woff2} ../domain-content/content/assets/fonts/",
+    "cp:fonts": "cp -v src/assets/fonts/flexi*.{woff,woff2} ../../../apps/gateway/public/assets/fonts/",
     "lint": "pnpm lint:js && pnpm lint:css",
     "lint:css": "stylelint --cache './src/**/*.{sc,sa,le,c}ss'",
     "lint:css:fix": "pnpm lint:css --fix",
     "lint:js": "eslint **.js",
-    "lint:js:fix": "pnpm lint:js --fix"
+    "lint:js:fix": "pnpm lint:js --fix",
+    "lint:webfonts": "pnpm postcss ./src/webfonts/**/*.scss --replace --no-map --config ./lint.scss.postcss.config.js"
   },
   "dependencies": {
     "tslib": "^2.4.0"
   },
   "devDependencies": {
+    "@abcaustralia/postcss-to-camel-case": "0.0.0",
     "@bulvar/bulma": "0.11.10",
     "@dotenvx/dotenvx": "1.5.0",
     "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",

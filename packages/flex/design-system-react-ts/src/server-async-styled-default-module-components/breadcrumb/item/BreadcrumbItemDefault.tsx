@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -23,7 +21,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param classList {array} Additionnal css classes
  * @param href {string} Url
  */
-const BreadcrumbItem = async ({ children, active, className, classList, ...others }: BreadcrumbItemWebProps): Promise<React.JSX.Element> => {
+const BreadcrumbItem = async ({ children, active, className, classList, ...others }: BreadcrumbItemWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(active && styles[camelCase(is('active')) as keyof Styles], className, validate(classList))
 
   return (

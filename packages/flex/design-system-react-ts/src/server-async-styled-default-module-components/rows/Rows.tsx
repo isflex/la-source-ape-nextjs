@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -12,6 +10,6 @@ import { RowsProps } from './RowsProps.js'
  * - ------------------- WEB PROPERTIES -------------------------
  * @param className {string} additionnal CSS Classes
  */
-const Rows = async ({ className, ...others }: RowsProps): Promise<React.JSX.Element> => <div className={classNames('rows', className)} {...others} />
+const Rows = async ({ className, ...others }: RowsProps): Promise<React.AwaitedReactNode> => <div className={classNames('rows', className)} {...others} />
 
 export default Rows

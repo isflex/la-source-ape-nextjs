@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -25,7 +23,7 @@ const NavbarAccordionItem = async ({
   classList,
   headerContent,
   ...others
-}: NavbarAccordionItemWebProps): Promise<React.JSX.Element> => {
+}: NavbarAccordionItemWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.navbarItemAccordion, className, validate(classList))
   const headerClasses = classNames(styles.navbarItemAccordionHeader)
   const contentClasses = classNames(styles.navbarItemAccordionContent)

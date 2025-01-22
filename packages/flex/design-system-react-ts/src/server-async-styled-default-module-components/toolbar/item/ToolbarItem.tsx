@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -12,7 +10,7 @@ import { is } from '../../../services/index.js'
  * @param className {string} Additionnal CSS Classes
  * @param clippedToBottom {boolean} Is clipped to bottom
  */
-const ToolbarItem = async ({ className, clippedToBottom, ...others }: ToolbarItemWebProps): Promise<React.JSX.Element> => {
+const ToolbarItem = async ({ className, clippedToBottom, ...others }: ToolbarItemWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('toolbar-item', clippedToBottom && is('clipped-to-bottom'), className)
   return <div className={classes} {...others} />
 }

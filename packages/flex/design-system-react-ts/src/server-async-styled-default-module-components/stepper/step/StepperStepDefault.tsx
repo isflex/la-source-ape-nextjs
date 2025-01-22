@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -46,7 +44,7 @@ const StepperStep = async ({
   validated,
   highlighted,
   ...others
-}: StepperStepProps): Promise<React.JSX.Element> => {
+}: StepperStepProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     styles.step,
     active && styles[camelCase(is('active')) as keyof Styles],

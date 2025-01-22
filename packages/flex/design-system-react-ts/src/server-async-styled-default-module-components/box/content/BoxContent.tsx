@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -11,7 +9,7 @@ import { BoxContentProps } from './BoxContentProps.js'
  * @param children {ReactNode} Box Content Children
  * @param className {string} Additionnal CSS Classes
  */
-const BoxContent = async ({ children, className, ...others }: BoxContentProps): Promise<React.JSX.Element> => {
+const BoxContent = async ({ children, className, ...others }: BoxContentProps): Promise<React.AwaitedReactNode> => {
   return (
     <div className={classNames('box-content', className)} {...others}>
       {children}

@@ -1,7 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -25,7 +23,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal css classes
  * @param classList {array} Additionnal css classes
  */
-const TabsItem = async ({ active, children, className, classList, onClick, ...others }: TabsItemProps): Promise<React.JSX.Element> => {
+const TabsItem = async ({ active, children, className, classList, onClick, ...others }: TabsItemProps): Promise<React.AwaitedReactNode> => {
   const [activeItem, setActiveItem] = React.useState<boolean>(active || false)
 
   // accessibility

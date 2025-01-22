@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -43,7 +41,7 @@ const Textarea = async ({
   ref,
   id,
   ...others
-}: TextareaProps): Promise<React.JSX.Element> => {
+}: TextareaProps): Promise<React.AwaitedReactNode> => {
   const [value, setValue] = React.useState(defaultValue || '')
 
   React.useEffect(() => {

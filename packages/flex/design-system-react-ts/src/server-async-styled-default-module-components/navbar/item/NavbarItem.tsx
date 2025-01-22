@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -34,7 +32,7 @@ const NavbarItem = async ({
   alternate,
   active,
   ...others
-}: NavbarItemWebProps): Promise<React.JSX.Element> => {
+}: NavbarItemWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     'navbar-item',
     megaDropdown && is('megadropdown-parent'),

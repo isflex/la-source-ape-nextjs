@@ -1,7 +1,5 @@
 /* eslint-disable */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -44,7 +42,7 @@ const Switch = async ({
   name,
   inverted,
   ...others
-}: SwitchProps): Promise<React.JSX.Element> => {
+}: SwitchProps): Promise<React.AwaitedReactNode> => {
   const [_checked, setChecked] = React.useState<boolean>(checked || false)
 
   React.useEffect(() => {

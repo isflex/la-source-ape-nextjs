@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -29,7 +27,7 @@ const StepperStep = async ({
   label,
   step,
   ...others
-}: StepperStepProps): Promise<React.JSX.Element> => {
+}: StepperStepProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('step', active && is('active'), current && is('current'), done && is('done'), className)
 
   /**

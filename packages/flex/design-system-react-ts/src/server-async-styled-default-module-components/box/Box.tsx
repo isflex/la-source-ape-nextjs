@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -17,7 +15,7 @@ import { is } from '../../services/index.js'
  * @param skeleton {boolean} add or remove is-loading & is-loaded classes
  * @param to {string} Box link
  */
-const Box = async ({ children, className, onClick, markup, skeleton, to, ...others }: BoxProps): Promise<React.JSX.Element> => {
+const Box = async ({ children, className, onClick, markup, skeleton, to, ...others }: BoxProps): Promise<React.AwaitedReactNode> => {
   const [isLoading, setIsLoading] = React.useState<boolean>(skeleton || false)
 
   React.useEffect(() => {

@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
 
-// @ts-nocheck
-
 'use server'
 
 import * as React from 'react'
@@ -33,7 +31,7 @@ const useUtilityClasses = (ownerState: ImageListItemProps) => {
   return composeClasses(slots, getImageListItemUtilityClass, classes)
 }
 
-const ImageListItemRoot = async (props: ImageListItemRootProps): Promise<React.JSX.Element> => {
+const ImageListItemRoot = async (props: ImageListItemRootProps): Promise<React.AwaitedReactNode> => {
   const { markup, ownerState, children, style, className } = props
   const Tag = markup && (markup in ImageListItemRootMarkup || Object.values(ImageListItemRootMarkup).includes(markup)) ? markup : 'li'
 
@@ -137,6 +135,7 @@ const ImageListItem = React.forwardRef<unknown, ImageListItemProps>((props, ref)
         if (child.type === 'img') {
           return React.cloneElement(child, {
             key: `${variant}-img-${index}`,
+            // @ts-expect-error
             className: clsx(classes.img, styles[camelCase(`${classes.img}`) as keyof Styles], child.props.className),
           })
         }

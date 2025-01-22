@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -36,7 +34,7 @@ const Tag = async ({
   onMouseLeave,
   inverted,
   ...others
-}: TagProps): Promise<React.JSX.Element> => {
+}: TagProps): Promise<React.AwaitedReactNode> => {
   const [display, setDisplay] = React.useState<boolean>(deletable || false)
   const [isHovered, setIsHovered] = React.useState<boolean>(hovered ?? false)
   const classes = classNames(

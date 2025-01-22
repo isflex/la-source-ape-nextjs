@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -26,7 +24,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param skeleton {boolean} add or remove is-loading & is-loaded classes
  * @param to {string} Box link
  */
-const Box = async ({ children, className, classList, onClick, markup, skeleton, to, ...others }: BoxProps): Promise<React.JSX.Element> => {
+const Box = async ({ children, className, classList, onClick, markup, skeleton, to, ...others }: BoxProps): Promise<React.AwaitedReactNode> => {
   if (markup === BoxMarkup.A || to) {
     return (
       <a href={to} onClick={onClick && onClick} {...others}>

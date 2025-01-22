@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -11,6 +9,6 @@ import { SubMenuItemWebProps } from './SubMenuItemProps.js'
  * @param className {string} Additionnal CSS Classes
  */
 
-const SubMenuItem = async ({ className, ...others }: SubMenuItemWebProps): Promise<React.JSX.Element> => <ul className={className} {...others} />
+const SubMenuItem = async ({ className, ...others }: SubMenuItemWebProps): Promise<React.AwaitedReactNode> => <ul className={className} {...others} />
 
 export default SubMenuItem

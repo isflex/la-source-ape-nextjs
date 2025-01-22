@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -38,7 +36,7 @@ const Columns = async ({
   marginSize,
   flex,
   ...others
-}: ColumnsProps): Promise<React.JSX.Element> => {
+}: ColumnsProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     styles.columns,
     multiline && styles.isMultiline,

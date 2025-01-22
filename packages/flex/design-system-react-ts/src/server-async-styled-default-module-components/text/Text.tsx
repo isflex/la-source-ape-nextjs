@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -28,7 +26,7 @@ const Text = async ({
   typo,
   inverted,
   ...others
-}: TextProps): Promise<React.JSX.Element> => {
+}: TextProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     {
       text: true,

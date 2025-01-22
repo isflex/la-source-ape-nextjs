@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -55,7 +53,7 @@ const Icon = async ({
   color,
   onClick,
   ...others
-}: IconProps): Promise<React.JSX.Element> => {
+}: IconProps): Promise<React.AwaitedReactNode> => {
   // }: IconProps): React.JSX.Element | React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> => {
   const classes = classNames(
     styles.icon,

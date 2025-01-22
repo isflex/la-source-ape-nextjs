@@ -1,5 +1,6 @@
 import { IconSize, IconStatus, IconPosition, TextIconMarkup, IconStatusPosition, IconColor } from './IconEnum.js'
 import { IconName } from './IconNameEnum.js'
+// import { IconName } from '$IconNameEnumCamelCase.js'
 import { Stacked } from '../../objects/facets/index.js'
 import { ClickEvent } from '../../events/index.js'
 

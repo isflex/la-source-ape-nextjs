@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { configure } from 'mobx'
 configure({ isolateGlobalState: false })
@@ -5,11 +7,11 @@ import { getUIStore, UserInterfaceStore } from './UIStore.js'
 // export { getServerStore, ServerStoreMobxStore } from './ServerStore.js'
 import { isServer } from './utils/index.js'
 
-interface ClientSideStores {
+interface MobxStores {
   UIStore: UserInterfaceStore
 }
 
-let clientSideStores: ClientSideStores
+let clientSideStores: MobxStores
 
 function getStores() {
   if (isServer) {
@@ -28,7 +30,7 @@ function getStores() {
 }
 
 interface StoreContextType {
-  stores?: ClientSideStores
+  stores: MobxStores
 }
 
 interface StoreProviderProps {
@@ -49,8 +51,8 @@ const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
 //   return <StoreContext.Provider value={props.value}>{props.children}</StoreContext.Provider>
 // }
 
-function useMobxStores() {
+function useStores() {
   return React.useContext(StoreContext)
 }
 
-export { getStores, StoreProvider }
+export { getStores, StoreProvider, useStores }

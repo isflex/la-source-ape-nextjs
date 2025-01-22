@@ -1,3 +1,5 @@
+/// <reference types='react/experimental' />
+
 // Components exports
 export * from './accordion/index.js'
 export * from './badge/index.js'

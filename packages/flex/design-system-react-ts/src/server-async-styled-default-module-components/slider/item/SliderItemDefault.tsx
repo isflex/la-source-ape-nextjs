@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -21,7 +19,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param children {ReactNode} Slider Item child
  * @param active {boolean} Default active item
  */
-const SliderItem = async ({ children, active, className, classList, ...others }: SliderItemProps): Promise<React.JSX.Element> => {
+const SliderItem = async ({ children, active, className, classList, ...others }: SliderItemProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(active && styles.isActive, className, validate(classList))
 
   return (

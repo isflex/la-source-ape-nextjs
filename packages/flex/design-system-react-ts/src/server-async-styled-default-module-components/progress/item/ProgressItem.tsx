@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -23,7 +21,7 @@ const ProgressItem = async ({
   minPercent = 0,
   alert,
   ...others
-}: ProgressItemProps): Promise<React.JSX.Element> => {
+}: ProgressItemProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('progress-bar', alert && is(alert.getClassName()), !alert && is('primary'), className)
 
   return (

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -33,7 +31,7 @@ const InfoBlockHeader = async ({
   children,
   customIcon,
   ...others
-}: InfoBlockHeaderProps): Promise<React.JSX.Element> => {
+}: InfoBlockHeaderProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('info-block-header', styles.hasTextCentered, className, validate(classList))
 
   return (

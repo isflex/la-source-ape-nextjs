@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -42,7 +40,7 @@ const Checkbox = async ({
   removeControl,
   removeField,
   ...others
-}: CheckboxProps): Promise<React.JSX.Element> => {
+}: CheckboxProps): Promise<React.AwaitedReactNode> => {
   const [_checked, setChecked] = React.useState<boolean>(checked || false)
 
   const classes = classNames(

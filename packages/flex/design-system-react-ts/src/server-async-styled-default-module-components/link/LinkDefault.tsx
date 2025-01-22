@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -43,10 +41,11 @@ const Link = async ({
   to,
   href,
   tertiary,
+  flexPurple,
   title,
   onClick,
   ...others
-}: LinkProps): Promise<React.JSX.Element> => {
+}: LinkProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     !removeLinkClass && styles.link,
     inverted && styles[camelCase(is('inverted')) as keyof Styles],

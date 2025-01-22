@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -12,7 +10,7 @@ import { TagListProps } from './TagListProps.js'
  *  - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const TagList = async ({ className, ...others }: TagListProps): Promise<React.JSX.Element> => (
+const TagList = async ({ className, ...others }: TagListProps): Promise<React.AwaitedReactNode> => (
   <span className={classNames('tags', className)} {...others} />
 )
 

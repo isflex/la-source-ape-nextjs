@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -11,7 +9,7 @@ import { NavbarDropdownWebProps } from './NavbarDropdownProps.js'
  * @param children {ReactNode} Children
  * @param className {string} Additionnal css classes
  */
-const NavbarDropdown = async ({ className, ...others }: NavbarDropdownWebProps): Promise<React.JSX.Element> => {
+const NavbarDropdown = async ({ className, ...others }: NavbarDropdownWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('navbar-dropdown', className)
 
   return <div className={classes} {...others} />

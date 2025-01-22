@@ -14,7 +14,11 @@ const Logo: React.FC<LogoProps> = () => {
     <div
       className={`flex-gateway-logo ${navigationState}`}
       // className={`flex-gateway-logo`}
-      style={{ margin: '0 auto', width: '20vw', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+      style={{
+        zoom: '0.6', padding: '1rem 4rem',
+        // width: '100%',
+        margin: '0 auto', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'
+      }}
     >
       <motion.div initial={{ x: '-35vw', opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5, ease: 'easeInOut' }}>
         <LogoSvg id='ape_la_source_logo_1' />

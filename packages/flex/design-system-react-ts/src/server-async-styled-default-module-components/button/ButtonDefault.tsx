@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -50,7 +48,7 @@ const Button = async ({
   to,
   onClick,
   ...others
-}: ButtonProps): Promise<React.JSX.Element> => {
+}: ButtonProps): Promise<React.AwaitedReactNode> => {
   const [isDisabled, setDisabled] = React.useState<boolean>(others.disabled || false)
 
   React.useEffect(() => {

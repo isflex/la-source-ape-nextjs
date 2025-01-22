@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -18,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param elastic {boolean} Is elastic
  */
-const ToolbarGroup = async ({ className, classList, elastic, ...others }: ToolbarGroupWebProps): Promise<React.JSX.Element> => {
+const ToolbarGroup = async ({ className, classList, elastic, ...others }: ToolbarGroupWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.toolbarGroup, elastic && styles.isElastic, className, validate(classList))
 
   return <div className={classes} {...others} />

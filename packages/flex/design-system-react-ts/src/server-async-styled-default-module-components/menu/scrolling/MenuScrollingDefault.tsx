@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -22,7 +20,7 @@ const a11y = { role: 'scrolling-menu' }
  *  @param children {number} ReactNode} Dropdown Children
  */
 
-const MenuScrolling = async ({ className, classList, hasBackgroundWhite, pulled, ...others }: MenuScrollingProps): Promise<React.JSX.Element> => {
+const MenuScrolling = async ({ className, classList, hasBackgroundWhite, pulled, ...others }: MenuScrollingProps): Promise<React.AwaitedReactNode> => {
   /**
    * If no markup return p with default level 1
    */

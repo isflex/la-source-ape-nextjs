@@ -1,7 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -50,7 +48,7 @@ const MenuItem = async ({
   icon,
   onClick,
   ...others
-}: MenuItemWebProps): Promise<React.JSX.Element> => {
+}: MenuItemWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     'menu-item',
     active && styles[camelCase(is('active')) as keyof Styles],

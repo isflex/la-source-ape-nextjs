@@ -19,10 +19,10 @@ import AuthProvider from '@src/components/auth/AuthProvider'
 import classNames from 'classnames'
 import {
   View as FlexRootView,
-  flexStyles,
+  // flexStyles,
  } from '@flex-design-system/react-ts/client-sync-styled-default'
 // import { default as flexStyles } from '@flex-design-system/framework'
-// import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import '@aws-amplify/ui-react/styles.css'
 
 import {
@@ -47,7 +47,7 @@ enableStaticRendering(isServer)
 // const LogoFlex = dynamic(() => import('@src/components/logo-flexiness'), { ssr: true })
 // const FlexComponents = dynamic(async () => await import('@src/components/flex-components-mf'), { ssr: true })
 
-const Layout: React.ComponentType<LayoutProps> = dynamic(() => import('../components/layout'))
+const Layout: React.ComponentType<LayoutProps> = dynamic(() => import('../components/main-layout/pages'))
 
 const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
   return (

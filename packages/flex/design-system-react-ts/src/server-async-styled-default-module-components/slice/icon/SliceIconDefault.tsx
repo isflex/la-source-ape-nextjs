@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -21,7 +19,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param iconName {IconName} Name for icon
  * @param iconColor {IconColor} Custom color for icon
  */
-const SliceIcon = async ({ className, classList, iconSize, iconName, iconColor, ...others }: SliceIconProps): Promise<React.JSX.Element> => {
+const SliceIcon = async ({ className, classList, iconSize, iconName, iconColor, ...others }: SliceIconProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.sliceIcon, className, validate(classList))
 
   return (

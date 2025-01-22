@@ -1,7 +1,5 @@
 'use server'
 
-// @ts-nocheck
-
 import React from 'react'
 import { ViewProps } from './ViewProps.js'
 import classNames from 'classnames'
@@ -23,7 +21,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param loading {Loading} Loading View
  * @param theme {Theme} Themed View
  */
-const View = async ({ children, style, className, classList, loading, theme, ...others }: ViewProps): Promise<React.JSX.Element> => {
+const View = async ({ children, style, className, classList, loading, theme, ...others }: ViewProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(loading && styles[camelCase(is(loading.getClassName())) as keyof Styles], className, validate(classList))
 
   if (!children) {

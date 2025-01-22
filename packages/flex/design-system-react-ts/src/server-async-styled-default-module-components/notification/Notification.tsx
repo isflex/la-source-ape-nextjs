@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -42,7 +40,7 @@ const Notification = async ({
   info,
   banner,
   ...others
-}: NotificationProps): Promise<React.JSX.Element> => {
+}: NotificationProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     'notification',
     has('body'),

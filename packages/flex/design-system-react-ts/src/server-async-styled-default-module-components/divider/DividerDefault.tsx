@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -24,7 +22,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param classList {array} Additionnal css classes (ONLY FOR WEB)
 
  */
-const Divider = async ({ className, classList, unboxed, content, marginless, ...others }: DividerProps): Promise<React.JSX.Element> => {
+const Divider = async ({ className, classList, unboxed, content, marginless, ...others }: DividerProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(
     styles[camelCase(is('divider')) as keyof Styles],
     unboxed && styles[camelCase(is('unboxed')) as keyof Styles],

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -19,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal css classes
  * @param hiddenTouch {boolean} Display modes only: mobile and desktop; use it to manage the responsive
  */
-const NavbarMenu = async ({ className, classList, hiddenTouch, ...others }: NavbarMenuWebProps): Promise<React.JSX.Element> => {
+const NavbarMenu = async ({ className, classList, hiddenTouch, ...others }: NavbarMenuWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.navbarMenu, hiddenTouch && styles.isHiddenTouch, className, validate(classList))
 
   return <div className={classes} {...others} />

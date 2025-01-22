@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -13,7 +11,7 @@ import { is } from '../../services/index.js'
  * @param className {string} Additionnal CSS Classes
  * @param fullwidth {boolean} Footer fullwidth
  */
-const Footer = async ({ children, className, fullwidth, ...others }: FooterWebProps): Promise<React.JSX.Element> => {
+const Footer = async ({ children, className, fullwidth, ...others }: FooterWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(fullwidth && is('fullwidth'), className)
 
   return (

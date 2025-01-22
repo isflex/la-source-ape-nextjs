@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -33,7 +31,7 @@ const Pagination = async ({
   pageSize = 10,
   onClick,
   ...others
-}: PaginationProps): Promise<React.JSX.Element> => {
+}: PaginationProps): Promise<React.AwaitedReactNode> => {
   const [currentPage, setCurrentPage] = React.useState<number>(defaultPage)
   const [arrayPage] = React.useState<Array<number>>(Array.from(Array(count + 1).keys()))
   const [pager, setPager] = React.useState<Pager>({

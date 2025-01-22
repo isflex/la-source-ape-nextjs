@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -12,7 +10,7 @@ import { is } from '../../../services/index.js'
  * @param children {ReactNode} Mobile Footer Children
  * @param className {string} Additionnal CSS Classes
  */
-const FooterMobile = async ({ children, className, ...others }: FooterMobileWebProps): Promise<React.JSX.Element> => {
+const FooterMobile = async ({ children, className, ...others }: FooterMobileWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(is('footer-mobile'), is('hidden-desktop'), className)
 
   // Mobile Footer

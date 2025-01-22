@@ -1,0 +1,14 @@
+{
+  "home": {
+    "emoji": "🛫 >",
+    "navTitle": "accueil"
+  },
+  "todo": {
+    "emoji": "🛸 >",
+    "navTitle": "page d'exemple"
+  },
+  "onboard": {
+    "emoji": "🚀 >",
+    "navTitle": "l'appli"
+  }
+}

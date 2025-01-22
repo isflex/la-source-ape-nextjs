@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -16,7 +14,7 @@ import { is } from '../../services/index.js'
  * @param className Additionnal CSS Classes
  * @param skeleton Loading card
  */
-const Card = async ({ className, flat, horizontal, floating, skeleton, ...others }: CardProps): Promise<React.JSX.Element> => {
+const Card = async ({ className, flat, horizontal, floating, skeleton, ...others }: CardProps): Promise<React.AwaitedReactNode> => {
   const [isLoading, setIsLoading] = React.useState<boolean>(skeleton || false)
 
   React.useEffect(() => {

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import * as React from 'react'

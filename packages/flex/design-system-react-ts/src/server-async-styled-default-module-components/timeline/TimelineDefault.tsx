@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -19,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param classList {array} Additionnal css classes
  * @param notifications {boolean} Timeline notification rendering
  */
-const Timeline = async ({ className, classList, notifications, ...others }: TimelineWebProps): Promise<React.JSX.Element> => {
+const Timeline = async ({ className, classList, notifications, ...others }: TimelineWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.timeline, notifications && notifications, className, validate(classList))
 
   return <div className={classes} {...others} />

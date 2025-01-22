@@ -4,13 +4,14 @@ import Link from 'next/link'
 import classNames from 'classnames'
 import { observer } from 'mobx-react-lite'
 import { getStores } from '@flexiness/domain-store'
-import pagesRoutes from '@root/pages.active.routes.json'
-import pagesMeta from '@root/pages.meta.json'
+import routesActive from '@root/routes.active.json'
+import routesMeta from '@root/routes.meta.json'
 
 import {
-  flexStyles,
+  // flexStyles,
   Text,
 } from '@flex-design-system/react-ts/client-sync-styled-default'
+import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/navbar.module.scss'
 
 import {
@@ -19,14 +20,14 @@ import {
 
 const stores = getStores()
 
-const Navbar: React.FC<PageAppProps> = observer((props) => {
+const NavbarPages: React.FC<PageAppProps> = observer((props) => {
   return (
     <div className={stylesPage.navBarContainer}>
-      {Object.entries(pagesMeta)
-        .filter(([key, value], index) => pagesRoutes.includes(key) && key !== props.pageName)
+      {Object.entries(routesMeta)
+        .filter(([key, value], index) => routesActive.includes(key) && key !== props.pageName)
         .map(([key, value], index) => {
           return (
-            <span key={index}>
+            <span key={index} className={stylesPage.navItem}>
               <Text className={classNames(flexStyles.isInline)}>{value.emoji}</Text>{'\u00A0'}
               <Link href={`/${key}`} className={flexStyles.link}>{value.navTitle}</Link>
             </span>
@@ -37,4 +38,4 @@ const Navbar: React.FC<PageAppProps> = observer((props) => {
   )
 })
 
-export default Navbar
+export default NavbarPages

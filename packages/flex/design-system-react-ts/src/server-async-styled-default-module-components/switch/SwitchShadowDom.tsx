@@ -1,6 +1,4 @@
 /* eslint-disable */
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -47,7 +45,7 @@ const SwitchShadowDom = async ({
   name,
   inverted,
   ...others
-}: SwitchProps): Promise<React.JSX.Element> => {
+}: SwitchProps): Promise<React.AwaitedReactNode> => {
   const [_checked, setChecked] = React.useState<boolean>(checked || false)
 
   React.useEffect(() => {

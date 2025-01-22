@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -13,7 +11,7 @@ import { is } from '../../services/index.js'
  * @param children {ReactNode} Dropdown Children
  * @param active {boolean} Activated Dropdown
  */
-const Dropdown = async ({ className, children, active, ...others }: DropdownWebProps): Promise<React.JSX.Element> => {
+const Dropdown = async ({ className, children, active, ...others }: DropdownWebProps): Promise<React.AwaitedReactNode> => {
   const [displayDropdown, setDisplayDropdown] = React.useState<boolean>(active || false)
 
   const classes = classNames('dropdown tile', displayDropdown && is('active'), className)

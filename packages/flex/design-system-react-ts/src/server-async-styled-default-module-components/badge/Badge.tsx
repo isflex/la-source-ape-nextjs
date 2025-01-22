@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -17,7 +15,7 @@ import { BadgeTextDirection } from './BadgeEnum.js'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes (ONLY FOR WEB)
  */
-const Badge = async ({ children, className, textContent, content, direction, ...others }: BadgeProps): Promise<React.JSX.Element> => {
+const Badge = async ({ children, className, textContent, content, direction, ...others }: BadgeProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(!textContent ? 'badge' : 'badge-and-text', className)
 
   if (textContent) {

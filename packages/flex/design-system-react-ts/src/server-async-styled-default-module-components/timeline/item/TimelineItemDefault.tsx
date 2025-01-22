@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -18,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param active {boolean} Active Timeline Item
  */
-const TimelineItem = async ({ className, classList, active, ...others }: TimelineItemWebProps): Promise<React.JSX.Element> => {
+const TimelineItem = async ({ className, classList, active, ...others }: TimelineItemWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.timelineItem, active && styles.active, className, validate(classList))
 
   return <div className={classes} {...others} />

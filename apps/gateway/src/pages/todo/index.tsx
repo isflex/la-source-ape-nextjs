@@ -68,14 +68,25 @@ const TodoPage: NextPage<PageAppProps> = observer((
           <LogoAPE />
         </div>
       </div>
-      <main>
-        <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextWhite}>
-          My Todos
+      <main className={stylesPage.hasCenteredContent}>
+        <Title level={TitleLevel.LEVEL2} className={classNames(flexStyles.hasTextWhite, flexStyles.isCentered )}>
+          La liste à faire de l'APE
         </Title>
+        <Text className={flexStyles.hasTextWhite}>
+          Voici un mini exemple d'application "My Todos" que les élèves de la source pourront facilement créer eux-mêmes.
+        </Text>
+        <Text className={classNames(flexStyles.hasTextWhite, flexStyles.isItalic )}>
+          L'idée est que ce site puisse être alimenter en contenu par qui que ce soit : élèves, parents et enseignants...
+        </Text>
+        <br/>
         <Button onClick={createTodo}
           id={'createTodo'}
           variant={VariantState.PRIMARY}
-          markup={ButtonMarkup.BUTTON}>Créer une nouvelle tâche</Button>
+          markup={ButtonMarkup.BUTTON}>
+            <span style={{ margin: '0 1rem'}}>
+              Créer une nouvelle tâche
+            </span>
+        </Button>
         <br/>
         <ul>
           {todos.map((todo) => (

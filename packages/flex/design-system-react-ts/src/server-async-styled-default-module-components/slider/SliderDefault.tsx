@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -30,7 +28,7 @@ const { setupSlider } = await import('./setup')
 
 type children = true | React.ReactChild | React.ReactFragment | React.ReactPortal
 
-const Slider = async ({ className, classList, iconClassName, children, motionLess, ...others }: SliderProps): Promise<React.JSX.Element> => {
+const Slider = async ({ className, classList, iconClassName, children, motionLess, ...others }: SliderProps): Promise<React.AwaitedReactNode> => {
   // const [domReady, setDomReady] = React.useState(false)
   const ref = React.useRef<HTMLDivElement>(null)
   const classes = classNames(sliderStyles.flexSlider, motionLess && styles.isMotionlessDesktop, className, validate(classList))

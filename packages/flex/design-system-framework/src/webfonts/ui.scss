@@ -1,12 +1,17 @@
 @font-face {
     font-family: 'flexi-ui';
-    src: url('https://after-school.flexiness.com:3992/assets/fonts/flexi-ui.woff2') format('woff2'), url('https://after-school.flexiness.com:3992/assets/fonts/flexi-ui.woff') format('woff');
+    src: 
+          url('../../../../../apps/gateway/public/assets/fonts/flexi-ui.woff2') format('woff2'),
+          url('../../../../../apps/gateway/public/assets/fonts/flexi-ui.woff') format('woff'),
+          url('https://main.d3u8f9h1p0qxra.amplifyapp.com/assets/fonts/flexi-ui.woff2') format('woff2'),
+          url('https://main.d3u8f9h1p0qxra.amplifyapp.com/assets/fonts/flexi-ui.woff') format('woff')
+        ;
     font-style: normal;
     font-weight: normal;
 }
 
-.icon [class^="flexi-ui-"]::before,
-.icon [class*=" flexi-ui-"]::before {
+.icon [class^="flexi-webfont-ui-"]::before,
+.icon [class*=" flexi-webfont-ui-"]::before {
     font-family: flexi-ui;
     font-style: normal;
     font-weight: normal;
@@ -22,259 +27,259 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.flexi-ui-arrow-down::before {
+.flexi-webfont-ui-arrow-down::before {
     content: "\f101";
 }
 
-.flexi-ui-check::before {
+.flexi-webfont-ui-check::before {
     content: "\f102";
 }
 
-.flexi-ui-times-r::before {
+.flexi-webfont-ui-times-r::before {
     content: "\f103";
 }
 
-.flexi-ui-plus::before {
+.flexi-webfont-ui-plus::before {
     content: "\f104";
 }
 
-.flexi-ui-arrow-up::before {
+.flexi-webfont-ui-arrow-up::before {
     content: "\f105";
 }
 
-.flexi-ui-logo::before {
+.flexi-webfont-ui-logo::before {
     content: "\f106";
 }
 
-.flexi-ui-arrow-right::before {
+.flexi-webfont-ui-arrow-right::before {
     content: "\f107";
 }
 
-.flexi-ui-arrow-left::before {
+.flexi-webfont-ui-arrow-left::before {
     content: "\f108";
 }
 
-.flexi-ui-user::before {
+.flexi-webfont-ui-user::before {
     content: "\f109";
 }
 
-.flexi-ui-upload::before {
+.flexi-webfont-ui-upload::before {
     content: "\f10a";
 }
 
-.flexi-ui-trash::before {
+.flexi-webfont-ui-trash::before {
     content: "\f10b";
 }
 
-.flexi-ui-trash-s::before {
+.flexi-webfont-ui-trash-s::before {
     content: "\f10c";
 }
 
-.flexi-ui-times::before {
+.flexi-webfont-ui-times::before {
     content: "\f10d";
 }
 
-.flexi-ui-times-circle::before {
+.flexi-webfont-ui-times-circle::before {
     content: "\f10e";
 }
 
-.flexi-ui-times-circle-s::before {
+.flexi-webfont-ui-times-circle-s::before {
     content: "\f10f";
 }
 
-.flexi-ui-times-circle-r::before {
+.flexi-webfont-ui-times-circle-r::before {
     content: "\f110";
 }
 
-.flexi-ui-star::before {
+.flexi-webfont-ui-star::before {
     content: "\f111";
 }
 
-.flexi-ui-star-s::before {
+.flexi-webfont-ui-star-s::before {
     content: "\f112";
 }
 
-.flexi-ui-star-half::before {
+.flexi-webfont-ui-star-half::before {
     content: "\f113";
 }
 
-.flexi-ui-sliders::before {
+.flexi-webfont-ui-sliders::before {
     content: "\f114";
 }
 
-.flexi-ui-shopping-cart::before {
+.flexi-webfont-ui-shopping-cart::before {
     content: "\f115";
 }
 
-.flexi-ui-shopping-bag::before {
+.flexi-webfont-ui-shopping-bag::before {
     content: "\f116";
 }
 
-.flexi-ui-search::before {
+.flexi-webfont-ui-search::before {
     content: "\f117";
 }
 
-.flexi-ui-search-r::before {
+.flexi-webfont-ui-search-r::before {
     content: "\f118";
 }
 
-.flexi-ui-relais-colis-express::before {
+.flexi-webfont-ui-relais-colis-express::before {
     content: "\f119";
 }
 
-.flexi-ui-question::before {
+.flexi-webfont-ui-question::before {
     content: "\f11a";
 }
 
-.flexi-ui-question-circle::before {
+.flexi-webfont-ui-question-circle::before {
     content: "\f11b";
 }
 
-.flexi-ui-question-circle-r::before {
+.flexi-webfont-ui-question-circle-r::before {
     content: "\f11c";
 }
 
-.flexi-ui-power::before {
+.flexi-webfont-ui-power::before {
     content: "\f11d";
 }
 
-.flexi-ui-plus-r::before {
+.flexi-webfont-ui-plus-r::before {
     content: "\f11e";
 }
 
-.flexi-ui-plus-circle::before {
+.flexi-webfont-ui-plus-circle::before {
     content: "\f11f";
 }
 
-.flexi-ui-plus-circle-s::before {
+.flexi-webfont-ui-plus-circle-s::before {
     content: "\f120";
 }
 
-.flexi-ui-plus-circle-r::before {
+.flexi-webfont-ui-plus-circle-r::before {
     content: "\f121";
 }
 
-.flexi-ui-play-s::before {
+.flexi-webfont-ui-play-s::before {
     content: "\f122";
 }
 
-.flexi-ui-pencil::before {
+.flexi-webfont-ui-pencil::before {
     content: "\f123";
 }
 
-.flexi-ui-pencil-s::before {
+.flexi-webfont-ui-pencil-s::before {
     content: "\f124";
 }
 
-.flexi-ui-pause-s::before {
+.flexi-webfont-ui-pause-s::before {
     content: "\f125";
 }
 
-.flexi-ui-minus::before {
+.flexi-webfont-ui-minus::before {
     content: "\f126";
 }
 
-.flexi-ui-minus-circle::before {
+.flexi-webfont-ui-minus-circle::before {
     content: "\f127";
 }
 
-.flexi-ui-menu::before {
+.flexi-webfont-ui-menu::before {
     content: "\f128";
 }
 
-.flexi-ui-marker::before {
+.flexi-webfont-ui-marker::before {
     content: "\f129";
 }
 
-.flexi-ui-marker-s::before {
+.flexi-webfont-ui-marker-s::before {
     content: "\f12a";
 }
 
-.flexi-ui-info::before {
+.flexi-webfont-ui-info::before {
     content: "\f12b";
 }
 
-.flexi-ui-info-circle::before {
+.flexi-webfont-ui-info-circle::before {
     content: "\f12c";
 }
 
-.flexi-ui-info-circle-r::before {
+.flexi-webfont-ui-info-circle-r::before {
     content: "\f12d";
 }
 
-.flexi-ui-home::before {
+.flexi-webfont-ui-home::before {
     content: "\f12e";
 }
 
-.flexi-ui-eye::before {
+.flexi-webfont-ui-eye::before {
     content: "\f12f";
 }
 
-.flexi-ui-eye-slash::before {
+.flexi-webfont-ui-eye-slash::before {
     content: "\f130";
 }
 
-.flexi-ui-eye-slash-s::before {
+.flexi-webfont-ui-eye-slash-s::before {
     content: "\f131";
 }
 
-.flexi-ui-eye-s::before {
+.flexi-webfont-ui-eye-s::before {
     content: "\f132";
 }
 
-.flexi-ui-exclamation::before {
+.flexi-webfont-ui-exclamation::before {
     content: "\f133";
 }
 
-.flexi-ui-exclamation-r::before {
+.flexi-webfont-ui-exclamation-r::before {
     content: "\f134";
 }
 
-.flexi-ui-exclamation-circle::before {
+.flexi-webfont-ui-exclamation-circle::before {
     content: "\f135";
 }
 
-.flexi-ui-exclamation-circle-s::before {
+.flexi-webfont-ui-exclamation-circle-s::before {
     content: "\f136";
 }
 
-.flexi-ui-envelope::before {
+.flexi-webfont-ui-envelope::before {
     content: "\f137";
 }
 
-.flexi-ui-download::before {
+.flexi-webfont-ui-download::before {
     content: "\f138";
 }
 
-.flexi-ui-check-r::before {
+.flexi-webfont-ui-check-r::before {
     content: "\f139";
 }
 
-.flexi-ui-check-circle::before {
+.flexi-webfont-ui-check-circle::before {
     content: "\f13a";
 }
 
-.flexi-ui-check-circle-s::before {
+.flexi-webfont-ui-check-circle-s::before {
     content: "\f13b";
 }
 
-.flexi-ui-bell::before {
+.flexi-webfont-ui-bell::before {
     content: "\f13c";
 }
 
-.flexi-ui-arrow-up-r::before {
+.flexi-webfont-ui-arrow-up-r::before {
     content: "\f13d";
 }
 
-.flexi-ui-arrow-right-r::before {
+.flexi-webfont-ui-arrow-right-r::before {
     content: "\f13e";
 }
 
-.flexi-ui-arrow-left-r::before {
+.flexi-webfont-ui-arrow-left-r::before {
     content: "\f13f";
 }
 
-.flexi-ui-arrow-down-r::before {
+.flexi-webfont-ui-arrow-down-r::before {
     content: "\f140";
 }
 

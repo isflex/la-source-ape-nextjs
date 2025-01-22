@@ -6,6 +6,7 @@ import { is, validate } from '../../../services/index.js'
 import { camelCase } from 'lodash'
 import { IconProps } from '../IconProps.js'
 import { IconName } from '../IconNameEnum.js'
+// import { IconName } from '$IconNameEnumCamelCase.js'
 import { IconStatus } from '../IconEnum.js'
 
 // ///////////////////////////////////////////////////////////////////////////

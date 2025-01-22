@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -18,7 +16,7 @@ import { Link as RouterLink } from 'react-router'
  * @param highlighted {boolean} Highlighted link
  * @param onClick {Function} onClick Event
  */
-const NavbarLink = async ({ children, className, to, highlighted, content, onClick, ...others }: NavbarLinkWebProps): Promise<React.JSX.Element> => {
+const NavbarLink = async ({ children, className, to, highlighted, content, onClick, ...others }: NavbarLinkWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('navbar-link', highlighted && is('highlighted'), className)
 
   if (to) {

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -20,7 +18,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param iconClassname {string} Additionnal CSS Classes for icon
  * @param iconName {IconName} Icon Name - sample : IconName.ENVELOPE
  */
-const TimelineItem = async ({ className, classList, iconClassname, iconName, ...others }: TimelineMarkerWebProps): Promise<React.JSX.Element> => {
+const TimelineItem = async ({ className, classList, iconClassname, iconName, ...others }: TimelineMarkerWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames(styles.timelineMarker, styles.isIcon, className, validate(classList))
 
   return (

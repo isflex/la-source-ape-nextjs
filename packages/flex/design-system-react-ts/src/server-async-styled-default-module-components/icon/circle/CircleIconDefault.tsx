@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -15,7 +13,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
 // import { default as styles, type Styles } from '@flex-design-system/framework/main/all.module.scss'
 // ///////////////////////////////////////////////////////////////////////////
 
-const CircleIcon = async ({ className, classList, name, status, size, ...others }: IconProps): Promise<React.JSX.Element> => {
+const CircleIcon = async ({ className, classList, name, status, size, ...others }: IconProps): Promise<React.AwaitedReactNode> => {
   // }: IconProps): React.JSX.Element | React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> => {
   const background = getStatusBackground(status || '', IconStatus.TERTIARY)
   const classes = classNames(

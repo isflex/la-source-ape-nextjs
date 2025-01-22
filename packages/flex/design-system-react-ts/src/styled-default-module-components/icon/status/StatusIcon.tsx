@@ -2,6 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import { IconProps } from '../IconProps.js'
 import { IconName } from '../IconNameEnum.js'
+// import { IconName } from '$IconNameEnumCamelCase.js'
 import { IconStatus } from '../IconEnum.js'
 import { is, has } from '../../../services/index'
 

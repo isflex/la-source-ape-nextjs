@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use server'
 
 import React from 'react'
@@ -11,7 +9,7 @@ import { PricingPlanStickerWebProps } from './PricingPlanStickerProps.js'
  * @param children {ReactNode} Children
  * @param className {string} Additionnal css classes
  */
-const PricingPlanSticker = async ({ className, ...others }: PricingPlanStickerWebProps): Promise<React.JSX.Element> => {
+const PricingPlanSticker = async ({ className, ...others }: PricingPlanStickerWebProps): Promise<React.AwaitedReactNode> => {
   const classes = classNames('plan-sticker', className)
 
   return <div className={classes} {...others} />
