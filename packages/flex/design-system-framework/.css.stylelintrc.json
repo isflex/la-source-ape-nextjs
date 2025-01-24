@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "stylelint-config-standard"
+  ],
+  "rules": {
+    "alpha-value-notation": "number",
+    "no-descending-specificity": null,
+    "no-empty-source": null,
+    "font-family-no-missing-generic-family-keyword": null,
+    "comment-whitespace-inside": null,
+    "at-rule-no-unknown": [true, {
+      "ignoreAtRules": ["function", "if", "else", "each", "for", "include", "extend", "mixin", "content", "return"]
+    }]
+  }
+}

@@ -1,13 +1,17 @@
 @font-face {
     font-family: 'Commissioner';
-    src: url('---URL-REPLACE---/assets/fonts/commissioner-v1.0/static/ttfs/Commissioner-Regular.ttf');
+    src:
+        url('---PATH-REPLACE---/assets/fonts/commissioner-v1.0/static/ttfs/Commissioner-Regular.ttf'),
+        url('---URL-REPLACE---/assets/fonts/commissioner-v1.0/static/ttfs/Commissioner-Regular.ttf');
     font-weight: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: 'Commissioner';
-    src: url('---URL-REPLACE---/assets/fonts/commissioner-v1.0/static/ttfs/Commissioner-Bold.ttf');
+    src:
+        url('---PATH-REPLACE---/assets/fonts/commissioner-v1.0/static/ttfs/Commissioner-Bold.ttf'),
+        url('---URL-REPLACE---/assets/fonts/commissioner-v1.0/static/ttfs/Commissioner-Bold.ttf');
     font-weight: bold;
     font-display: swap;
 }
@@ -17,6 +21,9 @@
     @font-face {
         font-family: 'Commissioner';
         src:
+            url('---PATH-REPLACE---/assets/fonts/commissioner-v1.0/variable/Commissioner_VF_1.001.ttf') format('truetype'),
+            url('---PATH-REPLACE---/assets/fonts/commissioner-v1.0/variable/Commissioner_VF_1.001.ttf') format('truetype supports variations'),
+            url('---PATH-REPLACE---/assets/fonts/commissioner-v1.0/variable/Commissioner_VF_1.001.ttf') format('truetype-variations'),
             url('---URL-REPLACE---/assets/fonts/commissioner-v1.0/variable/Commissioner_VF_1.001.ttf') format('truetype'),
             url('---URL-REPLACE---/assets/fonts/commissioner-v1.0/variable/Commissioner_VF_1.001.ttf') format('truetype supports variations'),
             url('---URL-REPLACE---/assets/fonts/commissioner-v1.0/variable/Commissioner_VF_1.001.ttf') format('truetype-variations');

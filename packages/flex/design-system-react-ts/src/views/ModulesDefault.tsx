@@ -176,6 +176,8 @@ import {
   TypographyTransform,
   VariantState,
 } from '@flex-design-system/react-ts/client-sync-styled-default'
+// } from 'flex_design_system_react_ts_client'
+// } from '../styled-default'
 import { default as styles } from '@flex-design-system/framework'
 
 import './style.css'

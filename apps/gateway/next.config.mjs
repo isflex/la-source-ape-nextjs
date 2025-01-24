@@ -28,7 +28,7 @@ async function getGitCommitSHA() {
   return Promise.resolve(stdout.trim())
 }
 _gitCommitSHA = await getGitCommitSHA()
-console.log(`Git Commit SHA :`, _gitCommitSHA)
+
 async function getBuildId() {
   const result = await execPromise(`git rev-parse --short HEAD`)
   const { stdout, stderr } = result
@@ -36,7 +36,10 @@ async function getBuildId() {
   return Promise.resolve(stdout.trim())
 }
 _buildId = await getBuildId()
-console.log(`Build Id :`, _buildId)
+
+console.log(`Git Commit SHA :`, _gitCommitSHA)
+console.log(`Build Id       :`, _buildId)
+// console.log('process        :', process.cwd())
 
 // https://github.com/vercel/next.js/discussions/21061
 async function getActiveRoutes() {
@@ -112,6 +115,11 @@ const mainConfig = new Config(async (phase, args) => {
       '@flexiness/domain-store'
     ],
 
+    // https://github.com/orgs/marp-team/discussions/499
+    // serverExternalPackages: [
+    //   '@marp-team/marp-cli'
+    // ],
+
     typescript: {
       ignoreBuildErrors: false,
       tsconfigPath: './tsconfig.json'
@@ -179,54 +187,54 @@ const mainConfig = new Config(async (phase, args) => {
             return customIdent
           },
           // exportLocalsConvention: 'asIs',
-          exportLocalsConvention: 'camelCaseOnly',
-          // exportLocalsConvention: 'camelCase',
+          // exportLocalsConvention: 'camelCaseOnly',
+          exportLocalsConvention: 'camelCase',
         }
       }
 
-      const oneOf = config.module.rules.find(
-        (rule) => typeof rule.oneOf === 'object'
-      )
-      if (oneOf) {
-        const moduleSassRule = oneOf.oneOf.find((rule) =>
-          regexEqual(rule.test, /\.module\.(scss|sass)$/)
-        )
-        // console.log('moduleSassRule', moduleSassRule)
-        if (moduleSassRule) {
-          const cssLoader = moduleSassRule.use.find(({ loader }) => {
-            // console.log('loader', loader)
-            return loader.includes('webpack/loaders/css-loader')
-          })
-          if (cssLoader) {
-            // console.log('cssLoader', cssLoader)
-            // console.log('cssLoader options', cssLoader.options)
-            cssLoader.options = {
-              ...cssLoader.options,
-              modules: cssLoaderOptions(cssLoader.options.modules),
-            }
-            // console.log('cssLoader options', cssLoader.options)
-          }
-        }
-      }
-
-      // const rules = config.module.rules
-      //   .find((rule) => typeof rule.oneOf === 'object')
-      //   .oneOf.filter((rule) => Array.isArray(rule.use));
-
-      // rules.forEach((rule) => {
-      //   rule.use.forEach((moduleLoader) => {
-      //     if (
-      //       moduleLoader.loader?.includes('css-loader')
-      //       && !moduleLoader.loader?.includes('postcss-loader')
-      //       && moduleLoader.options.modules
-      //     ) {
-      //       moduleLoader.options = {
-      //         ...moduleLoader.options,
-      //         modules: cssLoaderOptions(moduleLoader.options.modules),
+      // const oneOf = config.module.rules.find(
+      //   (rule) => typeof rule.oneOf === 'object'
+      // )
+      // if (oneOf) {
+      //   const moduleSassRule = oneOf.oneOf.find((rule) =>
+      //     regexEqual(rule.test, /\.module\.(scss|sass)$/)
+      //   )
+      //   // console.log('moduleSassRule', moduleSassRule)
+      //   if (moduleSassRule) {
+      //     const cssLoader = moduleSassRule.use.find(({ loader }) => {
+      //       // console.log('loader', loader)
+      //       return loader.includes('webpack/loaders/css-loader')
+      //     })
+      //     if (cssLoader) {
+      //       // console.log('cssLoader', cssLoader)
+      //       // console.log('cssLoader options', cssLoader.options)
+      //       cssLoader.options = {
+      //         ...cssLoader.options,
+      //         modules: cssLoaderOptions(cssLoader.options.modules),
       //       }
+      //       // console.log('cssLoader options', cssLoader.options)
       //     }
-      //   });
-      // });
+      //   }
+      // }
+
+      const rules = config.module.rules
+        .find((rule) => typeof rule.oneOf === 'object')
+        .oneOf.filter((rule) => Array.isArray(rule.use));
+
+      rules.forEach((rule) => {
+        rule.use.forEach((moduleLoader) => {
+          if (
+            moduleLoader.loader?.includes('css-loader')
+            && !moduleLoader.loader?.includes('postcss-loader')
+            && moduleLoader.options.modules
+          ) {
+            moduleLoader.options = {
+              ...moduleLoader.options,
+              modules: cssLoaderOptions(moduleLoader.options.modules),
+            }
+          }
+        });
+      });
 
       // https://github.com/vercel/next.js/issues/12079
       // Find and remove NextJS css rules.
@@ -238,6 +246,8 @@ const mainConfig = new Config(async (phase, args) => {
 
       return {
         ...config,
+
+        // mode: 'production',
 
         module: {
           ...config.module,

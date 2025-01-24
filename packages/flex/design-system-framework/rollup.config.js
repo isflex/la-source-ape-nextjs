@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import path from 'path'
 import fs from 'fs'
 import scss from 'rollup-plugin-scss'

@@ -1,11 +1,6 @@
 @font-face {
     font-family: 'flexi-ui';
-    src: 
-          url('../../../../../apps/gateway/public/assets/fonts/flexi-ui.woff2') format('woff2'),
-          url('../../../../../apps/gateway/public/assets/fonts/flexi-ui.woff') format('woff'),
-          url('https://main.d3u8f9h1p0qxra.amplifyapp.com/assets/fonts/flexi-ui.woff2') format('woff2'),
-          url('https://main.d3u8f9h1p0qxra.amplifyapp.com/assets/fonts/flexi-ui.woff') format('woff')
-        ;
+    src: url(&#x27;/assets/fonts/flexi-ui.woff2&#x27;) format(&#x27;woff2&#x27;), url(&#x27;/assets/fonts/flexi-ui.woff&#x27;) format(&#x27;woff&#x27;);
     font-style: normal;
     font-weight: normal;
 }

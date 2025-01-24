@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-unused-vars */
 
 const path = require('path')
 const gulp = require('gulp')
@@ -40,10 +41,11 @@ const paths = {
 
 function contentUrlFonts () {
   return gulp.src('src/assets/_fonts.template.scss')
-    // .pipe(replace(/---URL-REPLACE---/g, `${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}`))
-    .pipe(replace(/---URL-REPLACE---/g, '../../../../../../../apps/gateway/public'))
-    // .pipe(replace(/---URL-REPLACE---/g, `${process.env.FLEX_PROJ_ROOT}/apps/gateway/public`))
-    // .pipe(replace(/---URL-REPLACE---/g, `${path.resolve(__dirname, '../../../../../../../apps/gateway/public')}`))
+    .pipe(replace(/---PATH-REPLACE---/g, ''))
+    // .pipe(replace(/---PATH-REPLACE---/g, '../../../../../../../apps/gateway/public'))
+    // .pipe(replace(/---PATH-REPLACE---/g, `${process.env.FLEX_PROJ_ROOT}/apps/gateway/public`))
+    // .pipe(replace(/---PATH-REPLACE---/g, `${path.resolve(__dirname, '../../../../../../../apps/gateway/public')}`))
+    .pipe(replace(/---URL-REPLACE---/g, `${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}`))
     .pipe(rename('_fonts.scss'))
     .pipe(gulp.dest('src/modules3/primatifs/base/'))
 }
@@ -67,6 +69,7 @@ gulp.task('content-fonts', gulp.series(contentUrlFonts, contentUrlMixins, conten
 async function generateWebfont({ name, fileName, source, fontWeight, codepoints, cssTemplate, htmlTemplate, classPrefix, baseSelector }) {
   try {
     const fontName = `${fileName || `flexi-${name}`}`
+    // console.log('process        : ', process.cwd())
     return webfontsGenerator({
       files: await glob(getAbsPath(source)),
       // files: globSync(getAbsPath(source)),
@@ -77,16 +80,22 @@ async function generateWebfont({ name, fileName, source, fontWeight, codepoints,
         baseSelector,
         fontWeight: fontWeight || 'normal',
         // src: `url('${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}/assets/fonts/${fontName}.woff2') format('woff2'), url('${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}/assets/fonts/${fontName}.woff') format('woff')`
-        // src: `url('./assets/fonts/${fontName}.woff2') format('woff2'), url('./assets/fonts/${fontName}.woff') format('woff')`
+        src: `url('/assets/fonts/${fontName}.woff2') format('woff2'), url('/assets/fonts/${fontName}.woff') format('woff')`
         // src: `url('../../../../../apps/gateway/public/assets/fonts/${fontName}.woff2') format('woff2'), url('../../../../../apps/gateway/public/assets/fonts/${fontName}.woff') format('woff')`
         // src: `url('${process.env.FLEX_PROJ_ROOT}/apps/gateway/public/assets/fonts/${fontName}.woff2') format('woff2'), url('${process.env.FLEX_PROJ_ROOT}/apps/gateway/public/assets/fonts/${fontName}.woff') format('woff')`
         // src: `url('${path.resolve(__dirname, `../../../../../apps/gateway/public/assets/fonts/${fontName}.woff2`)}') format('woff2'), url('${path.resolve(__dirname, `../../../../../apps/gateway/public/assets/fonts/${fontName}.woff`)}') format('woff')`
-        src: `
-          url('../../../../../apps/gateway/public/assets/fonts/${fontName}.woff2') format('woff2'),
-          url('../../../../../apps/gateway/public/assets/fonts/${fontName}.woff') format('woff'),
-          url('${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}/assets/fonts/${fontName}.woff2') format('woff2'),
-          url('${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}/assets/fonts/${fontName}.woff') format('woff')
-        `
+
+        // src: `
+        //   url('${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}/assets/fonts/${fontName}.woff2') format('woff2'),
+        //   url('${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}/assets/fonts/${fontName}.woff') format('woff')
+        // `
+
+        // src: `
+        //   url('../../../../../apps/gateway/public/assets/fonts/${fontName}.woff2') format('woff2'),
+        //   url('../../../../../apps/gateway/public/assets/fonts/${fontName}.woff') format('woff'),
+        //   url('${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}/assets/fonts/${fontName}.woff2') format('woff2'),
+        //   url('${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}/assets/fonts/${fontName}.woff') format('woff')
+        // `
       },
       codepoints,
       cssTemplate: getAbsPath(paths.templates.css.default),

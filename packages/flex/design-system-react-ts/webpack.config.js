@@ -56,6 +56,7 @@ const watching = process.env.BUILD_RUNNING !== 'true'
 // const rootLocation = path.relative(__dirname, workspacePath)
 const rootLocation = process.env.FLEX_PROJ_ROOT
 console.log('rootLocation : ', rootLocation)
+// console.log('process      : ', process.cwd())
 console.log('host   :', process.env.FLEX_DESIGN_SYS_REACT_TS_HOST)
 console.log('port   :', process.env.FLEX_DESIGN_SYS_REACT_TS_PORT)
 console.log('mode   :', process.env.FLEX_MODE)
@@ -312,6 +313,9 @@ const getConfig = async (target) => {
         ),
 
         alias: {
+          // '@flex-design-system/react-ts/client-sync-styled-default':
+          //   path.resolve(`${rootLocation}/packages/flex/design-system-react-ts/src/styled-default-module-components`),
+
           // /!\ Aliases are now defined by typescript paths thru TsconfigPathsPlugin
           // react: path.resolve(`${rootLocation}/node_modules/react`),
           // history: path.resolve(`${rootLocation}/node_modules/history`),

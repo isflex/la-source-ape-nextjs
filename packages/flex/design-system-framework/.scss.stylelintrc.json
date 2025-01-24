@@ -1,24 +1,15 @@
 {
   "extends": [
-    "stylelint-config-standard-scss",
-    "stylelint-config-standard"
+    "stylelint-config-standard-scss"
   ],
   "rules": {
-    "indentation": 2,
     "alpha-value-notation": "number",
     "no-descending-specificity": null,
-    "no-extra-semicolons": null,
-    "function-comma-space-after": null,
-    "function-calc-no-invalid": null,
     "no-empty-source": null,
-    "number-leading-zero": null,
     "font-family-no-missing-generic-family-keyword": null,
     "comment-whitespace-inside": null,
     "at-rule-no-unknown": [true, {
       "ignoreAtRules": ["function", "if", "else", "each", "for", "include", "extend", "mixin", "content", "return"]
-    }],
-    "declaration-property-value-blacklist": {
-      "z-index": ["/^[0-9]*$/"]
-    }
+    }]
   }
 }
