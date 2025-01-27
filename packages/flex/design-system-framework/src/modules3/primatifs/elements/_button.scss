@@ -8,27 +8,21 @@
 $button-background-color: variables.$white !default;
 $button-border-width: functions.size(0.2em) !default;
 $button-padding-vertical: calc(0.375em - #{$button-border-width}) !default;
-
 $button-hover-color: variables.$white !default;
 $button-hover-border-color: variables.$link-hover-border !default;
-
 $button-focus-color: variables.$link-focus !default;
 $button-focus-border-color: variables.$link-focus-border !default;
 $button-focus-box-shadow-size: 0 0 0 0.125em !default;
 $button-focus-box-shadow-color: rgba(variables.$link, 0.25) !default;
-
 $button-active-color: variables.$link-active !default;
 $button-active-border-color: variables.$link-active-border !default;
-
 $button-disabled-background-color: variables.$grey-light !default;
 $button-disabled-border-color: variables.$grey-light !default;
 $button-disabled-shadow: none !default;
 $button-disabled-opacity: 1 !default;
-
 $button-static-color: variables.$grey !default;
 $button-static-background-color: variables.$white !default;
 $button-static-border-color: variables.$grey-light !default;
-
 $is-check-button-icon-pos-left: functions.size(0.5em);
 
 .buttons {
@@ -66,9 +60,6 @@ $is-check-button-icon-pos-left: functions.size(0.5em);
 }
 
 .button {
-    @include mixins.control;
-    @include mixins.unselectable;
-
     background-color: var(--flex-button-background-color, #{$button-background-color});
     border-width: $button-border-width;
     border-radius: functions.size(0.4em);
@@ -82,6 +73,9 @@ $is-check-button-icon-pos-left: functions.size(0.5em);
     text-decoration: inherit;
     min-width: functions.size(12em);
     font-weight: variables.$weight-semibold;
+
+    @include mixins.unselectable;
+    @include mixins.control;
 
     @include mixins.mobile {
         width: 100%;
@@ -232,6 +226,7 @@ $is-check-button-icon-pos-left: functions.size(0.5em);
         &.is-#{$name} {
             background-color: var(#{'--flex-'}#{$name}, #{$color});
             border-color: var(#{'--flex-'}#{$name}, #{$color});
+
             // color: var(--flex-color-invert, #{variables.$color-invert});
             color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
 
@@ -323,12 +318,14 @@ $is-check-button-icon-pos-left: functions.size(0.5em);
             &.is-inverted.is-outlined {
                 // border-color: var(--flex-color-invert, #{variables.$color-invert});
                 border-color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+
                 // color: var(--flex-color-invert, #{variables.$color-invert});
                 color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
 
                 &:hover,
                 &.is-hovered {
                     background-color: rgba($color-invert, 0.1);
+
                     // color: var(--flex-color-invert, #{variables.$color-invert});
                     color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
                 }
@@ -342,6 +339,7 @@ $is-check-button-icon-pos-left: functions.size(0.5em);
                 &:active,
                 &.is-active {
                     background-color: rgba($color-invert, 0.2);
+
                     // color: var(--flex-color-invert, #{variables.$color-invert});
                     color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
                 }
@@ -349,8 +347,10 @@ $is-check-button-icon-pos-left: functions.size(0.5em);
                 &[disabled] {
                     opacity: .6;
                     background-color: rgba($color-invert, .2);
+
                     // border-color: var(--flex-color-invert, #{variables.$color-invert});
                     border-color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
+
                     // color: var(--flex-color-invert, #{variables.$color-invert});
                     color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
                 }

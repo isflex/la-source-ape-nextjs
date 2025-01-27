@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'flexi-ui';
-    src: url(&#x27;/assets/fonts/flexi-ui.woff2&#x27;) format(&#x27;woff2&#x27;), url(&#x27;/assets/fonts/flexi-ui.woff&#x27;) format(&#x27;woff&#x27;);
+    src: url('/assets/fonts/flexi-ui.woff2') format('woff2'), url('/assets/fonts/flexi-ui.woff') format('woff');
     font-style: normal;
     font-weight: normal;
 }
 
 .icon [class^="flexi-webfont-ui-"]::before,
 .icon [class*=" flexi-webfont-ui-"]::before {
-    font-family: flexi-ui;
+    font-family: 'flexi-ui';
     font-style: normal;
     font-weight: normal;
     display: inline-block;

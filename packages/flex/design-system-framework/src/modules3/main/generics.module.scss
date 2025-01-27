@@ -7,21 +7,18 @@
 
 $body-background-color: #f8f8f8;
 $body-size: 10px;
-$body-rendering: optimizeLegibility !default;
+$body-rendering: optimizelegibility !default;
 $body-family: variables.$family-flexiness !default;
 $body-color: variables.$text !default;
 $body-weight: variables.$weight-normal !default;
 $body-line-height: 1.5 !default;
-
 $code-family: variables.$family-code !default;
 $code-padding: 0.25em 0.5em 0.25em !default;
 $code-weight: normal !default;
 $code-size: 0.875em !default;
-
 $hr-background-color: color.adjust(variables.$grey-light, $lightness: 8%);
 $hr-height: 2px !default;
 $hr-margin: functions.size(2em) 0;
-
 $strong-color: inherit;
 $strong-weight: variables.$weight-semibold !default;
 
@@ -30,6 +27,7 @@ $strong-weight: variables.$weight-semibold !default;
   font-family: $body-family;
   box-sizing: border-box;
   color: var(--flex-body-color, #{$body-color});
+
   // font-size: size(1em);
   // font-size: $body-size;
   font-weight: $body-weight;
@@ -186,7 +184,7 @@ $strong-weight: variables.$weight-semibold !default;
     text-decoration: none;
 
     strong {
-      color: currentColor;
+      color: currentcolor;
     }
 
     &:hover {
@@ -247,7 +245,7 @@ $strong-weight: variables.$weight-semibold !default;
 
     code {
       background-color: transparent;
-      color: currentColor;
+      color: currentcolor;
       font-size: 1em;
       padding: 0;
     }

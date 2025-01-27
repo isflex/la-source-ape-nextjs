@@ -6,11 +6,8 @@
 @use "../utilities/functions";
 
 $input-hover-color: variables.$tertiary;
-
 $select-lateral-padding: functions.size(1.5em);
-
 $input-arrow: variables.$link;
-
 $input-disabled-color: variables.$grey;
 $input-disabled-border-color: variables.$grey-lighter;
 
@@ -63,13 +60,13 @@ $input-disabled-border-color: variables.$grey-lighter;
     }
 
     select {
-        @include mixins.input;
-
         cursor: pointer;
         display: block;
         font-size: 1em;
         max-width: 100%;
         outline: none;
+
+        @include mixins.input;
 
         &::-ms-expand {
             display: none;
@@ -169,4 +166,3 @@ $input-disabled-border-color: variables.$grey-lighter;
         }
     }
 }
-

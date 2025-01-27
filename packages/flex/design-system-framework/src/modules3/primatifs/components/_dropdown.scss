@@ -9,13 +9,11 @@ $dropdown-content-offset: 4px !default;
 $dropdown-content-radius: variables.$radius !default;
 $dropdown-content-shadow: 0 2px 3px rgba(variables.$black, 0.1), 0 0 0 1px rgba(variables.$black, 0.1) !default;
 $dropdown-content-z: 20 !default;
-
 $dropdown-item-color: variables.$grey-dark !default;
 $dropdown-item-hover-color: variables.$black !default;
 $dropdown-item-hover-background-color: variables.$background !default;
 $dropdown-item-active-color: variables.$link-inverted !default;
 $dropdown-item-active-background-color: variables.$link !default;
-
 $dropdown-divider-background-color: variables.$border !default;
 
 .dropdown {
@@ -56,6 +54,7 @@ $dropdown-divider-background-color: variables.$border !default;
         }
     }
 
+    /* stylelint-disable-next-line selector-class-pattern */
     .react-autosuggest__container {
         width: 100%;
 

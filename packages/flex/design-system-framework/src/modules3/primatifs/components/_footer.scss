@@ -89,6 +89,7 @@ $max-width-large-screen: functions.size(128em);
                     padding: functions.size(4em) 0;
                     background-color: inherit;
                     overflow: hidden;
+
                     // border-top: functions.size(0.1em) solid lighten(variables.$instit, 5%);
                     border-radius: 0;
                     margin-bottom: 0;
@@ -218,7 +219,7 @@ $max-width-large-screen: functions.size(128em);
 
 // Ugly overriding for specific needs. I'm so ashamed, feel free to punish me.
 @include mixins.mobile {
-    .bytelFooter .sub-footer > .is-flex {
+    .bytel-footer .sub-footer > .is-flex {
         padding-bottom: 5em !important;
     }
 }

@@ -5,7 +5,7 @@
     animation: initial-variables.$animation-duration initial-variables.$animation-timing-function;
 }
 
-@keyframes spinAround {
+@keyframes spin-around {
     from {
         transform: rotate(0deg);
     }
@@ -18,9 +18,9 @@
 @keyframes from-right {
     0% {
         transform: scaleX(0);
+        transform-origin: 100% 100%;
     }
 
-    0%,
     100% {
         transform-origin: 100% 100%;
     }
@@ -29,9 +29,9 @@
 @keyframes from-top {
     0% {
         transform: scaleY(0);
+        transform-origin: 0% 0%;
     }
 
-    0%,
     100% {
         transform-origin: 0% 0%;
     }
@@ -46,7 +46,7 @@
 }
 
 // animation for skeletons
-@keyframes placeHolderShimmer {
+@keyframes place-holder-shimmer {
     0% {
         background-position: functions.size(-4.68em) 0;
     }

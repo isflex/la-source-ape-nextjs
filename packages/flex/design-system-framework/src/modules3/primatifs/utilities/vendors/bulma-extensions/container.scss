@@ -1,0 +1,50 @@
+@use "sass:math";
+@use "../../variables" as variables;
+@use "../../mixins" as mixins;
+
+// @use "utilities" as bulvarUtilities
+
+$container-offset: (2 * variables.$gap) !default;
+$container-max-width: variables.$fullhd !default;
+
+.container {
+  flex-grow: 1;
+  margin: 0 auto;
+  position: relative;
+  width: auto;
+
+  &.is-fluid {
+    max-width: none !important;
+    padding-left: variables.$gap;
+    padding-right: variables.$gap;
+    width: 100%;
+  }
+
+  @include mixins.desktop {
+    max-width: variables.$desktop - $container-offset;
+  }
+
+  @include mixins.until-widescreen {
+    &.is-widescreen:not(.is-max-tablet, .is-max-desktop) {
+      max-width: math.min(variables.$widescreen, $container-max-width) - $container-offset;
+    }
+  }
+
+  @include mixins.until-fullhd {
+    &.is-fullhd:not(.is-max-tablet, .is-max-desktop, .is-max-widescreen) {
+      max-width: math.min(variables.$fullhd, $container-max-width) - $container-offset;
+    }
+  }
+
+  @include mixins.widescreen {
+    &:not(.is-max-tablet, .is-max-desktop) {
+      max-width: math.min(variables.$widescreen, $container-max-width) - $container-offset;
+    }
+  }
+
+  @include mixins.fullhd {
+    &:not(.is-max-tablet, .is-max-desktop, .is-max-widescreen) {
+      max-width: math.min(variables.$fullhd, $container-max-width) - $container-offset;
+    }
+  }
+}

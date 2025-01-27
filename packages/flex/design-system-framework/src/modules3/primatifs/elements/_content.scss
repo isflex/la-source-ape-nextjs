@@ -1,3 +1,4 @@
 @use "../utilities/variables" as *;
 @use "../utilities/mixins";
-@use "../utilities/vendors/bulma-extensions/content";
+/* stylelint-disable-next-line scss/load-partial-extension */
+@use "../utilities/vendors/bulma-extensions/content.scss";

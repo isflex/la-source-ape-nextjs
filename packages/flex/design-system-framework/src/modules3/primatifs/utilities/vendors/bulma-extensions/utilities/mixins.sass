@@ -2,6 +2,7 @@
 @use "sass:list"
 @use "sass:meta"
 @use "sass:string"
+@use "sass:map"
 
 @use "../../../variables" as vars
 @use "functions" as fn_sass
@@ -165,10 +166,10 @@
     @content
 
 =breakpoint($name)
-  $breakpoint: map-get(vars.$breakpoints, $name)
+  $breakpoint: map.get(vars.$breakpoints, $name)
   @if $breakpoint
-    $from: map-get($breakpoint, "from")
-    $until: map-get($breakpoint, "until")
+    $from: map.get($breakpoint, "from")
+    $until: map.get($breakpoint, "until")
     @if $from and $until
       +between($from, $until)
         @content
@@ -408,3 +409,25 @@
 
     #{$new-list}
       +registerCSSVars($map, vars.$at-root)
+
+=control-sizes($variable-name: null, $has-normal: false)
+  @if $variable-name
+    &.is-small
+      --#{$variable-name}: var(--size-small)
+    @if $has-normal
+      &.is-normal
+        --#{$variable-name}: var(--size-normal)
+    &.is-medium
+      --#{$variable-name}: var(--size-medium)
+    &.is-large
+      --#{$variable-name}: var(--size-large)
+  @else
+    &.is-small
+      +control-small
+    @if $has-normal
+      &.is-normal
+        +control-normal
+    &.is-medium
+      +control-medium
+    &.is-large
+      +control-large

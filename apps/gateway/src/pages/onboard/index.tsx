@@ -37,7 +37,14 @@ import { getStores } from '@flexiness/domain-store'
 // let i18n: FlexI18next
 
 // import classNames from 'classnames'
-import { Text, Title, View, flexStyles } from '@flex-design-system/react-ts/client-sync-styled-default'
+import {
+  Text,
+  // Title,
+  // View,
+  // flexStyles,
+} from '@flex-design-system/react-ts/client-sync-styled-default'
+// import { default as flexStyles } from '@flex-design-system/framework'
+import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
 const stores = getStores()
 

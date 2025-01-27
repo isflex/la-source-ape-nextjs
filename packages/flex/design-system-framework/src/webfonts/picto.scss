@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'flexi-picto';
-    src: url(&#x27;/assets/fonts/flexi-picto.woff2&#x27;) format(&#x27;woff2&#x27;), url(&#x27;/assets/fonts/flexi-picto.woff&#x27;) format(&#x27;woff&#x27;);
+    src: url('/assets/fonts/flexi-picto.woff2') format('woff2'), url('/assets/fonts/flexi-picto.woff') format('woff');
     font-style: normal;
     font-weight: normal;
 }
 
 .icon [class^="flexi-webfont-picto-"]::before,
 .icon [class*=" flexi-webfont-picto-"]::before {
-    font-family: flexi-picto;
+    font-family: 'flexi-picto';
     font-style: normal;
     font-weight: normal;
     display: inline-block;

@@ -1,7 +1,7 @@
 @use "../primatifs/utilities/variables";
 
 // Map Local variables
-$_css-vars-map-light: (
+$css-vars-map-light: (
   'flex-primary': variables.$primary,
   'flex-secondary': variables.$secondary,
   'flex-tertiary': variables.$tertiary,
@@ -85,9 +85,12 @@ $_css-vars-map-light: (
 
   // 'flex-background': variables.$grey-light,
   // 'flex-border-hover': variables.$grey-light,
-);
 
-$_css-vars-map-dark: (
+  'scheme-main': variables.$scheme-main,
+  'scheme-main-bis': variables.$scheme-main-bis,
+  'scheme-main-ter': variables.$scheme-main-ter,
+);
+$css-vars-map-dark: (
   'flex-primary': variables.$primary,
   'flex-secondary': variables.$secondary,
   'flex-tertiary': variables.$tertiary,
@@ -171,19 +174,24 @@ $_css-vars-map-dark: (
 
   // 'flex-background': variables.$grey-light,
   // 'flex-border-hover': variables.$grey-light,
-);
 
-$_vars-inherited-bulvar: (
+  'scheme-main': variables.$scheme-invert,
+  'scheme-main-bis': variables.$scheme-invert-bis,
+  'scheme-main-ter': variables.$scheme-invert-ter,
+);
+$vars-inherited-bulvar: (
   'section-padding': 3rem 1.5rem,
+  'section-padding-desktop': 3rem 3rem,
   'section-padding-medium': 9rem 4.5rem,
   'section-padding-large': 18rem 6rem,
 
   'table-color': var(--flex-grey-darker),
-  'table-cell-border-width': 0 0 1px,
+  'table-background-color': var(--scheme-main),
   'table-cell-border': 1px solid var(--flex-border),
+  'table-cell-border-width': 0 0 1px,
+  'table-cell-padding': 0.5em 0.75em,
   'table-cell-heading-color': var(--flex-grey-darker),
   'table-cell-text-align': left,
-  'table-cell-padding': 0.5em 0.75em,
   'table-head-cell-border-width': 0 0 2px,
   'table-head-cell-color': var(--flex-grey-darker),
   'table-foot-cell-border-width': 2px 0 0,
@@ -191,11 +199,11 @@ $_vars-inherited-bulvar: (
   'table-head-background-color': transparent,
   'table-body-background-color': transparent,
   'table-foot-background-color': transparent,
-  'table-row-hover-background-color': variables.$white-bis,
+  'table-row-hover-background-color': var(--scheme-main-bis),
   'table-row-active-background-color': var(--flex-primary),
   'table-row-active-color': var(--flex-primary-invert),
-  'table-striped-row-even-background-color': variables.$white-bis,
-  'table-striped-row-even-hover-background-color': variables.$white-ter,
+  'table-striped-row-even-background-color': var(--scheme-main-bis),
+  'table-striped-row-even-hover-background-color': var(--scheme-main-ter),
 
   'number-background': variables.$background,
   'number-radius-rounded': variables.$radius-rounded,
@@ -232,12 +240,56 @@ $_vars-inherited-bulvar: (
   'pagination-current-background-color': var(--flex-link),
   'pagination-current-border-color': var(--flex-link),
   'pagination-ellipsis-color': var(--flex-grey-light),
-  'pagination-shadow-inset': inset 0 1px 2px rgba(0, 0, 0, 0.2),
+  'pagination-shadow-inset': inset 0 1px 2px rgb(0 0 0 / 0.2),
 
   'tile-spacing': 0.75rem,
+
+  'content-heading-color': variables.$text-strong,
+  'content-heading-weight': variables.$weight-semibold,
+  'content-heading-line-height': 1.125,
+  'content-block-margin-bottom': 1em,
+  'content-blockquote-background-color': variables.$background,
+  'content-blockquote-border-left': 5px solid var(--flex-border),
+  'content-blockquote-padding': 1.25em 1.5em,
+  'content-pre-padding': 1.25em 1.5em,
+  'content-table-cell-border': 1px solid var(--flex-border),
+  'content-table-cell-border-width': 0 0 1px,
+  'content-table-cell-padding': 0.5em 0.75em,
+  'content-table-cell-heading-color': variables.$text-strong,
+  'content-table-head-cell-border-width': 0 0 2px,
+  'content-table-head-cell-color': variables.$text-strong,
+  'content-table-body-last-row-cell-border-bottom-width': 0,
+  'content-table-foot-cell-border-width': 2px 0 0,
+  'content-table-foot-cell-color': variables.$text-strong,
+
+  'panel-font-size': variables.$size-normal,
+  'panel-margin': variables.$block-spacing,
+  'panel-item-border': 1px solid variables.$border,
+  'panel-radius': variables.$radius-large,
+  'panel-shadow': variables.$shadow,
+
+  'panel-heading-background-color': variables.$border,
+  'panel-heading-color': variables.$text-strong,
+  'panel-heading-line-height': 1.25,
+  'panel-heading-padding': 0.75em 1em,
+  'panel-heading-radius': variables.$radius,
+  'panel-heading-size': 1.25em,
+  'panel-heading-weight': variables.$weight-bold,
+  'panel-tabs-font-size': 0.875em,
+  'panel-tab-border-bottom': 1px solid variables.$border,
+  'panel-tab-active-border-bottom-color': variables.$link-active-border,
+  'panel-tab-active-color': variables.$link-active,
+  'panel-list-item-color': variables.$text,
+  'panel-list-item-hover-color': variables.$link,
+  'panel-block-color': variables.$text-strong,
+  'panel-block-hover-background-color': variables.$background,
+  'panel-block-active-border-left-color': variables.$link,
+  'panel-block-active-color': variables.$link-active,
+  'panel-block-active-icon-color': variables.$link,
+  'panel-icon-color': variables.$text-light,
 );
 
-@mixin registerCSSVar($name, $value, $at-root: true) {
+@mixin register-css-var($name, $value, $at-root: true) {
   @if $at-root {
     // @at-root :root {
     //   --#{$name}: #{$value};
@@ -245,14 +297,12 @@ $_vars-inherited-bulvar: (
     @at-root .flexiness-root {
       --#{$name}: #{$value};
     }
-  }
-
-  @else {
+  } @else {
     --#{$name}: #{$value};
   }
 }
 
-@mixin registerCSSVars($list, $at-root: true) {
+@mixin register-css-vars($list, $at-root: true) {
   @if $at-root {
     // @at-root :root {
     //   @each $name, $value in $list {
@@ -264,26 +314,24 @@ $_vars-inherited-bulvar: (
         --#{$name}: #{$value};
       }
     }
-  }
-  @else {
+  } @else {
     @each $name, $value in $list {
       --#{$name}: #{$value};
     }
   }
 }
 
-.flexiness-root[data-flex-theme=light] {
-  @include registerCSSVars($_css-vars-map-light, $at-root: false);
+.flexiness-root[data-flex-theme="light"] {
+  @include register-css-vars($css-vars-map-light, $at-root: false);
 }
 
-.flexiness-root[data-flex-theme=dark] {
-  @include registerCSSVars($_css-vars-map-dark, $at-root: false);
+.flexiness-root[data-flex-theme="dark"] {
+  @include register-css-vars($css-vars-map-dark, $at-root: false);
 }
 
-@include registerCSSVar('flex-font-family', variables.$family-flexiness, $at-root: true);
-@include registerCSSVar('flex-radius-rounded', variables.$radius-rounded, $at-root: true);
-@include registerCSSVars($_vars-inherited-bulvar, $at-root: true);
-
-@include registerCSSVar('flex-box-padding-mobile', variables.$box-padding-mobile, $at-root: true);
-@include registerCSSVar('flex-box-padding', variables.$box-padding, $at-root: true);
-@include registerCSSVar('flex-column-gap', variables.$column-gap, $at-root: true);
+@include register-css-var('flex-font-family', variables.$family-flexiness, $at-root: true);
+@include register-css-var('flex-radius-rounded', variables.$radius-rounded, $at-root: true);
+@include register-css-vars($vars-inherited-bulvar, $at-root: true);
+@include register-css-var('flex-box-padding-mobile', variables.$box-padding-mobile, $at-root: true);
+@include register-css-var('flex-box-padding', variables.$box-padding, $at-root: true);
+@include register-css-var('flex-column-gap', variables.$column-gap, $at-root: true);

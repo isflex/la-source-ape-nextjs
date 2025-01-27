@@ -2,7 +2,6 @@
 
 import React from 'react'
 import dynamic from 'next/dynamic'
-import classNames from 'classnames'
 import { observer } from 'mobx-react-lite'
 import { getStores } from '@flexiness/domain-store'
 import Sticky from 'react-sticky-el'
@@ -11,11 +10,11 @@ import {
   PageAppProps,
 } from '@root/types/additional'
 
-import {
-  // flexStyles,
-  Text,
-} from '@flex-design-system/react-ts/client-sync-styled-default'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+// import classNames from 'classnames'
+// import {
+//   Text,
+// } from '@flex-design-system/react-ts/client-sync-styled-default'
+// import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/sticky.module.scss'
 
 const stores = getStores()

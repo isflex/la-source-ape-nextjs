@@ -9,16 +9,14 @@ $table-cell-padding-x: functions.size(2em);
 $table-cell-padding-y: functions.size(2em);
 $table-cell-padding: $table-cell-padding-y $table-cell-padding-x;
 $table-head-fill: variables.$grey-lighter;
-
 $table-cell-color: variables.$text;
 $table-cell-border: functions.size(0.1em) solid var(--flex-border-grey-light, #{variables.$border-grey-light});
 $table-cell-border-width: 0 0 0;
 $table-head-cell-border-width: 0 0 functions.size(0.1em);
-
 $subtable-fill: variables.$grey-lighter;
 
-// @use "@bulvar/bulma/sass/elements/table";
-@use "../utilities/vendors/bulma-extensions/table";
+/* stylelint-disable-next-line scss/load-partial-extension */
+@use "../utilities/vendors/bulma-extensions/table.scss";
 
 /**
 * @deprecated "Use box.is-paddingless instead"
@@ -106,7 +104,7 @@ $subtable-fill: variables.$grey-lighter;
     &.is-compact {
         td,
         th {
-            padding: calc($table-cell-padding-x / 3) calc($table-cell-padding-x / 3);
+            padding: calc($table-cell-padding-x / 3);
         }
     }
 
@@ -141,7 +139,7 @@ $subtable-fill: variables.$grey-lighter;
         border-radius: variables.$radius;
         padding: variables.$box-padding * 2;
 
-        @include mixins.mobile() {
+        @include mixins.mobile {
             padding: functions.size(1.5em);
         }
 

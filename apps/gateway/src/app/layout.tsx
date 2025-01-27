@@ -3,7 +3,6 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { headers } from 'next/headers'
-import localFont from 'next/font/local'
 import type { Metadata } from 'next'
 import Script from 'next/script'
 
@@ -20,7 +19,6 @@ import {
   View as FlexRootView,
 } from '@src/components/flex-server-components'
 // import {
-//   flexStyles,
 //  } from '@flex-design-system/react-ts/client-sync-styled-default'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { inlineStyles } from '@src/styles/inlineStyles'
@@ -30,20 +28,32 @@ import { inlineStyles } from '@src/styles/inlineStyles'
 const remoteOnBoardClient = process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST
 // const remoteContentClient = process.env.NEXT_PUBLIC_FLEX_CONTENT_REMOTE_HOST
 
-const commissioner = localFont({
-  src: [
-    {
-      path: '../../public/assets/fonts/commissioner-v1.0/static/ttfs/Commissioner-Regular.ttf',
-      style: 'normal'
-    },
-    {
-      path: '../../public/assets/fonts/commissioner-v1.0/static/ttfs/Commissioner-Bold.ttf',
-      style: 'bold'
-    },
-  ],
-  display: 'swap',
-  preload: true,
-})
+// import localFont from 'next/font/local'
+// const commissioner = localFont({
+//   src: [
+//     {
+//       path: '../../public/assets/fonts/commissioner-v1.0/static/ttfs/Commissioner-Regular.ttf',
+//       style: 'normal'
+//     },
+//     {
+//       path: '../../public/assets/fonts/commissioner-v1.0/static/ttfs/Commissioner-Bold.ttf',
+//       style: 'bold'
+//     },
+//   ],
+//   display: 'swap',
+//   preload: true,
+// })
+// const commissioner = localFont({
+//   src: '../../public/assets/fonts/commissioner-v1.0/variable/Commissioner_VF_1.001.ttf',
+//   display: 'swap',
+//   preload: true,
+// })
+
+// import { Commissioner } from 'next/font/google'
+// const commissioner = Commissioner({
+//   subsets: ['latin'],
+//   display: 'swap',
+// })
 
 export const metadata: Metadata = {
   title: 'APE | La Source',
@@ -203,7 +213,7 @@ const RootLayout = async ({
       <body style={{ ...inlineStyles.reset }}>
         {/* <StoreProvider> */}
           <AuthProvider>
-            <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped)} theme='light'>
+            <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped )} theme='light'>
               {/* <NavBarAuth isSignedIn={await isAuthenticated()} /> */}
               <Layout>
                 {children}

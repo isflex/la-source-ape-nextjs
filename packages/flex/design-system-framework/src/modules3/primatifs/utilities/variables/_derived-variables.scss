@@ -6,7 +6,6 @@ $primary: initial-variables.$sunset !default;
 $secondary: initial-variables.$spray !default;
 $tertiary: initial-variables.$arapawa !default;
 $quaternary: initial-variables.$green !default;
-
 $instit: initial-variables.$blue !default;
 $fibre: initial-variables.$cobalt !default;
 $customer: initial-variables.$green !default;
@@ -20,7 +19,6 @@ $admin: initial-variables.$grey-dark !default;
 $debug: #ed6638bf !default;
 $gateway-tertiary-light: #32325d !default;
 $gateway-tertiary-dark: #172b4d !default;
-
 $flex-pink: initial-variables.$pink !default;
 $flex-purple: initial-variables.$purple !default;
 $flex-green: initial-variables.$green !default;
@@ -33,7 +31,6 @@ $green-invert: initial-variables.$white !default;
 $cobalt-invert: initial-variables.$white !default;
 $purple-invert: initial-variables.$white !default;
 $orange-invert: initial-variables.$white !default;
-
 $info-invert: initial-variables.$white !default;
 $success-invert: initial-variables.$white !default;
 $warning-invert: initial-variables.$white !default;
@@ -44,17 +41,14 @@ $admin-invert: initial-variables.$white !default;
 $debug-invert: initial-variables.$orange !default;
 $gateway-tertiary-light-invert: $info-darken !default;
 $gateway-tertiary-dark-invert: $info-lighten !default;
-
 $primary-invert: $pink-invert !default;
 $secondary-invert: $blue-invert !default;
 $tertiary-invert: $cobalt-invert !default;
 $quaternary-invert: $green-invert !default;
-
 $flex-pink-invert: $pink-invert !default;
 $flex-purple-invert: $purple-invert !default;
 $flex-green-invert: $green-invert !default;
 $flex-orange-invert: $orange-invert !default;
-
 $hero-invert: initial-variables.$white !default;
 $color-invert: initial-variables.$white !default;
 
@@ -72,7 +66,6 @@ $text-strong: $tertiary !default;
 // Code colors
 $code: initial-variables.$red !default;
 $code-background: $background !default;
-
 $pre: $text !default;
 $pre-background: $background !default;
 
@@ -80,25 +73,29 @@ $pre-background: $background !default;
 $link: $secondary !default;
 $link-inverted: initial-variables.$white !default;
 $link-visited: $secondary !default;
-
 $link-hover: $secondary !default;
 $link-hover-inverted: initial-variables.$white  !default;
 $link-hover-border: $secondary !default;
-
 $link-focus: $secondary !default;
 $link-focus-border: initial-variables.$blue !default;
-
 $link-active: $secondary !default;
 $link-active-border: $secondary !default;
+
+// Scheme colors
+$scheme-main: initial-variables.$white !default;
+$scheme-main-bis: initial-variables.$white-bis !default;
+$scheme-main-ter: initial-variables.$white-ter !default;
+$scheme-invert: initial-variables.$black !default;
+$scheme-invert-bis: initial-variables.$black-bis !default;
+$scheme-invert-ter: initial-variables.$black-ter !default;
 
 // Typography
 $family-primary: initial-variables.$family-sans-serif !default;
 $family-secondary: initial-variables.$family-serif !default;
 $family-code: initial-variables.$family-monospace !default;
-
-$text-8:  functions.size(0.8em) !default;
-$text-9:  functions.size(0.9em) !default;
-$text-10:   functions.size(1em) !default;
+$text-8: functions.size(0.8em) !default;
+$text-9: functions.size(0.9em) !default;
+$text-10: functions.size(1em) !default;
 $text-11: functions.size(1.1em) !default;
 $text-12: functions.size(1.2em) !default;
 $text-13: functions.size(1.3em) !default;
@@ -107,21 +104,20 @@ $text-15: functions.size(1.5em) !default;
 $text-16: functions.size(1.6em) !default;
 $text-17: functions.size(1.7em) !default;
 $text-18: functions.size(1.8em) !default;
-$text-20:   functions.size(2em) !default;
+$text-20: functions.size(2em) !default;
 $text-24: functions.size(2.4em) !default;
 $text-26: functions.size(2.6em) !default;
 $text-28: functions.size(2.8em) !default;
 $text-32: functions.size(3.2em) !default;
 $text-36: functions.size(3.6em) !default;
 $text-38: functions.size(3.8em) !default;
-$text-40:   functions.size(4em) !default;
+$text-40: functions.size(4em) !default;
 $text-44: functions.size(4.4em) !default;
 $text-48: functions.size(4.8em) !default;
-$text-50:   functions.size(5em) !default;
+$text-50: functions.size(5em) !default;
 $text-54: functions.size(5.4em) !default;
-$text-60:   functions.size(6em) !default;
-$text-80:   functions.size(8em) !default;
-
+$text-60: functions.size(6em) !default;
+$text-80: functions.size(8em) !default;
 $size-1: $text-32;
 $size-2: $text-28;
 $size-3: $text-24;
@@ -130,7 +126,6 @@ $size-5: $text-18;
 $size-6: functions.size(1.4999em) !default;
 $size-7: $text-15;
 $size-8: $text-11;
-
 $size-1-desktop: $text-48;
 $size-2-desktop: $text-38;
 $size-3-desktop: $text-28;
@@ -139,7 +134,6 @@ $size-5-desktop: $text-18;
 $size-6-desktop: functions.size(1.4999em) !default;
 $size-7-desktop: $text-15;
 $size-8-desktop: $text-11;
-
 $size-small: $text-13 !default;
 $size-normal: $text-15 !default;
 $size-medium: $text-16 !default;
@@ -175,7 +169,6 @@ $colors: (
     "flex-green": ($flex-green, $flex-green-invert),
     "flex-orange": ($flex-orange, $flex-orange-invert),
 );
-
 $shades: (
     "grey-dark": initial-variables.$grey-dark,
     "grey": initial-variables.$grey,
@@ -190,13 +183,11 @@ $colors-brand: (
     "tertiary": ($tertiary, $tertiary-invert),
     "quaternary": ($quaternary, $quaternary-invert),
 );
-
 $colors-feedback: (
     "success": ($success, $success-invert),
     "danger": ($danger, $danger-invert),
     "warning": ($warning, $warning-invert)
 );
-
 $sizes: $size-1 $size-2 $size-3 $size-4 $size-5 $size-6 $size-7 $size-8;
 $sizes-desktop: $size-1-desktop $size-2-desktop $size-3-desktop $size-4-desktop $size-5-desktop $size-6-desktop $size-7-desktop $size-8-desktop;
 $sizes-fluid: (
@@ -209,10 +200,8 @@ $sizes-fluid: (
     ($size-7, $size-7-desktop),
     ($size-8, $size-8-desktop)
 );
-
-$shadow: 0 functions.size(0.2em) functions.size(0.4em) 0 rgba(0, 0, 0, 0.1);
-$focus-shadow: 0 functions.size(0.1em) functions.size(0.3em) 0 rgba(69, 69, 69, 0.15), 0 functions.size(0.2em) functions.size(2em) functions.size(-0.3em) rgba(69, 69, 69, 0.3);
-
+$shadow: 0 functions.size(0.2em) functions.size(0.4em) 0 rgb(0 0 0 / 0.1);
+$focus-shadow: 0 functions.size(0.1em) functions.size(0.3em) 0 rgb(69 69 69 / 0.15), 0 functions.size(0.2em) functions.size(2em) functions.size(-0.3em) rgb(69 69 69 / 0.3);
 $box-padding-mobile: functions.size(1.5em) !default;
 $box-padding: functions.size(1.25em) !default;
 $column-gap: functions.size(1em) !default;
@@ -221,17 +210,13 @@ $column-gap: functions.size(1em) !default;
 
 $input-color: $tertiary !default;
 $input-hover-color: $tertiary !default;
-
 $input-border-color: rgba($tertiary, 0.4) !default;
 $input-hover-border-color: $tertiary !default;
-
 $input-fill: initial-variables.$grey-lighter !default;
-
 $input-icon-color: initial-variables.$grey-light !default;
 $input-icon-active-color: initial-variables.$grey !default;
 $input-icon-width: functions.size(4.5em) !default;
 $input-lateral-padding: functions.size(1.5em) !default;
-
 $input-disabled-color: initial-variables.$grey !default;
 $input-disabled-background-color: initial-variables.$grey-lighter !default;
 $input-disabled-border-color: initial-variables.$grey-lighter !default;

@@ -3,13 +3,15 @@
     "stylelint-config-standard-scss"
   ],
   "rules": {
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": [true, {
+      "ignoreAtRules": ["function", "if", "else", "each", "for", "content", "return"]
+    }],
+    "font-family-name-quotes": "always-unless-keyword",
     "alpha-value-notation": "number",
     "no-descending-specificity": null,
     "no-empty-source": null,
     "font-family-no-missing-generic-family-keyword": null,
-    "comment-whitespace-inside": null,
-    "at-rule-no-unknown": [true, {
-      "ignoreAtRules": ["function", "if", "else", "each", "for", "include", "extend", "mixin", "content", "return"]
-    }]
+    "comment-whitespace-inside": null
   }
 }

@@ -1,0 +1,29 @@
+@use "../../variables" as variables;
+@use "../../mixins" as mixins;
+
+$section-padding: 3rem 1.5rem !default;
+$section-padding-desktop: 3rem 3rem !default;
+$section-padding-medium: 9rem 4.5rem !default;
+$section-padding-large: 18rem 6rem !default;
+
+.section {
+  padding: var(--section-padding, #{$section-padding});
+
+  // Responsiveness
+  @include mixins.desktop {
+    padding: var(--section-padding-desktop, #{$section-padding-desktop});
+
+    // Sizes
+    &.is-medium {
+      padding: var(--section-padding-medium, #{$section-padding-medium});
+    }
+
+    &.is-large {
+      padding: var(--section-padding-large, #{$section-padding-large});
+    }
+  }
+
+  &.is-fullheight {
+    min-height: 100vh;
+  }
+}

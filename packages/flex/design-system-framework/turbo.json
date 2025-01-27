@@ -5,14 +5,14 @@
     "build:fonts": {
       "inputs": [
         "$TURBO_DEFAULT$",
-        "!src/modules3/**/*.scss"
+        "!src/modules3/**/*.scss",
+        "src/assets/icon/ui/*.svg",
+        "src/assets/icon/picto/*.svg",
+        "src/assets/icon/illustrations/*.svg"
       ],
       "outputs": [
-        "src/modules3/primatifs/base/**",
-        "src/modules3/primatifs/utilities/mixins/**",
-        "src/modules3/primatifs/components/**",
         "src/assets/fonts/**",
-        "../domain-content/content/assets/fonts/**"
+        "../../../apps/gateway/public/assets/fonts/**"
       ],
       "env": [
         "FLEX_*",
@@ -21,16 +21,38 @@
       "cache": true,
       "persistent": false
     },
-    "build:types:modules3:default": {
+    "build:content:scss": {
       "inputs": [
         "$TURBO_DEFAULT$",
-        "!src/assets/*.template.scss",
+        "!src/modules3/**/*.scss",
+        "src/assets/*.template.scss"
+      ],
+      "outputs": [
+        "src/modules3/primatifs/base/_fonts.scss",
+        "src/modules3/primatifs/utilities/mixins/generated/*.scss",
+        "src/modules3/primatifs/components/_radial-progress-bar.scss"
+      ],
+      "env": [
+        "FLEX_*",
+        "GIT_*"
+      ],
+      "cache": true,
+      "persistent": false
+    },
+    "build:types:scss": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
         "!src/assets/icon/ui/*.svg",
         "!src/assets/icon/picto/*.svg",
-        "!src/assets/icon/illustrations/*.svg"
+        "!src/assets/icon/illustrations/*.svg",
+        "!src/assets/*.template.scss",
+        "src/modules3/**/*.scss"
       ],
       "outputs": [
         "types/__generated__/default/**"
+      ],
+      "dependsOn": [
+        "lint:scss"
       ],
       "env": [
         "FLEX_*",
@@ -43,6 +65,14 @@
       "dependsOn": [
         "//#compile:clean:sh"
       ],
+      "env": [
+        "FLEX_*",
+        "GIT_*"
+      ],
+      "cache": true,
+      "persistent": false
+    },
+    "lint:scss": {
       "cache": true,
       "persistent": false
     }

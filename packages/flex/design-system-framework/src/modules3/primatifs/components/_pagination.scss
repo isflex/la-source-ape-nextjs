@@ -7,8 +7,8 @@ $pagination-active-color: variables.$blue;
 $pagination-active-border-color: variables.$blue;
 $pagination-border-color: variables.$transparent;
 
-// @use "@bulvar/bulma/sass/components/pagination";
-@use "../utilities/vendors/bulma-extensions/pagination";
+/* stylelint-disable-next-line scss/load-partial-extension */
+@use "../utilities/vendors/bulma-extensions/pagination.scss";
 
 .pagination {
     justify-content: center;

@@ -19,9 +19,7 @@ import AuthProvider from '@src/components/auth/AuthProvider'
 import classNames from 'classnames'
 import {
   View as FlexRootView,
-  // flexStyles,
  } from '@flex-design-system/react-ts/client-sync-styled-default'
-// import { default as flexStyles } from '@flex-design-system/framework'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import '@aws-amplify/ui-react/styles.css'
 

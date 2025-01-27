@@ -5,25 +5,20 @@
 @use "../utilities/functions";
 
 $icon-dimensions-default: functions.size(1.5em) !default;
-
 $icon-dimensions-small: functions.size(2em) !default;
 $icon-container-small: functions.size(3em) !default;
-
 $icon-dimensions-medium: functions.size(3.2em) !default;
 $icon-container-medium: functions.size(4.8em) !default;
-
 $icon-dimensions-large: functions.size(4.4em) !default;
 $icon-dimensions-large-desktop: functions.size(6.6em) !default;
 $icon-container-large: functions.size(6.6em) !default;
-
 $icon-dimensions-huge: functions.size(6.6em) !default;
 $icon-container-huge: functions.size(9.9em) !default;
-
 $icon-stretching-level: 16deg !default;
 $icon-stretching-height: inherit;
 
 [class*="flexi-"] {
-    @include mixins.apply-colors();
+    @include mixins.apply-colors;
 }
 
 button.icon {
@@ -177,11 +172,11 @@ button.icon {
         line-height: functions.size(0.5em) !important;
         position: relative;
 
-        .flexi-notification_top {
+        .flexi-notification-top {
             font-size: 85%;
         }
 
-        .flexi-notification_bottom {
+        .flexi-notification-bottom {
             font-size: 0.125em;
             width: 100%;
             margin-top: functions.size(0.1em);
@@ -193,7 +188,8 @@ button.icon {
     }
 
     &.is-animated {
-        .flexi-notification_top {
+        .flexi-notification-top {
+            animation: none;
             animation-name: bellring;
             animation-duration: 6s;
             animation-iteration-count: infinite;
@@ -201,8 +197,6 @@ button.icon {
             animation-delay: -2s;
             animation-direction: backwards;
             transform-origin: center top;
-            -moz-animation: none;
-            -moz-transform-origin: center top;
 
             @keyframes bellring {
                 0% {
@@ -243,7 +237,8 @@ button.icon {
             }
         }
 
-        .flexi-notification_bottom {
+        .flexi-notification-bottom {
+            animation: none;
             animation-name: bellbounce !important;
             animation-duration: 6s;
             animation-iteration-count: infinite;
@@ -251,7 +246,6 @@ button.icon {
             animation-delay: -2s;
             animation-direction: normal;
             transform-origin: center top;
-            -moz-animation: none;
 
             @keyframes bellbounce {
                 0% {
@@ -378,11 +372,11 @@ button.icon {
         padding: functions.size(0.5em);
 
         > .icon {
-            margin: 0 0 0.5em 0;
+            margin: 0 0 0.5em;
         }
 
         > span + .icon {
-            margin: 0.5em 0 0 0;
+            margin: 0.5em 0 0;
         }
     }
 
@@ -392,11 +386,11 @@ button.icon {
             padding: functions.size(0.5em);
 
             > .icon {
-                margin: 0 0 0.5em 0;
+                margin: 0 0 0.5em;
             }
 
             > span + .icon {
-                margin: 0.5em 0 0 0;
+                margin: 0.5em 0 0;
             }
         }
     }
@@ -407,11 +401,11 @@ button.icon {
             padding: functions.size(0.5em);
 
             > .icon {
-                margin: 0 0 0.5em 0;
+                margin: 0 0 0.5em;
             }
 
             > span + .icon {
-                margin: 0.5em 0 0 0;
+                margin: 0.5em 0 0;
             }
         }
     }
@@ -422,11 +416,11 @@ button.icon {
             padding: functions.size(0.5em);
 
             > .icon {
-                margin: 0 0 0.5em 0;
+                margin: 0 0 0.5em;
             }
 
             > span + .icon {
-                margin: 0.5em 0 0 0;
+                margin: 0.5em 0 0;
             }
         }
     }
@@ -437,47 +431,47 @@ button.icon {
             padding: functions.size(0.5em);
 
             > .icon {
-                margin: 0 0 0.5em 0;
+                margin: 0 0 0.5em;
             }
 
             > span + .icon {
-                margin: 0.5em 0 0 0;
+                margin: 0.5em 0 0;
             }
         }
     }
 }
 
 .flexi-faciliti::before {
-    font-family: flexi-picto !important;
+    font-family: "flexi-picto" !important;
     content: "\f101";
 }
 
 .flexi-handicapzero::before {
-    font-family: flexi-picto !important;
+    font-family: "flexi-picto" !important;
     content: "\f102";
 }
 
 .flexi-la-fibre::before {
-    font-family: flexi-picto !important;
+    font-family: "flexi-picto" !important;
     content: "\f103";
 }
 
 .flexi-payment-cb::before {
-    font-family: flexi-picto !important;
+    font-family: "flexi-picto" !important;
     content: "\f104";
 }
 
 .flexi-payment-mastercard::before {
-    font-family: flexi-picto !important;
+    font-family: "flexi-picto" !important;
     content: "\f105";
 }
 
 .flexi-payment-paypal::before {
-    font-family: flexi-picto !important;
+    font-family: "flexi-picto" !important;
     content: "\f106";
 }
 
 .flexi-payment-visa::before {
-    font-family: flexi-picto !important;
+    font-family: "flexi-picto" !important;
     content: "\f107";
 }

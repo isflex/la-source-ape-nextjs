@@ -9,7 +9,7 @@
         position: absolute;
         top: functions.size(0.5em);
         right: functions.size(0.5em);
-        background-color: rgba(25, 25, 25, 0.5);
+        background-color: rgb(25 25 25 / 0.5);
         padding: functions.size(0.2em) functions.size(0.6em);
         border-radius: 8px;
         font-size: 8px;
@@ -21,11 +21,11 @@
 }
 
 @mixin show-padding {
-    &:not(.hero-body):not(.box) {
+    &:not(.hero-body, .box) {
         background-image: linear-gradient(to bottom, #f3f3f3 0%, #f3f3f3 100%), linear-gradient(to bottom, #dadada 0%, #dadada 100%);
     }
 
-    &:not(.hero-body):not(.box):hover {
+    &:not(.hero-body, .box):hover {
         background-image: linear-gradient(to bottom, #f3f3f3 0%, #f3f3f3 100%), linear-gradient(to bottom, #cacaca 0%, #cacaca 100%);
     }
 
@@ -37,11 +37,11 @@
 .is-wireframe *,
 .has-wireframes * {
     &:not(.button) {
-        @include show-padding();
+        @include show-padding;
     }
 
     position: relative;
-    border: 1px dashed rgba(0, 0, 0, 0.5);
+    border: 1px dashed rgb(0 0 0 / 0.5);
     color: var(--flex-grey-dark, #{initial-variables.$grey-dark}) !important;
 }
 

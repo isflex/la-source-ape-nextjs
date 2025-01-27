@@ -6,21 +6,18 @@
 
 $body-background-color: #f8f8f8;
 $body-size: 10px;
-$body-rendering: optimizeLegibility !default;
+$body-rendering: optimizelegibility !default;
 $body-family: variables.$family-primary !default;
 $body-color: variables.$text !default;
 $body-weight: variables.$weight-normal !default;
 $body-line-height: 1.5 !default;
-
 $code-family: variables.$family-code !default;
 $code-padding: 0.25em 0.5em 0.25em !default;
 $code-weight: normal !default;
 $code-size: 0.875em !default;
-
 $hr-background-color: color.adjust(variables.$grey-light, $lightness: 8%);
 $hr-height: 2px !default;
 $hr-margin: functions.size(2em) 0;
-
 $strong-color: inherit;
 $strong-weight: variables.$weight-semibold !default;
 
@@ -67,8 +64,7 @@ body {
     font-weight: $body-weight;
     line-height: $body-line-height;
     font-size: variables.$size-6;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: hidden scroll;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -121,7 +117,7 @@ a {
     text-decoration: underline;
 
     strong {
-        color: currentColor;
+        color: currentcolor;
     }
 
     &:hover {
@@ -190,7 +186,7 @@ pre {
 
     code {
         background-color: transparent;
-        color: currentColor;
+        color: currentcolor;
         font-size: 1em;
         padding: 0;
     }

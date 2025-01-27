@@ -6,7 +6,7 @@ import Link from 'next/link'
 import classNames from 'classnames'
 import routesActive from '@root/routes.active.json'
 import routesMeta from '@root/routes.meta.json'
-import { getPageNameClientSide } from '@src/utils'
+import { useGetPageNameClientSide } from '@src/utils'
 
 import {
   // flexStyles,
@@ -16,7 +16,7 @@ import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/navbar.module.scss'
 
 const NavbarApp: React.FC = () => {
-  const pageName = getPageNameClientSide()
+  const pageName = useGetPageNameClientSide()
   return (
     <div className={stylesPage.navBarContainer}>
       {Object.entries(routesMeta)

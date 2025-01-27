@@ -7,6 +7,10 @@ import { camelCase } from 'lodash'
 import { TitleProps } from './TitleProps.js'
 import { TitleLevel, TitleMarkup } from './TitleEnum.js'
 
+// https://github.com/facebook/react/issues/9255#issuecomment-1272289750
+// import { hasComplexChildren } from 'react-children-utilities'
+// import escape from 'lodash/escape.js'
+
 // ///////////////////////////////////////////////////////////////////////////
 // /!\ When typed-scss-modules --exportType default
 import { default as styles, type Styles } from '@flex-design-system/framework'
@@ -65,6 +69,7 @@ const Title = ({
   return (
     <Tag className={classes} {...others}>
       {children}
+      {/* {hasComplexChildren(children) ? children : escape(children as string)} */}
     </Tag>
   )
 }

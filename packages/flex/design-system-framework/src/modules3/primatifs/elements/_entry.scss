@@ -7,12 +7,12 @@
 
 .input,
 .textarea {
-    @include mixins.input;
-
     padding-left: form.$input-lateral-padding;
     padding-right: form.$input-lateral-padding;
     max-width: 100%;
     width: 100%;
+
+    @include mixins.input;
 
     // Colors
     @each $name, $pair in variables.$colors {

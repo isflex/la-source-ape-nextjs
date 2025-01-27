@@ -239,7 +239,6 @@ export type Styles = {
   loader: string;
   menuList: string;
   navbar: string;
-  none: string;
   notification: string;
   number: string;
   options: string;

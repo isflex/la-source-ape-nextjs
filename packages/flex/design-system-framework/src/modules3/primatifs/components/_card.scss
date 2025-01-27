@@ -7,7 +7,6 @@ $card-header-fill: none !default;
 $card-header-color: variables.$text-strong !default;
 $card-header-shadow: 0 1px 2px rgba(variables.$black, 0.1) !default;
 $card-header-weight: variables.$weight-semibold !default;
-
 $card-footer-fill: none !default;
 $card-footer-border-top: 1px solid variables.$border !default;
 
@@ -138,8 +137,7 @@ $card-footer-border-top: 1px solid variables.$border !default;
         text-align: left;
 
         @include mixins.tablet {
-            flex-direction: row;
-            flex-wrap: wrap;
+            flex-flow: row wrap;
 
             &.is-vcentered {
                 align-items: stretch;
@@ -217,10 +215,7 @@ $card-footer-border-top: 1px solid variables.$border !default;
                         border-top-right-radius: 0;
                         border-bottom-left-radius: variables.$radius;
                         position: absolute;
-                        top: 0;
-                        left: 0;
-                        bottom: 0;
-                        right: 0;
+                        inset: 0;
                         background-size: cover;
                         background-repeat: no-repeat;
                         background-position: 50% 50%;
@@ -286,19 +281,13 @@ $card-footer-border-top: 1px solid variables.$border !default;
 
             .image {
                 img {
-                    border-top-left-radius: 0;
-                    border-top-right-radius: 0;
-                    border-bottom-left-radius: variables.$radius;
-                    border-bottom-right-radius: variables.$radius;
+                    border-radius: 0 0 variables.$radius variables.$radius;
                 }
             }
         }
 
         .card-content {
-            border-top-left-radius: variables.$radius;
-            border-top-right-radius: variables.$radius;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
+            border-radius: variables.$radius variables.$radius 0 0;
         }
 
         &.is-horizontal {
@@ -307,19 +296,13 @@ $card-footer-border-top: 1px solid variables.$border !default;
 
                 .image {
                     img {
-                        border-top-left-radius: 0;
-                        border-top-right-radius: variables.$radius;
-                        border-bottom-left-radius: 0;
-                        border-bottom-right-radius: variables.$radius;
+                        border-radius: 0 variables.$radius variables.$radius 0;
                     }
                 }
             }
 
             .card-content {
-                border-top-left-radius: variables.$radius;
-                border-top-right-radius: 0;
-                border-bottom-left-radius: variables.$radius;
-                border-bottom-right-radius: 0;
+                border-radius: variables.$radius 0 0 variables.$radius;
             }
         }
     }

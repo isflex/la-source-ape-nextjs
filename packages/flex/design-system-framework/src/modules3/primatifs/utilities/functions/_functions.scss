@@ -21,7 +21,7 @@ $zindex: (
     tooltip: 9999
 );
 
-/// Remove the unit of a length
+// Remove the unit of a length
 /// @param {Number} $number - Number to remove unit from
 /// @return {Number} - Unitless number
 @function strip-unit($number) {
@@ -30,8 +30,6 @@ $zindex: (
     // @debug "Are $number & 1 compatible: #{math.compatible(($number * 0), 1)}";
 
     @if meta.type-of($number) == 'number' and not math.is-unitless($number) {
-        // FIXME: Why are these not the same ??
-        // @return calc($number / ($number * 0 + 1));
         @return math.div($number, ($number * 0 + 1));
     }
 
@@ -44,20 +42,18 @@ $zindex: (
         @return null;
     }
 
-    @return $input/($input*0+1);
+    @return $input / ($input * 0 + 1);
 }
 
 @function size($size) {
     @if $font-convert-to-px {
-        $pxSize: num($size * $font-ratio * 10) + 0px;
+        $px-size: num($size * $font-ratio * 10) + 0px;
 
-        @return $pxSize;
-    }
+        @return $px-size;
+    } @else {
+        $em-size: $size * $font-ratio;
 
-    @else {
-        $emSize: $size * $font-ratio;
-
-        @return $emSize;
+        @return $em-size;
     }
 }
 

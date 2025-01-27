@@ -9,7 +9,7 @@ $plus-symbol-size: functions.size(4em);
 @mixin plus-symbol($color: variables.$grey-lighter, $text-color: variables.$grey-dark) {
     &::after {
         content: "\f104";
-        font-family: flexi-ui;
+        font-family: "flexi-ui";
         display: inline-block;
         width: $plus-symbol-size;
         height: $plus-symbol-size;
@@ -23,7 +23,7 @@ $plus-symbol-size: functions.size(4em);
 }
 
 .plus-symbol {
-    @include plus-symbol();
+    @include plus-symbol;
 
     display: inline-block;
 

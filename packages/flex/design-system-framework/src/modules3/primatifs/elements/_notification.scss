@@ -21,25 +21,25 @@ a.notification {
 }
 
 .notification {
-    padding: 2em 2em;
+    padding: 2em;
     background-color: var(--flex-notification-fill, #{variables.$white});
     border-radius: variables.$radius;
     position: relative;
     margin-bottom: functions.size(2em);
 
-    @include mixins.apply-shadow-box();
+    @include mixins.apply-shadow-box;
 
     @include mixins.mobile {
         flex-wrap: wrap;
     }
 
     a:not(.button) {
-        color: currentColor;
+        color: currentcolor;
         text-decoration: underline;
     }
 
     strong {
-        color: currentColor;
+        color: currentcolor;
     }
 
     code,
@@ -70,6 +70,7 @@ a.notification {
             .call-to-action .button {
                 background-color: var(--flex-primary, #{variables.$primary});
                 border-color: var(--flex-primary, #{variables.$primary});
+
                 // color: var(--flex-color-invert, #{variables.$color-invert});
                 color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
             }
@@ -144,12 +145,14 @@ a.notification {
 
     > .icon {
         flex: none;
+
         // align-self: start;
         align-self: flex-start;
         padding-right: functions.size(2.7em);
         display: block;
         width: functions.size(5.4em);
         height: 100%;
+
         // margin-top: functions.size(-0.54em);
         margin-top: 0;
 

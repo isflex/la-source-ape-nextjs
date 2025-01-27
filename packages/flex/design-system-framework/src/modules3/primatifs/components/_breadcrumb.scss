@@ -6,28 +6,14 @@
 $breadcrumb-item-color: variables.$secondary !default;
 $breadcrumb-item-hover-color: variables.$secondary !default;
 $breadcrumb-item-active-color: variables.$text !default;
-
 $breadcrumb-item-padding-vertical: .5em !default;
 $breadcrumb-item-padding-horizontal: .75em !default;
-
 $breadcrumb-item-separator-color: variables.$grey-dark !default;
 
-// @use "@bulvar/bulma/sass/components/breadcrumb" with(
-//   $breadcrumb-item-color: $breadcrumb-item-color,
-//   $breadcrumb-item-hover-color: $breadcrumb-item-hover-color,
-//   $breadcrumb-item-active-color: $breadcrumb-item-active-color,
-//   // $breadcrumb-item-padding-vertical: $breadcrumb-item-padding-vertical,
-//   // $breadcrumb-item-padding-horizontal: $breadcrumb-item-padding-horizontal,
-//   // $breadcrumb-item-separator-color: $breadcrumb-item-separator-color
-// );
-
-@use "../utilities/vendors/bulma-extensions/breadcrumb" with(
+@use "../utilities/vendors/bulma-extensions/breadcrumb.scss" with(
     $breadcrumb-item-color: $breadcrumb-item-color,
     $breadcrumb-item-hover-color: $breadcrumb-item-hover-color,
     $breadcrumb-item-active-color: $breadcrumb-item-active-color,
-    // $breadcrumb-item-padding-vertical: $breadcrumb-item-padding-vertical,
-    // $breadcrumb-item-padding-horizontal: $breadcrumb-item-padding-horizontal,
-    // $breadcrumb-item-separator-color: $breadcrumb-item-separator-color
 );
 
 .breadcrumb {
@@ -46,6 +32,7 @@ $breadcrumb-item-separator-color: variables.$grey-dark !default;
         @include mixins.arrow(variables.$grey-dark);
 
         font-size: .8em;
+
         // position: static;
         position: relative;
         top: 0.1em;

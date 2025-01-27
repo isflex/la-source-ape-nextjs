@@ -1,13 +1,13 @@
 export type Styles = {
-  flexSlider: string
-  isActive: string
-  isDark: string
-  isOverflowHidden: string
-  sliderDot: string
-}
+  flexSlider: string;
+  isActive: string;
+  isDark: string;
+  isOverflowHidden: string;
+  sliderDot: string;
+};
 
-export type ClassNames = keyof Styles
+export type ClassNames = keyof Styles;
 
-declare const styles: Styles
+declare const styles: Styles;
 
-export default styles
+export default styles;

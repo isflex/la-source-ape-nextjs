@@ -237,7 +237,6 @@ export declare const link: string;
 export declare const loader: string;
 export declare const menuList: string;
 export declare const navbar: string;
-export declare const none: string;
 export declare const notification: string;
 export declare const number: string;
 export declare const options: string;

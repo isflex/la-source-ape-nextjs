@@ -1,0 +1,31 @@
+@use "../mixins/controls";
+@use "../mixins/delete";
+@use "../mixins";
+
+%block {
+  @include mixins.block;
+}
+
+%control {
+  @include controls.control;
+}
+
+%delete {
+  @include delete.delete;
+}
+
+%loader {
+  @include mixins.loader;
+}
+
+%overlay {
+  @include mixins.overlay;
+}
+
+%reset {
+  @include mixins.reset;
+}
+
+%unselectable {
+  @include mixins.unselectable;
+}

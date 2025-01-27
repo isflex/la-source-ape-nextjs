@@ -3,6 +3,7 @@
     "stylelint-config-standard"
   ],
   "rules": {
+    "font-family-name-quotes": "always-unless-keyword",
     "alpha-value-notation": "number",
     "no-descending-specificity": null,
     "no-empty-source": null,

@@ -4,121 +4,46 @@
 @use "../functions";
 @use "./controls";
 
-%delete {
-    @extend %unselectable;
-
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    background-color: rgba(initial-variables.$black, 0.2);
+@mixin reset {
+    appearance: none;
+    background: none;
     border: none;
-    border-radius: initial-variables.$radius-rounded;
-    cursor: pointer;
-    display: inline-block;
-    flex-grow: 0;
-    flex-shrink: 0;
-    font-size: 0;
-    height: 20px;
-    max-height: 20px;
-    max-width: 20px;
-    min-height: 20px;
-    min-width: 20px;
-    outline: none;
-    position: relative;
-    vertical-align: top;
-    width: 20px;
-
-    &::before,
-    &::after {
-        background-color: var(--flex-white, #{initial-variables.$white});
-        content: "";
-        display: block;
-        left: 50%;
-        position: absolute;
-        top: 50%;
-        transform: translateX(-50%) translateY(-50%) rotate(45deg);
-        transform-origin: center center;
-    }
-
-    &::before {
-        height: 2px;
-        width: 50%;
-    }
-
-    &::after {
-        height: 50%;
-        width: 2px;
-    }
-
-    &:hover,
-    &:focus {
-        background-color: rgba(initial-variables.$black, 0.3);
-    }
-
-    &:active {
-        background-color: rgba(initial-variables.$black, 0.4);
-    }
-
-    // Sizes
-    &.is-small {
-        height: 16px;
-        max-height: 16px;
-        max-width: 16px;
-        min-height: 16px;
-        min-width: 16px;
-        width: 16px;
-    }
-
-    &.is-medium {
-        height: 24px;
-        max-height: 24px;
-        max-width: 24px;
-        min-height: 24px;
-        min-width: 24px;
-        width: 24px;
-    }
-
-    &.is-large {
-        height: 32px;
-        max-height: 32px;
-        max-width: 32px;
-        min-height: 32px;
-        min-width: 32px;
-        width: 32px;
-    }
+    color: inherit;
+    font-family: inherit;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
 }
 
-%unselectable {
+@mixin unselectable {
     -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
 }
 
-@mixin delete {
-    @extend %delete;
+@mixin fa($size, $dimensions) {
+    display: inline-block;
+    font-size: $size;
+    height: $dimensions;
+    line-height: $dimensions;
+    text-align: center;
+    vertical-align: top;
+    width: $dimensions;
 }
 
 @mixin arrow($color, $direction: 'down') {
     @if $direction == 'up' {
         content: "\f105";
-    }
-
-    @else if $direction == 'left' {
+    } @else if $direction == 'left' {
         content: "\f108";
-    }
-
-    @else if $direction == 'right' {
+    } @else if $direction == 'right' {
         content: "\f107";
-    }
-
-    @else {
+    } @else {
         content: "\f101";
     }
 
     color: $color;
     position: absolute;
-    font-family: flexi-ui;
+    font-family: "flexi-ui";
     font-size: functions.size(1.5em);
     font-style: normal;
     font-weight: 600;
@@ -152,9 +77,7 @@
     @if $height != 0 {
         left: calc(50% - (#{$width} / 2));
         top: calc(50% - (#{$height} / 2));
-    }
-
-    @else {
+    } @else {
         left: calc(50% - (#{$width} / 2));
         top: calc(50% - (#{$width} / 2));
     }
@@ -178,11 +101,8 @@
 }
 
 @mixin overlay($offset: 0) {
-    bottom: $offset;
-    left: $offset;
+    inset: $offset $offset $offset $offset;
     position: absolute;
-    right: $offset;
-    top: $offset;
 }
 
 @mixin placeholder {
@@ -195,12 +115,8 @@
     }
 }
 
-@mixin unselectable {
-    @extend %unselectable;
-}
-
 @mixin ui-icon {
-    font-family: flexi-ui;
+    font-family: "flexi-ui";
     font-style: normal;
     font-weight: normal;
     display: inline-block;
@@ -316,7 +232,7 @@
     width: $dimensions;
 
     span {
-        background-color: currentColor;
+        background-color: currentcolor;
         display: block;
         height: 1px;
         left: 50%;
@@ -419,25 +335,13 @@
   }
 }
 
-@mixin pattern-light ($size, $x-pos: top, $y-pos: center) {
-    background: url('https://after-school.flexiness.com:3992/assets/svg/pattern-light-logo.svg') no-repeat;
-    background-size: $size;
-    background-position: $x-pos $y-pos;
-}
-
-@mixin pattern-dark ($size, $x-pos: top, $y-pos: center) {
-    background: url('https://after-school.flexiness.com:3992/assets/jpg/transparent-noise.png'), url('https://after-school.flexiness.com:3992/assets/svg/pattern-dark-logo.svg') no-repeat, linear-gradient(#1b3650, derived-variables.$secondary);
-    background-size: auto, $size, auto;
-    background-position: top left, $x-pos $y-pos, top left;
-}
-
 // import sass bulma
 @mixin input {
-    @include controls.control;
-
     background-color: var(--flex-input-fill, #{derived-variables.$input-fill});
     border-color: var(--flex-input-border-color, #{derived-variables.$input-border-color});
     color: var(--flex-input-color, #{derived-variables.$input-color});
+
+    @include controls.control;
 
     @include placeholder {
         color: var(--flex-input-color, #{derived-variables.$input-color});

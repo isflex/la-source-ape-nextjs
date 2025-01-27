@@ -2,13 +2,15 @@
 @use "../utilities/mixins";
 @use "../utilities/animations";
 @use "../utilities/functions";
+@use "../utilities/extends";
 
 $modal-content-width: functions.size(64em) !default;
 $modal-content-margin-mobile: functions.size(2em) !default;
 $modal-close-dimensions: functions.size(4em) !default;
 
 .modal {
-    @include mixins.overlay;
+    // @include mixins.overlay;
+    @extend %overlay;
 
     align-items: center;
     display: none;
@@ -19,11 +21,8 @@ $modal-close-dimensions: functions.size(4em) !default;
 
     &::after {
         content: ' ';
-        bottom: 0;
-        left: 0;
+        inset: 0;
         position: absolute;
-        right: 0;
-        top: 0;
         background-color: rgba(variables.$black, 0.86);
     }
 
@@ -37,7 +36,7 @@ $modal-close-dimensions: functions.size(4em) !default;
     }
 
     .modal-close {
-        @include mixins.delete;
+        @extend %delete;
 
         background: none;
         position: absolute;

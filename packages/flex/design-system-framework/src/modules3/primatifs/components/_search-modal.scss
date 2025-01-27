@@ -17,10 +17,7 @@ $searchbar-height-desktop: navbar.$navbar-height-desktop;
         pointer-events: all;
         height: 100%;
         position: absolute;
-        top: -$searchbar-height;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        inset: -$searchbar-height 0 0 0;
 
         @include mixins.tablet {
             top: -$searchbar-height-desktop;

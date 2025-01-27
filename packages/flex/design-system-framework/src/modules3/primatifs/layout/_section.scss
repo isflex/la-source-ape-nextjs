@@ -11,7 +11,6 @@ $section-padding-medium-y: functions.size(4rem);
 $section-padding-medium-x: $section-padding-y;
 $section-padding-large-y: functions.size(6rem);
 $section-padding-large-x: $section-padding-y;
-
 $section-padding-desktop-y: functions.size(3rem);
 $section-padding-desktop-x: functions.size(4rem);
 $section-padding-desktop-small-y: $section-padding-desktop-y;
@@ -20,12 +19,11 @@ $section-padding-desktop-medium-y: functions.size(6rem);
 $section-padding-desktop-medium-x: $section-padding-desktop-x;
 $section-padding-desktop-large-y: functions.size(9rem);
 $section-padding-desktop-large-x: $section-padding-desktop-x;
-
 $overlap-section: functions.size(1.5rem) !default;
 $overlap-section-desktop: functions.size(1.5rem) !default;
 
-// @use "@bulvar/bulma/sass/layout/section";
-@use "../utilities/vendors/bulma-extensions/section";
+/* stylelint-disable-next-line scss/load-partial-extension */
+@use "../utilities/vendors/bulma-extensions/section.scss";
 
 .section {
     padding: $section-padding-y $section-padding-x;
@@ -53,7 +51,7 @@ $overlap-section-desktop: functions.size(1.5rem) !default;
             margin-top: -$section-padding-small-y - $overlap-section;
 
             @include mixins.desktop {
-                margin-top: -$section-padding-desktop-small-y  - $overlap-section-desktop;
+                margin-top: -$section-padding-desktop-small-y - $overlap-section-desktop;
             }
         }
     }
@@ -69,7 +67,7 @@ $overlap-section-desktop: functions.size(1.5rem) !default;
             margin-top: -$section-padding-medium-y - $overlap-section;
 
             @include mixins.desktop {
-                margin-top: -$section-padding-desktop-medium-y  - $overlap-section-desktop;
+                margin-top: -$section-padding-desktop-medium-y - $overlap-section-desktop;
             }
         }
     }
@@ -113,7 +111,7 @@ $overlap-section-desktop: functions.size(1.5rem) !default;
 
             content: '';
             z-index: functions.zindex('subzero');
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgb(0 0 0 / 0.6);
         }
     }
 

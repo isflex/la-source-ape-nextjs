@@ -9263,18 +9263,18 @@ To be used when standalone namespaced builds are used
   line-height: 0.3375em !important;
   position: relative;
 }
-.is-flexiness .icon.is-stacked .flexi-notification_top {
+.is-flexiness .icon.is-stacked .flexi-notification-top {
   font-size: 85%;
 }
-.is-flexiness .icon.is-stacked .flexi-notification_bottom {
+.is-flexiness .icon.is-stacked .flexi-notification-bottom {
   font-size: 0.125em;
   width: 100%;
   margin-top: 0.0675em;
 }
-.is-flexiness .icon.is-stacked .flexi-notification_bottom::before {
+.is-flexiness .icon.is-stacked .flexi-notification-bottom::before {
   width: auto;
 }
-.is-flexiness .icon.is-animated .flexi-notification_top {
+.is-flexiness .icon.is-animated .flexi-notification-top {
   animation-name: bellring;
   animation-duration: 6s;
   animation-iteration-count: infinite;
@@ -9314,7 +9314,7 @@ To be used when standalone namespaced builds are used
     transform: rotate(-5deg);
   }
 }
-.is-flexiness .icon.is-animated .flexi-notification_bottom {
+.is-flexiness .icon.is-animated .flexi-notification-bottom {
   animation-name: bellbounce !important;
   animation-duration: 6s;
   animation-iteration-count: infinite;
@@ -20886,7 +20886,7 @@ This allows to put whole blocks inside links without getting the text underlined
 .is-flexiness .flexi-search::before {
   content: "\f156";
 }
-.is-flexiness .flexi-sd-Card::before {
+.is-flexiness .flexi-sd-card::before {
   content: "\f157";
 }
 .is-flexiness .flexi-scan::before {
@@ -20913,7 +20913,7 @@ This allows to put whole blocks inside links without getting the text underlined
 .is-flexiness .flexi-rotation-360::before {
   content: "\f15f";
 }
-.is-flexiness .flexi-ringtone-welcomeSound::before {
+.is-flexiness .flexi-ringtone-welcome-sound::before {
   content: "\f160";
 }
 .is-flexiness .flexi-restricted-area::before {
@@ -21597,7 +21597,7 @@ This allows to put whole blocks inside links without getting the text underlined
 .is-flexiness .flexi-box-stethoscope::before {
   content: "\f243";
 }
-.is-flexiness .flexi-box-smartTV::before {
+.is-flexiness .flexi-box-smart-tv::before {
   content: "\f244";
 }
 .is-flexiness .flexi-box-redo::before {
@@ -21627,7 +21627,7 @@ This allows to put whole blocks inside links without getting the text underlined
 .is-flexiness .flexi-box-add::before {
   content: "\f24d";
 }
-.is-flexiness .flexi-box-FAQ::before {
+.is-flexiness .flexi-box-faq::before {
   content: "\f24e";
 }
 .is-flexiness .flexi-box-4g::before {
@@ -21717,13 +21717,13 @@ This allows to put whole blocks inside links without getting the text underlined
 .is-flexiness .flexi-accessibility::before {
   content: "\f26b";
 }
-.is-flexiness .flexi-Flexymoov-bicycle::before {
+.is-flexiness .flexi-flexymoov-bicycle::before {
   content: "\f26c";
 }
-.is-flexiness .flexi-Bank::before {
+.is-flexiness .flexi-bank::before {
   content: "\f26d";
 }
-.is-flexiness .flexi-Autoplan::before {
+.is-flexiness .flexi-autoplan::before {
   content: "\f26e";
 }
 .is-flexiness .flexi-5g::before {
@@ -21741,7 +21741,7 @@ This allows to put whole blocks inside links without getting the text underlined
 .is-flexiness .flexi-4g-5g-plus::before {
   content: "\f273";
 }
-.is-flexiness .flexi-4G4Gplus::before {
+.is-flexiness .flexi-4g-4g-plus::before {
   content: "\f274";
 }
 @font-face {

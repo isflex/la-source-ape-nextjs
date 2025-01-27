@@ -2,6 +2,7 @@
 @use "../utilities/mixins";
 @use "../utilities/animations";
 @use "../utilities/functions";
+@use "../utilities/extends";
 
 $tabs-border-bottom-color: variables.$border-grey !default;
 $tabs-border-bottom-style: solid !default;
@@ -13,15 +14,12 @@ $tabs-link-active-border-bottom-color: variables.$border-grey !default;
 $tabs-link-active-color: variables.$secondary !default;
 $tabs-link-padding: functions.size(1em) functions.size(1em) !default;
 $tabs-link-padding-desktop: functions.size(2em) functions.size(2em) !default;
-
 $tabs-boxed-link-radius: variables.$radius !default;
 $tabs-boxed-link-hover-background-color: variables.$background !default;
 $tabs-boxed-link-hover-border-bottom-color: variables.$border !default;
-
 $tabs-boxed-link-active-background-color: variables.$white !default;
 $tabs-boxed-link-active-border-color: variables.$border !default;
 $tabs-boxed-link-active-border-bottom-color: transparent !default;
-
 $tabs-toggle-link-border-color: variables.$border !default;
 $tabs-toggle-link-border-style: solid !default;
 $tabs-toggle-link-border-width: 1px !default;
@@ -33,9 +31,9 @@ $tabs-toggle-link-active-border-color: variables.$link !default;
 $tabs-toggle-link-active-color: variables.$link-inverted !default;
 
 .tabs {
-    @include mixins.block;
+    @extend %block;
+    @extend %unselectable;
     @include mixins.overflow-touch;
-    @include mixins.unselectable;
 
     align-items: stretch;
     display: flex;
@@ -52,9 +50,7 @@ $tabs-toggle-link-active-color: variables.$link-inverted !default;
 
     ul {
         align-items: center;
-        border-bottom-color: var(--flex-tabs-border-bottom-color, #{$tabs-border-bottom-color});
-        border-bottom-style: $tabs-border-bottom-style;
-        border-bottom-width: $tabs-border-bottom-width;
+        border-bottom: $tabs-border-bottom-width $tabs-border-bottom-style var(--flex-tabs-border-bottom-color, #{$tabs-border-bottom-color});
         display: flex;
         flex-grow: 1;
         flex-shrink: 0;
@@ -88,9 +84,7 @@ $tabs-toggle-link-active-color: variables.$link-inverted !default;
 
     a {
         align-items: center;
-        border-bottom-color: var(--flex-tabs-border-bottom-color, #{$tabs-border-bottom-color});
-        border-bottom-style: $tabs-border-bottom-style;
-        border-bottom-width: $tabs-border-bottom-width;
+        border-bottom: $tabs-border-bottom-width $tabs-border-bottom-style var(--flex-tabs-border-bottom-color, #{$tabs-border-bottom-color});
         color: var(--flex-tabs-link-color, #{$tabs-link-color});
         display: flex;
         justify-content: center;

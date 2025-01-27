@@ -4,42 +4,35 @@
 @use "../utilities/mixins";
 @use "../utilities/animations";
 @use "../utilities/functions";
+@use "../utilities/extends";
 
 $colors-navbar: null;
-
 $navbar-box-shadow-size: 0;
 $navbar-height: functions.size(6em);
 $navbar-height-desktop: functions.size(8em);
 $navbar-border: #d8d8d8;
-
 $navbar-item-color: #7d7d7d;
 $navbar-item-hover-color: #454545;
 $navbar-item-hover-background-color: initial;
 $navbar-item-active-color: #454545;
 $navbar-item-width: functions.size(9.1em);
 $navbar-item-width-tablet: functions.size(6.1em);
-
 $navbar-tab-hover-background-color: inherit;
 $navbar-tab-hover-border-bottom-color: transparent;
 $navbar-tab-active-color: variables.$instit;
 $navbar-tab-active-border-bottom-color: variables.$instit;
-
 $navbar-dropdown-boxed-shadow: 0 functions.size(0.8em) functions.size(0.8em) rgba(#454545, 0.1), 0 0 0 functions.size(0.1em) rgba(#454545, 0.1);
 $navbar-dropdown-background-color: variables.$white;
-
 $navbar-dropdown-item-hover-color: variables.$primary;
 $navbar-dropdown-item-hover-background-color: initial;
 $navbar-dropdown-item-active-color: variables.$primary;
 $navbar-dropdown-item-active-background-color: initial;
-
 $navbar-divider-background-color: rgba(#7d7d7d, 0.2);
 $navbar-divider-height: functions.size(0.1em);
 
 // Used
 $navbar-fill: variables.$white !default;
-
 $navbar-touch-margin-horizontal: functions.size(2em);
-
 $navbar-section-padding: #{variables.$box-padding * 2};
 $navbar-accordion-active-border-size: functions.size(0.5em);
 $navbar-dropdown-padding-between-items: functions.size(1em);
@@ -589,7 +582,7 @@ $navbar-dropdown-padding-between-items: functions.size(1em);
             right: calc($navbar-item-width / 2);
             border: rgba(variables.$grey-shadow, .01) solid;
             border-width: functions.size(0.1em) 0 0 functions.size(0.1em);
-            box-shadow: functions.size(-0.1em) functions.size(0.1em) functions.size(0.2em) rgba(10, 10, 10, 0.2);
+            box-shadow: functions.size(-0.1em) functions.size(0.1em) functions.size(0.2em) rgb(10 10 10 / 0.2);
         }
 
         .navbar-item {
@@ -633,35 +626,28 @@ $navbar-dropdown-padding-between-items: functions.size(1em);
     $navbar-height: functions.size(6em);
     $navbar-height-desktop: functions.size(7em);
     $navbar-border: #eee;
-
     $navbar-item-color: #7d7d7d;
     $navbar-item-hover-color: variables.$text;
     $navbar-item-hover-background-color: initial;
     $navbar-item-active-color: variables.$text;
     $navbar-item-width: functions.size(8em);
     $navbar-item-width-tablet: functions.size(6.1em);
-
     $navbar-tab-hover-background-color: inherit;
     $navbar-tab-hover-border-bottom-color: transparent;
     $navbar-tab-active-color: variables.$instit;
     $navbar-tab-active-border-bottom-color: variables.$instit;
-
     $navbar-dropdown-boxed-shadow: 0 functions.size(0.8em) functions.size(0.8em) rgba(#454545, 0.1), 0 0 0 functions.size(0.1em) rgba(#454545, 0.1);
     $navbar-dropdown-background-color: variables.$white;
-
     $navbar-dropdown-item-hover-color: variables.$primary;
     $navbar-dropdown-item-hover-background-color: initial;
     $navbar-dropdown-item-active-color: variables.$primary;
     $navbar-dropdown-item-active-background-color: initial;
-
     $navbar-divider-background-color: rgba(#7d7d7d, 0.2);
     $navbar-divider-height: functions.size(0.1em);
 
     // Used
     $navbar-fill: variables.$white !default;
-
     $navbar-touch-margin-horizontal: functions.size(2em);
-
     $navbar-section-padding: #{variables.$box-padding * 2};
     $navbar-accordion-active-border-size: functions.size(0.5em);
     $navbar-dropdown-padding-between-items: functions.size(1em);
@@ -1242,7 +1228,7 @@ $navbar-dropdown-padding-between-items: functions.size(1em);
                 right: calc($navbar-item-width / 2);
                 border: rgba(variables.$grey-shadow, .01) solid;
                 border-width: functions.size(0.1em) 0 0 functions.size(0.1em);
-                box-shadow: functions.size(-0.1em) functions.size(0.1em) functions.size(0.2em) rgba(10, 10, 10, 0.2);
+                box-shadow: functions.size(-0.1em) functions.size(0.1em) functions.size(0.2em) rgb(10 10 10 / 0.2);
             }
 
             .navbar-item {
@@ -1300,8 +1286,7 @@ $navbar-dropdown-padding-between-items: functions.size(1em);
         position: relative;
         display: flex;
         align-items: center;
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-flow: row wrap;
         height: $navbar-height;
         min-height: $navbar-height;
         background-color: var(--flex-navbar-fill, #{$navbar-fill});
@@ -1393,6 +1378,7 @@ $navbar-dropdown-padding-between-items: functions.size(1em);
                     height: functions.size(4em);
                     padding-left: functions.size(2em);
                     border-radius: functions.size(2.2em);
+
                     // background-color: transparent;
                     border: functions.size(0.1em) solid var(--flex-border-grey-light, #{variables.$border-grey-light});
                 }
@@ -1425,7 +1411,7 @@ $navbar-dropdown-padding-between-items: functions.size(1em);
 
                     .control {
                         padding: $navbar-section-padding;
-                        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+                        box-shadow: 0 0 10px rgb(0 0 0 / 0.2);
 
                         &.has-dynamic-placeholder {
                             .input-dynamic-placeholder {
@@ -1523,7 +1509,7 @@ $navbar-dropdown-padding-between-items: functions.size(1em);
                     top: calc(100% + 1px);
                     flex-direction: row;
                     padding: $navbar-section-padding-desktop;
-                    box-shadow: 0 5px 15px -3px rgba(69, 69, 69, 0.2), 0 5px 3px 0 rgba(69, 69, 69, 0.15);
+                    box-shadow: 0 5px 15px -3px rgb(69 69 69 / 0.2), 0 5px 3px 0 rgb(69 69 69 / 0.15);
                 }
 
                 // suppression de la petite flèche décorative
@@ -1902,7 +1888,7 @@ $navbar-dropdown-padding-between-items: functions.size(1em);
                         }
 
                         .navbar-dropdown-close {
-                            @include mixins.delete;
+                            @extend %delete;
 
                             height: 32px;
                             max-height: 32px;
@@ -2159,7 +2145,7 @@ $navbar-dropdown-padding-between-items: functions.size(1em);
                         height: $navbar-alternate-item-height;
                         border-top-left-radius: calc($navbar-alternate-item-height / 2);
                         border-bottom-left-radius: calc($navbar-alternate-item-height / 2);
-                        box-shadow: 0 functions.size(0.2em) functions.size(0.6em) 0 rgba(175, 175, 175, 0.5);
+                        box-shadow: 0 functions.size(0.2em) functions.size(0.6em) 0 rgb(175 175 175 / 0.5);
                         margin-left: functions.size(1.5em);
                         padding-left: 0;
                         padding-right: 0;
@@ -2281,7 +2267,7 @@ $navbar-dropdown-padding-between-items: functions.size(1em);
                         .icon {
                             margin-left: 0.6em;
 
-                            [class^=flexi-]::before {
+                            [class^="flexi-"]::before {
                                 font-size: 1.8em;
                             }
                         }

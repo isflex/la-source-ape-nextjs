@@ -64,12 +64,12 @@ p.is-loading,
     @include mixins.text-tags {
         display: inline;
         border-radius: 99em;
-        background: currentColor !important;
+        background: currentcolor !important;
         box-decoration-break: clone;
         font-size: 70%;
         letter-spacing: 2px;
-        -webkit-animation: loading-pulse 1.5s ease-out infinite alternate;
-        -moz-animation: none;
+        animation: loading-pulse 1.5s ease-out infinite alternate;
+        animation: none;
         opacity: .2;
     }
 
@@ -88,20 +88,18 @@ p.is-loading,
 }
 
 // skeleton transitions
-//
 .is-loaded {
     /**
     The shape of the animation are designed so that the final state appears
     as quick as possible. This should enhance the speed index
     */
     @include mixins.text-tags {
-        transition-duration: calc(initial-variables.$animation-duration / 2);
-        transition-timing-function: initial-variables.$animation-timing-function;
-        transition-property: font-size, letter-spacing;
-
         /**
         Animations are too slow on FF. We choose to disable it until they fix the problem
         */
-        -moz-transition: none;
+        transition: none;
+        transition-duration: calc(initial-variables.$animation-duration / 2);
+        transition-timing-function: initial-variables.$animation-timing-function;
+        transition-property: font-size, letter-spacing;
     }
 }

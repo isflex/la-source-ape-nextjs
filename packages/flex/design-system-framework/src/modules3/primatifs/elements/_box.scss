@@ -21,7 +21,7 @@ a.box {
 }
 
 .box {
-    @include mixins.apply-shadow-box();
+    @include mixins.apply-shadow-box;
 
     background-color: var(--flex-box-fill, #{variables.$white});
     border-radius: variables.$radius;
@@ -259,15 +259,15 @@ a.box {
 
     @each $name, $pair in variables.$colors {
         $color: list.nth($pair, 1);
-        $invertedColor: list.nth($pair, 2);
+        $inverted-color: list.nth($pair, 2);
 
         &.is-#{$name} {
             background-color: var(#{'--flex-'}#{$name}, #{$color});
-            color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invertedColor});
+            color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$inverted-color});
 
             .box-header {
                 background-color: var(#{'--flex-'}#{$name}, #{$color});
-                color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invertedColor});
+                color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$inverted-color});
             }
         }
     }

@@ -3,6 +3,7 @@
 @use "../utilities/mixins";
 @use "../utilities/animations";
 @use "../utilities/functions";
+@use "../utilities/extends";
 
 $progress-bar-background-color: variables.$border !default;
 $progress-value-background-color: variables.$text !default;
@@ -10,7 +11,7 @@ $progressbar-height: functions.size(1em);
 $progressbar-small: functions.size(0.5em);
 
 .progress {
-    @include mixins.block;
+    @extend %block;
 
     border: none;
     border-radius: variables.$radius-rounded;
@@ -19,8 +20,7 @@ $progressbar-small: functions.size(0.5em);
     overflow: hidden;
     padding: 0;
     width: 100%;
-    -moz-appearance: none;
-    -webkit-appearance: none;
+    appearance: none;
 
     &::-webkit-progress-bar {
         background-color: var(--flex-progress-bar-background-color, #{$progress-bar-background-color});
@@ -203,7 +203,7 @@ $progress-circle-slices: (
 
 .progress-circle-slice::before,
 .progress-circle-slice::after {
-    border: var(--progress-circle-border-width) solid rgba(0,0,0,0);
+    border: var(--progress-circle-border-width) solid rgb(0 0 0 / 0);
     border-radius: 50%;
     content: '';
     height: 100%;
@@ -233,9 +233,7 @@ $slides-concat: '';
 
             clip-path: inset(0 calc(50% * (var(--#{$name}-check) / var(--#{$name}-check))) 0 0);
         }
-    }
-
-    @else {
+    } @else {
         .progress-circle-background-#{$name} {
             --#{$name}-start: 0;
         }
@@ -247,18 +245,13 @@ $slides-concat: '';
     }
 
     .progress-circle-background-#{$name}::after {
-        border-top-color: rgba($color, 1);
-        border-right-color: rgba($color, calc(100 * (var(--#{$name}) - .25)));
-        border-bottom-color: rgba($color, calc(100 * (var(--#{$name}) - .5)));
-        border-left-color: rgba($color, calc(100 * (var(--#{$name}) - .75)));
+        border-color: rgba($color, 1) rgba($color, calc(100 * (var(--#{$name}) - .25))) rgba($color, calc(100 * (var(--#{$name}) - .5))) rgba($color, calc(100 * (var(--#{$name}) - .75)));
         transform: rotate(calc(360deg * var(--#{$name}-start) + 45deg + var(--progress-circle-spacing-deg)));
     }
 
     @if $i == 1 {
         $slides-concat: var(--#{$name});
-    }
-
-    @else {
+    } @else {
         $slides-concat: $slides-concat + ' + ' + var(--#{$name});
     }
 }

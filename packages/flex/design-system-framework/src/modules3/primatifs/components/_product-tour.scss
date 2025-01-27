@@ -3,7 +3,7 @@
 @use "../utilities/animations";
 @use "../utilities/functions";
 
-$product-tour-target-outline: rgba(10,10,10,.86); // comes from Bulma's .modal-background defaults
+$product-tour-target-outline: rgb(10 10 10 / .86); // comes from Bulma's .modal-background defaults
 
 .product-tour {
     position: absolute;
@@ -22,10 +22,7 @@ $product-tour-target-outline: rgba(10,10,10,.86); // comes from Bulma's .modal-b
 
     .arrow {
         position: absolute;
-        top: 0;
-        right: auto !important;
-        bottom: auto !important;
-        left: 50%;
+        inset: 0 auto auto 50%;
         margin-top: functions.size(-0.4em);
         margin-left: functions.size(-0.4em);
         border-width: functions.size(0.4em);
@@ -34,7 +31,7 @@ $product-tour-target-outline: rgba(10,10,10,.86); // comes from Bulma's .modal-b
         transform: rotate(135deg);
         height: 0;
         width: 0;
-        box-shadow: functions.size(-0.1em) functions.size(0.1em) functions.size(0.2em) rgba(10, 10, 10, 0.2);
+        box-shadow: functions.size(-0.1em) functions.size(0.1em) functions.size(0.2em) rgb(10 10 10 / 0.2);
         transform-origin: center;
         pointer-events: none;
 
@@ -52,10 +49,7 @@ $product-tour-target-outline: rgba(10,10,10,.86); // comes from Bulma's .modal-b
         &.is-four-fifths { left: 80%; }
 
         &.is-right {
-            top: 50% !important;
-            right: 0 !important;
-            bottom: auto !important;
-            left: 100% !important;
+            inset: 50% 0 auto 100% !important;
             transform: rotate(-135deg);
         }
 
@@ -67,10 +61,7 @@ $product-tour-target-outline: rgba(10,10,10,.86); // comes from Bulma's .modal-b
         }
 
         &.is-left {
-            top: 50% !important;
-            bottom: auto !important;
-            left: 0 !important;
-            right: 100% !important;
+            inset: 50% 100% auto 0 !important;
             transform: rotate(45deg);
         }
 

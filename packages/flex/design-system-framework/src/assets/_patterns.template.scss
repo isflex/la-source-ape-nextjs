@@ -1,0 +1,13 @@
+@use "../../variables/derived-variables" as derived-variables;
+
+@mixin pattern-light($size, $x-pos: top, $y-pos: center) {
+  background: url('---URL-REPLACE---/assets/svg/pattern-light-logo.svg') no-repeat;
+  background-size: $size;
+  background-position: $x-pos $y-pos;
+}
+
+@mixin pattern-dark($size, $x-pos: top, $y-pos: center) {
+  background: url('---URL-REPLACE---/assets/jpg/transparent-noise.png'), url('---URL-REPLACE---/assets/svg/pattern-dark-logo.svg') no-repeat, linear-gradient(#1b3650, derived-variables.$secondary);
+  background-size: auto, $size, auto;
+  background-position: top left, $x-pos $y-pos, top left;
+}

@@ -1,0 +1,61 @@
+@use "sass:math";
+@use "../../variables" as variables;
+@use "../../mixins" as mixins;
+
+// @use "utilities" as bulvarUtilities;
+
+$tile-denominator: 12 !default;
+$tile-spacing: variables.$column-gap !default;
+
+.tile {
+  align-items: stretch;
+  display: block;
+  flex: 1 1 0;
+  min-height: min-content;
+
+  // Modifiers
+  &.is-ancestor {
+    margin-left: calc(-1 * var(--tile-spacing, #{$tile-spacing}));
+    margin-right: calc(-1 * var(--tile-spacing, #{$tile-spacing}));
+    margin-top: calc(-1 * var(--tile-spacing, #{$tile-spacing}));
+
+    &:last-child {
+      margin-bottom: calc(-1 * var(--tile-spacing, #{$tile-spacing}));
+    }
+
+    &:not(:last-child) {
+      margin-bottom: var(--tile-spacing, #{$tile-spacing});
+    }
+  }
+
+  &.is-child {
+    margin: 0 !important;
+  }
+
+  &.is-parent {
+    padding: var(--tile-spacing, #{$tile-spacing});
+  }
+
+  &.is-vertical {
+    flex-direction: column;
+
+    & > .tile.is-child:not(:last-child) {
+      margin-bottom: 1.5rem !important;
+    }
+  }
+
+  // Responsiveness
+  // +bulvarUtilities.tablet
+  @include mixins.tablet {
+    &:not(.is-child) {
+      display: flex;
+    }
+
+    @for $i from 1 through $tile-denominator {
+      &.is-#{$i} {
+        flex: none;
+        width: (math.div($i, $tile-denominator)) * 100%;
+      }
+    }
+  }
+}

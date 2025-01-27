@@ -11,17 +11,16 @@ $accordion-header-background-color: transparent !default;
 $accordion-header-color: variables.$text !default;
 $accordion-header-padding: functions.size(1.5em) 0 !default;
 $accordion-header-radius: 0 !default;
-
 $accordion-content-border: none !default;
 $accordion-content-color: variables.$text !default;
 $accordion-content-padding-top: 0 !default;
 $accordion-content-padding-left: 0 !default;
 $accordion-content-radius: 0 !default;
-
 $accordion-content-pre-background-color: variables.$white !default;
 $accordion-content-pre-code-background-color: transparent !default;
 
-@use "../utilities/vendors/bulma-extensions/_accordion.sass";
+/* stylelint-disable-next-line scss/load-partial-extension */
+@use "../utilities/vendors/bulma-extensions/accordion.scss";
 
 .accordions {
     padding-left: 0;
@@ -106,7 +105,7 @@ $accordion-content-pre-code-background-color: transparent !default;
                     margin: 0;
                 }
 
-                @include mixins.mobile() {
+                @include mixins.mobile {
                     flex-grow: 1;
                 }
             }
@@ -153,7 +152,7 @@ $accordion-content-pre-code-background-color: transparent !default;
                     padding: variables.$box-padding * 2;
                     margin-bottom: functions.size(1em);
 
-                    @include mixins.mobile() {
+                    @include mixins.mobile {
                         padding: functions.size(1.5em);
                     }
 
@@ -174,9 +173,7 @@ $accordion-content-pre-code-background-color: transparent !default;
                 }
             }
         }
-    }
 
-    .accordion {
         &.version-2 {
             .accordion-header {
                 padding: 0.5rem 0;
@@ -233,26 +230,6 @@ $accordion-content-pre-code-background-color: transparent !default;
                     }
                 }
 
-                &:hover,
-                &.is-active {
-                    &.with-highlight-#{$name} {
-                        .accordion-header {
-                            color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invert});
-                            background-color: var(#{'--flex-'}#{$name}, #{$color});
-
-                            .accordion-header-content {
-                                .title,
-                                .link,
-                                .text,
-                                .button,
-                                .is-switch + label {
-                                    color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invert});
-                                }
-                            }
-                        }
-                    }
-                }
-
                 &.with-highlight-#{$name}-invert {
                     .accordion-header {
                         color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invert});
@@ -272,6 +249,23 @@ $accordion-content-pre-code-background-color: transparent !default;
 
                 &:hover,
                 &.is-active {
+                    &.with-highlight-#{$name} {
+                        .accordion-header {
+                            color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invert});
+                            background-color: var(#{'--flex-'}#{$name}, #{$color});
+
+                            .accordion-header-content {
+                                .title,
+                                .link,
+                                .text,
+                                .button,
+                                .is-switch + label {
+                                    color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$invert});
+                                }
+                            }
+                        }
+                    }
+
                     &.with-highlight-#{$name}-invert {
                         .accordion-header {
                             color: var(#{'--flex-'}#{$name}, #{$color});

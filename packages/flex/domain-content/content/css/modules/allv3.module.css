@@ -9214,18 +9214,18 @@ button.icon {
   line-height: 0.3375em !important;
   position: relative;
 }
-.icon.is-stacked .flexi-notification_top {
+.icon.is-stacked .flexi-notification-top {
   font-size: 85%;
 }
-.icon.is-stacked .flexi-notification_bottom {
+.icon.is-stacked .flexi-notification-bottom {
   font-size: 0.125em;
   width: 100%;
   margin-top: 0.0675em;
 }
-.icon.is-stacked .flexi-notification_bottom::before {
+.icon.is-stacked .flexi-notification-bottom::before {
   width: auto;
 }
-.icon.is-animated .flexi-notification_top {
+.icon.is-animated .flexi-notification-top {
   animation-name: bellring;
   animation-duration: 6s;
   animation-iteration-count: infinite;
@@ -9265,7 +9265,7 @@ button.icon {
     transform: rotate(-5deg);
   }
 }
-.icon.is-animated .flexi-notification_bottom {
+.icon.is-animated .flexi-notification-bottom {
   animation-name: bellbounce !important;
   animation-duration: 6s;
   animation-iteration-count: infinite;
@@ -20827,7 +20827,7 @@ aside.menu > div {
 .flexi-search::before {
   content: "\f156";
 }
-.flexi-sd-Card::before {
+.flexi-sd-card::before {
   content: "\f157";
 }
 .flexi-scan::before {
@@ -20854,7 +20854,7 @@ aside.menu > div {
 .flexi-rotation-360::before {
   content: "\f15f";
 }
-.flexi-ringtone-welcomeSound::before {
+.flexi-ringtone-welcome-sound::before {
   content: "\f160";
 }
 .flexi-restricted-area::before {
@@ -21538,7 +21538,7 @@ aside.menu > div {
 .flexi-box-stethoscope::before {
   content: "\f243";
 }
-.flexi-box-smartTV::before {
+.flexi-box-smart-tv::before {
   content: "\f244";
 }
 .flexi-box-redo::before {
@@ -21568,7 +21568,7 @@ aside.menu > div {
 .flexi-box-add::before {
   content: "\f24d";
 }
-.flexi-box-FAQ::before {
+.flexi-box-faq::before {
   content: "\f24e";
 }
 .flexi-box-4g::before {
@@ -21658,13 +21658,13 @@ aside.menu > div {
 .flexi-accessibility::before {
   content: "\f26b";
 }
-.flexi-Flexymoov-bicycle::before {
+.flexi-flexymoov-bicycle::before {
   content: "\f26c";
 }
-.flexi-Bank::before {
+.flexi-bank::before {
   content: "\f26d";
 }
-.flexi-Autoplan::before {
+.flexi-autoplan::before {
   content: "\f26e";
 }
 .flexi-5g::before {
@@ -21682,7 +21682,7 @@ aside.menu > div {
 .flexi-4g-5g-plus::before {
   content: "\f273";
 }
-.flexi-4G4Gplus::before {
+.flexi-4g-4g-plus::before {
   content: "\f274";
 }
 @font-face {

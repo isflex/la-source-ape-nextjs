@@ -36,6 +36,7 @@ $sticker-height: functions.size(3.5em);
     font-size: functions.size(1.3em);
     flex-grow: 0;
     display: inline-flex;
+
     // padding: 0 functions.size(5em);
     color: var(--flex-white, #{variables.$white});
     text-transform: uppercase;
@@ -45,27 +46,28 @@ $sticker-height: functions.size(3.5em);
     line-height: $sticker-height;
     flex-shrink: 0;
 
-    @include mixins.desktop() {
-        @include sticker-default-paddings-desktop();
+    @include mixins.desktop {
+        @include sticker-default-paddings-desktop;
     }
 
-    @include mixins.tablet() {
-        @include sticker-default-paddings-tablet();
+    @include mixins.tablet {
+        @include sticker-default-paddings-tablet;
     }
 
-    @include mixins.mobile() {
-        @include sticker-default-paddings-mobile();
+    @include mixins.mobile {
+        @include sticker-default-paddings-mobile;
     }
 
     &.is-outlined {
         @include mixins.apply-colors("border-color");
-        @include mixins.apply-colors();
+        @include mixins.apply-colors;
 
         background-color: transparent;
         border-style: solid;
+
         // border-width: functions.size(0.1em);
 
-        @include sticker-outlined-border-width-desktop();
+        @include sticker-outlined-border-width-desktop;
 
         // @include mixins.desktop() {
         //     @include sticker-outlined-border-width-desktop();
@@ -87,7 +89,7 @@ $sticker-height: functions.size(3.5em);
     }
 
     &.is-inverted {
-        @include mixins.apply-colors();
+        @include mixins.apply-colors;
 
         background-color: white;
     }
@@ -173,23 +175,23 @@ $sticker-height: functions.size(3.5em);
 }
 
 .has-hat {
-    @include hat-margins();
+    @include hat-margins;
 }
 
 .has-hat-desktop {
-    @include mixins.desktop() {
-        @include hat-margins();
+    @include mixins.desktop {
+        @include hat-margins;
     }
 }
 
 .has-hat-tablet {
-    @include mixins.tablet() {
-        @include hat-margins();
+    @include mixins.tablet {
+        @include hat-margins;
     }
 }
 
 .has-hat-mobile {
-    @include mixins.mobile() {
-        @include hat-margins();
+    @include mixins.mobile {
+        @include hat-margins;
     }
 }

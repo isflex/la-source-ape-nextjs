@@ -3,6 +3,7 @@
 @use "../utilities/mixins";
 @use "../utilities/animations";
 @use "../utilities/functions";
+@use "../utilities/extends";
 
 $title-color: variables.$tertiary;
 $title-size: variables.$text-32;
@@ -13,7 +14,6 @@ $title-strong-color: inherit;
 $title-strong-weight: inherit;
 $title-sub-size: 0.5em;
 $title-sup-size: 0.5em;
-
 $subtitle-color: variables.$tertiary;
 $subtitle-size: variables.$text-14;
 $subtitle-weight: variables.$weight-normal;
@@ -23,7 +23,6 @@ $subtitle-line-height: 1.2;
 $subtitle-strong-color: variables.$grey-darker;
 $subtitle-strong-weight: variables.$weight-semibold;
 $subtitle-negative-margin: functions.size(-1em);
-
 $suptitle-color: variables.$tertiary;
 $suptitle-size: variables.$text-12;
 $suptitle-line-height: 1.4;
@@ -33,7 +32,7 @@ $suptitle-weight: variables.$weight-semibold;
 .title,
 .subtitle,
 .suptitle {
-  @include mixins.block;
+  @extend %block;
 
   word-break: break-word;
 
@@ -61,13 +60,10 @@ $suptitle-weight: variables.$weight-semibold;
     $max: list.nth($size-fluid, 2);
 
     &.is-#{$i} {
-
       // https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/35750bd7-390a-4608-bfa8-add0c1257e1f/advanced-calc-800-opt.png
       @if functions.$font-convert-to-px {
         font-size: calc(#{$min} + (#{functions.strip-unit($max)} - #{functions.strip-unit($min)}) * ((100vw - 375px) / (#{functions.strip-unit(variables.$fullhd)} - 375)));
-      }
-
-      @else {
+      } @else {
         font-size: calc(#{$min} + ((#{functions.strip-unit($max)} - #{functions.strip-unit($min)}) * 10) * ((100vw - 375px) / (#{functions.strip-unit(variables.$fullhd)} - 375)));
       }
     }
@@ -150,21 +146,21 @@ $suptitle-weight: variables.$weight-semibold;
     }
   }
 
-  &.is-2:not(:last-child):not(.is-section-title),
-  &.is-3:not(:last-child):not(.is-section-title) {
+  &.is-2:not(:last-child, .is-section-title),
+  &.is-3:not(:last-child, .is-section-title) {
     margin-bottom: functions.size(1.5em);
   }
 
-  &.is-4:not(:last-child):not(.is-section-title) {
+  &.is-4:not(:last-child, .is-section-title) {
     margin-bottom: functions.size(1em);
   }
 
-  &.is-5:not(:last-child):not(.is-section-title) {
+  &.is-5:not(:last-child, .is-section-title) {
     margin-bottom: functions.size(0.5em);
   }
 
-  &.is-6:not(:last-child):not(.is-section-title),
-  &.is-7:not(:last-child):not(.is-section-title) {
+  &.is-6:not(:last-child, .is-section-title),
+  &.is-7:not(:last-child, .is-section-title) {
     margin-bottom: 0;
   }
 

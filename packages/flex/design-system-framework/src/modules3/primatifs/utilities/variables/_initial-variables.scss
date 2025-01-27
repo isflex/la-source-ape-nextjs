@@ -1,33 +1,27 @@
 // @use "functions";
 
 // Colors
-$black: hsl(0, 0%, 4%) !default;
-$black-bis: hsl(0, 0%, 9%) !default;
-$black-ter: hsl(0, 0%, 14%) !default;
-
-$grey-darker: hsl(0, 0%, 21%) !default;
+$black: hsl(0deg 0% 4%) !default;
+$black-bis: hsl(0deg 0% 9%) !default;
+$black-ter: hsl(0deg 0% 14%) !default;
+$grey-darker: hsl(0deg 0% 21%) !default;
 $grey-dark: #7d7d7d !default;
 $grey: #b3b3b3 !default;
 $grey-light: #eee !default;
 $grey-lighter: #f9f9f9 !default;
-
-$grey-shadow: rgba(0,0,0,0.25) !default;
-
+$grey-shadow: rgb(0 0 0 / 0.25) !default;
 $border-grey-darker: #7d7d7d !default;
 $border-grey-dark: #ccc !default;
 $border-grey: #ececec !default;
 $border-grey-light: #eee !default;
 $border-grey-lighter: #f9f9f9 !default;
-
-$white-ter: hsl(0, 0%, 96%) !default;
-$white-bis: hsl(0, 0%, 98%) !default;
+$white-ter: hsl(0deg 0% 96%) !default;
+$white-bis: hsl(0deg 0% 98%) !default;
 $white: #fff !default;
-
 $transparent: transparent !default;
-
-$yellow: hsl(48, 100%, 67%) !default;
-$turquoise: hsl(171, 100%, 41%) !default;
-$cyan: hsl(204, 86%, 53%) !default;
+$yellow: hsl(48deg 100% 67%) !default;
+$turquoise: hsl(171deg 100% 41%) !default;
+$cyan: hsl(204deg 86% 53%) !default;
 $purple: #b86bff !default;
 $pink: #c8007b !default;
 $blue: #009dcc !default;
@@ -41,13 +35,13 @@ $sunset: #fe544b !default;
 
 // Typography OS-regular
 $family-flexiness: 'Commissioner',
-  ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
-  "Fira Sans", "Droid Sans", "Helvetica Neue",  Arial, "Noto Sans", sans-serif,
+  ui-sans-serif, system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu, cantarell,
+  "Fira Sans", "Droid Sans", "Helvetica Neue",  arial, "Noto Sans", sans-serif,
   "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
-$family-sans-serif: 'Commissioner', BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif !default;
+$family-sans-serif: 'Commissioner', blinkmacsystemfont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif !default;
 $family-serif: 'Commissioner', 'Poppins', 'Arial Black', 'Arial Bold', serif !default;
 $family-monospace: monospace !default;
-$render-mode: optimizeLegibility !default;
+$render-mode: optimizelegibility !default;
 
 // $text-8:  functions.size(0.8em) !default;
 // $text-9:  functions.size(0.9em) !default;
@@ -115,7 +109,7 @@ $gap: 20px !default;
 $tablet: 768px !default;
 
 // 960px container + 3em
-//$desktop: 960px + 2 * $gap !default;
+// $desktop: 960px + 2 * $gap !default;
 $desktop: 984px + 2 * $gap !default;
 
 // 1152px container + 3em
@@ -139,9 +133,6 @@ $fullhd-enabled: true !default;
 // $radius-large: functions.size(0.9em) !default;
 $radius-rounded: 6685px !default;
 $speed: 86ms !default;
-
-// Flags
-$variable-columns: true !default;
 
 // Animations
 $has-prefix: true !default;

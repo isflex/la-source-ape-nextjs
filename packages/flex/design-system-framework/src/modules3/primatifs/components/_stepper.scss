@@ -53,6 +53,79 @@ $step-gap-mobile: calc($step-width * 1.75);
         &.is-validated {
             background: variables.$quaternary;
         }
+
+        // labels
+
+        &[data-label],
+        &[data-label-tablet],
+        &[data-label-mobile] {
+            margin-bottom: functions.size(4em);
+
+            // @debug "$step-width: #{functions.size(3em)}";
+            // @debug "$step-gap-desktop = ($step-width * 3) => #{calc($step-width * 3)}";
+            // @debug "$step-gap-desktop: #{$step-gap-desktop}";
+            // @debug "calc(#{$step-gap-desktop} / 2): -#{calc($step-gap-desktop / 2)}";
+            // @debug "type-of $step-width: #{meta.type-of($step-width)}";
+            // @debug "type-of $step-gap-desktop: #{meta.type-of($step-gap-desktop)}";
+            // @debug "margin-left = (-$step-gap-desktop + $step-width) => #{-$step-gap-desktop + $step-width}";
+
+            &::after {
+                position: absolute;
+                color: var(--flex-grey, #{variables.$grey});
+
+                // font-size: variables.$size-7;
+                font-size: variables.$size-8;
+                font-weight: variables.$weight-semibold;
+                top: functions.size(5em);
+                text-align: center;
+            }
+
+            // active or current step
+            &.is-current::after,
+            &.is-active::after {
+                color: var(--flex-secondary, #{variables.$secondary});
+            }
+
+            // done highlighted step
+            &.is-done.is-highlighted::after {
+                color: var(--flex-tertiary, #{variables.$tertiary});
+            }
+
+            // validated highlighted step
+            &.is-validated.is-highlighted::after {
+                color: var(--flex-quaternary, #{variables.$quaternary});
+            }
+        }
+
+        &[data-label] {
+            &::after {
+                @include mixins.desktop {
+                    left: -#{calc($step-gap-desktop / 2)};
+                    right: -#{calc($step-gap-desktop / 2)};
+                    content: attr(data-label);
+                }
+            }
+        }
+
+        &[data-label-tablet] {
+            &::after {
+                @include mixins.tablet-only {
+                    left: -#{calc($step-gap-tablet / 2)};
+                    right: -#{calc($step-gap-tablet / 2)};
+                    content: attr(data-label-tablet);
+                }
+            }
+        }
+
+        &[data-label-mobile] {
+            &::after {
+                @include mixins.mobile {
+                    left: -#{calc($step-gap-mobile / 2)};
+                    right: -#{calc($step-gap-mobile / 2)};
+                    content: attr(data-label-mobile);
+                }
+            }
+        }
     }
 
     .step + .step {
@@ -123,79 +196,6 @@ $step-gap-mobile: calc($step-width * 1.75);
     // current step followed by unvisited step(s)
     .step.is-current + .step::before {
         background: linear-gradient(90deg, variables.$secondary, variables.$grey-light 75%);
-    }
-
-    // labels
-    .step {
-        &[data-label],
-        &[data-label-tablet],
-        &[data-label-mobile] {
-            margin-bottom: functions.size(4em);
-
-            // @debug "$step-width: #{functions.size(3em)}";
-            // @debug "$step-gap-desktop = ($step-width * 3) => #{calc($step-width * 3)}";
-            // @debug "$step-gap-desktop: #{$step-gap-desktop}";
-            // @debug "calc(#{$step-gap-desktop} / 2): -#{calc($step-gap-desktop / 2)}";
-            // @debug "type-of $step-width: #{meta.type-of($step-width)}";
-            // @debug "type-of $step-gap-desktop: #{meta.type-of($step-gap-desktop)}";
-            // @debug "margin-left = (-$step-gap-desktop + $step-width) => #{-$step-gap-desktop + $step-width}";
-
-            &::after {
-                position: absolute;
-                color: var(--flex-grey, #{variables.$grey});
-                // font-size: variables.$size-7;
-                font-size: variables.$size-8;
-                font-weight: variables.$weight-semibold;
-                top: functions.size(5em);
-                text-align: center;
-            }
-
-            // active or current step
-            &.is-current::after,
-            &.is-active::after {
-                color: var(--flex-secondary, #{variables.$secondary});
-            }
-
-            // done highlighted step
-            &.is-done.is-highlighted::after {
-                color: var(--flex-tertiary, #{variables.$tertiary});
-            }
-
-            // validated highlighted step
-            &.is-validated.is-highlighted::after {
-                color: var(--flex-quaternary, #{variables.$quaternary});
-            }
-        }
-
-        &[data-label] {
-            &::after {
-                @include mixins.desktop {
-                    left: -#{calc($step-gap-desktop / 2)};
-                    right: -#{calc($step-gap-desktop / 2)};
-                    content: attr(data-label);
-                }
-            }
-        }
-
-        &[data-label-tablet] {
-            &::after {
-                @include mixins.tablet-only {
-                    left: -#{calc($step-gap-tablet / 2)};
-                    right: -#{calc($step-gap-tablet / 2)};
-                    content: attr(data-label-tablet);
-                }
-            }
-        }
-
-        &[data-label-mobile] {
-            &::after {
-                @include mixins.mobile {
-                    left: -#{calc($step-gap-mobile / 2)};
-                    right: -#{calc($step-gap-mobile / 2)};
-                    content: attr(data-label-mobile);
-                }
-            }
-        }
     }
 }
 

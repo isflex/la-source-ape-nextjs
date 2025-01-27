@@ -12,9 +12,7 @@ $pricing-item-height-3: $pricing-item-height * 3;
 $pricing-item-height-4: $pricing-item-height * 4;
 $pricing-item-height-5: $pricing-item-height * 5;
 $pricing-plan-extra-margin: functions.size(6em);
-
 $pricing-padding-item: functions.size(1em);
-
 $height-price-area-classic: functions.size(15em);
 $height-price-area-hightlighted: functions.size(20em);
 
@@ -57,19 +55,18 @@ $height-price-area-hightlighted: functions.size(20em);
         flex-grow: 1;
     }
 
-    @include apply-pricing-plan-item-sizes();
+    @include apply-pricing-plan-item-sizes;
     @include plus-symb-partial.plus-symbol(variables.$white, variables.$grey-dark);
 }
 
 .pricing-table {
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    flex-flow: column wrap;
     margin-left: -(variables.$column-gap);
     margin-right: -(variables.$column-gap);
     margin-top: -(variables.$column-gap);
 
-    @include mixins.tablet() {
+    @include mixins.tablet {
         flex-direction: row;
         justify-content: space-around;
         justify-content: space-evenly;
@@ -94,7 +91,7 @@ $height-price-area-hightlighted: functions.size(20em);
     .pricing-table-extra {
         padding: 0 functions.size(1em);
 
-        @include extras();
+        @include extras;
     }
 
     .pricing-plan {
@@ -147,7 +144,7 @@ $height-price-area-hightlighted: functions.size(20em);
         }
 
         .pricing-plan-extra {
-            @include extras();
+            @include extras;
         }
 
         .plan-footer {
@@ -169,7 +166,7 @@ $height-price-area-hightlighted: functions.size(20em);
         }
 
         .pricing-plan-product {
-            @include mixins.apply-shadow-box();
+            @include mixins.apply-shadow-box;
 
             border-radius: variables.$radius;
             background-color: var(--flex-pricing-plan-product-fill, #{variables.$white});
@@ -187,7 +184,7 @@ $height-price-area-hightlighted: functions.size(20em);
         .plan-price,
         .plan-call-to-action,
         .plan-header {
-            @include apply-pricing-plan-item-sizes();
+            @include apply-pricing-plan-item-sizes;
 
             display: flex;
             flex-direction: column;
@@ -282,7 +279,7 @@ $height-price-area-hightlighted: functions.size(20em);
             }
 
             .plan-items {
-                @include mixins.apply-shadow-box();
+                @include mixins.apply-shadow-box;
 
                 border-top-width: 0;
                 background-color: var(--flex-white, #{variables.$white});
@@ -327,7 +324,7 @@ $height-price-area-hightlighted: functions.size(20em);
             }
 
             .plan-sticker {
-                @include mixins.apply-shadow-box();
+                @include mixins.apply-shadow-box;
 
                 border-radius: 100px;
                 background-color: var(--flex-white, #{variables.$white});
@@ -338,7 +335,7 @@ $height-price-area-hightlighted: functions.size(20em);
                 padding: functions.size(0.75em) functions.size(1.5em);
                 transform: translateY(-50%);
 
-                @include mixins.tablet() {
+                @include mixins.tablet {
                     font-size: variables.$size-7-desktop;
                 }
 
@@ -385,7 +382,7 @@ $height-price-area-hightlighted: functions.size(20em);
                         min-width: functions.size(4em);
                         min-height: functions.size(4em);
 
-                        [class^=flexi-]::before {
+                        [class^="flexi-"]::before {
                             font-size: functions.size(2.6em);
                         }
                     }

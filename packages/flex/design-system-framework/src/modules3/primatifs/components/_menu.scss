@@ -9,12 +9,9 @@ $menu-item-hover-color: variables.$secondary;
 $menu-item-hover-background-color: transparent;
 $menu-item-active-color: variables.$secondary;
 $menu-item-active-background-color: variables.$grey-light;
-
 $menu-label-color: variables.$instit;
-
 $menu-top: functions.size(6em);
 $menu-top-desktop: functions.size(8em);
-
 $menu-item-height: 3.125em;
 $menu-item-line-height: calc($menu-item-height / 2);
 $menu-dropdown-item-height: 2em;

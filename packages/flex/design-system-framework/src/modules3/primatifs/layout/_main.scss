@@ -11,15 +11,6 @@
     margin: 0 auto;
     flex-shrink: 0;
     position: relative;
-
-    &.is-fullwidth {
-        @include mixins.fullhd {
-            max-width: 100%;
-        }
-    }
-}
-
-.main-content {
     flex-grow: 1;
     max-width: functions.size(150rem);
 
@@ -27,6 +18,12 @@
         content: ' ';
         background-color: transparent;
         transition: background-color 250ms ease-in-out;
+    }
+
+    &.is-fullwidth {
+        @include mixins.fullhd {
+            max-width: 100%;
+        }
     }
 
     &.has-overlay {

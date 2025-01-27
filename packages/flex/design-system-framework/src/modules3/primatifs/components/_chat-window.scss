@@ -19,7 +19,7 @@ $message-radius: variables.$radius * 2;
 }
 
 .chat-window {
-    @include mixins.apply-shadow-box();
+    @include mixins.apply-shadow-box;
 
     display: flex;
     min-height: $chat-content-min-height;
@@ -47,9 +47,9 @@ $message-radius: variables.$radius * 2;
 
     .chat-content {
         .chat-messages {
-            $boxMessagePadding: variables.$box-padding * 2;
+            $box-message-padding: variables.$box-padding * 2;
 
-            padding: $boxMessagePadding;
+            padding: $box-message-padding;
             display: flex;
             flex-direction: column;
 

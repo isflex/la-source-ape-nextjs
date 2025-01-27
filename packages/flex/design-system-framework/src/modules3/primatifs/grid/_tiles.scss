@@ -3,10 +3,12 @@
 @use "../utilities/animations";
 @use "../utilities/functions";
 
-// @use "@bulvar/bulma/sass/grid/tiles";
-@use "../utilities/vendors/bulma-extensions/tiles";
-
+// $tile-spacing: 0.75rem !default;
 $tile-spacing: variables.$column-gap !default;
+
+@use "../utilities/vendors/bulma-extensions/tiles.scss" with(
+    $tile-spacing: $tile-spacing,
+);
 
 .tile {
     flex-basis: inherit;

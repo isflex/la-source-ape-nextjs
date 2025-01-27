@@ -1,25 +1,13 @@
+/* stylelint-disable scss/load-partial-extension */
 @charset "utf-8";
-
-// @forward "accordion";
-// @forward "breadcrumb";
-// @forward "container";
-// @forward "content";
-// @forward "other";
-// @forward "pagination";
-// @forward "section";
-// @forward "table";
-// @forward "tiles";
-// @forward "timeline";
-// @forward "panel";
-
-@forward "_accordion.sass";
-@forward "_breadcrumb.sass";
-@forward "_container.sass";
-@forward "_content.sass";
-@forward "_other.sass";
-@forward "_pagination.sass";
-@forward "_section.sass";
-@forward "_table.sass";
-@forward "_tiles.sass";
-@forward "_timeline.sass";
-@forward "_panel.sass";
+@forward "accordion.scss";
+@forward "breadcrumb.scss";
+@forward "container.scss";
+@forward "content.scss";
+@forward "other.scss";
+@forward "pagination.scss";
+@forward "panel.scss";
+@forward "section.scss";
+@forward "table.scss";
+@forward "tiles.scss";
+@forward "timeline.scss";

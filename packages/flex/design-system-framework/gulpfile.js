@@ -51,10 +51,10 @@ function contentUrlFonts () {
 }
 
 function contentUrlMixins () {
-  return gulp.src('src/assets/_mixins.template.scss')
+  return gulp.src('src/assets/_patterns.template.scss')
     .pipe(replace(/---URL-REPLACE---/g, `${process.env.FLEX_MODFED_DEPLOYED_REMOTE_HOSTNAME}:${process.env.FLEX_CONTENT_PORT}`))
-    .pipe(rename('_mixins.scss'))
-    .pipe(gulp.dest('src/modules3/primatifs/utilities/mixins/'))
+    .pipe(rename('_patterns.scss'))
+    .pipe(gulp.dest('src/modules3/primatifs/utilities/mixins/generated/'))
 }
 
 function contentUrlProgressBar () {
@@ -64,7 +64,7 @@ function contentUrlProgressBar () {
     .pipe(gulp.dest('src/modules3/primatifs/components/'))
 }
 
-gulp.task('content-fonts', gulp.series(contentUrlFonts, contentUrlMixins, contentUrlProgressBar))
+gulp.task('content-scss', gulp.series(contentUrlFonts, contentUrlMixins, contentUrlProgressBar))
 
 async function generateWebfont({ name, fileName, source, fontWeight, codepoints, cssTemplate, htmlTemplate, classPrefix, baseSelector }) {
   try {

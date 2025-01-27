@@ -6194,18 +6194,18 @@ button.icon {
   line-height: 0.5rem !important;
   position: relative;
 }
-.icon.is-stacked .flexi-notification_top {
+.icon.is-stacked .flexi-notification-top {
   font-size: 85%;
 }
-.icon.is-stacked .flexi-notification_bottom {
+.icon.is-stacked .flexi-notification-bottom {
   font-size: 0.125em;
   width: 100%;
   margin-top: 0.1rem;
 }
-.icon.is-stacked .flexi-notification_bottom::before {
+.icon.is-stacked .flexi-notification-bottom::before {
   width: auto;
 }
-.icon.is-animated .flexi-notification_top {
+.icon.is-animated .flexi-notification-top {
   -webkit-animation-name: bellring;
   animation-name: bellring;
   -webkit-animation-duration: 6s;
@@ -6282,7 +6282,7 @@ button.icon {
     transform: rotate(-5deg);
   }
 }
-.icon.is-animated .flexi-notification_bottom {
+.icon.is-animated .flexi-notification-bottom {
   -webkit-animation-name: bellbounce !important;
   animation-name: bellbounce !important;
   -webkit-animation-duration: 6s;
@@ -20414,7 +20414,7 @@ body > footer,
   content: '\f104';
 }
 
-.flexi-4G4Gplus::before {
+.flexi-4g-4g-plus::before {
   content: '\f105';
 }
 
@@ -20498,7 +20498,7 @@ body > footer,
   content: '\f119';
 }
 
-.flexi-Autoplan::before {
+.flexi-autoplan::before {
   content: '\f11a';
 }
 
@@ -20514,7 +20514,7 @@ body > footer,
   content: '\f11d';
 }
 
-.flexi-Bank::before {
+.flexi-bank::before {
   content: '\f11e';
 }
 
@@ -20566,7 +20566,7 @@ body > footer,
   content: '\f12a';
 }
 
-.flexi-box-FAQ::before {
+.flexi-box-faq::before {
   content: '\f12b';
 }
 
@@ -20586,7 +20586,7 @@ body > footer,
   content: '\f12f';
 }
 
-.flexi-box-smartTV::before {
+.flexi-box-smart-tv::before {
   content: '\f130';
 }
 
@@ -21034,7 +21034,7 @@ body > footer,
   content: '\f19f';
 }
 
-.flexi-Flexymoov-bicycle::before {
+.flexi-flexymoov-bicycle::before {
   content: '\f1a0';
 }
 
@@ -21502,7 +21502,7 @@ body > footer,
   content: '\f214';
 }
 
-.flexi-ringtone-welcomeSound::before {
+.flexi-ringtone-welcome-sound::before {
   content: '\f215';
 }
 
@@ -21538,7 +21538,7 @@ body > footer,
   content: '\f21d';
 }
 
-.flexi-sd-Card::before {
+.flexi-sd-card::before {
   content: '\f21e';
 }
 

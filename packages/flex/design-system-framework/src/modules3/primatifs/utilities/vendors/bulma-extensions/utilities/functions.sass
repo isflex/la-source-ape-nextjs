@@ -70,7 +70,7 @@ $-light-breakpoint: 0.55
   $color-rgb: ('red': color.channel($color, "red", $space: rgb),'green': color.channel($color, "green", $space: rgb),'blue': color.channel($color, "blue", $space: rgb))
   @each $name, $value in $color-rgb
     $value: math.div($value, 255)
-    @if $value < 0.03928
+    @if $value < 0.0393
       $value: math.div($value, 12.92)
     @else
       $value: math.div(($value + 0.055), 1.055)

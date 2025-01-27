@@ -1,1 +1,1 @@
-export declare const flexinessRoot: string
+export declare const flexinessRoot: string;

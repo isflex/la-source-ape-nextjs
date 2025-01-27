@@ -10,7 +10,8 @@ $timeline-marker-icon-size: 2.4em !default;
 $timeline-marker-border: $timeline-marker-border-size solid $timeline-marker-color !default;
 $timeline-line-color: variables.$border-grey !default;
 
-@use "../utilities/vendors/bulma-extensions/timeline";
+/* stylelint-disable-next-line scss/load-partial-extension */
+@use "../utilities/vendors/bulma-extensions/timeline.scss";
 
 .timeline {
     .timeline-header {

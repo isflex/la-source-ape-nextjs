@@ -6,12 +6,9 @@ import { observer } from 'mobx-react-lite'
 
 import { generateClient } from 'aws-amplify/data'
 import type { Schema } from '@amplify/data/resource'
-import classNames from 'classnames'
-// import { default as flexStyles } from '@src/styles/scss/global/flex.module.scss'
-import { default as stylesPage } from '@src/styles/scss/pages/todo.module.scss'
-
 const client = generateClient<Schema>()
 
+import classNames from 'classnames'
 import {
   Button,
   ButtonMarkup,
@@ -20,10 +17,11 @@ import {
   Title,
   TitleLevel,
   VariantState,
-  flexStyles
+  // flexStyles
 } from '@flex-design-system/react-ts/client-sync-styled-default'
 // import { default as flexStyles } from '@flex-design-system/framework'
-// import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as stylesPage } from '@src/styles/scss/pages/todo.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 
@@ -70,13 +68,13 @@ const TodoPage: NextPage<PageAppProps> = observer((
       </div>
       <main className={stylesPage.hasCenteredContent}>
         <Title level={TitleLevel.LEVEL2} className={classNames(flexStyles.hasTextWhite, flexStyles.isCentered )}>
-          La liste à faire de l'APE
+          {`La liste à faire de l'APE`}
         </Title>
         <Text className={flexStyles.hasTextWhite}>
-          Voici un mini exemple d'application "My Todos" que les élèves de la source pourront facilement créer eux-mêmes.
+          {`Voici un mini exemple d'application "My Todos" que les élèves de la source pourront facilement créer eux-mêmes.`}
         </Text>
         <Text className={classNames(flexStyles.hasTextWhite, flexStyles.isItalic )}>
-          L'idée est que ce site puisse être alimenter en contenu par qui que ce soit : élèves, parents et enseignants...
+          {`L'idée est que ce site puisse être alimenter en contenu par qui que ce soit : élèves, parents et enseignants...`}
         </Text>
         <br/>
         <Button onClick={createTodo}
@@ -87,6 +85,11 @@ const TodoPage: NextPage<PageAppProps> = observer((
               Créer une nouvelle tâche
             </span>
         </Button>
+
+        {/* <button onClick={createTodo}>
+          Créer une nouvelle tâche
+        </button> */}
+
         <br/>
         <ul>
           {todos.map((todo) => (

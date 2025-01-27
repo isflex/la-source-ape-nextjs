@@ -2,41 +2,38 @@
 @use "sass:list";
 @use "../utilities/variables";
 @use "../utilities/mixins";
+@use "../utilities/extends";
 @use "../utilities/vendors/bulma-extensions/utilities/functions.sass" as fn_sass;
 
 $message-background-color: variables.$background !default;
 $message-radius: variables.$radius !default;
-
 $message-header-background-color: variables.$text !default;
 $message-header-color: variables.$text-invert !default;
 $message-header-weight: variables.$weight-bold !default;
 $message-header-padding: 0.75em 1em !default;
 $message-header-radius: variables.$radius !default;
-
 $message-body-border-color: variables.$border !default;
 $message-body-border-width: 0 0 0 4px !default;
 $message-body-color: variables.$text !default;
 $message-body-padding: 1.25em 1.5em !default;
 $message-body-radius: variables.$radius !default;
-
 $message-body-pre-background-color: variables.$white !default;
 $message-body-pre-code-background-color: transparent !default;
-
 $message-header-body-border-width: 0 !default;
 
 .message {
-    @include mixins.block;
+    @extend %block;
 
     background-color: var(--flex-message-background-color, #{$message-background-color});
     border-radius: $message-radius;
     font-size: variables.$size-normal;
 
     strong {
-        color: currentColor;
+        color: currentcolor;
     }
 
-    a:not(.button):not(.tag) {
-        color: currentColor;
+    a:not(.button, .tag) {
+        color: currentcolor;
         text-decoration: underline;
     }
 
@@ -67,6 +64,7 @@ $message-header-body-border-width: 0 !default;
 
             .message-header {
                 background-color: var(#{'--flex-'}#{$name}, #{$color});
+
                 // color: var(--flex-color-invert, #{variables.$color-invert});
                 color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$color-invert});
             }

@@ -1,0 +1,41 @@
+@use "../../variables" as variables;
+@use "../../extends";
+
+$number-background: variables.$background !default;
+$number-radius-rounded: variables.$radius-rounded !default;
+$number-font-size: variables.$size-medium !default;
+
+.block {
+  @extend %block;
+}
+
+.delete {
+  @extend %delete;
+}
+
+.loader {
+  @extend %loader;
+}
+
+.heading {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.number {
+  align-items: center;
+  background-color: var(--number-background,  #{$number-background});
+  border-radius: var(--flex-radius-rounded,  #{$number-radius-rounded});
+  display: inline-flex;
+  font-size: var(--number-font-size,  #{$number-font-size});
+  height: 2em;
+  justify-content: center;
+  margin-right: 1.5rem;
+  min-width: 2.5em;
+  padding: 0.25rem 0.5rem;
+  text-align: center;
+  vertical-align: top;
+}

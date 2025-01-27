@@ -46,9 +46,7 @@
 
 .media-left,
 .media-right {
-    flex-basis: auto;
-    flex-grow: 0;
-    flex-shrink: 0;
+    flex: 0 0 auto;
 }
 
 .media-left {
@@ -60,8 +58,6 @@
 }
 
 .media-content {
-    flex-basis: auto;
-    flex-grow: 1;
-    flex-shrink: 1;
+    flex: 1 1 auto;
     text-align: left;
 }

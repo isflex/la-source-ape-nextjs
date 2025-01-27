@@ -1,5 +1,4 @@
-
-// https://gist.github.com/R3V1Z3/2a271f6440f1ac7e028df55e94035e40?permalink_comment_id=5194020#gistcomment-5194020
+// https://gist.github.com/R3V1Z3/2a271f6440f1ac7e028df55e94035e40?permalink_comment_id=5194020#gistcomment5194020
 
 export enum IconName {
   UI_SIM_CARD = 'flexiWebfontUiSimCard',
@@ -108,12 +107,12 @@ export enum IconName {
   BOX_CHECK_CIRCLE = 'flexiWebfontBoxCheckCircle',
   BOX_EOLE = 'flexiWebfontBoxEole',
   BOX_EXCLAMATION_CIRCLE = 'flexiWebfontBoxExclamationCircle',
-  BOX_FAQ = 'flexiWebfontBoxFAQ',
+  BOX_FAQ = 'flexiWebfontBoxFaq',
   BOX_INFO_CIRCLE = 'flexiWebfontBoxInfoCircle',
   BOX_INFO_COGS = 'flexiWebfontBoxInfoCogs',
   BOX_MOBILE = 'flexiWebfontBoxMobile',
   BOX_REDO = 'flexiWebfontBoxRedo',
-  BOX_SMARTTV = 'flexiWebfontBoxSmartTV',
+  BOX_SMARTTV = 'flexiWebfontBoxSmartTv',
   BOX_STETHOSCOPE = 'flexiWebfontBoxStethoscope',
   BOX_UNAVAILABLE = 'flexiWebfontBoxUnavailable',
   BOX = 'flexiWebfontBox',

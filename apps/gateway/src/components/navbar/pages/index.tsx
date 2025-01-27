@@ -1,12 +1,12 @@
 import React from 'react'
 // import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import classNames from 'classnames'
 import { observer } from 'mobx-react-lite'
 import { getStores } from '@flexiness/domain-store'
 import routesActive from '@root/routes.active.json'
 import routesMeta from '@root/routes.meta.json'
 
+import classNames from 'classnames'
 import {
   // flexStyles,
   Text,

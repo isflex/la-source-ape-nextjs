@@ -2,6 +2,5 @@
 @use "../utilities/mixins";
 @use "../utilities/animations";
 @use "../utilities/functions";
-
-// @use "@bulvar/bulma/sass/elements/other";
-@use "../utilities/vendors/bulma-extensions/other";
+/* stylelint-disable-next-line scss/load-partial-extension */
+@use "../utilities/vendors/bulma-extensions/other.scss";

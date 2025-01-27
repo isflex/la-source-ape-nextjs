@@ -101,7 +101,7 @@ This allows to put whole blocks inside links without getting the text underlined
 
             &::after {
                 content: '';
-                background: currentColor;
+                background: currentcolor;
                 height: functions.size(0.2em);
                 position: absolute;
                 bottom: 0;

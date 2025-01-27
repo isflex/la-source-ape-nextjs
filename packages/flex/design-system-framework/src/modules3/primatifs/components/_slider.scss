@@ -3,7 +3,7 @@
 @use "../utilities/animations";
 @use "../utilities/functions";
 
-.flexiness-root [data-slider=true] {
+.flexiness-root [data-slider="true"] {
     position: relative;
 
     [data-slider-pages] {
@@ -33,7 +33,6 @@
     }
 
     [data-slider-page] {
-
         &.column {
             max-width: 100%;
             display: grid;
@@ -137,12 +136,14 @@
     [data-slider-prev] {
         right: auto;
         left: 0;
+
         // left: functions.size(3em);
     }
 
     [data-slider-next] {
         left: auto;
         right: 0;
+
         // right: functions.size(3em);
     }
 
