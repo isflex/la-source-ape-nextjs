@@ -36,7 +36,7 @@ export default function HomeLayout({
       </div>
       <main>
         <Title level={TitleLevel.LEVEL1} className={classNames(flexStyles.isCentered)} style={{ marginTop: '-1rem' }}>
-          {`Bienvenue au site de l'APE !!`}
+          {`À propos de ce site`}
         </Title>
         <section>{children}</section>
       </main>

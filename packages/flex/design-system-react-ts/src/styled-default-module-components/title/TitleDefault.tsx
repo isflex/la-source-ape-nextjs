@@ -7,8 +7,10 @@ import { camelCase } from 'lodash'
 import { TitleProps } from './TitleProps.js'
 import { TitleLevel, TitleMarkup } from './TitleEnum.js'
 
-// https://github.com/facebook/react/issues/9255#issuecomment-1272289750
+// // https://github.com/facebook/react/issues/9255#issuecomment-1272289750
 // import { hasComplexChildren } from 'react-children-utilities'
+// // https://wonko.com/post/html-escaping/
+// import he from 'he'
 // import escape from 'lodash/escape.js'
 
 // ///////////////////////////////////////////////////////////////////////////
@@ -66,10 +68,29 @@ const Title = ({
    */
   const Tag = markup && (markup in TitleMarkup || Object.values(TitleMarkup).includes(markup)) ? markup : 'div'
 
+  // const encodeString = (children: React.ReactNode): React.ReactNode | string => {
+  //   const hasChildren = (element:  React.ReactNode) =>
+  //     React.isValidElement(element) && Boolean(element.props.children)
+
+  //   const ReactChildrenText = (children: any) => {
+  //     if (hasChildren(children)) return ReactChildrenText(children.props.children)
+  //     return children
+  //   }
+  //   // if (hasComplexChildren(children)) return children
+  //   // return <span>{children}</span>
+  //   const encoded = he.encode(ReactChildrenText(children) as string, {
+  //     // 'useNamedReferences': true,
+  //     'decimal': true
+  //   })
+  //   // return encoded
+  //   const markup = { __html: encoded }
+  //   return <span dangerouslySetInnerHTML={markup} />
+  // }
+
   return (
     <Tag className={classes} {...others}>
       {children}
-      {/* {hasComplexChildren(children) ? children : escape(children as string)} */}
+      {/* {encodeString(children)} */}
     </Tag>
   )
 }

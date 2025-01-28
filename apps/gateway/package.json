@@ -18,6 +18,7 @@
     "@flexiness/domain-store": "@flexiness/domain-store@0.1.0",
     "@flexiness/domain-utils": "@flexiness/domain-utils@0.0.1",
     "@loadable/component": "5.13.2",
+    "@marp-team/marp-cli": "^4.1.1",
     "@module-federation/enhanced": "0.8.5",
     "aws-amplify": "^6.10.2",
     "cors": "2.8.5",
