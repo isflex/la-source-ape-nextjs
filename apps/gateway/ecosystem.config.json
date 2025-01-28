@@ -1,0 +1,30 @@
+{
+  "apps" : [
+    {
+      "name"            : "nextjs",
+      "script"          : "pnpm --filter=gateway next:dev",
+      "exec_mode"       : "fork",
+      "instances"       : 1,
+      "watch"           : false,
+      "env_production"  : {
+        "NODE_ENV"      : "production"
+      },
+      "env_development" : {
+        "NODE_ENV"      : "development"
+      }
+    },
+    {
+      "name"            : "marp",
+      "script"          : "pnpm --filter=gateway start:marp",
+      "exec_mode"       : "fork",
+      "instances"       : 1,
+      "watch"           : false,
+      "env_production"  : {
+        "NODE_ENV"      : "production"
+      },
+      "env_development" : {
+        "NODE_ENV"      : "development"
+      }
+    }
+  ]
+}

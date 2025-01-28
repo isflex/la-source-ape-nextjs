@@ -13,7 +13,65 @@ import { default as stylesPage } from '@src/styles/scss/pages/todo.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 
-export default function HomeLayout({
+// import chromium from '@sparticuz/chromium-min'
+// const chromiumPath = await chromium.executablePath()
+// console.log('chromium.executablePath', chromiumPath)
+// import { marpCli, waitForObservation } from '@marp-team/marp-cli'
+
+// let Slides: any = () => null
+
+// const showMarpSlides = async () => {
+//   // Store the original CHROME_PATH environment variable
+//   const { CHROME_PATH } = process.env
+//   try {
+
+//     // Set the CHROME_PATH environment variable to the path of the Chromium binary
+//     // @ts-expect-error
+//     process.env.CHROME_PATH = await chromium.executablePath
+
+//     Slides = () => {
+//       marpCli(['--server', '../..slides/'])
+//         .then((exitCode) => console.log(`Done with exit code ${exitCode}`))
+//         .catch(console.error)
+
+//       waitForObservation().then(({ stop }) => {
+//         console.log('Observed')
+//         // Stop observations to resolve marpCli()'s Promise
+//         stop()
+//       })
+//     }
+
+//   } finally {
+//     // Restore the original CHROME_PATH environment variable
+//     process.env.CHROME_PATH = CHROME_PATH
+//   }
+// }
+
+// showMarpSlides()
+
+// // Store the original CHROME_PATH environment variable
+// const { CHROME_PATH } = process.env
+// try {
+//   // Set the CHROME_PATH environment variable to the path of the Chromium binary
+//   // @ts-expect-error
+//   process.env.CHROME_PATH = await chromium.executablePath
+
+//   Slides = await marpCli(['--server', '../..slides/'])
+//     .then((exitCode) => console.log(`Done with exit code ${exitCode}`))
+//     .catch(console.error)
+
+//   waitForObservation().then(({ stop }) => {
+//     console.log('Observed')
+//     // Stop observations to resolve marpCli()'s Promise
+//     stop()
+//   })
+
+// } finally {
+//   // Restore the original CHROME_PATH environment variable
+//   process.env.CHROME_PATH = CHROME_PATH
+// }
+
+export default async function AboutLayout({
   children,
 }: {
   children: React.ReactNode
@@ -38,6 +96,7 @@ export default function HomeLayout({
         <Title level={TitleLevel.LEVEL1} className={classNames(flexStyles.isCentered)} style={{ marginTop: '-1rem' }}>
           {`À propos de ce site`}
         </Title>
+        {/* <Slides/> */}
         <section>{children}</section>
       </main>
     </div>
