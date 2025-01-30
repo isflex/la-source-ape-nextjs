@@ -1,26 +1,8 @@
+/* stylelint-disable declaration-block-no-redundant-longhand-properties */
+
 @use 'todo.vars.module';
 
-.todoApp {
-  margin: 0;
-  background: linear-gradient(180deg, rgb(117, 81, 194), rgb(255, 255, 255));
-  width: 100vw;
-  height: 100vh;
-
-  main {
-    width: 100%;
-    min-height: calc(100% - 475px);
-    padding: 0 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-
-    &.hasCenteredContent {
-      justify-content: center;
-      align-items: center;
-    }
-  }
-
+.todo-app {
   ul {
     padding-inline-start: 0;
     margin-block-start: 0;

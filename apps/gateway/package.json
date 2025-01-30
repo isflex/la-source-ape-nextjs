@@ -5,15 +5,17 @@
   "type": "module",
   "scripts": {
     "build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build",
+    "build:lib": "pnpm marp:html && pnpm marp:pdf",
     "delete": "pnpm pm2 delete ecosystem.config.json",
     "lint": "next lint",
-    "list": "pnpm pm2 list ecosystem.config.json",
+    "marp:html": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- marp --input-dir $FLEX_PROJ_ROOT/apps/gateway/src/slides/ -o $FLEX_PROJ_ROOT/apps/gateway/public/slides",
+    "marp:pdf": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- marp --pdf --input-dir $FLEX_PROJ_ROOT/apps/gateway/src/slides/ -o $FLEX_PROJ_ROOT/apps/gateway/public/slides",
     "next:dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
     "next:dev:debug": "FEDERATION_DEBUG='true' NODE_OPTIONS='--inspect' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
-    "start": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pm2 start ecosystem.config.json --env $FLEX_MODE",
-    "start:gateway": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next start ./ --hostname $FLEX_GATEWAY_DEPLOYED_REMOTE_HOSTNAME",
-    "start:marp": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- marp --server $FLEX_PROJ_ROOT/apps/gateway/src/slides/",
-    "stop": "pnpm pm2 stop ecosystem.config.json"
+    "pm2:list": "pnpm pm2 list ecosystem.config.json",
+    "pm2:start": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pm2 start ecosystem.config.json --env $FLEX_MODE",
+    "pm2:stop": "pnpm pm2 stop ecosystem.config.json",
+    "start": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next start ./ --hostname $FLEX_GATEWAY_DEPLOYED_REMOTE_HOSTNAME"
   },
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "1.4.0",
@@ -24,7 +26,8 @@
     "@flexiness/domain-utils": "@flexiness/domain-utils@0.0.1",
     "@loadable/component": "5.13.2",
     "@module-federation/enhanced": "0.8.5",
-    "@sparticuz/chromium-min": "132.0.0",
+    "@react-pdf/renderer": "4.1.6",
+    "@sparticuz/chromium": "132.0.0",
     "aws-amplify": "^6.10.2",
     "cors": "2.8.5",
     "escape-string-regexp": "5.0.0",
@@ -32,7 +35,10 @@
     "next": "15.1.6",
     "next-recompose-plugins": "3.0.0",
     "pm2": "5.4.3",
+    "puppeteer": "^24.1.1",
+    "puppeteer-core": "^24.1.1",
     "react": "18.3.1",
+    "react-device-detect": "2.2.3",
     "react-dom": "18.3.1",
     "react-router": "7.1.1",
     "react-sticky-el": "2.1.1"

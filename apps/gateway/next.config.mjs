@@ -116,9 +116,12 @@ const mainConfig = new Config(async (phase, args) => {
     ],
 
     // https://github.com/orgs/marp-team/discussions/499
-    // serverExternalPackages: [
-    //   '@marp-team/marp-cli'
-    // ],
+    // https://gist.github.com/kettanaito/56861aff96e6debc575d522dd03e5725
+    serverExternalPackages: [
+      '@marp-team/marp-cli',
+      'puppeteer-core',
+      '@sparticuz/chromium'
+    ],
 
     typescript: {
       ignoreBuildErrors: false,
@@ -135,6 +138,10 @@ const mainConfig = new Config(async (phase, args) => {
     generateBuildId: async () => {
       // You can, for example, get the latest git commit hash here
       return _buildId
+    },
+
+    env: {
+      NEXT_PUBLIC_BUILD_ID: _buildId
     },
 
     crossOrigin: 'anonymous',

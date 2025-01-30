@@ -1,4 +1,4 @@
-.stickyContainer {
+.sticky-container {
   order: 1;
   width: 100%;
 
@@ -12,7 +12,7 @@
     }
   }
 
-  .stickyWrapper {
+  .sticky-wrapper {
     z-index: 9999;
     width: 100% !important;
     background: var(--flex-tertiary);

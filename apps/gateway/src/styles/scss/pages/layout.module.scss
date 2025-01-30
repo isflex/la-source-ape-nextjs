@@ -1,13 +1,17 @@
-.gatewayLayout {
+.gateway-layout {
   min-height: 100vh;
 }
 
-.navLayout {
+.nav-layout {
   display: flex;
   flex-direction: row;
   background-color: var(--flex-grey-light);
 
   @media screen and (max-width: '760px') {
     flex-direction: column;
+  }
+
+  .dom-overlay-mode & {
+    display: none;
   }
 }

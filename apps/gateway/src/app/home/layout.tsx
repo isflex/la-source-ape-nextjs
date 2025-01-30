@@ -9,7 +9,6 @@ import {
   TitleLevel
  } from '@flex-design-system/react-ts/client-sync-styled-default'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
-import { default as stylesPage } from '@src/styles/scss/pages/todo.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 
@@ -19,7 +18,7 @@ export default function HomeLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className={stylesPage.todoApp}>
+    <div className={flexStyles.genericLayout1}>
       <div style={{
         height: 'auto',
         padding: '2rem 0',

@@ -29,17 +29,17 @@ import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
 const Home: NextPage<PageAppProps> = () => {
   return (
-  <InfoBlock>
-    <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.UI_INFO_CIRCLE}>
-      <Title level={TitleLevel.LEVEL3}>{`Contenu de la page à venir`}</Title>
-    </InfoBlockHeader>
-    <InfoBlockContent>
-      <Title level={TitleLevel.LEVEL4}>{`avec l'aide des élèves de la source 🤞`}</Title>
-    </InfoBlockContent>
-    <InfoBlockAction>
-      <Link href='/about' className={flexStyles.link}>Qui somme nous</Link>
-    </InfoBlockAction>
-  </InfoBlock>
+    <InfoBlock>
+      <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.UI_INFO_CIRCLE}>
+        <Title level={TitleLevel.LEVEL3}>{`Contenu de la page à venir`}</Title>
+      </InfoBlockHeader>
+      <InfoBlockContent>
+        <Title level={TitleLevel.LEVEL4}>{`avec l'aide des élèves de la source 🤞`}</Title>
+      </InfoBlockContent>
+      <InfoBlockAction>
+        <Link href='/about' className={flexStyles.link}>Qui somme nous</Link>
+      </InfoBlockAction>
+    </InfoBlock>
   )
 }
 

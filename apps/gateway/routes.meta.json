@@ -1,14 +1,18 @@
 {
   "home": {
-    "emoji": "🛫 >",
+    "emoji": "✈️",
     "navTitle": "Accueil"
   },
   "todo": {
-    "emoji": "🛸 >",
+    "emoji": "🛸",
     "navTitle": "Page d'exemple"
   },
   "onboard": {
-    "emoji": "🚀 >",
-    "navTitle": "l'Appli After School"
+    "emoji": "🚀",
+    "navTitle": "l'Appli after school"
+  },
+  "about": {
+    "emoji": "💡",
+    "navTitle": "À propos"
   }
 }

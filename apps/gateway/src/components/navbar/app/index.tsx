@@ -24,8 +24,9 @@ const NavbarApp: React.FC = () => {
         .map(([key, value], index) => {
           return (
             <span key={index} className={stylesPage.navItem}>
-              <Text className={classNames(flexStyles.isInline)}>{value.emoji}</Text>{'\u00A0'}
-              <Link href={`/${key}`} className={flexStyles.link}>{value.navTitle}</Link>
+              <Text className={classNames(flexStyles.isInline)}>{value.emoji}</Text>
+              <span style={{ height: '1.75rem'}} className={flexStyles.isHiddenMobile}>{'\u00A0 > \u00A0'}</span>
+              <Link href={`/${key}`} className={classNames(flexStyles.link, stylesPage.navItemLink)}>{value.navTitle}</Link>
             </span>
           )
         })

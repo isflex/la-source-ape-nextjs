@@ -81,7 +81,7 @@ const accessFile = async (path: string) => {
 }
 
 const FLEX_SERVER_RUNNING = process.env.FLEX_SERVER_RUNNING
-const PORT = process.env.FLEX_DESIGN_SYS_REACT_TS_PORT
+const PORT = `${process.env.FLEX_DESIGN_SYS_REACT_TS_PORT}`
 const HOST = `${process.env.FLEX_PROTOCOL}${process.env.FLEX_DESIGN_SYS_REACT_TS_HOSTNAME}:${PORT}`
 
 console.log(`env : FLEX_DESIGN_SYS_REACT_TS_BUILD_SYS=${process.env.FLEX_DESIGN_SYS_REACT_TS_BUILD_SYS}`)
@@ -94,7 +94,7 @@ const servePath = path.join(
 // console.log('servePath', servePath)
 
 const stylesServePath = path.join(
-  process.env.FLEX_PROJ_ROOT,
+  `${process.env.FLEX_PROJ_ROOT}`,
   'apps/la-source/ape/on-board/client/',
   'build',
   `${process.env.FLEX_POKER_CLIENT_BUILD_SYS}`,
@@ -102,7 +102,6 @@ const stylesServePath = path.join(
 )
 // console.log('stylesServePath', stylesServePath)
 
-import { ChunkExtractor } from '@loadable/server'
 const clientStats = await accessFile(path.join(stylesServePath, 'loadable-stats.json'))
 let clientExtractor: Record<string, any>
 let flexFrameworkStylesAsset: string
@@ -166,7 +165,7 @@ const generateNonce = async ()  => {
 
 // /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-detect(PORT)
+detect(Number(PORT))
   .then(_port => {
     if (Number(PORT) === Number(_port)) {
       let _currentRoute = ''
@@ -282,9 +281,9 @@ detect(PORT)
         ? http.createServer(app)
         : https.createServer(optionsHTTPS(), app)
 
-      server.listen(PORT, `${process.env.FLEX_DESIGN_SYS_REACT_TS_HOSTNAME}`, 34, (err) => {
+      server.listen(Number(PORT), `${process.env.FLEX_DESIGN_SYS_REACT_TS_HOSTNAME}`, 34, (err) => {
         if (err) throw err
-        console.log(`[${process.env.FLEX_PROTOCOL.slice(0, -3).toUpperCase()}] : ${HOST} :`, server.address())
+        console.log(`[${process.env.FLEX_PROTOCOL?.slice(0, -3).toUpperCase()}] : ${HOST} :`, server.address())
         console.log(`${FLEX_SERVER_RUNNING} ${HOST}`)
       })
 

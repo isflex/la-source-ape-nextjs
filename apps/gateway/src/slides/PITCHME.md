@@ -9,7 +9,7 @@ paginate: true
 _paginate: false
 ---
 
-![bg opacity](./assets/gradient.jpg)
+<!-- ![bg opacity](./assets/gradient.jpg) -->
 
 # <!--fit--> Marp CLI example
 
@@ -52,7 +52,7 @@ https://github.com/yhatt/marp-cli-example
 
 #### Ready to write & host your deck!
 
-[![Deploy to Netlify h:1.5em](./assets/netlify-deploy-button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/yhatt/marp-cli-example)
+<!-- [![Deploy to Netlify h:1.5em](./assets/netlify-deploy-button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/yhatt/marp-cli-example) -->
 
 ---
 

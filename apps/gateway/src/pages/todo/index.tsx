@@ -51,7 +51,7 @@ const TodoPage: NextPage<PageAppProps> = observer((
   }
 
   return (
-    <div className={stylesPage.todoApp}>
+    <div className={classNames(flexStyles.genericLayout1, stylesPage.todoApp)}>
       <div style={{
         height: 'auto',
         padding: '2rem 0',
@@ -67,7 +67,7 @@ const TodoPage: NextPage<PageAppProps> = observer((
         </div>
       </div>
       <main className={stylesPage.hasCenteredContent}>
-        <Title level={TitleLevel.LEVEL2} className={classNames(flexStyles.hasTextWhite, flexStyles.isCentered )}>
+        <Title level={TitleLevel.LEVEL1} className={classNames(flexStyles.isCentered)} style={{ marginTop: '-1rem' }}>
           {`La liste à faire de l'APE`}
         </Title>
         <Text className={flexStyles.hasTextWhite}>

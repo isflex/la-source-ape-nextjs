@@ -1,1 +1,27 @@
 @use '@flex-design-system/framework';
+
+.dom-overlay-mode {
+  overflow-y: hidden;
+}
+
+.generic-layout-1 {
+  margin: 0;
+  background: linear-gradient(180deg, rgb(117 81 194), rgb(255 255 255));
+  width: 100vw;
+  height: 100vh;
+
+  main {
+    width: calc(100% - 4rem);
+    min-height: calc(100% - 475px);
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    &.has-centered-content {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
