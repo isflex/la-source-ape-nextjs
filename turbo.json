@@ -18,7 +18,8 @@
     },
     "dev:packages:transit": {
       "dependsOn": [
-        "^dev:compile:transit"
+        "^dev:compile:transit",
+        "gateway#marp:build"
       ]
     },
     "//#compile:clean:sh": {
@@ -35,7 +36,8 @@
     },
     "//#compile:watch:sh": {
       "outputs": [
-        "packages/flex/domain-store/dist/**"
+        "packages/flex/domain-store/dist/**",
+        "apps/gateway/public/slides/**"
       ],
       "cache": false,
       "persistent": false

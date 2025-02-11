@@ -82,17 +82,28 @@ const About: NextPage<PageAppProps> = observer(() => {
   const PageContent = () => {
     if (showSlide) return null
     return (
-      <InfoBlock>
-        <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.UI_INFO_CIRCLE}>
-          <Title level={TitleLevel.LEVEL3}>{`Contenu de la page à venir`}</Title>
-        </InfoBlockHeader>
-        <InfoBlockContent>
-          <Title level={TitleLevel.LEVEL4}>{`avec l'aide des élèves de la source 🤞`}</Title>
-        </InfoBlockContent>
-        <InfoBlockAction>
-          <FlexLink onClick={() => handleOpenSlide('PITCHME')} className={flexStyles.link}>Reead some stuff</FlexLink>
-        </InfoBlockAction>
-      </InfoBlock>
+      <div className={stylesPage.aboutLinkGrid}>
+        <div>
+          <FlexLink onClick={() => handleOpenSlide('pourquoi-ce-site')} className={flexStyles.link}>
+            {`Pourquoi ce site ?`}
+          </FlexLink>
+        </div>
+        <div>
+          <FlexLink onClick={() => handleOpenSlide('dans-quel-but')} className={flexStyles.link}>
+            {`Dans quel but ?`}
+            </FlexLink>
+        </div>
+        <div>
+          <FlexLink onClick={() => handleOpenSlide('pourquoi-ce-site')} className={flexStyles.link}>
+            {`Qu'est-ce que c'est ?`}
+          </FlexLink>
+        </div>
+        <div>
+          <FlexLink onClick={() => handleOpenSlide('pourquoi-ce-site')} className={flexStyles.link}>
+            {`Comment contribuer ?`}
+          </FlexLink>
+        </div>
+      </div>
      )
   }
 
@@ -114,7 +125,9 @@ const About: NextPage<PageAppProps> = observer(() => {
   return (
     <>
       <ToggleSlideBtn />
-      <PageContent />
+      <div className={stylesPage.aboutContainer}>
+        <PageContent />
+      </div>
       {showSlide &&
         <iframe
           id="marp-slide"

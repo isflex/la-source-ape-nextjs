@@ -4,21 +4,19 @@ import React from 'react'
 import LogoSvg from '@root/public/logo/la_source/LaSource.svg'
 import { LogoProps } from '@root/types/additional'
 import { getStores } from '@flexiness/domain-store'
+import classNames from 'classnames'
+import { default as stylesPage } from '@src/styles/scss/pages/logo.module.scss'
 
 const stores = getStores()
 
 const Logo: React.FC<LogoProps> = () => {
   const { navigationState } = stores.UIStore
   return (
-    <div
-      className={`flex-gateway-logo ${navigationState}`}
-      style={{
-        order: '2',
-        zoom: '0.4', padding: '1rem 4rem',
-        // width: '100%',
-        margin: '0 auto', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'
-      }}
-    >
+    <div className={classNames(
+      `flex-gateway-logo ${navigationState}`,
+      stylesPage.logoDefault,
+      stylesPage.logoLaSource
+    )}>
       <LogoSvg id='LaSource_white' />
     </div>
   )

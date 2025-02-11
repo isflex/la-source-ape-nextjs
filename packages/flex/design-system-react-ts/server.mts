@@ -281,11 +281,12 @@ detect(Number(PORT))
         ? http.createServer(app)
         : https.createServer(optionsHTTPS(), app)
 
-      server.listen(Number(PORT), `${process.env.FLEX_DESIGN_SYS_REACT_TS_HOSTNAME}`, 34, (err) => {
-        if (err) throw err
+      server.listen(Number(PORT), `${process.env.FLEX_DESIGN_SYS_REACT_TS_HOSTNAME}`, 34, () => {
         console.log(`[${process.env.FLEX_PROTOCOL?.slice(0, -3).toUpperCase()}] : ${HOST} :`, server.address())
         console.log(`${FLEX_SERVER_RUNNING} ${HOST}`)
       })
+
+      // https://stackoverflow.com/questions/53079611/handling-node-http-serverlisten-error-with-callback
 
       // const server = app.listen(PORT, `${process.env.FLEX_DESIGN_SYS_REACT_TS_HOSTNAME}`, 34, (err) => {
       //   if (err) throw err

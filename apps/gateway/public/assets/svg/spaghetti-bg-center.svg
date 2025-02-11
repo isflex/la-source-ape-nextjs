@@ -1,0 +1,54 @@
+<svg class="spaghetti-inline-center" width="900" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .spaghetti-inline-center {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      margin: 0 auto;
+    }
+
+    #yellow-rect-horizontal-bottom-center {
+      x: calc(50% - (50vw - 800px));
+      y: calc(100% - 346.5px);
+      width: calc(50vw - 880px);
+    }
+
+    #green-rect-horizontal-bottom-center {
+      x: calc(50% - (50vw - 900px));
+      y: calc(100% - 293.5px);
+      width: calc(50vw - 638px);
+    }
+
+    #blue-rect-horizontal-bottom-center {
+      x: calc(50% + 15px);
+      y: calc(100% - 448.5px);
+      width: calc(50vw - 800px);
+    }
+  </style>
+  <defs>
+    <symbol id="yellow-bottom-center" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMidYMax" fill="none">
+      <path d="M1024 1153C1190.5 1153 1171.5 1083 1171.5 912.501C1171.5 807.001 1303.5 813.001 1303.5 912.501C1303.5 976.001 1334 976.001 1466 976.001C1466 976.001 1576.13 976.001 1791.5 976.001C1918 976.001 1920.5 1153 1791.5 1153H1525C1427 1153 1352 1153 1352 1275C1352 1275 1352 1332 1352 1419.75C1352 1507.5 1422.5 1507.5 1455 1507.5" stroke="#D3CC5B" stroke-width="12"/>
+    </symbol>
+    <symbol id="red-top-center" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMidYMin" fill="none">
+      <path d="M1003.5 301.001C1003.5 301.001 903.999 301.001 841.499 301.001C778.999 301.001 752.999 273.001 752.999 223.001C752.999 173.001 752.999 130.421 752.999 86.0014C752.999 -21.4986 932.5 -17.9986 932.5 86.0013C932.5 154.345 904.999 173.001 841.499 171.501L636.5 168.501C552.309 168.501 528 199.001 528 256.501C528 256.501 528 300.001 528 344.501C528 389.001 574 420.001 636.5 420.001C699 420.001 920.499 420.001 920.499 420.001C1017 420.001 1017 556.501 920.499 556.501C920.499 556.501 711 556.501 655 556.501C599 556.501 692.5 556.501 565 556.501" stroke="#FF0000" stroke-width="12"/>
+    </symbol>
+    <symbol id="red-bottom-center" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMidYMax" fill="none">
+      <path d="M920.499 1069.5C1101.51 1069.5 1215.5 1069.5 1421.5 1069.5C1571.89 1069.5 1675.5 1042 1675.5 972.501C1675.5 903.001 1564.5 896.501 1564.5 972.501C1564.5 1048.5 1645 1069.5 1925 1069.5" stroke="#FF0000" stroke-width="12"/>
+    </symbol>
+    <symbol id="blue-top-center" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMidYMin" fill="none">
+      <path d="M1610.5 299C1610.5 299 1769.5 299 1833 299C1896.5 299 1985 274.5 1985 196C1985 98.5005 1846.5 98.5005 1846.5 196C1846.5 269.5 1923 299 1996 299M2039.5 564.5C1818.5 557.501 1596.5 580 1596 472C1595.5 364 1753.8 395.375 1912 432.5C2007.07 454.81 2124.44 466.98 2236.5 466.722" stroke="#324BF7" stroke-width="12"/>
+    </symbol>
+    <symbol id="blue-bottom-center" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMidYMax" fill="none">
+      <path d="M1326.5 853.501C1235.5 853.501 1255.5 1009 1255.5 1151C1255.5 1293 1096 1299 1096 1151C1096 1003 1096 1050.5 1096 926.501C1096 802.5 938.5 803.501 938.5 926.501C938.5 995.423 938.5 1112.79 938.5 1229.5C938.5 1321.07 938.5 1259.92 938.5 1283C938.5 1335.5 976 1377 1023.5 1377C1071 1377 1090.5 1377 1144.5 1377C1198.5 1377 1259.5 1389 1259.5 1440.5C1259.5 1492 1199.5 1511 1144.5 1511" stroke="#324BF7" stroke-width="12"/>
+    </symbol>
+  </defs>
+  <use href="#yellow-bottom-center" x="20" y="-220" width="100%" height="100%" />
+  <use href="#red-top-center" x="-10" y="45" width="100%" height="100%" />
+  <use href="#red-bottom-center" x="0" y="-220" width="100%" height="100%" />
+  <use href="#blue-top-center" x="20" y="45" width="100%" height="100%" />
+  <use href="#blue-bottom-center" x="15" y="-220" width="100%" height="100%" />
+  <rect id="yellow-rect-horizontal-bottom-center" x="0" y="0" width="100%" height="4" rx="2" fill="#D3CC5B" />
+  <rect id="green-rect-horizontal-bottom-center" x="0" y="0" width="100%" height="4" rx="2" fill="#39A256" />
+  <rect id="blue-rect-horizontal-bottom-center" x="0" y="0" width="100%" height="4" rx="2" fill="#324BF7" />
+</svg>

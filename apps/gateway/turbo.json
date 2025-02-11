@@ -15,6 +15,17 @@
       ],
       "cache": false
     },
+    "marp:build": {
+      "outputs": [
+        "apps/gateway/public/slides/**"
+      ],
+      "cache": false,
+      "persistent": false,
+      "env": [
+        "DOTENV_*",
+        "FLEX_*"
+      ]
+    },
     "build": {
       "dependsOn": [
         "//#compile:clean:sh",

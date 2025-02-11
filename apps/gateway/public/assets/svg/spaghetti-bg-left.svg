@@ -1,0 +1,80 @@
+<svg class="spaghetti-inline-left" width="900" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .spaghetti-inline-left {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    #green-rect-horizontal-bottom-left {
+      x: 290px;
+      y: calc(100% - 293.5px);
+      width: calc(50vw - 265px);
+    }
+
+    #yellow-rect-horizontal-top-left {
+      x: 170px;
+      y: 161px;
+      width: calc(50vw - 290px);
+    }
+
+    #yellow-rect-horizontal-bottom-left {
+      x: 136px;
+      y: calc(100% - 347px);
+      width: calc(50vw - 220px);
+    }
+
+    #red-rect-horizontal-top-left {
+      x: 242px;
+      y: 232px;
+      width: calc(50vw - 448px);
+    }
+
+    #red-rect-horizontal-bottom-left {
+      x: 361px;
+      y: calc(100% - 375px);
+      width: calc(50vw - 382px);
+    }
+
+    #yellow-rect-vertical-right {
+      x: 19px;
+      y: 264px;
+      height: calc(100vh - 204px - 418px);
+    }
+
+    #red-rect-vertical-right {
+      x: 117px;
+      y: 283px;
+      height: calc(100vh - 204px - 567px);
+    }
+  </style>
+  <defs>
+    <symbol id="green-bottom-left" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMinYMax" fill="none">
+      <path d="M874.501 1308C627.582 1312 610.001 1130 610.001 1035C610.001 972.811 582.5 939.001 510.5 939.001H387C303.5 939.001 189 952.001 143 888.501C97.0003 825.001 156 746.001 215 746.001C274 746.001 342.5 834.501 285.5 888.501L172 1018C123 1073.5 117.238 1213.64 244 1211C244 1211 291 1211 450.5 1211C610 1211 610.001 1274.5 610.001 1291C610.001 1307.5 610 1368 450.5 1368C291 1368 305 1368 305 1368C305 1368 175.5 1368 143 1368C97 1368 39 1387 39 1439.5C39 1492 96 1517 143 1513.5" stroke="#39A256" stroke-width="12"/>
+    </symbol>
+    <symbol id="yellow-top-left" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMinYMin" fill="none">
+      <path d="M476.501 479.001C363.001 479.001 346 336.001 484 336.001C622 336.001 614.5 232.001 614.5 128.001C614.5 24.0011 473.5 26.0011 476.501 128.001C476.501 128.001 476.501 122.001 476.501 163.501C476.501 207.614 497 244.501 553 244.501C656.5 244.501 701.236 359.166 701.236 424C701.236 801 6 801 6 424C6.00002 185 226.5 244.501 226.5 128.001C226.5 11.5012 79.5 5.60959 79.5 128.001C79.5 250.393 314 206.001 314 407.001C314 577.389 33.0005 577.501 33.0005 784.001" stroke="#D3CC5B" stroke-width="12"/>
+    </symbol>
+    <symbol id="yellow-bottom-left" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMinYMax" fill="none">
+      <path d="M374 1153C288 1153 285 1028 374 1028C463 1028 701.236 1028 701.236 1028C805.5 1028 846.236 1032.7 846.236 940.001C846.236 844.001 701.236 843.501 701.236 940.001C701.236 1042.7 701.236 1138 701.236 1205C701.236 1253 660.5 1287.5 565.5 1287.5C565.5 1287.5 382.019 1287.5 197.501 1287.5C34.3622 1287.5 33.0005 1191 33.0005 1113" stroke="#D3CC5B" stroke-width="12"/>
+    </symbol>
+    <symbol id="red-top-left" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMinYMin" fill="none">
+      <path d="M565 556.501C437.5 556.501 449.999 685.501 570 685.501C690 685.501 690 818.001 565 818.001C357 818.001 434.5 638.5 303 638.5C171.5 638.5 85.9998 550 85.9998 475C85.9998 400 85.9998 433.001 85.9998 433.001C85.9998 282.001 230 284.001 230 433.001C230 497 230 476.878 230 475C230 507.615 200.969 621.059 203.384 716" stroke="#FF0000" stroke-width="12"/>
+    </symbol>
+    <symbol id="red-bottom-left" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMinYMax" fill="none">
+      <path d="M920.499 1069.5C759.212 1069.5 678.893 1188.48 570 1069.5C530.501 1026.35 471 857.5 303 857.5C227.871 857.5 205.338 792.804 203.384 716" stroke="#FF0000" stroke-width="12"/>
+    </symbol>
+  </defs>
+  <use href="#green-bottom-left" x="0" y="-220" width="100%" height="100%" />
+  <use href="#yellow-top-left" x="10" y="0" width="100%" height="100%" />
+  <use href="#yellow-bottom-left" x="10" y="-220" width="100%" height="100%" />
+  <use href="#red-top-left" x="50" y="45" width="100%" height="100%" />
+  <use href="#red-bottom-left" x="50" y="-220" width="100%" height="100%" />
+  <rect id="green-rect-horizontal-bottom-left" x="0" y="0" width="100%" height="4" rx="2" fill="#39A256" />
+  <rect id="yellow-rect-horizontal-top-left" x="0" y="0" width="100%" height="4" rx="2" fill="#D3CC5B" />
+  <rect id="yellow-rect-horizontal-bottom-left" x="0" y="0" width="100%" height="4" rx="2" fill="#D3CC5B" />
+  <rect id="red-rect-horizontal-top-left" x="0" y="0" width="100%" height="4" rx="2" fill="#FF0000" />
+  <rect id="red-rect-horizontal-bottom-left" x="0" y="0" width="100%" height="4" rx="2" fill="#FF0000" />
+  <rect id="yellow-rect-vertical-right" x="0" y="0" width="4" height="100%" rx="2" fill="#D3CC5B" />
+  <rect id="red-rect-vertical-right" x="0" y="0" width="4" height="100%" rx="2" fill="#FF0000" />
+</svg>

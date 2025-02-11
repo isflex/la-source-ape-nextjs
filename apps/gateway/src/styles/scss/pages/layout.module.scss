@@ -1,5 +1,51 @@
+// $spaghetti-height-tiny: 115vh !default;
+$spaghetti-height-tiny: 95vh !default;
+$spaghetti-height-mob: 95vh !default;
+$spaghetti-height-tablet: 95vh !default;
+$spaghetti-height-desk: 80vh !default;
+$nav-layout-height-column: 185px !default;
+$nav-layout-height-row: 95px !default;
+$min-width-mob: 350px !default;
+
 .gateway-layout {
   min-height: 100vh;
+}
+
+@at-root .gateway-layout {
+  --min-width-mob: #{$min-width-mob};
+  --nav-layout-height: #{$nav-layout-height-column};
+  --spaghetti-height: #{$spaghetti-height-tiny};
+  --spaghetti-holder-height: calc(#{$spaghetti-height-tiny} - #{$nav-layout-height-column} - 2rem);
+  --spaghetti-adjust-y-pos: 18px;
+
+  // --spaghetti-adjust-y-pos: -48.5px;
+}
+
+@media screen and (min-width: '449px') {
+  @at-root .gateway-layout {
+    --nav-layout-height: #{$nav-layout-height-column};
+    --spaghetti-height: #{$spaghetti-height-mob};
+    --spaghetti-holder-height: calc(#{$spaghetti-height-mob} - #{$nav-layout-height-column} - 2rem);
+    --spaghetti-adjust-y-pos: 18px;
+  }
+}
+
+@media screen and (min-width: '759px') {
+  @at-root .gateway-layout {
+    --nav-layout-height: #{$nav-layout-height-row};
+    --spaghetti-height: #{$spaghetti-height-tablet};
+    --spaghetti-holder-height: calc(#{$spaghetti-height-tablet} - #{$nav-layout-height-row} - 2rem);
+    --spaghetti-adjust-y-pos: 0px;
+  }
+}
+
+@media screen and (min-width: '1023px') {
+  @at-root .gateway-layout {
+    --nav-layout-height: #{$nav-layout-height-row};
+    --spaghetti-height: #{$spaghetti-height-desk};
+    --spaghetti-holder-height: calc(#{$spaghetti-height-desk} - #{$nav-layout-height-row} - 2rem);
+    --spaghetti-adjust-y-pos: 0px;
+  }
 }
 
 .nav-layout {

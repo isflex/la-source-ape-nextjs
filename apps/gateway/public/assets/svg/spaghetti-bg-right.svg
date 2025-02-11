@@ -1,0 +1,94 @@
+<svg class="spaghetti-inline-right" width="900" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .spaghetti-inline-right {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    #green-rect-vertical-right {
+      x: calc(100% - 30px);
+      y: 204px;
+      height: calc(100vh - 204px - 411px);
+    }
+
+    #green-rect-horizontal-top-right {
+      x: calc(100% - (50vw - 118px));
+      y: 161px;
+      width: calc(50vw - 499px);
+    }
+
+    #green-rect-horizontal-bottom-right {
+      x: calc(100% - (50vw + 24px));
+      y: calc(100% - 293.5px);
+      width: calc(50vw - 265px);
+    }
+
+    #blue-rect-horizontal-top-right-one {
+      x: calc(100% - (50vw - 239px));
+      y: 144.5px;
+      width: calc(50vw - 499px);
+    }
+
+    #blue-rect-horizontal-top-right-two {
+      x: calc(100% - (50vw - 330px));
+      y: 201.5px;
+      width: calc(50vw - 506px);
+    }
+
+    #blue-rect-horizontal-top-right-three {
+      x: calc(100% - (50vw - 262px));
+      y: 234.5px;
+      width: calc(50vw - 508px);
+    }
+
+    #blue-rect-horizontal-bottom-right {
+      x: calc(100% - (50vw - 15px));
+      y: calc(100% - 448.5px);
+      width: calc(50vw - 490px);
+    }
+
+    #red-rect-horizontal-bottom-right {
+      x: calc(100% - (50vw - 202px));
+      y: calc(100% - 375px);
+      width: calc(50vw - 366px);
+    }
+
+    #blue-rect-vertical-right {
+      x: calc(100% - 187px);
+      y: 283px;
+      height: calc(100vh - 204px - 567px);
+    }
+  </style>
+  <defs>
+    <symbol id="green-top-right" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMaxYMin" fill="none">
+      <path d="M1541.5 479H1572.5H1606C1606 479 1656 479 1656 378C1656 289.741 1656 229 1656 152C1656 74.9998 1750.5 71.9998 1750.5 152C1750.5 232 1750.5 277 1750.5 378C1750.5 479 1818 479 1818 479C1818 479 1820 479 1973 479C2126 479 2231.5 257 2231.5 152C2231.5 -11.0001 2057 -10.0001 2057 152C2057 260.5 2165.5 510 2294 510C2422.5 510 2443.5 510 2511 510C2578.5 510 2596 570.201 2596 609.5" stroke="#39A256" stroke-width="12"/>
+    </symbol>
+    <symbol id="green-bottom-right" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMaxYMax" fill="none">
+      <path d="M2379.2 828.013C2400.86 859.602 2413.5 900.569 2413.5 953C2413.5 1040 2453 1062.5 2511 1062.5C2569 1062.5 2596 1040 2596 953M2379.2 828.013C2328.77 754.477 2229.48 731.751 2127 733.5C1980.5 736 1980.5 928.5 2127 928.5C2229.48 928.5 2328.77 891.068 2379.2 828.013ZM2379.2 828.013C2400.86 800.925 2413.5 769.109 2413.5 733.5C2413.5 578.5 2204.5 609.5 2204.5 609.5H2035C1872.9 609.5 1845.03 843.5 1964.9 953C2084.76 1062.5 1980.1 1308 1818 1308" stroke="#39A256" stroke-width="12"/>
+    </symbol>
+    <symbol id="red-bottom-right" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMaxYMax" fill="none">
+      <path d="M2488.5 1502C2531 1502 2593.5 1486.72 2593.5 1419V1314.5C2593.5 1234.5 2488.5 1149 2303 1149C2117.5 1149 2117.5 1314.5 2303 1314.5C2488.5 1314.5 2593.5 1267 2593.5 1149C2593.5 1055 2593.5 1111 2593.5 1060C2593.5 1009 2551.5 939.501 2488.5 939.263C2488.5 939.263 2421.54 939.501 2407.34 939.501C2336 939.501 2350.5 1069.5 2192.5 1069.5" stroke="#FF0000" stroke-width="12"/>
+    </symbol>
+    <symbol id="blue-top-right" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMaxYMin" fill="none">
+      <path d="M1996 299C2014.91 299 2087.5 303.5 2139 348C2190.5 392.5 2315.16 795.788 2473.5 741.5C2656.7 678.686 2191.66 325.5 2319.5 175.5C2447.34 25.5005 2741.4 218 2610.5 375.5C2558.19 438.443 2403.22 466.337 2236.5 466.722M2039.5 564.501C2155.1 568.162 2223.5 647.069 2223.88 721.5" stroke="#324BF7" stroke-width="12"/>
+    </symbol>
+    <symbol id="blue-bottom-right" width="2650" height="1520" viewBox="0 0 2650 1520" preserveAspectRatio="xMaxYMax" fill="none">
+      <path d="M1326.5 853.501C1417.5 853.501 1857.6 853.501 2039.5 853.501C2168.03 853.501 2224.23 789.361 2223.88 721.5" stroke="#324BF7" stroke-width="12"/>
+    </symbol>
+  </defs>
+  <use href="#green-top-right" x="-10" y="0" width="100%" height="100%" />
+  <use href="#green-bottom-right" x="-10" y="-220" width="100%" height="100%" />
+  <use href="#red-bottom-right" x="-10" y="-220" width="100%" height="100%" />
+  <use href="#blue-top-right" x="-40" y="45" width="100%" height="100%" />
+  <use href="#blue-bottom-right" x="-40" y="-220" width="100%" height="100%" />
+  <rect id="green-rect-horizontal-top-right" x="0" y="0" width="100%" height="4" rx="2" fill="#39A256" />
+  <rect id="green-rect-vertical-right" x="0" y="0" width="4" height="100%" rx="2" fill="#39A256" />
+  <rect id="green-rect-horizontal-bottom-right" x="0" y="0" width="100%" height="4" rx="2" fill="#39A256" />
+  <rect id="blue-rect-horizontal-top-right-one" x="0" y="0" width="100%" height="4" rx="2" fill="#324BF7" />
+  <rect id="blue-rect-horizontal-top-right-two" x="0" y="0" width="100%" height="4" rx="2" fill="#324BF7" />
+  <rect id="blue-rect-horizontal-top-right-three" x="0" y="0" width="100%" height="4" rx="2" fill="#324BF7" />
+  <rect id="blue-rect-horizontal-bottom-right" x="0" y="0" width="100%" height="4" rx="2" fill="#324BF7" />
+  <rect id="blue-rect-vertical-right" x="0" y="0" width="4" height="100%" rx="2" fill="#324BF7" />
+  <rect id="red-rect-horizontal-bottom-right" x="0" y="0" width="100%" height="4" rx="2" fill="#FF0000" />
+</svg>

@@ -15,7 +15,7 @@
     },
     {
       "name"            : "marp",
-      "script"          : "pnpm --filter=gateway start:marp",
+      "script"          : "pnpm --filter=gateway marp:dev",
       "exec_mode"       : "fork",
       "instances"       : 1,
       "watch"           : false,

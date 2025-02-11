@@ -1159,6 +1159,7 @@ export type Styles = {
   isMainPrice: string;
   isMarginless: string;
   isMaxDesktop: string;
+  isMaxTablet: string;
   isMaxWidescreen: string;
   isMe: string;
   isMedium: string;

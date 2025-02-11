@@ -1,14 +1,18 @@
 import * as path from 'path'
-import os from 'node:os'
-import fs, { writeFileSync } from 'node:fs'
-import { v4 as uuidv4 } from 'uuid'
+// import os from 'node:os'
+// import fs, { writeFileSync } from 'node:fs'
+// import { v4 as uuidv4 } from 'uuid'
 
 import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-import detect from 'detect-port'
-import { isServer } from '@src/utils'
+// import detect from 'detect-port'
+// import { isServer } from '@src/utils'
+
+import { headers } from 'next/headers'
+// import { isMobile } from 'react-device-detect'
+import { isMobile } from '@src/utils'
 
 import React from 'react'
 import dynamic from 'next/dynamic'
@@ -16,13 +20,18 @@ import dynamic from 'next/dynamic'
 import classNames from 'classnames'
 import {
   Title,
+  Text,
 } from '@src/components/flex-server-components'
 import {
   TitleLevel
  } from '@flex-design-system/react-ts/client-sync-styled-default'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
+
+import SpaghettiHolderMobile from '@src/components/graphics/spaghetti-holder-mobile'
+import SpaghettiHolderDesktop from '@src/components/graphics/spaghetti-holder-desktop'
 
 // import chromium from '@sparticuz/chromium'
 // import { marpCli, waitForObservation } from '@marp-team/marp-cli'
@@ -36,6 +45,9 @@ export default async function AboutLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  const userAgent = (await headers()).get('user-agent') || ''
+  const mobileCheck = isMobile(userAgent)
 
   // async function getSlide() {
 
@@ -56,46 +68,47 @@ export default async function AboutLayout({
   //   //   }
   //   // }
 
-  //   const targetPort = '8080';
+  //   // const targetPort = '8080';
 
   //   // Store the original environment variable
-  //   const { CHROME_PATH, PORT } = process.env
+  //   // const { CHROME_PATH, PORT } = process.env
+  //   const { CHROME_PATH } = process.env
 
   //   try {
   //     // Set the CHROME_PATH environment variable to the path of the Chromium binary
   //     process.env.CHROME_PATH = await chromium.executablePath();
 
-  //     detect(Number(targetPort))
-  //       .then(async(realPort) => {
-  //         if (Number(targetPort) == Number(realPort)) {
-  //           process.env.PORT = targetPort;
-  //           await marpCli(['--server', `${__dirname}/../../slides/`])
-  //             .then((exitCode) => console.log(`Done with exit code ${exitCode}`))
-  //             .catch(console.error)
+  //     // detect(Number(targetPort))
+  //     //   .then(async(realPort) => {
+  //     //     if (Number(targetPort) == Number(realPort)) {
+  //     //       process.env.PORT = targetPort;
+  //     //       await marpCli(['--server', `${__dirname}/../../slides/`])
+  //     //         .then((exitCode) => console.log(`Done with exit code ${exitCode}`))
+  //     //         .catch(console.error)
 
-  //           // waitForObservation().then(({ stop }) => {
-  //           //   console.log('Observed')
-  //           //   // Stop observations to resolve marpCli()'s Promise
-  //           //   stop()
-  //           // })
+  //     //       // waitForObservation().then(({ stop }) => {
+  //     //       //   console.log('Observed')
+  //     //       //   // Stop observations to resolve marpCli()'s Promise
+  //     //       //   stop()
+  //     //       // })
 
-  //           // const browser = await getBrowser();
-  //           // const page = await browser.newPage();
-  //           // await page.goto(`http://localhost:${targetPort}/PITCHME.md`, { waitUntil: 'networkidle0' });
-  //           // // const pdf = await page.pdf();
-  //           // // Getting the page source HTML
-  //           // const pageSourceHTML = await page.content();
-  //           // await browser.close();
+  //     //       // const browser = await getBrowser();
+  //     //       // const page = await browser.newPage();
+  //     //       // await page.goto(`http://localhost:${targetPort}/PITCHME.md`, { waitUntil: 'networkidle0' });
+  //     //       // // const pdf = await page.pdf();
+  //     //       // // Getting the page source HTML
+  //     //       // const pageSourceHTML = await page.content();
+  //     //       // await browser.close();
 
-  //           // return pageSourceHTML;
+  //     //       // return pageSourceHTML;
 
-  //         } else {
-  //           console.log(`Port ${targetPort} is already in use. Please choose a different port.`);
-  //         }
-  //       })
-  //       .catch(err => {
-  //         console.log(err)
-  //       })
+  //     //     } else {
+  //     //       console.log(`Port ${targetPort} is already in use. Please choose a different port.`);
+  //     //     }
+  //     //   })
+  //     //   .catch(err => {
+  //     //     console.log(err)
+  //     //   })
 
   //     // let tmpDir;
   //     // const appPrefix = 'marp-slides-app';
@@ -121,16 +134,33 @@ export default async function AboutLayout({
   //     //   }
   //     // }
 
+  //     await marpCli([
+  //       '--input-dir', `${__dirname}/../../slides/`,
+  //       '-o', `${__dirname}/../../../public/slides`
+  //     ])
+  //       .then((exitCode) => console.log(`Done with exit code ${exitCode}`))
+  //       .catch(console.error)
+
+  //     waitForObservation().then(({ stop }) => {
+  //       console.log('Observed')
+  //       // Stop observations to resolve marpCli()'s Promise
+  //       stop()
+  //     })
+
   //   } finally {
   //     // Restore the original environment variable
   //     process.env.CHROME_PATH = CHROME_PATH
-  //     process.env.PORT = PORT
+  //     // process.env.PORT = PORT
   //   }
   // }
   // await getSlide()
 
   return (
-    <div className={flexStyles.genericLayout1}>
+    <div className={classNames(
+        flexStyles.genericLayout1,
+        stylesPage.aboutApp,
+        mobileCheck && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
+      )}>
       <div style={{
         height: 'auto',
         padding: '2rem 0',
@@ -142,14 +172,39 @@ export default async function AboutLayout({
         <div style={{
           width: '100%',
         }}>
+          {/* <div id={stylesPage.spaghettiBg} /> */}
+          {!mobileCheck && (
+            <>
+              <SpaghettiHolderMobile />
+              <SpaghettiHolderDesktop />
+            </>
+          )}
+          {/* <SpaghettiHolderMobile />
+          <SpaghettiHolderDesktop /> */}
           <LogoAPE />
         </div>
       </div>
-      <main>
-        <Title level={TitleLevel.LEVEL1} className={classNames(flexStyles.isCentered)} style={{ marginTop: '-1rem' }}>
-          {`À propos de ce site`}
-        </Title>
-        <section>{children}</section>
+
+      <main className={flexStyles.fullPage}>
+        <div className={stylesPage.titleHolder}>
+          <Title level={TitleLevel.LEVEL2} className={classNames(flexStyles.isCentered)} style={{ margin: '0' }}>
+            {`À propos de ce site`}
+          </Title>
+          {!mobileCheck && (
+            <Text className={classNames(flexStyles.hasTextCentered, flexStyles.isItalic)} style={{ margin: '0.5rem auto 0' }}>
+              {`Décortiquons ensemble ce sac de noeuds`}
+            </Text>
+          )}
+          {/* <Text className={classNames(flexStyles.hasTextCentered, flexStyles.isItalic)} style={{ margin: '0.5rem auto 0' }}>
+            {`Décortiquons ensemble ce sac de noeuds`}
+          </Text> */}
+        </div>
+        <section className={classNames(
+          stylesPage.sectionAbout, flexStyles.isFullwidth,
+          !mobileCheck && `showSpagehetti__${process.env.NEXT_PUBLIC_BUILD_ID}`
+        )}>
+          {children}
+        </section>
       </main>
     </div>
   )

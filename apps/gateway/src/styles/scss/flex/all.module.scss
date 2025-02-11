@@ -1,18 +1,39 @@
 @use '@flex-design-system/framework';
 
+// @use '../pages/layout.module';
+// @use '../pages/navbar.module';
+// @use '../pages/sticky.module';
+// @use '../pages/todo.module';
+// @use '../pages/about.module';
+
 .dom-overlay-mode {
   overflow-y: hidden;
 }
 
 .generic-layout-1 {
+  position: relative;
   margin: 0;
   background: linear-gradient(180deg, rgb(117 81 194), rgb(255 255 255));
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  min-width: #{var(--min-width-mob)};
+
+  &.mobile-mode {
+    @media screen and (max-width: '768px') and (orientation: portrait) {
+      margin-bottom: 3rem;
+    }
+
+    @media screen and (max-width: '768px') and (orientation: landscape) {
+      margin-bottom: 1rem;
+    }
+
+    .dom-overlay-mode & {
+      margin-bottom: 0;
+    }
+  }
 
   main {
     width: calc(100% - 4rem);
-    min-height: calc(100% - 475px);
     padding: 0 2rem;
     display: flex;
     flex-direction: column;
@@ -22,6 +43,10 @@
     &.has-centered-content {
       justify-content: center;
       align-items: center;
+    }
+
+    &.full-page {
+      min-height: calc(100vh - 475px);
     }
   }
 }

@@ -83,6 +83,9 @@ This allows to put whole blocks inside links without getting the text underlined
     padding-bottom: functions.size(0.2em);
     border-bottom: solid functions.size(0.2em) currentColor;
     box-decoration-break: clone;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap !important;
 
     > * {
       font-size: functions.size(1.5em);
@@ -154,7 +157,6 @@ This allows to put whole blocks inside links without getting the text underlined
     }
 
     @include mixins.touch {
-        white-space: normal !important;
         box-decoration-break: clone;
         display: inline;
     }

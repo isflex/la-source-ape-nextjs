@@ -3,6 +3,11 @@
 @use 'todo.vars.module';
 
 .todo-app {
+  main {
+    margin: 0 auto;
+    min-height: calc(100vh - 475px);
+  }
+
   ul {
     padding-inline-start: 0;
     margin-block-start: 0;
