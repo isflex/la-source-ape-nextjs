@@ -7,7 +7,7 @@
     "build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build",
     "build:lib": "pnpm marp:build",
     "delete": "pnpm pm2 delete ecosystem.config.json",
-    "lint": "next lint",
+    "lint": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next lint",
     "marp:build": "pnpm marp:html && pnpm marp:pdf",
     "marp:dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- marp --server --config ./marp.config.mjs",
     "marp:html": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- marp --config ./marp.config.mjs",

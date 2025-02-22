@@ -148,7 +148,7 @@ _paginate: false
 ## Développons une meilleure approche au monde numérique
 
 <p>
-  Les participants sont encouragés à créer du contenu, à produire du code et à expérimenter avec la technologie. Nous souhaitons une approche plus critique pour faire face à la consommation compulsive dictée par des algorithmes.
+  Les participants sont encouragés à créer du contenu, à produire du code et à expérimenter avec la technologie. Nous souhaitons une approche plus critique au numérique qui dissuade d'une consommation compulsive dictée par des algorithmes.
 </p>
 
 <!-- Ceci est une note pour le présentateur. Vous pouvez écrire des notes via cette balise de commentaire HTML -->

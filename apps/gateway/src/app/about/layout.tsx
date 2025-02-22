@@ -179,8 +179,10 @@ export default async function AboutLayout({
               <SpaghettiHolderDesktop />
             </>
           )}
-          {/* <SpaghettiHolderMobile />
-          <SpaghettiHolderDesktop /> */}
+          {/*
+          <SpaghettiHolderMobile />
+          <SpaghettiHolderDesktop />
+          */}
           <LogoAPE />
         </div>
       </div>
@@ -195,9 +197,11 @@ export default async function AboutLayout({
               {`Décortiquons ensemble ce sac de noeuds`}
             </Text>
           )}
-          {/* <Text className={classNames(flexStyles.hasTextCentered, flexStyles.isItalic)} style={{ margin: '0.5rem auto 0' }}>
+          {/*
+          <Text className={classNames(flexStyles.hasTextCentered, flexStyles.isItalic)} style={{ margin: '0.5rem auto 0' }}>
             {`Décortiquons ensemble ce sac de noeuds`}
-          </Text> */}
+          </Text>
+          */}
         </div>
         <section className={classNames(
           stylesPage.sectionAbout, flexStyles.isFullwidth,

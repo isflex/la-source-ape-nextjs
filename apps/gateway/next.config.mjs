@@ -83,22 +83,18 @@ const mainConfig = new Config(async (phase, args) => {
         {
           source: '/:path*',
           destination: '/onboard/:path*',
-        },
+        }
       ];
     },
-
-    // ...(process.env.FLEX_MODE === 'production' && {
-    //   async redirects() {
-    //     return [
-    //       // Basic redirect
-    //       {
-    //         source: `/:path*`,
-    //         destination: `/onboard/:path*`,
-    //         permanent: true,
-    //       },
-    //     ]
-    //   },
-    // }),
+    async redirects() {
+      return [
+        {
+          source: '/qui-nous-sommes',
+          destination: 'https://ecolelasource.org/une-ecole-active/role-des-parents/',
+          permanent: false,
+        },
+      ]
+    },
 
     serverRuntimeConfig: {
       PROJECT_ROOT: __dirname,

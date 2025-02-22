@@ -37,7 +37,7 @@ const Home: NextPage<PageAppProps> = () => {
         <Title level={TitleLevel.LEVEL4}>{`... avec l'aide des élèves de la source en forme d'atelier pratique`}<br/>🤞</Title>
       </InfoBlockContent>
       <InfoBlockAction>
-        <Link href='/about' className={flexStyles.link}>Qui somme nous</Link>
+        <Link href='/qui-nous-sommes' target='_blank' className={flexStyles.link}>Qui somme nous ?</Link>
       </InfoBlockAction>
     </InfoBlock>
   )

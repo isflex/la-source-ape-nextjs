@@ -1,0 +1,130 @@
+.game-iframe {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.slides-menu-open .slides-toggler-close {
+  width: 2em;
+  height: 2em;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.slides-menu-open .slides-toggler-close span {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  opacity: 1;
+  background: #fff;
+}
+
+.slides-menu-open .slides-toggler-close :nth-child(1) {
+  transform: rotate(135deg);
+}
+
+.slides-menu-open .slides-toggler-close :nth-child(2) {
+  transform: rotate(-135deg);
+}
+
+.slides-menu-open {
+  position: fixed;
+  top: 1.15rem;
+  right: 1.15rem;
+  z-index: 3;
+}
+
+.slides-menu-open .show-slide-btn {
+  display: block;
+  position: absolute;
+  width: 17rem;
+  right: 0;
+  top: 0.5rem;
+  margin: 0 auto;
+  font-size: 1.7rem;
+}
+
+.slides-menu-open .show-slide-btn .show-slide-btn-txt {
+  display: inline;
+}
+
+@media screen and (max-width: '900px') {
+  .slides-menu-open .show-slide-btn {
+    display: block;
+    position: fixed;
+    width: 300px;
+    left: 7rem;
+    top: 2rem;
+    margin: 0 auto;
+    font-size: 2rem;
+  }
+
+  .slides-menu-open .show-slide-btn .show-slide-btn-txt {
+    display: inline;
+  }
+}
+
+@media screen and (orientation: portrait) and (max-width: '500px') {
+  .slides-menu-open .show-slide-btn {
+    display: block;
+    position: fixed;
+    width: 100px;
+    left: 7rem;
+    top: 2rem;
+    margin: 0 auto;
+    font-size: 2rem;
+  }
+
+  .slides-menu-open .show-slide-btn .show-slide-btn-txt {
+    display: none;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-width: '900px') {
+  .slides-menu-open .show-slide-btn {
+    display: block;
+    position: fixed;
+    width: 200px;
+    left: 0;
+    top: 2.5rem;
+    margin: 0 auto;
+    font-size: 1.5rem;
+  }
+
+  .slides-menu-open .show-slide-btn .show-slide-btn-txt {
+    display: inline;
+  }
+}
+
+.slides-menu-closed {
+  position: absolute;
+  top: 2.1rem;
+  width: calc(100vw - 125px - 2.5em - 6rem);
+  left: calc(125px + 2.5rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+
+}
+
+@media screen and (min-width: '900px') {
+  .slides-menu-closed {
+    position: absolute;
+    display: block;
+    width: auto;
+    top: 1.15rem;
+    right: 1.15rem;
+    left: auto;
+    z-index: 3;
+  }
+}

@@ -122,4 +122,7 @@
   "stylelint.snippet": ["css", "scss", "less", "postcss"],
   "stylelint.validate": ["css", "scss", "less", "postcss"],
   "stylelint.configFile": "./packages/flex/design-system-framework/.scss.stylelintrc.json",
+
+  "htmltagwrap.tag": "div",
+  "htmltagwrap.autoDeselectClosingTag": true,
 }

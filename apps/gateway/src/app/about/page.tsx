@@ -4,6 +4,7 @@
 
 import React from 'react'
 // import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
 import type { NextPage } from 'next'
 // import { isMobile } from 'react-device-detect'
 // import { isServer } from '@src/utils'
@@ -47,8 +48,55 @@ const stores = getStores()
 
 const About: NextPage<PageAppProps> = observer(() => {
   const [showSlide, setShowSlide] = React.useState<string | null>(null)
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
-  const appContextOverlyaMode = (bool: boolean) => {
+  React.useEffect(() => {
+    const slideLink = searchParams?.get('slide-link')
+    const sectionLink = searchParams?.get('section-link')
+    if (slideLink && sectionLink) {
+      const {
+        appContext
+      } = stores.UIStore
+      appContextOverlayMode(!appContext.overlayMode)
+      setShowSlide(`/slides/${slideLink}.html#${sectionLink}`)
+      document.querySelector('html')?.classList.add(`domOverlayMode__${process.env.NEXT_PUBLIC_BUILD_ID}`)
+    }
+  }, [])
+
+  React.useEffect(() => {
+    const onMessageReceivedFromContentFrame = (e: MessageEvent<any>) => {
+      const { data, origin } = e
+      const postMessageRegex = new RegExp(/go2route/g)
+      if (
+        (
+          origin === `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_HOST}` ||
+          origin === `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_HOSTNAME}`
+        ) &&
+        postMessageRegex.test(data)
+      ) {
+        // let route: string | null = null
+        switch (data) {
+          case 'go2routeTerminus':
+            // route = `https://luffah.xyz/bidules/Terminus/`
+            router.push('/game/bash/terminus')
+            break
+          case 'go2routeSquirrel':
+            // route = `/slides/squirrel.html`
+            router.push('/game/bash/ecureuil')
+            break
+          default:
+            break
+        }
+      }
+    }
+    window.addEventListener('message', e => onMessageReceivedFromContentFrame(e), false)
+    return () => {
+      window.removeEventListener('message', e => onMessageReceivedFromContentFrame(e), false)
+    }
+  }, [])
+
+  const appContextOverlayMode = (bool: boolean) => {
     const {
       appContext,
       setAppContext
@@ -65,8 +113,8 @@ const About: NextPage<PageAppProps> = observer(() => {
     const {
       appContext
     } = stores.UIStore
-    appContextOverlyaMode(!appContext.overlayMode)
-    setShowSlide(route)
+    appContextOverlayMode(!appContext.overlayMode)
+    setShowSlide(`/slides/${route}.html`)
     document.querySelector('html')?.classList.add(`domOverlayMode__${process.env.NEXT_PUBLIC_BUILD_ID}`)
   }
 
@@ -74,9 +122,10 @@ const About: NextPage<PageAppProps> = observer(() => {
     const {
       appContext
     } = stores.UIStore
-    appContextOverlyaMode(!appContext.overlayMode)
+    appContextOverlayMode(!appContext.overlayMode)
     setShowSlide(null)
     document.querySelector('html')?.classList.remove(`domOverlayMode__${process.env.NEXT_PUBLIC_BUILD_ID}`)
+    router.replace('/about')
   }
 
   const PageContent = () => {
@@ -136,8 +185,7 @@ const About: NextPage<PageAppProps> = observer(() => {
           sandbox='allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation'
           referrerPolicy='no-referrer'
           className={stylesPage.marpSlide}
-          // src={`${slideUrl}/${showSlide}.md`}
-          src={`/slides/${showSlide}.html`}
+          src={`${showSlide}`}
         />
       }
     </>

@@ -47,6 +47,10 @@
         "//#compile:clean:sh",
         "^lint"
       ],
+      "env": [
+        "FLEX_*",
+        "GIT_*"
+      ],
       "cache": true,
       "persistent": false
     },
