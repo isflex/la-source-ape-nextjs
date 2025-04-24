@@ -34,13 +34,6 @@ import Spaghetti from '@src/components/graphics/spaghetti'
 import TitleContent from '@src/app/about/title-content'
 import About from './client-component'
 
-// import chromium from '@sparticuz/chromium'
-// import { marpCli, waitForObservation } from '@marp-team/marp-cli'
-// import puppeteerCore from 'puppeteer-core'
-// import puppeteer from 'puppeteer'
-// import { NextRequest, NextResponse } from 'next/server'
-// import { PDFViewer } from '@react-pdf/renderer'
-
 export default async function AboutLayout({
   children,
 }: {
@@ -49,112 +42,6 @@ export default async function AboutLayout({
 
   const userAgent = (await headers()).get('user-agent') || ''
   const mobileCheck = isMobile(userAgent)
-
-  // async function getSlide() {
-
-  //   // async function getBrowser() {
-  //   //   if (process.env.FLEX_MODE === 'production') {
-  //   //     const executablePath = await chromium.executablePath();
-  //   //     const browser = await puppeteerCore.launch({
-  //   //       args: chromium.args,
-  //   //       defaultViewport: chromium.defaultViewport,
-  //   //       executablePath,
-  //   //       // @ts-expect-error
-  //   //       headless: chromium.headless,
-  //   //     });
-  //   //     return browser;
-  //   //   } else {
-  //   //     const browser = await puppeteer.launch();
-  //   //     return browser;
-  //   //   }
-  //   // }
-
-  //   // const targetPort = '8080';
-
-  //   // Store the original environment variable
-  //   // const { CHROME_PATH, PORT } = process.env
-  //   const { CHROME_PATH } = process.env
-
-  //   try {
-  //     // Set the CHROME_PATH environment variable to the path of the Chromium binary
-  //     process.env.CHROME_PATH = await chromium.executablePath();
-
-  //     // detect(Number(targetPort))
-  //     //   .then(async(realPort) => {
-  //     //     if (Number(targetPort) == Number(realPort)) {
-  //     //       process.env.PORT = targetPort;
-  //     //       await marpCli(['--server', `${__dirname}/../../slides/`])
-  //     //         .then((exitCode) => console.log(`Done with exit code ${exitCode}`))
-  //     //         .catch(console.error)
-
-  //     //       // waitForObservation().then(({ stop }) => {
-  //     //       //   console.log('Observed')
-  //     //       //   // Stop observations to resolve marpCli()'s Promise
-  //     //       //   stop()
-  //     //       // })
-
-  //     //       // const browser = await getBrowser();
-  //     //       // const page = await browser.newPage();
-  //     //       // await page.goto(`http://localhost:${targetPort}/PITCHME.md`, { waitUntil: 'networkidle0' });
-  //     //       // // const pdf = await page.pdf();
-  //     //       // // Getting the page source HTML
-  //     //       // const pageSourceHTML = await page.content();
-  //     //       // await browser.close();
-
-  //     //       // return pageSourceHTML;
-
-  //     //     } else {
-  //     //       console.log(`Port ${targetPort} is already in use. Please choose a different port.`);
-  //     //     }
-  //     //   })
-  //     //   .catch(err => {
-  //     //     console.log(err)
-  //     //   })
-
-  //     // let tmpDir;
-  //     // const appPrefix = 'marp-slides-app';
-  //     // try {
-  //     //   tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), appPrefix));
-  //     //   // the rest of your app goes here
-  //     //   const tempMarkdownPath = path.join(tmpDir, `/${uuidv4()}.md`)
-  //     //   writeFileSync(tempMarkdownPath, `${__dirname}/../../slides/PITCHME.md`)
-  //     //   const tempPdfPath = path.join(tmpDir, `/${uuidv4()}.pdf`)
-  //     //   await marpCli([tempMarkdownPath, '--pdf', '--output', tempPdfPath])
-  //     // }
-  //     // catch {
-  //     //   // handle error
-  //     // }
-  //     // finally {
-  //     //   try {
-  //     //     if (tmpDir) {
-  //     //       fs.rmSync(tmpDir, { recursive: true });
-  //     //     }
-  //     //   }
-  //     //   catch (e) {
-  //     //     console.error(`An error has occurred while removing the temp folder at ${tmpDir}. Please remove it manually. Error: ${e}`);
-  //     //   }
-  //     // }
-
-  //     await marpCli([
-  //       '--input-dir', `${__dirname}/../../slides/`,
-  //       '-o', `${__dirname}/../../../public/slides`
-  //     ])
-  //       .then((exitCode) => console.log(`Done with exit code ${exitCode}`))
-  //       .catch(console.error)
-
-  //     waitForObservation().then(({ stop }) => {
-  //       console.log('Observed')
-  //       // Stop observations to resolve marpCli()'s Promise
-  //       stop()
-  //     })
-
-  //   } finally {
-  //     // Restore the original environment variable
-  //     process.env.CHROME_PATH = CHROME_PATH
-  //     // process.env.PORT = PORT
-  //   }
-  // }
-  // await getSlide()
 
   return (
     <div className={classNames(

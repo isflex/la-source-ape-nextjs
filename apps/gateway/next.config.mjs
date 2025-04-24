@@ -115,8 +115,6 @@ const mainConfig = new Config(async (phase, args) => {
     // https://gist.github.com/kettanaito/56861aff96e6debc575d522dd03e5725
     serverExternalPackages: [
       '@marp-team/marp-cli',
-      'puppeteer-core',
-      '@sparticuz/chromium'
     ],
 
     typescript: {
