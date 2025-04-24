@@ -6,7 +6,7 @@ applications:
         preBuild:
           commands:
             - 'pwd'
-            - export NODE_OPTIONS="--max-old-space-size=32768"
+            # - export NODE_OPTIONS="--max-old-space-size=32768"
             - sudo fallocate -l 40G /swapfile
             - sudo chmod 600 /swapfile
             - sudo mkswap /swapfile
@@ -47,7 +47,7 @@ applications:
           - '**/*'
       cache:
         paths:
-          - '.next/cache/**/*'
+          # - '.next/cache/**/*'
           - 'node_modules/**/*'
           # - 'apps/gateway/.next/cache/**/*'
           # - 'node_modules/**/*'
