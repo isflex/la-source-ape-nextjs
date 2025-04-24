@@ -31,7 +31,7 @@ const InfoBlockHeader = async ({
   children,
   customIcon,
   ...others
-}: InfoBlockHeaderProps): Promise<React.AwaitedReactNode> => {
+}: InfoBlockHeaderProps): Promise<React.ReactNode> => {
   const classes = classNames('info-block-header', styles.hasTextCentered, className, validate(classList))
 
   return (

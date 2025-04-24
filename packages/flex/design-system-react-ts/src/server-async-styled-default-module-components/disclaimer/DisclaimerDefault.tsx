@@ -23,7 +23,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param title {string} Disclaimer Title
  * @param active {boolean} Active Disclaimer Bar
  */
-const Disclaimer = async ({ children, className, classList, title, active, ...others }: DisclaimerWebProps): Promise<React.AwaitedReactNode> => {
+const Disclaimer = async ({ children, className, classList, title, active, ...others }: DisclaimerWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.disclaimer, is('tri'), className, validate(classList))
 
   const wrapperClasses = classNames(styles.disclaimerHeader, styles.isGrouped, is('tri'))

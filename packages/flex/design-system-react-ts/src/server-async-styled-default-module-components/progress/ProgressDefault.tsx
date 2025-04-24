@@ -42,7 +42,7 @@ const Progress = async ({
   firstExtremLegend,
   secondExtremLegend,
   ...others
-}: ProgressProps): Promise<React.AwaitedReactNode> => {
+}: ProgressProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.progress,
     alert && styles[camelCase(is(alert.getClassName())) as keyof Styles],

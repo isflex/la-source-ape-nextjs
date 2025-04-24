@@ -21,7 +21,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param loading {Loading} Loading View
  * @param theme {Theme} Themed View
  */
-const View = async ({ children, style, className, classList, loading, theme, ...others }: ViewProps): Promise<React.AwaitedReactNode> => {
+const View = async ({ children, style, className, classList, loading, theme, ...others }: ViewProps): Promise<React.ReactNode> => {
   const classes = classNames(loading && styles[camelCase(is(loading.getClassName())) as keyof Styles], className, validate(classList))
 
   if (!children) {

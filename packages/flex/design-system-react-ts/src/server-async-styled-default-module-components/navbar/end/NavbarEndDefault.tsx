@@ -16,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param children {ReactNode} Children
  * @param className {string} Additionnal css classes
  */
-const NavbarEnd = async ({ children, className, classList, ...others }: NavbarEndWebProps): Promise<React.AwaitedReactNode> => {
+const NavbarEnd = async ({ children, className, classList, ...others }: NavbarEndWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.navbarEnd, className, validate(classList))
 
   return (

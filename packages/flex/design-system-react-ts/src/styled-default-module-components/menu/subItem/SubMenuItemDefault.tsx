@@ -11,7 +11,7 @@ import { SubMenuItemWebProps } from './SubMenuItemProps.js'
  * @param className {string} Additionnal CSS Classes
  */
 
-const SubMenuItem = ({ className, classList, ...others }: SubMenuItemWebProps): JSX.Element => (
+const SubMenuItem = ({ className, classList, ...others }: SubMenuItemWebProps): React.JSX.Element => (
   <ul className={classNames(className, validate(classList))} {...others} />
 )
 

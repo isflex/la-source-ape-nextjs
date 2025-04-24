@@ -14,7 +14,7 @@ import { Text } from '../../text/index.js'
  * @param className {string} Additionnal CSS Classes
  * @param size {number} Sizes available => 1 - 12
  */
-const InfoBlockContent = async ({ className, size, children, ...others }: InfoBlockContentProps): Promise<React.AwaitedReactNode> => {
+const InfoBlockContent = async ({ className, size, children, ...others }: InfoBlockContentProps): Promise<React.ReactNode> => {
   const classes = classNames('info-block-content', has('text-centered'), className)
 
   return (

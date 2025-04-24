@@ -16,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param classList {array} Additionnal css classes
  */
-const ToolbarSpace = ({ className, classList, ...others }: ToolbarSpaceWebProps): JSX.Element => (
+const ToolbarSpace = ({ className, classList, ...others }: ToolbarSpaceWebProps): React.JSX.Element => (
   <div className={classNames(styles.toolbarSpace, className, validate(classList))} {...others} />
 )
 

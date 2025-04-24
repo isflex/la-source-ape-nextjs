@@ -8,7 +8,7 @@ import { ToolbarSpaceWebProps } from './ToolbarSpaceProps.js'
  * Toolbar Space Component
  * @param className {string} Additionnal CSS Classes
  */
-const ToolbarSpace = async ({ className, ...others }: ToolbarSpaceWebProps): Promise<React.AwaitedReactNode> => (
+const ToolbarSpace = async ({ className, ...others }: ToolbarSpaceWebProps): Promise<React.ReactNode> => (
   <div className={classNames('toolbar-space', className)} {...others} />
 )
 

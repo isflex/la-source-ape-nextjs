@@ -5,8 +5,8 @@
 import React from 'react'
 // import Wepack from 'webpack'
 // import jQuery from 'jquery'
-import { UserInterfaceStore } from '@flexiness/domain-store'
-export { UserInterfaceStore }
+import { UserInterfaceStore, SpaghettiMobxStore } from '@flexiness/domain-store'
+export { UserInterfaceStore, SpaghettiMobxStore }
 import { Nonce } from './Utils'
 import { FlexI18next } from './UIStore'
 // import type I18next from 'i18next'
@@ -51,6 +51,7 @@ export interface Flexiness extends FlexGlobalThis {
     // FlexServerComponents?: typeof import('flex_design_system_react_ts_server')
     FlexComponents?: React.ReactNode[]
     UIStore?: UserInterfaceStore
+    SpaghettiStore?: SpaghettiMobxStore
     React?: typeof React
     FlexCSPNonce?: Nonce
     FlexLanguage?: FlexI18next['language']

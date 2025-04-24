@@ -31,7 +31,7 @@ const Pagination = async ({
   pageSize = 10,
   onClick,
   ...others
-}: PaginationProps): Promise<React.AwaitedReactNode> => {
+}: PaginationProps): Promise<React.ReactNode> => {
   const [currentPage, setCurrentPage] = React.useState<number>(defaultPage)
   const [arrayPage] = React.useState<Array<number>>(Array.from(Array(count + 1).keys()))
   const [pager, setPager] = React.useState<Pager>({

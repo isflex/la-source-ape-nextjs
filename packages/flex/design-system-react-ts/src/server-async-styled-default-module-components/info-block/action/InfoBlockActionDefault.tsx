@@ -19,7 +19,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const InfoBlockAction = async ({ className, classList, children, onClick, ...others }: InfoBlockActionProps): Promise<React.AwaitedReactNode> => {
+const InfoBlockAction = async ({ className, classList, children, onClick, ...others }: InfoBlockActionProps): Promise<React.ReactNode> => {
   const classes = classNames('info-block-action', styles.hasTextCentered, className, validate(classList))
 
   return (

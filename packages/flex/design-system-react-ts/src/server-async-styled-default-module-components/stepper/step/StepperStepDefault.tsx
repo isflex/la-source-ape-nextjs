@@ -44,7 +44,7 @@ const StepperStep = async ({
   validated,
   highlighted,
   ...others
-}: StepperStepProps): Promise<React.AwaitedReactNode> => {
+}: StepperStepProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.step,
     active && styles[camelCase(is('active')) as keyof Styles],

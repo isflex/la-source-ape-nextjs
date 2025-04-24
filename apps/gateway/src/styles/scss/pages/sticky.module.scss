@@ -21,4 +21,8 @@
   @media screen and (max-width: '760px') {
     order: 3;
   }
+
+  .force-mobile & {
+    order: 3;
+  }
 }

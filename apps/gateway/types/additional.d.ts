@@ -73,21 +73,25 @@ export interface NextRouteOptions {
 }
 
 interface ModFedData {
-  gitCommitSHA?: string,
+  gitCommitSHA?: string
 }
 
 interface PageStaticData {
-  pageName: string,
-  demoFile?: string,
+  pageName: string
+  demoFile?: string
+}
+
+interface ServerPageInfo {
+  mobileCheck: boolean
 }
 
 interface PageAppProps extends PageStaticData, ModFedData {
-  error?: Error,
-  // _i18n?: I18next,
-  _i18n?: FlexI18next,
-  _initLng?: FlexI18next['language'],
-  stores: Stores,
-  _nonce?: string,
+  error?: Error
+  // _i18n?: I18next
+  _i18n?: FlexI18next
+  _initLng?: FlexI18next['language']
+  stores: Stores
+  _nonce?: string
   // dehydratedState?: DehydratedState
 }
 

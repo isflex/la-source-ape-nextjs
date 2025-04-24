@@ -48,7 +48,7 @@ const MenuItem = async ({
   icon,
   onClick,
   ...others
-}: MenuItemWebProps): Promise<React.AwaitedReactNode> => {
+}: MenuItemWebProps): Promise<React.ReactNode> => {
   const classes = classNames(
     'menu-item',
     active && styles[camelCase(is('active')) as keyof Styles],

@@ -29,7 +29,7 @@ const Slice = async ({
   longCta,
   selectable,
   ...others
-}: SliceProps): Promise<React.AwaitedReactNode> => {
+}: SliceProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.slice, disabled && styles.isDisabled, longCta && styles.hasLongCta, className, validate(classList))
 
   if (selectable) {

@@ -39,7 +39,7 @@ const Sticker = async ({
   markup,
   inverted,
   ...others
-}: StickerProps): Promise<React.AwaitedReactNode> => {
+}: StickerProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.sticker,
     stretched && styles[camelCase(is('stretched')) as keyof Styles],

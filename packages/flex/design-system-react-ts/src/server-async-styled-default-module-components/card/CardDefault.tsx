@@ -21,7 +21,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param classList {array} Additionnal css classes
  * @param skeleton Loading card
  */
-const Card = async ({ className, classList, flat, horizontal, floating, skeleton, ...others }: CardProps): Promise<React.AwaitedReactNode> => {
+const Card = async ({ className, classList, flat, horizontal, floating, skeleton, ...others }: CardProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.card,
     flat && styles.isFlat,

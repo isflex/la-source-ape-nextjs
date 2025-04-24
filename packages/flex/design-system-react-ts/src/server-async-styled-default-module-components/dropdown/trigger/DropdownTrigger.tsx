@@ -13,7 +13,7 @@ import { has, is } from '../../../services/index.js'
  * @param label {string} Trigger label
  * @param placeholder {string} Trigger placeholder
  */
-const DropdownTrigger = async ({ className, active, onClick, label, name, ...others }: DropdownTriggerWebProps): Promise<React.AwaitedReactNode> => {
+const DropdownTrigger = async ({ className, active, onClick, label, name, ...others }: DropdownTriggerWebProps): Promise<React.ReactNode> => {
   const [triggered, setTriggered] = React.useState<boolean>(active || false)
 
   const classes = classNames('dropdown-trigger', triggered && is('triggered'), className)

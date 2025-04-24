@@ -26,7 +26,7 @@ const TimelineContent = async ({
   link,
   contentLink,
   ...others
-}: TimelineContentWebProps): Promise<React.AwaitedReactNode> => {
+}: TimelineContentWebProps): Promise<React.ReactNode> => {
   const classes = classNames('timeline-content', className)
 
   if (children) {

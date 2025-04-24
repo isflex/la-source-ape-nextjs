@@ -23,7 +23,7 @@ const ColumnsItem = async ({
   desktopSize,
   narrow,
   ...others
-}: ColumnsItemProps): Promise<React.AwaitedReactNode> => {
+}: ColumnsItemProps): Promise<React.ReactNode> => {
   const classes = classNames(
     'column',
     size && is(`${size}`),

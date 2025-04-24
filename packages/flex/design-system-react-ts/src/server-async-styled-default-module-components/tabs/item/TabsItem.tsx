@@ -15,7 +15,7 @@ import { TabsItemProps } from './TabsItemProps.js'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const TabsItem = async ({ active, children, className, onClick, ...others }: TabsItemProps): Promise<React.AwaitedReactNode> => {
+const TabsItem = async ({ active, children, className, onClick, ...others }: TabsItemProps): Promise<React.ReactNode> => {
   const [activeItem, setActiveItem] = React.useState<boolean>(active || false)
 
   // accessibility

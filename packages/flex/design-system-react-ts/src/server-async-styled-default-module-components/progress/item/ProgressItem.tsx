@@ -21,7 +21,7 @@ const ProgressItem = async ({
   minPercent = 0,
   alert,
   ...others
-}: ProgressItemProps): Promise<React.AwaitedReactNode> => {
+}: ProgressItemProps): Promise<React.ReactNode> => {
   const classes = classNames('progress-bar', alert && is(alert.getClassName()), !alert && is('primary'), className)
 
   return (

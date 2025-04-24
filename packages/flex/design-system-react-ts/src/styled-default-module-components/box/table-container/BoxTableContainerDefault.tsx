@@ -17,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param classList {array} Additionnal css classes
  * @param children {ReactNode} Children
  */
-const BoxTableContainer = ({ className, classList, ...others }: BoxTableContainerProps): JSX.Element => (
+const BoxTableContainer = ({ className, classList, ...others }: BoxTableContainerProps): React.JSX.Element => (
   <div className={classNames(styles.box, styles.tableContainer, className, validate(classList))} {...others} />
 )
 

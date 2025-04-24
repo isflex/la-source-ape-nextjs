@@ -10,7 +10,7 @@ import { is } from '../../../services/index.js'
  * @param children {ReactNode} Mobile Footer Children
  * @param className {string} Additionnal CSS Classes
  */
-const FooterMobile = async ({ children, className, ...others }: FooterMobileWebProps): Promise<React.AwaitedReactNode> => {
+const FooterMobile = async ({ children, className, ...others }: FooterMobileWebProps): Promise<React.ReactNode> => {
   const classes = classNames(is('footer-mobile'), is('hidden-desktop'), className)
 
   // Mobile Footer

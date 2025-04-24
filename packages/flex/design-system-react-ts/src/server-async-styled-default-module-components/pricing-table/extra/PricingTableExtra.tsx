@@ -9,7 +9,7 @@ import { PricingTableExtraWebProps } from './PricingTableExtraProps.js'
  * @param children {ReactNode} Title child
  * @param className {string} Additionnal css classes
  */
-const PricingTableExtra = async ({ className, ...others }: PricingTableExtraWebProps): Promise<React.AwaitedReactNode> => {
+const PricingTableExtra = async ({ className, ...others }: PricingTableExtraWebProps): Promise<React.ReactNode> => {
   const classes = classNames('pricing-table-extra', className)
 
   return <div className={classes} {...others} />

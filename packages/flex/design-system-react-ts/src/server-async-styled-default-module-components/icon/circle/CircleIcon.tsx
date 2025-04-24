@@ -6,7 +6,7 @@ import { IconProps } from '../IconProps.js'
 import { IconStatus } from '../IconEnum.js'
 import { getStatusBackground, is } from '../../../services/index'
 
-const CircleIcon = async ({ className, name, status, size, ...others }: IconProps): Promise<React.AwaitedReactNode> => {
+const CircleIcon = async ({ className, name, status, size, ...others }: IconProps): Promise<React.ReactNode> => {
   // }: IconProps): React.JSX.Element | React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> => {
   const background = getStatusBackground(status || '', IconStatus.TERTIARY)
   const classes = classNames(

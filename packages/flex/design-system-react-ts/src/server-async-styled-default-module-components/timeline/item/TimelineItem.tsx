@@ -9,7 +9,7 @@ import { TimelineItemWebProps } from './TimelineItemProps.js'
  * @param className {string} Additionnal CSS Classes
  * @param active {boolean} Active Timeline Item
  */
-const TimelineItem = async ({ className, active, ...others }: TimelineItemWebProps): Promise<React.AwaitedReactNode> => {
+const TimelineItem = async ({ className, active, ...others }: TimelineItemWebProps): Promise<React.ReactNode> => {
   const classes = classNames('timeline-item', active && 'active', className)
 
   return <div className={classes} {...others} />

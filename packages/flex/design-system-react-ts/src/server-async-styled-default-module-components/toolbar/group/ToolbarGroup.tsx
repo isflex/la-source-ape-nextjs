@@ -10,7 +10,7 @@ import { is } from '../../../services/index.js'
  * @param className {string} Additionnal CSS Classes
  * @param elastic {boolean} Is elastic
  */
-const ToolbarGroup = async ({ className, elastic, ...others }: ToolbarGroupWebProps): Promise<React.AwaitedReactNode> => {
+const ToolbarGroup = async ({ className, elastic, ...others }: ToolbarGroupWebProps): Promise<React.ReactNode> => {
   const classes = classNames('toolbar-group', elastic && is('elastic'), className)
 
   return <div className={classes} {...others} />

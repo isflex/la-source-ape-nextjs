@@ -1,6 +1,10 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 
+import { headers } from 'next/headers'
+// import { isMobile } from 'react-device-detect'
+import { isMobile } from '@src/utils'
+
 import classNames from 'classnames'
 // import {
 // } from '@flex-design-system/react-ts/client-sync-styled-default'
@@ -18,17 +22,20 @@ const Header = dynamic(() => import('@src/components/sticky-header/app'), { ssr:
 
 const Layout = async ({children }: { children: React.ReactNode }) => {
 
+  const userAgent = (await headers()).get('user-agent') || ''
+  const mobileCheck = isMobile(userAgent)
+
   const NavigationLayout = () => {
     return (
-      <div className={stylesPage.navLayout}>
+      <div className={classNames(stylesPage.navLayout, mobileCheck && stylesPage.forceMobile)}>
         <LogoLaSource />
-        <Header />
+        <Header mobileCheck={mobileCheck} />
       </div>
     )
   }
 
   return (
-    <div className={classNames(stylesPage.gatewayLayout)}>
+    <div id='gatewayLayout' className={classNames(stylesPage.gatewayLayout)}>
       <NavigationLayout />
       { children }
     </div>

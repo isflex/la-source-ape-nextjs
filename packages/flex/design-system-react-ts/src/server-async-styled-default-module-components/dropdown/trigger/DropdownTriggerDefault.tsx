@@ -29,7 +29,7 @@ const DropdownTrigger = async ({
   label,
   name,
   ...others
-}: DropdownTriggerWebProps): Promise<React.AwaitedReactNode> => {
+}: DropdownTriggerWebProps): Promise<React.ReactNode> => {
   const [triggered, setTriggered] = React.useState<boolean>(active || false)
 
   const classes = classNames(styles.dropdownTrigger, triggered && is('triggered'), className, validate(classList))

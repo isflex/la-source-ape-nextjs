@@ -26,7 +26,7 @@ const Text = async ({
   typo,
   inverted,
   ...others
-}: TextProps): Promise<React.AwaitedReactNode> => {
+}: TextProps): Promise<React.ReactNode> => {
   const classes = classNames(
     {
       text: true,

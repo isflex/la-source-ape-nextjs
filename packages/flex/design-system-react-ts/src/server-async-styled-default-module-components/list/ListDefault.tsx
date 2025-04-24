@@ -17,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param classList {array} Additionnal css classes
  */
 
-const List = async ({ className, classList, hasIcon, children, ...others }: ListProps): Promise<React.AwaitedReactNode> => {
+const List = async ({ className, classList, hasIcon, children, ...others }: ListProps): Promise<React.ReactNode> => {
   const classes = classNames(hasIcon && styles.iconList, className, validate(classList))
 
   return (

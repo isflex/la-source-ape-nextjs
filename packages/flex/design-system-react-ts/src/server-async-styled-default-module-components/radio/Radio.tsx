@@ -34,7 +34,7 @@ const Radio = async ({
   value,
   inverted,
   ...others
-}: RadioProps): Promise<React.AwaitedReactNode> => {
+}: RadioProps): Promise<React.ReactNode> => {
   const [_checked, setChecked] = React.useState<boolean>(checked || false)
 
   const classes = classNames(

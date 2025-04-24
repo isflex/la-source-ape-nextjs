@@ -27,7 +27,7 @@ const OptionsItem = async ({
   onChange,
   onClick,
   ...others
-}: OptionsItemProps): Promise<React.AwaitedReactNode> => {
+}: OptionsItemProps): Promise<React.ReactNode> => {
   const [_checked, setChecked] = React.useState<boolean>(Boolean(checked) || false)
 
   React.useEffect(() => {

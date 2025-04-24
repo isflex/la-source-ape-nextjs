@@ -40,7 +40,7 @@ const Tile = async ({
   parent,
   vertical,
   ...others
-}: TileProps): Promise<React.AwaitedReactNode> => {
+}: TileProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.tile,
     ancestor && styles[camelCase(is('ancestor')) as keyof Styles],

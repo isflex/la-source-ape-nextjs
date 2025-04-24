@@ -11,7 +11,7 @@ import { SubMenuItemWebProps } from './SubMenuItemProps.js'
  * @param className {string} Additionnal CSS Classes
  */
 
-const SubMenuItem = async ({ className, classList, ...others }: SubMenuItemWebProps): Promise<React.AwaitedReactNode> => (
+const SubMenuItem = async ({ className, classList, ...others }: SubMenuItemWebProps): Promise<React.ReactNode> => (
   <ul className={classNames(className, validate(classList))} {...others} />
 )
 

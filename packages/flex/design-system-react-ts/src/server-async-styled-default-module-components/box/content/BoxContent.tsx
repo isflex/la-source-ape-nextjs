@@ -9,7 +9,7 @@ import { BoxContentProps } from './BoxContentProps.js'
  * @param children {ReactNode} Box Content Children
  * @param className {string} Additionnal CSS Classes
  */
-const BoxContent = async ({ children, className, ...others }: BoxContentProps): Promise<React.AwaitedReactNode> => {
+const BoxContent = async ({ children, className, ...others }: BoxContentProps): Promise<React.ReactNode> => {
   return (
     <div className={classNames('box-content', className)} {...others}>
       {children}

@@ -19,7 +19,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param children {ReactNode} Dropdown Children
  * @param active {boolean} Activated Dropdown
  */
-const Dropdown = async ({ className, classList, children, active, ...others }: DropdownWebProps): Promise<React.AwaitedReactNode> => {
+const Dropdown = async ({ className, classList, children, active, ...others }: DropdownWebProps): Promise<React.ReactNode> => {
   const [displayDropdown, setDisplayDropdown] = React.useState<boolean>(active || false)
 
   const classes = classNames(styles.dropdown, styles.tile, displayDropdown && styles.isActive, className, validate(classList))

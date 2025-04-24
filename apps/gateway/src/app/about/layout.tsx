@@ -18,20 +18,21 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 
 import classNames from 'classnames'
-import {
-  Title,
-  Text,
-} from '@src/components/flex-server-components'
-import {
-  TitleLevel
- } from '@flex-design-system/react-ts/client-sync-styled-default'
+// import {
+//   Title,
+//   Text,
+// } from '@src/components/flex-server-components'
+// import {
+//   TitleLevel
+//  } from '@flex-design-system/react-ts/client-sync-styled-default'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 
-import SpaghettiHolderMobile from '@src/components/graphics/spaghetti-holder-mobile'
-import SpaghettiHolderDesktop from '@src/components/graphics/spaghetti-holder-desktop'
+import Spaghetti from '@src/components/graphics/spaghetti'
+import TitleContent from '@src/app/about/title-content'
+import About from './client-component'
 
 // import chromium from '@sparticuz/chromium'
 // import { marpCli, waitForObservation } from '@marp-team/marp-cli'
@@ -172,42 +173,21 @@ export default async function AboutLayout({
         <div style={{
           width: '100%',
         }}>
-          {/* <div id={stylesPage.spaghettiBg} /> */}
-          {!mobileCheck && (
-            <>
-              <SpaghettiHolderMobile />
-              <SpaghettiHolderDesktop />
-            </>
-          )}
-          {/*
-          <SpaghettiHolderMobile />
-          <SpaghettiHolderDesktop />
-          */}
+          <Spaghetti mobileCheck={mobileCheck} />
           <LogoAPE />
         </div>
       </div>
 
-      <main className={flexStyles.fullPage}>
-        <div className={stylesPage.titleHolder}>
-          <Title level={TitleLevel.LEVEL2} className={classNames(flexStyles.isCentered)} style={{ margin: '0' }}>
-            {`À propos de ce site`}
-          </Title>
-          {!mobileCheck && (
-            <Text className={classNames(flexStyles.hasTextCentered, flexStyles.isItalic)} style={{ margin: '0.5rem auto 0' }}>
-              {`Décortiquons ensemble ce sac de noeuds`}
-            </Text>
-          )}
-          {/*
-          <Text className={classNames(flexStyles.hasTextCentered, flexStyles.isItalic)} style={{ margin: '0.5rem auto 0' }}>
-            {`Décortiquons ensemble ce sac de noeuds`}
-          </Text>
-          */}
+      <main className={classNames(flexStyles.fullPage, flexStyles.hasSpaceBetweenContent)}>
+        <div className={classNames(stylesPage.titleHolder)}>
+          <TitleContent mobileCheck={mobileCheck} />
         </div>
         <section className={classNames(
           stylesPage.sectionAbout, flexStyles.isFullwidth,
           !mobileCheck && `showSpagehetti__${process.env.NEXT_PUBLIC_BUILD_ID}`
         )}>
-          {children}
+          <About mobileCheck={mobileCheck} />
+          {/* {children} */}
         </section>
       </main>
     </div>

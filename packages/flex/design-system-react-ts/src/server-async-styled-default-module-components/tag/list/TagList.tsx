@@ -10,7 +10,7 @@ import { TagListProps } from './TagListProps.js'
  *  - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const TagList = async ({ className, ...others }: TagListProps): Promise<React.AwaitedReactNode> => (
+const TagList = async ({ className, ...others }: TagListProps): Promise<React.ReactNode> => (
   <span className={classNames('tags', className)} {...others} />
 )
 

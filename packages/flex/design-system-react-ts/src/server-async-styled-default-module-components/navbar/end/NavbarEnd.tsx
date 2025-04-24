@@ -9,7 +9,7 @@ import { NavbarEndWebProps } from './NavbarEndProps.js'
  * @param children {ReactNode} Children
  * @param className {string} Additionnal css classes
  */
-const NavbarEnd = async ({ children, className, ...others }: NavbarEndWebProps): Promise<React.AwaitedReactNode> => {
+const NavbarEnd = async ({ children, className, ...others }: NavbarEndWebProps): Promise<React.ReactNode> => {
   const classes = classNames('navbar-end', className)
 
   return (

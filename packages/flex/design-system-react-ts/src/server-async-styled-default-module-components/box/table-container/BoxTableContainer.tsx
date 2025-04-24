@@ -9,7 +9,7 @@ import { BoxTableContainerProps } from './BoxTableContainerProps.js'
  * @param className {string} Additionnal CSS Classes
  * @param children {ReactNode} Children
  */
-const BoxTableContainer = async ({ className, ...others }: BoxTableContainerProps): Promise<React.AwaitedReactNode> => (
+const BoxTableContainer = async ({ className, ...others }: BoxTableContainerProps): Promise<React.ReactNode> => (
   <div className={classNames('box table-container', className)} {...others} />
 )
 

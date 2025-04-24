@@ -24,7 +24,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal css classes
  * @param classList {array} Additionnal css classes (ONLY FOR WEB)
  */
-const Badge = async ({ children, className, classList, textContent, content, direction, ...others }: BadgeProps): Promise<React.AwaitedReactNode> => {
+const Badge = async ({ children, className, classList, textContent, content, direction, ...others }: BadgeProps): Promise<React.ReactNode> => {
   const classes = classNames(!textContent ? styles.badge : styles.badgeAndText, className, validate(classList))
 
   if (textContent) {

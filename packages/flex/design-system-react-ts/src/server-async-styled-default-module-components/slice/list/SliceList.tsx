@@ -12,7 +12,7 @@ import { is } from '../../../services/index.js'
  * @param transparent {boolean} Apply transparent on Slices container
  * @param selectable {boolean} List of checkable Slice
  */
-const SliceList = async ({ children, className, transparent, selectable, ...others }: SliceListProps): Promise<React.AwaitedReactNode> => {
+const SliceList = async ({ children, className, transparent, selectable, ...others }: SliceListProps): Promise<React.ReactNode> => {
   const classes = classNames('slices', transparent && is('transparent'), selectable && 'slice-select', className)
 
   return (

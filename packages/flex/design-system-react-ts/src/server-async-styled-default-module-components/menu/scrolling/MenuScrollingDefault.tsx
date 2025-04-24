@@ -20,7 +20,7 @@ const a11y = { role: 'scrolling-menu' }
  *  @param children {number} ReactNode} Dropdown Children
  */
 
-const MenuScrolling = async ({ className, classList, hasBackgroundWhite, pulled, ...others }: MenuScrollingProps): Promise<React.AwaitedReactNode> => {
+const MenuScrolling = async ({ className, classList, hasBackgroundWhite, pulled, ...others }: MenuScrollingProps): Promise<React.ReactNode> => {
   /**
    * If no markup return p with default level 1
    */

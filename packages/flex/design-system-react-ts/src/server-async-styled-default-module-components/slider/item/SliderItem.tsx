@@ -12,7 +12,7 @@ import { is } from '../../../services/index.js'
  * @param children {ReactNode} Slider Item child
  * @param active {boolean} Default active item
  */
-const SliderItem = async ({ children, active, className, ...others }: SliderItemProps): Promise<React.AwaitedReactNode> => {
+const SliderItem = async ({ children, active, className, ...others }: SliderItemProps): Promise<React.ReactNode> => {
   const classes = classNames(active && is('active'), className)
 
   return (

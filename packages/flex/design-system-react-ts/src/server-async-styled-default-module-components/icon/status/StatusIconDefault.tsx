@@ -15,7 +15,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
 // import { default as styles, type Styles } from '@flex-design-system/framework/main/all.module.scss'
 // ///////////////////////////////////////////////////////////////////////////
 
-const StatusIcon = async ({ className, classList, name, status, statusPosition, size, ...others }: IconProps): Promise<React.AwaitedReactNode> => {
+const StatusIcon = async ({ className, classList, name, status, statusPosition, size, ...others }: IconProps): Promise<React.ReactNode> => {
   // }: IconProps): React.JSX.Element & React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> => {
   const ancestorClasses = classNames(
     styles.icon,

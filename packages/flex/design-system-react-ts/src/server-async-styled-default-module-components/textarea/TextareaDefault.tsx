@@ -48,7 +48,7 @@ const Textarea = async ({
   ref,
   id,
   ...others
-}: TextareaProps): Promise<React.AwaitedReactNode> => {
+}: TextareaProps): Promise<React.ReactNode> => {
   const [value, setValue] = React.useState(defaultValue || '')
 
   React.useEffect(() => {

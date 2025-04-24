@@ -29,7 +29,7 @@ const useUtilityClasses = (ownerState: ImageListProps) => {
   return composeClasses(slots, getImageListUtilityClass, classes)
 }
 
-const ImageListRoot = async (props: ImageListRootProps): Promise<React.AwaitedReactNode> => {
+const ImageListRoot = async (props: ImageListRootProps): Promise<React.ReactNode> => {
   const { markup, ownerState, children, style, className } = props
   const Tag = markup && (markup in ImageListRootMarkup || Object.values(ImageListRootMarkup).includes(markup)) ? markup : 'ul'
   const rootStyle = (): React.CSSProperties => {

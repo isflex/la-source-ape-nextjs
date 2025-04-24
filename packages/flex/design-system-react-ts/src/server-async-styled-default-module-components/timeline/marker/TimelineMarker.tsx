@@ -12,7 +12,7 @@ import { Icon, IconSize } from '../../icon/index.js'
  * @param iconClassname {string} Additionnal CSS Classes for icon
  * @param iconName {IconName} Icon Name - sample : IconName.ENVELOPE
  */
-const TimelineItem = async ({ className, iconClassname, iconName, ...others }: TimelineMarkerWebProps): Promise<React.AwaitedReactNode> => {
+const TimelineItem = async ({ className, iconClassname, iconName, ...others }: TimelineMarkerWebProps): Promise<React.ReactNode> => {
   const classes = classNames('timeline-marker', is('icon'), className)
 
   return (

@@ -13,7 +13,7 @@ import { is } from '../../../services/index.js'
  * @param alt {string} Image alt
  * @param rounded {boolean} Rounded Slice Image
  */
-const SliceImage = async ({ children, className, src, alt, rounded, ...others }: SliceImageProps): Promise<React.AwaitedReactNode> => {
+const SliceImage = async ({ children, className, src, alt, rounded, ...others }: SliceImageProps): Promise<React.ReactNode> => {
   const classes = classNames('slice-image', className)
 
   if (children) {

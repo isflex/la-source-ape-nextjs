@@ -14,7 +14,7 @@ import { is } from '../../services/index.js'
  * @param className Additionnal CSS Classes
  * @param skeleton Loading card
  */
-const Card = async ({ className, flat, horizontal, floating, skeleton, ...others }: CardProps): Promise<React.AwaitedReactNode> => {
+const Card = async ({ className, flat, horizontal, floating, skeleton, ...others }: CardProps): Promise<React.ReactNode> => {
   const [isLoading, setIsLoading] = React.useState<boolean>(skeleton || false)
 
   React.useEffect(() => {

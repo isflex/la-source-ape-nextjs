@@ -34,7 +34,7 @@ const Tag = async ({
   onMouseLeave,
   inverted,
   ...others
-}: TagProps): Promise<React.AwaitedReactNode> => {
+}: TagProps): Promise<React.ReactNode> => {
   const [display, setDisplay] = React.useState<boolean>(deletable || false)
   const [isHovered, setIsHovered] = React.useState<boolean>(hovered ?? false)
   const classes = classNames(

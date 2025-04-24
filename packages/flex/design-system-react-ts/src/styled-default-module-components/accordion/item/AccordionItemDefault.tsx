@@ -118,15 +118,28 @@ const AccordionItem = ({
     v2 && styles.version2,
   )
 
+  // let childrenElement = null
+  // if (children) {
+  //   childrenElement = (children as React.ReactElement[]).map((child: React.ReactElement, index: number) => {
+  //     return React.cloneElement(child, {
+  //       key: `article-${index}`,
+  //       onClick: (e: OnClickEvent) => index === 0 && !disabled && toggleAccordion(e),
+  //       id: getId(index),
+  //     })
+  //   })
+  // }
+
   let childrenElement = null
   if (children) {
-    childrenElement = (children as React.ReactElement[]).map((child: React.ReactElement, index: number) => {
-      return React.cloneElement(child, {
-        key: `article-${index}`,
-        onClick: (e: OnClickEvent) => index === 0 && !disabled && toggleAccordion(e),
-        id: getId(index),
-      })
-    })
+    childrenElement = Array.isArray(children)
+      ? children.map((child, index: number) => {
+          return React.cloneElement(child, {
+            key: `article-${index}`,
+            id: getId(index),
+            onClick: (e: OnClickEvent) => index === 0 && !disabled && toggleAccordion(e),
+          })
+        })
+      : children
   }
 
   return (

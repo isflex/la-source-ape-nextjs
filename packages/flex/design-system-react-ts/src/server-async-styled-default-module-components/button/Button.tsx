@@ -39,7 +39,7 @@ const Button = async ({
   to,
   onClick,
   ...others
-}: ButtonProps): Promise<React.AwaitedReactNode> => {
+}: ButtonProps): Promise<React.ReactNode> => {
   const [isDisabled, setDisabled] = React.useState<boolean>(others.disabled || false)
 
   React.useEffect(() => {

@@ -45,7 +45,7 @@ const Link = async ({
   title,
   onClick,
   ...others
-}: LinkProps): Promise<React.AwaitedReactNode> => {
+}: LinkProps): Promise<React.ReactNode> => {
   const classes = classNames(
     !removeLinkClass && styles.link,
     inverted && styles[camelCase(is('inverted')) as keyof Styles],

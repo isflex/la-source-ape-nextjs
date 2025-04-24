@@ -27,7 +27,7 @@ const StepperStep = async ({
   label,
   step,
   ...others
-}: StepperStepProps): Promise<React.AwaitedReactNode> => {
+}: StepperStepProps): Promise<React.ReactNode> => {
   const classes = classNames('step', active && is('active'), current && is('current'), done && is('done'), className)
 
   /**

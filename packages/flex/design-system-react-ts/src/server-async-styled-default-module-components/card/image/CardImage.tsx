@@ -12,7 +12,7 @@ import { is } from '../../../services/index.js'
  * @param className Additionnal CSS Classes
  * @param size Image Card size on horizontal align
  */
-const CardImage = async ({ src, alt, className, size, ...others }: CardImageProps): Promise<React.AwaitedReactNode> => {
+const CardImage = async ({ src, alt, className, size, ...others }: CardImageProps): Promise<React.ReactNode> => {
   const classes = classNames('card-image', size && is(`${size}`), className)
 
   return (

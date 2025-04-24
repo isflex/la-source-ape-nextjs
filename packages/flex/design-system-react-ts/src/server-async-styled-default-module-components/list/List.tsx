@@ -9,7 +9,7 @@ import { ListProps } from './ListProps.js'
  * @param className {string} Additionnal CSS Classes
  */
 
-const List = async ({ className, hasIcon, children, ...others }: ListProps): Promise<React.AwaitedReactNode> => {
+const List = async ({ className, hasIcon, children, ...others }: ListProps): Promise<React.ReactNode> => {
   const classes = classNames(hasIcon ? 'icon-list' : 'list', className)
   return (
     <ul className={classes} {...others}>

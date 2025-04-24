@@ -11,7 +11,7 @@ import { is } from '../../../services/index.js'
  * @param className {string} Additionnal css classes
  * @param extras {boolean} Adding extras content
  */
-const NavbarDropdownSection = async ({ className, extras, ...others }: NavbarDropdownSectionWebProps): Promise<React.AwaitedReactNode> => {
+const NavbarDropdownSection = async ({ className, extras, ...others }: NavbarDropdownSectionWebProps): Promise<React.ReactNode> => {
   const classes = classNames('navbar-dropdown-section', extras && is('extras'), className)
 
   return <div className={classes} {...others} />

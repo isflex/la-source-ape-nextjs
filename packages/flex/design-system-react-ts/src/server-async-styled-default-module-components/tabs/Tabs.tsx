@@ -31,7 +31,7 @@ const Tabs = async ({
   fullwidth,
   centered,
   ...others
-}: TabsProps): Promise<React.AwaitedReactNode> => {
+}: TabsProps): Promise<React.ReactNode> => {
   const [activateIndex, setActivateIndex] = React.useState<number>(activeIndex || 0)
 
   const classes = classNames(

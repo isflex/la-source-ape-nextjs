@@ -19,7 +19,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param classList {array} Additionnal css classes
  * @param fullwidth {boolean} Footer fullwidth
  */
-const Footer = async ({ children, className, classList, fullwidth, ...others }: FooterWebProps): Promise<React.AwaitedReactNode> => {
+const Footer = async ({ children, className, classList, fullwidth, ...others }: FooterWebProps): Promise<React.ReactNode> => {
   const classes = classNames(fullwidth && styles.isFullwidth, className, validate(classList))
 
   return (

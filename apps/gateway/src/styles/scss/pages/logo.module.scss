@@ -9,15 +9,49 @@
 
 .logo-ape {
   zoom: 0.4;
-  margin-top: 1.5rem;
+  margin-top: -3rem;
+  margin-bottom: 4.5rem;
 
   @media screen and (min-width: '379px') {
-    zoom: 0.5;
-    margin-top: -1rem;
+    zoom: 0.4;
+    margin-top: -3rem;
+    margin-bottom: 4.5rem;
   }
 
   @media screen and (min-width: '449px') {
+    zoom: 0.4;
+    margin-top: -3rem;
+    margin-bottom: 4.5rem;
+  }
+
+  @media screen and (min-width: '1024px') {
     zoom: 0.6;
+    margin-top: -1rem;
+    margin-bottom: 0;
+  }
+
+  &.lift-off {
+    zoom: 0.3;
+    margin-top: 1rem;
+    margin-bottom: 9.5rem;
+
+    @media screen and (min-width: '379px') {
+      zoom: 0.3;
+      margin-top: 1rem;
+      margin-bottom: 9.5rem;
+    }
+
+    @media screen and (min-width: '449px') {
+      zoom: 0.3;
+      margin-top: 1rem;
+      margin-bottom: 9.5rem;
+    }
+
+    @media screen and (min-width: '1024px') {
+      zoom: 0.6;
+      margin-top: -1rem;
+      margin-bottom: 0;
+    }
   }
 }
 

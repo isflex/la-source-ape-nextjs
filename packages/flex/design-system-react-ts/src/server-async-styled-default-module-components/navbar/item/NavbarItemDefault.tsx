@@ -39,7 +39,7 @@ const NavbarItem = async ({
   alternate,
   active,
   ...others
-}: NavbarItemWebProps): Promise<React.AwaitedReactNode> => {
+}: NavbarItemWebProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.navbarItem,
     megaDropdown && styles.isMegadropdownParent,

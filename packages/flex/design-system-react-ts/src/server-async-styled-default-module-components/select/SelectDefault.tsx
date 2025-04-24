@@ -42,7 +42,7 @@ const Select = async ({
   placeholder,
   nullable,
   ...others
-}: SelectProps): Promise<React.AwaitedReactNode> => {
+}: SelectProps): Promise<React.ReactNode> => {
   const wrapperClasses = classNames(styles.field, className, validate(classList))
 
   const controlClasses = classNames(styles.control, dynamicPlaceholder && label && styles.hasDynamicPlaceholder)

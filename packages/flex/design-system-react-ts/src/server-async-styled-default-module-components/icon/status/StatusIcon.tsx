@@ -8,7 +8,7 @@ import { IconName } from '../IconNameEnum.js'
 import { IconStatus } from '../IconEnum.js'
 import { is, has } from '../../../services/index'
 
-const StatusIcon = async ({ className, name, status, statusPosition, size, ...others }: IconProps): Promise<React.AwaitedReactNode> => {
+const StatusIcon = async ({ className, name, status, statusPosition, size, ...others }: IconProps): Promise<React.ReactNode> => {
   // }: IconProps): React.JSX.Element | React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> => {
   const ancestorClasses = classNames('icon', size && is(`${size}`), is('ancestor'), has('status'), className)
   const descendantClasses = classNames('icon is-circled is-descendant', status && is(`${status}`), statusPosition && is(`${statusPosition}`))

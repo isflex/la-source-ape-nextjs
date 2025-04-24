@@ -18,7 +18,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} additionnal CSS Classes
  * @param classList {array} Additionnal css classes
  */
-const Rows = ({ className, classList, ...others }: RowsProps): JSX.Element => (
+const Rows = ({ className, classList, ...others }: RowsProps): React.JSX.Element => (
   <div className={classNames(styles.rows, className, validate(classList))} {...others} />
 )
 

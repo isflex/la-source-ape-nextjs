@@ -23,7 +23,7 @@ const NavbarAccordionItem = async ({
   classList,
   headerContent,
   ...others
-}: NavbarAccordionItemWebProps): Promise<React.AwaitedReactNode> => {
+}: NavbarAccordionItemWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.navbarItemAccordion, className, validate(classList))
   const headerClasses = classNames(styles.navbarItemAccordionHeader)
   const contentClasses = classNames(styles.navbarItemAccordionContent)

@@ -15,7 +15,11 @@ import { is, has } from '../../services/index.js'
  * @param motionLess {boolean} Disable behaviour on desktop
  */
 
-type children = true | React.ReactChild | React.ReactFragment | React.ReactPortal
+type children =
+true |
+React.ReactElement | number | string | // was previously React.ReactChild in React.18 see https://github.com/eps1lon/types-react-codemod/
+Iterable<React.ReactNode> | // was previously React.ReactFragment in React.18 see https://github.com/eps1lon/types-react-codemod/
+React.ReactPortal
 
 const Slider = ({ className, iconClassName, children, motionLess, ...others }: SliderProps): React.JSX.Element => {
   const classes = classNames(motionLess && is('motionless-desktop'), className)

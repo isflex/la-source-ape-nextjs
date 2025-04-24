@@ -11,7 +11,7 @@ import { is } from '../../../services/index.js'
  * - -------------------------- WEB PROPERTIES -------------------
  *  @param className {string} additionnal CSS Classes
  */
-const RowItem = async ({ className, narrow, ...others }: RowsItemProps): Promise<React.AwaitedReactNode> => {
+const RowItem = async ({ className, narrow, ...others }: RowsItemProps): Promise<React.ReactNode> => {
   const classes = classNames('row', narrow && is('narrow'), className)
 
   return <div className={classes} {...others} />

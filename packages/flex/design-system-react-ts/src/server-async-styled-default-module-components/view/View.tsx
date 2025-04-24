@@ -13,7 +13,7 @@ import { is } from '../../services/index.js'
  * @param className {string} Additionnal css classes
  * @param loading {Loading} Loading View
  */
-const View = async ({ children, style, className, loading, ...others }: ViewProps): Promise<React.AwaitedReactNode> => {
+const View = async ({ children, style, className, loading, ...others }: ViewProps): Promise<React.ReactNode> => {
   const classes = classNames(loading && is(loading.getClassName()), className)
   if (!children) {
     return <div style={style} {...others} />

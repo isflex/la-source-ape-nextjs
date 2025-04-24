@@ -46,7 +46,7 @@ const Switch = async ({
   name,
   inverted,
   ...others
-}: SwitchProps): Promise<React.AwaitedReactNode> => {
+}: SwitchProps): Promise<React.ReactNode> => {
   const [_checked, setChecked] = React.useState<boolean>(checked || false)
 
   React.useEffect(() => {

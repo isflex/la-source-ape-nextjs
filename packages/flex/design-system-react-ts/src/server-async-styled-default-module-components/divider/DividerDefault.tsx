@@ -22,7 +22,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param classList {array} Additionnal css classes (ONLY FOR WEB)
 
  */
-const Divider = async ({ className, classList, unboxed, content, marginless, ...others }: DividerProps): Promise<React.AwaitedReactNode> => {
+const Divider = async ({ className, classList, unboxed, content, marginless, ...others }: DividerProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles[camelCase(is('divider')) as keyof Styles],
     unboxed && styles[camelCase(is('unboxed')) as keyof Styles],

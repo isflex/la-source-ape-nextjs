@@ -17,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal css classes
  * @param hat {boolean} Has hat
  */
-const PricingPlanProduct = async ({ className, classList, hat, ...others }: PricingPlanProductWebProps): Promise<React.AwaitedReactNode> => {
+const PricingPlanProduct = async ({ className, classList, hat, ...others }: PricingPlanProductWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.pricingPlanProduct, hat && styles.hasHat, className, validate(classList))
 
   return <div className={classes} {...others} />

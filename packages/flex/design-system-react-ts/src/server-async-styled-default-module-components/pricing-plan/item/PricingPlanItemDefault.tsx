@@ -19,7 +19,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param spacing {SpacingLevel} 1 to 12
  * @param narrow {boolean} Apply narrow
  */
-const PricingPlanItems = async ({ className, classList, spacing, narrow, ...others }: PricingPlanItemWebProps): Promise<React.AwaitedReactNode> => {
+const PricingPlanItems = async ({ className, classList, spacing, narrow, ...others }: PricingPlanItemWebProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.planItem,
     spacing && styles[camelCase(is(`${spacing}`)) as keyof Styles],

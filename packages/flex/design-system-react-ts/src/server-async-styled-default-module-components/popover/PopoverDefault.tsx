@@ -31,7 +31,7 @@ const Popover = async ({
   arrowPosition,
   content,
   ...others
-}: PopoverWebProps): Promise<React.AwaitedReactNode> => {
+}: PopoverWebProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.popover,
     direction != null && styles[camelCase(is(`popover-${direction}`)) as keyof Styles],

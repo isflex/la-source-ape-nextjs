@@ -21,7 +21,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param classList {array} Additionnal css classes
  */
-const Hero = async ({ children, className, classList, backgroundSrc, variant, ...others }: HeroProps): Promise<React.AwaitedReactNode> => {
+const Hero = async ({ children, className, classList, backgroundSrc, variant, ...others }: HeroProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.hero,
     variant && styles[camelCase(has(`background-${variant.getClassName()}`)) as keyof Styles],

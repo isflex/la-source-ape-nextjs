@@ -16,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param inverted {boolean} Inverted options
  */
-const Options = async ({ className, classList, inverted, ...others }: OptionsProps): Promise<React.AwaitedReactNode> => {
+const Options = async ({ className, classList, inverted, ...others }: OptionsProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.options, inverted && styles.isInverted, className, validate(classList))
 
   return <div className={classes} {...others} />

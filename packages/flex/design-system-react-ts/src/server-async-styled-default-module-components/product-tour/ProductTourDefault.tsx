@@ -36,7 +36,7 @@ const ProductTour = async ({
   avatarSrc,
   avatarDirection,
   ...others
-}: ProductTourWebProps): Promise<React.AwaitedReactNode> => {
+}: ProductTourWebProps): Promise<React.ReactNode> => {
   const [display, setDisplay] = React.useState<boolean>(active || false)
 
   React.useEffect(() => {

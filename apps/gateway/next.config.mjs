@@ -287,7 +287,7 @@ const mainConfig = new Config(async (phase, args) => {
           css: true,
           topLevelAwait: true,
           // outputModule: true,
-          layers: true
+          layers: true,
         },
 
         infrastructureLogging: {
@@ -299,16 +299,17 @@ const mainConfig = new Config(async (phase, args) => {
       }
     },
 
-    // experimental: {
-    //   turbo: {
-    //     rules: {
-    //       '*.svg': {
-    //         loaders: ['@svgr/webpack'],
-    //         as: '*.js',
-    //       },
-    //     },
-    //   },
-    // },
+    experimental: {
+      // turbo: {
+      //   rules: {
+      //     '*.svg': {
+      //       loaders: ['@svgr/webpack'],
+      //       as: '*.js',
+      //     },
+      //   },
+      // },
+      // dynamicIO: true,
+    },
   }
 
   return nextConfig

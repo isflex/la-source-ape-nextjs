@@ -18,7 +18,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param children {ReactNode} Children for Accordion body
  * @param withAction {boolean} override bottom margin of accordion body when followed by accordion action
  */
-const AccordionBody = ({ children, className, classList, withAction = false, ...others }: AccordionBodyProps): JSX.Element => (
+const AccordionBody = ({ children, className, classList, withAction = false, ...others }: AccordionBodyProps): React.JSX.Element => (
   <div className={classNames(styles.accordionBody, styles.isClipped, className, validate(classList), withAction && styles.withAction)} {...others}>
     <div className={styles.accordionBodyContent}>{children}</div>
   </div>

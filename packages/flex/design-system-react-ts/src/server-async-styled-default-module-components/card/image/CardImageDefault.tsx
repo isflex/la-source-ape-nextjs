@@ -20,7 +20,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param classList {array} Additionnal css classes
  * @param size Image Card size on horizontal align
  */
-const CardImage = async ({ src, alt, className, classList, size, ...others }: CardImageProps): Promise<React.AwaitedReactNode> => {
+const CardImage = async ({ src, alt, className, classList, size, ...others }: CardImageProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.cardImage,
     // size && camelCase(is(`${size}`)),

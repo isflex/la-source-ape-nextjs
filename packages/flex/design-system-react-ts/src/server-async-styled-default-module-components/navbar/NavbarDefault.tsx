@@ -18,7 +18,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param newNavbar {boolean} Display new header
  * @param npmNavbar {boolean} Display old header
  */
-const Navbar = async ({ children, className, classList, newNavbar, npmNavbar, ...others }: NavbarWebProps): Promise<React.AwaitedReactNode> => {
+const Navbar = async ({ children, className, classList, newNavbar, npmNavbar, ...others }: NavbarWebProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.navbar,
     newNavbar && !npmNavbar && styles.isNew,

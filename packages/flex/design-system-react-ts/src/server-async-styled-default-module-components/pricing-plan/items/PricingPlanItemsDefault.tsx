@@ -18,7 +18,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal css classes
  * @param background {BackgroundStyle} Custom background color
  */
-const PricingPlanItems = async ({ className, classList, background, ...others }: PricingPlanItemsWebProps): Promise<React.AwaitedReactNode> => {
+const PricingPlanItems = async ({ className, classList, background, ...others }: PricingPlanItemsWebProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.planItems,
     background && styles[camelCase(has(background.getClassName())) as keyof Styles],

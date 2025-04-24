@@ -12,7 +12,7 @@ import { TableTdProps } from './TableTdProps.js'
  * @param rowSpan {number} Specifies the number of rows a cell should span
  * @param colSpan {number} Defines the number of columns a cell should span
  */
-const TableTd = async ({ className, rowSpan, colSpan, ...others }: TableTdProps): Promise<React.AwaitedReactNode> => {
+const TableTd = async ({ className, rowSpan, colSpan, ...others }: TableTdProps): Promise<React.ReactNode> => {
   const classes = classNames(className)
 
   return <td className={classes} rowSpan={rowSpan} colSpan={colSpan} {...others} />

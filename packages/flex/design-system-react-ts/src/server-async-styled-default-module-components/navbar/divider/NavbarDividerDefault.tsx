@@ -16,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param children {ReactNode} Navbar Divider Children
  * @param className {string} Additionnal css classes
  */
-const NavbarDivider = async ({ className, classList, ...others }: NavbarDividerWebProps): Promise<React.AwaitedReactNode> => {
+const NavbarDivider = async ({ className, classList, ...others }: NavbarDividerWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.navbarBrand, className, validate(classList))
 
   return <div className={classes} {...others} />

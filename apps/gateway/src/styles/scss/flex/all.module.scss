@@ -45,8 +45,13 @@
       align-items: center;
     }
 
+    &.has-space-between-content {
+      justify-content: space-between;
+      align-items: center;
+    }
+
     &.full-page {
-      min-height: calc(100vh - 475px);
+      min-height: calc(100vh - 485px);
     }
   }
 }

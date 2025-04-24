@@ -9,7 +9,7 @@ import { SliceCtaProps } from './SliceCtaProps.js'
  * @param className {string} Additionnal CSS Classes
  * @param children {ReactNode} Children for Slice Cta
  */
-const SliceCta = async ({ children, className, ...others }: SliceCtaProps): Promise<React.AwaitedReactNode> => {
+const SliceCta = async ({ children, className, ...others }: SliceCtaProps): Promise<React.ReactNode> => {
   const classes = classNames('slice-call-to-action', className)
 
   return (

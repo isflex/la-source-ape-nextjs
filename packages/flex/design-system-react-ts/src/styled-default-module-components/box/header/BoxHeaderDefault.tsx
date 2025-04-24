@@ -19,7 +19,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param children {ReactNode} Children
  * @param help {string} Box Header Help Sticker
  */
-const BoxHeader = ({ children, className, classList, help, ...others }: BoxHeaderProps): JSX.Element => (
+const BoxHeader = ({ children, className, classList, help, ...others }: BoxHeaderProps): React.JSX.Element => (
   <header className={classNames(styles.boxHeader, className, validate(classList))} {...others}>
     {children && typeof children.valueOf() === 'string' ? <p>{children}</p> : children}
     {help && <Text className='box-header-help sticker is-small is-success'>{String(children)}</Text>}

@@ -8,7 +8,8 @@
     "FLEX_POKER_CLIENT_TARGET",
     "DOTENV_PRIVATE_KEY_DEVELOPMENT",
     "DOTENV_PRIVATE_KEY_PRODUCTION",
-    "GIT_COMMIT_SHORT_SHA"
+    "GIT_COMMIT_SHORT_SHA",
+    "NEXT_PUBLIC_BUILD_ID"
   ],
   "tasks": {
     "dev:compile:transit": {

@@ -12,7 +12,7 @@ import { Icon } from '../../icon/index.js'
  * @param iconName {IconName} Name for icon
  * @param iconColor {IconColor} Custom color for icon
  */
-const SliceIcon = async ({ className, iconSize, iconName, iconColor, ...others }: SliceIconProps): Promise<React.AwaitedReactNode> => {
+const SliceIcon = async ({ className, iconSize, iconName, iconColor, ...others }: SliceIconProps): Promise<React.ReactNode> => {
   const classes = classNames('slice-icon', className)
 
   return (

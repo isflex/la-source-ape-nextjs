@@ -11,7 +11,7 @@ import { is } from '../../services/index.js'
  * @param skeleton
  * @param others
  */
-const Section = async ({ className, skeleton, ...others }: SectionWebProps): Promise<React.AwaitedReactNode> => {
+const Section = async ({ className, skeleton, ...others }: SectionWebProps): Promise<React.ReactNode> => {
   const [isLoading, setIsLoading] = React.useState<boolean>(skeleton || false)
 
   React.useEffect(() => {

@@ -20,7 +20,7 @@ const a11y = { role: 'menu' }
  *  @param notASide {ReactNode} Menu is in MenuScrolling
  */
 
-const Menu = ({ className, classList, notASide, ...others }: MenuWebProps): JSX.Element => (
+const Menu = ({ className, classList, notASide, ...others }: MenuWebProps): React.JSX.Element => (
   <ul className={classNames(styles.menuList, !notASide && styles.asideMenuList, className, validate(classList))} {...a11y} {...others} />
 )
 

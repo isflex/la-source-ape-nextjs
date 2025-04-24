@@ -14,11 +14,11 @@ import { default as stylesPage } from '@src/styles/scss/pages/sticky.module.scss
 
 const NavBarApp = dynamic(() => import('@src/components/navbar/app'), { ssr: true })
 
-const StickyHeader = () => {
+const StickyHeader = ({mobileCheck} : {mobileCheck: boolean}) => {
   return (
     <div className={stylesPage.stickyContainer}>
       <Sticky stickyClassName={stylesPage.stickyWrapper} topOffset={20}>
-        <NavBarApp />
+        <NavBarApp mobileCheck={mobileCheck} />
       </Sticky>
     </div>
   )

@@ -9,7 +9,7 @@ import { PricingPlanPriceWebProps } from './PricingPlanPriceProps.js'
  * @param children {ReactNode} Children
  * @param className {string} Additionnal css classes
  */
-const PricingPlanPrice = async ({ className, ...others }: PricingPlanPriceWebProps): Promise<React.AwaitedReactNode> => {
+const PricingPlanPrice = async ({ className, ...others }: PricingPlanPriceWebProps): Promise<React.ReactNode> => {
   const classes = classNames('plan-price', className)
 
   return <div className={classes} {...others} />

@@ -26,9 +26,13 @@ const { setupSlider } = await import('./setup')
  * @param motionLess {boolean} Disable behaviour on desktop
  */
 
-type children = true | React.ReactChild | React.ReactFragment | React.ReactPortal
+type children =
+true |
+React.ReactElement | number | string | // was previously React.ReactChild in React.18 see https://github.com/eps1lon/types-react-codemod/
+Iterable<React.ReactNode> | // was previously React.ReactFragment in React.18 see https://github.com/eps1lon/types-react-codemod/
+React.ReactPortal
 
-const Slider = async ({ className, classList, iconClassName, children, motionLess, ...others }: SliderProps): Promise<React.AwaitedReactNode> => {
+const Slider = async ({ className, classList, iconClassName, children, motionLess, ...others }: SliderProps): Promise<React.ReactNode> => {
   // const [domReady, setDomReady] = React.useState(false)
   const ref = React.useRef<HTMLDivElement>(null)
   const classes = classNames(sliderStyles.flexSlider, motionLess && styles.isMotionlessDesktop, className, validate(classList))

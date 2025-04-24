@@ -17,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param classList {array} Additionnal css classes
  */
-const FooterSub = async ({ children, className, classList, ...others }: FooterSubWebProps): Promise<React.AwaitedReactNode> => {
+const FooterSub = async ({ children, className, classList, ...others }: FooterSubWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.isFooterSub, className, validate(classList))
 
   return (

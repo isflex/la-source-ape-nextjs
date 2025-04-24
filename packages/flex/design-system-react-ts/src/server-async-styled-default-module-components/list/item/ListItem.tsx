@@ -11,7 +11,7 @@ import { Icon, IconSize } from '../../icon/index.js'
  * @param className {string} Additionnal CSS Classes
  */
 
-const ListItem = async ({ className, children, customIcon, status, title, description }: ListItemProps): Promise<React.AwaitedReactNode> => {
+const ListItem = async ({ className, children, customIcon, status, title, description }: ListItemProps): Promise<React.ReactNode> => {
   const classes = classNames(className)
 
   if (customIcon) {

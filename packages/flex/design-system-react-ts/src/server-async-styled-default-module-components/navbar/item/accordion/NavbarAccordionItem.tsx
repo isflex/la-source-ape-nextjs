@@ -10,7 +10,7 @@ import { NavbarAccordionItemWebProps } from './NavbarAccordionItemProps.js'
  * @param className {string} Additionnal css classes
  * @param headerContent {string} Content text for navbar-item-accordion-header
  */
-const NavbarAccordionItem = async ({ children, className, headerContent, ...others }: NavbarAccordionItemWebProps): Promise<React.AwaitedReactNode> => {
+const NavbarAccordionItem = async ({ children, className, headerContent, ...others }: NavbarAccordionItemWebProps): Promise<React.ReactNode> => {
   const classes = classNames('navbar-item-accordion', className)
   const headerClasses = classNames('navbar-item-accordion-header')
   const contentClasses = classNames('navbar-item-accordion-content')

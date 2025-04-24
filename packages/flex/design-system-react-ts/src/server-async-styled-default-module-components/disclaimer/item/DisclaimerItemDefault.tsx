@@ -18,7 +18,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal css classes
  * @param classList {array} Additionnal css classes
  */
-const DisclaimerItem = async ({ className, classList, ...others }: DisclaimerItemWebProps): Promise<React.AwaitedReactNode> => {
+const DisclaimerItem = async ({ className, classList, ...others }: DisclaimerItemWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.disclaimerItem, className, validate(classList))
 
   return <div className={classes} {...others} />

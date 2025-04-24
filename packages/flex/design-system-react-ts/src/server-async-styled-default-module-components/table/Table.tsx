@@ -13,7 +13,7 @@ import { is } from '../../services/index.js'
  * @param fullwidth {boolean} Fullwidth table
  * @param comparative {boolean} If specific design add this
  */
-const Table = async ({ className, fullwidth, bordered, comparative, ...others }: TableProps): Promise<React.AwaitedReactNode> => {
+const Table = async ({ className, fullwidth, bordered, comparative, ...others }: TableProps): Promise<React.ReactNode> => {
   const classes = classNames('table', fullwidth && is('fullwidth'), bordered && is('bordered'), comparative && is('comparative'), className)
 
   return <table className={classes} {...others} />

@@ -8,6 +8,6 @@ import { RowsProps } from './RowsProps.js'
  * - ------------------- WEB PROPERTIES -------------------------
  * @param className {string} additionnal CSS Classes
  */
-const Rows = ({ className, ...others }: RowsProps): JSX.Element => <div className={classNames('rows', className)} {...others} />
+const Rows = ({ className, ...others }: RowsProps): React.JSX.Element => <div className={classNames('rows', className)} {...others} />
 
 export default Rows

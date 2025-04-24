@@ -37,10 +37,6 @@ const Game: NextPage<PageAppProps> = observer(() => {
   const [urlIframe, setUrlIframe] = React.useState<string | null>(null)
   const router = useRouter()
 
-  React.useEffect(() => {
-    handleOpenSlide(`https://luffah.xyz/bidules/Terminus/`)
-  }, [])
-
   const appContextOverlayMode = (bool: boolean) => {
     const {
       appContext,
@@ -54,14 +50,14 @@ const Game: NextPage<PageAppProps> = observer(() => {
     )
   }
 
-  const handleOpenSlide = (route: string) => {
+  const handleOpenSlide = React.useCallback((route: string) => {
     const {
       appContext
     } = stores.UIStore
     appContextOverlayMode(!appContext.overlayMode)
     setUrlIframe(route)
     document.querySelector('html')?.classList.add(`domOverlayMode__${process.env.NEXT_PUBLIC_BUILD_ID}`)
-  }
+  }, [])
 
   const handleCloseSlide = () => {
     const {
@@ -72,6 +68,10 @@ const Game: NextPage<PageAppProps> = observer(() => {
     document.querySelector('html')?.classList.remove(`domOverlayMode__${process.env.NEXT_PUBLIC_BUILD_ID}`)
     router.push('/about?slide-link=dans-quel-but&section-link=4')
   }
+
+  React.useEffect(() => {
+    handleOpenSlide(`https://luffah.xyz/bidules/Terminus/`)
+  }, [handleOpenSlide])
 
   const ToggleSlideBtn = () => {
     if (!urlIframe) return null
@@ -96,7 +96,7 @@ const Game: NextPage<PageAppProps> = observer(() => {
         title="Inline Frame Example"
         allow='screen-wake-lock'
         sandbox='allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation'
-        referrerPolicy='no-referrer'
+        referrerPolicy='no-referrer-when-downgrade'
         className={stylesPage.gameIframe}
         src={`${urlIframe}`}
       />

@@ -10,7 +10,7 @@ import { has } from '../../services/index.js'
  * @param className {string} Additionnal CSS Classes
  * @param background {BackgroundStyle} Custom background color
  */
-const Toolbar = async ({ className, background, ...others }: ToolbarWebProps): Promise<React.AwaitedReactNode> => {
+const Toolbar = async ({ className, background, ...others }: ToolbarWebProps): Promise<React.ReactNode> => {
   const classes = classNames('toolbar', background && has(background.getClassName()), className)
 
   return <div className={classes} {...others} />

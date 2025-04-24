@@ -17,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal css classes
  * @param extras {boolean} Adding extras content
  */
-const NavbarDropdownSection = async ({ className, classList, extras, ...others }: NavbarDropdownSectionWebProps): Promise<React.AwaitedReactNode> => {
+const NavbarDropdownSection = async ({ className, classList, extras, ...others }: NavbarDropdownSectionWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.navbarDropdownSection, extras && is('extras'), className, validate(classList))
 
   return <div className={classes} {...others} />

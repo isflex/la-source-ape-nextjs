@@ -8,7 +8,7 @@ import { ListItemDescriptionProps } from './ListItemDescriptionProps.js'
  * @param className {string} Additionnal CSS Classes
  */
 
-const ListItemDescription = async ({ children, className }: ListItemDescriptionProps): Promise<React.AwaitedReactNode> => {
+const ListItemDescription = async ({ children, className }: ListItemDescriptionProps): Promise<React.ReactNode> => {
   return <dd className={className}>{children}</dd>
 }
 

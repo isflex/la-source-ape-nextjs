@@ -9,7 +9,7 @@ import { FooterHeaderWebProps } from './FooterHeaderProps.js'
  * @param children {ReactNode} Children for Subfooter
  * @param className {string} Additionnal CSS Classes
  */
-const FooterHeader = async ({ className, ...others }: FooterHeaderWebProps): Promise<React.AwaitedReactNode> => {
+const FooterHeader = async ({ className, ...others }: FooterHeaderWebProps): Promise<React.ReactNode> => {
   const classes = classNames('accordion-header', className)
 
   return <div className={classes} {...others} />

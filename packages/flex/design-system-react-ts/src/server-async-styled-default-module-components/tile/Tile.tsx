@@ -31,7 +31,7 @@ const Tile = async ({
   parent,
   vertical,
   ...others
-}: TileProps): Promise<React.AwaitedReactNode> => {
+}: TileProps): Promise<React.ReactNode> => {
   const classes = classNames('tile', ancestor && is('ancestor'), child && is('child'), parent && is('parent'), vertical && is('vertical'), className)
 
   const Tag = markup

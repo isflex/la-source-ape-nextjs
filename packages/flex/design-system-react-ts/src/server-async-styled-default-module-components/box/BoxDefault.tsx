@@ -24,7 +24,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param skeleton {boolean} add or remove is-loading & is-loaded classes
  * @param to {string} Box link
  */
-const Box = async ({ children, className, classList, onClick, markup, skeleton, to, ...others }: BoxProps): Promise<React.AwaitedReactNode> => {
+const Box = async ({ children, className, classList, onClick, markup, skeleton, to, ...others }: BoxProps): Promise<React.ReactNode> => {
   if (markup === BoxMarkup.A || to) {
     return (
       <a href={to} onClick={onClick && onClick} {...others}>

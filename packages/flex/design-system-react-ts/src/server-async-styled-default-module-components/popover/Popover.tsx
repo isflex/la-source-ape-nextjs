@@ -23,7 +23,7 @@ const Popover = async ({
   arrowPosition,
   content,
   ...others
-}: PopoverWebProps): Promise<React.AwaitedReactNode> => {
+}: PopoverWebProps): Promise<React.ReactNode> => {
   const classes = classNames(
     'popover',
     direction != null && is(`popover-${direction}`),

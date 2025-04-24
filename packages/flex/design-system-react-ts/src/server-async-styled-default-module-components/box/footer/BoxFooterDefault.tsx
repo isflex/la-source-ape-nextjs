@@ -17,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param classList {array} Additionnal css classes
  * @param children {ReactNode} Children
  */
-const BoxFooter = async ({ className, classList, children, ...others }: BoxFooterProps): Promise<React.AwaitedReactNode> => (
+const BoxFooter = async ({ className, classList, children, ...others }: BoxFooterProps): Promise<React.ReactNode> => (
   <div className={classNames(styles.boxFooter, className, validate(classList))} {...others}>
     {children}
   </div>

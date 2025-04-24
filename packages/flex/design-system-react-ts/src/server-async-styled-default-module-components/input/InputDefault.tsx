@@ -78,7 +78,7 @@ const Input = async ({
   ref,
   id,
   ...others
-}: InputProp): Promise<React.AwaitedReactNode> => {
+}: InputProp): Promise<React.ReactNode> => {
   const [_value, setValue] = React.useState<string>(defaultValue ?? '')
   const [isHovered, setIsHovered] = React.useState<boolean>(hovered ?? false)
   const [isFocused, setIsFocused] = React.useState<boolean>(focused ?? false)

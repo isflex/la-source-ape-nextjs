@@ -18,7 +18,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} additionnal CSS Classes
  * @param classList {array} Additionnal css classes
  */
-const Rows = async ({ className, classList, ...others }: RowsProps): Promise<React.AwaitedReactNode> => (
+const Rows = async ({ className, classList, ...others }: RowsProps): Promise<React.ReactNode> => (
   <div className={classNames(styles.rows, className, validate(classList))} {...others} />
 )
 

@@ -12,7 +12,7 @@ import { is } from '../../services/index.js'
  * @param newNavbar {boolean} Display new header
  * @param npmNavbar {boolean} Display old header
  */
-const Navbar = async ({ children, className, newNavbar, npmNavbar, ...others }: NavbarWebProps): Promise<React.AwaitedReactNode> => {
+const Navbar = async ({ children, className, newNavbar, npmNavbar, ...others }: NavbarWebProps): Promise<React.ReactNode> => {
   const classes = classNames('navbar', newNavbar && !npmNavbar && is('new'), npmNavbar && !newNavbar && is('npm'), className)
 
   return (

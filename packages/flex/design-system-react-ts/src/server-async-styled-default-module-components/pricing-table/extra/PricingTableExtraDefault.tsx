@@ -16,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param children {ReactNode} Title child
  * @param className {string} Additionnal css classes
  */
-const PricingTableExtra = async ({ className, classList, ...others }: PricingTableExtraWebProps): Promise<React.AwaitedReactNode> => {
+const PricingTableExtra = async ({ className, classList, ...others }: PricingTableExtraWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.pricingTableExtra, className, validate(classList))
 
   return <div className={classes} {...others} />

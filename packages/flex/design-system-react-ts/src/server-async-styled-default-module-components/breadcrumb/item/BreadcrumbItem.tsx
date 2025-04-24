@@ -13,7 +13,7 @@ import { is } from '../../../services/index.js'
  * @param className {string} Additionnal CSS Classes
  * @param href {string} Url
  */
-const BreadcrumbItem = async ({ children, active, className, ...others }: BreadcrumbItemWebProps): Promise<React.AwaitedReactNode> => {
+const BreadcrumbItem = async ({ children, active, className, ...others }: BreadcrumbItemWebProps): Promise<React.ReactNode> => {
   const classes = classNames(active && is('active'), className)
 
   return (

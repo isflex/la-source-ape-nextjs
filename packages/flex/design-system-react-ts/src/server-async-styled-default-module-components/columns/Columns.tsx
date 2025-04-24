@@ -27,7 +27,7 @@ const Columns = async ({
   marginSize,
   flex,
   ...others
-}: ColumnsProps): Promise<React.AwaitedReactNode> => {
+}: ColumnsProps): Promise<React.ReactNode> => {
   const classes = classNames(
     'columns',
     multiline && is('multiline'),

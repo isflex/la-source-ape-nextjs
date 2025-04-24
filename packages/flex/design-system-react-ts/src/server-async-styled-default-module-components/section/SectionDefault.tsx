@@ -19,7 +19,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param skeleton
  * @param others
  */
-const Section = async ({ className, classList, skeleton, ...others }: SectionWebProps): Promise<React.AwaitedReactNode> => {
+const Section = async ({ className, classList, skeleton, ...others }: SectionWebProps): Promise<React.ReactNode> => {
   return (
     <section
       className={classNames(

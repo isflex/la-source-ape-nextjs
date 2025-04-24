@@ -16,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal css classes
  * @param classList {array} Additionnal css classes
  */
-const ButtonList = ({ className, classList, ...others }: ButtonListWebProps): JSX.Element => (
+const ButtonList = ({ className, classList, ...others }: ButtonListWebProps): React.JSX.Element => (
   <div className={classNames(styles.buttons, className, validate(classList))} {...others} />
 )
 

@@ -33,7 +33,7 @@ const Progress = async ({
   firstExtremLegend,
   secondExtremLegend,
   ...others
-}: ProgressProps): Promise<React.AwaitedReactNode> => {
+}: ProgressProps): Promise<React.ReactNode> => {
   const classes = classNames('progress', alert && is(alert.getClassName()), !alert && is('primary'), small && is('small'), className)
 
   const stackedClasses = classNames('progress', stacked && is('stacked'), className)

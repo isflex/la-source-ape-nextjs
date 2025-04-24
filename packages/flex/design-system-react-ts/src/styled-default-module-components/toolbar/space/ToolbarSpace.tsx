@@ -6,7 +6,7 @@ import { ToolbarSpaceWebProps } from './ToolbarSpaceProps.js'
  * Toolbar Space Component
  * @param className {string} Additionnal CSS Classes
  */
-const ToolbarSpace = ({ className, ...others }: ToolbarSpaceWebProps): JSX.Element => (
+const ToolbarSpace = ({ className, ...others }: ToolbarSpaceWebProps): React.JSX.Element => (
   <div className={classNames('toolbar-space', className)} {...others} />
 )
 

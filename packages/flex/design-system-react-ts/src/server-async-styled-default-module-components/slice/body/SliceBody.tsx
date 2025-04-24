@@ -10,7 +10,7 @@ import { SliceBodyProps } from './SliceBodyProps.js'
  * @param className {string} Additionnal CSS Classes
  * @param children {ReactNode} Children for Slice
  */
-const SliceBody = async ({ children, className, ...others }: SliceBodyProps): Promise<React.AwaitedReactNode> => {
+const SliceBody = async ({ children, className, ...others }: SliceBodyProps): Promise<React.ReactNode> => {
   const classes = classNames('slice-body', className)
 
   return (

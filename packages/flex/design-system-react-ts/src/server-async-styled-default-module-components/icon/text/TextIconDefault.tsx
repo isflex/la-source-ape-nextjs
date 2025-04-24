@@ -22,7 +22,7 @@ const TextIcon = async ({
   position,
   markup,
   ...others
-}: IconProps): Promise<React.AwaitedReactNode> => {
+}: IconProps): Promise<React.ReactNode> => {
   // }: IconProps): React.JSX.Element & React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> => {
   const Tag = markup && (markup in TextIconMarkup || Object.values(TextIconMarkup).includes(markup)) ? markup : 'span'
 

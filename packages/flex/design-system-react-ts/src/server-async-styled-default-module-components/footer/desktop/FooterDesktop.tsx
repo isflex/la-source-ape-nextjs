@@ -12,7 +12,7 @@ import { Accordion } from '../../accordion/index.js'
  * @param className {string} Additionnal CSS Classes
  * @param fullwidth {boolean} Footer fullwidth
  */
-const FooterDesktop = async ({ children, className, fullwidth, ...others }: FooterDesktopWebProps): Promise<React.AwaitedReactNode> => {
+const FooterDesktop = async ({ children, className, fullwidth, ...others }: FooterDesktopWebProps): Promise<React.ReactNode> => {
   const classes = classNames(is('hidden-touch'), is('footer-desktop'), fullwidth && is('fullwidth'), className)
 
   // Desktop Footer

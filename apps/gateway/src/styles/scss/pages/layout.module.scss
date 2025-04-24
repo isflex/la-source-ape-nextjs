@@ -1,4 +1,5 @@
 // $spaghetti-height-tiny: 115vh !default;
+
 $spaghetti-height-tiny: 95vh !default;
 $spaghetti-height-mob: 95vh !default;
 $spaghetti-height-tablet: 95vh !default;
@@ -49,12 +50,24 @@ $min-width-mob: 350px !default;
 }
 
 .nav-layout {
+  position: relative;
   display: flex;
   flex-direction: row;
   background-color: var(--flex-grey-light);
 
   @media screen and (max-width: '760px') {
     flex-direction: column;
+  }
+
+  &.force-mobile {
+    flex-direction: column;
+
+    @at-root .gateway-layout {
+      --nav-layout-height: #{$nav-layout-height-column};
+      --spaghetti-height: #{$spaghetti-height-mob};
+      --spaghetti-holder-height: calc(#{$spaghetti-height-mob} - #{$nav-layout-height-column} - 2rem);
+      --spaghetti-adjust-y-pos: 18px;
+    }
   }
 
   .dom-overlay-mode & {

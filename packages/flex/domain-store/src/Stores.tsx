@@ -4,11 +4,13 @@ import React from 'react'
 import { configure } from 'mobx'
 configure({ isolateGlobalState: false })
 import { getUIStore, UserInterfaceStore } from './UIStore.js'
+import { getSpaghettiStore, SpaghettiMobxStore } from './SpaghettiStore.js'
 // export { getServerStore, ServerStoreMobxStore } from './ServerStore.js'
 import { isServer } from './utils/index.js'
 
 interface MobxStores {
   UIStore: UserInterfaceStore
+  SpaghettiStore: SpaghettiMobxStore
 }
 
 let clientSideStores: MobxStores
@@ -18,11 +20,13 @@ function getStores() {
     return {
       // ServerStore: getServerStore(),
       UIStore: getUIStore(),
+      SpaghettiStore: getSpaghettiStore(),
     }
   }
   if (!clientSideStores) {
     clientSideStores = {
       UIStore: getUIStore(),
+      SpaghettiStore: getSpaghettiStore(),
     }
   }
 

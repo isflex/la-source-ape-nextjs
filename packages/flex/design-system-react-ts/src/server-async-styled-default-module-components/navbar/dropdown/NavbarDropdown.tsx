@@ -9,7 +9,7 @@ import { NavbarDropdownWebProps } from './NavbarDropdownProps.js'
  * @param children {ReactNode} Children
  * @param className {string} Additionnal css classes
  */
-const NavbarDropdown = async ({ className, ...others }: NavbarDropdownWebProps): Promise<React.AwaitedReactNode> => {
+const NavbarDropdown = async ({ className, ...others }: NavbarDropdownWebProps): Promise<React.ReactNode> => {
   const classes = classNames('navbar-dropdown', className)
 
   return <div className={classes} {...others} />

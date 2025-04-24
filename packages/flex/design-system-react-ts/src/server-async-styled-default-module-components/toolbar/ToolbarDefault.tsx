@@ -17,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param background {BackgroundStyle} Custom background color
  */
-const Toolbar = async ({ className, classList, background, ...others }: ToolbarWebProps): Promise<React.AwaitedReactNode> => {
+const Toolbar = async ({ className, classList, background, ...others }: ToolbarWebProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.toolbar,
     background && styles[camelCase(has(background.getClassName())) as keyof Styles],

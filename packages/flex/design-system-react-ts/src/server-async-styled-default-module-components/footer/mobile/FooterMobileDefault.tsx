@@ -17,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param classList {array} Additionnal css classes
  */
-const FooterMobile = async ({ children, className, classList, ...others }: FooterMobileWebProps): Promise<React.AwaitedReactNode> => {
+const FooterMobile = async ({ children, className, classList, ...others }: FooterMobileWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.isFooterMobile, styles.isHiddenDesktop, className, validate(classList))
 
   // Mobile Footer

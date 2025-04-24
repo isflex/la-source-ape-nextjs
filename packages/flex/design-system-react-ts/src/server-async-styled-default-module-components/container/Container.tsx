@@ -11,7 +11,7 @@ import { is } from '../../services/index.js'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const Container = async ({ className, fluid, ...others }: ContainerProps): Promise<React.AwaitedReactNode> => {
+const Container = async ({ className, fluid, ...others }: ContainerProps): Promise<React.ReactNode> => {
   const classes = classNames('container', fluid && is('fluid'), className)
 
   return <div className={classes} {...others} />

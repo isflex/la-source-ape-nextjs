@@ -9,7 +9,7 @@ import { TimelineWebProps } from './TimelineProps.js'
  * @param className {string} Additionnal CSS Classes
  * @param notifications {boolean} Timeline notification rendering
  */
-const Timeline = async ({ className, notifications, ...others }: TimelineWebProps): Promise<React.AwaitedReactNode> => {
+const Timeline = async ({ className, notifications, ...others }: TimelineWebProps): Promise<React.ReactNode> => {
   const classes = classNames('timeline', notifications && notifications, className)
 
   return <div className={classes} {...others} />

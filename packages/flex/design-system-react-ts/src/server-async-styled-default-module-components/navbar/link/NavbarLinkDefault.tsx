@@ -31,7 +31,7 @@ const NavbarLink = async ({
   content,
   onClick,
   ...others
-}: NavbarLinkWebProps): Promise<React.AwaitedReactNode> => {
+}: NavbarLinkWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.navbarLink, highlighted && styles.isHighlighted, className, validate(classList))
 
   if (to) {

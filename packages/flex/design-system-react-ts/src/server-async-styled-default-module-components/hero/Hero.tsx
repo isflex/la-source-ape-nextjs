@@ -13,7 +13,7 @@ import { is, has } from '../../services/index.js'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const Hero = async ({ children, className, backgroundSrc, variant, ...others }: HeroProps): Promise<React.AwaitedReactNode> => {
+const Hero = async ({ children, className, backgroundSrc, variant, ...others }: HeroProps): Promise<React.ReactNode> => {
   const classes = classNames(
     'hero',
     variant && has(`background-${variant.getClassName()}`),

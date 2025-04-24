@@ -7,6 +7,6 @@ import { SubMenuItemWebProps } from './SubMenuItemProps.js'
  * @param className {string} Additionnal CSS Classes
  */
 
-const SubMenuItem = ({ className, ...others }: SubMenuItemWebProps): JSX.Element => <ul className={className} {...others} />
+const SubMenuItem = ({ className, ...others }: SubMenuItemWebProps): React.JSX.Element => <ul className={className} {...others} />
 
 export default SubMenuItem

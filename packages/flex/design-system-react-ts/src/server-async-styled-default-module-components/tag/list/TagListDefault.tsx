@@ -17,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  *  - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const TagList = async ({ className, classList, ...others }: TagListProps): Promise<React.AwaitedReactNode> => (
+const TagList = async ({ className, classList, ...others }: TagListProps): Promise<React.ReactNode> => (
   <span className={classNames(styles.tags, className, validate(classList))} {...others} />
 )
 

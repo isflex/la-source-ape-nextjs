@@ -10,7 +10,7 @@ import { TableBodyProps } from './TableBodyProps.js'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const TableBody = async ({ className, ...others }: TableBodyProps): Promise<React.AwaitedReactNode> => {
+const TableBody = async ({ className, ...others }: TableBodyProps): Promise<React.ReactNode> => {
   const classes = classNames(className)
 
   return <tbody className={classes} {...others} />

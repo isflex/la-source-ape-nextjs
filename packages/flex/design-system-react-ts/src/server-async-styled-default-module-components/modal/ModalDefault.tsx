@@ -45,7 +45,7 @@ const Modal = async ({
   onClose,
   onOpen,
   ...others
-}: ModalProps): Promise<React.AwaitedReactNode> => {
+}: ModalProps): Promise<React.ReactNode> => {
   const [display, setDisplay] = React.useState<boolean>(active || false)
 
   React.useEffect(() => {

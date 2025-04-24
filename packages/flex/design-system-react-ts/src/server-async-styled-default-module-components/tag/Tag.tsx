@@ -14,7 +14,7 @@ import { TagProps } from './TagProps.js'
  * @param onClick {Function} OnClick Event
  * @param className {string} Additionnal CSS Classes
  **/
-const Tag = async ({ children, className, variant, deletable, onClick, inverted, ...others }: TagProps): Promise<React.AwaitedReactNode> => {
+const Tag = async ({ children, className, variant, deletable, onClick, inverted, ...others }: TagProps): Promise<React.ReactNode> => {
   const [display, setDisplay] = React.useState<boolean>(deletable || false)
   const classes = classNames('tag', deletable && is('hidden'), variant && is(`${variant}`), inverted && is('inverted'), className)
 

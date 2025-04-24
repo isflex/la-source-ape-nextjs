@@ -7,7 +7,7 @@ import { BoxTableContainerProps } from './BoxTableContainerProps.js'
  * @param className {string} Additionnal CSS Classes
  * @param children {ReactNode} Children
  */
-const BoxTableContainer = ({ className, ...others }: BoxTableContainerProps): JSX.Element => (
+const BoxTableContainer = ({ className, ...others }: BoxTableContainerProps): React.JSX.Element => (
   <div className={classNames('box table-container', className)} {...others} />
 )
 

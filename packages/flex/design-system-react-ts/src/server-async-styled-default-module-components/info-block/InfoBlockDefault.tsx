@@ -19,7 +19,7 @@ import { InfoBlockProps } from './InfoBlockProps.js'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const InfoBlock = async ({ className, classList, boxed, children, ...others }: InfoBlockProps): Promise<React.AwaitedReactNode> => {
+const InfoBlock = async ({ className, classList, boxed, children, ...others }: InfoBlockProps): Promise<React.ReactNode> => {
   if (boxed) {
     return (
       <Box>

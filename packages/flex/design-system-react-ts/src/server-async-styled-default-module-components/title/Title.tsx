@@ -27,7 +27,7 @@ const Title = async ({
   skeleton,
   inverted,
   ...others
-}: TitleProps): Promise<React.AwaitedReactNode> => {
+}: TitleProps): Promise<React.ReactNode> => {
   const [isLoading, setIsLoading] = React.useState<boolean>(skeleton || false)
   const classes = classNames(
     {

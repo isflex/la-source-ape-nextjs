@@ -21,7 +21,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param fullwidth {boolean} Fullwidth table
  * @param comparative {boolean} If specific design add this
  */
-const Table = async ({ className, classList, fullwidth, bordered, comparative, ...others }: TableProps): Promise<React.AwaitedReactNode> => {
+const Table = async ({ className, classList, fullwidth, bordered, comparative, ...others }: TableProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.table,
     fullwidth && styles[camelCase(is('fullwidth')) as keyof Styles],

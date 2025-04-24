@@ -9,7 +9,7 @@ import { SliceContentProps } from './SliceContentProps.js'
  * @param className {string} Additionnal CSS Classes
  * @param children {ReactNode} Children for Slice Content
  */
-const SliceContent = async ({ children, className, ...others }: SliceContentProps): Promise<React.AwaitedReactNode> => {
+const SliceContent = async ({ children, className, ...others }: SliceContentProps): Promise<React.ReactNode> => {
   const classes = classNames('slice-content', className)
 
   return (

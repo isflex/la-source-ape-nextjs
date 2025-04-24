@@ -9,7 +9,7 @@ import { BoxFooterProps } from './BoxFooterProps.js'
  * @param className {string} Additionnal CSS Classes
  * @param children {ReactNode} Children
  */
-const BoxFooter = async ({ className, children, ...others }: BoxFooterProps): Promise<React.AwaitedReactNode> => (
+const BoxFooter = async ({ className, children, ...others }: BoxFooterProps): Promise<React.ReactNode> => (
   <div className={classNames('box-footer', className)} {...others}>
     {children}
   </div>

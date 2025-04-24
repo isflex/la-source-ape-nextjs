@@ -36,7 +36,7 @@ const Title = async ({
   skeleton,
   inverted,
   ...others
-}: TitleProps): Promise<React.AwaitedReactNode> => {
+}: TitleProps): Promise<React.ReactNode> => {
   const classes = classNames(
     {
       [styles.title]: true,

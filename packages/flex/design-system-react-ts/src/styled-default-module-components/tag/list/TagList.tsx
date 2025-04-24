@@ -8,6 +8,6 @@ import { TagListProps } from './TagListProps.js'
  *  - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const TagList = ({ className, ...others }: TagListProps): JSX.Element => <span className={classNames('tags', className)} {...others} />
+const TagList = ({ className, ...others }: TagListProps): React.JSX.Element => <span className={classNames('tags', className)} {...others} />
 
 export default TagList

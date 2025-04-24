@@ -25,7 +25,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param full {boolean} Full progressRadial
  * @param disk {boolean} Disk ProgressRadial
  */
-const ProgressRadial = async ({ className, classList, percent, label, description, ...others }: ProgressRadialProps): Promise<React.AwaitedReactNode> => {
+const ProgressRadial = async ({ className, classList, percent, label, description, ...others }: ProgressRadialProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.radialProgressBar,
     percent && styles[camelCase(`progress-${percent}`) as keyof Styles],

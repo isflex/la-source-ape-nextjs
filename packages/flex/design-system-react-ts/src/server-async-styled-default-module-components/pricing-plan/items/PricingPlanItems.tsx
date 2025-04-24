@@ -11,7 +11,7 @@ import { has } from '../../../services/index.js'
  * @param className {string} Additionnal css classes
  * @param background {BackgroundStyle} Custom background color
  */
-const PricingPlanItems = async ({ className, background, ...others }: PricingPlanItemsWebProps): Promise<React.AwaitedReactNode> => {
+const PricingPlanItems = async ({ className, background, ...others }: PricingPlanItemsWebProps): Promise<React.ReactNode> => {
   const classes = classNames('plan-items', background && has(background.getClassName()), className)
 
   return <div className={classes} {...others} />

@@ -16,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param children {ReactNode} Children
  * @param className {string} Additionnal css classes
  */
-const NavbarDropdown = async ({ className, classList, ...others }: NavbarDropdownWebProps): Promise<React.AwaitedReactNode> => {
+const NavbarDropdown = async ({ className, classList, ...others }: NavbarDropdownWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.navbarDropdown, className, validate(classList))
 
   return <div className={classes} {...others} />

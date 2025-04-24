@@ -18,7 +18,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param transparent {boolean} Apply transparent on Slices container
  * @param selectable {boolean} List of checkable Slice
  */
-const SliceList = async ({ children, className, classList, transparent, selectable, ...others }: SliceListProps): Promise<React.AwaitedReactNode> => {
+const SliceList = async ({ children, className, classList, transparent, selectable, ...others }: SliceListProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.slices, transparent && styles.isTransparent, selectable && styles.sliceSelect, className, validate(classList))
 
   return (

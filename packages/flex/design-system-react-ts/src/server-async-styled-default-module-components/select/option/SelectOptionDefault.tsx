@@ -21,7 +21,7 @@ import { SelectOptionProps } from './SelectOptionProps.js'
  * @param className {string} Additionnal CSS Classes
  * @param placeholder Select Option Placeholder
  */
-const SelectOption = async ({ id, className, classList, selected, value, disabled, ...others }: SelectOptionProps): Promise<React.AwaitedReactNode> => {
+const SelectOption = async ({ id, className, classList, selected, value, disabled, ...others }: SelectOptionProps): Promise<React.ReactNode> => {
   const idGenerated = nanoid()
 
   return (

@@ -12,7 +12,7 @@ import { is } from '../../../services/index.js'
  * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const TableTr = async ({ className, expandable, expanded, ...others }: TableTrProps): Promise<React.AwaitedReactNode> => {
+const TableTr = async ({ className, expandable, expanded, ...others }: TableTrProps): Promise<React.ReactNode> => {
   const classes = classNames(className, expandable && is('expandable'), expanded ? is('expanded') : null)
 
   return <tr className={classes} {...others} />

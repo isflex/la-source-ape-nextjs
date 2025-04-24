@@ -7,7 +7,7 @@ import { AccordionBodyProps } from './AccordionBodyProps.js'
  * @param className {string} Additionnal CSS Classes
  * @param children {ReactNode} Children for Accordion body
  */
-const AccordionBody = ({ children, className, ...others }: AccordionBodyProps): JSX.Element => (
+const AccordionBody = ({ children, className, ...others }: AccordionBodyProps): React.JSX.Element => (
   <div className={classNames('accordion-body is-clipped', className)} {...others}>
     <div className='accordion-content'>{children}</div>
   </div>

@@ -27,7 +27,11 @@ import { setupSlider } from './setup/index.js'
  * @param motionLess {boolean} Disable behaviour on desktop
  */
 
-type children = true | React.ReactChild | React.ReactFragment | React.ReactPortal
+type children =
+true |
+React.ReactElement | number | string | // was previously React.ReactChild in React.18 see https://github.com/eps1lon/types-react-codemod/
+Iterable<React.ReactNode> | // was previously React.ReactFragment in React.18 see https://github.com/eps1lon/types-react-codemod/
+React.ReactPortal
 
 const Slider = ({ className, classList, iconClassName, children, motionLess, ...others }: SliderProps): React.JSX.Element => {
   // const [domReady, setDomReady] = React.useState(false)

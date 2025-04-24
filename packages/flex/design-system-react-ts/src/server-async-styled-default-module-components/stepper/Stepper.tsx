@@ -10,7 +10,7 @@ import { has } from '../../services/index.js'
  * @param className Additionnal CSS Classes
  * @param centered Center the stepper
  */
-const Stepper = async ({ className, centered, ...others }: StepperProps): Promise<React.AwaitedReactNode> => {
+const Stepper = async ({ className, centered, ...others }: StepperProps): Promise<React.ReactNode> => {
   const classes = classNames('stepper', className)
 
   const centerClasses = classNames('section', has('text-centered'), className)

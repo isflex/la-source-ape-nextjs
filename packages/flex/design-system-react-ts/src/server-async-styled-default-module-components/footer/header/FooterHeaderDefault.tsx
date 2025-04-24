@@ -17,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param classList {array} Additionnal css classes
  */
-const FooterHeader = async ({ className, classList, ...others }: FooterHeaderWebProps): Promise<React.AwaitedReactNode> => {
+const FooterHeader = async ({ className, classList, ...others }: FooterHeaderWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.accordionHeader, className, validate(classList))
 
   return <div className={classes} {...others} />

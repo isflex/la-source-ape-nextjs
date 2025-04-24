@@ -30,7 +30,7 @@ const ProgressItem = async ({
   minPercent = 0,
   alert,
   ...others
-}: ProgressItemProps): Promise<React.AwaitedReactNode> => {
+}: ProgressItemProps): Promise<React.ReactNode> => {
   const classes = classNames(
     styles.progressBar,
     alert && styles[camelCase(is(alert.getClassName())) as keyof Styles],

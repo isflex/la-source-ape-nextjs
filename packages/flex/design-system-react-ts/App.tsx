@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const App = (): JSX.Element => {
+const App = (): React.JSX.Element => {
   const [radio, setRadio] = useState('radioTwo')
   const [option, setOption] = useState('optionTwo')
   const data = [

@@ -44,7 +44,7 @@ const CardContent = async ({
   text,
   textLevel,
   ...others
-}: CardContentProps): Promise<React.AwaitedReactNode> => {
+}: CardContentProps): Promise<React.ReactNode> => {
   if (children) {
     return (
       <div className={classNames(styles.cardContent, className, validate(classList))} {...others}>

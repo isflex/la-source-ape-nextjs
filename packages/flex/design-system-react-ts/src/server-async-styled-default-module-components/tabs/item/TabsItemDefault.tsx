@@ -23,7 +23,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal css classes
  * @param classList {array} Additionnal css classes
  */
-const TabsItem = async ({ active, children, className, classList, onClick, ...others }: TabsItemProps): Promise<React.AwaitedReactNode> => {
+const TabsItem = async ({ active, children, className, classList, onClick, ...others }: TabsItemProps): Promise<React.ReactNode> => {
   const [activeItem, setActiveItem] = React.useState<boolean>(active || false)
 
   // accessibility

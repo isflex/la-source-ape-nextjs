@@ -53,7 +53,7 @@ const Icon = async ({
   color,
   onClick,
   ...others
-}: IconProps): Promise<React.AwaitedReactNode> => {
+}: IconProps): Promise<React.ReactNode> => {
   // }: IconProps): React.JSX.Element | React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> => {
   const classes = classNames(
     styles.icon,

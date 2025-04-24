@@ -40,7 +40,7 @@ const Notification = async ({
   info,
   banner,
   ...others
-}: NotificationProps): Promise<React.AwaitedReactNode> => {
+}: NotificationProps): Promise<React.ReactNode> => {
   const classes = classNames(
     'notification',
     has('body'),

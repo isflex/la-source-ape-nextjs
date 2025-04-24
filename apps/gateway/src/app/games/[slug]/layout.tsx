@@ -38,7 +38,7 @@ export default async function GameLayout({
       </div>
       <main>
         <Title level={TitleLevel.LEVEL1} className={classNames(flexStyles.isCentered)} style={{ marginTop: '-1rem' }}>
-          {`Jeux éducatifs ${slug}`}
+          {`Jeux éducatifs : ${slug}`}
         </Title>
         <section>{children}</section>
       </main>

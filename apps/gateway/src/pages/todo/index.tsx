@@ -107,7 +107,7 @@ const TodoPage: NextPage<PageAppProps> = observer((
         }}>
           <Text>🚀 Application hébergée avec succès.</Text>
           <Text>🥳 Essayez de créer une nouvelle tâche.</Text>
-          <Link href='https://docs.amplify.aws/gen2/start/quickstart/nextjs-pages-router/'>
+          <Link href='https://docs.amplify.aws/gen2/start/quickstart/nextjs-pages-router/' target='_blank'>
             Suivez les prochains étapes de cet tutoriel
           </Link>
         </div>

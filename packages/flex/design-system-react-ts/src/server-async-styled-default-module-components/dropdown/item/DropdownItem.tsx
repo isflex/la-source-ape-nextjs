@@ -30,7 +30,7 @@ const DropdownItem = async ({
   onClick,
   onChange,
   ...others
-}: DropdownItemWebProps): Promise<React.AwaitedReactNode> => {
+}: DropdownItemWebProps): Promise<React.ReactNode> => {
   const [_checked, setChecked] = React.useState<boolean>(checked || false)
 
   const classes = classNames('dropdown-item', className)

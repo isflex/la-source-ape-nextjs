@@ -17,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param classList {array} Additionnal css classes
  * @param children {ReactNode} Children
  */
-const BoxFooter = ({ className, classList, children, ...others }: BoxFooterProps): JSX.Element => (
+const BoxFooter = ({ className, classList, children, ...others }: BoxFooterProps): React.JSX.Element => (
   <div className={classNames(styles.boxFooter, className, validate(classList))} {...others}>
     {children}
   </div>

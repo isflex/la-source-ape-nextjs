@@ -18,7 +18,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param classList {array} Additionnal css classes
  */
-const DropdownMenu = async ({ children, className, classList, ...others }: DropdownMenuWebProps): Promise<React.AwaitedReactNode> => {
+const DropdownMenu = async ({ children, className, classList, ...others }: DropdownMenuWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.dropdownMenu, className, validate(classList))
 
   return (

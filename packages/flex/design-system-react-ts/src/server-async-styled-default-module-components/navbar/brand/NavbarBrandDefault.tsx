@@ -16,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param children {ReactNode} Navbar Brand Children
  * @param className {string} Additionnal css classes
  */
-const NavbarBrand = async ({ className, classList, ...others }: NavbarBrandWebProps): Promise<React.AwaitedReactNode> => {
+const NavbarBrand = async ({ className, classList, ...others }: NavbarBrandWebProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.navbarBrand, className, validate(classList))
 
   return <div className={classes} {...others} />

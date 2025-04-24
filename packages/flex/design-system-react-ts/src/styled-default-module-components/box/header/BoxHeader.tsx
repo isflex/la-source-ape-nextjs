@@ -9,7 +9,7 @@ import { BoxHeaderProps } from './BoxHeaderProps.js'
  * @param children {ReactNode} Children
  * @param help {string} Box Header Help Sticker
  */
-const BoxHeader = ({ children, className, help, ...others }: BoxHeaderProps): JSX.Element => (
+const BoxHeader = ({ children, className, help, ...others }: BoxHeaderProps): React.JSX.Element => (
   <header className={classNames('box-header', className)} {...others}>
     {children && typeof children.valueOf() === 'string' ? <p>{children}</p> : children}
     {help && <Text className='box-header-help sticker is-small is-success'>{String(children)}</Text>}

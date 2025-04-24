@@ -49,7 +49,7 @@ const Checkbox = async ({
   removeControl,
   removeField,
   ...others
-}: CheckboxProps): Promise<React.AwaitedReactNode> => {
+}: CheckboxProps): Promise<React.ReactNode> => {
   const [_checked, setChecked] = React.useState<boolean>(checked || false)
 
   const classes = classNames(

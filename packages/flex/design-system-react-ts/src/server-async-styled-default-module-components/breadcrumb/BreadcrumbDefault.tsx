@@ -18,7 +18,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal css classes
  * @param classList {array} Additionnal css classes
  */
-const Breadcrumb = async ({ children, className, classList, ...others }: BreadcrumbWebProps): Promise<React.AwaitedReactNode> => {
+const Breadcrumb = async ({ children, className, classList, ...others }: BreadcrumbWebProps): Promise<React.ReactNode> => {
   return (
     <nav className={classNames(styles.breadcrumb, className, validate(classList))} aria-label='breadcrumbs' {...others}>
       <ul>{children}</ul>

@@ -17,7 +17,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  *  - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal CSS Classes
  */
-const TagList = ({ className, classList, ...others }: TagListProps): JSX.Element => (
+const TagList = ({ className, classList, ...others }: TagListProps): React.JSX.Element => (
   <span className={classNames(styles.tags, className, validate(classList))} {...others} />
 )
 

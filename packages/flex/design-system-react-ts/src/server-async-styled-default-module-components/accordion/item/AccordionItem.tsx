@@ -73,7 +73,7 @@ const AccordionItem = ({ active, className, children, id, onClick, disabled, ...
   if (children) {
     childrenElement = Array.isArray(children)
       ? children.map((child, index: number) => {
-          return React.cloneElement(child as React.ReactElement, {
+          return React.cloneElement(child, {
             key: `article-${index}`,
             id: index === 0 ? `header-${idGenerated}` : `body-${idGenerated}`,
             onClick: (e: OnClickEvent) => index === 0 && !disabled && toggleAccordion(e),

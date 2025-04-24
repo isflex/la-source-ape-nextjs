@@ -44,7 +44,7 @@ const Icon = async ({
   color,
   onClick,
   ...others
-}: IconProps): Promise<React.AwaitedReactNode> => {
+}: IconProps): Promise<React.ReactNode> => {
   // }: IconProps): React.JSX.Element | React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> => {
   const classes = classNames('icon', stretched && is('stretched'), size && is(size), stacked && is('stacked'), color && is(`${color}`), className)
 

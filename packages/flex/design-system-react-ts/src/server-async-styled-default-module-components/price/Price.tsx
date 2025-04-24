@@ -30,7 +30,7 @@ const Price = async ({
   huge,
   inverted,
   ...others
-}: PriceProps): Promise<React.AwaitedReactNode> => {
+}: PriceProps): Promise<React.ReactNode> => {
   const classes = classNames(
     'price',
     variant && is(`${variant}`),

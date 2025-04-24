@@ -16,7 +16,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param className {string} Additionnal CSS Classes
  * @param children {ReactNode} Children for Slice Content
  */
-const SliceContent = async ({ children, className, classList, ...others }: SliceContentProps): Promise<React.AwaitedReactNode> => {
+const SliceContent = async ({ children, className, classList, ...others }: SliceContentProps): Promise<React.ReactNode> => {
   const classes = classNames(styles.sliceContent, className, validate(classList))
 
   return (
