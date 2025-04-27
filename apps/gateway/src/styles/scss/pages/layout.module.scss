@@ -70,6 +70,10 @@ $min-width-mob: 350px !default;
     }
   }
 
+  .nav-logo {
+    order: 2;
+  }
+
   .dom-overlay-mode & {
     display: none;
   }
