@@ -15,17 +15,6 @@
       ],
       "cache": false
     },
-    "build:lib": {
-      "dependsOn": [
-        "//#compile:clean:sh"
-      ],
-      "env": [
-        "FLEX_*",
-        "GIT_*"
-      ],
-      "cache": true,
-      "persistent": false
-    },
     "marp:build": {
       "outputs": [
         "apps/gateway/public/slides/**"
@@ -40,7 +29,8 @@
     "build": {
       "dependsOn": [
         "//#compile:clean:sh",
-        "@flex-design-system/react-ts#build"
+        "@flex-design-system/react-ts#build",
+        "marp:build"
       ],
       "outputs": [".next/**/*"],
       "cache": true,

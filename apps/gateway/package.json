@@ -5,9 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build",
-    "build:lib": "pnpm marp:build",
     "lint": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next lint",
-    "marp:build": "pnpm marp:html",
+    "marp:build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm marp:html",
     "marp:dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- marp --server --config ./marp.config.mjs",
     "marp:html": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- marp --config ./marp.config.mjs",
     "next:dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
