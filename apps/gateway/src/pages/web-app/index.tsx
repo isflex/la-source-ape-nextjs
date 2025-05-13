@@ -51,10 +51,10 @@ const stores = getStores()
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 // const LogoFlex = dynamic(() => import('@src/components/logo-flexiness').then(mod => mod.default), { ssr: true })
 
-const OnBoardMF = dynamic(async () => await import('@src/components/onboard-mf'), { ssr: true })
-// const OnBoardMF = React.lazy(async () => await import('@src/components/onboard-mf'))
+const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf'), { ssr: true })
+// const WebAppMF = React.lazy(async () => await import('@src/components/web-app-mf'))
 
-const MFOnBoardPage: NextPage<PageAppProps> = observer((
+const MFWebAppPage: NextPage<PageAppProps> = observer((
   props
 ) => {
 
@@ -101,7 +101,7 @@ const MFOnBoardPage: NextPage<PageAppProps> = observer((
   //     {status !== 'done' && <LogoAPE /> }
   //     <Suspense fallback={<div>Loading</div>}>
   //       <div style={{ visibility: status === 'done' ? 'visible' : 'hidden' }}>
-  //         <OnBoardMF { ...props } />
+  //         <WebAppMF { ...props } />
   //       </div>
   //     </Suspense>
   //   </div>
@@ -113,7 +113,7 @@ const MFOnBoardPage: NextPage<PageAppProps> = observer((
         <Loader />
       )}
       <div style={{ visibility: status === 'done' ? 'visible' : 'hidden', margin: '1rem' }}>
-        <OnBoardMF { ...props } />
+        <WebAppMF { ...props } />
       </div>
     </div>
   )
@@ -142,7 +142,7 @@ export const getServerSideProps: GetServerSideProps = async (
   } = context
 
   const pageStaticData: PageStaticData = {
-    pageName: `onboard`,
+    pageName: `web-app`,
   }
 
   const modFedData: ModFedData = {
@@ -170,4 +170,4 @@ export const getServerSideProps: GetServerSideProps = async (
   }
 }
 
-export default MFOnBoardPage
+export default MFWebAppPage

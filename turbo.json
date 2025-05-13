@@ -9,7 +9,9 @@
     "DOTENV_PRIVATE_KEY_DEVELOPMENT",
     "DOTENV_PRIVATE_KEY_PRODUCTION",
     "GIT_COMMIT_SHORT_SHA",
-    "NEXT_PUBLIC_BUILD_ID"
+    "NEXT_PUBLIC_BUILD_ID",
+    "BUILD_RUNNING",
+    "HUSKY"
   ],
   "tasks": {
     "dev:compile:transit": {
@@ -19,8 +21,7 @@
     },
     "dev:packages:transit": {
       "dependsOn": [
-        "^dev:compile:transit",
-        "gateway#marp:build"
+        "^dev:compile:transit"
       ]
     },
     "//#compile:clean:sh": {

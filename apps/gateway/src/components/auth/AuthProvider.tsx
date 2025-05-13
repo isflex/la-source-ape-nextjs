@@ -14,26 +14,38 @@ import outputs from '@root/amplify_outputs.json'
 // import { CookieStorage } from 'aws-amplify/utils'
 // import { cognitoUserPoolsTokenProvider } from 'aws-amplify/auth/cognito'
 
-const _getConfig = () => {
-  // if (process.env.FLEX_MODE === 'development' && process.env.FLEX_GATEWAY_USE_AMPLIFY_SANDBOX === 'true') {
-  //   // void import(process.env.CI ? '' : '@root/amplify_outputs.json')
-  //   void import('@root/amplify_outputs.json')
-  //     .then((devSandBoxConfig) => {
-  //       console.log(devSandBoxConfig.default)
-  //       return parseAmplifyConfig(devSandBoxConfig.default)
-  //     })
-  //     .catch((err: Error) => {
-  //       console.log(err)
-  //     })
-  // }
+// const _getConfig = async () => {
+//   'use server'
 
-  return {
-    ...outputs,
-    // ...(AMPLIFY_AUTH_CONFIG_V2 as ResourcesConfig),
-  }
-}
+//   const fs = await import('fs')
 
-Amplify.configure(_getConfig(), { ssr: true })
+//   async function loadJSON(filename: string) {
+//     const json = await import(filename, {
+//       with: { type: 'json' },
+//     })
+//     if (json) return json.default
+//     return {}
+//   }
+
+//   const outputs = fs.existsSync('@root/amplify_outputs.json')
+//     ? await loadJSON('@root/amplify_outputs.json') : false
+
+//   Amplify.configure({
+//     // ...(AMPLIFY_AUTH_CONFIG_V2 as ResourcesConfig),
+//     ...(outputs &&
+//       outputs
+//     ),
+//   }, { ssr: true })
+// }
+
+// if (process.env.FLEX_MODE === 'development' && process.env.FLEX_GATEWAY_USE_AMPLIFY_SANDBOX === 'true') {
+//   _getConfig()
+// }
+
+Amplify.configure({
+  // ...(AMPLIFY_AUTH_CONFIG_V2 as ResourcesConfig),
+  ...outputs,
+}, { ssr: true })
 
 // console.log(`Amplify config`, Amplify.getConfig())
 

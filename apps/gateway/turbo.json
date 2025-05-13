@@ -2,6 +2,16 @@
   "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "tasks": {
+    "marp:dev": {
+      "outputs": [
+        "apps/gateway/public/slides/**"
+      ],
+      "cache": false,
+      "env": [
+        "DOTENV_*",
+        "FLEX_*"
+      ]
+    },
     "next:dev": {
       "cache": false,
       "env": [
@@ -11,6 +21,7 @@
     "dev": {
       "dependsOn": [
         "^dev:packages:transit",
+        "marp:dev",
         "next:dev"
       ],
       "cache": false

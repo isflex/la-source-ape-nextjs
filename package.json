@@ -18,7 +18,9 @@
     "compile:watch:sh": "./bin/run-compile-watch.sh",
     "dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run dev",
     "lint": "turbo run lint",
-    "start": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run start"
+    "prepare": "node .husky/install.mjs",
+    "start": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run start",
+    "test": "echo \"¯\\_(ツ)_/¯ Will test another day !!\""
   },
   "browserslist": {
     "production": [
@@ -60,6 +62,7 @@
     "file-loader": "6.2.0",
     "flexiness": "@types/flexiness@0.0.1",
     "html-webpack-plugin": "5.6.0",
+    "husky": "9.0.11",
     "mini-css-extract-plugin": "2.9.0",
     "node-polyfill-webpack-plugin": "3.0.0",
     "postcss-flexbugs-fixes": "5.0.2",
@@ -78,10 +81,10 @@
     "turbo": "2.0.6",
     "typed-scss-modules": "@flexiness/typed-scss-modules@8.1.0",
     "typescript": "5.7.2",
-    "webpack": "5.97.1",
+    "webpack": "5.99.8",
     "zod": "3.24.1"
   },
-  "packageManager": "pnpm@9.5.0",
+  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39",
   "pnpm": {
     "overrides": {
       "flexiness": "workspace:./packages/flex/types",
@@ -103,7 +106,7 @@
       "@types/react-dom": "19.1.2",
       "@aws-sdk/client-sts": "3.699.0",
       "@aws-sdk/client-sso-oidc": "3.699.0",
-      "webpack": "5.97.1",
+      "webpack": "5.99.8",
       "vue-tsc": "^2.0.26",
       "@rspack/core": "1.1.8",
       "@rspack/cli": "1.1.8",

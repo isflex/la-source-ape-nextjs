@@ -10,7 +10,7 @@ const REMOTE = `${process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HO
 async function getFlexComponents() {
 
   init({
-    name: `@${HOST}/onboard`,
+    name: `@${HOST}/web-app`,
     remotes: [
       {
         name: MF as string,
@@ -21,12 +21,12 @@ async function getFlexComponents() {
     ],
     shared: {
       react: {
-        version: '18.3.1',
+        version: '19.1.0',
         scope: 'default',
         lib: () => React,
         shareConfig: {
           singleton: true,
-          requiredVersion: '18.3.1',
+          requiredVersion: '19.1.0',
         },
         strategy: 'loaded-first',
       },
@@ -51,12 +51,7 @@ async function getFlexComponents() {
     },
   })
 
-  // const FlexComponents = loadable(async () => loadRemote(`${MF}/Styled`).then((m: any) => {
-  //   return m.default || m
-  // }))
-
   return loadable.lib(async () => loadRemote(`${MF}/Styled`).then((m: any) => {
-    // return (m.default || m) as LoadableLibrary<React.ReactNode[]>
     return m.ClientSyncStyled as LoadableLibrary<React.ReactNode[]>
   }))
 }

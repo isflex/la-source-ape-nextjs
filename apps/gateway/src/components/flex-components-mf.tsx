@@ -30,7 +30,7 @@ const FlexComponents: React.FC = observer(() => {
   // const [isPending, startTransition] = React.useTransition()
 
   init({
-    name: `@${HOST}/onboard`,
+    name: `@${HOST}/web-app`,
     remotes: [
       {
         name: MF as string,
@@ -44,12 +44,12 @@ const FlexComponents: React.FC = observer(() => {
     ],
     shared: {
       react: {
-        version: '18.3.1',
+        version: '19.1.0',
         scope: 'default',
         lib: () => React,
         shareConfig: {
           singleton: true,
-          requiredVersion: '18.3.1',
+          requiredVersion: '19.1.0',
         },
         strategy: 'loaded-first',
       },

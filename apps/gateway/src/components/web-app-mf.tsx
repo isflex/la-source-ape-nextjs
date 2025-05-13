@@ -16,9 +16,9 @@ const REMOTE = `${process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST}`
 // const stores = getStores()
 
 // const LogoAPE = dynamic(() => import('@src/components/logo-ape-la-source').then(mod => mod.default), { ssr: true })
-// let OnBoardRemote: React.ComponentType<any> = LogoAPE
+// let WebAppRemote: React.ComponentType<any> = LogoAPE
 
-const OnBoardMF: React.FC<PageAppProps> = observer((props) => {
+const WebAppMF: React.FC<PageAppProps> = observer((props) => {
   // const { status } = stores.UIStore
   // const [isLoading, setLoading] = React.useState<boolean>(true)
   // const [isPending, startTransition] = React.useTransition()
@@ -26,9 +26,9 @@ const OnBoardMF: React.FC<PageAppProps> = observer((props) => {
   // if (isServer) return null
   // if (window[`${MF}` as keyof Window]) return null
 
-  const OnBoardRemote = loadable(async () => {
+  const WebAppRemote = loadable(async () => {
     init({
-      name: `@${HOST}/onboard`,
+      name: `@${HOST}/web-app`,
       remotes: [
         {
           name: MF as string,
@@ -39,12 +39,12 @@ const OnBoardMF: React.FC<PageAppProps> = observer((props) => {
       ],
       shared: {
         react: {
-          version: '18.3.1',
+          version: '19.1.0',
           scope: 'default',
           lib: () => React,
           shareConfig: {
             singleton: true,
-            requiredVersion: '18.3.1',
+            requiredVersion: '19.1.0',
           },
           strategy: 'loaded-first',
         },
@@ -85,8 +85,8 @@ const OnBoardMF: React.FC<PageAppProps> = observer((props) => {
   })
 
   return (
-    <OnBoardRemote isStandalone={true} />
+    <WebAppRemote isStandalone={true} />
   )
 })
 
-export default OnBoardMF
+export default WebAppMF

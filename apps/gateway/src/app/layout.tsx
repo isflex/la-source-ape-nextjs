@@ -25,7 +25,7 @@ import { inlineStyles } from '@src/styles/inlineStyles'
 // import './globals.css'
 // import '@flexiness/domain-tailwind/globals.css'
 
-const remoteOnBoardClient = process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST
+const remoteWebAppClient = process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST
 // const remoteContentClient = process.env.NEXT_PUBLIC_FLEX_CONTENT_REMOTE_HOST
 
 // import localFont from 'next/font/local'
@@ -70,15 +70,15 @@ const RootLayout = async ({
   const _nonce = (await headers()).get('x-nonce') || '---CSP-nonce---'
 
   const fetchMFs = async () => {
-    const responseOnBoardClient = await fetch(`${remoteOnBoardClient}/loadable-stats.json`)
-    if (!responseOnBoardClient.ok) {
-      throw new Error(`HTTP error! status: ${responseOnBoardClient.status}`)
+    const responseWebAppClient = await fetch(`${remoteWebAppClient}/loadable-stats.json`)
+    if (!responseWebAppClient.ok) {
+      throw new Error(`HTTP error! status: ${responseWebAppClient.status}`)
     }
-    const resultOnBoardClient = await responseOnBoardClient.json()
+    const resultWebAppClient = await responseWebAppClient.json()
 
     return {
-      remoteEntryOnBoardClient: resultOnBoardClient?.assetsByChunkName?.['flex_poker_client_modfed'][0] as string || null,
-      flexFrameworkStyles: resultOnBoardClient?.assetsByChunkName?.['flex-framework-styles'][0] as string || null,
+      remoteEntryWebAppClient: resultWebAppClient?.assetsByChunkName?.['flex_poker_client_modfed'][0] as string || null,
+      flexFrameworkStyles: resultWebAppClient?.assetsByChunkName?.['flex-framework-styles'][0] as string || null,
     }
   }
 
@@ -102,14 +102,14 @@ const RootLayout = async ({
           {`globalThis.__webpack_require__.nc=${JSON.parse(_nonceJson).nonce}`}
         </script> */}
 
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteOnBoardClient}/mf-manifest.json`} crossOrigin='anonymous' />
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteOnBoardClient}/loadable-stats.json`} crossOrigin='anonymous' />
+        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteWebAppClient}/mf-manifest.json`} crossOrigin='anonymous' />
+        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteWebAppClient}/loadable-stats.json`} crossOrigin='anonymous' />
         {/*
         <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteFlexComponents}/node/mf-manifest.json`} crossOrigin='anonymous' />
         <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteFlexComponents}/node/loadable-stats.json`} crossOrigin='anonymous' />
         */}
-        {resultModFeds?.remoteEntryOnBoardClient && (
-          <link nonce={_nonce} rel='preload' as='script' href={`${remoteOnBoardClient}/${resultModFeds.remoteEntryOnBoardClient}`} crossOrigin='anonymous' />
+        {resultModFeds?.remoteEntryWebAppClient && (
+          <link nonce={_nonce} rel='preload' as='script' href={`${remoteWebAppClient}/${resultModFeds.remoteEntryWebAppClient}`} crossOrigin='anonymous' />
         )}
         {/*
         {remoteFlexComponentsEntryAsset && (
@@ -118,8 +118,8 @@ const RootLayout = async ({
         */}
         {resultModFeds?.flexFrameworkStyles && (
           <>
-            <link nonce={_nonce} rel='preload' as='style' href={`${remoteOnBoardClient}/${resultModFeds.flexFrameworkStyles}`} crossOrigin='anonymous' />
-            <link nonce={_nonce} rel='stylesheet' href={`${remoteOnBoardClient}/${resultModFeds.flexFrameworkStyles}`} />
+            <link nonce={_nonce} rel='preload' as='style' href={`${remoteWebAppClient}/${resultModFeds.flexFrameworkStyles}`} crossOrigin='anonymous' />
+            <link nonce={_nonce} rel='stylesheet' href={`${remoteWebAppClient}/${resultModFeds.flexFrameworkStyles}`} />
           </>
         )}
 

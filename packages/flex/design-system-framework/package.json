@@ -60,7 +60,7 @@
     "clean:css": "pnpm exec rimraf '{dist/flexiness*.css,dist/modules/*.module.css,../domain-content/content/css/flexiness*.css,../domain-content/content/css/modules/*.css}'",
     "clean:types": "pnpm exec rimraf -g ./src/modules3/**/*.d.ts",
     "cp:css": "cp dist/flexiness*.css ../domain-content/content/css/ && mkdir -p ../domain-content/content/css/modules && cp dist/modules/*.module.css ../domain-content/content/css/modules/",
-    "cp:fonts": "cp -v src/assets/fonts/flexi*.{woff,woff2} ../../../apps/gateway/public/assets/fonts/",
+    "cp:fonts": "cp -v src/assets/fonts/flexi* ../../../apps/gateway/public/assets/fonts/",
     "lint": "pnpm lint:js && pnpm lint:scss",
     "lint:css": "stylelint --cache --config ./.css.stylelintrc.json './src/**/*.{c}ss'",
     "lint:css:fix": "pnpm lint:css --fix",

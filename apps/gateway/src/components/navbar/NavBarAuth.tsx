@@ -90,7 +90,7 @@
 //       label: 'Home',
 //     },
 //     {
-//       href: '/onboard',
+//       href: '/web-app',
 //       label: 'Onboard',
 //       loggedIn: true,
 //     },

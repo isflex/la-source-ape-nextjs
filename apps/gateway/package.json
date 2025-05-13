@@ -6,9 +6,11 @@
   "scripts": {
     "build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build",
     "lint": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next lint",
-    "marp:build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm marp:html",
-    "marp:dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- marp --server --config ./marp.config.mjs",
-    "marp:html": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- marp --config ./marp.config.mjs",
+    "marp:build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm marp:html:build",
+    "marp:dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm marp:html:dev",
+    "marp:dev:server": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- marp --server --config ./marp.config.mjs",
+    "marp:html:build": "cross-env BUILD_RUNNING=true marp --config ./marp.config.mjs",
+    "marp:html:dev": "cross-env BUILD_RUNNING=false marp --config ./marp.config.mjs",
     "next:dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
     "next:dev:debug": "FEDERATION_DEBUG='true' NODE_OPTIONS='--inspect' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
     "start": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next start ./ --hostname $FLEX_GATEWAY_DEPLOYED_REMOTE_HOSTNAME"
@@ -75,7 +77,7 @@
     "tsconfig-paths-webpack-plugin": "4.1.0",
     "tsx": "^4.7.2",
     "typescript": "5.7.2",
-    "webpack": "5.97.1"
+    "webpack": "5.99.8"
   },
   "peerDependencies": {
     "@aws-sdk/client-s3": "*",

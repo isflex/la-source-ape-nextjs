@@ -43,11 +43,12 @@ console.log(`Build Id       :`, _buildId)
 
 // https://github.com/vercel/next.js/discussions/21061
 async function getActiveRoutes() {
+  const regexFolderName = /\[|\]|\./g;
   const jsonData = JSON.stringify([
     ...fs
       .readdirSync(path.resolve(__dirname, 'src/pages'), { withFileTypes: true })
       .filter((file) => file.isDirectory())
-      .map((folder) => folder.name)
+      .map((folder) => folder.name.replace(regexFolderName, ''))
       .filter(
         (folder) =>
           !folder.startsWith('_') && folder !== 'api',
@@ -55,7 +56,7 @@ async function getActiveRoutes() {
     ...fs
       .readdirSync(path.resolve(__dirname, 'src/app'), { withFileTypes: true })
       .filter((file) => file.isDirectory())
-      .map((folder) => folder.name)
+      .map((folder) => folder.name.replace(regexFolderName, ''))
       .filter(
         (folder) =>
           !folder.startsWith('layout') && folder !== 'api',
@@ -82,7 +83,7 @@ const mainConfig = new Config(async (phase, args) => {
       return [
         {
           source: '/:path*',
-          destination: '/onboard/:path*',
+          destination: '/web-app/:path*',
         }
       ];
     },
