@@ -112,8 +112,8 @@ corepack use pnpm@latest-10
 
 - Contactez un administrateur du projet sur le groupe de discussion [WhatsApp](https://chat.whatsapp.com/HqVx1dpEQM8Bk3XrDDaXtI) pour créer ton compte. Vous recevrez un e-mail pour définir votre mot de passe en tant que développeur(eusse).
 
-<div style="text-align: center;">
-    <img src="apps/gateway/public/assets/img/qr-code-whatsapp.jpg" alt="Whatsapp-qr-code" align="center" style="width: 200px; height: 200px;" />
+<div align="center">
+    <img src="apps/gateway/public/assets/img/qr-code-whatsapp.jpg" alt="Whatsapp-qr-code" style="width: 200px; height: 200px;" />
 </div>
 
 <br/>
