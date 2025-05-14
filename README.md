@@ -5,9 +5,9 @@
 
 <br>
 
-<div style="text-align: center; width: 100%;">
-  <img src="https://img.shields.io/static/v1?label=PRs&message=welcome&style=for-the-badge&color=24B36B&labelColor=000000" alt="PRs welcome!" style="height: 28px; margin: 0 auto;" />
-  <img src="https://img.shields.io/github/license/chhpt/typescript-nextjs-starter?style=for-the-badge&color=24B36B&labelColor=000000" alt="License" style="height: 28px; margin: 0 auto;" />
+<div align="center">
+  <img src="https://img.shields.io/static/v1?label=PRs&message=welcome&style=for-the-badge&color=24B36B&labelColor=000000" alt="PRs welcome!" style="height: 28px;" />
+  <img src="https://img.shields.io/github/license/chhpt/typescript-nextjs-starter?style=for-the-badge&color=24B36B&labelColor=000000" alt="License" style="height: 28px;" />
 </div>
 
 <br>
@@ -111,8 +111,6 @@ corepack use pnpm@latest-10
 #### 2. Vous aurez besoin de créer des identifiants de connexion à AWS Amplify :
 
 - Contactez un administrateur du projet sur le groupe de discussion [WhatsApp](https://chat.whatsapp.com/HqVx1dpEQM8Bk3XrDDaXtI) pour créer ton compte. Vous recevrez un e-mail pour définir votre mot de passe en tant que développeur(eusse).
-
-<br/>
 
 <div style="text-align: center;">
     <img src="apps/gateway/public/assets/img/qr-code-whatsapp.jpg" alt="Whatsapp-qr-code" align="center" style="width: 200px; height: 200px;" />
