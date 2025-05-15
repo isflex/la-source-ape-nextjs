@@ -1,5 +1,6 @@
 import React from 'react'
 import type { NextPage, GetServerSideProps } from 'next'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { PageAppProps, PageStaticData } from '@root/types/additional'
 import dynamic from 'next/dynamic'
@@ -15,6 +16,7 @@ import {
   ButtonMarkup,
   Link,
   Text,
+  // TextLevel,
   Title,
   TitleLevel,
   VariantState,
@@ -134,9 +136,18 @@ const TodoPage: NextPage<PageAppProps> = observer((
               </InfoBlockHeader>
               <InfoBlockContent>
                 <Title level={TitleLevel.LEVEL4}>
-                  ⚠️ Pensez à créer vos identifiants de connexion à AWS Amplify pour utiliser cette page.
-                  Rejoignez le groupe chat <Link href='https://chat.whatsapp.com/HqVx1dpEQM8Bk3XrDDaXtI' target='_blank'>Whatsapp</Link> pour plus d'aide.
+                  Pensez à créer vos identifiants de connexion à AWS Amplify pour utiliser cette page.
                 </Title>
+                <Title level={TitleLevel.LEVEL5}>
+                  Rejoignez le groupe chat <Link href='https://chat.whatsapp.com/HqVx1dpEQM8Bk3XrDDaXtI' target='_blank'>Whatsapp</Link> pour plus
+                  d'aide.
+                </Title>
+                <Image
+                  src="/assets/img/qr-code-whatsapp.jpg"
+                  width={100}
+                  height={100}
+                  alt="WhatsApp QR Code"
+                />
               </InfoBlockContent>
               <InfoBlockAction>
                 <Link href='https://docs.amplify.aws/gen2/start/quickstart/nextjs-pages-router/' target='_blank'>
