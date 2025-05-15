@@ -11,7 +11,8 @@ const path = `${process.env.FLEX_PROJ_ROOT}/apps/gateway/amplify_outputs.json`
 try {
   if (!existsSync(path)) {
     console.log('⚠️ Pensez à créer vos identifiants de connexion à AWS Amplify')
-    writeFile('amplify_outputs.json', JSON.stringify({}))
+    // https://stackoverflow.com/a/72432465
+    writeFile(`${process.env.FLEX_PROJ_ROOT}/apps/gateway/amplify_outputs.json`, JSON.stringify({}), (err) => err && console.error(err))
   }
 } catch(err) {
   console.error(err)
