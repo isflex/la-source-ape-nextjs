@@ -97,5 +97,6 @@ interface PageAppProps extends PageStaticData, ModFedData {
 
 interface LogoProps {
   id?: string
+  ref?: React.Ref<HTMLDivElement>
   [x: string]: any
 }

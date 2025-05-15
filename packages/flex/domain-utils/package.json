@@ -29,7 +29,7 @@
     "clean:source": "pnpm exec rimraf '{src/**/*.d.ts,src/**/*.js,src/**/*.js.map}'",
     "compile:tsup": "tsup-node",
     "lint": "pnpm lint:flat",
-    "lint:flat": "ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.{ts,tsx}\" --fix --debug",
+    "lint:flat": "ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.{ts,tsx}\" --fix",
     "lint:legacy": "cross-env ESLINT_USE_FLAT_CONFIG=false pnpm eslint \"./src/**/*.{ts,tsx}\" --color --cache --config ./.eslintrc.cjs --resolve-plugins-relative-to $FLEX_PROJ_ROOT/packages/flex/config/eslint/legacy",
     "tsc": "tsc"
   },

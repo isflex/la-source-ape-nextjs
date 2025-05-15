@@ -12,6 +12,7 @@ Document,
 import Script from 'next/script'
 import { observer } from 'mobx-react-lite'
 import { inlineStyles } from '@src/styles/inlineStyles'
+import  { description, jsonLd } from '@src/seo'
 // import { init, preloadRemote, registerRemotes, loadRemote } from '@module-federation/enhanced/runtime'
 
 interface DocumentProps extends DocumentInitialProps {
@@ -35,6 +36,7 @@ const MyDocument = (props: DocumentProps) => {
   return (
     <Html lang='fr' style={{ ...inlineStyles.reset }}>
       <Head nonce={_nonce}>
+        <meta name='description' content={description} />
         <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteWebAppClient}/mf-manifest.json`} crossOrigin='anonymous' />
         <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteWebAppClient}/loadable-stats.json`} crossOrigin='anonymous' />
         {/*
@@ -73,6 +75,14 @@ const MyDocument = (props: DocumentProps) => {
           strategy={'beforeInteractive'}
           dangerouslySetInnerHTML={{
             __html: `window.__webpack_nonce__="${_nonce}"`
+          }}
+        />
+        <Script
+          nonce={_nonce}
+          id='jsonLd'
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{
+              __html: JSON.stringify(jsonLd)
           }}
         />
       </body>

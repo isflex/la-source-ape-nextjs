@@ -19,6 +19,7 @@ import { default as stylesPage } from '@src/styles/scss/pages/layout.module.scss
 
 const LogoLaSource = dynamic(() => import('@src/components/logo-la-source'), { ssr: true })
 const Header = dynamic(() => import('@src/components/sticky-header/app'), { ssr: true })
+const Footer = dynamic(() => import('@src/components/footer'), { ssr: true })
 
 const Layout = async ({children }: { children: React.ReactNode }) => {
 
@@ -38,6 +39,7 @@ const Layout = async ({children }: { children: React.ReactNode }) => {
     <div id='gatewayLayout' className={classNames(stylesPage.gatewayLayout)}>
       <NavigationLayout />
       { children }
+      <Footer />
     </div>
   )
 }
