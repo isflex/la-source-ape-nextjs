@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 // import {BrowserRouter as Router } from 'react-router'
 import { observer, enableStaticRendering } from 'mobx-react-lite'
 import { StoreProvider } from '@flexiness/domain-store'
+// import  { description, jsonLd } from '@src/seo'
 import { isServer } from '@src/utils'
 import
 // App,
@@ -16,7 +17,7 @@ import
 // import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplifyOutputs'
 import AuthProvider from '@src/components/auth/AuthProvider'
 
-import { PostHogProvider } from '@src/utils/posthog/providers'
+// import { PostHogProvider } from '@src/utils/posthog/providers'
 
 import classNames from 'classnames'
 import {
@@ -52,8 +53,22 @@ const Layout: React.ComponentType<LayoutProps> = dynamic(() => import('../compon
 const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
   return (
     <>
+      {/*
+      <Head>
+        <meta name='description' content={description} />
+      </Head>
+      <Script
+        nonce={pageProps._nonce}
+        id='jsonLd'
+        type='application/ld+json'
+        strategy={'afterInteractive'}
+        dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd)
+        }}
+      />
+      */}
       {/* <ConfigureAmplifyClientSide /> */}
-      <PostHogProvider>
+      {/* <PostHogProvider> */}
         <AuthProvider>
           <StoreProvider>
             <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped)} theme='light'>
@@ -63,7 +78,7 @@ const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
             </FlexRootView>
           </StoreProvider>
         </AuthProvider>
-      </PostHogProvider>
+      {/* </PostHogProvider> */}
     </>
   )
 }

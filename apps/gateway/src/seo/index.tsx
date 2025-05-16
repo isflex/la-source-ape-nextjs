@@ -9,12 +9,14 @@ const parentOrg = {
   email: 'mailto:accueil@ecolelasource.org',
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Meudon, France',
+    addressCountry: 'FR',
+    addressLocality: 'Meudon',
     addressRegion: 'Île-de-France',
     postalCode: 'F-92190',
     streetAddress: '11 rue Ernest-Renan 92190 Meudon'
   },
   logo: `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_BASE_URL}/logo/la_source/LaSource.svg`,
+  image: `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_BASE_URL}/logo/la_source/LaSource.svg`,
 }
 const subOrg = {
   '@type': 'Organization',

@@ -153,14 +153,14 @@ const RootLayout = async ({
           }}
         />
 
-        <Script
+        {/* <Script
           nonce={_nonce}
           id='jsonLd'
           type='application/ld+json'
           dangerouslySetInnerHTML={{
-              __html: JSON.stringify(jsonLd)
+            __html: JSON.stringify(jsonLd)
           }}
-        />
+        /> */}
       </head>
       <body style={{ ...inlineStyles.reset }}>
         {/* <StoreProvider> */}
