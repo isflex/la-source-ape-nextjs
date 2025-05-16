@@ -79,7 +79,8 @@
         "DOTENV_*",
         "FLEX_*",
         "GIT_*",
-        "NEXT_PUBLIC_*"
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
       ],
       "cache": true,
       "persistent": false
@@ -112,7 +113,8 @@
         "DOTENV_*",
         "FLEX_*",
         "GIT_*",
-        "NEXT_PUBLIC_*"
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
       ],
       "cache": false
     }

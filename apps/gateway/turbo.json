@@ -15,7 +15,9 @@
     "next:dev": {
       "cache": false,
       "env": [
-        "FLEX_*"
+        "FLEX_*",
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
       ]
     },
     "dev": {
@@ -51,14 +53,16 @@
         "DOTENV_*",
         "FLEX_*",
         "GIT_*",
-        "NEXT_PUBLIC_*"
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
       ]
     },
     "start": {
       "cache": false,
       "env": [
         "FLEX_*",
-        "NEXT_PUBLIC_*"
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
       ]
     }
   }

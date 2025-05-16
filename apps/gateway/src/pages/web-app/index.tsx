@@ -123,7 +123,7 @@ const MFWebAppPage: NextPage<PageAppProps> = observer((
           <WebAppMF { ...props } />
         </div>
       </div>
-      </>
+    </>
   )
 })
 

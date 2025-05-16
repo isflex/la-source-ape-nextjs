@@ -107,7 +107,7 @@ const TodoPage: NextPage<PageAppProps> = observer((
                 id={'createTodo'}
                 variant={VariantState.PRIMARY}
                 markup={ButtonMarkup.BUTTON}>
-                  <span style={{ margin: '0 1rem'}}>
+                  <span style={{ margin: '0 auto', padding: '0 1rem'}}>
                     Créer une nouvelle tâche
                   </span>
               </Button>
@@ -132,6 +132,16 @@ const TodoPage: NextPage<PageAppProps> = observer((
                   Suivez les prochains étapes de cet tutoriel
                 </Link>
               </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  throw new Error("Sentry Test Error");
+                }}
+              >
+                Break the world
+              </button>;
+
             </>
           ) : (
             <Modal active={true} onClose={() => {

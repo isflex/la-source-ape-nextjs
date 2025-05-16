@@ -83,7 +83,7 @@ const MyDocument = (props: DocumentProps) => {
           type='application/ld+json'
           strategy={'afterInteractive'}
           dangerouslySetInnerHTML={{
-              __html: JSON.stringify(jsonLd)
+            __html: JSON.stringify(jsonLd)
           }}
         /> */}
       </body>

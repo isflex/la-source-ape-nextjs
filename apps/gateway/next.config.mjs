@@ -16,6 +16,7 @@ const execPromise = promisify(subprocess.exec)
 // import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 // import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
 import { Config } from 'next-recompose-plugins'
+import { withSentryConfig } from '@sentry/nextjs'
 
 import camelCase from 'lodash/camelCase.js'
 
@@ -315,4 +316,30 @@ const mainConfig = new Config(async (phase, args) => {
 })
 .build()
 
-export default mainConfig
+export default withSentryConfig(mainConfig, {
+  org: 'flexiness',
+  project: 'javascript-nextjs',
+  // Only print logs for uploading source maps in CI
+  // Set to `true` to suppress logs
+  silent: !process.env.CI,
+  // Automatically tree-shake Sentry logger statements to reduce bundle size
+  disableLogger: true,
+
+  // OPTIONAL Readable Stack Traces with Source Maps
+  // Pass the auth token
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  // Upload a larger set of source maps for prettier stack traces (increases build time)
+  widenClientFileUpload: true,
+
+  // OPTIONAL Avoid Ad-Blockers with Tunneling
+  // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
+  // This can increase your server load as well as your hosting bill.
+  // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-side errors will fail.
+
+  // tunnelRoute: '/monitoring',
+
+  // OPTIONAL Capture React Component Names
+  reactComponentAnnotation: {
+    enabled: true,
+  },
+})
