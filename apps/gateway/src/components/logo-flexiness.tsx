@@ -9,7 +9,7 @@ import { default as stylesPage } from '@src/styles/scss/pages/logo.module.scss'
 
 const stores = getStores()
 
-const Logo: React.FC<LogoProps> = React.forwardRef<HTMLDivElement, LogoProps>((props, ref) => {
+const Logo: React.FC<LogoProps> = React.forwardRef<HTMLElement, LogoProps>((props, ref) => {
   const { navigationState } = stores.UIStore
   return (
     <div className={classNames(
@@ -17,7 +17,7 @@ const Logo: React.FC<LogoProps> = React.forwardRef<HTMLDivElement, LogoProps>((p
         stylesPage.logoDefault,
         stylesPage.logoFlexiness
       )}
-      ref={ref}>
+      ref={ref as React.RefObject<HTMLDivElement | null>}>
       <LogoSvg id='logo_flexiness_2' />
     </div>
   )

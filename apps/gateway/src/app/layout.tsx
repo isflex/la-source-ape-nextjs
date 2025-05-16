@@ -5,10 +5,10 @@ import dynamic from 'next/dynamic'
 import { headers } from 'next/headers'
 import type { Metadata } from 'next'
 import Script from 'next/script'
+import  { title, description, jsonLd } from '@src/seo'
 
 // import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplifyOutputs'
 import AuthProvider from '@src/components/auth/AuthProvider'
-import  { title, description, jsonLd } from '@src/seo'
 
 // import { StoreProvider } from '@src/stores'
 

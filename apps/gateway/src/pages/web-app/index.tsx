@@ -151,6 +151,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const pageStaticData: PageStaticData = {
     pageName: `web-app`,
+    adjustFooterPosition: false,
   }
 
   const modFedData: ModFedData = {

@@ -79,6 +79,7 @@ interface ModFedData {
 interface PageStaticData {
   pageName: string
   demoFile?: string
+  adjustFooterPosition: boolean,
 }
 
 interface ServerPageInfo {
@@ -97,6 +98,6 @@ interface PageAppProps extends PageStaticData, ModFedData {
 
 interface LogoProps {
   id?: string
-  ref?: React.Ref<HTMLDivElement>
+  ref?: React.Ref<HTMLElement>
   [x: string]: any
 }

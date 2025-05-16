@@ -189,6 +189,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const pageStaticData: PageStaticData = {
     pageName: `todo`,
+    adjustFooterPosition: true,
   }
 
   const _nonce = req.headers?.['x-nonce'] || '---CSP-nonce---'

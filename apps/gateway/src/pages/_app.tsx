@@ -16,6 +16,8 @@ import
 // import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplifyOutputs'
 import AuthProvider from '@src/components/auth/AuthProvider'
 
+import { PostHogProvider } from '@src/utils/posthog/providers'
+
 import classNames from 'classnames'
 import {
   View as FlexRootView,
@@ -51,15 +53,17 @@ const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
   return (
     <>
       {/* <ConfigureAmplifyClientSide /> */}
-      <AuthProvider>
-        <StoreProvider>
-          <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped)} theme='light'>
-            <Layout props={pageProps }>
-              <Component {...pageProps}/>
-            </Layout>
-          </FlexRootView>
-        </StoreProvider>
-      </AuthProvider>
+      <PostHogProvider>
+        <AuthProvider>
+          <StoreProvider>
+            <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped)} theme='light'>
+              <Layout props={pageProps }>
+                <Component {...pageProps}/>
+              </Layout>
+            </FlexRootView>
+          </StoreProvider>
+        </AuthProvider>
+      </PostHogProvider>
     </>
   )
 }

@@ -29,11 +29,13 @@ import {
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/footer.module.scss'
 import { Banner } from '@src/components/footer/cookieConsentBanner'
-
 const LogoFlex = dynamic(() => import('@src/components/logo-flexiness'), { ssr: true })
 
+interface FooterAppProps {
+}
+
 // const Footer: NextPage<PageAppProps> = () => {
-const Footer = () => {
+const Footer: React.FC<FooterAppProps> = ({}) => {
   const [logoFlexInView, setLogoFlexInView] = React.useState<boolean>(false)
 
   const { ref } = useInView({
