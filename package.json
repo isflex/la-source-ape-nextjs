@@ -17,6 +17,7 @@
     "compile:watch": "turbo run compile:watch:sh",
     "compile:watch:sh": "./bin/run-compile-watch.sh",
     "dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run dev",
+    "install:prod": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- ./bin/run-install-prod.sh",
     "lint": "turbo run lint",
     "prepare": "node .husky/install.mjs",
     "start": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run start",
@@ -47,7 +48,9 @@
     "mobx-react-lite": "4.0.7",
     "next": "15.2.4",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "turbo": "2.0.6",
+    "zod": "3.24.1"
   },
   "devDependencies": {
     "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
@@ -79,11 +82,9 @@
     "tsconfig-paths-webpack-plugin": "4.1.0",
     "tslib": "^2.4.0",
     "tsx": "^4.7.3",
-    "turbo": "2.0.6",
     "typed-scss-modules": "@flexiness/typed-scss-modules@8.1.0",
     "typescript": "5.7.2",
-    "webpack": "5.99.8",
-    "zod": "3.24.1"
+    "webpack": "5.99.8"
   },
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39",
   "pnpm": {

@@ -6,7 +6,7 @@ if [[ ${NAME} == 'DESKTOP-T9M49JD' ]]
 then
   # echo 0
   echo NODE_TLS_REJECT_UNAUTHORIZED=0
-elif [[ ! -z ${CI} ]]
+elif [[ ! -v ${CI} || ! -z ${CI} ]]
 then
   # echo 0
   echo NODE_TLS_REJECT_UNAUTHORIZED=0

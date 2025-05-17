@@ -12,8 +12,8 @@ applications:
             - sudo mkswap /swapfile
             - sudo swapon /swapfile
             - sudo swapon -s
-            - 'nvm install 20.15.0'
-            - 'nvm use 20.15.0'
+            - 'nvm install 20.19.1'
+            - 'nvm use 20.19.1'
             - 'npm install --cache .npm --prefer-offline'
         build:
           commands:
@@ -31,8 +31,8 @@ applications:
         preBuild:
           commands:
             - 'pwd'
-            # - 'nvm install 20.15.0'
-            - 'nvm use 20.15.0'
+            # - 'nvm install 20.19.1'
+            - 'nvm use 20.19.1'
             - 'npm install -g pnpm'
             - 'pnpm install --frozen-lockfile'
         build:

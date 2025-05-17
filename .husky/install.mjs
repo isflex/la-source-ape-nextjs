@@ -1,8 +1,13 @@
 import { existsSync, writeFile } from 'fs'
 
 // Skip Husky install in production and CI
-if (process.env.FLEX_MODE === 'production' || process.env.NODE_ENV === 'production' || process.env.CI === 'true') {
-  process.exit(0)
+if (
+  process.env.FLEX_MODE === 'production' ||
+  process.env.NODE_ENV === 'production' ||
+  process.env.CI === 'true' ||
+  process.env.FLEX_INSTALL_PROD === 'true') {
+    console.log("¯\\_(ツ)_/¯ Nothing to see here !!")
+    process.exit(0)
 }
 const husky = (await import('husky')).default
 console.log(husky())

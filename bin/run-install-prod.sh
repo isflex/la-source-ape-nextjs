@@ -3,12 +3,10 @@
 if [[ ! -v ${CI} || ! -z ${CI} ]]
 then
   echo "//////////////////////// Running local build ////////////////////////";
-  turbo run build;
   export FLEX_INSTALL_PROD=true;
   yes | pnpm install --prod --frozen-lockfile;
 else
   echo "//////////////////////// Running CI Build ////////////////////////";
-  turbo run build;
   export FLEX_INSTALL_PROD=true;
   yes | pnpm install --prod --frozen-lockfile;
   # turbo run build --filter=!gateway{./apps/la-source/ape/gateway/build/standalone/**/*};

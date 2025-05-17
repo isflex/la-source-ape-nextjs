@@ -13,7 +13,7 @@
     "marp:html:dev": "cross-env BUILD_RUNNING=false marp --config ./marp.config.mjs",
     "next:dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
     "next:dev:debug": "FEDERATION_DEBUG='true' NODE_OPTIONS='--inspect' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
-    "start": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next start ./ --hostname $FLEX_GATEWAY_DEPLOYED_REMOTE_HOSTNAME"
+    "start": "$FLEX_PROJ_ROOT/bin/run-start-gateway.sh"
   },
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "1.4.0",

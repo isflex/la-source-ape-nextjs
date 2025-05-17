@@ -74,6 +74,12 @@ importers:
       react-dom:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
+      turbo:
+        specifier: 2.0.6
+        version: 2.0.6
+      zod:
+        specifier: 3.24.1
+        version: 3.24.1
     devDependencies:
       '@flexiness/eslint-config-flat':
         specifier: workspace:./packages/flex/config/eslint/flat-config
@@ -162,9 +168,6 @@ importers:
       tsx:
         specifier: ^4.7.3
         version: 4.19.2
-      turbo:
-        specifier: 2.0.6
-        version: 2.0.6
       typed-scss-modules:
         specifier: workspace:./packages/flex/config/typed-scss-modules
         version: link:packages/flex/config/typed-scss-modules
@@ -174,9 +177,6 @@ importers:
       webpack:
         specifier: 5.99.8
         version: 5.99.8
-      zod:
-        specifier: 3.24.1
-        version: 3.24.1
 
   apps/gateway:
     dependencies:
@@ -819,6 +819,9 @@ importers:
       '@module-federation/node':
         specifier: 2.2.4
         version: 2.2.4(next@15.2.4(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.83.1))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.2)(vue-tsc@2.2.0(typescript@5.7.2))(webpack@5.99.8)
+      '@mui/utils':
+        specifier: 5.13.1
+        version: 5.13.1(react@19.1.0)
       '@react-native-picker/picker':
         specifier: 2.7.5
         version: 2.7.5(react-native@0.74.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@19.1.0)(encoding@0.1.13)(react@19.1.0))(react@19.1.0)
@@ -913,9 +916,6 @@ importers:
       '@loadable/webpack-plugin':
         specifier: 5.15.2
         version: 5.15.2(webpack@5.99.8)
-      '@mui/utils':
-        specifier: 5.13.1
-        version: 5.13.1(react@19.1.0)
       '@rspack/core':
         specifier: 1.1.8
         version: 1.1.8(@swc/helpers@0.5.15)
@@ -982,9 +982,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.14
         version: 10.4.20(postcss@8.4.38)
-      clsx:
-        specifier: 2.0.0
-        version: 2.0.0
       concurrently:
         specifier: 9.1.0
         version: 9.1.0
@@ -7930,10 +7927,6 @@ packages:
 
   cloneable-readable@1.1.3:
     resolution: {integrity: sha512-2EF8zTQOxYq70Y4XKtorQupqF0m49MBz2/yf5Bj+MHjvpG3Hy7sImifnqD6UA+TKYxeSV+u6qqQPawN5UvnpKQ==}
-
-  clsx@2.0.0:
-    resolution: {integrity: sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==}
-    engines: {node: '>=6'}
 
   co@4.6.0:
     resolution: {integrity: sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ==}
@@ -25340,8 +25333,6 @@ snapshots:
       inherits: 2.0.4
       process-nextick-args: 2.0.1
       readable-stream: 2.3.8
-
-  clsx@2.0.0: {}
 
   co@4.6.0: {}
 
