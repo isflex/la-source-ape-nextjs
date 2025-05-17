@@ -37,23 +37,23 @@ const MyDocument = (props: DocumentProps) => {
     <Html lang='fr' style={{ ...inlineStyles.reset }}>
       <Head nonce={_nonce}>
         {/* <meta name='description' content={description} /> */}
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteWebAppClient}/mf-manifest.json`} crossOrigin='anonymous' />
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteWebAppClient}/loadable-stats.json`} crossOrigin='anonymous' />
+        <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/mf-manifest.json`} crossOrigin='anonymous' />
+        {/* <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/loadable-stats.json`} crossOrigin='anonymous' /> */}
         {/*
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteFlexComponents}/node/mf-manifest.json`} crossOrigin='anonymous' />
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteFlexComponents}/node/loadable-stats.json`} crossOrigin='anonymous' />
+        <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteFlexComponents}/node/mf-manifest.json`} crossOrigin='anonymous' />
+        <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteFlexComponents}/node/loadable-stats.json`} crossOrigin='anonymous' />
         */}
         {remoteWebAppClientEntryAsset && (
-          <link nonce={_nonce} rel='preload' as='script' href={`${remoteWebAppClient}/${remoteWebAppClientEntryAsset}`} crossOrigin='anonymous' />
+          <link nonce={_nonce} rel='prefetch' as='script' href={`${remoteWebAppClient}/${remoteWebAppClientEntryAsset}`} crossOrigin='anonymous' />
         )}
         {/*
         {remoteFlexComponentsEntryAsset && (
-          <link nonce={_nonce} rel='preload' as='script' href={`${remoteFlexComponents}/${remoteFlexComponentsEntryAsset}`} crossOrigin='anonymous' />
+          <link nonce={_nonce} rel='prefetch' as='script' href={`${remoteFlexComponents}/${remoteFlexComponentsEntryAsset}`} crossOrigin='anonymous' />
         )}
         */}
         {flexFrameworkStylesAsset && (
           <>
-            <link nonce={_nonce} rel='preload' as='style' href={`${remoteWebAppClient}/${flexFrameworkStylesAsset}`} crossOrigin='anonymous' />
+            <link nonce={_nonce} rel='prefetch' as='style' href={`${remoteWebAppClient}/${flexFrameworkStylesAsset}`} crossOrigin='anonymous' />
             <link nonce={_nonce} rel='stylesheet' href={`${remoteWebAppClient}/${flexFrameworkStylesAsset}`} />
           </>
         )}
