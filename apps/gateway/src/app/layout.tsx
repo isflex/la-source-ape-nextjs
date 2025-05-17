@@ -94,14 +94,6 @@ const RootLayout = async ({
     console.error('An error occurred while fetching the data from fetchMFs : ', e)
   })
 
-  // console.log(_nonce)
-  // const _nonceQuoted = `'${_nonce}'`
-  // const _nonceJson = JSON.stringify({
-  //   'nonce': _nonce
-  // })
-  // __webpack_require__.nc = _nonce
-  // __webpack_nonce__ = _nonce
-
   return (
     <html lang='fr' style={{
         ...inlineStyles.reset,
@@ -110,27 +102,16 @@ const RootLayout = async ({
       // className={commissioner.className}
     >
       <head>
-        {/* <script type='text/javascript' nonce={_nonce}>
-          {`globalThis.__webpack_require__.nc=${JSON.parse(_nonceJson).nonce}`}
-        </script> */}
+        <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/mf-manifest.json`} crossOrigin='anonymous' />
+        {/* <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/loadable-stats.json`} crossOrigin='anonymous' /> */}
 
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteWebAppClient}/mf-manifest.json`} crossOrigin='anonymous' />
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteWebAppClient}/loadable-stats.json`} crossOrigin='anonymous' />
-        {/*
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteFlexComponents}/node/mf-manifest.json`} crossOrigin='anonymous' />
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteFlexComponents}/node/loadable-stats.json`} crossOrigin='anonymous' />
-        */}
         {resultModFeds?.remoteEntryWebAppClient && (
-          <link nonce={_nonce} rel='preload' as='script' href={`${remoteWebAppClient}/${resultModFeds.remoteEntryWebAppClient}`} crossOrigin='anonymous' />
+          <link nonce={_nonce} rel='prefetch' as='script' href={`${remoteWebAppClient}/${resultModFeds.remoteEntryWebAppClient}`} crossOrigin='anonymous' />
         )}
-        {/*
-        {remoteFlexComponentsEntryAsset && (
-          <link nonce={_nonce} rel='preload' as='script' href={`${remoteFlexComponents}/${remoteFlexComponentsEntryAsset}`} crossOrigin='anonymous' />
-        )}
-        */}
+
         {resultModFeds?.flexFrameworkStyles && (
           <>
-            <link nonce={_nonce} rel='preload' as='style' href={`${remoteWebAppClient}/${resultModFeds.flexFrameworkStyles}`} crossOrigin='anonymous' />
+            <link nonce={_nonce} rel='prefetch' as='style' href={`${remoteWebAppClient}/${resultModFeds.flexFrameworkStyles}`} crossOrigin='anonymous' />
             <link nonce={_nonce} rel='stylesheet' href={`${remoteWebAppClient}/${resultModFeds.flexFrameworkStyles}`} />
           </>
         )}

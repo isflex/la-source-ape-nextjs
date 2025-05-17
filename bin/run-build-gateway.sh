@@ -1,12 +1,19 @@
 #!/bin/bash
 
-if [[ ! -v ${CI} || ! -z ${CI} ]]
-then
-  echo "//////////////////////// Running local mode ////////////////////////";
-  # turbo run turbo:build:gateway;
+run_local () {
+  echo "//////////////////////// Running local start ////////////////////////";
   concurrently -k -n BUILD,HTTP -s first 'pnpm --filter=gateway buildGateway' 'pnpm start:client';
+}
+
+run_ci () {
+  echo "//////////////////////// Running CI start ////////////////////////";
+  concurrently -k -n BUILD,HTTP -s first 'pnpm --filter=gateway buildGateway' 'pnpm start:client';
+}
+
+if [[ ! -v CI ]]; then
+  run_local;
+elif [[ -z "$CI" ]]; then
+  run_local;
 else
-  echo "//////////////////////// Running CI mode ////////////////////////";
-  # turbo run turbo:build:gateway;
-  concurrently -k -n BUILD,HTTP -s first 'pnpm --filter=gateway buildGateway' 'pnpm start:client';
+  run_ci;
 fi

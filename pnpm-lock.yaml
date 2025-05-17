@@ -604,9 +604,6 @@ importers:
       husky:
         specifier: 9.0.11
         version: 9.0.11
-      jest:
-        specifier: ^29.6.2
-        version: 29.7.0(@types/node@20.17.12)(ts-node@10.9.2(@types/node@20.17.12)(typescript@5.7.2))
       lint-staged:
         specifier: 15.2.4
         version: 15.2.4
@@ -1018,9 +1015,6 @@ importers:
       html-webpack-plugin:
         specifier: 5.6.0
         version: 5.6.0(@rspack/core@1.1.8(@swc/helpers@0.5.15))(webpack@5.99.8)
-      jest:
-        specifier: ^29.6.2
-        version: 29.7.0(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))
       metro-react-native-babel-preset:
         specifier: 0.72.1
         version: 0.72.1(@babel/core@7.26.0)
@@ -20597,6 +20591,7 @@ snapshots:
       - babel-plugin-macros
       - supports-color
       - ts-node
+    optional: true
 
   '@jest/core@29.7.0(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))':
     dependencies:
@@ -25663,6 +25658,7 @@ snapshots:
       - babel-plugin-macros
       - supports-color
       - ts-node
+    optional: true
 
   create-jest@29.7.0(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)):
     dependencies:
@@ -28551,6 +28547,7 @@ snapshots:
       - babel-plugin-macros
       - supports-color
       - ts-node
+    optional: true
 
   jest-cli@29.7.0(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)):
     dependencies:
@@ -28601,6 +28598,7 @@ snapshots:
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
+    optional: true
 
   jest-config@29.7.0(@types/node@20.17.12)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)):
     dependencies:
@@ -28905,6 +28903,7 @@ snapshots:
       - babel-plugin-macros
       - supports-color
       - ts-node
+    optional: true
 
   jest@29.7.0(@types/node@22.10.1)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)):
     dependencies:
