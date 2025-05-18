@@ -148,7 +148,17 @@ const mainConfig = new Config(async (phase, args) => {
     },
 
     webpack: (config, options) => {
-      const { isServer } = options
+      const { isServer, webpack } = options
+
+      config.plugins.push(
+        new webpack.DefinePlugin({
+          __SENTRY_DEBUG__: false,
+          __SENTRY_TRACING__: true,
+          __RRWEB_EXCLUDE_IFRAME__: true,
+          __RRWEB_EXCLUDE_SHADOW_DOM__: true,
+          __SENTRY_EXCLUDE_REPLAY_WORKER__: true,
+        }),
+      )
 
       // https://www.youtube.com/watch?v=mqcUWfdiXUg
       // https://github.com/vercel/next.js/issues/71638#issuecomment-2464405044
@@ -318,7 +328,7 @@ const mainConfig = new Config(async (phase, args) => {
 
 export default withSentryConfig(mainConfig, {
   org: 'flexiness',
-  project: 'javascript-nextjs',
+  project: 'la-source-ape-nextjs',
   // Only print logs for uploading source maps in CI
   // Set to `true` to suppress logs
   silent: !process.env.CI,

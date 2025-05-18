@@ -1,3 +1,5 @@
+// https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
+
 import * as Sentry from '@sentry/nextjs';
 
 export const onRequestError = Sentry.captureRequestError;
