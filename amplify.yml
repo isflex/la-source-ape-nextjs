@@ -35,12 +35,12 @@ applications:
             # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
             # - node -v
             - pwd
-            - rm -rf .next
+            # - rm -rf .next
             - cd ../../
             - pwd
             - npm install -g pnpm
-            - mkdir .pnpm-store
-            - pnpm config set store-dir ./.pnpm-store
+            - mkdir ../.pnpm-store
+            - pnpm config set store-dir ../.pnpm-store
             - pnpm install --frozen-lockfile
         build:
           commands:

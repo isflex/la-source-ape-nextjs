@@ -24,7 +24,6 @@
     "@flexiness/domain-utils": "@flexiness/domain-utils@0.0.1",
     "@loadable/component": "5.13.2",
     "@module-federation/enhanced": "0.8.5",
-    "@sentry/nextjs": "9.19.0",
     "aws-amplify": "^6.10.2",
     "cors": "2.8.5",
     "debounce": "2.2.0",
