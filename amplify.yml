@@ -5,45 +5,46 @@ applications:
       phases:
         preBuild:
           commands:
+            # - 'nvm install 20.19.1'
+            # - 'nvm use 20.19.1'
+            # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
+            # - node -v
             - pwd
-            # - export NODE_OPTIONS="--max-old-space-size=32768"
             - sudo fallocate -l 40G /swapfile
             - sudo chmod 600 /swapfile
             - sudo mkswap /swapfile
             - sudo swapon /swapfile
             - sudo swapon -s
-            # - 'nvm install 20.19.1'
-            # - 'nvm use 20.19.1'
-            # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
-            - node -v
             - npm install --cache .npm --prefer-offline
         build:
           commands:
             - npx ampx info
-            # - 'npx dotenvx run -f ../..//env/public/.env.$FLEX_MODE -- ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID'
             - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
       cache:
         paths:
           - '.npm/**/*'
           - 'node_modules/**/*'
     frontend:
-      # buildPath: apps/gateway
-      buildPath: '/'  # run install and build from monorepo project root
+      buildPath: apps/gateway
+      # buildPath: '/'  # run install and build from monorepo project root
       phases:
         preBuild:
           commands:
-            - pwd
             # - 'nvm install 20.19.1'
             # - 'nvm use 20.19.1'
             # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
-            - node -v
+            # - node -v
+            - pwd
+            - rm -rf .next
+            - cd ../../
+            - pwd
             - npm install -g pnpm
             - mkdir .pnpm-store
             - pnpm config set store-dir ./.pnpm-store
             - pnpm install --frozen-lockfile
-            - rm -rf .next
         build:
           commands:
+            - pwd
             - export FLEX_PROJ_ROOT=$(pwd)
             - pnpm build
       artifacts:
