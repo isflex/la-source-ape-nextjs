@@ -2,7 +2,7 @@
 'use client'
 
 import React from 'react'
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
 // import Link from 'next/link'
 // import type { NextPage } from 'next'
 import { PageAppProps } from '@root/types/additional'
@@ -14,7 +14,7 @@ import {
   // Button,
   // ButtonMarkup,
   // Box,
-  Link as FlexLink,
+  // Link as FlexLink,
   // Text,
   // Title,
   // TitleLevel,

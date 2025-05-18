@@ -24,7 +24,7 @@ import {
 
 const LogoLaSource = dynamic(() => import('@src/components/logo-la-source'), { ssr: true })
 const Header = dynamic(() => import('@src/components/sticky-header/pages'), { ssr: true })
-// const Footer = dynamic(() => import('@src/components/footer/pages'), { ssr: true })
+const Footer = dynamic(() => import('@src/components/footer/pages'), { ssr: true })
 
 const Layout = observer(({ props, children }: LayoutProps) => {
 
@@ -43,7 +43,7 @@ const Layout = observer(({ props, children }: LayoutProps) => {
     <div className={classNames(stylesPage.gatewayLayout)}>
       <NavigationLayout />
       { children }
-      {/* <Footer {...props} /> */}
+      <Footer {...props} />
     </div>
   )
 })

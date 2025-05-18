@@ -12,7 +12,7 @@ Document,
 import Script from 'next/script'
 import { observer } from 'mobx-react-lite'
 import { inlineStyles } from '@src/styles/inlineStyles'
-// import  { description, jsonLd } from '@src/seo'
+import  { description, jsonLd } from '@src/seo'
 // import { init, preloadRemote, registerRemotes, loadRemote } from '@module-federation/enhanced/runtime'
 
 interface DocumentProps extends DocumentInitialProps {
@@ -77,7 +77,7 @@ const MyDocument = (props: DocumentProps) => {
             __html: `window.__webpack_nonce__="${_nonce}"`
           }}
         />
-        {/* <Script
+        <Script
           nonce={_nonce}
           id='jsonLd'
           type='application/ld+json'
@@ -85,7 +85,7 @@ const MyDocument = (props: DocumentProps) => {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(jsonLd)
           }}
-        /> */}
+        />
       </body>
     </Html>
   );
