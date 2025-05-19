@@ -125,11 +125,9 @@ const corsOptions = Cors({
     : { origin: [
       new RegExp(`${regexEscape(process.env.FLEX_DOMAIN_NAME!)}`),
       new RegExp(`${regexEscape(`.${process.env.FLEX_BASE_DOMAIN!}`)}$`),
-      new RegExp(`${regexEscape(process.env.FLEX_FUTUR_PROOF_DOMAIN_NAME_1!)}`),
-      new RegExp(`${regexEscape(process.env.FLEX_FUTUR_PROOF_DOMAIN_NAME_2!)}`),
-      new RegExp(`${regexEscape(`.${process.env.FLEX_FUTUR_PROOF_BASE_DOMAIN!}`)}$`),
       new RegExp(`${regexEscape(process.env.FLEX_HOST_IP!)}$`),
       new RegExp(`${regexEscape(`localhost:${process.env.FLEX_GATEWAY_PORT!}`)}`),
+      new RegExp(`${regexEscape(process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_HOST!)}`),
       new RegExp(`${regexEscape(process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_HOSTNAME!)}`),
     ] }
   ),

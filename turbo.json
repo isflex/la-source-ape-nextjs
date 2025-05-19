@@ -47,7 +47,6 @@
     "lint": {
       "dependsOn": [
         "//#compile:clean:sh",
-        "gateway#next:tsc",
         "^lint"
       ],
       "env": [
@@ -80,8 +79,7 @@
         "DOTENV_*",
         "FLEX_*",
         "GIT_*",
-        "NEXT_PUBLIC_*",
-        "SENTRY_*"
+        "NEXT_PUBLIC_*"
       ],
       "cache": true,
       "persistent": false
@@ -114,8 +112,7 @@
         "DOTENV_*",
         "FLEX_*",
         "GIT_*",
-        "NEXT_PUBLIC_*",
-        "SENTRY_*"
+        "NEXT_PUBLIC_*"
       ],
       "cache": false
     }

@@ -51,7 +51,7 @@ const FlexComponents: React.FC = observer(() => {
           singleton: true,
           requiredVersion: '19.1.0',
         },
-        // strategy: 'loaded-first',
+        strategy: 'loaded-first',
       },
       mobx: {
         version: '6.13.1',
@@ -60,7 +60,7 @@ const FlexComponents: React.FC = observer(() => {
           singleton: true,
           requiredVersion: '6.13.1',
         },
-        // strategy: 'loaded-first',
+        strategy: 'loaded-first',
       },
       'mobx-react-lite': {
         version: '4.0.7',
@@ -69,7 +69,7 @@ const FlexComponents: React.FC = observer(() => {
           singleton: true,
           requiredVersion: '4.0.7',
         },
-        // strategy: 'loaded-first',
+        strategy: 'loaded-first',
       },
       // 'react-router': {
       //   version: '7.1.1',
@@ -81,7 +81,6 @@ const FlexComponents: React.FC = observer(() => {
       //   strategy: 'loaded-first',
       // },
     },
-    shareStrategy: 'loaded-first',
   })
 
   // const FlexComponentsRemote = loadable(async () => loadRemote(`${MF}/ModulesDefault`).then((m: any) => {

@@ -16,7 +16,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "lint": "pnpm lint:flat",
-    "lint:flat": "ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.ts\" --fix",
+    "lint:flat": "ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.ts\" --fix --debug",
     "lint:legacy": "cross-env ESLINT_USE_FLAT_CONFIG=false pnpm eslint \"./src/**/*.ts\" --color --cache --config ./.eslintrc.cjs --resolve-plugins-relative-to $FLEX_PROJ_ROOT/packages/flex/config/eslint/legacy"
   },
   "dependencies": {

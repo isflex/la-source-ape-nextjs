@@ -6,7 +6,7 @@
 
 import * as React from 'react'
 import composeClasses from '../../../mui/composeClasses/index.js'
-import classNames  from 'classnames'
+import clsx from 'clsx'
 import { camelCase } from 'lodash'
 import { isFragment } from 'react-is'
 import ImageListContext from '../ImageListContext.js'
@@ -70,7 +70,7 @@ const ImageListItemRoot = (props: ImageListItemRootProps): React.JSX.Element => 
   return (
     <Tag
       style={{ ...rootStyle() }}
-      className={classNames (className, styles.imageListItemRoot, styles[camelCase(`image-list-item-${ownerState.variant}`) as keyof Styles])}
+      className={clsx(className, styles.imageListItemRoot, styles[camelCase(`image-list-item-${ownerState.variant}`) as keyof Styles])}
     >
       {children}
     </Tag>
@@ -109,7 +109,7 @@ const ImageListItem = React.forwardRef<unknown, ImageListItemProps>((props, ref)
   return (
     <ImageListItemRoot
       markup={ImageListItemRootMarkup.LI}
-      className={classNames (classes.root, className)}
+      className={clsx(classes.root, className)}
       ref={ref}
       style={{
         height,
@@ -137,7 +137,7 @@ const ImageListItem = React.forwardRef<unknown, ImageListItemProps>((props, ref)
         if (child.type === 'img') {
           return React.cloneElement(child, {
             key: `${variant}-img-${index}`,
-            className: classNames (classes.img, styles[camelCase(`${classes.img}`) as keyof Styles], child.props.className),
+            className: clsx(classes.img, styles[camelCase(`${classes.img}`) as keyof Styles], child.props.className),
           })
         }
 

@@ -1,14 +1,11 @@
 /* eslint-disable no-console */
 
 import React from 'react'
-import Head from 'next/head'
 // import Script from 'next/script'
 // import type { NextPage } from 'next'
 import type { NextPage, GetServerSideProps } from 'next'
 import { PageAppProps, PageStaticData, ModFedData } from '@root/types/additional'
 import dynamic from 'next/dynamic'
-
-import  { title } from '@src/seo'
 
 // import getConfig from 'next/config'
 // const { serverRuntimeConfig } = getConfig()
@@ -111,19 +108,14 @@ const MFWebAppPage: NextPage<PageAppProps> = observer((
   // )
 
   return (
-    <>
-      <Head>
-        <title>{`${title} | Web App`}</title>
-      </Head>
-      <div className='flex-view-component'>
-        {status !== 'done' && (
-          <Loader />
-        )}
-        <div style={{ visibility: status === 'done' ? 'visible' : 'hidden', margin: '1rem' }}>
-          <WebAppMF { ...props } />
-        </div>
+    <div className='flex-view-component'>
+      {status !== 'done' && (
+        <Loader />
+      )}
+      <div style={{ visibility: status === 'done' ? 'visible' : 'hidden', margin: '1rem' }}>
+        <WebAppMF { ...props } />
       </div>
-    </>
+    </div>
   )
 })
 
@@ -151,7 +143,6 @@ export const getServerSideProps: GetServerSideProps = async (
 
   const pageStaticData: PageStaticData = {
     pageName: `web-app`,
-    adjustFooterPosition: false,
   }
 
   const modFedData: ModFedData = {

@@ -46,7 +46,7 @@ const WebAppMF: React.FC<PageAppProps> = observer((props) => {
             singleton: true,
             requiredVersion: '19.1.0',
           },
-          // strategy: 'loaded-first',
+          strategy: 'loaded-first',
         },
         mobx: {
           version: '6.13.1',
@@ -55,7 +55,7 @@ const WebAppMF: React.FC<PageAppProps> = observer((props) => {
             singleton: true,
             requiredVersion: '6.13.1',
           },
-          // strategy: 'loaded-first',
+          strategy: 'loaded-first',
         },
         'mobx-react-lite': {
           version: '4.0.7',
@@ -64,10 +64,9 @@ const WebAppMF: React.FC<PageAppProps> = observer((props) => {
             singleton: true,
             requiredVersion: '4.0.7',
           },
-          // strategy: 'loaded-first',
+          strategy: 'loaded-first',
         },
       },
-      shareStrategy: 'loaded-first',
     })
 
     // registerRemotes(

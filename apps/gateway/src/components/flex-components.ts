@@ -28,7 +28,7 @@ async function getFlexComponents() {
           singleton: true,
           requiredVersion: '19.1.0',
         },
-        // strategy: 'loaded-first',
+        strategy: 'loaded-first',
       },
       mobx: {
         version: '6.13.1',
@@ -37,7 +37,7 @@ async function getFlexComponents() {
           singleton: true,
           requiredVersion: '6.13.1',
         },
-        // strategy: 'loaded-first',
+        strategy: 'loaded-first',
       },
       'mobx-react-lite': {
         version: '4.0.7',
@@ -46,10 +46,9 @@ async function getFlexComponents() {
           singleton: true,
           requiredVersion: '4.0.7',
         },
-        // strategy: 'loaded-first',
+        strategy: 'loaded-first',
       },
     },
-    shareStrategy: 'loaded-first',
   })
 
   return loadable.lib(async () => loadRemote(`${MF}/Styled`).then((m: any) => {
