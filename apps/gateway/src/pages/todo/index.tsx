@@ -1,5 +1,5 @@
 import React from 'react'
-import Head from 'next/head'
+// import Head from 'next/head'
 import type { NextPage, GetServerSideProps } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -7,7 +7,7 @@ import { PageAppProps, PageStaticData } from '@root/types/additional'
 import dynamic from 'next/dynamic'
 import { observer } from 'mobx-react-lite'
 
-import  { title } from '@src/seo'
+// import  { title } from '@src/seo'
 
 import { generateClient } from 'aws-amplify/data'
 import type { Schema } from '@amplify/data/resource'
@@ -72,9 +72,9 @@ const TodoPage: NextPage<PageAppProps> = observer((
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>{`${title} | TODO App`}</title>
-      </Head>
+      </Head> */}
       <div className={classNames(flexStyles.genericLayout1, stylesPage.todoApp)}>
         <div style={{
           height: 'auto',
