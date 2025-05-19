@@ -23,7 +23,7 @@
 </h3>
 
 <p style="text-align: center; width: 100%;">
-  Forkez et personnalisez depuis <a href="https://github.com/isflex/la-source-ape-nextjs">isflex</a>
+  Forkez et personnalisez depuis <a href="https://github.com/isflex/la-source-ape-nextjs">github -> isflex</a>
 </p>
 
 ## 💡 Fonctionnalité majeure
