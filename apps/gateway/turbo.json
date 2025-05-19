@@ -20,6 +20,14 @@
         "SENTRY_*"
       ]
     },
+    "next:tsc": {
+      "cache": false,
+      "env": [
+        "FLEX_*",
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
+      ]
+    },
     "dev": {
       "dependsOn": [
         "^dev:packages:transit",

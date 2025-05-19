@@ -13,6 +13,7 @@
     "marp:html:dev": "cross-env BUILD_RUNNING=false marp --config ./marp.config.mjs",
     "next:dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
     "next:dev:debug": "FEDERATION_DEBUG='true' NODE_OPTIONS='--inspect' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
+    "next:tsc": "pnpm exec tsc --project tsconfig.json --noEmit",
     "start": "$FLEX_PROJ_ROOT/bin/run-start-gateway.sh"
   },
   "dependencies": {
