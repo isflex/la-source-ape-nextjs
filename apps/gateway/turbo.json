@@ -54,6 +54,7 @@
         "marp:build"
       ],
       "outputs": [".next/**/*"],
+      "inputs": ["$TURBO_DEFAULT$", "amplify_outputs.json", "!README.md"],
       "cache": true,
       "persistent": false,
       "env": [
