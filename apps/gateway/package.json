@@ -30,7 +30,7 @@
     "debounce": "2.2.0",
     "escape-string-regexp": "5.0.0",
     "motion": "12.4.11",
-    "next": "15.3.2",
+    "next": "15.1.0",
     "next-recompose-plugins": "3.0.0",
     "posthog-js": "^1.236.7",
     "react": "19.1.0",

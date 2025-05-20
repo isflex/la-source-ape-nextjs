@@ -38,7 +38,7 @@ applications:
             - cd ../../ # run install and build from monorepo project root
             - pwd
             # - npm install -g pnpm
-            - npm install --global corepack@latest
+            # - npm install --global corepack@latest
             - corepack enable
             - corepack prepare pnpm@latest-10 --activate
             # - mkdir ../.pnpm-store
