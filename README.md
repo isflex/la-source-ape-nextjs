@@ -1,96 +1,90 @@
-<style>
-  code {
-    display: inline-block;
-    padding: 0.2em 0.3em;
-  }
-  code.cobalt {
-     color: #fff;
-     background: #0055a4;
-  }
-  code.orange {
-     color: #fff;
-     background: #f6b027;
-  }
-</style>
 
-<div style="width: 100%; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: center;">
-  <p>
-    <img src="apps/gateway/public/logo/ape/ape_la_source_logo_1.svg" alt="APE"
-      style="width: 150px; height: 150px; margin: 0 50px 0 0;">
-  </p>
-  <p>
-    <img src="apps/gateway/public/logo/la_source/LaSource_white.svg" alt="La Source"
-      style="width: 350px; height: 150px;">
-  </p>
-</div>
-
-<div style="width: 100%; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: center;">
-  <p>
-    <img src="https://img.shields.io/static/v1?label=PRs&message=welcome&style=for-the-badge&color=24B36B&labelColor=000000" alt="PRs welcome!" />
-    <img alt="License" src="https://img.shields.io/github/license/chhpt/typescript-nextjs-starter?style=for-the-badge&color=24B36B&labelColor=000000">
-  </p>
+<div style="text-align: center; width: 100%;">
+  <img src="apps/gateway/public/logo/ape-et-la-source.svg" alt="APE | La Source" align="center" style="width: 100%; height: 150px;" />
 </div>
 
 <br>
 
-<div style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-
-  <div style="width: 180px; margin: 0 auto; border-radius: 5px; padding: 5px 0; background-color: #F9423A; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: center;">
-    <img src="apps/gateway/public/logo/filled/rectangle/logo_flexiness_2.svg" style="position: relative; width: 150px; height: 80px;" />
-  </div>
-
-  <h3 style="margin: 20px 0 5px;">
-    Il s'agit d'un monorepo complet qui comprend tout ce dont vous avez besoin pour créer des projets exceptionnels 🔥
-  </h3>
-
-  Forkez et personnalisez depuis [isflex](https://github.com/isflex/la-source-ape-nextjs)
+<div align="center">
+  <img src="https://img.shields.io/static/v1?label=PRs&message=welcome&style=for-the-badge&color=24B36B&labelColor=000000" alt="PRs welcome!" style="height: 28px;" />
+  <img src="https://img.shields.io/github/license/chhpt/typescript-nextjs-starter?style=for-the-badge&color=24B36B&labelColor=000000" alt="License" style="height: 28px;" />
 </div>
+
+<br>
+
+<div style="text-align: center; width: 100%;">
+  <img src="apps/gateway/public/logo/filled/rectangle/logo_flexiness_2.svg" alt="Flexiness | Design First" align="center" style="width: 100%; height: 80px;" />
+</div>
+
+<br>
+
+<h3 style="text-align: center; width: 100%;">
+  Il s'agit d'un monorepo complet qui comprend tout ce dont vous avez besoin pour créer des projets exceptionnels 🔥
+</h3>
+
+<p style="text-align: center; width: 100%;">
+  Forkez et personnalisez depuis <a href="https://github.com/isflex/la-source-ape-nextjs">github -> isflex</a>
+</p>
 
 ## 💡 Fonctionnalité majeure
 
-<div style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-
-  <img src="apps/gateway/public/assets/svg/programming/amplify.svg" alt="AWS Amplify" style="width: 50px; height: 50px;">
-
-  <h3 style="margin: 10px 0 5px;">
-    Ce monorepo inclus un projet <a href='https://aws.amazon.com/fr/amplify' target='_blank'>Amplify AWS</a> qui propose de nombreux advantages pour structurer et organiser le contenu numérique de l'école.
-  </h3>
-
-  <h3 style="margin: 10px 0 5px;">
-    La version d'Apmlify utilisée est <code class="cobalt">Gen 2</code>.
-  </h3>
-
-  En savoir plus <a href='https://github.com/aws-samples/amplify-next-template/blob/main/README.md' target='_blank'>ici</a>
-
+<div style="text-align: center;">
+  <img src="apps/gateway/public/assets/svg/programming/amplify.svg" alt="AWS Amplify" align="center"
+  style="width: 100%; height: 50px;" />
 </div>
+
+<br>
+
+<h3 style="text-align: center; width: 100%;">
+  Ce monorepo inclus un projet <a href='https://aws.amazon.com/fr/amplify' target='_blank'>Amplify AWS</a> qui propose de nombreux advantages pour structurer et organiser le contenu numérique de l'école.
+</h3>
+
+<h3 style="text-align: center; width: 100%;">
+  La version d'Apmlify utilisée est <code style="display: inline-block; padding: 0.2em 0.3em; color: #fff; background: #0055a4;">Gen 2</code>.
+</h3>
+
+<p style="text-align: center; width: 100%;">
+    En savoir plus <a href='https://github.com/aws-samples/amplify-next-template/blob/main/README.md' target='_blank'>ici</a>
+</p>
 
 ## 🔧 Principales caractéristiques
 
-  - <div style="position: relative; margin: 0 0 5px;">
-      <img src="apps/gateway/public/assets/svg/programming/nextjs-outline-white.svg" style="position: relative; top: 5px; width: 22.5px; height: 22.5px;" />
-      <strong>Next.js 15</strong> - App router
-    </div>
-  - <div style="position: relative; margin: 0 0 5px;">
-      <img src="apps/gateway/public/assets/svg/programming/react.svg" style="position: relative; top: 5px; width: 22.5px; height: 22.5px;" />
-      <strong>React 19</strong> - Server components
-    </div>
-  - <div style="position: relative; margin: 0 0 5px;">
-      <img src="apps/gateway/public/assets/svg/programming/typescript.svg" style="position: relative; top: 5px; width: 22.5px; height: 22.5px;" />
-      <strong>Typescript</strong> - Project references
-    </div>
-  - <div style="position: relative; margin: 0 0 9px;">
-      <img src="apps/gateway/public/assets/svg/programming/turborepo.svg" style="position: relative; top: 5px; width: 22.5px; height: 22.5px;" />
-      <strong>Turborepo</strong> - Making ship happen
-    </div>
-
-  - ⚙️ **Tailwind CSS 3** - A utility-first CSS framework
-  - 📏 **ESLint** — Pluggable JavaScript linter
-  - 💖 **Prettier** - Opinionated Code Formatter
-  - 🐶 **Husky** — Use git hooks with ease
-  - 🚫 **lint-staged** - Run linters against staged git files
-  - ✨ **Flexiness Design First** - Semantic react design system
-
-
+<ul>
+  <li style="height: 34px;">
+    <img src="apps/gateway/public/assets/svg/programming/icon/nextjs-outline-white.svg" style="width: 20px; height: 24px;" />
+    <strong>Next.js 15</strong> - App router
+  </li>
+  <li style="height: 34px;">
+    <img src="apps/gateway/public/assets/svg/programming/icon/react.svg" style="width: 20px; height: 24px;" />
+    <strong>React 19</strong> - Server components
+  </li>
+  <li style="height: 34px;">
+    <img src="apps/gateway/public/assets/svg/programming/icon/typescript.svg" style="width: 20px; height: 24px;" />
+    <strong>Typescript</strong> - Project references
+  </li>
+  <li style="height: 34px;">
+    <img src="apps/gateway/public/assets/svg/programming/icon/turborepo.svg" style="width: 20px; height: 24px;" />
+    <strong>Turborepo</strong> - Making ship happen
+  </li>
+  <li style="height: 34px;">
+    ⚙️ <strong>Tailwind CSS 3</strong> - A utility-first CSS framework
+  </li>
+  <li style="height: 34px;">
+    📏 <strong>ESLint</strong> — Pluggable JavaScript linter
+  </li>
+  <li style="height: 34px;">
+    💖 <strong>Prettier</strong> - Opinionated Code Formatter
+  </li>
+  <li style="height: 34px;">
+    🐶 <strong>Husky</strong> — Use git hooks with ease
+  </li>
+  <li style="height: 34px;">
+    🚫 <strong>lint-staged</strong> - Run linters against staged git files
+  </li>
+  <li style="height: 34px;">
+    ✨ <strong>Flexiness Design First</strong> - Semantic react design system
+  </li>
+</ul>
 
 ## ⚠️ Installation
 
@@ -117,11 +111,12 @@ corepack use pnpm@latest-10
 #### 2. Vous aurez besoin de créer des identifiants de connexion à AWS Amplify :
 
 - Contactez un administrateur du projet sur le groupe de discussion [WhatsApp](https://chat.whatsapp.com/HqVx1dpEQM8Bk3XrDDaXtI) pour créer ton compte. Vous recevrez un e-mail pour définir votre mot de passe en tant que développeur(eusse).
-  <div style="width: 100%; padding: 5px 0; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: start;">
-    <div style="width: 210px; margin: 0 auto; border-radius: 5px; padding: 5px 0; background-color: #F9423A; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: center;">
-      <img src="apps/gateway/public/assets/img/qr-code-whatsapp.jpg" style="position: relative; width: 200px; height: 200px;" />
-    </div>
-  </div>
+
+<div align="center">
+    <img src="apps/gateway/public/assets/img/qr-code-whatsapp.jpg" alt="Whatsapp-qr-code" style="width: 200px; height: 200px;" />
+</div>
+
+<br/>
 
 - Installer [AWS Cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) selon votre système d'opération.
 

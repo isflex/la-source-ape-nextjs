@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import { headers } from 'next/headers'
 import type { Metadata } from 'next'
 import Script from 'next/script'
+import  { title, description, jsonLd } from '@src/seo'
 
 // import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplifyOutputs'
 import AuthProvider from '@src/components/auth/AuthProvider'
@@ -13,6 +14,8 @@ import AuthProvider from '@src/components/auth/AuthProvider'
 
 // import NavBarAuth from '@src/components/navbar/NavBarAuth'
 // import { isAuthenticated } from '@src/utils/amplify/server/app.router'
+
+import { PostHogProvider } from '@src/utils/posthog/providers'
 
 import classNames from 'classnames'
 import {
@@ -29,6 +32,7 @@ const remoteWebAppClient = process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST
 // const remoteContentClient = process.env.NEXT_PUBLIC_FLEX_CONTENT_REMOTE_HOST
 
 // import localFont from 'next/font/local'
+
 // const commissioner = localFont({
 //   src: [
 //     {
@@ -42,11 +46,14 @@ const remoteWebAppClient = process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST
 //   ],
 //   display: 'swap',
 //   preload: true,
+//   variable: '--flex-font-commissioner',
 // })
+
 // const commissioner = localFont({
 //   src: '../../public/assets/fonts/commissioner-v1.0/variable/Commissioner_VF_1.001.ttf',
 //   display: 'swap',
 //   preload: true,
+//   variable: '--flex-font-commissioner',
 // })
 
 // import { Commissioner } from 'next/font/google'
@@ -56,8 +63,8 @@ const remoteWebAppClient = process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST
 // })
 
 export const metadata: Metadata = {
-  title: 'APE | La Source',
-  description: "Le site de l'association des parents d'élèves de l'école nouvelle la Source",
+  title: title,
+  description: description,
 }
 
 const Layout = dynamic(() => import('../components/main-layout/app'))
@@ -87,38 +94,24 @@ const RootLayout = async ({
     console.error('An error occurred while fetching the data from fetchMFs : ', e)
   })
 
-  // console.log(_nonce)
-  // const _nonceQuoted = `'${_nonce}'`
-  // const _nonceJson = JSON.stringify({
-  //   'nonce': _nonce
-  // })
-  // __webpack_require__.nc = _nonce
-  // __webpack_nonce__ = _nonce
-
   return (
-    <html lang='fr' style={{ ...inlineStyles.reset }}>
+    <html lang='fr' style={{
+        ...inlineStyles.reset,
+        // fontFamily: commissioner?.variable
+      }}
+      // className={commissioner.className}
+    >
       <head>
-        {/* <script type='text/javascript' nonce={_nonce}>
-          {`globalThis.__webpack_require__.nc=${JSON.parse(_nonceJson).nonce}`}
-        </script> */}
+        <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/mf-manifest.json`} crossOrigin='anonymous' />
+        {/* <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/loadable-stats.json`} crossOrigin='anonymous' /> */}
 
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteWebAppClient}/mf-manifest.json`} crossOrigin='anonymous' />
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteWebAppClient}/loadable-stats.json`} crossOrigin='anonymous' />
-        {/*
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteFlexComponents}/node/mf-manifest.json`} crossOrigin='anonymous' />
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteFlexComponents}/node/loadable-stats.json`} crossOrigin='anonymous' />
-        */}
         {resultModFeds?.remoteEntryWebAppClient && (
-          <link nonce={_nonce} rel='preload' as='script' href={`${remoteWebAppClient}/${resultModFeds.remoteEntryWebAppClient}`} crossOrigin='anonymous' />
+          <link nonce={_nonce} rel='prefetch' as='script' href={`${remoteWebAppClient}/${resultModFeds.remoteEntryWebAppClient}`} crossOrigin='anonymous' />
         )}
-        {/*
-        {remoteFlexComponentsEntryAsset && (
-          <link nonce={_nonce} rel='preload' as='script' href={`${remoteFlexComponents}/${remoteFlexComponentsEntryAsset}`} crossOrigin='anonymous' />
-        )}
-        */}
+
         {resultModFeds?.flexFrameworkStyles && (
           <>
-            <link nonce={_nonce} rel='preload' as='style' href={`${remoteWebAppClient}/${resultModFeds.flexFrameworkStyles}`} crossOrigin='anonymous' />
+            <link nonce={_nonce} rel='prefetch' as='style' href={`${remoteWebAppClient}/${resultModFeds.flexFrameworkStyles}`} crossOrigin='anonymous' />
             <link nonce={_nonce} rel='stylesheet' href={`${remoteWebAppClient}/${resultModFeds.flexFrameworkStyles}`} />
           </>
         )}
@@ -140,17 +133,28 @@ const RootLayout = async ({
             __html: `window.__webpack_nonce__="${_nonce}"`
           }}
         />
+
+        <Script
+          nonce={_nonce}
+          id='jsonLd'
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd)
+          }}
+        />
       </head>
       <body style={{ ...inlineStyles.reset }}>
         {/* <StoreProvider> */}
-          <AuthProvider>
-            <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped )} theme='light'>
-              {/* <NavBarAuth isSignedIn={await isAuthenticated()} /> */}
-              <Layout>
-                {children}
-              </Layout>
-            </FlexRootView>
-          </AuthProvider>
+          <PostHogProvider>
+            <AuthProvider>
+              <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped )} theme='light'>
+                {/* <NavBarAuth isSignedIn={await isAuthenticated()} /> */}
+                <Layout>
+                  {children}
+                </Layout>
+              </FlexRootView>
+            </AuthProvider>
+          </PostHogProvider>
         {/* </StoreProvider> */}
       </body>
     </html>

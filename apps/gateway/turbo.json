@@ -15,7 +15,17 @@
     "next:dev": {
       "cache": false,
       "env": [
-        "FLEX_*"
+        "FLEX_*",
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
+      ]
+    },
+    "next:tsc": {
+      "cache": false,
+      "env": [
+        "FLEX_*",
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
       ]
     },
     "dev": {
@@ -44,6 +54,7 @@
         "marp:build"
       ],
       "outputs": [".next/**/*"],
+      "inputs": ["$TURBO_DEFAULT$", "amplify_outputs.json", "!README.md"],
       "cache": true,
       "persistent": false,
       "env": [
@@ -51,14 +62,16 @@
         "DOTENV_*",
         "FLEX_*",
         "GIT_*",
-        "NEXT_PUBLIC_*"
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
       ]
     },
     "start": {
       "cache": false,
       "env": [
         "FLEX_*",
-        "NEXT_PUBLIC_*"
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
       ]
     }
   }

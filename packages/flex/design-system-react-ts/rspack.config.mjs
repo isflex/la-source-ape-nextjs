@@ -101,7 +101,6 @@ const getConfig = async (env, argv) => {
 
     entry: {
       [`mainEntry_${process.env.FLEX_DESIGN_SYS_REACT_TS_NAME}_${_gitCommitSHA}`]: [
-        // require.resolve('regenerator-runtime/runtime.js'),
         path.resolve(__dirname, 'src/views/index')
       ],
     },
@@ -206,11 +205,6 @@ const getConfig = async (env, argv) => {
       //     // 'react-router-dom': {
       //     //   singleton: true,
       //     //   requiredVersion: depsMonorepo['react-router-dom'],
-      //     // },
-      //     // history: {
-      //     //   singleton: true,
-      //     //   requiredVersion: depsMonorepo['history'],
-      //     //   // eager: true,
       //     // },
       //     // '@emotion/react': {
       //     //   singleton: true,

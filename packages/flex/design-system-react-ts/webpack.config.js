@@ -30,7 +30,6 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 import WebpackRequireFrom from 'webpack-require-from'
-// import { WebpackConfigDumpPlugin } from 'webpack-config-dump-plugin'
 import { merge as webpackMerge } from 'webpack-merge'
 
 let _gitCommitSHA = ''
@@ -97,10 +96,8 @@ const getConfig = async (target) => {
         layers: true
       },
 
-      // entry: ['regenerator-runtime/runtime.js', path.resolve(__dirname, 'src/views/index')],
       entry: {
         [`mainEntry_${process.env.FLEX_DESIGN_SYS_REACT_TS_NAME}_${_gitCommitSHA}`]: [
-          // require.resolve('regenerator-runtime/runtime.js'),
           path.resolve(__dirname, 'src/views/index')
         ],
       },
@@ -318,7 +315,6 @@ const getConfig = async (target) => {
 
           // /!\ Aliases are now defined by typescript paths thru TsconfigPathsPlugin
           // react: path.resolve(`${rootLocation}/node_modules/react`),
-          // history: path.resolve(`${rootLocation}/node_modules/history`),
           // 'react-dom': path.resolve(`${rootLocation}/node_modules/react-dom`),
           // 'react-helmet': path.resolve(`${rootLocation}/node_modules/react-helmet`),
           // 'react-router-dom': path.resolve(`${rootLocation}/node_modules/react-router-dom`),
@@ -396,11 +392,6 @@ const getConfig = async (target) => {
         //     // 'react-router-dom': {
         //     //   singleton: true,
         //     //   requiredVersion: depsMonorepo['react-router-dom'],
-        //     // },
-        //     // history: {
-        //     //   singleton: true,
-        //     //   requiredVersion: depsMonorepo['history'],
-        //     //   // eager: true,
         //     // },
         //     // '@emotion/react': {
         //     //   singleton: true,
@@ -556,7 +547,6 @@ const getConfig = async (target) => {
           variableName: `${process.env.FLEX_DESIGN_SYS_REACT_TS_NAME}_url`,
           suppressErrors: true
         }),
-        // new WebpackConfigDumpPlugin()
       ],
     },
 

@@ -5,7 +5,7 @@
 //   // https://stackoverflow.com/a/35813135/10159170
 //   if (!isNodeRuntime ) return
 //   const subprocess = await import('child_process')
-//   const { promisify } = await import('util')
+//   const { promisify } = await import('node:util')
 //   const execPromise = promisify(subprocess.exec)
 //   if ('CI_COMMIT_SHORT_SHA' in process.env) {
 //     return process.env.CI_COMMIT_SHORT_SHA

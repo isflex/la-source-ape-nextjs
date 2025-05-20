@@ -5,21 +5,21 @@ applications:
       phases:
         preBuild:
           commands:
-            - 'pwd'
-            # - export NODE_OPTIONS="--max-old-space-size=32768"
+            # - 'nvm install 20.19.1'
+            # - 'nvm use 20.19.1'
+            # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
+            # - node -v
+            - pwd
             - sudo fallocate -l 40G /swapfile
             - sudo chmod 600 /swapfile
             - sudo mkswap /swapfile
             - sudo swapon /swapfile
             - sudo swapon -s
-            - 'nvm install 20.15.0'
-            - 'nvm use 20.15.0'
-            - 'npm install --cache .npm --prefer-offline'
+            - npm install --cache .npm --prefer-offline
         build:
           commands:
-            - 'npx ampx info'
-            # - 'npx dotenvx run -f ../..//env/public/.env.$FLEX_MODE -- ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID'
-            - 'npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID'
+            - npx ampx info
+            - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
       cache:
         paths:
           - '.npm/**/*'
@@ -30,16 +30,23 @@ applications:
       phases:
         preBuild:
           commands:
-            - 'pwd'
-            # - 'nvm install 20.15.0'
-            - 'nvm use 20.15.0'
-            - 'npm install -g pnpm'
-            - 'pnpm install --frozen-lockfile'
+            # - 'nvm install 20.19.1'
+            # - 'nvm use 20.19.1'
+            # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
+            # - node -v
+            - pwd
+            # - rm -rf .next
+            - cd ../../
+            - pwd
+            - npm install -g pnpm
+            - mkdir ../.pnpm-store
+            - pnpm config set store-dir ../.pnpm-store
+            - pnpm install --frozen-lockfile
         build:
           commands:
-            - 'cd ../../'
+            - pwd
             - export FLEX_PROJ_ROOT=$(pwd)
-            - 'pnpm build'
+            - pnpm build
       artifacts:
         baseDirectory: .next
         # baseDirectory: apps/gateway/.next
