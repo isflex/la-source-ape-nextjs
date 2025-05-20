@@ -10,6 +10,8 @@ applications:
             # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
             # - node -v
             - pwd
+            - cd apps/gateway
+            - pwd
             - sudo fallocate -l 40G /swapfile
             - sudo chmod 600 /swapfile
             - sudo mkswap /swapfile
@@ -25,7 +27,7 @@ applications:
           - '.npm/**/*'
           - 'node_modules/**/*'
     frontend:
-      buildPath: apps/gateway
+      buildPath: /
       phases:
         preBuild:
           commands:
@@ -33,6 +35,7 @@ applications:
             # - 'nvm use 20.19.1'
             # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
             # - node -v
+            - cd apps/gateway
             - pwd
             # - rm -rf .next
             - cd ../../ # run install and build from monorepo project root
@@ -52,7 +55,7 @@ applications:
             - export FLEX_PROJ_ROOT=$(pwd)
             - pnpm build
       artifacts:
-        baseDirectory: .next
+        baseDirectory: apps/gateway/.next
         files:
           - '**/*'
       cache:
