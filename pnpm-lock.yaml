@@ -19,6 +19,7 @@ overrides:
   next: 15.3.2
   react: 19.1.0
   react-dom: 19.1.0
+  react-router: 7.6.0
   '@types/react': 19.1.0
   '@types/react-dom': 19.1.2
   '@aws-sdk/client-sts': 3.699.0
@@ -67,6 +68,9 @@ importers:
       react-dom:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
+      react-router:
+        specifier: 7.6.0
+        version: 7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       turbo:
         specifier: 2.0.6
         version: 2.0.6
@@ -114,8 +118,8 @@ importers:
         specifier: 9.0.11
         version: 9.0.11
       mini-css-extract-plugin:
-        specifier: 2.9.0
-        version: 2.9.0(webpack@5.99.8)
+        specifier: 2.9.2
+        version: 2.9.2(webpack@5.99.8)
       node-polyfill-webpack-plugin:
         specifier: 3.0.0
         version: 3.0.0(webpack@5.99.8)
@@ -246,8 +250,8 @@ importers:
         specifier: 9.16.0
         version: 9.16.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-router:
-        specifier: 7.1.1
-        version: 7.1.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 7.6.0
+        version: 7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-sticky-el:
         specifier: 2.1.1
         version: 2.1.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -623,8 +627,8 @@ importers:
         specifier: 7.1.2
         version: 7.1.2(@rspack/core@1.1.8(@swc/helpers@0.5.15))(webpack@5.99.8)
       mini-css-extract-plugin:
-        specifier: 2.9.0
-        version: 2.9.0(webpack@5.99.8)
+        specifier: 2.9.2
+        version: 2.9.2(webpack@5.99.8)
       postcss:
         specifier: 8.4.38
         version: 8.4.38
@@ -1018,8 +1022,8 @@ importers:
         specifier: 0.72.1
         version: 0.72.1(@babel/core@7.26.0)
       mini-css-extract-plugin:
-        specifier: 2.9.0
-        version: 2.9.0(webpack@5.99.8)
+        specifier: 2.9.2
+        version: 2.9.2(webpack@5.99.8)
       node-polyfill-webpack-plugin:
         specifier: 2.0.0
         version: 2.0.0(webpack@5.99.8)
@@ -1060,8 +1064,8 @@ importers:
         specifier: 16.13.1
         version: 16.13.1
       react-router:
-        specifier: 7.1.1
-        version: 7.1.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 7.6.0
+        version: 7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       rimraf:
         specifier: 6.0.1
         version: 6.0.1
@@ -1281,7 +1285,7 @@ importers:
         specifier: 19.1.0
         version: 19.1.0
       '@types/react-router':
-        specifier: ^5.1.18
+        specifier: ^5.1.20
         version: 5.1.20
       '@types/webpack':
         specifier: 5.28.5
@@ -6288,9 +6292,6 @@ packages:
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
 
-  '@types/cookie@0.6.0':
-    resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
-
   '@types/cors@2.8.17':
     resolution: {integrity: sha512-8CGDvrBj1zgo2qE+oS3pOCyYNqCPryMWY2bGfwA0dcfopWGgxs+78df0Rs3rc9THP4JkOhLsAa+15VdpAqkcUA==}
 
@@ -11210,8 +11211,8 @@ packages:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
 
-  mini-css-extract-plugin@2.9.0:
-    resolution: {integrity: sha512-Zs1YsZVfemekSZG+44vBsYTLQORkPMwnlv+aehcxK/NLKC+EGhDB39/YePYYqx/sTk6NnYpuqikhSn7+JIevTA==}
+  mini-css-extract-plugin@2.9.2:
+    resolution: {integrity: sha512-GJuACcS//jtq4kCtd5ii/M0SZf7OZRH+BxdqXZHaJfb8TJiVl+NgQRPwiYt2EuqeSkNydn/7vP+bcE27C5mb9w==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       webpack: 5.99.8
@@ -13234,8 +13235,8 @@ packages:
       '@types/react':
         optional: true
 
-  react-router@7.1.1:
-    resolution: {integrity: sha512-39sXJkftkKWRZ2oJtHhCxmoCrBCULr/HAH4IT5DHlgu/Q0FCPV0S4Lx+abjDTx/74xoZzNYDYbOZWlJjruyuDQ==}
+  react-router@7.6.0:
+    resolution: {integrity: sha512-GGufuHIVCJDbnIAXP3P9Sxzq3UUsddG3rrI3ut1q6m0FI6vxVBF3JoPQ38+W/blslLH4a5Yutp8drkEpXoddGQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: 19.1.0
@@ -14784,9 +14785,6 @@ packages:
     resolution: {integrity: sha512-eQKu6utCVUkIH2kqOzD8OS6E0ba6COjWm6PRDTNCHQRljZW503ycaTUIdMOiJrVg1MkEjDyOReUg8s8D18aJ4Q==}
     cpu: [arm64]
     os: [linux]
-
-  turbo-stream@2.4.0:
-    resolution: {integrity: sha512-FHncC10WpBd2eOmGwpmQsWLDoK4cqsA/UT/GqNoaKOQnT8uzhtCbg3EoUDMvqpOSAI0S26mr0rkjzbOO6S3v1g==}
 
   turbo-windows-64@2.0.6:
     resolution: {integrity: sha512-+9u4EPrpoeHYCQ46dRcou9kbkSoelhOelHNcbs2d86D6ruYD/oIAHK9qgYK8LeARRz0jxhZIA/dWYdYsxJJWkw==}
@@ -23040,8 +23038,6 @@ snapshots:
     dependencies:
       '@types/node': 20.17.12
 
-  '@types/cookie@0.6.0': {}
-
   '@types/cors@2.8.17':
     dependencies:
       '@types/node': 20.17.12
@@ -29335,9 +29331,9 @@ snapshots:
 
   min-indent@1.0.1: {}
 
-  mini-css-extract-plugin@2.9.0(webpack@5.99.8):
+  mini-css-extract-plugin@2.9.2(webpack@5.99.8):
     dependencies:
-      schema-utils: 4.3.0
+      schema-utils: 4.3.2
       tapable: 2.2.1
       webpack: 5.99.8
 
@@ -31477,13 +31473,11 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.0
 
-  react-router@7.1.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  react-router@7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      '@types/cookie': 0.6.0
       cookie: 1.0.2
       react: 19.1.0
       set-cookie-parser: 2.7.1
-      turbo-stream: 2.4.0
     optionalDependencies:
       react-dom: 19.1.0(react@19.1.0)
 
@@ -33271,8 +33265,6 @@ snapshots:
 
   turbo-linux-arm64@2.0.6:
     optional: true
-
-  turbo-stream@2.4.0: {}
 
   turbo-windows-64@2.0.6:
     optional: true

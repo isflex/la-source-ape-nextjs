@@ -36,7 +36,7 @@ const MyDocument = (props: DocumentProps) => {
   return (
     <Html lang='fr' style={{ ...inlineStyles.reset }}>
       <Head nonce={_nonce}>
-        {/* <meta name='description' content={description} /> */}
+        <meta name='description' content={description} />
         <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/mf-manifest.json`} crossOrigin='anonymous' />
         {/* <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/loadable-stats.json`} crossOrigin='anonymous' /> */}
         {/*

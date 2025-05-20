@@ -43,7 +43,7 @@ const Layout = observer(({ props, children }: LayoutProps) => {
     <div className={classNames(stylesPage.gatewayLayout)}>
       <NavigationLayout />
       { children }
-      {/* <Footer {...props} /> */}
+      <Footer {...props} />
     </div>
   )
 })

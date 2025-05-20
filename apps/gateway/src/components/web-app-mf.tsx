@@ -66,6 +66,15 @@ const WebAppMF: React.FC<PageAppProps> = observer((props) => {
           },
           // strategy: 'loaded-first',
         },
+        'react-router': {
+          version: '7.6.0',
+          scope: 'default',
+          shareConfig: {
+            singleton: true,
+            requiredVersion: '7.6.0',
+          },
+          // strategy: 'loaded-first',
+        },
       },
       shareStrategy: 'loaded-first',
     })

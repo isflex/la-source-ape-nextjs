@@ -13,7 +13,7 @@
   "dependencies": {
     "@flexiness/domain-store": "@flexiness/domain-store@0.1.0",
     "@types/react": "19.1.0",
-    "@types/react-router": "^5.1.18",
+    "@types/react-router": "^5.1.20",
     "@types/webpack": "5.28.5",
     "history": "^5.3.0",
     "i18next": "^22.4.14",

@@ -26,7 +26,6 @@ applications:
           - 'node_modules/**/*'
     frontend:
       buildPath: apps/gateway
-      # buildPath: '/'  # run install and build from monorepo project root
       phases:
         preBuild:
           commands:
@@ -36,12 +35,17 @@ applications:
             # - node -v
             - pwd
             # - rm -rf .next
-            - cd ../../
+            - cd ../../ # run install and build from monorepo project root
             - pwd
-            - npm install -g pnpm
-            - mkdir ../.pnpm-store
-            - pnpm config set store-dir ../.pnpm-store
+            # - npm install -g pnpm
+            - npm install --global corepack@latest
+            - corepack enable
+            - corepack prepare pnpm@latest-10 --activate
+            # - mkdir ../.pnpm-store
+            # - pnpm config set store-dir ../.pnpm-store
             - pnpm install --frozen-lockfile
+            - pnpm store path
+            - pnpm list react*
         build:
           commands:
             - pwd
@@ -49,13 +53,11 @@ applications:
             - pnpm build
       artifacts:
         baseDirectory: .next
-        # baseDirectory: apps/gateway/.next
         files:
           - '**/*'
       cache:
         paths:
           - '.next/cache/**/*'
+          - 'apps/gateway/.next/cache/**/*'
           - 'node_modules/**/*'
-          # - 'apps/gateway/.next/cache/**/*'
-          # - 'node_modules/**/*'
     appRoot: apps/gateway
