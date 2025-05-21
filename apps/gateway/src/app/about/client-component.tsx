@@ -257,9 +257,9 @@ const About: NextPage<ServerPageInfo> = observer(({ mobileCheck }) => {
         <iframe
           id="marp-slide"
           title="Inline Frame Example"
-          // allow='screen-wake-lock'
-          // sandbox='allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation'
-          // referrerPolicy='no-referrer-when-downgrade'
+          allow='screen-wake-lock'
+          sandbox='allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation'
+          referrerPolicy='no-referrer-when-downgrade'
           className={stylesPage.marpSlide}
           src={`${showSlide}`}
         />

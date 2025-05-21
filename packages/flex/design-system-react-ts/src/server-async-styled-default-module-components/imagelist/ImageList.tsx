@@ -4,7 +4,7 @@
 
 import * as React from 'react'
 import composeClasses from '../../mui/composeClasses/index.js'
-import classNames  from 'classnames'
+import clsx from 'clsx'
 import { camelCase } from 'lodash'
 import { getImageListUtilityClass } from './imageListClasses.js'
 import ImageListContext from './ImageListContext.js'
@@ -50,7 +50,7 @@ const ImageListRoot = async (props: ImageListRootProps): Promise<React.ReactNode
   return (
     <Tag
       style={{ ...rootStyle() }}
-      className={classNames (className, styles.imageListRoot, styles[camelCase(`image-list-${ownerState.variant}`) as keyof Styles])}
+      className={clsx(className, styles.imageListRoot, styles[camelCase(`image-list-${ownerState.variant}`) as keyof Styles])}
     >
       {children}
     </Tag>
@@ -101,7 +101,7 @@ const ImageList = React.forwardRef<unknown, ImageListProps>((props, ref) => {
   return (
     <ImageListRoot
       markup={ImageListRootMarkup.UL}
-      className={classNames (classes.root, className)}
+      className={clsx(classes.root, className)}
       ref={ref}
       // style={styleRoot}
       ownerState={ownerState}

@@ -10,7 +10,7 @@ const REMOTE = `${process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HO
 async function getFlexComponents() {
 
   init({
-    name: `@${HOST}/web-app`,
+    name: `@${HOST}/onboard`,
     remotes: [
       {
         name: MF as string,
@@ -21,14 +21,14 @@ async function getFlexComponents() {
     ],
     shared: {
       react: {
-        version: '19.1.0',
+        version: '18.3.1',
         scope: 'default',
         lib: () => React,
         shareConfig: {
           singleton: true,
-          requiredVersion: '19.1.0',
+          requiredVersion: '18.3.1',
         },
-        // strategy: 'loaded-first',
+        strategy: 'loaded-first',
       },
       mobx: {
         version: '6.13.1',
@@ -37,7 +37,7 @@ async function getFlexComponents() {
           singleton: true,
           requiredVersion: '6.13.1',
         },
-        // strategy: 'loaded-first',
+        strategy: 'loaded-first',
       },
       'mobx-react-lite': {
         version: '4.0.7',
@@ -46,13 +46,17 @@ async function getFlexComponents() {
           singleton: true,
           requiredVersion: '4.0.7',
         },
-        // strategy: 'loaded-first',
+        strategy: 'loaded-first',
       },
     },
-    shareStrategy: 'loaded-first',
   })
 
+  // const FlexComponents = loadable(async () => loadRemote(`${MF}/Styled`).then((m: any) => {
+  //   return m.default || m
+  // }))
+
   return loadable.lib(async () => loadRemote(`${MF}/Styled`).then((m: any) => {
+    // return (m.default || m) as LoadableLibrary<React.ReactNode[]>
     return m.ClientSyncStyled as LoadableLibrary<React.ReactNode[]>
   }))
 }

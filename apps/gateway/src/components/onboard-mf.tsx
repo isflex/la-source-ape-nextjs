@@ -16,9 +16,9 @@ const REMOTE = `${process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST}`
 // const stores = getStores()
 
 // const LogoAPE = dynamic(() => import('@src/components/logo-ape-la-source').then(mod => mod.default), { ssr: true })
-// let WebAppRemote: React.ComponentType<any> = LogoAPE
+// let OnBoardRemote: React.ComponentType<any> = LogoAPE
 
-const WebAppMF: React.FC<PageAppProps> = observer((props) => {
+const OnBoardMF: React.FC<PageAppProps> = observer((props) => {
   // const { status } = stores.UIStore
   // const [isLoading, setLoading] = React.useState<boolean>(true)
   // const [isPending, startTransition] = React.useTransition()
@@ -26,9 +26,9 @@ const WebAppMF: React.FC<PageAppProps> = observer((props) => {
   // if (isServer) return null
   // if (window[`${MF}` as keyof Window]) return null
 
-  const WebAppRemote = loadable(async () => {
+  const OnBoardRemote = loadable(async () => {
     init({
-      name: `@${HOST}/web-app`,
+      name: `@${HOST}/onboard`,
       remotes: [
         {
           name: MF as string,
@@ -39,14 +39,14 @@ const WebAppMF: React.FC<PageAppProps> = observer((props) => {
       ],
       shared: {
         react: {
-          version: '19.1.0',
+          version: '18.3.1',
           scope: 'default',
           lib: () => React,
           shareConfig: {
             singleton: true,
-            requiredVersion: '19.1.0',
+            requiredVersion: '18.3.1',
           },
-          // strategy: 'loaded-first',
+          strategy: 'loaded-first',
         },
         mobx: {
           version: '6.13.1',
@@ -55,7 +55,7 @@ const WebAppMF: React.FC<PageAppProps> = observer((props) => {
             singleton: true,
             requiredVersion: '6.13.1',
           },
-          // strategy: 'loaded-first',
+          strategy: 'loaded-first',
         },
         'mobx-react-lite': {
           version: '4.0.7',
@@ -64,19 +64,9 @@ const WebAppMF: React.FC<PageAppProps> = observer((props) => {
             singleton: true,
             requiredVersion: '4.0.7',
           },
-          // strategy: 'loaded-first',
-        },
-        'react-router': {
-          version: '7.6.0',
-          scope: 'default',
-          shareConfig: {
-            singleton: true,
-            requiredVersion: '7.6.0',
-          },
-          // strategy: 'loaded-first',
+          strategy: 'loaded-first',
         },
       },
-      shareStrategy: 'loaded-first',
     })
 
     // registerRemotes(
@@ -95,8 +85,8 @@ const WebAppMF: React.FC<PageAppProps> = observer((props) => {
   })
 
   return (
-    <WebAppRemote isStandalone={true} />
+    <OnBoardRemote isStandalone={true} />
   )
 })
 
-export default WebAppMF
+export default OnBoardMF

@@ -12,13 +12,12 @@ Document,
 import Script from 'next/script'
 import { observer } from 'mobx-react-lite'
 import { inlineStyles } from '@src/styles/inlineStyles'
-import  { description, jsonLd } from '@src/seo'
 // import { init, preloadRemote, registerRemotes, loadRemote } from '@module-federation/enhanced/runtime'
 
 interface DocumentProps extends DocumentInitialProps {
   _nonce: string
-  remoteWebAppClient: string
-  remoteWebAppClientEntryAsset: string | null
+  remoteOnBoardClient: string
+  remoteOnBoardClientEntryAsset: string | null
   flexFrameworkStylesAsset: string | null
   // remoteFlexComponents: string
   // remoteFlexComponentsEntryAsset: string | null
@@ -27,8 +26,8 @@ interface DocumentProps extends DocumentInitialProps {
 const MyDocument = (props: DocumentProps) => {
   const {
     _nonce,
-    remoteWebAppClient,
-    remoteWebAppClientEntryAsset,
+    remoteOnBoardClient,
+    remoteOnBoardClientEntryAsset,
     flexFrameworkStylesAsset,
     // remoteFlexComponents,
     // remoteFlexComponentsEntryAsset
@@ -36,25 +35,24 @@ const MyDocument = (props: DocumentProps) => {
   return (
     <Html lang='fr' style={{ ...inlineStyles.reset }}>
       <Head nonce={_nonce}>
-        <meta name='description' content={description} />
-        <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/mf-manifest.json`} crossOrigin='anonymous' />
-        {/* <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/loadable-stats.json`} crossOrigin='anonymous' /> */}
+        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteOnBoardClient}/mf-manifest.json`} crossOrigin='anonymous' />
+        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteOnBoardClient}/loadable-stats.json`} crossOrigin='anonymous' />
         {/*
-        <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteFlexComponents}/node/mf-manifest.json`} crossOrigin='anonymous' />
-        <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteFlexComponents}/node/loadable-stats.json`} crossOrigin='anonymous' />
+        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteFlexComponents}/node/mf-manifest.json`} crossOrigin='anonymous' />
+        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteFlexComponents}/node/loadable-stats.json`} crossOrigin='anonymous' />
         */}
-        {remoteWebAppClientEntryAsset && (
-          <link nonce={_nonce} rel='prefetch' as='script' href={`${remoteWebAppClient}/${remoteWebAppClientEntryAsset}`} crossOrigin='anonymous' />
+        {remoteOnBoardClientEntryAsset && (
+          <link nonce={_nonce} rel='preload' as='script' href={`${remoteOnBoardClient}/${remoteOnBoardClientEntryAsset}`} crossOrigin='anonymous' />
         )}
         {/*
         {remoteFlexComponentsEntryAsset && (
-          <link nonce={_nonce} rel='prefetch' as='script' href={`${remoteFlexComponents}/${remoteFlexComponentsEntryAsset}`} crossOrigin='anonymous' />
+          <link nonce={_nonce} rel='preload' as='script' href={`${remoteFlexComponents}/${remoteFlexComponentsEntryAsset}`} crossOrigin='anonymous' />
         )}
         */}
         {flexFrameworkStylesAsset && (
           <>
-            <link nonce={_nonce} rel='prefetch' as='style' href={`${remoteWebAppClient}/${flexFrameworkStylesAsset}`} crossOrigin='anonymous' />
-            <link nonce={_nonce} rel='stylesheet' href={`${remoteWebAppClient}/${flexFrameworkStylesAsset}`} />
+            <link nonce={_nonce} rel='preload' as='style' href={`${remoteOnBoardClient}/${flexFrameworkStylesAsset}`} crossOrigin='anonymous' />
+            <link nonce={_nonce} rel='stylesheet' href={`${remoteOnBoardClient}/${flexFrameworkStylesAsset}`} />
           </>
         )}
         {/* Required for CSS-in-JS <style data-jss /> tags -> injected into HEAD by Material UI v4 -> CSP style-src 'unsafe-inline' */}
@@ -75,15 +73,6 @@ const MyDocument = (props: DocumentProps) => {
           strategy={'beforeInteractive'}
           dangerouslySetInnerHTML={{
             __html: `window.__webpack_nonce__="${_nonce}"`
-          }}
-        />
-        <Script
-          nonce={_nonce}
-          id='jsonLd'
-          type='application/ld+json'
-          strategy={'afterInteractive'}
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd)
           }}
         />
       </body>
@@ -143,12 +132,12 @@ MyDocument.getInitialProps = async (
   const _nonce = (req?.headers?.['x-nonce'] || '---CSP-nonce---') as string
 
   const fetchMFs = async () => {
-    const responseWebAppClient = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST}/loadable-stats.json`)
-    if (!responseWebAppClient.ok) {
-      throw new Error(`HTTP error! status: ${responseWebAppClient.status}`)
+    const responseOnBoardClient = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST}/loadable-stats.json`)
+    if (!responseOnBoardClient.ok) {
+      throw new Error(`HTTP error! status: ${responseOnBoardClient.status}`)
     }
-    const resultWebAppClient = await responseWebAppClient.json()
-    // console.log(resultWebAppClient?.assetsByChunkName)
+    const resultOnBoardClient = await responseOnBoardClient.json()
+    // console.log(resultOnBoardClient?.assetsByChunkName)
 
     // const responseFlexComponents = await fetch(`${process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HOST}/loadable-stats.json`)
     // if (!responseFlexComponents.ok) {
@@ -158,7 +147,7 @@ MyDocument.getInitialProps = async (
     // console.log(resultFlexComponents?.assetsByChunkName)
 
     // init({
-    //   name: `@${process.env.NEXT_PUBLIC_FLEX_GATEWAY_NAME}/web-app`,
+    //   name: `@${process.env.NEXT_PUBLIC_FLEX_GATEWAY_NAME}/onboard`,
     //   remotes: [
     //     {
     //       name: process.env.NEXT_PUBLIC_POKER_CLIENT_NAME as string,
@@ -180,12 +169,12 @@ MyDocument.getInitialProps = async (
     //   ],
     //   shared: {
     //     react: {
-    //       version: '19.1.0',
+    //       version: '18.3.1',
     //       scope: 'default',
     //       lib: () => React,
     //       shareConfig: {
     //         singleton: true,
-    //         requiredVersion: '19.1.0',
+    //         requiredVersion: '18.3.1',
     //       },
     //       strategy: 'loaded-first',
     //     },
@@ -218,8 +207,8 @@ MyDocument.getInitialProps = async (
     // ]);
 
     return {
-      remoteEntryWebAppClient: resultWebAppClient?.assetsByChunkName?.['flex_poker_client_modfed'][0] as string || null,
-      flexFrameworkStyles: resultWebAppClient?.assetsByChunkName?.['flex-framework-styles'][0] as string || null,
+      remoteEntryOnBoardClient: resultOnBoardClient?.assetsByChunkName?.['flex_poker_client_modfed'][0] as string || null,
+      flexFrameworkStyles: resultOnBoardClient?.assetsByChunkName?.['flex-framework-styles'][0] as string || null,
       // remoteEntryFlexComponents: resultFlexComponents?.assetsByChunkName?.['flex_design_system_react_ts_modfed'][0] as string || null,
     }
   }
@@ -231,8 +220,8 @@ MyDocument.getInitialProps = async (
 
   const additionalProps = {
     _nonce,
-    remoteWebAppClient: process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST!,
-    remoteWebAppClientEntryAsset: resultModFeds?.remoteEntryWebAppClient as string | null,
+    remoteOnBoardClient: process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST!,
+    remoteOnBoardClientEntryAsset: resultModFeds?.remoteEntryOnBoardClient as string | null,
     flexFrameworkStylesAsset: resultModFeds?.flexFrameworkStyles as string | null,
     // remoteFlexComponents: process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HOST!,
     // remoteFlexComponentsEntryAsset: resultModFeds?.remoteEntryFlexComponents as string | null,

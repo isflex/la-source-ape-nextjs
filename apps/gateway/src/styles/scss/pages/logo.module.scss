@@ -1,5 +1,4 @@
 .logo-default {
-  position: relative;
   padding: 1rem 4rem;
   margin: 0 auto;
   display: flex;
@@ -57,9 +56,8 @@
 }
 
 .logo-la-source {
-  &.nav-logo {
-    zoom: 0.4;
-  }
+  order: 2;
+  zoom: 0.4;
 }
 
 .logo-flexiness{

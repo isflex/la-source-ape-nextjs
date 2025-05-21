@@ -146,7 +146,7 @@ export class UserInterfaceStore {
   /**
    * Triggers Authentication modal
    * @param {boolean} showAuthModal display or not the authentification modal
-   * @param {boolean} showCreateEventModal display or not the create web-app event modal afterwards
+   * @param {boolean} showCreateEventModal display or not the create onboard event modal afterwards
    * @returns {void}
    */
   setTriggerAuthentication = (showAuthModal: boolean, showCreateEventModal?: boolean) => {

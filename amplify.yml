@@ -5,63 +5,50 @@ applications:
       phases:
         preBuild:
           commands:
-            # - 'nvm install 20.19.1'
-            # - 'nvm use 20.19.1'
-            # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
-            # - node -v
-            - pwd
-            - cd apps/gateway
-            - pwd
+            - 'pwd'
+            - export NODE_OPTIONS="--max-old-space-size=32768"
             - sudo fallocate -l 40G /swapfile
             - sudo chmod 600 /swapfile
             - sudo mkswap /swapfile
             - sudo swapon /swapfile
             - sudo swapon -s
-            - npm install --cache .npm --prefer-offline
+            - 'nvm install 20.15.0'
+            - 'nvm use 20.15.0'
+            - 'npm install --cache .npm --prefer-offline'
         build:
           commands:
-            - npx ampx info
-            - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+            - 'npx ampx info'
+            # - 'npx dotenvx run -f ../..//env/public/.env.$FLEX_MODE -- ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID'
+            - 'npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID'
       cache:
         paths:
           - '.npm/**/*'
           - 'node_modules/**/*'
     frontend:
-      buildPath: /
+      buildPath: apps/gateway
+      # buildPath: '/'  # run install and build from monorepo project root
       phases:
         preBuild:
           commands:
-            # - 'nvm install 20.19.1'
-            # - 'nvm use 20.19.1'
-            # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
-            # - node -v
-            - pwd
-            # - cd apps/gateway
-            # - pwd
-            # - rm -rf .next
-            - cd ../../ # run install and build from monorepo project root
-            - pwd
-            # - npm install -g pnpm
-            # - npm install --global corepack@latest
-            - corepack enable
-            - corepack prepare pnpm@latest-10 --activate
-            # - mkdir ../.pnpm-store
-            # - pnpm config set store-dir ../.pnpm-store
-            - pnpm install --frozen-lockfile
-            - pnpm store path
-            - pnpm list react*
+            - 'pwd'
+            # - 'nvm install 20.15.0'
+            - 'nvm use 20.15.0'
+            - 'npm install -g pnpm'
+            - 'pnpm install --frozen-lockfile'
         build:
           commands:
-            - pwd
+            - 'cd ../../'
             - export FLEX_PROJ_ROOT=$(pwd)
-            - pnpm build
+            - 'pnpm build'
       artifacts:
-        baseDirectory: apps/gateway/.next
+        baseDirectory: .next
+        # baseDirectory: apps/gateway/.next
         files:
           - '**/*'
       cache:
         paths:
-          # - '.next/cache/**/*'
-          - 'apps/gateway/.next/cache/**/*'
+          - '.next/cache/**/*'
           - 'node_modules/**/*'
+          # - 'apps/gateway/.next/cache/**/*'
+          # - 'node_modules/**/*'
     appRoot: apps/gateway

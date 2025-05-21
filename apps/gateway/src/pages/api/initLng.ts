@@ -18,8 +18,7 @@ import Cors from 'cors'
 // import NextCors from 'nextjs-cors'
 import escapeStringRegexp from 'escape-string-regexp'
 const psl = require('psl')
-const parsedDomainFlex = psl.parse(`${process.env.FLEX_DOMAIN_NAME}`).domain
-const parsedDomainFuturProof = psl.parse(`${process.env.FLEX_FUTUR_PROOF_DOMAIN_NAME_1}`).domain
+const parsedDomain = psl.parse(`${process.env.FLEX_DOMAIN_NAME}`).domain
 
 // export default async function handler(
 //   req: NextApiRequest,
@@ -57,10 +56,7 @@ const cors = Cors({
     ? { origin: '*' }
     : { origin: [
       new RegExp(`${escapeStringRegexp(`${process.env.FLEX_DOMAIN_NAME}`)}`),
-      new RegExp(`${escapeStringRegexp(`.${parsedDomainFlex}`)}$`),
-      new RegExp(`${escapeStringRegexp(`${process.env.FLEX_FUTUR_PROOF_DOMAIN_NAME_1}`)}`),
-      new RegExp(`${escapeStringRegexp(`${process.env.FLEX_FUTUR_PROOF_DOMAIN_NAME_2}`)}`),
-      new RegExp(`${escapeStringRegexp(`.${parsedDomainFuturProof}`)}$`),
+      new RegExp(`${escapeStringRegexp(`.${parsedDomain}`)}$`),
       new RegExp(`${escapeStringRegexp(`webpack://_N_E`)}`)
     ] }
   ),
