@@ -44,7 +44,7 @@ applications:
             # - npm install -g pnpm
             # - npm install --global corepack@latest
             - corepack enable
-            - corepack prepare pnpm@9.5.0 --activate
+            - corepack prepare pnpm@latest-10 --activate
             # - mkdir ../.pnpm-store
             # - pnpm config set store-dir ../.pnpm-store
             - pnpm install --frozen-lockfile
