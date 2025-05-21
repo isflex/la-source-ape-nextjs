@@ -30,7 +30,7 @@ const FlexComponents: React.FC = observer(() => {
   // const [isPending, startTransition] = React.useTransition()
 
   init({
-    name: `@${HOST}/onboard`,
+    name: `@${HOST}/web-app`,
     remotes: [
       {
         name: MF as string,
@@ -44,14 +44,14 @@ const FlexComponents: React.FC = observer(() => {
     ],
     shared: {
       react: {
-        version: '18.3.1',
+        version: '19.1.0',
         scope: 'default',
         lib: () => React,
         shareConfig: {
           singleton: true,
-          requiredVersion: '18.3.1',
+          requiredVersion: '19.1.0',
         },
-        strategy: 'loaded-first',
+        // strategy: 'loaded-first',
       },
       mobx: {
         version: '6.13.1',
@@ -60,7 +60,7 @@ const FlexComponents: React.FC = observer(() => {
           singleton: true,
           requiredVersion: '6.13.1',
         },
-        strategy: 'loaded-first',
+        // strategy: 'loaded-first',
       },
       'mobx-react-lite': {
         version: '4.0.7',
@@ -69,18 +69,19 @@ const FlexComponents: React.FC = observer(() => {
           singleton: true,
           requiredVersion: '4.0.7',
         },
-        strategy: 'loaded-first',
+        // strategy: 'loaded-first',
       },
-      // 'react-router': {
-      //   version: '7.1.1',
-      //   scope: 'default',
-      //   shareConfig: {
-      //     singleton: true,
-      //     requiredVersion: '7.1.1',
-      //   },
-      //   strategy: 'loaded-first',
-      // },
+      'react-router': {
+        version: '7.6.0',
+        scope: 'default',
+        shareConfig: {
+          singleton: true,
+          requiredVersion: '7.6.0',
+        },
+        // strategy: 'loaded-first',
+      },
     },
+    shareStrategy: 'loaded-first',
   })
 
   // const FlexComponentsRemote = loadable(async () => loadRemote(`${MF}/ModulesDefault`).then((m: any) => {

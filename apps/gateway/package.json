@@ -5,19 +5,16 @@
   "type": "module",
   "scripts": {
     "build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build",
-    "build:lib": "pnpm marp:build",
-    "delete": "pnpm pm2 delete ecosystem.config.json",
     "lint": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next lint",
-    "marp:build": "pnpm marp:html && pnpm marp:pdf",
-    "marp:dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- marp --server --config ./marp.config.mjs",
-    "marp:html": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- marp --config ./marp.config.mjs",
-    "marp:pdf": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- marp --pdf --config ./marp.config.mjs",
+    "marp:build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm marp:html:build",
+    "marp:dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm marp:html:dev",
+    "marp:dev:server": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- marp --server --config ./marp.config.mjs",
+    "marp:html:build": "cross-env BUILD_RUNNING=true marp --config ./marp.config.mjs",
+    "marp:html:dev": "cross-env BUILD_RUNNING=false marp --config ./marp.config.mjs",
     "next:dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
     "next:dev:debug": "FEDERATION_DEBUG='true' NODE_OPTIONS='--inspect' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
-    "pm2:list": "pnpm pm2 list ecosystem.config.json",
-    "pm2:start": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pm2 start ecosystem.config.json --env $FLEX_MODE",
-    "pm2:stop": "pnpm pm2 stop ecosystem.config.json",
-    "start": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next start ./ --hostname $FLEX_GATEWAY_DEPLOYED_REMOTE_HOSTNAME"
+    "next:tsc": "pnpm exec tsc --project tsconfig.json --noEmit",
+    "start": "$FLEX_PROJ_ROOT/bin/run-start-gateway.sh"
   },
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "1.4.0",
@@ -27,18 +24,20 @@
     "@flexiness/domain-store": "@flexiness/domain-store@0.1.0",
     "@flexiness/domain-utils": "@flexiness/domain-utils@0.0.1",
     "@loadable/component": "5.13.2",
-    "@module-federation/enhanced": "0.8.5",
+    "@module-federation/enhanced": "0.14.0",
     "aws-amplify": "^6.10.2",
     "cors": "2.8.5",
     "debounce": "2.2.0",
     "escape-string-regexp": "5.0.0",
     "motion": "12.4.11",
-    "next": "15.2.4",
+    "next": "15.3.2" ,
     "next-recompose-plugins": "3.0.0",
+    "posthog-js": "^1.236.7",
     "react": "19.1.0",
     "react-device-detect": "2.2.3",
     "react-dom": "19.1.0",
-    "react-router": "7.1.1",
+    "react-intersection-observer": "9.16.0",
+    "react-router": "7.6.0",
     "react-sticky-el": "2.1.1"
   },
   "devDependencies": {
@@ -79,9 +78,8 @@
     "flexiness": "@types/flexiness@0.0.1",
     "sass-embedded": "1.83.0",
     "tsconfig-paths-webpack-plugin": "4.1.0",
-    "tsx": "^4.7.2",
     "typescript": "5.7.2",
-    "webpack": "5.97.1"
+    "webpack": "5.99.8"
   },
   "peerDependencies": {
     "@aws-sdk/client-s3": "*",

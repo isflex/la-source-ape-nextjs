@@ -1,11 +1,14 @@
 /* eslint-disable no-console */
 
 import React from 'react'
+import Head from 'next/head'
 // import Script from 'next/script'
 // import type { NextPage } from 'next'
 import type { NextPage, GetServerSideProps } from 'next'
 import { PageAppProps, PageStaticData, ModFedData } from '@root/types/additional'
 import dynamic from 'next/dynamic'
+
+import  { title } from '@src/seo'
 
 // import getConfig from 'next/config'
 // const { serverRuntimeConfig } = getConfig()
@@ -51,10 +54,10 @@ const stores = getStores()
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 // const LogoFlex = dynamic(() => import('@src/components/logo-flexiness').then(mod => mod.default), { ssr: true })
 
-const OnBoardMF = dynamic(async () => await import('@src/components/onboard-mf'), { ssr: true })
-// const OnBoardMF = React.lazy(async () => await import('@src/components/onboard-mf'))
+const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf'), { ssr: true })
+// const WebAppMF = React.lazy(async () => await import('@src/components/web-app-mf'))
 
-const MFOnBoardPage: NextPage<PageAppProps> = observer((
+const MFWebAppPage: NextPage<PageAppProps> = observer((
   props
 ) => {
 
@@ -101,21 +104,26 @@ const MFOnBoardPage: NextPage<PageAppProps> = observer((
   //     {status !== 'done' && <LogoAPE /> }
   //     <Suspense fallback={<div>Loading</div>}>
   //       <div style={{ visibility: status === 'done' ? 'visible' : 'hidden' }}>
-  //         <OnBoardMF { ...props } />
+  //         <WebAppMF { ...props } />
   //       </div>
   //     </Suspense>
   //   </div>
   // )
 
   return (
-    <div className='flex-view-component'>
-      {status !== 'done' && (
-        <Loader />
-      )}
-      <div style={{ visibility: status === 'done' ? 'visible' : 'hidden', margin: '1rem' }}>
-        <OnBoardMF { ...props } />
+    <>
+      <Head>
+        <title>{`${title} | Web App`}</title>
+      </Head>
+      <div className='flex-view-component'>
+        {status !== 'done' && (
+          <Loader />
+        )}
+        <div style={{ visibility: status === 'done' ? 'visible' : 'hidden', margin: '1rem' }}>
+          <WebAppMF { ...props } />
+        </div>
       </div>
-    </div>
+    </>
   )
 })
 
@@ -142,7 +150,8 @@ export const getServerSideProps: GetServerSideProps = async (
   } = context
 
   const pageStaticData: PageStaticData = {
-    pageName: `onboard`,
+    pageName: `web-app`,
+    adjustFooterPosition: false,
   }
 
   const modFedData: ModFedData = {
@@ -170,4 +179,4 @@ export const getServerSideProps: GetServerSideProps = async (
   }
 }
 
-export default MFOnBoardPage
+export default MFWebAppPage

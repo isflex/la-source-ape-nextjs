@@ -16,6 +16,7 @@ const execPromise = promisify(subprocess.exec)
 // import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 // import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
 import { Config } from 'next-recompose-plugins'
+// import { withSentryConfig } from '@sentry/nextjs'
 
 import camelCase from 'lodash/camelCase.js'
 
@@ -43,11 +44,12 @@ console.log(`Build Id       :`, _buildId)
 
 // https://github.com/vercel/next.js/discussions/21061
 async function getActiveRoutes() {
+  const regexFolderName = /\[|\]|\./g;
   const jsonData = JSON.stringify([
     ...fs
       .readdirSync(path.resolve(__dirname, 'src/pages'), { withFileTypes: true })
       .filter((file) => file.isDirectory())
-      .map((folder) => folder.name)
+      .map((folder) => folder.name.replace(regexFolderName, ''))
       .filter(
         (folder) =>
           !folder.startsWith('_') && folder !== 'api',
@@ -55,7 +57,7 @@ async function getActiveRoutes() {
     ...fs
       .readdirSync(path.resolve(__dirname, 'src/app'), { withFileTypes: true })
       .filter((file) => file.isDirectory())
-      .map((folder) => folder.name)
+      .map((folder) => folder.name.replace(regexFolderName, ''))
       .filter(
         (folder) =>
           !folder.startsWith('layout') && folder !== 'api',
@@ -82,7 +84,7 @@ const mainConfig = new Config(async (phase, args) => {
       return [
         {
           source: '/:path*',
-          destination: '/onboard/:path*',
+          destination: '/web-app/:path*',
         }
       ];
     },
@@ -115,7 +117,6 @@ const mainConfig = new Config(async (phase, args) => {
     // https://gist.github.com/kettanaito/56861aff96e6debc575d522dd03e5725
     serverExternalPackages: [
       '@marp-team/marp-cli',
-      'puppeteer-core',
     ],
 
     typescript: {
@@ -147,7 +148,17 @@ const mainConfig = new Config(async (phase, args) => {
     },
 
     webpack: (config, options) => {
-      const { isServer } = options
+      const { isServer, webpack } = options
+
+      // config.plugins.push(
+      //   new webpack.DefinePlugin({
+      //     __SENTRY_DEBUG__: false,
+      //     __SENTRY_TRACING__: true,
+      //     __RRWEB_EXCLUDE_IFRAME__: true,
+      //     __RRWEB_EXCLUDE_SHADOW_DOM__: true,
+      //     __SENTRY_EXCLUDE_REPLAY_WORKER__: true,
+      //   }),
+      // )
 
       // https://www.youtube.com/watch?v=mqcUWfdiXUg
       // https://github.com/vercel/next.js/issues/71638#issuecomment-2464405044
@@ -316,3 +327,31 @@ const mainConfig = new Config(async (phase, args) => {
 .build()
 
 export default mainConfig
+
+// export default withSentryConfig(mainConfig, {
+//   org: 'flexiness',
+//   project: 'la-source-ape-nextjs',
+//   // Only print logs for uploading source maps in CI
+//   // Set to `true` to suppress logs
+//   silent: !process.env.CI,
+//   // Automatically tree-shake Sentry logger statements to reduce bundle size
+//   disableLogger: true,
+
+//   // OPTIONAL Readable Stack Traces with Source Maps
+//   // Pass the auth token
+//   authToken: process.env.SENTRY_AUTH_TOKEN,
+//   // Upload a larger set of source maps for prettier stack traces (increases build time)
+//   widenClientFileUpload: true,
+
+//   // OPTIONAL Avoid Ad-Blockers with Tunneling
+//   // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
+//   // This can increase your server load as well as your hosting bill.
+//   // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-side errors will fail.
+
+//   // tunnelRoute: '/monitoring',
+
+//   // OPTIONAL Capture React Component Names
+//   reactComponentAnnotation: {
+//     enabled: true,
+//   },
+// })

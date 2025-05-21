@@ -4,7 +4,7 @@
 
 import * as React from 'react'
 import composeClasses from '../../../mui/composeClasses/index.js'
-import clsx from 'clsx'
+import classNames  from 'classnames'
 import { camelCase } from 'lodash'
 import { isFragment } from 'react-is'
 import ImageListContext from '../ImageListContext.js'
@@ -68,7 +68,7 @@ const ImageListItemRoot = async (props: ImageListItemRootProps): Promise<React.R
   return (
     <Tag
       style={{ ...rootStyle() }}
-      className={clsx(className, styles.imageListItemRoot, styles[camelCase(`image-list-item-${ownerState.variant}`) as keyof Styles])}
+      className={classNames (className, styles.imageListItemRoot, styles[camelCase(`image-list-item-${ownerState.variant}`) as keyof Styles])}
     >
       {children}
     </Tag>
@@ -107,7 +107,7 @@ const ImageListItem = React.forwardRef<unknown, ImageListItemProps>((props, ref)
   return (
     <ImageListItemRoot
       markup={ImageListItemRootMarkup.LI}
-      className={clsx(classes.root, className)}
+      className={classNames (classes.root, className)}
       ref={ref}
       style={{
         height,
@@ -136,7 +136,7 @@ const ImageListItem = React.forwardRef<unknown, ImageListItemProps>((props, ref)
           return React.cloneElement(child, {
             key: `${variant}-img-${index}`,
             // @ts-expect-error
-            className: clsx(classes.img, styles[camelCase(`${classes.img}`) as keyof Styles], child.props.className),
+            className: classNames (classes.img, styles[camelCase(`${classes.img}`) as keyof Styles], child.props.className),
           })
         }
 

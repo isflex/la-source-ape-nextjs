@@ -506,7 +506,7 @@ _paginate: false
   <span class="number" number="1"></span>
   Un site <strong>React, Node et Express</strong> construit avec Amplify <code class="orange">Gen 1</code>
   <p class="align-left tiny">
-    C'est le <a class='link' href='/onboard' target='_blank'>web app</a> qui sert de point de rencontre entre parents et élèves pour créer des événements divers.
+    C'est le <a class='link' href='/web-app' target='_blank'>web app</a> qui sert de point de rencontre entre parents et élèves pour créer des événements divers.
     Par exemple, vous pouvez coordonner des séances de garde d'enfants, des cours particuliers à domicile, organiser des petits groupes d'élèves pour rentrer ensemble après l'école sur un itinéraire partagé.
   </p>
 </p>
@@ -1458,13 +1458,13 @@ _paginate: false
 ## Une pile technique harmonieuse
 
 <p class='align-left small'>
-  Le développement du <strong>web app</strong> a débuté lorsque le framework Amplify ne proposait que la version <code class="orange"> Gen 1</code> comme fonctionnement. Voir le <a class='link' href='https://afterschool.flexiness.com' target='_blank'>web app isolé en autonomie</a>
+  Le développement du <strong>web app</strong> a débuté lorsque le framework Amplify ne proposait que la version <code class="orange"> Gen 1</code> comme fonctionnement. Voir le <a class='link' href='https://after-school.flexiness.com/' target='_blank'>web app isolé en autonomie</a>
 </p>
 <p class='align-left small'>
   Si l'utilisation de l'interface de ligne de commande (CLI) pour configurer Amplify était très efficace, cette approche présentait l'inconvénient d'être difficile à partager entre différents développeurs. La configuration qui était établie résidait à différents endroits dans le cloud AWS. On risquait de se marcher sur les pieds en travaillant à plusieurs.
 </p>
 <p class='align-left small'>
-  À ce jour, toutes les fonctionnalités incluses dans l'ancienne version n'ont pas encore été entièrement migrées vers la nouvelle. Cependant, si vous souhaitez apporter de nouveaux développements au <strong>web app</strong>, il est plus durable de les porter progressivement vers le site NextJS afin de remplacer l'ancienne version. Voir le <a class='link' href='/onboard' target='_blank'>web app intégré au nextjs</a>
+  À ce jour, toutes les fonctionnalités incluses dans l'ancienne version n'ont pas encore été entièrement migrées vers la nouvelle. Cependant, si vous souhaitez apporter de nouveaux développements au <strong>web app</strong>, il est plus durable de les porter progressivement vers le site NextJS afin de remplacer l'ancienne version. Voir le <a class='link' href='/web-app' target='_blank'>web app intégré au nextjs</a>
 </p>
 <p class='align-left small'>
   Comme vous pouvez le constater, le <strong>web app</strong> s'intègre facilement au site NextJS en tant que micro-frontend. Les deux versions peuvent co-exister et fonctionner ensemble de manière complémantaire.

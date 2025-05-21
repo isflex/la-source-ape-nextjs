@@ -2,15 +2,36 @@
   "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "tasks": {
+    "marp:dev": {
+      "outputs": [
+        "apps/gateway/public/slides/**"
+      ],
+      "cache": false,
+      "env": [
+        "DOTENV_*",
+        "FLEX_*"
+      ]
+    },
     "next:dev": {
       "cache": false,
       "env": [
-        "FLEX_*"
+        "FLEX_*",
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
+      ]
+    },
+    "next:tsc": {
+      "cache": false,
+      "env": [
+        "FLEX_*",
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
       ]
     },
     "dev": {
       "dependsOn": [
         "^dev:packages:transit",
+        "marp:dev",
         "next:dev"
       ],
       "cache": false
@@ -29,9 +50,11 @@
     "build": {
       "dependsOn": [
         "//#compile:clean:sh",
-        "@flex-design-system/react-ts#build"
+        "@flex-design-system/react-ts#build",
+        "marp:build"
       ],
       "outputs": [".next/**/*"],
+      "inputs": ["$TURBO_DEFAULT$", "amplify_outputs.json", "!README.md"],
       "cache": true,
       "persistent": false,
       "env": [
@@ -39,14 +62,16 @@
         "DOTENV_*",
         "FLEX_*",
         "GIT_*",
-        "NEXT_PUBLIC_*"
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
       ]
     },
     "start": {
       "cache": false,
       "env": [
         "FLEX_*",
-        "NEXT_PUBLIC_*"
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
       ]
     }
   }

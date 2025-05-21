@@ -1,11 +1,11 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
-import classNames from 'classnames'
 import { observer } from 'mobx-react-lite'
 // import { getStores } from '@flexiness/domain-store'
 
 // const stores = getStores()
 
+import classNames from 'classnames'
 // import {
 //   flexStyles,
 // } from '@flex-design-system/react-ts/client-sync-styled-default'
@@ -24,6 +24,7 @@ import {
 
 const LogoLaSource = dynamic(() => import('@src/components/logo-la-source'), { ssr: true })
 const Header = dynamic(() => import('@src/components/sticky-header/pages'), { ssr: true })
+const Footer = dynamic(() => import('@src/components/footer/pages'), { ssr: true })
 
 const Layout = observer(({ props, children }: LayoutProps) => {
 
@@ -42,6 +43,7 @@ const Layout = observer(({ props, children }: LayoutProps) => {
     <div className={classNames(stylesPage.gatewayLayout)}>
       <NavigationLayout />
       { children }
+      <Footer {...props} />
     </div>
   )
 })
