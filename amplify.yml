@@ -45,14 +45,16 @@ applications:
             # - npm install --global corepack@latest
             - corepack enable
             - corepack prepare pnpm@latest-10 --activate
+            - printenv PATH
             # - mkdir ../.pnpm-store
             # - pnpm config set store-dir ../.pnpm-store
+            - pnpm config set global-bin-dir /root/bin
             - pnpm install --frozen-lockfile
-            - pnpm install -g react-router
+            # - pnpm add -g react-router@7.6.0
             - pnpm store path
             - pnpm list react*
-            - ls -al /tmp/app/node_modules
-            - printenv TMPTIME
+            # - ls -al /tmp/app/node_modules
+            # - printenv TMPTIME
         build:
           commands:
             - pwd
@@ -64,7 +66,7 @@ applications:
           - '**/*'
       cache:
         paths:
-          # - '.next/cache/**/*'
+          - '.next/cache/**/*'
           - 'apps/gateway/.next/cache/**/*'
           - 'node_modules/**/*'
     appRoot: apps/gateway
