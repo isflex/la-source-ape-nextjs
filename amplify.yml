@@ -48,9 +48,11 @@ applications:
             # - mkdir ../.pnpm-store
             # - pnpm config set store-dir ../.pnpm-store
             - pnpm install --frozen-lockfile
+            - pnpm install -g react-router
             - pnpm store path
             - pnpm list react*
-            - ls -al ../
+            - ls -al /tmp/app/node_modules
+            - printenv TMPTIME
         build:
           commands:
             - pwd
