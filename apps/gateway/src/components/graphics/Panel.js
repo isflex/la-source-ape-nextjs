@@ -1,6 +1,6 @@
 import React from 'react';
-import * as motion from 'motion/react-client';
-// import { stagger } from 'motion'
+import { motion } from 'framer-motion'
+// import { motion, stagger } from 'motion'
 // import classNames from 'classnames';
 // import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 // import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss';

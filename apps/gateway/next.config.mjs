@@ -76,7 +76,7 @@ const mainConfig = new Config(async (phase, args) => {
 
   /** @type {import('next').NextConfig} */
   const nextConfig = {
-    // output: 'standalone',
+    output: 'standalone',
 
     // https://nextjs.org/docs/pages/api-reference/config/next-config-js/rewrites
     // https://www.giovannibenussi.com/blog/redirects-and-rewrites-on-nextjs

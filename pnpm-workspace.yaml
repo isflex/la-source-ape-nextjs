@@ -1,3 +1,4 @@
 packages:
   - 'apps/**'
+  - '!**/.next/standalone/**' # exclude packages that are inside next/standalone directories
   - 'packages/**'

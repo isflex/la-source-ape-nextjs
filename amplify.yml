@@ -50,6 +50,7 @@ applications:
             - pnpm install --frozen-lockfile
             - pnpm store path
             - pnpm list react*
+            - ls -al ../
         build:
           commands:
             - pwd

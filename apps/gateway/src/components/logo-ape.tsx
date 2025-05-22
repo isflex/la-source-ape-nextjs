@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite'
 import LogoSvg from '@root/public/logo/ape/ape_la_source_logo_1.svg'
 import { LogoProps } from '@root/types/additional'
 import { getStores } from '@flexiness/domain-store'
-import * as motion from 'motion/react-client'
+import { motion } from 'framer-motion'
 import classNames from 'classnames'
 import { default as stylesPage } from '@src/styles/scss/pages/logo.module.scss'
 
