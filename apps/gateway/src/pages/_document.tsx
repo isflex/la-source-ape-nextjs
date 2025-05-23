@@ -38,7 +38,7 @@ const MyDocument = (props: DocumentProps) => {
       <Head nonce={_nonce}>
         <meta name='description' content={description} />
         <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/mf-manifest.json`} crossOrigin='anonymous' />
-        <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteWebAppClient}/loadable-stats.json`} crossOrigin='anonymous' />
+        {/* <link nonce={_nonce} rel='preload' as='fetch' href={`${remoteWebAppClient}/loadable-stats.json`} crossOrigin='anonymous' /> */}
         {/*
         <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteFlexComponents}/node/mf-manifest.json`} crossOrigin='anonymous' />
         <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteFlexComponents}/node/loadable-stats.json`} crossOrigin='anonymous' />
@@ -148,7 +148,7 @@ MyDocument.getInitialProps = async (
       throw new Error(`HTTP error! status: ${responseWebAppClient.status}`)
     }
     const resultWebAppClient = await responseWebAppClient.json()
-    // console.log(resultWebAppClient?.assetsByChunkName)
+    console.log(resultWebAppClient?.assetsByChunkName)
 
     // const responseFlexComponents = await fetch(`${process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HOST}/loadable-stats.json`)
     // if (!responseFlexComponents.ok) {

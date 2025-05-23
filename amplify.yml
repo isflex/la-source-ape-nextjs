@@ -11,18 +11,31 @@ applications:
             # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
             # - node -v
             - pwd
-            - cd apps/gateway
-            - pwd
-            - sudo fallocate -l 40G /swapfile
-            - sudo chmod 600 /swapfile
-            - sudo mkswap /swapfile
-            - sudo swapon /swapfile
-            - sudo swapon -s
-            - npm install --cache .npm --prefer-offline
+            # - cd apps/gateway
+            # - pwd
+            # - sudo fallocate -l 40G /swapfile
+            # - sudo chmod 600 /swapfile
+            # - sudo mkswap /swapfile
+            # - sudo swapon /swapfile
+            # - sudo swapon -s
+            # - npm install --cache .npm --prefer-offline
+            - corepack enable
+            - corepack prepare pnpm@latest-10 --activate
+            - printenv PATH
+            - pnpm config set global-bin-dir /root/bin
+            - pnpm install --frozen-lockfile
+            # - pnpm add -g react-router@7.6.0
+            # - pnpm store path
+            # - pnpm list react*
+            # - npx ampx info
+            - pnpm ampx info
         build:
           commands:
-            - npx ampx info
-            - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+            - cd apps/gateway
+            - pwd
+            # - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+            # - pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+            - npx --use-pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
       cache:
         paths:
           - '.npm/**/*'
@@ -40,17 +53,17 @@ applications:
             # - cd apps/gateway
             # - pwd
             # - rm -rf .next
-            - cd ../../ # run install and build from monorepo project root
-            - pwd
+            # - cd ../../ # run install and build from monorepo project root
+            # - pwd
             # - npm install -g pnpm
             # - npm install --global corepack@latest
-            - corepack enable
-            - corepack prepare pnpm@latest-10 --activate
-            - printenv PATH
+            # - corepack enable
+            # - corepack prepare pnpm@latest-10 --activate
+            # - printenv PATH
             # - mkdir ../.pnpm-store
             # - pnpm config set store-dir ../.pnpm-store
-            - pnpm config set global-bin-dir /root/bin
-            - pnpm install --frozen-lockfile
+            # - pnpm config set global-bin-dir /root/bin
+            # - pnpm install --frozen-lockfile
             # - pnpm add -g react-router@7.6.0
             - pnpm store path
             - pnpm list react*
