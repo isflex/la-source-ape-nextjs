@@ -1,6 +1,7 @@
 version: 1
 applications:
   -
+    appRoot: apps/gateway
     backend:
       phases:
         preBuild:
@@ -66,7 +67,27 @@ applications:
           - '**/*'
       cache:
         paths:
-          - '.next/cache/**/*'
           - 'apps/gateway/.next/cache/**/*'
           - 'node_modules/**/*'
-    appRoot: apps/gateway
+  -
+    appRoot: apps/express-app
+    frontend:
+      buildPath: /
+      phases:
+        preBuild:
+          commands:
+            # - 'nvm install 20.19.1'
+            # - 'nvm use 20.19.1'
+            # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
+            # - node -v
+            - pwd
+            - cd apps/express-app
+            - pwd
+            - npm install --cache .npm --prefer-offline
+        build:
+          commands:
+            - npm run build
+      artifacts:
+        baseDirectory: apps/express-app/.amplify-hosting
+        files:
+          - '**/*'

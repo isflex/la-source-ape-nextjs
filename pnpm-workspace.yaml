@@ -1,4 +1,6 @@
 packages:
   - 'apps/**'
-  - '!**/.next/standalone/**' # exclude packages that are inside next/standalone directories
+  - '!apps/gateway/.next/standalone/**'
+  - '!apps/gateway/amplify/**'
+  - '!apps/express-app/**'
   - 'packages/**'

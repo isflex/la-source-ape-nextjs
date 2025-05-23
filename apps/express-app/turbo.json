@@ -1,0 +1,27 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "gateway#build"
+      ],
+      "outputs": ["dist/**"],
+      "cache": true,
+      "persistent": false,
+      "env": [
+        "AWS_*",
+        "DOTENV_*",
+        "FLEX_*",
+        "GIT_*",
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
+      ]
+    },
+    "postbuild": {
+    },
+    "start": {
+      "cache": false
+    }
+  }
+}

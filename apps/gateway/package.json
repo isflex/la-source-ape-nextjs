@@ -67,7 +67,7 @@
     "@svgr/webpack": "8.1.0",
     "@types/cors": "2.8.17",
     "@types/loadable__component": "5.13.4",
-    "@types/node": "^20",
+    "@types/node": "22.10.1",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.2",
     "aws-cdk": "^2.175.1",
