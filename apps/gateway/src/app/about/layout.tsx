@@ -7,15 +7,14 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-// import detect from 'detect-port'
-// import { isServer } from '@src/utils'
-
-import { headers } from 'next/headers'
-// import { isMobile } from 'react-device-detect'
-import { isMobile } from '@src/utils'
-
 import React from 'react'
 import dynamic from 'next/dynamic'
+import { headers } from 'next/headers'
+
+import PostHogNodeClient from '@src/utils/posthog/initPostHogNode'
+
+// import { isMobile } from 'react-device-detect'
+import { isMobile } from '@src/utils'
 
 import classNames from 'classnames'
 // import {
@@ -42,6 +41,8 @@ export default async function AboutLayout({
 
   const userAgent = (await headers()).get('user-agent') || ''
   const mobileCheck = isMobile(userAgent)
+  const posthog = PostHogNodeClient()
+  await posthog.shutdown()
 
   return (
     <div className={classNames(

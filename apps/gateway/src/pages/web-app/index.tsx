@@ -8,6 +8,8 @@ import type { NextPage, GetServerSideProps } from 'next'
 import { PageAppProps, PageStaticData, ModFedData } from '@root/types/additional'
 import dynamic from 'next/dynamic'
 
+import { PostHog } from 'posthog-node'
+
 import  { title } from '@src/seo'
 
 // import getConfig from 'next/config'
@@ -148,6 +150,14 @@ export const getServerSideProps: GetServerSideProps = async (
     locale,
     defaultLocale
   } = context
+
+  const client = new PostHog(
+    process.env.NEXT_PUBLIC_POSTHOG_KEY!,
+    {
+      host: process.env.NEXT_PUBLIC_POSTHOG_HOST!,
+    }
+  )
+  await client.shutdown()
 
   const pageStaticData: PageStaticData = {
     pageName: `web-app`,

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { PageAppProps, PageStaticData } from '@root/types/additional'
 import dynamic from 'next/dynamic'
 import { observer } from 'mobx-react-lite'
+import { PostHog } from 'posthog-node'
 
 import  { title } from '@src/seo'
 
@@ -186,6 +187,14 @@ export const getServerSideProps: GetServerSideProps = async (
     locale,
     defaultLocale
   } = context
+
+  const client = new PostHog(
+    process.env.NEXT_PUBLIC_POSTHOG_KEY!,
+    {
+      host: process.env.NEXT_PUBLIC_POSTHOG_HOST!,
+    }
+  )
+  await client.shutdown()
 
   const pageStaticData: PageStaticData = {
     pageName: `todo`,

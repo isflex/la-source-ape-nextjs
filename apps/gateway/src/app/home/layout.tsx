@@ -1,6 +1,8 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 
+import PostHogNodeClient from '@src/utils/posthog/initPostHogNode'
+
 import classNames from 'classnames'
 import {
   Title,
@@ -12,11 +14,15 @@ import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 
-export default function HomeLayout({
+export default async function HomeLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+
+  const posthog = PostHogNodeClient()
+  await posthog.shutdown()
+
   return (
     <div className={flexStyles.genericLayout1}>
       <div style={{
