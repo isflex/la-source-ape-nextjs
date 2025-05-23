@@ -1,6 +1,7 @@
 import React from 'react'
 // import Head from 'next/head'
 // import Script from 'next/script'
+import { Router } from 'next/router'
 import dynamic from 'next/dynamic'
 // import { BrowserRouter as Router } from 'react-router'
 import { observer, enableStaticRendering } from 'mobx-react-lite'
@@ -17,7 +18,9 @@ import
 // import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplifyOutputs'
 import AuthProvider from '@src/components/auth/AuthProvider'
 
-import { PostHogProvider } from '@src/utils/posthog/providers'
+// import { PostHogProvider } from '@src/utils/posthog/providers' // app router methodology
+import posthog from 'posthog-js'
+import { PostHogProvider } from 'posthog-js/react'
 
 import classNames from 'classnames'
 import {
@@ -51,6 +54,25 @@ enableStaticRendering(isServer)
 const Layout: React.ComponentType<LayoutProps> = dynamic(() => import('../components/main-layout/pages'))
 
 const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
+
+  React.useEffect(() => {
+    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST! || 'https://eu.i.posthog.com',
+      // Enable debug mode in development
+      loaded: (posthog) => {
+        if (process.env.FLEX_MODE === 'development') posthog.debug()
+      }
+    })
+
+    const handleRouteChange = () => posthog?.capture('$pageview')
+
+    Router.events.on('routeChangeComplete', handleRouteChange);
+
+    return () => {
+      Router.events.off('routeChangeComplete', handleRouteChange);
+    }
+  }, [])
+
   return (
     <>
       {/*
@@ -68,7 +90,7 @@ const MyApp = ({ Component, pageProps }: AppProps<PageAppProps>) => {
       />
       */}
       {/* <ConfigureAmplifyClientSide /> */}
-      <PostHogProvider>
+      <PostHogProvider client={posthog}>
         <AuthProvider>
           <StoreProvider>
             <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped)} theme='light'>
