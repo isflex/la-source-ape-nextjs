@@ -66,8 +66,8 @@ applications:
             # - cd apps/gateway
             # - pwd
             # - rm -rf .next
-            # - cd ../../ # run install and build from monorepo project root
-            # - pwd
+            - cd ../../ # run install and build from monorepo project root
+            - pwd
             # - npm install -g pnpm
             # - npm install --global corepack@latest
             # - corepack enable
