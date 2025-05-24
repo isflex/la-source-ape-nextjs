@@ -17,7 +17,7 @@
     "./modularSassOnlyMiniExtractIgnoreUrls.cjs": "./src/partial/loaders/modularSassOnlyMiniExtractIgnoreUrls.cjs"
   },
   "dependencies": {
-    "@flexiness/domain-utils": "workspace:*"
+    "@flexiness/domain-utils": "@flexiness/domain-utils@0.0.1"
   },
   "devDependencies": {
     "css-loader": "7.1.2",

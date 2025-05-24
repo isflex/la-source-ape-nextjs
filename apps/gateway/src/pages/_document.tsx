@@ -148,7 +148,7 @@ MyDocument.getInitialProps = async (
       throw new Error(`HTTP error! status: ${responseWebAppClient.status}`)
     }
     const resultWebAppClient = await responseWebAppClient.json()
-    console.log(resultWebAppClient?.assetsByChunkName)
+    // console.log(resultWebAppClient?.assetsByChunkName)
 
     // const responseFlexComponents = await fetch(`${process.env.NEXT_PUBLIC_DESIGN_SYS_REACT_TS_DEPLOYED_REMOTE_HOST}/loadable-stats.json`)
     // if (!responseFlexComponents.ok) {

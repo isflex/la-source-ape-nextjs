@@ -10,7 +10,7 @@ applications:
             # - 'nvm use 20.19.1'
             # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
             # - node -v
-            - pwd
+            # - pwd
             # - cd apps/gateway
             # - pwd
             # - sudo fallocate -l 40G /swapfile
@@ -32,13 +32,26 @@ applications:
         build:
           commands:
             - cd apps/gateway
-            - pwd
-            # - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
-            # - pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
-            - npx --use-pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+            # - pwd
+            # https://github.com/vaadin/flow/issues/16098
+            # https://stackoverflow.com/a/21699210
+            # -
+            #   npm install
+            #   @aws-amplify/backend@latest
+            #   @aws-amplify/backend-cli@latest
+            #   @aws-amplify/data-construct@latest
+            #   aws-cdk@latest
+            #   aws-cdk-lib@latest
+            #   --cache .npm --prefer-offline
+            - npm install --cache .npm --prefer-offline
+            # - npx ampx info
+            - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
+            # - npx --use-pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+            # - pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
       cache:
         paths:
           - '.npm/**/*'
+          - 'apps/gateway/.npm/**/*'
           - 'node_modules/**/*'
     frontend:
       buildPath: /
@@ -80,6 +93,7 @@ applications:
           - '**/*'
       cache:
         paths:
+          - '.next/cache/**/*'
           - 'apps/gateway/.next/cache/**/*'
           - 'node_modules/**/*'
   -
