@@ -76,7 +76,7 @@ const mainConfig = new Config(async (phase, args) => {
 
   /** @type {import('next').NextConfig} */
   const nextConfig = {
-    output: 'standalone',
+    // output: 'standalone',
 
     productionBrowserSourceMaps: true,
 

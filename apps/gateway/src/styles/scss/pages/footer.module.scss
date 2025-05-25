@@ -1,6 +1,6 @@
 .footer-container {
   position: relative;
-  bottom: 0;
+  bottom: 0.5rem;
   left: 0;
   display: flex;
   align-items: center;
@@ -18,7 +18,7 @@
     width: 80%;
 
     &.at-footer-bottom {
-      bottom: 5rem;
+      bottom: 4.5rem;
     }
 
     .cookies-consent-holder {
@@ -63,7 +63,9 @@
 
   .logo-flexiness {
     position: relative;
-    width: 70px;
+    width: 90px;
+    height: 50px;
     margin: 0 auto;
+    padding: 0;
   }
 }

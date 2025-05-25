@@ -7,4 +7,5 @@ else
   echo "//////////////////////// Running production start ////////////////////////";
   # dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next start ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_DEPLOYED_REMOTE_HOSTNAME
   dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next start ./ --port $FLEX_GATEWAY_PORT --hostname localhost
+  # dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- node .next/standalone/apps/gateway/server.js
 fi
