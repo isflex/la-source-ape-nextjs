@@ -78,6 +78,8 @@ const mainConfig = new Config(async (phase, args) => {
   const nextConfig = {
     output: 'standalone',
 
+    productionBrowserSourceMaps: true,
+
     // https://nextjs.org/docs/pages/api-reference/config/next-config-js/rewrites
     // https://www.giovannibenussi.com/blog/redirects-and-rewrites-on-nextjs
     trailingSlash: true,
