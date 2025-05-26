@@ -17,6 +17,7 @@ const Logo: React.FC<LogoProps> = React.forwardRef<HTMLElement, LogoProps>((prop
       `flex-gateway-logo ${navigationState}`,
       stylesPage.logoDefault,
       stylesPage.logoLaSource,
+      stylesPage.navLogo,
       props.className,
     )}
     ref={ref as React.RefObject<HTMLDivElement | null>}>

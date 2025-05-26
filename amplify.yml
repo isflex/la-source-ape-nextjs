@@ -45,7 +45,7 @@ applications:
             #   --cache .npm --prefer-offline
             - npm install --cache .npm --prefer-offline
             # - npx ampx info
-            - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
+            - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
             # - npx --use-pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
             # - pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
       cache:
@@ -93,9 +93,9 @@ applications:
           - '**/*'
       cache:
         paths:
-          - '.next/cache/**/*'
-          - 'apps/gateway/.next/cache/**/*'
-          - 'node_modules/**/*'
+          # - '.next/cache/**/*'
+          # - 'apps/gateway/.next/cache/**/*'
+          # - 'node_modules/**/*'
   -
     appRoot: apps/express-app
     frontend:
