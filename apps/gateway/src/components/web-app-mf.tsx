@@ -46,7 +46,6 @@ const WebAppMF: React.FC<PageAppProps> = observer((props) => {
             singleton: true,
             requiredVersion: '19.1.0',
           },
-          // strategy: 'loaded-first',
         },
         mobx: {
           version: '6.13.1',
@@ -55,7 +54,6 @@ const WebAppMF: React.FC<PageAppProps> = observer((props) => {
             singleton: true,
             requiredVersion: '6.13.1',
           },
-          // strategy: 'loaded-first',
         },
         'mobx-react-lite': {
           version: '4.0.7',
@@ -64,17 +62,15 @@ const WebAppMF: React.FC<PageAppProps> = observer((props) => {
             singleton: true,
             requiredVersion: '4.0.7',
           },
-          // strategy: 'loaded-first',
         },
-        'react-router': {
-          version: '7.6.0',
-          scope: 'default',
-          shareConfig: {
-            singleton: true,
-            requiredVersion: '7.6.0',
-          },
-          // strategy: 'loaded-first',
-        },
+        // 'react-router': {
+        //   version: '7.6.0',
+        //   scope: 'default',
+        //   shareConfig: {
+        //     singleton: true,
+        //     requiredVersion: '7.6.0',
+        //   },
+        // },
       },
       shareStrategy: 'loaded-first',
     })

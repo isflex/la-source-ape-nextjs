@@ -19,7 +19,7 @@ overrides:
   next: 15.3.2
   react: 19.1.0
   react-dom: 19.1.0
-  react-router: 7.6.0
+  react-router: 7.6.1
   '@types/react': 19.1.0
   '@types/react-dom': 19.1.2
   '@aws-sdk/client-sts': 3.699.0
@@ -69,8 +69,8 @@ importers:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
       react-router:
-        specifier: 7.6.0
-        version: 7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 7.6.1
+        version: 7.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       turbo:
         specifier: 2.0.6
         version: 2.0.6
@@ -250,8 +250,8 @@ importers:
         specifier: 9.16.0
         version: 9.16.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-router:
-        specifier: 7.6.0
-        version: 7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 7.6.1
+        version: 7.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-sticky-el:
         specifier: 2.1.1
         version: 2.1.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -902,8 +902,8 @@ importers:
         specifier: 10.0.3
         version: 10.0.3
       react-router:
-        specifier: 7.6.0
-        version: 7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 7.6.1
+        version: 7.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       regex-escape:
         specifier: 3.4.10
         version: 3.4.10
@@ -14156,8 +14156,8 @@ packages:
       '@types/react':
         optional: true
 
-  react-router@7.6.0:
-    resolution: {integrity: sha512-GGufuHIVCJDbnIAXP3P9Sxzq3UUsddG3rrI3ut1q6m0FI6vxVBF3JoPQ38+W/blslLH4a5Yutp8drkEpXoddGQ==}
+  react-router@7.6.1:
+    resolution: {integrity: sha512-hPJXXxHJZEsPFNVbtATH7+MMX43UDeOauz+EAU4cgqTn7ojdI9qQORqS8Z0qmDlL1TclO/6jLRYUEtbWidtdHQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: 19.1.0
@@ -34178,7 +34178,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.0
 
-  react-router@7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  react-router@7.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       cookie: 1.0.2
       react: 19.1.0
