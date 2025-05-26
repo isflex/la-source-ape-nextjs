@@ -196,5 +196,8 @@
     "webpack-manifest-plugin": "5.0.0",
     "webpack-merge": "5.10.0",
     "webpack-require-from": "1.8.6"
+  },
+  "peerDependencies": {
+    "react-router": "*"
   }
 }

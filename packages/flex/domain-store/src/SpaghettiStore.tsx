@@ -9,6 +9,7 @@ import {
 import { SpaghettiInterface, FlexGlobalThis } from 'flexiness'
 
 // import { isMobile } from 'react-device-detect'
+import { isServer } from './utils/index.js'
 // import localForage from 'localforage'
 // import { makePersistable } from 'mobx-persist-store'
 // import { makePersistable, getPersistedStore } from 'mobx-persist-store'
@@ -46,7 +47,7 @@ export class SpaghettiMobxStore {
 
 let SpaghettiStore: SpaghettiMobxStore | undefined = globalThis.Flexiness?.domainApp?.SpaghettiStore
 export function getSpaghettiStore() {
-  if (!SpaghettiStore) {
+  if (!SpaghettiStore || isServer) {
     SpaghettiStore = new SpaghettiMobxStore(
       // spaghettiContext
       {

@@ -29,7 +29,7 @@ const Layout = async ({children }: { children: React.ReactNode }) => {
   const NavigationLayout = () => {
     return (
       <div className={classNames(stylesPage.navLayout, mobileCheck && stylesPage.forceMobile)}>
-        <LogoLaSource />
+        <LogoLaSource className={stylesPage.navLogo} />
         <Header mobileCheck={mobileCheck} />
       </div>
     )

@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { observer } from 'mobx-react-lite'
 import LogoSvg from '@root/public/logo/filled/rectangle/logo_flexiness_2.svg'
 import { LogoProps } from '@root/types/additional'
 import { getStores } from '@flexiness/domain-store'
@@ -15,7 +16,8 @@ const Logo: React.FC<LogoProps> = React.forwardRef<HTMLElement, LogoProps>((prop
     <div className={classNames(
         `flex-gateway-logo ${navigationState}`,
         stylesPage.logoDefault,
-        stylesPage.logoFlexiness
+        stylesPage.logoFlexiness,
+        props.className,
       )}
       ref={ref as React.RefObject<HTMLDivElement | null>}>
       <LogoSvg id='logo_flexiness_2' />
@@ -23,6 +25,6 @@ const Logo: React.FC<LogoProps> = React.forwardRef<HTMLElement, LogoProps>((prop
   )
 })
 
-Logo.displayName = 'Logo'
+Logo.displayName = 'LogoFlexiness'
 
-export default Logo
+export default observer(Logo)

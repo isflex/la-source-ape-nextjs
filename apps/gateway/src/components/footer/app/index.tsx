@@ -8,28 +8,29 @@ import dynamic from 'next/dynamic'
 // import { PageAppProps } from '@root/types/additional'
 import { useInView } from 'react-intersection-observer'
 
-import classNames from 'classnames'
-import {
-  // flexStyles,
-  // Button,
-  // ButtonMarkup,
-  // Box,
-  Link as FlexLink,
-  // Text,
-  // Title,
-  // TitleLevel,
-  // VariantState,
-  // IconName,
-  // InfoBlock,
-  // InfoBlockAction,
-  // InfoBlockContent,
-  // InfoBlockHeader,
-  // InfoBlockStatus,
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+// import classNames from 'classnames'
+// import {
+//   // flexStyles,
+//   // Button,
+//   // ButtonMarkup,
+//   // Box,
+//   // Link as FlexLink,
+//   // Text,
+//   // Title,
+//   // TitleLevel,
+//   // VariantState,
+//   // IconName,
+//   // InfoBlock,
+//   // InfoBlockAction,
+//   // InfoBlockContent,
+//   // InfoBlockHeader,
+//   // InfoBlockStatus,
+// } from '@flex-design-system/react-ts/client-sync-styled-default'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/footer.module.scss'
+import { default as stylesLogo } from '@src/styles/scss/pages/logo.module.scss'
 import { Banner } from '@src/components/footer/cookieConsentBanner'
-const LogoFlex = dynamic(() => import('@src/components/logo-flexiness'), { ssr: true })
+import LogoFlex from '@src/components/logo-flexiness'
 
 interface FooterAppProps {
 }
@@ -52,7 +53,7 @@ const Footer: React.FC<FooterAppProps> = ({}) => {
     <div className={stylesPage.footerContainer}>
       <Banner logoFlexInView={logoFlexInView} />
       <button className={flexStyles.btnStd} onClick={() => window.open('https://ci.flexiness.com', '_blank')}>
-        <LogoFlex ref={ref} />
+        <LogoFlex ref={ref} className={stylesLogo.logoFooter} />
       </button>
     </div>
   )

@@ -33,7 +33,7 @@ const Layout = observer(({ props, children }: LayoutProps) => {
   const NavigationLayout = () => {
     return (
       <div className={stylesPage.navLayout}>
-        <LogoLaSource />
+        <LogoLaSource className={stylesPage.navLogo} />
         <Header {...props} />
       </div>
     )

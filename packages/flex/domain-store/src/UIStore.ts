@@ -186,7 +186,7 @@ export class UserInterfaceStore {
 
 let UIStore: UserInterfaceStore | undefined = globalThis.Flexiness?.domainApp?.UIStore
 export function getUIStore() {
-  if (!UIStore) {
+  if (!UIStore || isServer) {
     UIStore = new UserInterfaceStore(
       // appContext
       {
