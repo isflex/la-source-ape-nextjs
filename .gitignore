@@ -17,6 +17,8 @@ packages/flex/config/cypress/cypress/videos/*
 packages/flex/config/cypress/cypress/reports/*
 packages/flex/config/cypress/cypress/downloads/*
 
+apps/gateway/public/slides/*
+
 # local env files
 .env*.local
 
