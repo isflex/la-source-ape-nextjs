@@ -1,7 +1,7 @@
 version: 1
 applications:
   -
-    appRoot: apps/gateway
+    appRoot: apps/express-app
     backend:
       phases:
         preBuild:
@@ -10,15 +10,9 @@ applications:
             # - 'nvm use 20.19.1'
             # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
             # - node -v
-            # - pwd
-            # - cd apps/gateway
-            # - pwd
-            # - sudo fallocate -l 40G /swapfile
-            # - sudo chmod 600 /swapfile
-            # - sudo mkswap /swapfile
-            # - sudo swapon /swapfile
-            # - sudo swapon -s
-            # - npm install --cache .npm --prefer-offline
+            - pwd
+            - cd ../../ # run install from monorepo project root
+            - pwd
             - corepack enable
             - corepack prepare pnpm@latest-10 --activate
             - printenv PATH
@@ -27,87 +21,22 @@ applications:
             # - pnpm add -g react-router@7.6.0
             # - pnpm store path
             # - pnpm list react*
-            # - npx ampx info
             - pnpm ampx info
         build:
           commands:
             - cd apps/gateway
-            # - pwd
-            # https://github.com/vaadin/flow/issues/16098
-            # https://stackoverflow.com/a/21699210
-            # -
-            #   npm install
-            #   @aws-amplify/backend@latest
-            #   @aws-amplify/backend-cli@latest
-            #   @aws-amplify/data-construct@latest
-            #   aws-cdk@latest
-            #   aws-cdk-lib@latest
-            #   --cache .npm --prefer-offline
             - npm install --cache .npm --prefer-offline
-            # - npx ampx info
-            - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
-            # - npx --use-pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
-            # - pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
-      cache:
-        paths:
-          # - '.npm/**/*'
-          # - 'apps/gateway/.npm/**/*'
-          # - 'node_modules/**/*'
-    frontend:
-      buildPath: /
-      phases:
-        preBuild:
-          commands:
-            # - 'nvm install 20.19.1'
-            # - 'nvm use 20.19.1'
-            # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
-            # - node -v
-            - pwd
-            # - cd apps/gateway
-            # - pwd
-            # - rm -rf .next
-            - cd ../../ # run install and build from monorepo project root
-            - pwd
-            # - npm install -g pnpm
-            # - npm install --global corepack@latest
-            # - corepack enable
-            # - corepack prepare pnpm@latest-10 --activate
-            # - printenv PATH
-            # - mkdir ../.pnpm-store
-            # - pnpm config set store-dir ../.pnpm-store
-            # - pnpm config set global-bin-dir /root/bin
-            # - pnpm install --frozen-lockfile
-            # - pnpm add -g react-router@7.6.0
-            - pnpm store path
-            - pnpm list react*
-            # - ls -al /tmp/app/node_modules
-            # - printenv TMPTIME
-        build:
-          commands:
+            # - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
+            - npx ampx pipeline-deploy --branch main --app-id d2hx7qu8b35esn
+            - cd ../../ # run build from monorepo project root
             - pwd
             - export FLEX_PROJ_ROOT=$(pwd)
             - pnpm build
-      artifacts:
-        baseDirectory: apps/gateway/.next
-        files:
-          - '**/*'
-      cache:
-        paths:
-          # - '.next/cache/**/*'
-          # - 'apps/gateway/.next/cache/**/*'
-          # - 'node_modules/**/*'
-  -
-    appRoot: apps/express-app
     frontend:
-      buildPath: /
+      buildPath: apps/express-app
       phases:
         preBuild:
           commands:
-            # - 'nvm install 20.19.1'
-            # - 'nvm use 20.19.1'
-            # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
-            # - node -v
-            - pwd
             - cd apps/express-app
             - pwd
             - npm install --cache .npm --prefer-offline
@@ -115,6 +44,6 @@ applications:
           commands:
             - npm run build
       artifacts:
-        baseDirectory: apps/express-app/.amplify-hosting
+        baseDirectory: .amplify-hosting
         files:
           - '**/*'
