@@ -28,7 +28,7 @@ import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 // import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
-const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf-app-router'), { ssr: true })
+const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf'), { ssr: true })
 
 export default async function WebAppLayout({
   children,

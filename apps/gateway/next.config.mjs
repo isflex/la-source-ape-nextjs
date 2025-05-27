@@ -46,14 +46,14 @@ console.log(`Build Id       :`, _buildId)
 async function getActiveRoutes() {
   const regexFolderName = /\[|\]|\./g;
   const jsonData = JSON.stringify([
-    ...fs
-      .readdirSync(path.resolve(__dirname, 'src/pages'), { withFileTypes: true })
-      .filter((file) => file.isDirectory())
-      .map((folder) => folder.name.replace(regexFolderName, ''))
-      .filter(
-        (folder) =>
-          !folder.startsWith('_') && folder !== 'api',
-      ),
+    // ...fs
+    //   .readdirSync(path.resolve(__dirname, 'src/pages'), { withFileTypes: true })
+    //   .filter((file) => file.isDirectory())
+    //   .map((folder) => folder.name.replace(regexFolderName, ''))
+    //   .filter(
+    //     (folder) =>
+    //       !folder.startsWith('_') && folder !== 'api',
+    //   ),
     ...fs
       .readdirSync(path.resolve(__dirname, 'src/app'), { withFileTypes: true })
       .filter((file) => file.isDirectory())
