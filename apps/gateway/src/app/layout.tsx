@@ -7,8 +7,14 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import  { title, description, jsonLd } from '@src/seo'
 
-// import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplifyOutputs'
-import AuthProvider from '@src/components/auth/AuthProvider'
+import outputs from '@root/amplify_outputs.json'
+// import { AMPLIFY_AUTH_CONFIG_V2 } from '@src/utils/amplify/configure'
+import { Amplify, type ResourcesConfig } from 'aws-amplify'
+Amplify.configure({
+  // ...(AMPLIFY_AUTH_CONFIG_V2 as ResourcesConfig),
+  ...outputs,
+}, { ssr: true })
+import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplifyOutputs'
 
 // import { StoreProvider } from '@src/stores'
 
@@ -29,7 +35,6 @@ import { inlineStyles } from '@src/styles/inlineStyles'
 // import '@flexiness/domain-tailwind/globals.css'
 
 const remoteWebAppClient = process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST
-// const remoteContentClient = process.env.NEXT_PUBLIC_FLEX_CONTENT_REMOTE_HOST
 
 // import localFont from 'next/font/local'
 
@@ -146,14 +151,13 @@ const RootLayout = async ({
       <body style={{ ...inlineStyles.reset }}>
         {/* <StoreProvider> */}
           <PostHogProvider>
-            <AuthProvider>
-              <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped )} theme='light'>
-                {/* <NavBarAuth isSignedIn={await isAuthenticated()} /> */}
-                <Layout>
-                  {children}
-                </Layout>
-              </FlexRootView>
-            </AuthProvider>
+            <ConfigureAmplifyClientSide />
+            <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped )} theme='light'>
+              {/* <NavBarAuth isSignedIn={await isAuthenticated()} /> */}
+              <Layout>
+                {children}
+              </Layout>
+            </FlexRootView>
           </PostHogProvider>
         {/* </StoreProvider> */}
       </body>

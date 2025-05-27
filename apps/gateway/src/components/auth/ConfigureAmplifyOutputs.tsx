@@ -1,10 +1,12 @@
 'use client';
 
-import { Amplify } from 'aws-amplify';
-
+import { Amplify, type ResourcesConfig } from 'aws-amplify';
 import outputs from '@root/amplify_outputs.json';
-
-Amplify.configure(outputs, { ssr: true });
+// import { AMPLIFY_AUTH_CONFIG_V2 } from '@src/utils/amplify/configure';
+Amplify.configure({
+  // ...(AMPLIFY_AUTH_CONFIG_V2 as ResourcesConfig),
+  ...outputs,
+}, { ssr: true });
 
 export default function ConfigureAmplifyClientSide() {
   return null;

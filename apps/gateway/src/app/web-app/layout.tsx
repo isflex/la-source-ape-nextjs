@@ -1,16 +1,18 @@
-import * as path from 'path'
+// import * as path from 'path'
+
 // import os from 'node:os'
 // import fs, { writeFileSync } from 'node:fs'
 // import { v4 as uuidv4 } from 'uuid'
 
-import { fileURLToPath } from 'url'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+// import { fileURLToPath } from 'url'
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = path.dirname(__filename)
 
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { headers } from 'next/headers'
-
+import type { Metadata } from 'next'
+import  { title } from '@src/seo'
 import PostHogNodeClient from '@src/utils/posthog/initPostHogNode'
 
 // import { isMobile } from 'react-device-detect'
@@ -29,6 +31,10 @@ import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf'), { ssr: true })
+
+export const metadata: Metadata = {
+  title: `${title} | Web App`,
+}
 
 export default async function WebAppLayout({
   children,

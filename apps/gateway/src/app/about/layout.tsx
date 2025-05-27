@@ -10,7 +10,8 @@ const __dirname = path.dirname(__filename)
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { headers } from 'next/headers'
-
+import type { Metadata } from 'next'
+import  { title } from '@src/seo'
 import PostHogNodeClient from '@src/utils/posthog/initPostHogNode'
 
 // import { isMobile } from 'react-device-detect'
@@ -32,6 +33,10 @@ const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 import Spaghetti from '@src/components/graphics/spaghetti'
 import TitleContent from '@src/app/about/title-content'
 import About from './client-component'
+
+export const metadata: Metadata = {
+  title: `${title} | À propos`,
+}
 
 export default async function AboutLayout({
   children,

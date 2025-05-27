@@ -1,6 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
-
+import type { Metadata } from 'next'
+import  { title } from '@src/seo'
 import PostHogNodeClient from '@src/utils/posthog/initPostHogNode'
 
 import classNames from 'classnames'
@@ -13,6 +14,10 @@ import {
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
+
+export const metadata: Metadata = {
+  title: `${title} | Accueil`,
+}
 
 export default async function HomeLayout({
   children,
