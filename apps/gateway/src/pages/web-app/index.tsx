@@ -56,7 +56,7 @@ const stores = getStores()
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 // const LogoFlex = dynamic(() => import('@src/components/logo-flexiness').then(mod => mod.default), { ssr: true })
 
-const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf'), { ssr: true })
+const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf-pages-router'), { ssr: true })
 // const WebAppMF = React.lazy(async () => await import('@src/components/web-app-mf'))
 
 const MFWebAppPage: NextPage<PageAppProps> = observer((

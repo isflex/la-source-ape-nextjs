@@ -4,7 +4,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { headers } from 'next/headers'
 import { isMobile } from '@src/utils'
-const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf-2'), { ssr: true })
+const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf-app-router'), { ssr: true })
 
 async function actionPageInfo() {
   'use server'

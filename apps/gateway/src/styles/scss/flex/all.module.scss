@@ -54,6 +54,19 @@
       min-height: calc(100vh - 485px);
     }
   }
+
+  &.is-plain {
+    background: transparent;
+
+    main {
+      width: calc(100% - 0.8rem);
+      padding: 0 0.8rem 0 0;
+
+      > div {
+        width: 100%;
+      }
+    }
+  }
 }
 
 .btn-std {

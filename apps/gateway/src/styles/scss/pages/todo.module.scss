@@ -15,21 +15,22 @@
     list-style-type: none;
     display: flex;
     flex-direction: column;
-    margin: 0;
-    border: 1px solid black;
     gap: 1px;
-    background-color: black;
     border-radius: 8px;
     overflow: auto;
+    margin: 1rem 0 0;
   }
 
   ul:not(:empty) {
-    margin: 1rem 0 2.5rem;
+    margin: 1rem 0 2rem;
+    border: 1px solid black;
+    background-color: black;
   }
 
   li {
     background-color: white;
     padding: 8px;
+    min-height: 2.5rem;
   }
 
   li:hover {

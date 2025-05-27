@@ -25,12 +25,12 @@ import classNames from 'classnames'
 //   TitleLevel
 //  } from '@flex-design-system/react-ts/client-sync-styled-default'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
-import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss'
+// import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
-const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf-2'), { ssr: true })
+const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf-app-router'), { ssr: true })
 
-export default async function AboutLayout({
+export default async function WebAppLayout({
   children,
 }: {
   children: React.ReactNode
@@ -43,13 +43,13 @@ export default async function AboutLayout({
 
   return (
     <div className={classNames(
-        flexStyles.genericLayout1,
-        stylesPage.aboutApp,
-        mobileCheck && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
-      )}>
+      flexStyles.genericLayout1,
+      flexStyles.isPlain,
+      mobileCheck && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
+    )}>
       <div style={{
         height: 'auto',
-        padding: '2rem 0',
+        padding: '0',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -58,13 +58,16 @@ export default async function AboutLayout({
         <div style={{
           width: '100%',
         }}>
-          <LogoAPE />
+          <LogoAPE isLoader={true} />
         </div>
-      </div>
 
-      <main className={classNames(flexStyles.fullPage, flexStyles.hasSpaceBetweenContent)}>
-        <WebAppMF mobileCheck={mobileCheck} />
-      </main>
+        <main className={classNames(
+          // flexStyles.fullPage,
+          // flexStyles.hasSpaceBetweenContent
+        )}>
+          <WebAppMF mobileCheck={mobileCheck} />
+        </main>
+      </div>
     </div>
   )
 }

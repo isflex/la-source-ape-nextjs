@@ -1,30 +1,16 @@
 'use client'
 
 import React from 'react'
-// import dynamic from 'next/dynamic'
 import loadable from '@loadable/component'
-import { init, registerRemotes, loadRemote } from '@module-federation/enhanced/runtime'
+import { init, loadRemote } from '@module-federation/enhanced/runtime'
 import { observer } from 'mobx-react-lite'
 import { PageAppProps } from '@root/types/additional'
-// import { isServer } from '@src/utils'
-// import { getStores } from '@flexiness/domain-store'
 
 const HOST = `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_NAME}`
 const MF = `${process.env.NEXT_PUBLIC_POKER_CLIENT_NAME}`
 const REMOTE = `${process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST}`
 
-// const stores = getStores()
-
-// const LogoAPE = dynamic(() => import('@src/components/logo-ape-la-source').then(mod => mod.default), { ssr: true })
-// let WebAppRemote: React.ComponentType<any> = LogoAPE
-
 const WebAppMF: React.FC<PageAppProps> = observer((props) => {
-  // const { status } = stores.UIStore
-  // const [isLoading, setLoading] = React.useState<boolean>(true)
-  // const [isPending, startTransition] = React.useTransition()
-
-  // if (isServer) return null
-  // if (window[`${MF}` as keyof Window]) return null
 
   const WebAppRemote = loadable(async () => {
     init({
@@ -74,16 +60,6 @@ const WebAppMF: React.FC<PageAppProps> = observer((props) => {
       },
       shareStrategy: 'loaded-first',
     })
-
-    // registerRemotes(
-    //   [
-    //     {
-    //       name: MF as string,
-    //       entry: `${REMOTE}/mf-manifest.json`,
-    //     },
-    //   ],
-    //   // { force: true }
-    // );
 
     return await loadRemote(`${MF}/App`).then((m: any) => {
       return m.default as React.ComponentType<any>
