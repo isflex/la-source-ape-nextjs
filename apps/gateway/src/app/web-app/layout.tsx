@@ -63,6 +63,7 @@ export default async function WebAppLayout({
       }}>
         <div style={{
           width: '100%',
+          background: 'linear-gradient(180deg, rgb(117 81 194), rgb(255 255 255))',
         }}>
           <LogoAPE isLoader={true} />
         </div>

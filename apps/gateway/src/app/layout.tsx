@@ -31,7 +31,7 @@ import {
 //  } from '@flex-design-system/react-ts/client-sync-styled-default'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { inlineStyles } from '@src/styles/inlineStyles'
-// import './globals.css'
+import '@src/styles/globals.css'
 // import '@flexiness/domain-tailwind/globals.css'
 
 const remoteWebAppClient = process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST

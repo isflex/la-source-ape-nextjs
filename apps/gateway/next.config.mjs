@@ -94,8 +94,13 @@ const mainConfig = new Config(async (phase, args) => {
     async redirects() {
       return [
         {
-          source: '/qui-nous-sommes',
+          source: '/qui-sommes-nous',
           destination: 'https://ecolelasource.org/une-ecole-active/role-des-parents/',
+          permanent: false,
+        },
+        {
+          source: '/helloasso',
+          destination: 'https://www.helloasso.com/associations/association-des-parents-d-eleves-de-la-source-ecole-nouvelle/',
           permanent: false,
         },
       ]

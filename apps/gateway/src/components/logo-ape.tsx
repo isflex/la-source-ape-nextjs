@@ -33,7 +33,7 @@ const Logo: React.FC<LogoProps> = React.forwardRef<HTMLElement, LogoProps>((prop
         }}>
           <motion.div initial={{ x: '-35vw', opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5, ease: 'easeInOut' }}>
             <div style={{
-              height: '100vh',
+              height: '70vh',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',

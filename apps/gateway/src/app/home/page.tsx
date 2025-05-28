@@ -37,7 +37,10 @@ const Home: NextPage<PageAppProps> = () => {
         <Title level={TitleLevel.LEVEL4}>{`... avec l'aide des élèves de la source en forme d'atelier pratique`}<br/>🤞</Title>
       </InfoBlockContent>
       <InfoBlockAction>
-        <Link href='/qui-nous-sommes' target='_blank' className={flexStyles.link}>Qui somme nous ?</Link>
+        <div className={classNames(flexStyles.isFullwidth, flexStyles.isFlex, flexStyles.isAlignItemsCenter, flexStyles.isJustifyContentSpaceEvenly)}>
+          <Link href='/qui-sommes-nous' target='_blank' className={flexStyles.link}>Qui somme nous ?</Link>
+          <Link href='/helloasso' target='_blank' className={flexStyles.link}>L&apos;APE sur helloasso</Link>
+        </div>
       </InfoBlockAction>
     </InfoBlock>
   )
