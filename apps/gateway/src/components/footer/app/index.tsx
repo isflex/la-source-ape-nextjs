@@ -8,24 +8,24 @@ import dynamic from 'next/dynamic'
 // import { PageAppProps } from '@root/types/additional'
 import { useInView } from 'react-intersection-observer'
 
-// import classNames from 'classnames'
-// import {
-//   // flexStyles,
-//   // Button,
-//   // ButtonMarkup,
-//   // Box,
-//   // Link as FlexLink,
-//   // Text,
-//   // Title,
-//   // TitleLevel,
-//   // VariantState,
-//   // IconName,
-//   // InfoBlock,
-//   // InfoBlockAction,
-//   // InfoBlockContent,
-//   // InfoBlockHeader,
-//   // InfoBlockStatus,
-// } from '@flex-design-system/react-ts/client-sync-styled-default'
+import classNames from 'classnames'
+import {
+  // flexStyles,
+  // Button,
+  // ButtonMarkup,
+  // Box,
+  Link,
+  // Text,
+  // Title,
+  // TitleLevel,
+  // VariantState,
+  // IconName,
+  // InfoBlock,
+  // InfoBlockAction,
+  // InfoBlockContent,
+  // InfoBlockHeader,
+  // InfoBlockStatus,
+} from '@flex-design-system/react-ts/client-sync-styled-default'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/footer.module.scss'
 import { default as stylesLogo } from '@src/styles/scss/pages/logo.module.scss'
@@ -52,9 +52,17 @@ const Footer: React.FC<FooterAppProps> = ({}) => {
   return (
     <div className={stylesPage.footerContainer}>
       <Banner logoFlexInView={logoFlexInView} />
-      <button className={flexStyles.btnStd} onClick={() => window.open('https://ci.flexiness.com', '_blank')}>
-        <LogoFlex ref={ref} className={stylesLogo.logoFooter} />
-      </button>
+      <div className={stylesPage.footerPage}>
+        <small>
+          <Link href={`/privacy_policy`} target='_blank' rel='privacy-policy'>politique de confidentialité</Link>
+        </small>
+        <button className={flexStyles.btnStd} onClick={() => window.open('https://ci.flexiness.com', '_blank')}>
+          <LogoFlex ref={ref} className={stylesLogo.logoFooter} />
+        </button>
+        <small>
+          <Link href={`/terms_of_service`} target='_blank' rel='terms-of-service'>conditions générales d&apos;utilisation</Link>
+        </small>
+      </div>
     </div>
   )
 }

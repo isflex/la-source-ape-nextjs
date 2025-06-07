@@ -17,7 +17,7 @@ import { default as stylesPage } from '@src/styles/scss/pages/todo.module.scss'
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 
 export const metadata: Metadata = {
-  title: `${title} | Todo App`,
+  title: `Todo App | ${title}`,
 }
 
 export default async function ToDoAppLayout({

@@ -33,7 +33,7 @@ const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf'), { ssr: true })
 
 export const metadata: Metadata = {
-  title: `${title} | Web App`,
+  title: `Web App | ${title}`,
 }
 
 export default async function WebAppLayout({

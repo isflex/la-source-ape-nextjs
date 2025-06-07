@@ -11,7 +11,7 @@
 
     // { "path": "./packages/flex/config/aws/tsconfig.build.json" },
 
-    // { "path": "./packages/flex/config/eslint/flat-config/tsconfig.build.json" },
+    { "path": "./packages/flex/config/eslint/flat-config/tsconfig.build.json" },
     // { "path": "./packages/flex/config/eslint/legacy/tsconfig.build.json" },
 
     // { "path": "./packages/flex/config/languages/tsconfig.build.json" },

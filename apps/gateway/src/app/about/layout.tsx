@@ -35,7 +35,7 @@ import TitleContent from '@src/app/about/title-content'
 import About from './client-component'
 
 export const metadata: Metadata = {
-  title: `${title} | À propos`,
+  title: `À propos | ${title}`,
 }
 
 export default async function AboutLayout({

@@ -66,10 +66,10 @@
   ],
   // "eslint.experimental.useFlatConfig": false,
   "eslint.options": {
-    // "overrideConfigFile": "/home/ischerer/workspaces/flex/websocket-app/ape-la-source/.eslintrc.cjs"
-    // "overrideConfigFile": "/home/ischerer/workspaces/flex/websocket-app/ape-la-source/packages/flex/config/eslint/legacy/dist/.eslintrc.cjs"
-    "overrideConfigFile": "/home/ischerer/workspaces/flex/websocket-app/ape-la-source/eslint.config.mjs"
-    // "overrideConfigFile": "/home/ischerer/workspaces/flex/websocket-app/ape-la-source/packages/flex/config/eslint/flat-config/dist/eslint.config.mjs"
+    // "overrideConfigFile": "/home/ischerer/workspaces/flex/la-source-ape/.eslintrc.cjs"
+    // "overrideConfigFile": "/home/ischerer/workspaces/flex/la-source-ape/packages/flex/config/eslint/legacy/dist/.eslintrc.cjs"
+    "overrideConfigFile": "/home/ischerer/workspaces/flex/la-source-ape/eslint.config.mjs"
+    // "overrideConfigFile": "/home/ischerer/workspaces/flex/la-source-ape/packages/flex/config/eslint/flat-config/dist/eslint.config.mjs"
   },
   "eslint.workingDirectories": [
     {
@@ -93,8 +93,7 @@
     //   "mode": "auto"
     // }
   ],
-  // "eslint.runtime": "/home/ischerer/.nvm/versions/node/v20.13.1/bin/node",
-  "eslint.runtime": "/home/ischerer/.nvm/versions/node/v20.15.0/bin/node",
+  "eslint.runtime": "/home/ischerer/.nvm/versions/node/v20.19.1/bin/node",
   "eslint.execArgv": ["--max_old_space_size=4096"],
   // "eslint.packageManager": "yarn",
   // "eslint.nodePath": ".yarn/sdks",

@@ -96,7 +96,12 @@ a {
   }
 } */
 
+
 main > [data-flex-theme] .footer {
+  display: none;
+}
+
+/* main > [data-flex-theme] .footer {
   align-items: flex-end;
   margin-bottom: 0.5rem;
 }
@@ -104,4 +109,4 @@ main > [data-flex-theme] .footer {
 main > [data-flex-theme] .footer .logoBadge {
   background-image: none;
   height: 0;
-}
+} */

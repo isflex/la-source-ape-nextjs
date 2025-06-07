@@ -246,7 +246,7 @@ $alignments: ("centered": "center", "justified": "justify", "left": "left", "rig
 }
 
 // Visibility
-$displays: "block" "flex" "inline" "inline-block" "inline-flex";
+$displays: "block" "flex" "inline" "inline-block" "inline-flex" "table-row";
 
 @each $display in $displays {
     .is-#{$display} {
@@ -421,6 +421,64 @@ $displays: "block" "flex" "inline" "inline-block" "inline-flex";
 @include mixins.fullhd {
     .is-invisible-fullhd {
         visibility: hidden !important;
+    }
+}
+
+.is-column-span-all {
+    column-span: all !important;
+}
+
+@include mixins.mobile {
+    .is-column-span-all-mobile {
+        column-span: all !important;
+    }
+}
+
+@include mixins.tablet {
+    .is-column-span-all-tablet {
+        column-span: all !important;
+    }
+}
+
+@include mixins.tablet-only {
+    .is-column-span-all-tablet-only {
+        column-span: all !important;
+    }
+}
+
+@include mixins.touch {
+    .is-column-span-all-touch {
+        column-span: all !important;
+    }
+}
+
+@include mixins.desktop {
+    .is-column-span-all-desktop {
+        column-span: all !important;
+    }
+}
+
+@include mixins.desktop-only {
+    .is-column-span-all-desktop-only {
+        column-span: all !important;
+    }
+}
+
+@include mixins.widescreen {
+    .is-column-span-all-widescreen {
+        column-span: all !important;
+    }
+}
+
+@include mixins.widescreen-only {
+    .is-column-span-all-widescreen-only {
+        column-span: all !important;
+    }
+}
+
+@include mixins.fullhd {
+    .is-column-span-all-fullhd {
+        column-span: all !important;
     }
 }
 

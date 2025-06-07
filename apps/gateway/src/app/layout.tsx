@@ -124,6 +124,7 @@ const RootLayout = async ({
         {/* Required for CSS-in-JS <style data-jss /> tags -> injected into HEAD by Material UI v4 -> CSP style-src 'unsafe-inline' */}
         {/* https://cssinjs.org/csp/?v=v10.10.0 */}
         <meta nonce={_nonce} property='csp-nonce' content={`${_nonce}`} />
+        <meta name='google-site-verification' content='psZCPyPTBntXlBHex2y-Z1ts-t5P7dAfyWYVlodgZ9I' />
         <link nonce={_nonce} type='image/x-icon' rel='ico' href={`/logo/la_source/favicon-128.ico`} />
         <link nonce={_nonce} rel='apple-touch-icon' sizes='192x192' href={`/logo/la_source/Icon_192.png`} />
         <link nonce={_nonce} rel='apple-touch-icon' sizes='512x512' href={`/logo/la_source/Icon_512.png`} />
@@ -135,7 +136,7 @@ const RootLayout = async ({
           id='webpackNonce'
           strategy={'beforeInteractive'}
           dangerouslySetInnerHTML={{
-            __html: `window.__webpack_nonce__="${_nonce}"`
+            __html: `window.__webpack_nonce__='${_nonce}'`
           }}
         />
 

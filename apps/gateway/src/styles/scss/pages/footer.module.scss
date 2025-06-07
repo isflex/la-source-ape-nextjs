@@ -4,7 +4,7 @@
   left: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   width: 100%;
 
   .dom-overlay-mode & {
@@ -61,11 +61,40 @@
     }
   }
 
-  .logo-flexiness {
-    position: relative;
-    width: 90px;
-    height: 50px;
+  .footer-page {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0 0.5rem;
     margin: 0 auto;
-    padding: 0;
+
+    .logo-flexiness {
+      position: relative;
+      width: 90px;
+      height: 50px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    small a {
+      display: block;
+      max-width: calc(((100vw - 90px) / 2) - 10px - 2rem - 1rem);
+      margin: 0 5px;
+    }
+  }
+
+  @media screen and (min-width: '768px') {
+    .footer-page {
+      width: 75%;
+
+      small a {
+        max-width: none;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+      }
+    }
   }
 }
