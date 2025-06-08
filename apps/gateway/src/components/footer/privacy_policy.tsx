@@ -100,7 +100,73 @@ const App: React.FC = () => {
               </TableTr>
             </TableHead>
             <TableBody>
+
               <TableTr className={classNames(flexStyles.isFlexMobile, flexStyles.isFlexDirectionColumn, flexStyles.isTableRowTablet, flexStyles.isColumnSpanAllTablet )}>
+                <TableTd>
+                  <Text className={classNames(flexStyles.hasTextFlexPink, flexStyles.hasTextWeightBold)}>
+                    <span>/auth</span><span>/userinfo</span><span>.email</span>
+                  </Text>
+                </TableTd>
+                <TableTd>
+                  <Text className={flexStyles.hasTextTertiary}>
+                    Consultez l&apos;adresse e-mail principale de votre compte Google
+                  </Text>
+                </TableTd>
+              </TableTr>
+              <TableTr className={classNames(flexStyles.isFlexMobile, flexStyles.isFlexDirectionColumn, flexStyles.isTableRowTablet, flexStyles.isColumnSpanAllTablet )}>
+                <TableTd>
+                  <Text className={classNames(flexStyles.hasTextFlexPink, flexStyles.hasTextWeightBold)}>
+                    <span>/auth</span><span>/userinfo</span><span>.profile</span>
+                  </Text>
+                </TableTd>
+                <TableTd>
+                  <Text className={flexStyles.hasTextTertiary}>
+                    Consultez vos informations personnelles, y compris toutes les informations personnelles que vous avez rendues publiques
+                  </Text>
+                </TableTd>
+              </TableTr>
+              <TableTr className={classNames(flexStyles.isFlexMobile, flexStyles.isFlexDirectionColumn, flexStyles.isTableRowTablet, flexStyles.isColumnSpanAllTablet )}>
+                <TableTd>
+                  <Text className={classNames(flexStyles.hasTextFlexPink, flexStyles.hasTextWeightBold)}>
+                    <span>openid</span>
+                  </Text>
+                </TableTd>
+                <TableTd>
+                  <Text className={flexStyles.hasTextTertiary}>
+                    Associez-vous à vos informations personnelles sur Google
+                  </Text>
+                </TableTd>
+              </TableTr>
+              <TableTr className={classNames(flexStyles.isFlexMobile, flexStyles.isFlexDirectionColumn, flexStyles.isTableRowTablet, flexStyles.isColumnSpanAllTablet )}>
+                <TableTd>
+                  <Text className={classNames(flexStyles.hasTextFlexPink, flexStyles.hasTextWeightBold)}>
+                    <span>/auth</span><span>/user</span><span>.phonenumbers</span><span>.read</span>
+                  </Text>
+                </TableTd>
+                <TableTd>
+                  <Text className={flexStyles.hasTextTertiary}>
+                    Consultez et téléchargez vos numéros de téléphone personnels
+                  </Text>
+                </TableTd>
+              </TableTr>
+              <TableTr>
+                <TableTd colSpan={2}>
+                  <Icon
+                    content={
+                      <Text>
+                        Cela nous permet de vous authentifier via Google, puis de partager vos coordonnées de contacte avec d&apos;autres utilisateurs
+                        authentifiés à l&apos;application.
+                      </Text>
+                    }
+                    size={IconSize.SMALL}
+                    position={IconPosition.LEFT}
+                    name={IconName.EXCLAMATION_CIRCLE}
+                    className={classNames(flexStyles.hasTextFlexPink, flexStyles.hasTextWeightBold)}
+                  />
+                </TableTd>
+              </TableTr>
+
+              {/* <TableTr className={classNames(flexStyles.isFlexMobile, flexStyles.isFlexDirectionColumn, flexStyles.isTableRowTablet, flexStyles.isColumnSpanAllTablet )}>
                 <TableTd>
                   <Text className={classNames(flexStyles.hasTextSecondary, flexStyles.hasTextWeightBold)}>
                     <span>/auth</span><span>/calendar</span>
@@ -150,8 +216,9 @@ const App: React.FC = () => {
                     className={classNames(flexStyles.hasTextSecondary, flexStyles.hasTextWeightBold)}
                   />
                 </TableTd>
-              </TableTr>
-              <TableTr className={classNames(flexStyles.isFlexMobile, flexStyles.isFlexDirectionColumn, flexStyles.isTableRowTablet, flexStyles.isColumnSpanAllTablet )}>
+              </TableTr> */}
+
+              {/* <TableTr className={classNames(flexStyles.isFlexMobile, flexStyles.isFlexDirectionColumn, flexStyles.isTableRowTablet, flexStyles.isColumnSpanAllTablet )}>
                 <TableTd>
                   <Text className={classNames(flexStyles.hasTextFlexPurple, flexStyles.hasTextWeightBold)}>
                     <span>/auth</span><span>/bigquery</span>
@@ -189,7 +256,8 @@ const App: React.FC = () => {
                     className={classNames(flexStyles.hasTextFlexPurple, flexStyles.hasTextWeightBold)}
                   />
                 </TableTd>
-              </TableTr>
+              </TableTr> */}
+
             </TableBody>
           </Table>
             <Text>Nous utilisons ces données <strong>uniquement à des fins fonctionnelles</strong> et pour <strong>mieux comprendre le comportement des utilisateurs en interne</strong>.</Text>
