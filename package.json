@@ -36,20 +36,20 @@
     ]
   },
   "dependencies": {
-    "@dotenvx/dotenvx": "1.5.0",
+    "@dotenvx/dotenvx": "1.44.0",
     "@flex-design-system/framework": "@flex-design-system/framework@0.0.1",
     "@flex-design-system/react-ts": "@flex-design-system/react-ts@0.0.1",
     "@flexiness/domain-store": "@flexiness/domain-store@0.1.0",
     "@flexiness/domain-utils": "@flexiness/domain-utils@0.0.1",
     "classnames": "^2.5.1",
-    "mobx": "6.13.1",
-    "mobx-react-lite": "4.0.7",
+    "mobx": "6.13.7",
+    "mobx-react-lite": "4.1.0",
     "next": "15.3.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-router": "7.6.1",
     "turbo": "2.0.6",
-    "zod": "3.24.1"
+    "zod": "3.25.17"
   },
   "devDependencies": {
     "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
@@ -63,7 +63,7 @@
     "css-loader": "7.1.2",
     "file-loader": "6.2.0",
     "flexiness": "@types/flexiness@0.0.1",
-    "html-webpack-plugin": "5.6.0",
+    "html-webpack-plugin": "5.6.3",
     "husky": "9.0.11",
     "mini-css-extract-plugin": "2.9.2",
     "node-polyfill-webpack-plugin": "3.0.0",
@@ -73,12 +73,12 @@
     "postcss-scss": "4.0.9",
     "postcss-strip-inline-comments": "0.1.5",
     "prettier": "3.4.2",
-    "sass": "1.83.1",
-    "sass-loader": "14.2.1",
+    "sass": "1.88.0",
+    "sass-loader": "16.0.5",
     "style-loader": "4.0.0",
     "ts-loader": "9.5.1",
     "ts-node": "10.9.2",
-    "tsconfig-paths-webpack-plugin": "4.1.0",
+    "tsconfig-paths-webpack-plugin": "4.2.0",
     "tslib": "^2.4.0",
     "typed-scss-modules": "@flexiness/typed-scss-modules@8.1.0",
     "typescript": "5.7.2",
@@ -97,7 +97,7 @@
       "@flex-design-system/framework": "workspace:./packages/flex/design-system-framework",
       "@flex-design-system/react-ts": "workspace:./packages/flex/design-system-react-ts",
       "typed-scss-modules": "workspace:./packages/flex/config/typed-scss-modules",
-      "graphql": "16.8.1",
+      "graphql": "16.11.0",
       "next": "15.3.2",
       "react": "19.1.0",
       "react-dom": "19.1.0",
@@ -110,8 +110,9 @@
       "vue-tsc": "^2.0.26",
       "@rspack/core": "1.1.8",
       "@rspack/cli": "1.1.8",
-      "sass": "1.83.1",
-      "@jridgewell/gen-mapping": "0.3.8"
+      "sass": "1.88.0",
+      "@jridgewell/gen-mapping": "0.3.8",
+      "zod": "3.25.17"
     }
   }
 }

@@ -160,7 +160,7 @@ const App: React.FC = () => {
                     }
                     size={IconSize.SMALL}
                     position={IconPosition.LEFT}
-                    name={IconName.EXCLAMATION_CIRCLE}
+                    name={IconName.UI_EXCLAMATION_CIRCLE}
                     className={classNames(flexStyles.hasTextFlexPink, flexStyles.hasTextWeightBold)}
                   />
                 </TableTd>
@@ -212,7 +212,7 @@ const App: React.FC = () => {
                     }
                     size={IconSize.SMALL}
                     position={IconPosition.LEFT}
-                    name={IconName.EXCLAMATION_CIRCLE}
+                    name={IconName.UI_EXCLAMATION_CIRCLE}
                     className={classNames(flexStyles.hasTextSecondary, flexStyles.hasTextWeightBold)}
                   />
                 </TableTd>
@@ -252,7 +252,7 @@ const App: React.FC = () => {
                     }
                     size={IconSize.SMALL}
                     position={IconPosition.LEFT}
-                    name={IconName.EXCLAMATION_CIRCLE}
+                    name={IconName.UI_EXCLAMATION_CIRCLE}
                     className={classNames(flexStyles.hasTextFlexPurple, flexStyles.hasTextWeightBold)}
                   />
                 </TableTd>
