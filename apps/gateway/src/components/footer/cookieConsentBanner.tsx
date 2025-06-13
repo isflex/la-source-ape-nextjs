@@ -67,7 +67,8 @@ export const Banner: React.FC<BannerProps> = ({ logoFlexInView }) => {
                 content={
                   <Text className={classNames(flexStyles.isSize8)} style={{ margin: '1em 0'}}>
                     En poursuivant votre navigation sur ce site, vous acceptez l&apos;utilisation de cookies purement fonctionnels pour vous garantir
-                    la meilleure expérience sur notre site et réaliser des statistiques d&apos;utilisation anonymes.
+                    une meilleure expérience d&apos;utilisation. Les statistiques anonymes recueillis sont utilisées pour détecter les erreurs
+                    lorsqu&apos;elles se produisent. Aucune donnée n&apos;est partagée avec un tiers.
                     <span className={stylesPage.cookiesConsentBtnHolder}>
                       {/* <Button small variant={VariantState.FLEX_PINK} onClick={handleAcceptCookies}>Accepter les cookies</Button> */}
                       {/* <Button small onClick={handleDeclineCookies}>Refuser les cookies</Button> */}

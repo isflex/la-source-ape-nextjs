@@ -80,13 +80,13 @@
     "lint-staged": "15.2.4",
     "prettier": "3.4.2",
     "prettier-plugin-organize-imports": "^3.2.3",
-    "sass": "^1.83.1",
+    "sass": "^1.88.0",
     "semantic-release": "^17.4.7",
     "ts-node": "10.9.2",
     "typescript": "5.7.2"
   },
   "peerDependencies": {
-    "sass": "^1.83.1"
+    "sass": "^1.88.0"
   },
   "engines": {
     "node": ">=16"

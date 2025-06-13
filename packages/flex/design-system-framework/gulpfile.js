@@ -65,7 +65,7 @@ function contentUrlProgressBar () {
 
 gulp.task('content-scss', gulp.series(contentUrlFonts, contentUrlMixins, contentUrlProgressBar))
 
-async function generateWebfont({ name, fileName, source, fontWeight, codepoints, cssTemplate, htmlTemplate, classPrefix, baseSelector }) {
+async function generateWebfont({ name, fileName, source, fontWeight, startCodepoint, codepoints, cssTemplate, htmlTemplate, classPrefix, baseSelector }) {
   try {
     const fontName = `${fileName || `flexi-${name}`}`
     // console.log('process        : ', process.cwd())
@@ -118,20 +118,6 @@ async function generateWebfont({ name, fileName, source, fontWeight, codepoints,
 }
 
 /**
- * This tasks generates illustrations icons webfonts
- */
-gulp.task('icons-illustrations-webfonts', async () => {
-  return generateWebfont({
-    name: `all`,
-    source: paths.src.illustrations,
-    classPrefix: 'flexi-webfont-',
-    // classPrefix: 'flexiWebfont',
-    baseSelector: '.flexi-webfont',
-    fileName: 'flexi-all'
-  })
-})
-
-/**
  * This tasks generates UI icons webfonts
  */
 gulp.task('icons-ui-webfonts', async () => {
@@ -139,7 +125,6 @@ gulp.task('icons-ui-webfonts', async () => {
     name: 'ui',
     source: paths.src.ui,
     classPrefix: 'flexi-webfont-ui-',
-    // classPrefix: 'flexiWebfontUi',
     baseSelector: '.flexi-webfont-ui',
     fileName: 'flexi-ui',
     codepoints: {
@@ -153,7 +138,22 @@ gulp.task('icons-ui-webfonts', async () => {
       logo: 0xf106,
       'arrow-right': 0xf107,
       'arrow-left': 0xf108
-    }
+    },
+    startCodepoint: 0xf101,
+  })
+})
+
+/**
+ * This tasks generates illustrations icons webfonts
+ */
+gulp.task('icons-illustrations-webfonts', async () => {
+  return generateWebfont({
+    name: `illustrations`,
+    source: paths.src.illustrations,
+    classPrefix: 'flexi-webfont-illustrations-',
+    baseSelector: '.flexi-webfont-illustrations',
+    fileName: 'flexi-illustrations',
+    startCodepoint: 0xf101,
   })
 })
 
@@ -166,11 +166,10 @@ gulp.task('icons-picto-webfonts', async () => {
   return generateWebfont({
     name: 'picto',
     source: paths.src.picto,
-    // classPrefix: 'flexi-picto-',
-    // baseSelector: '.flexi-picto',
     classPrefix: 'flexi-webfont-picto-',
     baseSelector: '.flexi-webfont-picto',
     fileName: 'flexi-picto',
+    startCodepoint: 0xf101,
   })
 })
 
@@ -180,8 +179,8 @@ gulp.task('icons-picto-webfonts', async () => {
 gulp.task('webfonts',
   gulp.series(
     'icons-ui-webfonts',
-    'icons-picto-webfonts',
-    'icons-illustrations-webfonts'
+    'icons-illustrations-webfonts',
+    'icons-picto-webfonts'
   )
 )
 

@@ -11,6 +11,7 @@
         "src/assets/icon/illustrations/*.svg"
       ],
       "outputs": [
+        "src/webfonts/**",
         "src/assets/fonts/**",
         "../../../apps/gateway/public/assets/fonts/**"
       ],
