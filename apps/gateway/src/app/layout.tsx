@@ -81,8 +81,13 @@ const RootLayout = async ({
 }>) => {
   const _nonce = (await headers()).get('x-nonce') || '---CSP-nonce---'
 
-  const fetchMFs = async () => {
-    const responseWebAppClient = await fetch(`${remoteWebAppClient}/loadable-stats.json`)
+  const fetchMFAssets = async () => {
+    const responseWebAppClient = await fetch(`${remoteWebAppClient}/loadable-stats.json`, {
+      method: 'GET',
+      priority: 'high',
+      cache: 'force-cache'
+      // signal: AbortSignal.timeout(20 * 1000),
+    })
     if (!responseWebAppClient.ok) {
       throw new Error(`HTTP error! status: ${responseWebAppClient.status}`)
     }
@@ -94,9 +99,9 @@ const RootLayout = async ({
     }
   }
 
-  const resultModFeds = await fetchMFs().catch((e) => {
+  const resultModFeds = await fetchMFAssets().catch((e) => {
     // handle the error as needed
-    console.error('An error occurred while fetching the data from fetchMFs : ', e)
+    console.error('An error occurred while fetching the data from fetchMFAssets : ', e)
   })
 
   return (

@@ -30,6 +30,25 @@
     .dom-overlay-mode & {
       margin-bottom: 0;
     }
+
+    // main [data-amplify-authenticator][data-variation="modal"] [data-amplify-container] {
+    //   height: 100%;
+    // }
+
+    // main [data-amplify-authenticator][data-variation="modal"] [data-amplify-container] [data-amplify-router] {
+    //   height: 100%;
+    // }
+  }
+
+  &:not(.mobile-mode) {
+    main [data-amplify-authenticator][data-variation="modal"] {
+      top: 4.2rem;
+      height: calc(100vh - 4.2rem);
+    }
+
+    main [data-amplify-authenticator][data-variation="modal"] [data-amplify-container] {
+      margin-top: 2.5rem;
+    }
   }
 
   main {

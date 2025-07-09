@@ -55,8 +55,16 @@ $min-width-mob: 350px !default;
   flex-direction: row;
   background-color: var(--flex-grey-light);
 
+  &:not(.force-mobile) {
+    z-index: 12;
+  }
+
   @media screen and (max-width: '760px') {
     flex-direction: column;
+  }
+
+  .nav-logo {
+    order: 2;
   }
 
   &.force-mobile {
@@ -68,10 +76,10 @@ $min-width-mob: 350px !default;
       --spaghetti-holder-height: calc(#{$spaghetti-height-mob} - #{$nav-layout-height-column} - 2rem);
       --spaghetti-adjust-y-pos: 18px;
     }
-  }
 
-  .nav-logo {
-    order: 2;
+    .nav-logo svg {
+      zoom: 0.75;
+    }
   }
 
   .dom-overlay-mode & {
