@@ -14,6 +14,7 @@ import { headers } from 'next/headers'
 import type { Metadata } from 'next'
 import  { title } from '@src/seo'
 import PostHogNodeClient from '@src/utils/posthog/initPostHogNode'
+import { ErrorBoundary } from 'react-error-boundary'
 
 // import { isMobile } from 'react-device-detect'
 import { isMobile } from '@src/utils'
@@ -31,6 +32,7 @@ import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf'), { ssr: true })
+const FallBackEC2InstanceUnavailable = dynamic(() => import('@src/components/error/EC2InstanceUnavailable'), { ssr: true })
 
 export const metadata: Metadata = {
   title: `Web App | ${title}`,
@@ -48,33 +50,35 @@ export default async function WebAppLayout({
   await posthog.shutdown()
 
   return (
-    <div className={classNames(
-      flexStyles.genericLayout1,
-      flexStyles.isPlain,
-      mobileCheck && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
-    )}>
-      <div style={{
-        height: 'auto',
-        padding: '0',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+    <ErrorBoundary fallback={<FallBackEC2InstanceUnavailable mobileCheck={mobileCheck} />}>
+      <div className={classNames(
+        flexStyles.genericLayout1,
+        flexStyles.isPlain,
+        mobileCheck && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
+      )}>
         <div style={{
-          width: '100%',
-          background: 'linear-gradient(180deg, rgb(117 81 194), rgb(255 255 255))',
+          height: 'auto',
+          padding: '0',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}>
-          <LogoAPE isLoader={true} />
-        </div>
+          <div style={{
+            width: '100%',
+            background: 'linear-gradient(180deg, rgb(117 81 194), rgb(255 255 255))',
+          }}>
+            <LogoAPE isLoader={true} />
+          </div>
 
-        <main className={classNames(
-          // flexStyles.fullPage,
-          // flexStyles.hasSpaceBetweenContent
-        )}>
-          <WebAppMF mobileCheck={mobileCheck} />
-        </main>
+          <main className={classNames(
+            // flexStyles.fullPage,
+            // flexStyles.hasSpaceBetweenContent
+          )}>
+            <WebAppMF mobileCheck={mobileCheck} />
+          </main>
+        </div>
       </div>
-    </div>
+    </ErrorBoundary>
   )
 }

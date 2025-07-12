@@ -78,22 +78,31 @@
       padding: 0;
     }
 
+    small {
+      width: auto;
+    }
+
     small a {
       display: block;
       max-width: calc(((100vw - 90px) / 2) - 10px - 2rem - 1rem);
-      margin: 0 5px;
+      width: min-content;
     }
   }
 
-  @media screen and (min-width: '768px') {
+  @media screen and (min-width: '648px') {
     .footer-page {
       width: 75%;
 
+      small {
+        width: 100%;
+      }
+
       small a {
-        max-width: none;
         display: flex !important;
         justify-content: center;
         align-items: center;
+        max-width: none;
+        margin: 0 auto;
       }
     }
   }

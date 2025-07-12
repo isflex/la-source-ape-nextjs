@@ -64,7 +64,8 @@ $is-check-button-icon-pos-left: functions.size(0.5em);
     border-width: $button-border-width;
     border-radius: functions.size(0.4em);
     cursor: pointer;
-    justify-content: center;
+    align-items: center;
+    place-content: center;
     text-align: center;
     white-space: nowrap;
     height: functions.size(4.5em);
@@ -75,7 +76,8 @@ $is-check-button-icon-pos-left: functions.size(0.5em);
     font-weight: variables.$weight-semibold;
 
     @include mixins.unselectable;
-    @include mixins.control;
+
+    // @include mixins.control;
 
     @include mixins.mobile {
         width: 100%;

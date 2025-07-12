@@ -6,6 +6,7 @@ import { headers } from 'next/headers'
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import  { title, description, jsonLd } from '@src/seo'
+// import { isServer } from '@src/utils'
 
 import outputs from '@root/amplify_outputs.json'
 // import { AMPLIFY_AUTH_CONFIG_V2 } from '@src/utils/amplify/configure'
@@ -15,6 +16,12 @@ Amplify.configure({
   ...outputs,
 }, { ssr: true })
 import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplifyOutputs'
+import {
+  EC2Client,
+  // DescribeAddressesCommand, type DescribeAddressesCommandOutput,
+  DescribeSpotInstanceRequestsCommand, type DescribeSpotInstanceRequestsCommandOutput,
+  DescribeInstancesCommand, type DescribeInstancesCommandOutput,
+} from '@aws-sdk/client-ec2'
 
 // import { StoreProvider } from '@src/stores'
 
@@ -74,12 +81,29 @@ export const metadata: Metadata = {
 
 const Layout = dynamic(() => import('../components/main-layout/app'))
 
+type ResultModFeds = {
+  remoteEntryWebAppClient: string | null
+  flexFrameworkStyles: string | null
+} | null | void
+
+// type ResponseDescribeAddressesCommand = DescribeAddressesCommandOutput | null
+type ResponseDescribeSpotInstanceRequestsCommand = DescribeSpotInstanceRequestsCommandOutput | null
+type ResponseDescribeInstancesCommand = DescribeInstancesCommandOutput | null
+
 const RootLayout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) => {
   const _nonce = (await headers()).get('x-nonce') || '---CSP-nonce---'
+
+  // throw new Error(`HTTP error! status: Test General error`)
+
+  let statusEC2Active = false
+  let resultModFeds: ResultModFeds = null
+  // let responseEC2Addresses: ResponseDescribeAddressesCommand = null
+  let responseEC2SpotRequests: ResponseDescribeSpotInstanceRequestsCommand = null
+  let responseEC2Instances: ResponseDescribeInstancesCommand = null
 
   const fetchMFAssets = async () => {
     const responseWebAppClient = await fetch(`${remoteWebAppClient}/loadable-stats.json`, {
@@ -99,10 +123,66 @@ const RootLayout = async ({
     }
   }
 
-  const resultModFeds = await fetchMFAssets().catch((e) => {
-    // handle the error as needed
-    console.error('An error occurred while fetching the data from fetchMFAssets : ', e)
-  })
+  try {
+    // process data
+    const client = new EC2Client({ region: process.env.AWS_REGION })
+    // const input = {
+    //   PublicIps: [
+    //     '15.188.148.108',
+    //   ],
+    //   DryRun: false, // true || false
+    //   // Filters: [
+    //   //   {
+    //   //     Name: "STRING_VALUE",
+    //   //     Values: [
+    //   //       "STRING_VALUE",
+    //   //     ],
+    //   //   },
+    //   // ],
+    //   // AllocationIds: [
+    //   //   'eipalloc-00054b08ec67239e2',
+    //   // ],
+    // }
+    // const command = new DescribeAddressesCommand(input)
+    const inputSpotRequests = {
+      DryRun: false, // true || false
+      Filters: [
+        {
+          Name: 'tag:Name',
+          Values: [
+            'flex-homepage',
+          ],
+        },
+      ],
+    }
+    const commandSpotRequests = new DescribeSpotInstanceRequestsCommand(inputSpotRequests)
+    responseEC2SpotRequests = await client.send(commandSpotRequests)
+    if (responseEC2SpotRequests?.SpotInstanceRequests?.[0]?.InstanceId) {
+      const inputInstances = {
+        DryRun: false, // true || false
+        InstanceIds: [
+          responseEC2SpotRequests.SpotInstanceRequests[0].InstanceId,
+        ],
+      }
+      const commandInstances = new DescribeInstancesCommand(inputInstances)
+      responseEC2Instances = await client.send(commandInstances)
+      console.log(responseEC2Instances?.Reservations?.[0]?.Instances?.[0])
+    }
+  } catch (error) {
+    // error handling.
+    console.log(error)
+  } finally {
+    if (
+      responseEC2SpotRequests?.SpotInstanceRequests?.[0]?.Status?.Code === 'fulfilled' &&
+      responseEC2Instances?.Reservations?.[0]?.Instances?.[0]?.State?.Name === 'running'
+    ) {
+      statusEC2Active = true
+      resultModFeds = await fetchMFAssets().catch((e) => {
+        // handle the error as needed
+        console.error('An error occurred while fetching the data from fetchMFAssets : ', e)
+      })
+    }
+  }
 
   return (
     <html lang='fr' style={{
@@ -112,17 +192,19 @@ const RootLayout = async ({
       // className={commissioner.className}
     >
       <head>
-        <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/mf-manifest.json`} crossOrigin='anonymous' />
+        {statusEC2Active && (
+          <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/mf-manifest.json`} crossOrigin='anonymous' />
+        )}
         {/* <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/loadable-stats.json`} crossOrigin='anonymous' /> */}
 
-        {resultModFeds?.remoteEntryWebAppClient && (
-          <link nonce={_nonce} rel='prefetch' as='script' href={`${remoteWebAppClient}/${resultModFeds.remoteEntryWebAppClient}`} crossOrigin='anonymous' />
+        {(statusEC2Active && resultModFeds?.remoteEntryWebAppClient) && (
+          <link nonce={_nonce} rel='prefetch' as='script' href={`${remoteWebAppClient}/${resultModFeds?.remoteEntryWebAppClient}`} crossOrigin='anonymous' />
         )}
 
-        {resultModFeds?.flexFrameworkStyles && (
+        {(statusEC2Active && resultModFeds?.flexFrameworkStyles) && (
           <>
-            <link nonce={_nonce} rel='prefetch' as='style' href={`${remoteWebAppClient}/${resultModFeds.flexFrameworkStyles}`} crossOrigin='anonymous' />
-            <link nonce={_nonce} rel='stylesheet' href={`${remoteWebAppClient}/${resultModFeds.flexFrameworkStyles}`} />
+            <link nonce={_nonce} rel='prefetch' as='style' href={`${remoteWebAppClient}/${resultModFeds?.flexFrameworkStyles}`} crossOrigin='anonymous' />
+            <link nonce={_nonce} rel='stylesheet' href={`${remoteWebAppClient}/${resultModFeds?.flexFrameworkStyles}`} />
           </>
         )}
 

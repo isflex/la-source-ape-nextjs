@@ -13,10 +13,12 @@
     align-items: center;
 
     @media screen and (max-width: '760px') {
+      padding: 0 0.75rem;
       flex-direction: column;
     }
 
     .force-mobile & {
+      padding: 0 0.75rem;
       flex-direction: column;
     }
 
