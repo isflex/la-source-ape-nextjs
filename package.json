@@ -97,7 +97,6 @@
       "@flex-design-system/framework": "workspace:./packages/flex/design-system-framework",
       "@flex-design-system/react-ts": "workspace:./packages/flex/design-system-react-ts",
       "typed-scss-modules": "workspace:./packages/flex/config/typed-scss-modules",
-      "graphql": "16.11.0",
       "next": "15.3.2",
       "react": "19.1.0",
       "react-dom": "19.1.0",
