@@ -166,7 +166,7 @@ const RootLayout = async ({
       }
       const commandInstances = new DescribeInstancesCommand(inputInstances)
       responseEC2Instances = await client.send(commandInstances)
-      console.log(responseEC2Instances?.Reservations?.[0]?.Instances?.[0])
+      // console.log(responseEC2Instances?.Reservations?.[0]?.Instances?.[0])
     }
   } catch (error) {
     // error handling.
