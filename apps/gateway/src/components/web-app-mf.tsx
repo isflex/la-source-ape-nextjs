@@ -97,6 +97,14 @@ const WebAppMF: React.FC<{mobileCheck: boolean}> = observer((props) => {
         //     requiredVersion: '7.6.0',
         //   },
         // },
+        'framer-motion': {
+          version: '12.9.4',
+          scope: 'default',
+          shareConfig: {
+            singleton: true,
+            requiredVersion: '12.9.4',
+          },
+        },
       },
       shareStrategy: 'loaded-first',
     })

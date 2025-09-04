@@ -18,6 +18,7 @@ const whiteList = {
     'https://*.googleapis.com',
     'https://*.gstatic.com',
     '*.google.com',
+    'https://api.cloud.copilotkit.ai/',
   ],
   scriptSrc: [
     'https://*.googleapis.com',

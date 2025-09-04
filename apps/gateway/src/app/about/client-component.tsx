@@ -42,7 +42,7 @@ import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss'
 const stores = getStores()
 
 // const slideBaseUrl = process.env.NEXT_PUBLIC_FLEX_MODE === 'production'
-//   ? `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_HOSTNAME}`
+//   ? `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_1_HOSTNAME}`
 //   : `${process.env.NEXT_PUBLIC_FLEX_PROTOCOL}localhost`
 // const slideUrl = `${slideBaseUrl}:8080`
 
@@ -74,7 +74,8 @@ const About: NextPage<ServerPageInfo> = observer(({ mobileCheck }) => {
     if (
       (
         origin === `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_HOST}` ||
-        origin === `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_HOSTNAME}`
+        origin === `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_1_HOSTNAME}` ||
+        origin === `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_2_HOSTNAME}`
       ) &&
       postMessageRegex.test(data)
     ) {

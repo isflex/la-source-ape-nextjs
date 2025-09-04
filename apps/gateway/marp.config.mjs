@@ -8,5 +8,5 @@ export default {
   watch: process.env.FLEX_MODE === 'development' && process.env.BUILD_RUNNING !== 'true',
   url: process.env.FLEX_MODE === 'development'
     ? `${process.env.FLEX_GATEWAY_HOST}`
-    : `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_HOSTNAME}`,
+    : `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_2_HOSTNAME}`,
 }

@@ -94,8 +94,8 @@ applications:
       cache:
         paths:
           # - '.next/cache/**/*'
-          # - 'apps/gateway/.next/cache/**/*'
-          # - 'node_modules/**/*'
+          - 'apps/gateway/.next/cache/**/*'
+          - 'node_modules/**/*'
   -
     appRoot: apps/express-app
     frontend:
