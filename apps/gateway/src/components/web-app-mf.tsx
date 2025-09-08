@@ -98,11 +98,11 @@ const WebAppMF: React.FC<{mobileCheck: boolean}> = observer((props) => {
         //   },
         // },
         'framer-motion': {
-          version: '12.9.4',
+          version: '12.23.12',
           scope: 'default',
           shareConfig: {
             singleton: true,
-            requiredVersion: '12.9.4',
+            requiredVersion: '12.23.12',
           },
         },
       },
