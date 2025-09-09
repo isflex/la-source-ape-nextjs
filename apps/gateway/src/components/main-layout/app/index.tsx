@@ -21,7 +21,7 @@ const LogoLaSource = dynamic(() => import('@src/components/logo-la-source'), { s
 const Header = dynamic(() => import('@src/components/sticky-header/app'), { ssr: true })
 const Footer = dynamic(() => import('@src/components/footer/app'), { ssr: true })
 
-const Layout = async ({children }: { children: React.ReactNode }) => {
+const MainLayout = async ({children }: { children: React.ReactNode }) => {
 
   const userAgent = (await headers()).get('user-agent') || ''
   const mobileCheck = isMobile(userAgent)
@@ -44,4 +44,4 @@ const Layout = async ({children }: { children: React.ReactNode }) => {
   )
 }
 
-export default Layout
+export default MainLayout

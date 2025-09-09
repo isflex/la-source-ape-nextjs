@@ -79,7 +79,7 @@ export const metadata: Metadata = {
   description: description,
 }
 
-const Layout = dynamic(() => import('../components/main-layout/app'))
+const MainLayout = dynamic(() => import('../components/main-layout/app'))
 
 type ResultModFeds = {
   remoteEntryWebAppClient: string | null
@@ -242,9 +242,9 @@ const RootLayout = async ({
             <ConfigureAmplifyClientSide />
             <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped )} theme='light'>
               {/* <NavBarAuth isSignedIn={await isAuthenticated()} /> */}
-              <Layout>
+              <MainLayout>
                 {children}
-              </Layout>
+              </MainLayout>
             </FlexRootView>
           </PostHogProvider>
         {/* </StoreProvider> */}

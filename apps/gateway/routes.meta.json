@@ -10,9 +10,5 @@
   "web-app": {
     "emoji": "🚀",
     "navTitle": "Web app"
-  },
-  "about": {
-    "emoji": "💡",
-    "navTitle": "À propos"
   }
 }
