@@ -35,7 +35,7 @@ const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf'),
 const FallBackEC2InstanceUnavailable = dynamic(() => import('@src/components/error/EC2InstanceUnavailable'), { ssr: true })
 
 export const metadata: Metadata = {
-  title: `Web App | ${title}`,
+  title: `${process.env.FLEX_APP_TITLE} | ${title}`,
 }
 
 export default async function WebAppLayout({

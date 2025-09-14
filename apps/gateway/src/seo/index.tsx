@@ -33,7 +33,7 @@ const jsonLd = {
   },
   mainEntityOfPage: {
     '@type': 'CreativeWork',
-    name: 'Web App Périscolaire',
+    name: `$${process.env.FLEX_APP_TITLE}`,
     description: "Créateur d'événements périscolaire pour l'école nouvelle la Source",
     url: `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_BASE_URL}/web-app`,
     author: {
