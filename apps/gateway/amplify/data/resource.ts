@@ -12,6 +12,59 @@ const schema = a.schema({
       content: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
+
+  ESchoolLevel: a.enum([
+    'COLLEGE_3EME',
+    'COLLEGE_4EME',
+    'COLLEGE_5EME',
+    'COLLEGE_6EME',
+    'LYCEE_PREMIERE',
+    'LYCEE_SECONDE',
+    'LYCEE_TERMINALE',
+    'MATERNELLE_GS',
+    'PRIMAIRE_CE1',
+    'PRIMAIRE_CE2',
+    'PRIMAIRE_CM1',
+    'PRIMAIRE_CM2',
+    'PRIMAIRE_CP',
+    'ANCIEN_ELEVE'
+  ]),
+
+  EAnswer: a.enum([
+    'Oui',
+    'Non'
+  ]),
+
+  Questions: a
+    .model({
+      question: a.string().required(),
+      answer: a.ref('EAnswer'),
+      sondageId: a.id(),
+      sondage: a.belongsTo('Sondage', 'sondageId'),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
+  Students: a
+    .model({
+      firstname: a.string(),
+      surname: a.string(),
+      level: a.ref('ESchoolLevel'),
+      sondageId: a.id(),
+      sondage: a.belongsTo('Sondage', 'sondageId'),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
+  Sondage: a
+    .model({
+      firstname: a.string().required(),
+      surname: a.string().required(),
+      email: a.string(),
+      session: a.string(),
+      comment: a.string(),
+      students: a.hasMany('Students', 'sondageId'),
+      questions: a.hasMany('Questions', 'sondageId'),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;

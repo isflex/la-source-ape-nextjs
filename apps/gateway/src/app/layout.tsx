@@ -231,6 +231,7 @@ const RootLayout = async ({
           nonce={_nonce}
           id='jsonLd'
           type='application/ld+json'
+          strategy={'beforeInteractive'}
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(jsonLd)
           }}

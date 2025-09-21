@@ -8,7 +8,10 @@
   "author": "ischerer <hello@flexiness.com>",
   "type": "module",
   "scripts": {
+    "ai:claude": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- claude --mcp-debug --settings .claude/settings.json",
+    "ai:claude:debug": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- claude --debug --mcp-debug --settings .claude/settings.json",
     "build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- ./bin/run-build-client.sh",
+    "classnames": "^2.5.1",
     "compile": "turbo run compile:clean:sh",
     "compile:clean:sh": "./bin/run-compile.sh clean",
     "compile:sh": "./bin/run-compile.sh",

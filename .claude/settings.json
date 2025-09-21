@@ -1,0 +1,27 @@
+{
+  "enableAllProjectMcpServers": true,
+  "tools": {
+    "permissions": {
+      "Edit": {
+        "allow": [
+          "apps/**",
+          "packages/**",
+          "*.md",
+          "*.json",
+          "*.js",
+          "*.mjs",
+          "*.ts",
+          "*.mts",
+          "*.yml",
+          "*.yaml",
+          "*.sh"
+        ]
+      },
+      "Bash": {
+        "allow": [
+          "git commit*"
+        ]
+      }
+    }
+  }
+}
