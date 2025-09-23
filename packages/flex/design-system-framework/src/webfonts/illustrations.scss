@@ -1,13 +1,13 @@
 @font-face {
-    font-family: 'flexi-all';
-    src: url('/assets/fonts/flexi-all.woff2') format('woff2'), url('/assets/fonts/flexi-all.woff') format('woff');
+    font-family: 'flexi-illustrations';
+    src: url('/assets/fonts/flexi-illustrations.woff2') format('woff2'), url('/assets/fonts/flexi-illustrations.woff') format('woff');
     font-style: normal;
     font-weight: normal;
 }
 
-.icon [class^="flexi-webfont-"]::before,
-.icon [class*=" flexi-webfont-"]::before {
-    font-family: 'flexi-all';
+.icon [class^="flexi-webfont-illustrations-"]::before,
+.icon [class*=" flexi-webfont-illustrations-"]::before {
+    font-family: 'flexi-illustrations';
     font-style: normal;
     font-weight: normal;
     display: inline-block;
@@ -22,1491 +22,1491 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.flexi-webfont-workshop::before {
+.flexi-webfont-illustrations-workshop::before {
     content: "\f101";
 }
 
-.flexi-webfont-workplace-layout::before {
+.flexi-webfont-illustrations-workplace-layout::before {
     content: "\f102";
 }
 
-.flexi-webfont-window::before {
+.flexi-webfont-illustrations-window::before {
     content: "\f103";
 }
 
-.flexi-webfont-wifi::before {
+.flexi-webfont-illustrations-wifi::before {
     content: "\f104";
 }
 
-.flexi-webfont-wifi-medium::before {
+.flexi-webfont-illustrations-wifi-medium::before {
     content: "\f105";
 }
 
-.flexi-webfont-wifi-low::before {
+.flexi-webfont-illustrations-wifi-low::before {
     content: "\f106";
 }
 
-.flexi-webfont-webcam::before {
+.flexi-webfont-illustrations-webcam::before {
     content: "\f107";
 }
 
-.flexi-webfont-watch::before {
+.flexi-webfont-illustrations-watch::before {
     content: "\f108";
 }
 
-.flexi-webfont-waste-reduction::before {
+.flexi-webfont-illustrations-waste-reduction::before {
     content: "\f109";
 }
 
-.flexi-webfont-wall::before {
+.flexi-webfont-illustrations-wall::before {
     content: "\f10a";
 }
 
-.flexi-webfont-vtc-taxi-motorbike::before {
+.flexi-webfont-illustrations-vtc-taxi-motorbike::before {
     content: "\f10b";
 }
 
-.flexi-webfont-volume-on::before {
+.flexi-webfont-illustrations-volume-on::before {
     content: "\f10c";
 }
 
-.flexi-webfont-volume-off::before {
+.flexi-webfont-illustrations-volume-off::before {
     content: "\f10d";
 }
 
-.flexi-webfont-voicemail::before {
+.flexi-webfont-illustrations-voicemail::before {
     content: "\f10e";
 }
 
-.flexi-webfont-voice-assistance::before {
+.flexi-webfont-illustrations-voice-assistance::before {
     content: "\f10f";
 }
 
-.flexi-webfont-visually-impaired::before {
+.flexi-webfont-illustrations-visually-impaired::before {
     content: "\f110";
 }
 
-.flexi-webfont-visor::before {
+.flexi-webfont-illustrations-visor::before {
     content: "\f111";
 }
 
-.flexi-webfont-victory::before {
+.flexi-webfont-illustrations-victory::before {
     content: "\f112";
 }
 
-.flexi-webfont-v-sign::before {
+.flexi-webfont-illustrations-v-sign::before {
     content: "\f113";
 }
 
-.flexi-webfont-users::before {
+.flexi-webfont-illustrations-users::before {
     content: "\f114";
 }
 
-.flexi-webfont-users-shield-star-s::before {
+.flexi-webfont-illustrations-users-shield-star-s::before {
     content: "\f115";
 }
 
-.flexi-webfont-users-shield-s::before {
+.flexi-webfont-illustrations-users-shield-s::before {
     content: "\f116";
 }
 
-.flexi-webfont-user::before {
+.flexi-webfont-illustrations-user::before {
     content: "\f117";
 }
 
-.flexi-webfont-user-tie::before {
+.flexi-webfont-illustrations-user-tie::before {
     content: "\f118";
 }
 
-.flexi-webfont-user-headset::before {
+.flexi-webfont-illustrations-user-headset::before {
     content: "\f119";
 }
 
-.flexi-webfont-usbkey::before {
+.flexi-webfont-illustrations-usbkey::before {
     content: "\f11a";
 }
 
-.flexi-webfont-unlimited::before {
+.flexi-webfont-illustrations-unlimited::before {
     content: "\f11b";
 }
 
-.flexi-webfont-unavailable::before {
+.flexi-webfont-illustrations-unavailable::before {
     content: "\f11c";
 }
 
-.flexi-webfont-tv::before {
+.flexi-webfont-illustrations-tv::before {
     content: "\f11d";
 }
 
-.flexi-webfont-tv-vod::before {
+.flexi-webfont-illustrations-tv-vod::before {
     content: "\f11e";
 }
 
-.flexi-webfont-tv-multi::before {
+.flexi-webfont-illustrations-tv-multi::before {
     content: "\f11f";
 }
 
-.flexi-webfont-tv-multi-optical-fiber::before {
+.flexi-webfont-illustrations-tv-multi-optical-fiber::before {
     content: "\f120";
 }
 
-.flexi-webfont-tv-infinity::before {
+.flexi-webfont-illustrations-tv-infinity::before {
     content: "\f121";
 }
 
-.flexi-webfont-tv-hd::before {
+.flexi-webfont-illustrations-tv-hd::before {
     content: "\f122";
 }
 
-.flexi-webfont-tv-curved::before {
+.flexi-webfont-illustrations-tv-curved::before {
     content: "\f123";
 }
 
-.flexi-webfont-tv-btv::before {
+.flexi-webfont-illustrations-tv-btv::before {
     content: "\f124";
 }
 
-.flexi-webfont-tv-8k::before {
+.flexi-webfont-illustrations-tv-8k::before {
     content: "\f125";
 }
 
-.flexi-webfont-tv-4k::before {
+.flexi-webfont-illustrations-tv-4k::before {
     content: "\f126";
 }
 
-.flexi-webfont-turkey::before {
+.flexi-webfont-illustrations-turkey::before {
     content: "\f127";
 }
 
-.flexi-webfont-truck::before {
+.flexi-webfont-illustrations-truck::before {
     content: "\f128";
 }
 
-.flexi-webfont-truck-speed::before {
+.flexi-webfont-illustrations-truck-speed::before {
     content: "\f129";
 }
 
-.flexi-webfont-travel-policies::before {
+.flexi-webfont-illustrations-travel-policies::before {
     content: "\f12a";
 }
 
-.flexi-webfont-travel-agency::before {
+.flexi-webfont-illustrations-travel-agency::before {
     content: "\f12b";
 }
 
-.flexi-webfont-trash::before {
+.flexi-webfont-illustrations-trash::before {
     content: "\f12c";
 }
 
-.flexi-webfont-transport::before {
+.flexi-webfont-illustrations-transport::before {
     content: "\f12d";
 }
 
-.flexi-webfont-training-diploma::before {
+.flexi-webfont-illustrations-training-diploma::before {
     content: "\f12e";
 }
 
-.flexi-webfont-top-news::before {
+.flexi-webfont-illustrations-top-news::before {
     content: "\f12f";
 }
 
-.flexi-webfont-tools::before {
+.flexi-webfont-illustrations-tools::before {
     content: "\f130";
 }
 
-.flexi-webfont-times::before {
+.flexi-webfont-illustrations-times::before {
     content: "\f131";
 }
 
-.flexi-webfont-times-circle::before {
+.flexi-webfont-illustrations-times-circle::before {
     content: "\f132";
 }
 
-.flexi-webfont-thunder-redo::before {
+.flexi-webfont-illustrations-thunder-redo::before {
     content: "\f133";
 }
 
-.flexi-webfont-th::before {
+.flexi-webfont-illustrations-th::before {
     content: "\f134";
 }
 
-.flexi-webfont-team-meal::before {
+.flexi-webfont-illustrations-team-meal::before {
     content: "\f135";
 }
 
-.flexi-webfont-tablet::before {
+.flexi-webfont-illustrations-tablet::before {
     content: "\f136";
 }
 
-.flexi-webfont-sync::before {
+.flexi-webfont-illustrations-sync::before {
     content: "\f137";
 }
 
-.flexi-webfont-sustainable-development::before {
+.flexi-webfont-illustrations-sustainable-development::before {
     content: "\f138";
 }
 
-.flexi-webfont-sun-euro::before {
+.flexi-webfont-illustrations-sun-euro::before {
     content: "\f139";
 }
 
-.flexi-webfont-store::before {
+.flexi-webfont-illustrations-store::before {
     content: "\f13a";
 }
 
-.flexi-webfont-store-locator::before {
+.flexi-webfont-illustrations-store-locator::before {
     content: "\f13b";
 }
 
-.flexi-webfont-stopwatch::before {
+.flexi-webfont-illustrations-stopwatch::before {
     content: "\f13c";
 }
 
-.flexi-webfont-stopwatch-click-collect::before {
+.flexi-webfont-illustrations-stopwatch-click-collect::before {
     content: "\f13d";
 }
 
-.flexi-webfont-stopwatch-click-collect-2h::before {
+.flexi-webfont-illustrations-stopwatch-click-collect-2h::before {
     content: "\f13e";
 }
 
-.flexi-webfont-stopwatch-2h::before {
+.flexi-webfont-illustrations-stopwatch-2h::before {
     content: "\f13f";
 }
 
-.flexi-webfont-steering-wheel::before {
+.flexi-webfont-illustrations-steering-wheel::before {
     content: "\f140";
 }
 
-.flexi-webfont-sports::before {
+.flexi-webfont-illustrations-sports::before {
     content: "\f141";
 }
 
-.flexi-webfont-social-youtube::before {
+.flexi-webfont-illustrations-social-youtube::before {
     content: "\f142";
 }
 
-.flexi-webfont-social-twitter::before {
+.flexi-webfont-illustrations-social-twitter::before {
     content: "\f143";
 }
 
-.flexi-webfont-social-instagram::before {
+.flexi-webfont-illustrations-social-instagram::before {
     content: "\f144";
 }
 
-.flexi-webfont-social-facebook::before {
+.flexi-webfont-illustrations-social-facebook::before {
     content: "\f145";
 }
 
-.flexi-webfont-sms-info::before {
+.flexi-webfont-illustrations-sms-info::before {
     content: "\f146";
 }
 
-.flexi-webfont-smile::before {
+.flexi-webfont-illustrations-smile::before {
     content: "\f147";
 }
 
-.flexi-webfont-smile-plus::before {
+.flexi-webfont-illustrations-smile-plus::before {
     content: "\f148";
 }
 
-.flexi-webfont-smile-nocircled::before {
+.flexi-webfont-illustrations-smile-nocircled::before {
     content: "\f149";
 }
 
-.flexi-webfont-sim-cards::before {
+.flexi-webfont-illustrations-sim-cards::before {
     content: "\f14a";
 }
 
-.flexi-webfont-sim-card::before {
+.flexi-webfont-illustrations-sim-card::before {
     content: "\f14b";
 }
 
-.flexi-webfont-sim-card-unlock::before {
+.flexi-webfont-illustrations-sim-card-unlock::before {
     content: "\f14c";
 }
 
-.flexi-webfont-sim-card-redo::before {
+.flexi-webfont-illustrations-sim-card-redo::before {
     content: "\f14d";
 }
 
-.flexi-webfont-shopping-bag::before {
+.flexi-webfont-illustrations-shopping-bag::before {
     content: "\f14e";
 }
 
-.flexi-webfont-shooting-star::before {
+.flexi-webfont-illustrations-shooting-star::before {
     content: "\f14f";
 }
 
-.flexi-webfont-shield::before {
+.flexi-webfont-illustrations-shield::before {
     content: "\f150";
 }
 
-.flexi-webfont-shield-private-life::before {
+.flexi-webfont-illustrations-shield-private-life::before {
     content: "\f151";
 }
 
-.flexi-webfont-shield-exclamation::before {
+.flexi-webfont-illustrations-shield-exclamation::before {
     content: "\f152";
 }
 
-.flexi-webfont-shield-check::before {
+.flexi-webfont-illustrations-shield-check::before {
     content: "\f153";
 }
 
-.flexi-webfont-shield-at::before {
+.flexi-webfont-illustrations-shield-at::before {
     content: "\f154";
 }
 
-.flexi-webfont-security-health::before {
+.flexi-webfont-illustrations-security-health::before {
     content: "\f155";
 }
 
-.flexi-webfont-search::before {
+.flexi-webfont-illustrations-search::before {
     content: "\f156";
 }
 
-.flexi-webfont-sd-card::before {
+.flexi-webfont-illustrations-sd-card::before {
     content: "\f157";
 }
 
-.flexi-webfont-scan::before {
+.flexi-webfont-illustrations-scan::before {
     content: "\f158";
 }
 
-.flexi-webfont-satellite-antenna::before {
+.flexi-webfont-illustrations-satellite-antenna::before {
     content: "\f159";
 }
 
-.flexi-webfont-samples::before {
+.flexi-webfont-illustrations-samples::before {
     content: "\f15a";
 }
 
-.flexi-webfont-samples-plus-circle::before {
+.flexi-webfont-illustrations-samples-plus-circle::before {
     content: "\f15b";
 }
 
-.flexi-webfont-samples-exclamation-mark-circle::before {
+.flexi-webfont-illustrations-samples-exclamation-mark-circle::before {
     content: "\f15c";
 }
 
-.flexi-webfont-samples-cogs-circle::before {
+.flexi-webfont-illustrations-samples-cogs-circle::before {
     content: "\f15d";
 }
 
-.flexi-webfont-rules::before {
+.flexi-webfont-illustrations-rules::before {
     content: "\f15e";
 }
 
-.flexi-webfont-rotation-360::before {
+.flexi-webfont-illustrations-rotation-360::before {
     content: "\f15f";
 }
 
-.flexi-webfont-ringtone-welcome-sound::before {
+.flexi-webfont-illustrations-ringtone-welcome-sound::before {
     content: "\f160";
 }
 
-.flexi-webfont-restricted-area::before {
+.flexi-webfont-illustrations-restricted-area::before {
     content: "\f161";
 }
 
-.flexi-webfont-repeater::before {
+.flexi-webfont-illustrations-repeater::before {
     content: "\f162";
 }
 
-.flexi-webfont-repeater-alt::before {
+.flexi-webfont-illustrations-repeater-alt::before {
     content: "\f163";
 }
 
-.flexi-webfont-remote::before {
+.flexi-webfont-illustrations-remote::before {
     content: "\f164";
 }
 
-.flexi-webfont-reduce-co2-emission::before {
+.flexi-webfont-illustrations-reduce-co2-emission::before {
     content: "\f165";
 }
 
-.flexi-webfont-redo::before {
+.flexi-webfont-illustrations-redo::before {
     content: "\f166";
 }
 
-.flexi-webfont-redo-7-days::before {
+.flexi-webfont-illustrations-redo-7-days::before {
     content: "\f167";
 }
 
-.flexi-webfont-redo-30-days::before {
+.flexi-webfont-illustrations-redo-30-days::before {
     content: "\f168";
 }
 
-.flexi-webfont-redo-14-days::before {
+.flexi-webfont-illustrations-redo-14-days::before {
     content: "\f169";
 }
 
-.flexi-webfont-recycle::before {
+.flexi-webfont-illustrations-recycle::before {
     content: "\f16a";
 }
 
-.flexi-webfont-priority-path::before {
+.flexi-webfont-illustrations-priority-path::before {
     content: "\f16b";
 }
 
-.flexi-webfont-printing-stationery::before {
+.flexi-webfont-illustrations-printing-stationery::before {
     content: "\f16c";
 }
 
-.flexi-webfont-printer::before {
+.flexi-webfont-illustrations-printer::before {
     content: "\f16d";
 }
 
-.flexi-webfont-plus::before {
+.flexi-webfont-illustrations-plus::before {
     content: "\f16e";
 }
 
-.flexi-webfont-plus-circle::before {
+.flexi-webfont-illustrations-plus-circle::before {
     content: "\f16f";
 }
 
-.flexi-webfont-plug-check::before {
+.flexi-webfont-illustrations-plug-check::before {
     content: "\f170";
 }
 
-.flexi-webfont-plexi-exchange::before {
+.flexi-webfont-illustrations-plexi-exchange::before {
     content: "\f171";
 }
 
-.flexi-webfont-play-circle::before {
+.flexi-webfont-illustrations-play-circle::before {
     content: "\f172";
 }
 
-.flexi-webfont-play-beginning::before {
+.flexi-webfont-illustrations-play-beginning::before {
     content: "\f173";
 }
 
-.flexi-webfont-physical-disability::before {
+.flexi-webfont-illustrations-physical-disability::before {
     content: "\f174";
 }
 
-.flexi-webfont-phone::before {
+.flexi-webfont-illustrations-phone::before {
     content: "\f175";
 }
 
-.flexi-webfont-phone-switzerland::before {
+.flexi-webfont-illustrations-phone-switzerland::before {
     content: "\f176";
 }
 
-.flexi-webfont-phone-plus-sim-card::before {
+.flexi-webfont-illustrations-phone-plus-sim-card::before {
     content: "\f177";
 }
 
-.flexi-webfont-phone-outgoing-call::before {
+.flexi-webfont-illustrations-phone-outgoing-call::before {
     content: "\f178";
 }
 
-.flexi-webfont-phone-notes::before {
+.flexi-webfont-illustrations-phone-notes::before {
     content: "\f179";
 }
 
-.flexi-webfont-phone-infinity::before {
+.flexi-webfont-illustrations-phone-infinity::before {
     content: "\f17a";
 }
 
-.flexi-webfont-phone-incoming-call::before {
+.flexi-webfont-illustrations-phone-incoming-call::before {
     content: "\f17b";
 }
 
-.flexi-webfont-phone-globe::before {
+.flexi-webfont-illustrations-phone-globe::before {
     content: "\f17c";
 }
 
-.flexi-webfont-phone-europe::before {
+.flexi-webfont-illustrations-phone-europe::before {
     content: "\f17d";
 }
 
-.flexi-webfont-phone-euro::before {
+.flexi-webfont-illustrations-phone-euro::before {
     content: "\f17e";
 }
 
-.flexi-webfont-phone-burger::before {
+.flexi-webfont-illustrations-phone-burger::before {
     content: "\f17f";
 }
 
-.flexi-webfont-phone-africa::before {
+.flexi-webfont-illustrations-phone-africa::before {
     content: "\f180";
 }
 
-.flexi-webfont-person-door::before {
+.flexi-webfont-illustrations-person-door::before {
     content: "\f181";
 }
 
-.flexi-webfont-payment-americanexpress::before {
+.flexi-webfont-illustrations-payment-americanexpress::before {
     content: "\f182";
 }
 
-.flexi-webfont-pause::before {
+.flexi-webfont-illustrations-pause::before {
     content: "\f183";
 }
 
-.flexi-webfont-parcel::before {
+.flexi-webfont-illustrations-parcel::before {
     content: "\f184";
 }
 
-.flexi-webfont-paperclip::before {
+.flexi-webfont-illustrations-paperclip::before {
     content: "\f185";
 }
 
-.flexi-webfont-package-preparation::before {
+.flexi-webfont-illustrations-package-preparation::before {
     content: "\f186";
 }
 
-.flexi-webfont-optician::before {
+.flexi-webfont-illustrations-optician::before {
     content: "\f187";
 }
 
-.flexi-webfont-office-supply::before {
+.flexi-webfont-illustrations-office-supply::before {
     content: "\f188";
 }
 
-.flexi-webfont-notes::before {
+.flexi-webfont-illustrations-notes::before {
     content: "\f189";
 }
 
-.flexi-webfont-notebook-tarifs::before {
+.flexi-webfont-illustrations-notebook-tarifs::before {
     content: "\f18a";
 }
 
-.flexi-webfont-newspapers::before {
+.flexi-webfont-illustrations-newspapers::before {
     content: "\f18b";
 }
 
-.flexi-webfont-network::before {
+.flexi-webfont-illustrations-network::before {
     content: "\f18c";
 }
 
-.flexi-webfont-network-antenna::before {
+.flexi-webfont-illustrations-network-antenna::before {
     content: "\f18d";
 }
 
-.flexi-webfont-moving-persons-goods::before {
+.flexi-webfont-illustrations-moving-persons-goods::before {
     content: "\f18e";
 }
 
-.flexi-webfont-mouse::before {
+.flexi-webfont-illustrations-mouse::before {
     content: "\f18f";
 }
 
-.flexi-webfont-motivation::before {
+.flexi-webfont-illustrations-motivation::before {
     content: "\f190";
 }
 
-.flexi-webfont-modem-3g::before {
+.flexi-webfont-illustrations-modem-3g::before {
     content: "\f191";
 }
 
-.flexi-webfont-mobile::before {
+.flexi-webfont-illustrations-mobile::before {
     content: "\f192";
 }
 
-.flexi-webfont-mobile-up-down::before {
+.flexi-webfont-illustrations-mobile-up-down::before {
     content: "\f193";
 }
 
-.flexi-webfont-mobile-tools::before {
+.flexi-webfont-illustrations-mobile-tools::before {
     content: "\f194";
 }
 
-.flexi-webfont-mobile-sync::before {
+.flexi-webfont-illustrations-mobile-sync::before {
     content: "\f195";
 }
 
-.flexi-webfont-mobile-recovery::before {
+.flexi-webfont-illustrations-mobile-recovery::before {
     content: "\f196";
 }
 
-.flexi-webfont-mobile-reconditioned::before {
+.flexi-webfont-illustrations-mobile-reconditioned::before {
     content: "\f197";
 }
 
-.flexi-webfont-mobile-plus-sim-cards::before {
+.flexi-webfont-illustrations-mobile-plus-sim-cards::before {
     content: "\f198";
 }
 
-.flexi-webfont-mobile-percentage::before {
+.flexi-webfont-illustrations-mobile-percentage::before {
     content: "\f199";
 }
 
-.flexi-webfont-mobile-lock::before {
+.flexi-webfont-illustrations-mobile-lock::before {
     content: "\f19a";
 }
 
-.flexi-webfont-mobile-infinity::before {
+.flexi-webfont-illustrations-mobile-infinity::before {
     content: "\f19b";
 }
 
-.flexi-webfont-mobile-hand::before {
+.flexi-webfont-illustrations-mobile-hand::before {
     content: "\f19c";
 }
 
-.flexi-webfont-mobile-globe::before {
+.flexi-webfont-illustrations-mobile-globe::before {
     content: "\f19d";
 }
 
-.flexi-webfont-mobile-eye::before {
+.flexi-webfont-illustrations-mobile-eye::before {
     content: "\f19e";
 }
 
-.flexi-webfont-mobile-euro::before {
+.flexi-webfont-illustrations-mobile-euro::before {
     content: "\f19f";
 }
 
-.flexi-webfont-mobile-comment::before {
+.flexi-webfont-illustrations-mobile-comment::before {
     content: "\f1a0";
 }
 
-.flexi-webfont-mobile-cloud::before {
+.flexi-webfont-illustrations-mobile-cloud::before {
     content: "\f1a1";
 }
 
-.flexi-webfont-mobile-broken::before {
+.flexi-webfont-illustrations-mobile-broken::before {
     content: "\f1a2";
 }
 
-.flexi-webfont-mobile-ban::before {
+.flexi-webfont-illustrations-mobile-ban::before {
     content: "\f1a3";
 }
 
-.flexi-webfont-mobile-08-slash::before {
+.flexi-webfont-illustrations-mobile-08-slash::before {
     content: "\f1a4";
 }
 
-.flexi-webfont-mobile-07-slash::before {
+.flexi-webfont-illustrations-mobile-07-slash::before {
     content: "\f1a5";
 }
 
-.flexi-webfont-mobile-06-slash::before {
+.flexi-webfont-illustrations-mobile-06-slash::before {
     content: "\f1a6";
 }
 
-.flexi-webfont-microwaves::before {
+.flexi-webfont-illustrations-microwaves::before {
     content: "\f1a7";
 }
 
-.flexi-webfont-mental-handicap::before {
+.flexi-webfont-illustrations-mental-handicap::before {
     content: "\f1a8";
 }
 
-.flexi-webfont-mental-disability::before {
+.flexi-webfont-illustrations-mental-disability::before {
     content: "\f1a9";
 }
 
-.flexi-webfont-massage::before {
+.flexi-webfont-illustrations-massage::before {
     content: "\f1aa";
 }
 
-.flexi-webfont-marker::before {
+.flexi-webfont-illustrations-marker::before {
     content: "\f1ab";
 }
 
-.flexi-webfont-map-marker::before {
+.flexi-webfont-illustrations-map-marker::before {
     content: "\f1ac";
 }
 
-.flexi-webfont-maker::before {
+.flexi-webfont-illustrations-maker::before {
     content: "\f1ad";
 }
 
-.flexi-webfont-mailbox-marker::before {
+.flexi-webfont-illustrations-mailbox-marker::before {
     content: "\f1ae";
 }
 
-.flexi-webfont-mail::before {
+.flexi-webfont-illustrations-mail::before {
     content: "\f1af";
 }
 
-.flexi-webfont-lock::before {
+.flexi-webfont-illustrations-lock::before {
     content: "\f1b0";
 }
 
-.flexi-webfont-link::before {
+.flexi-webfont-illustrations-link::before {
     content: "\f1b1";
 }
 
-.flexi-webfont-link-copy::before {
+.flexi-webfont-illustrations-link-copy::before {
     content: "\f1b2";
 }
 
-.flexi-webfont-lines-speed::before {
+.flexi-webfont-illustrations-lines-speed::before {
     content: "\f1b3";
 }
 
-.flexi-webfont-lightbulb-on::before {
+.flexi-webfont-illustrations-lightbulb-on::before {
     content: "\f1b4";
 }
 
-.flexi-webfont-laptop::before {
+.flexi-webfont-illustrations-laptop::before {
     content: "\f1b5";
 }
 
-.flexi-webfont-laptop-tablet-mobile::before {
+.flexi-webfont-illustrations-laptop-tablet-mobile::before {
     content: "\f1b6";
 }
 
-.flexi-webfont-ip::before {
+.flexi-webfont-illustrations-ip::before {
     content: "\f1b7";
 }
 
-.flexi-webfont-iot::before {
+.flexi-webfont-illustrations-iot::before {
     content: "\f1b8";
 }
 
-.flexi-webfont-internal-fraud::before {
+.flexi-webfont-illustrations-internal-fraud::before {
     content: "\f1b9";
 }
 
-.flexi-webfont-immersive-content-people::before {
+.flexi-webfont-illustrations-immersive-content-people::before {
     content: "\f1ba";
 }
 
-.flexi-webfont-immersive-content-glass::before {
+.flexi-webfont-illustrations-immersive-content-glass::before {
     content: "\f1bb";
 }
 
-.flexi-webfont-identity::before {
+.flexi-webfont-illustrations-identity::before {
     content: "\f1bc";
 }
 
-.flexi-webfont-hydro-gel::before {
+.flexi-webfont-illustrations-hydro-gel::before {
     content: "\f1bd";
 }
 
-.flexi-webfont-hourglass::before {
+.flexi-webfont-illustrations-hourglass::before {
     content: "\f1be";
 }
 
-.flexi-webfont-hotspot::before {
+.flexi-webfont-illustrations-hotspot::before {
     content: "\f1bf";
 }
 
-.flexi-webfont-home::before {
+.flexi-webfont-illustrations-home::before {
     content: "\f1c0";
 }
 
-.flexi-webfont-home-tools::before {
+.flexi-webfont-illustrations-home-tools::before {
     content: "\f1c1";
 }
 
-.flexi-webfont-heart::before {
+.flexi-webfont-illustrations-heart::before {
     content: "\f1c2";
 }
 
-.flexi-webfont-headphones::before {
+.flexi-webfont-illustrations-headphones::before {
     content: "\f1c3";
 }
 
-.flexi-webfont-handsfree::before {
+.flexi-webfont-illustrations-handsfree::before {
     content: "\f1c4";
 }
 
-.flexi-webfont-hands-helping::before {
+.flexi-webfont-illustrations-hands-helping::before {
     content: "\f1c5";
 }
 
-.flexi-webfont-hand-tools::before {
+.flexi-webfont-illustrations-hand-tools::before {
     content: "\f1c6";
 }
 
-.flexi-webfont-hand-mobile::before {
+.flexi-webfont-illustrations-hand-mobile::before {
     content: "\f1c7";
 }
 
-.flexi-webfont-hairdresser::before {
+.flexi-webfont-illustrations-hairdresser::before {
     content: "\f1c8";
 }
 
-.flexi-webfont-good-practices::before {
+.flexi-webfont-illustrations-good-practices::before {
     content: "\f1c9";
 }
 
-.flexi-webfont-gift::before {
+.flexi-webfont-illustrations-gift::before {
     content: "\f1ca";
 }
 
-.flexi-webfont-gauge::before {
+.flexi-webfont-illustrations-gauge::before {
     content: "\f1cb";
 }
 
-.flexi-webfont-gauge-plus-circle::before {
+.flexi-webfont-illustrations-gauge-plus-circle::before {
     content: "\f1cc";
 }
 
-.flexi-webfont-gauge-exclamation-circle::before {
+.flexi-webfont-illustrations-gauge-exclamation-circle::before {
     content: "\f1cd";
 }
 
-.flexi-webfont-gauge-cogs-circle::before {
+.flexi-webfont-illustrations-gauge-cogs-circle::before {
     content: "\f1ce";
 }
 
-.flexi-webfont-games-console::before {
+.flexi-webfont-illustrations-games-console::before {
     content: "\f1cf";
 }
 
-.flexi-webfont-gamepad::before {
+.flexi-webfont-illustrations-gamepad::before {
     content: "\f1d0";
 }
 
-.flexi-webfont-frown::before {
+.flexi-webfont-illustrations-frown::before {
     content: "\f1d1";
 }
 
-.flexi-webfont-france::before {
+.flexi-webfont-illustrations-france::before {
     content: "\f1d2";
 }
 
-.flexi-webfont-france-marker::before {
+.flexi-webfont-illustrations-france-marker::before {
     content: "\f1d3";
 }
 
-.flexi-webfont-flower-order::before {
+.flexi-webfont-illustrations-flower-order::before {
     content: "\f1d4";
 }
 
-.flexi-webfont-flexymoov-bicycle::before {
+.flexi-webfont-illustrations-flexymoov-bicycle::before {
     content: "\f1d5";
 }
 
-.flexi-webfont-flash-sell::before {
+.flexi-webfont-illustrations-flash-sell::before {
     content: "\f1d6";
 }
 
-.flexi-webfont-first-rural-area::before {
+.flexi-webfont-illustrations-first-rural-area::before {
     content: "\f1d7";
 }
 
-.flexi-webfont-fingerprint::before {
+.flexi-webfont-illustrations-fingerprint::before {
     content: "\f1d8";
 }
 
-.flexi-webfont-film::before {
+.flexi-webfont-illustrations-film::before {
     content: "\f1d9";
 }
 
-.flexi-webfont-file-pdf::before {
+.flexi-webfont-illustrations-file-pdf::before {
     content: "\f1da";
 }
 
-.flexi-webfont-file-new::before {
+.flexi-webfont-illustrations-file-new::before {
     content: "\f1db";
 }
 
-.flexi-webfont-file-management::before {
+.flexi-webfont-illustrations-file-management::before {
     content: "\f1dc";
 }
 
-.flexi-webfont-file-list::before {
+.flexi-webfont-illustrations-file-list::before {
     content: "\f1dd";
 }
 
-.flexi-webfont-file-euro::before {
+.flexi-webfont-illustrations-file-euro::before {
     content: "\f1de";
 }
 
-.flexi-webfont-file-euro-question-circle::before {
+.flexi-webfont-illustrations-file-euro-question-circle::before {
     content: "\f1df";
 }
 
-.flexi-webfont-file-euro-lock-circle::before {
+.flexi-webfont-illustrations-file-euro-lock-circle::before {
     content: "\f1e0";
 }
 
-.flexi-webfont-file-euro-info-circle::before {
+.flexi-webfont-illustrations-file-euro-info-circle::before {
     content: "\f1e1";
 }
 
-.flexi-webfont-file-euro-exclamation-circle::before {
+.flexi-webfont-illustrations-file-euro-exclamation-circle::before {
     content: "\f1e2";
 }
 
-.flexi-webfont-file-euro-check-circle::before {
+.flexi-webfont-illustrations-file-euro-check-circle::before {
     content: "\f1e3";
 }
 
-.flexi-webfont-file-euro-check-circle-s::before {
+.flexi-webfont-illustrations-file-euro-check-circle-s::before {
     content: "\f1e4";
 }
 
-.flexi-webfont-file-attached::before {
+.flexi-webfont-illustrations-file-attached::before {
     content: "\f1e5";
 }
 
-.flexi-webfont-facemask-2::before {
+.flexi-webfont-illustrations-facemask-2::before {
     content: "\f1e6";
 }
 
-.flexi-webfont-facemask-1::before {
+.flexi-webfont-illustrations-facemask-1::before {
     content: "\f1e7";
 }
 
-.flexi-webfont-exclamation::before {
+.flexi-webfont-illustrations-exclamation::before {
     content: "\f1e8";
 }
 
-.flexi-webfont-exclamation-triangle::before {
+.flexi-webfont-illustrations-exclamation-triangle::before {
     content: "\f1e9";
 }
 
-.flexi-webfont-exclamation-redo::before {
+.flexi-webfont-illustrations-exclamation-redo::before {
     content: "\f1ea";
 }
 
-.flexi-webfont-exclamation-circle::before {
+.flexi-webfont-illustrations-exclamation-circle::before {
     content: "\f1eb";
 }
 
-.flexi-webfont-euros::before {
+.flexi-webfont-illustrations-euros::before {
     content: "\f1ec";
 }
 
-.flexi-webfont-europe::before {
+.flexi-webfont-illustrations-europe::before {
     content: "\f1ed";
 }
 
-.flexi-webfont-ethics::before {
+.flexi-webfont-illustrations-ethics::before {
     content: "\f1ee";
 }
 
-.flexi-webfont-esim::before {
+.flexi-webfont-illustrations-esim::before {
     content: "\f1ef";
 }
 
-.flexi-webfont-environmental-footprint::before {
+.flexi-webfont-illustrations-environmental-footprint::before {
     content: "\f1f0";
 }
 
-.flexi-webfont-envelope::before {
+.flexi-webfont-illustrations-envelope::before {
     content: "\f1f1";
 }
 
-.flexi-webfont-envelope-plus-circle::before {
+.flexi-webfont-illustrations-envelope-plus-circle::before {
     content: "\f1f2";
 }
 
-.flexi-webfont-energy::before {
+.flexi-webfont-illustrations-energy::before {
     content: "\f1f3";
 }
 
-.flexi-webfont-energy-optimization::before {
+.flexi-webfont-illustrations-energy-optimization::before {
     content: "\f1f4";
 }
 
-.flexi-webfont-electrical-plug::before {
+.flexi-webfont-illustrations-electrical-plug::before {
     content: "\f1f5";
 }
 
-.flexi-webfont-electrical-overload::before {
+.flexi-webfont-illustrations-electrical-overload::before {
     content: "\f1f6";
 }
 
-.flexi-webfont-electric-car::before {
+.flexi-webfont-illustrations-electric-car::before {
     content: "\f1f7";
 }
 
-.flexi-webfont-ecoresponsible-digital::before {
+.flexi-webfont-illustrations-ecoresponsible-digital::before {
     content: "\f1f8";
 }
 
-.flexi-webfont-ecommerce-promo-label::before {
+.flexi-webfont-illustrations-ecommerce-promo-label::before {
     content: "\f1f9";
 }
 
-.flexi-webfont-ecommerce-product-return::before {
+.flexi-webfont-illustrations-ecommerce-product-return::before {
     content: "\f1fa";
 }
 
-.flexi-webfont-eco-conception::before {
+.flexi-webfont-illustrations-eco-conception::before {
     content: "\f1fb";
 }
 
-.flexi-webfont-earth::before {
+.flexi-webfont-illustrations-earth::before {
     content: "\f1fc";
 }
 
-.flexi-webfont-ear-slash::before {
+.flexi-webfont-illustrations-ear-slash::before {
     content: "\f1fd";
 }
 
-.flexi-webfont-duplicata::before {
+.flexi-webfont-illustrations-duplicata::before {
     content: "\f1fe";
 }
 
-.flexi-webfont-dont-touch::before {
+.flexi-webfont-illustrations-dont-touch::before {
     content: "\f1ff";
 }
 
-.flexi-webfont-distance::before {
+.flexi-webfont-illustrations-distance::before {
     content: "\f200";
 }
 
-.flexi-webfont-diagnostic::before {
+.flexi-webfont-illustrations-diagnostic::before {
     content: "\f201";
 }
 
-.flexi-webfont-desktop::before {
+.flexi-webfont-illustrations-desktop::before {
     content: "\f202";
 }
 
-.flexi-webfont-cse::before {
+.flexi-webfont-illustrations-cse::before {
     content: "\f203";
 }
 
-.flexi-webfont-crippling-disease::before {
+.flexi-webfont-illustrations-crippling-disease::before {
     content: "\f204";
 }
 
-.flexi-webfont-credit-cards::before {
+.flexi-webfont-illustrations-credit-cards::before {
     content: "\f205";
 }
 
-.flexi-webfont-credit-cards-12::before {
+.flexi-webfont-illustrations-credit-cards-12::before {
     content: "\f206";
 }
 
-.flexi-webfont-credit-card::before {
+.flexi-webfont-illustrations-credit-card::before {
     content: "\f207";
 }
 
-.flexi-webfont-credit-card-lock::before {
+.flexi-webfont-illustrations-credit-card-lock::before {
     content: "\f208";
 }
 
-.flexi-webfont-credit-card-accepted::before {
+.flexi-webfont-illustrations-credit-card-accepted::before {
     content: "\f209";
 }
 
-.flexi-webfont-courier::before {
+.flexi-webfont-illustrations-courier::before {
     content: "\f20a";
 }
 
-.flexi-webfont-corporate-card::before {
+.flexi-webfont-illustrations-corporate-card::before {
     content: "\f20b";
 }
 
-.flexi-webfont-contactless-payment::before {
+.flexi-webfont-illustrations-contactless-payment::before {
     content: "\f20c";
 }
 
-.flexi-webfont-contact::before {
+.flexi-webfont-illustrations-contact::before {
     content: "\f20d";
 }
 
-.flexi-webfont-concierge::before {
+.flexi-webfont-illustrations-concierge::before {
     content: "\f20e";
 }
 
-.flexi-webfont-community::before {
+.flexi-webfont-illustrations-community::before {
     content: "\f20f";
 }
 
-.flexi-webfont-comments-question-dots::before {
+.flexi-webfont-illustrations-comments-question-dots::before {
     content: "\f210";
 }
 
-.flexi-webfont-comment::before {
+.flexi-webfont-illustrations-comment::before {
     content: "\f211";
 }
 
-.flexi-webfont-comment-voicemail::before {
+.flexi-webfont-illustrations-comment-voicemail::before {
     content: "\f212";
 }
 
-.flexi-webfont-comment-question::before {
+.flexi-webfont-illustrations-comment-question::before {
     content: "\f213";
 }
 
-.flexi-webfont-comment-eye::before {
+.flexi-webfont-illustrations-comment-eye::before {
     content: "\f214";
 }
 
-.flexi-webfont-comment-exclamation-circle::before {
+.flexi-webfont-illustrations-comment-exclamation-circle::before {
     content: "\f215";
 }
 
-.flexi-webfont-comment-earth::before {
+.flexi-webfont-illustrations-comment-earth::before {
     content: "\f216";
 }
 
-.flexi-webfont-collaborative-library::before {
+.flexi-webfont-illustrations-collaborative-library::before {
     content: "\f217";
 }
 
-.flexi-webfont-cogs::before {
+.flexi-webfont-illustrations-cogs::before {
     content: "\f218";
 }
 
-.flexi-webfont-co2-emission::before {
+.flexi-webfont-illustrations-co2-emission::before {
     content: "\f219";
 }
 
-.flexi-webfont-cloud::before {
+.flexi-webfont-illustrations-cloud::before {
     content: "\f21a";
 }
 
-.flexi-webfont-cloud-save::before {
+.flexi-webfont-illustrations-cloud-save::before {
     content: "\f21b";
 }
 
-.flexi-webfont-cloud-plus-circle::before {
+.flexi-webfont-illustrations-cloud-plus-circle::before {
     content: "\f21c";
 }
 
-.flexi-webfont-cloud-infinity::before {
+.flexi-webfont-illustrations-cloud-infinity::before {
     content: "\f21d";
 }
 
-.flexi-webfont-cloud-globe::before {
+.flexi-webfont-illustrations-cloud-globe::before {
     content: "\f21e";
 }
 
-.flexi-webfont-cloud-exclamation-circle::before {
+.flexi-webfont-illustrations-cloud-exclamation-circle::before {
     content: "\f21f";
 }
 
-.flexi-webfont-cloud-cogs-circle::before {
+.flexi-webfont-illustrations-cloud-cogs-circle::before {
     content: "\f220";
 }
 
-.flexi-webfont-cloud-check::before {
+.flexi-webfont-illustrations-cloud-check::before {
     content: "\f221";
 }
 
-.flexi-webfont-cloud-check-s::before {
+.flexi-webfont-illustrations-cloud-check-s::before {
     content: "\f222";
 }
 
-.flexi-webfont-cloud-70go::before {
+.flexi-webfont-illustrations-cloud-70go::before {
     content: "\f223";
 }
 
-.flexi-webfont-cloud-50go::before {
+.flexi-webfont-illustrations-cloud-50go::before {
     content: "\f224";
 }
 
-.flexi-webfont-cloud-30go::before {
+.flexi-webfont-illustrations-cloud-30go::before {
     content: "\f225";
 }
 
-.flexi-webfont-cloud-20go::before {
+.flexi-webfont-illustrations-cloud-20go::before {
     content: "\f226";
 }
 
-.flexi-webfont-cloud-100go::before {
+.flexi-webfont-illustrations-cloud-100go::before {
     content: "\f227";
 }
 
-.flexi-webfont-closed::before {
+.flexi-webfont-illustrations-closed::before {
     content: "\f228";
 }
 
-.flexi-webfont-clipboard-checklist::before {
+.flexi-webfont-illustrations-clipboard-checklist::before {
     content: "\f229";
 }
 
-.flexi-webfont-click-collect-2h::before {
+.flexi-webfont-illustrations-click-collect-2h::before {
     content: "\f22a";
 }
 
-.flexi-webfont-clean-surface::before {
+.flexi-webfont-illustrations-clean-surface::before {
     content: "\f22b";
 }
 
-.flexi-webfont-clapperboard::before {
+.flexi-webfont-illustrations-clapperboard::before {
     content: "\f22c";
 }
 
-.flexi-webfont-chip::before {
+.flexi-webfont-illustrations-chip::before {
     content: "\f22d";
 }
 
-.flexi-webfont-children-access::before {
+.flexi-webfont-illustrations-children-access::before {
     content: "\f22e";
 }
 
-.flexi-webfont-check::before {
+.flexi-webfont-illustrations-check::before {
     content: "\f22f";
 }
 
-.flexi-webfont-check-circle::before {
+.flexi-webfont-illustrations-check-circle::before {
     content: "\f230";
 }
 
-.flexi-webfont-catering::before {
+.flexi-webfont-illustrations-catering::before {
     content: "\f231";
 }
 
-.flexi-webfont-carpooling::before {
+.flexi-webfont-illustrations-carpooling::before {
     content: "\f232";
 }
 
-.flexi-webfont-car-rent::before {
+.flexi-webfont-illustrations-car-rent::before {
     content: "\f233";
 }
 
-.flexi-webfont-car-park::before {
+.flexi-webfont-illustrations-car-park::before {
     content: "\f234";
 }
 
-.flexi-webfont-camera::before {
+.flexi-webfont-illustrations-camera::before {
     content: "\f235";
 }
 
-.flexi-webfont-calendar::before {
+.flexi-webfont-illustrations-calendar::before {
     content: "\f236";
 }
 
-.flexi-webfont-calendar-unavailable::before {
+.flexi-webfont-illustrations-calendar-unavailable::before {
     content: "\f237";
 }
 
-.flexi-webfont-calendar-question-circle::before {
+.flexi-webfont-illustrations-calendar-question-circle::before {
     content: "\f238";
 }
 
-.flexi-webfont-calendar-plus-circle::before {
+.flexi-webfont-illustrations-calendar-plus-circle::before {
     content: "\f239";
 }
 
-.flexi-webfont-calendar-info-circle::before {
+.flexi-webfont-illustrations-calendar-info-circle::before {
     content: "\f23a";
 }
 
-.flexi-webfont-calendar-exclamation-circle::before {
+.flexi-webfont-illustrations-calendar-exclamation-circle::before {
     content: "\f23b";
 }
 
-.flexi-webfont-calendar-cogs-circle::before {
+.flexi-webfont-illustrations-calendar-cogs-circle::before {
     content: "\f23c";
 }
 
-.flexi-webfont-calendar-clock-circle::before {
+.flexi-webfont-illustrations-calendar-clock-circle::before {
     content: "\f23d";
 }
 
-.flexi-webfont-business-trip::before {
+.flexi-webfont-illustrations-business-trip::before {
     content: "\f23e";
 }
 
-.flexi-webfont-btvplus::before {
+.flexi-webfont-illustrations-btvplus::before {
     content: "\f23f";
 }
 
-.flexi-webfont-btv::before {
+.flexi-webfont-illustrations-btv::before {
     content: "\f240";
 }
 
-.flexi-webfont-btv-illimite::before {
+.flexi-webfont-illustrations-btv-illimite::before {
     content: "\f241";
 }
 
-.flexi-webfont-box::before {
+.flexi-webfont-illustrations-box::before {
     content: "\f242";
 }
 
-.flexi-webfont-box-unavailable::before {
+.flexi-webfont-illustrations-box-unavailable::before {
     content: "\f243";
 }
 
-.flexi-webfont-box-stethoscope::before {
+.flexi-webfont-illustrations-box-stethoscope::before {
     content: "\f244";
 }
 
-.flexi-webfont-box-smart-tv::before {
+.flexi-webfont-illustrations-box-smart-tv::before {
     content: "\f245";
 }
 
-.flexi-webfont-box-redo::before {
+.flexi-webfont-illustrations-box-redo::before {
     content: "\f246";
 }
 
-.flexi-webfont-box-mobile::before {
+.flexi-webfont-illustrations-box-mobile::before {
     content: "\f247";
 }
 
-.flexi-webfont-box-info-cogs::before {
+.flexi-webfont-illustrations-box-info-cogs::before {
     content: "\f248";
 }
 
-.flexi-webfont-box-info-circle::before {
+.flexi-webfont-illustrations-box-info-circle::before {
     content: "\f249";
 }
 
-.flexi-webfont-box-faq::before {
+.flexi-webfont-illustrations-box-faq::before {
     content: "\f24a";
 }
 
-.flexi-webfont-box-exclamation-circle::before {
+.flexi-webfont-illustrations-box-exclamation-circle::before {
     content: "\f24b";
 }
 
-.flexi-webfont-box-eole::before {
+.flexi-webfont-illustrations-box-eole::before {
     content: "\f24c";
 }
 
-.flexi-webfont-box-check-circle::before {
+.flexi-webfont-illustrations-box-check-circle::before {
     content: "\f24d";
 }
 
-.flexi-webfont-box-check-circle-s::before {
+.flexi-webfont-illustrations-box-check-circle-s::before {
     content: "\f24e";
 }
 
-.flexi-webfont-box-add::before {
+.flexi-webfont-illustrations-box-add::before {
     content: "\f24f";
 }
 
-.flexi-webfont-box-4g::before {
+.flexi-webfont-illustrations-box-4g::before {
     content: "\f250";
 }
 
-.flexi-webfont-bluetooth::before {
+.flexi-webfont-illustrations-bluetooth::before {
     content: "\f251";
 }
 
-.flexi-webfont-bell-ringing::before {
+.flexi-webfont-illustrations-bell-ringing::before {
     content: "\f252";
 }
 
-.flexi-webfont-beautician::before {
+.flexi-webfont-illustrations-beautician::before {
     content: "\f253";
 }
 
-.flexi-webfont-bduo::before {
+.flexi-webfont-illustrations-bduo::before {
     content: "\f254";
 }
 
-.flexi-webfont-battery::before {
+.flexi-webfont-illustrations-battery::before {
     content: "\f255";
 }
 
-.flexi-webfont-barcode-search::before {
+.flexi-webfont-illustrations-barcode-search::before {
     content: "\f256";
 }
 
-.flexi-webfont-bank::before {
+.flexi-webfont-illustrations-bank::before {
     content: "\f257";
 }
 
-.flexi-webfont-ball::before {
+.flexi-webfont-illustrations-ball::before {
     content: "\f258";
 }
 
-.flexi-webfont-badges::before {
+.flexi-webfont-illustrations-badges::before {
     content: "\f259";
 }
 
-.flexi-webfont-babyphone::before {
+.flexi-webfont-illustrations-babyphone::before {
     content: "\f25a";
 }
 
-.flexi-webfont-autoplan::before {
+.flexi-webfont-illustrations-autoplan::before {
     content: "\f25b";
 }
 
-.flexi-webfont-audio-visual::before {
+.flexi-webfont-illustrations-audio-visual::before {
     content: "\f25c";
 }
 
-.flexi-webfont-at::before {
+.flexi-webfont-illustrations-at::before {
     content: "\f25d";
 }
 
-.flexi-webfont-at-unavailable::before {
+.flexi-webfont-illustrations-at-unavailable::before {
     content: "\f25e";
 }
 
-.flexi-webfont-at-plus-circle::before {
+.flexi-webfont-illustrations-at-plus-circle::before {
     content: "\f25f";
 }
 
-.flexi-webfont-at-info::before {
+.flexi-webfont-illustrations-at-info::before {
     content: "\f260";
 }
 
-.flexi-webfont-at-infinity-circle::before {
+.flexi-webfont-illustrations-at-infinity-circle::before {
     content: "\f261";
 }
 
-.flexi-webfont-at-globe::before {
+.flexi-webfont-illustrations-at-globe::before {
     content: "\f262";
 }
 
-.flexi-webfont-at-exclamation-circle::before {
+.flexi-webfont-illustrations-at-exclamation-circle::before {
     content: "\f263";
 }
 
-.flexi-webfont-at-cogs-circle::before {
+.flexi-webfont-illustrations-at-cogs-circle::before {
     content: "\f264";
 }
 
-.flexi-webfont-at-check-s::before {
+.flexi-webfont-illustrations-at-check-s::before {
     content: "\f265";
 }
 
-.flexi-webfont-artist-chair::before {
+.flexi-webfont-illustrations-artist-chair::before {
     content: "\f266";
 }
 
-.flexi-webfont-artificial-intelligence::before {
+.flexi-webfont-illustrations-artificial-intelligence::before {
     content: "\f267";
 }
 
-.flexi-webfont-archiving::before {
+.flexi-webfont-illustrations-archiving::before {
     content: "\f268";
 }
 
-.flexi-webfont-air-travel::before {
+.flexi-webfont-illustrations-air-travel::before {
     content: "\f269";
 }
 
-.flexi-webfont-africa::before {
+.flexi-webfont-illustrations-africa::before {
     content: "\f26a";
 }
 
-.flexi-webfont-advisor::before {
+.flexi-webfont-illustrations-advisor::before {
     content: "\f26b";
 }
 
-.flexi-webfont-addcalendar-rdv::before {
+.flexi-webfont-illustrations-addcalendar-rdv::before {
     content: "\f26c";
 }
 
-.flexi-webfont-accomodation::before {
+.flexi-webfont-illustrations-accomodation::before {
     content: "\f26d";
 }
 
-.flexi-webfont-accessibility::before {
+.flexi-webfont-illustrations-accessibility::before {
     content: "\f26e";
 }
 
-.flexi-webfont-5g::before {
+.flexi-webfont-illustrations-5g::before {
     content: "\f26f";
 }
 
-.flexi-webfont-4g::before {
+.flexi-webfont-illustrations-4g::before {
     content: "\f270";
 }
 
-.flexi-webfont-4g-plus::before {
+.flexi-webfont-illustrations-4g-plus::before {
     content: "\f271";
 }
 
-.flexi-webfont-4g-5g::before {
+.flexi-webfont-illustrations-4g-5g::before {
     content: "\f272";
 }
 
-.flexi-webfont-4g-5g-plus::before {
+.flexi-webfont-illustrations-4g-5g-plus::before {
     content: "\f273";
 }
 
-.flexi-webfont-4g-4g-plus::before {
+.flexi-webfont-illustrations-4g-4g-plus::before {
     content: "\f274";
 }
 

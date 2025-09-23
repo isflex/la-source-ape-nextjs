@@ -1,6 +1,6 @@
 import { BadgeTextDirection } from './BadgeEnum.js'
 
-import { GenericChildren } from '../../generics/index.js'
+import { type GenericChildren } from '../../generics/index.js'
 
 /**
  * Badge Interface

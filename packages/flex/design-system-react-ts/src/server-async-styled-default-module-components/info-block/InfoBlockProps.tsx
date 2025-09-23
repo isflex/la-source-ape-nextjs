@@ -1,4 +1,4 @@
-import { GenericChildren } from '../../generics/index.js'
+import { type GenericChildren } from '../../generics/index.js'
 
 export interface InfoBlockProps {
   // children?: React.JSX.Element | React.JSX.Element[] | string | number

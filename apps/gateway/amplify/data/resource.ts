@@ -35,6 +35,65 @@ const schema = a.schema({
     'Non'
   ]),
 
+  ESurveyType: a.enum([
+    'WEB_APP',
+    'ERASMUS'
+  ]),
+
+  // Erasmus-specific enums (no spaces allowed in GraphQL enum values)
+  EErasmusAwareness: a.enum([
+    'OUI',
+    'NON',
+    'PAS_VRAIMENT'
+  ]),
+
+  EErasmusInterest: a.enum([
+    'OUI_BEAUCOUP',
+    'OUI_UN_PEU',
+    'PAS_VRAIMENT',
+    'PAS_DU_TOUT'
+  ]),
+
+  EComfortLevel: a.enum([
+    'TRES_A_LAISE',
+    'ASSEZ_A_LAISE',
+    'PARTAGE',
+    'PAS_DU_TOUT_A_LAISE'
+  ]),
+
+  EErasmusMotivation: a.enum([
+    'AMELIORER_COMPETENCES_LINGUISTIQUES',
+    'DECOUVRIR_AUTRE_PAYS_CULTURE',
+    'RENCONTRER_AUTRES_ELEVES_EUROPEENS',
+    'VALORISER_DOSSIER_SCOLAIRE',
+    'AUCUN'
+  ]),
+
+  EErasmusConcerns: a.enum([
+    'COUT_FINANCIER',
+    'HEBERGEMENT',
+    'SECURITE',
+    'DIFFERENCES_CULTURELLES',
+    'BARRIERE_LINGUISTIQUE',
+    'QUALITE_ENSEIGNEMENT',
+    'AUTRE'
+  ]),
+
+  EFinancingWillingness: a.enum([
+    'OUI_SANS_HESITATION',
+    'OUI_SELON_COUT',
+    'PEUT_ETRE',
+    'PROBABLEMENT_PAS',
+    'NON'
+  ]),
+
+  EIdealDuration: a.enum([
+    'UNE_SEMAINE',
+    'DEUX_SEMAINES',
+    'UN_MOIS',
+    'TROIS_MOIS_TRIMESTRE'
+  ]),
+
   Questions: a
     .model({
       question: a.string().required(),
@@ -54,6 +113,27 @@ const schema = a.schema({
     })
     .authorization((allow) => [allow.publicApiKey()]),
 
+  // Erasmus survey specific fields
+  ErasmusResponse: a
+    .model({
+      email: a.string().required(),
+      childDetails: a.string().required(), // "nom, prénom, classe"
+      erasmusAwareness: a.ref('EErasmusAwareness').required(),
+      erasmusDefinition: a.string(), // Optional text field
+      erasmusInterest: a.ref('EErasmusInterest').required(),
+      comfortLevel: a.ref('EComfortLevel').required(),
+      motivations: a.string().array(), // Multiple selections as strings
+      desiredInformation: a.string().required(),
+      concerns: a.string().array(), // Multiple selections as strings
+      financingWillingness: a.ref('EFinancingWillingness').required(),
+      idealDuration: a.ref('EIdealDuration').required(), // Question 10
+      previousExperience: a.string(), // Question 11 - Optional text field
+      suggestions: a.string(), // Question 12 - Optional text field
+      session: a.string(),
+      surveyType: a.ref('ESurveyType'),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
   Sondage: a
     .model({
       firstname: a.string().required(),
@@ -61,6 +141,7 @@ const schema = a.schema({
       email: a.string(),
       session: a.string(),
       comment: a.string(),
+      surveyType: a.ref('ESurveyType'),
       students: a.hasMany('Students', 'sondageId'),
       questions: a.hasMany('Questions', 'sondageId'),
     })

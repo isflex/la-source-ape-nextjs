@@ -1,6 +1,6 @@
 import { StepperStepMarkup } from './StepperStepEnum.js'
 
-import { GenericChildren } from '../../../generics/index.js'
+import { type GenericChildren } from '../../../generics/index.js'
 
 /**
  * Stepper Step Interface

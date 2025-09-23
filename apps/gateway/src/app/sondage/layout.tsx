@@ -12,7 +12,7 @@ import {
   TitleLevel
  } from '@flex-design-system/react-ts/client-sync-styled-default'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
-import { default as stylesPage } from '@src/styles/scss/pages/todo.module.scss'
+// import { default as stylesPage } from '@src/styles/scss/pages/todo.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 
@@ -30,7 +30,10 @@ export default async function SondageLayout({
   await posthog.shutdown()
 
   return (
-    <div className={classNames(flexStyles.genericLayout1, stylesPage.todoApp)}>
+    <div className={classNames(
+      flexStyles.genericLayout1,
+      // stylesPage.todoApp
+    )}>
       <div style={{
         height: 'auto',
         padding: '2rem 0',
@@ -47,7 +50,7 @@ export default async function SondageLayout({
       </div>
       <main>
         <Title level={TitleLevel.LEVEL1} className={classNames(flexStyles.isCentered)} style={{ marginTop: '-1rem' }}>
-          {`Sondage de l'APE`}
+          {`Sondages de l'APE`}
         </Title>
         <section>{children}</section>
       </main>

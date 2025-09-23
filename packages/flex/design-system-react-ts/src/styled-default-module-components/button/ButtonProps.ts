@@ -2,7 +2,7 @@ import { ButtonMarkup } from './ButtonEnum.js'
 import { ClickEvent } from '../../events/index.js'
 import { Fullwidth, AlertProps, VariantProps, Loadable, Invertable } from '../../objects/facets/index.js'
 
-import { GenericChildren } from '../../generics/index.js'
+import { type GenericChildren } from '../../generics/index.js'
 
 /**
  * Button Interface

@@ -16,7 +16,7 @@ export interface OptionsItemClickEvent {
 
 type OptionsItemClickEventHandler = (event: OptionsItemClickEvent) => void
 
-import { GenericChildren } from '../../../generics/index.js'
+import { type GenericChildren } from '../../../generics/index.js'
 
 /**
  * Options Item Interface

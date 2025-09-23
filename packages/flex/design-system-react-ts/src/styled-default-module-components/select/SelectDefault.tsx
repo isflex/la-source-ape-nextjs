@@ -40,6 +40,7 @@ const Select = ({
   value,
   onChange,
   placeholder,
+  placeholderId,
   nullable,
   ref,
   ...others
@@ -80,7 +81,18 @@ const Select = ({
             ref={ref}
             {...others}
           >
-            {!!placeholder && <SelectOption disabled={!nullable}>{placeholder}</SelectOption>}
+            {/* {!!placeholder && (
+              <SelectOption selected={value == null} disabled={!nullable}
+                id={placeholderId || `placedholderId-${idGenerated}`}>
+                {placeholder}
+              </SelectOption>
+            )} */}
+            {!!placeholder && (
+              <SelectOption disabled={!nullable}
+                id={placeholderId || `placedholder-${idGenerated}`}>
+                {placeholder}
+              </SelectOption>
+            )}
             {children}
           </select>
           {dynamicPlaceholder && label && <label htmlFor={id || idGenerated}>{label}</label>}

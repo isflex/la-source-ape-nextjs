@@ -2612,7 +2612,7 @@ const App = observer((): React.JSX.Element => {
               {/* <div className='partners-icons is-hidden-touch'> */}
               <span className={classNames(styles.icon)}>
                 {/* <i className='tri-lock' aria-hidden='true'></i> */}
-                <i className={classNames(styles.flexiWebfontLock)} aria-hidden='true'></i>
+                <i className={classNames(styles.flexiWebfontIllustrationsLock)} aria-hidden='true'></i>
               </span>
               <span className={classNames(styles.icon)}>
                 {/* <i className='tri-payment-visa' aria-hidden='true'></i> */}
@@ -2628,7 +2628,7 @@ const App = observer((): React.JSX.Element => {
               </span>
               <span className={classNames(styles.icon)}>
                 {/* <i className='tri-payment-americanexpress' aria-hidden='true'></i> */}
-                <i className={classNames(styles.flexiWebfontPaymentAmericanexpress)} aria-hidden='true'></i>
+                <i className={classNames(styles.flexiWebfontIllustrationsPaymentAmericanexpress)} aria-hidden='true'></i>
               </span>
               <span className={classNames(styles.icon)}>
                 {/* <i className='tri-payment-cb' aria-hidden='true'></i> */}
@@ -2643,7 +2643,7 @@ const App = observer((): React.JSX.Element => {
               <a title='Accessibilité de Bouygues Telecom' href='https://www.acce-o.fr/client/bouygues/'>
                 <span className={classNames(styles.icon)}>
                   {/* <i className='tri-accessibility' aria-hidden='true'></i> */}
-                  <i className={classNames(styles.flexiWebfontAccessibility)} aria-hidden='true'></i>
+                  <i className={classNames(styles.flexiWebfontIllustrationsAccessibility)} aria-hidden='true'></i>
                 </span>
               </a>
               {/* </View> */}

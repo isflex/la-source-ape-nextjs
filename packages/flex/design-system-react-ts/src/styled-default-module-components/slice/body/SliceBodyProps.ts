@@ -1,4 +1,4 @@
-import { GenericChildren } from '../../../generics/index.js'
+import { type GenericChildren } from '../../../generics/index.js'
 
 export interface SliceBodyProps {
   children?: GenericChildren | string

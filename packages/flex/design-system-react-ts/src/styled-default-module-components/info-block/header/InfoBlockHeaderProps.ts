@@ -1,6 +1,6 @@
 import { InfoBlockStatus } from '../InfoBlockEnum.js'
 import { IconName } from '../../icon/index.js'
-import { GenericChildren } from '../../../generics/index.js'
+import { type GenericChildren } from '../../../generics/index.js'
 
 export interface InfoBlockHeaderProps {
   children?: GenericChildren | string

@@ -1,5 +1,5 @@
 // import { ImageListProps } from './ImageListProps.js'
-// import { GenericChildren } from '../../generics/index.js'
+// import { type GenericChildren } from '../../generics/index.js'
 import { ImageListRootMarkup } from './ImageListTagEnum.js'
 import { ImageListProps } from './ImageListProps.js'
 

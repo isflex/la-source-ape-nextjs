@@ -59,7 +59,7 @@ const App: React.FC = () => {
                 <path d="M385 291H106V300H385V291Z" fill="white"/>
                 <path d="M126.73 282H113.505L163.772 143.818H177.266L227.532 282H214.308L170.991 160.214H170.046L126.73 282ZM136.243 229.035H204.794V240.37H136.243V229.035ZM218.915 282V143.818H263.513C273.319 143.818 281.506 145.707 288.073 149.486C294.685 153.219 299.656 158.302 302.984 164.734C306.358 171.167 308.045 178.409 308.045 186.46C308.045 194.512 306.38 201.776 303.052 208.254C299.723 214.686 294.775 219.791 288.208 223.57C281.641 227.303 273.477 229.17 263.716 229.17H228.631V217.835H263.379C270.621 217.835 276.625 216.485 281.393 213.786C286.161 211.042 289.715 207.309 292.054 202.586C294.438 197.863 295.63 192.488 295.63 186.46C295.63 180.433 294.438 175.058 292.054 170.335C289.715 165.612 286.139 161.901 281.326 159.202C276.558 156.503 270.508 155.153 263.176 155.153H231.532V282H218.915ZM305.365 282V143.818H385.521V155.153H317.982V207.174H381.27V218.509H317.982V270.665H386.87V282H305.365Z" fill="white"/>
               </svg>
-              <Text className={flexStyles.isMarginless}>{`${process.env.FLEX_APP_TITLE}`}</Text>
+              <Title level={TitleLevel.LEVEL5} className={flexStyles.isMarginless}>{`${process.env.FLEX_APP_TITLE}`}</Title>
             </div>
             <Text>A moins que précisé autrement, les conditions d&apos;utilisation détaillées dans cette section s&apos;appliquent généralement pendant
               l&apos;utilisation de cette Application.</Text>
@@ -69,6 +69,31 @@ const App: React.FC = () => {
             <ul>
               <li>Il n&apos;y a pas de restrictions pour les Utilisateurs en termes de leur statut de Consommateur ou d&apos;Utilisateurs Professionnels.</li>
             </ul>
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>Conditions d&apos;utilisation spécifiques à l&apos;application &laquo; {`${process.env.FLEX_APP_TITLE}`} &raquo;</Title>
+            <Box className={classNames(flexStyles.isPaddingless, flexStyles.isFlat, flexStyles.isFlatFlexPurple, flexStyles.isGreyDark)}>
+              <Section>
+                <Text>
+                  Si vous avez des enfants scolarisés à <strong>l&apos;École nouvelle La Source</strong> (actuels ou passés) qui pourraient proposer
+                  leurs services pour s&apos;occuper d&apos;autres enfants, vous comprenez que les parents ont aussi la responsabilité d&apos;accompagner leur
+                  enfant(s) dans l&apos;utilisation de l&apos;application <strong>{`${process.env.FLEX_APP_TITLE}`}</strong>.
+                </Text>
+                <Text>
+                  Sachant que l&apos;application <strong>{`${process.env.FLEX_APP_TITLE}`}</strong> a été conçue pour protéger au maximum vos informations personnelles
+                  et la sécurité de vos données, qu&apos;elle a été développée sur une base volontaire et en tant que service gratuit,
+                  vous comprenez que l&apos;application ne peut être tenue responsable d&apos;une quelconque utilisation abusive.
+                </Text>
+                <Text>
+                  L&apos;application <strong>{`${process.env.FLEX_APP_TITLE}`}</strong> est destinée à l&apos;ensemble de la communauté scolaire
+                  de <strong>l&apos;École nouvelle La Source</strong> (parents et enfants inclus), mais à ce jour, son accès reste ouvert à toute personne disposant d&apos;un accès à l&apos;URL.
+                  Vous comprenez qu&apos;à terme, nous pourrions décider de contrôler et de restreindre l&apos;accès, mais cela nécessite une collaboration
+                  entre les différentes parties prenantes, qui se fera progressivement.
+                </Text>
+                <Text>
+                  Vous comprenez que l&apos;application <strong>{`${process.env.FLEX_APP_TITLE}`}</strong> a pour vocation de servir de forum d&apos;annonces plus ou moins ouvert à tous.
+                  Son bon fonctionnement repose sur la bonne volonté et la supervision de tous.
+                </Text>
+              </Section>
+            </Box>
             <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>Contenu sur cette Application</Title>
             <Text>Sauf indication contraire ou clairement identifiable, tout contenu accessible sur cette Application appartient au Propriétaire ou à
               ses concédants de licence, ou est présenté par ceux-ci.</Text>
@@ -215,7 +240,7 @@ const App: React.FC = () => {
             <Text>Sans préjudice à toute disposition particulière de ces Conditions générales, tous droits d&apos;auteur, tels que les marques, les brevets
               et les droits de design associés à cette Application sont la propriété exclusive du Propriétaire ou de ces concédants de licence sont
               sujets à la protection accordée par les lois applicables ou les traités internationaux liés à la propriété intellectuelle.</Text>
-            <Text>Toutes marques commerciales – nominales ou figurative – et toutes autres marques, noms de commerce, marque de mots, illustrations, images, ou logos apparaissant en connexion avec cette Application sont, et restent, la propriété exclusive du Propriétaire ou de ces
+            <Text>Toutes marques commerciales - nominales ou figurative - et toutes autres marques, noms de commerce, marque de mots, illustrations, images, ou logos apparaissant en connexion avec cette Application sont, et restent, la propriété exclusive du Propriétaire ou de ces
               concédants de licence et sont sujets à la protection accordée par les lois applicables ou les traités internationaux liés à la
               propriété intellectuelle.</Text>
             <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>Modifications de ces Conditions générales</Title>

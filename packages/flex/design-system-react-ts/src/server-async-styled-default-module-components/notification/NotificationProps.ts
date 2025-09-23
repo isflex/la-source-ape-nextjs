@@ -4,7 +4,7 @@ import { IconName } from '../icon/IconNameEnum.js'
 import { ClickEvent } from '../../events/index.js'
 import { ButtonMarkup } from '../button/index.js'
 
-import { GenericChildren } from '../../generics/index.js'
+import { type GenericChildren } from '../../generics/index.js'
 
 /**
  * Notification Interface

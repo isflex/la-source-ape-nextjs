@@ -1,7 +1,7 @@
 import { PriceVariant, PriceLevel } from './PriceEnum.js'
 import { Invertable } from '../../objects/facets/index.js'
 
-import { GenericChildren } from '../../generics/index.js'
+import { type GenericChildren } from '../../generics/index.js'
 
 /**
  * Price Interface

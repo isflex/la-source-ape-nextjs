@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { ImageListVariant } from '../ImageListVariantEnum.js'
-// import { GenericChildren } from '../../../generics/index.js'
+// import { type GenericChildren } from '../../../generics/index.js'
 
 export interface ImageListItemProps {
   // ----------------------------- Warning --------------------------------

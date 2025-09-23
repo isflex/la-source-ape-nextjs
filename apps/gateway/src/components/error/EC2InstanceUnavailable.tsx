@@ -67,7 +67,7 @@ const FallBackEC2InstanceUnavailable: React.FC<ErrorBoundaryProps> = (props) => 
                 <br/>
               </InfoBlockHeader>
               <InfoBlockContent>
-                <Title level={TitleLevel.LEVEL4}>{`Cette page utilise une instance Spot Amazon EC2 pour faire fonctionner le server du ${process.env.FLEX_APP_TITLE}`}</Title>
+                <Title level={TitleLevel.LEVEL4}>{`Cette page utilise une instance Spot Amazon EC2 pour faire fonctionner le server du ${process.env.NEXT_PUBLIC_APP_TITLE}`}</Title>
                 <Title level={TitleLevel.LEVEL6}>
                   {`
                     Les instances Spot AWS représentent une capacité excédentaire dans l'infrastucture cloud AWS.
@@ -82,7 +82,7 @@ const FallBackEC2InstanceUnavailable: React.FC<ErrorBoundaryProps> = (props) => 
                 <Title level={TitleLevel.LEVEL6}>
                   {`
                     Bien que les instances Spot permettent des économies substantielles, elles comportent un risque de perturbation en cas de demande trop élevée.
-                    Dès que la capacité sera suffisante, notre instance redémarrera et le ${process.env.FLEX_APP_TITLE} sera à nouveau disponible.
+                    Dès que la capacité sera suffisante, notre instance redémarrera et le ${process.env.NEXT_PUBLIC_APP_TITLE} sera à nouveau disponible.
                   `}
                 </Title>
                 <Title level={TitleLevel.LEVEL4}>

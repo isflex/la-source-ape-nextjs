@@ -1,5 +1,5 @@
 import { Narrow } from '../../../objects/facets/index.js'
-import { GenericChildren } from '../../../generics/index.js'
+import { type GenericChildren } from '../../../generics/index.js'
 
 enum SpacingLevel {
   LEVEL1 = 1,

@@ -1,5 +1,5 @@
 import { AlertProps, Invertable } from '../../objects/facets/index.js'
-import { GenericChildren } from '../../generics/index.js'
+import { type GenericChildren } from '../../generics/index.js'
 
 export interface SwitchChangeEvent {
   switchState: boolean

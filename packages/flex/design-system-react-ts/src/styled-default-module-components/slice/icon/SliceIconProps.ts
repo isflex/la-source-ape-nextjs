@@ -1,5 +1,5 @@
 import { IconColor, IconName, IconSize } from '../../icon/index.js'
-import { GenericChildren } from '../../../generics/index.js'
+import { type GenericChildren } from '../../../generics/index.js'
 
 export interface SliceIconProps {
   children?: GenericChildren | string

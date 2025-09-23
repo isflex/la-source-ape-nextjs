@@ -7,7 +7,7 @@ export interface TextareaChangeEvent {
 
 type TextareaChangeEventHandler = (event: TextareaChangeEvent) => void
 
-// import { GenericChildren } from '../../generics/index.js'
+// import { type GenericChildren } from '../../generics/index.js'
 
 /**
  * Textarea Interface

@@ -110,6 +110,9 @@ next-env.d.ts
 # typescript project references
 **/*.tsbuildinfo
 
+tmp
+**/test
+
 # amplify
 **/.amplify
 **/amplify_outputs*

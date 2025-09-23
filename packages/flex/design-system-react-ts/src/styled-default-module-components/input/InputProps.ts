@@ -45,7 +45,7 @@ export interface InputWebEvents {
   onClick?: InputClickEventHandler
 }
 
-// import { GenericChildren } from '../../generics/index.js'
+// import { type GenericChildren } from '../../generics/index.js'
 
 /**
  * Input Interface

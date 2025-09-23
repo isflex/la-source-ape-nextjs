@@ -18,7 +18,7 @@ export interface RadioClickEvent {
 
 type RadioClickEventHandler = (event: RadioClickEvent) => void
 
-import { GenericChildren } from '../../generics/index.js'
+import { type GenericChildren } from '../../generics/index.js'
 
 /**
  * Radio Interface

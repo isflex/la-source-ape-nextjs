@@ -1,5 +1,5 @@
 import { PopoverArrowPosition, PopoverDirection } from './PopoverEnum.js'
-import { GenericChildren } from '../../generics/index.js'
+import { type GenericChildren } from '../../generics/index.js'
 
 /**
  * Popover Interface

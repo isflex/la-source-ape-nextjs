@@ -6,7 +6,7 @@ export interface SelectChangeEvent {
 
 type SelectChangeEventHandler = (event: SelectChangeEvent) => void
 
-import { GenericChildren } from '../../generics/index.js'
+import { type GenericChildren } from '../../generics/index.js'
 
 /**
  * Select Interface
@@ -24,6 +24,7 @@ export interface SelectProps {
   children?: GenericChildren | string
   dynamicPlaceholder?: boolean
   placeholder?: string
+  placeholderId?: string
   // ref?: React.LegacyRef<HTMLSelectElement>
   ref?: React.ForwardedRef<HTMLSelectElement>
 }

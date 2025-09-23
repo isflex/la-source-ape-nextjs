@@ -40,6 +40,7 @@ const Select = async ({
   value,
   onChange,
   placeholder,
+  placeholderId,
   nullable,
   ...others
 }: SelectProps): Promise<React.ReactNode> => {
@@ -72,7 +73,8 @@ const Select = async ({
             {...others}
           >
             {!!placeholder && (
-              <SelectOption selected={value == null} disabled={!nullable}>
+              <SelectOption selected={value == null} disabled={!nullable}
+                id={placeholderId || `placedholder-${idGenerated}`}>
                 {placeholder}
               </SelectOption>
             )}

@@ -1,5 +1,5 @@
 import { ImageListVariant } from './ImageListVariantEnum.js'
-// import { GenericChildren } from '../../generics/index.js'
+// import { type GenericChildren } from '../../generics/index.js'
 
 export interface ImageListProps {
   children: React.ReactNode

@@ -1,6 +1,6 @@
 import { Hat } from '../../../objects/facets/index.js'
 
-import { GenericChildren } from '../../../generics/index.js'
+import { type GenericChildren } from '../../../generics/index.js'
 
 /**
  * Pricing Plan Product Interface

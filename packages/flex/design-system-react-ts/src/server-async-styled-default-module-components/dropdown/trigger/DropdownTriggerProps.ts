@@ -4,7 +4,7 @@ export interface DropdownTriggerClickEvent {
 
 type DropdownTriggerClickEventHandler = (event: DropdownTriggerClickEvent) => void
 
-import { GenericChildren } from '../../../generics/index.js'
+import { type GenericChildren } from '../../../generics/index.js'
 
 /**
  * Dropdown Trigger Interface

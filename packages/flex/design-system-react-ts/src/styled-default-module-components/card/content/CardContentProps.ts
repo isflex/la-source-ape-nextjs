@@ -3,7 +3,7 @@ import { TitleLevel } from '../../title/TitleEnum.js'
 import { TextLevel } from '../../text/TextEnum.js'
 import { ClickEvent } from '../../../events/index.js'
 import { VariantState } from '../../../objects/facets/index.js'
-import { GenericChildren } from '../../../generics/index.js'
+import { type GenericChildren } from '../../../generics/index.js'
 
 /**
  * Card Content Interface

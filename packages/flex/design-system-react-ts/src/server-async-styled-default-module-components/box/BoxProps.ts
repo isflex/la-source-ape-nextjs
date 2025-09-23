@@ -1,5 +1,5 @@
 import { ClickEvent } from '../../events/index.js'
-import { GenericChildren } from '../../generics/index.js'
+import { type GenericChildren } from '../../generics/index.js'
 
 export enum BoxMarkup {
   DIV = 'div',

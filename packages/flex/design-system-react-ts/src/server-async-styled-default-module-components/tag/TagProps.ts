@@ -19,7 +19,7 @@ export interface TagMouseLeaveEvent {
   (e: TagMouseLeaveEventHandler): void
 }
 
-import { GenericChildren } from '../../generics/index.js'
+import { type GenericChildren } from '../../generics/index.js'
 
 /**
  * Tag Interface

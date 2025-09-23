@@ -1,5 +1,5 @@
 import { BackgroundProps } from '../../objects/atoms/index.js'
-import { GenericChildren } from '../../generics/index.js'
+import { type GenericChildren } from '../../generics/index.js'
 
 /**
  * Toolbar Interface

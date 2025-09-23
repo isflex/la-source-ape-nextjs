@@ -3,7 +3,7 @@ export type TargetElement = HTMLElement & {
   id?: string
 }
 
-import { GenericChildren } from '../../../generics/index.js'
+import { type GenericChildren } from '../../../generics/index.js'
 
 /**
  * OnClickEvent type
