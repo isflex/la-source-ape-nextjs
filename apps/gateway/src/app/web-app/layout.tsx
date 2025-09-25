@@ -15,6 +15,7 @@ import type { Metadata } from 'next'
 import  { title } from '@src/seo'
 import PostHogNodeClient from '@src/utils/posthog/initPostHogNode'
 import { ErrorBoundary } from 'react-error-boundary'
+import regexEscape from 'regex-escape'
 
 // import { isMobile } from 'react-device-detect'
 import { isMobile } from '@src/utils'
@@ -35,7 +36,7 @@ const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf'),
 const FallBackEC2InstanceUnavailable = dynamic(() => import('@src/components/error/EC2InstanceUnavailable'), { ssr: true })
 
 export const metadata: Metadata = {
-  title: `${process.env.FLEX_APP_TITLE} | ${title}`,
+  title: `${process.env.NEXT_PUBLIC_APP_TITLE}`,
 }
 
 export default async function WebAppLayout({
@@ -45,9 +46,49 @@ export default async function WebAppLayout({
 }) {
 
   const userAgent = (await headers()).get('user-agent') || ''
+  const currentHost = (await headers()).get('x-host') || ''
+  // const currentRequestUrl = (await headers()).get('x-url') || ''
+  // const currentOrigin = (await headers()).get('x-origin') || ''
+  // console.debug(currentHost)
+  // console.debug(currentRequestUrl)
+  // console.debug(currentOrigin)
+  // console.debug(regexEscape(process.env.NEXT_PUBLIC_FLEX_FUTUR_PROOF_2_BASE_DOMAIN!))
+  // console.debug((new RegExp(`${regexEscape(process.env.NEXT_PUBLIC_FLEX_FUTUR_PROOF_2_BASE_DOMAIN!)}`, 'g')).test(currentHost))
+
   const mobileCheck = isMobile(userAgent)
   const posthog = PostHogNodeClient()
   await posthog.shutdown()
+
+  if (process.env.NEXT_PUBLIC_FLEX_ACTIVATE_APE_SOURCE_CO === 'false' &&
+    (new RegExp(`${regexEscape(process.env.NEXT_PUBLIC_FLEX_FUTUR_PROOF_2_BASE_DOMAIN!)}`, 'g')).test(currentHost)
+  ) {
+    return (
+      <div className={classNames(
+        flexStyles.genericLayout1,
+        flexStyles.isPlain,
+        mobileCheck && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
+      )}>
+        <div style={{
+          height: 'auto',
+          padding: '0',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <div style={{
+            height: '20vh',
+            paddingTop: '10vh',
+            width: '100%',
+            background: 'linear-gradient(180deg, rgb(117 81 194), rgb(255 255 255))',
+          }}>
+            <LogoAPE />
+          </div>
+          {children}
+        </div>
+      </div>
+    )
+  }
 
   return (
     <ErrorBoundary fallback={<FallBackEC2InstanceUnavailable mobileCheck={mobileCheck} />}>

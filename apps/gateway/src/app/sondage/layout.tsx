@@ -17,7 +17,7 @@ import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 
 export const metadata: Metadata = {
-  title: `Sondage APE | ${title}`,
+  title: `Sondage ${title}`,
 }
 
 export default async function SondageLayout({

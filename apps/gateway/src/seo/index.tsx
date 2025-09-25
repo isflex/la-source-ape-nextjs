@@ -1,5 +1,5 @@
 
-const title = 'APE | La Source'
+const title = 'APE La Source'
 const description = "Le site de l'association des parents d'élèves de l'école nouvelle la Source"
 const parentOrg = {
   '@type': 'EducationalOrganization',

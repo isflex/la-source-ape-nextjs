@@ -21,6 +21,10 @@ export function middleware(request: NextRequest) {
 
   const requestHeaders = new Headers(request.headers)
   requestHeaders.set('x-nonce', nonce)
+  // Store current request url in a custom header, which you can read later
+  requestHeaders.set('x-url', request.url)
+  requestHeaders.set('x-origin', request.nextUrl.origin)
+  requestHeaders.set('x-host', request.headers.get('host') || '')
 
   // requestHeaders.set(
   //   'Content-Security-Policy',

@@ -7,6 +7,7 @@ import { LogoProps } from '@root/types/additional'
 import { getStores } from '@flexiness/domain-store'
 import classNames from 'classnames'
 import { default as stylesPage } from '@src/styles/scss/pages/logo.module.scss'
+import { default as stylesLayout } from '@src/styles/scss/pages/layout.module.scss'
 
 const stores = getStores()
 
@@ -17,7 +18,7 @@ const Logo: React.FC<LogoProps> = React.forwardRef<HTMLElement, LogoProps>((prop
       `flex-gateway-logo ${navigationState}`,
       stylesPage.logoDefault,
       stylesPage.logoLaSource,
-      stylesPage.navLogo,
+      stylesLayout.navLogo,
       props.className,
     )}
     ref={ref as React.RefObject<HTMLDivElement | null>}>

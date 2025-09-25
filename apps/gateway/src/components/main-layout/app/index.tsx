@@ -17,7 +17,8 @@ import { default as stylesPage } from '@src/styles/scss/pages/layout.module.scss
 
 // declare let globalThis: FlexGlobalThis
 
-const LogoLaSource = dynamic(() => import('@src/components/logo-la-source'), { ssr: true })
+// const LogoLaSource = dynamic(() => import('@src/components/logo-la-source'), { ssr: true })
+const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 const Header = dynamic(() => import('@src/components/sticky-header/app'), { ssr: true })
 const Footer = dynamic(() => import('@src/components/footer/app'), { ssr: true })
 
@@ -29,7 +30,8 @@ const MainLayout = async ({children }: { children: React.ReactNode }) => {
   const NavigationLayout = () => {
     return (
       <div className={classNames(stylesPage.navLayout, mobileCheck && stylesPage.forceMobile)}>
-        <LogoLaSource className={stylesPage.navLogo} />
+        {/* <LogoLaSource className={stylesPage.navLogo} /> */}
+        <LogoAPE isNavLogo={true} className={classNames(stylesPage.navLogo, stylesPage.navLogoApe)} />
         <Header mobileCheck={mobileCheck} />
       </div>
     )

@@ -14,10 +14,22 @@ import {
  } from '@flex-design-system/react-ts/client-sync-styled-default'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/logo.module.scss'
+import { default as stylesLayout } from '@src/styles/scss/pages/layout.module.scss'
 
 const stores = getStores()
 
 const Logo: React.FC<LogoProps> = React.forwardRef<HTMLElement, LogoProps>((props, ref) => {
+  if (props.isNavLogo === true) {
+    return (
+      <div className={classNames(
+        stylesLayout.navLogoApe,
+        stylesLayout.navLogo,
+        props.className,
+      )}>
+        <LogoSvg id='ape_la_source_logo_1' />
+      </div>
+    )
+  }
   const { navigationState, status } = stores.UIStore
   const { spaghettiContext } = stores.SpaghettiStore
   if (props.isLoader === true) {
