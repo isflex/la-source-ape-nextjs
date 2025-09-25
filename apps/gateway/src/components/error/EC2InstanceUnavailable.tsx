@@ -6,7 +6,9 @@ import classNames from 'classnames'
 import {
   Button,
   // ButtonMarkup,
-  // Box,
+  Box,
+  BoxContent,
+  Divider,
   // Link,
   // Text,
   Title,
@@ -18,6 +20,7 @@ import {
   InfoBlockContent,
   InfoBlockHeader,
   // InfoBlockStatus,
+  Section,
 } from '@flex-design-system/react-ts/client-sync-styled-default'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import '@src/styles/globals.css'
@@ -67,24 +70,31 @@ const FallBackEC2InstanceUnavailable: React.FC<ErrorBoundaryProps> = (props) => 
                 <br/>
               </InfoBlockHeader>
               <InfoBlockContent>
-                <Title level={TitleLevel.LEVEL4}>{`Cette page utilise une instance Spot Amazon EC2 pour faire fonctionner le server du ${process.env.NEXT_PUBLIC_APP_TITLE}`}</Title>
-                <Title level={TitleLevel.LEVEL6}>
-                  {`
-                    Les instances Spot AWS représentent une capacité excédentaire dans l'infrastucture cloud AWS.
-                    En tant que fournisseur de cloud, AWS doit disposer d'une capacité de réserve pour répondre à toute augmentation de la demande client.
-                  `}
+                <Title level={TitleLevel.LEVEL4}>
+                  {`Cette page utilise une instance Spot Amazon EC2`}<br/>
+                  {`pour faire fonctionner le server`}<br/>
+                  {`« ${process.env.NEXT_PUBLIC_APP_TITLE} »`}
                 </Title>
-                <Title level={TitleLevel.LEVEL6}>
-                  {`
-                    Pour compenser la perte d'infrastructure inutilisée, AWS propose cette capacité excédentaire à un prix très attractif.
-                  `}
-                </Title>
-                <Title level={TitleLevel.LEVEL6}>
-                  {`
-                    Bien que les instances Spot permettent des économies substantielles, elles comportent un risque de perturbation en cas de demande trop élevée.
-                    Dès que la capacité sera suffisante, notre instance redémarrera et le ${process.env.NEXT_PUBLIC_APP_TITLE} sera à nouveau disponible.
-                  `}
-                </Title>
+                <Section className={classNames(flexStyles.isTransparentOnly)}>
+                  <Title level={TitleLevel.LEVEL6}>
+                    {`
+                      Les instances Spot AWS représentent une capacité excédentaire dans l'infrastucture cloud AWS. En tant que fournisseur de cloud, AWS doit disposer d'une capacité de réserve pour répondre à toute augmentation de la demande.
+                    `}
+                  </Title>
+                  <Title level={TitleLevel.LEVEL6}>
+                    {`
+                      Pour compenser la perte d'infrastructures inutilisées pendant les périodes de faible demande, AWS propose cette capacité excédentaire à un prix très attractif.
+                    `}
+                  </Title>
+                </Section>
+                <Box className={classNames(flexStyles.isFlat, flexStyles.isFlatFlexPurple)}>
+                  <Title level={TitleLevel.LEVEL5}>
+                    {`
+                      Bien que les instances Spot permettent des économies substantielles, elles comportent un risque de perturbation en cas de demande trop élevée.
+                      Dès que la capacité sera suffisante, notre instance redémarrera et le ${process.env.NEXT_PUBLIC_APP_TITLE} sera à nouveau disponible.
+                    `}
+                  </Title>
+                </Box>
                 <Title level={TitleLevel.LEVEL4}>
                   {`Vous pouvez consultez les autres pages du site en attendant`}
                 </Title>
