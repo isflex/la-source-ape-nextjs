@@ -36,6 +36,13 @@ export default function SondageLanding() {
       title: 'Sondage sur la mobilité Erasmus',
       description: 'Sondage destiné aux familles concernant la mobilité Erasmus des élèves.',
       route: '/sondage/erasmus',
+      status: 'Actif'
+    },
+    {
+      id: 'decouverte-metiers',
+      title: 'Découverte des métiers (2025-2026)',
+      description: 'Formulaire d\'inscription pour les présentations des métiers destiné aux parents souhaitant présenter leur métier aux élèves.',
+      route: '/decouverte-des-metiers',
       status: 'Nouveau'
     }
   ];

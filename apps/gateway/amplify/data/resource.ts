@@ -37,7 +37,15 @@ const schema = a.schema({
 
   ESurveyType: a.enum([
     'WEB_APP',
-    'ERASMUS'
+    'ERASMUS',
+    'CAREER_DISCOVERY'
+  ]),
+
+  // Career Discovery specific enums
+  ECareerAvailability: a.enum([
+    'DECEMBER_8_2025',
+    'FEBRUARY_9_2026_WOMEN_PRIORITY',
+    'LATER_PRESENTATION'
   ]),
 
   // Erasmus-specific enums (no spaces allowed in GraphQL enum values)
@@ -131,6 +139,35 @@ const schema = a.schema({
       suggestions: a.string(), // Question 12 - Optional text field
       session: a.string(),
       surveyType: a.ref('ESurveyType'),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
+  // Career Discovery Form Template Model
+  CareerDiscoveryTemplate: a
+    .model({
+      year: a.string().required(), // e.g., "2025-2026"
+      title: a.string().required(), // Customizable title
+      subtitle: a.string().required(), // Required subtitle for additional context
+      availabilityOptions: a.string().array().required(), // Admin configurable options
+      isActive: a.boolean().default(false), // Whether this template is currently active
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
+  // Career Discovery Response Model
+  CareerDiscoveryResponse: a
+    .model({
+      email: a.string().required(),
+      firstName: a.string().required(),
+      lastName: a.string().required(),
+      childrenClasses: a.string().required(),
+      phone: a.string().required(),
+      availability: a.ref('ECareerAvailability').required(),
+      organization: a.string(),
+      jobDescription: a.string().required(),
+      companySector: a.string(),
+      session: a.string(),
+      surveyType: a.ref('ESurveyType'),
+      templateYear: a.string().required(), // Links to which template year this response belongs to
     })
     .authorization((allow) => [allow.publicApiKey()]),
 

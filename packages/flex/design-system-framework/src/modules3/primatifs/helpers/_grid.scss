@@ -37,10 +37,17 @@ $grid-field-margin: functions.size(1em);
       }
 
       .input {
-        // https://stackoverflow.com/a/68419881
-        &:not(:placeholder-shown) {
-          height: functions.size(3.4em);
+        height: 1.2em;
+
+        &:placeholder-shown {
+          height: 2.2em;
         }
+
+        // https://stackoverflow.com/a/68419881
+        // &:not(:placeholder-shown) {
+        //   // height: functions.size(4.6em);
+        //   // height: functions.size(3.4em);
+        // }
       }
     }
   }

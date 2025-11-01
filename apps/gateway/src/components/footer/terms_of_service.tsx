@@ -69,22 +69,23 @@ const App: React.FC = () => {
             <ul>
               <li>Il n&apos;y a pas de restrictions pour les Utilisateurs en termes de leur statut de Consommateur ou d&apos;Utilisateurs Professionnels.</li>
             </ul>
-            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>Conditions d&apos;utilisation spécifiques à l&apos;application &laquo; {`${process.env.NEXT_PUBLIC_APP_TITLE}`} &raquo;</Title>
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>Charte d&apos;utilisation de la communauté</Title>
             <Box className={classNames(flexStyles.isPaddingless, flexStyles.isFlat, flexStyles.isFlatFlexPurple, flexStyles.isGreyDark)}>
               <Section>
                 <Text>
-                  Si vous avez des enfants scolarisés à <strong>l&apos;École nouvelle La Source</strong> (actuels ou passés) qui pourraient proposer
+                  Si vous avez des enfants scolarisés à <strong>{`${process.env.NEXT_PUBLIC_SCHOOL_TITLE}`}</strong> (actuels ou passés) qui pourraient proposer
                   leurs services pour s&apos;occuper d&apos;autres enfants, vous comprenez que les parents ont aussi la responsabilité d&apos;accompagner leur
                   enfant(s) dans l&apos;utilisation de l&apos;application <strong>{`${process.env.NEXT_PUBLIC_APP_TITLE}`}</strong>.
                 </Text>
                 <Text>
                   Sachant que l&apos;application <strong>{`${process.env.NEXT_PUBLIC_APP_TITLE}`}</strong> a été conçue pour protéger au maximum vos informations personnelles
                   et la sécurité de vos données, qu&apos;elle a été développée sur une base volontaire et en tant que service gratuit,
-                  vous comprenez que l&apos;application ne peut être tenue responsable d&apos;une quelconque utilisation abusive.
+                  vous comprenez que ni l&apos;application <strong>{`${process.env.NEXT_PUBLIC_APP_TITLE}`}</strong>, ni <strong>{`${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION}`}</strong>
+                  et ni <strong>{`${process.env.NEXT_PUBLIC_SCHOOL_TITLE}`}</strong> ne peut être tenue responsable d&apos;une quelconque utilisation abusive.
                 </Text>
                 <Text>
                   L&apos;application <strong>{`${process.env.NEXT_PUBLIC_APP_TITLE}`}</strong> est destinée à l&apos;ensemble de la communauté scolaire
-                  de <strong>l&apos;École nouvelle La Source</strong> (parents et enfants inclus), mais à ce jour, son accès reste ouvert à toute personne disposant d&apos;un accès à l&apos;URL.
+                  de <strong>{`${process.env.NEXT_PUBLIC_SCHOOL_TITLE}`}</strong> (parents et enfants inclus), mais à ce jour, son accès reste ouvert à toute personne disposant d&apos;un accès à l&apos;URL.
                   Vous comprenez qu&apos;à terme, nous pourrions décider de contrôler et de restreindre l&apos;accès, mais cela nécessite une collaboration
                   entre les différentes parties prenantes, qui se fera progressivement.
                 </Text>

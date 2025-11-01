@@ -38,6 +38,12 @@ export class UserInterfaceStore {
     public userSub: string | null,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public userAuth: Record<string, any> | null,
+    public messageInAppReady: boolean,
+    public modalSignUserAgreementOpen: boolean,
+    public modalAccreditationLevelOpen: boolean,
+    public modalProposeControleParentaleOpen: boolean,
+    public modalProposeSponsorshipOpen: boolean,
+    public initLoading: boolean,
   ) {
     makeAutoObservable(this, {
       appContext: observable,
@@ -77,11 +83,23 @@ export class UserInterfaceStore {
       userAuth: observable,
       setUserAuth: action,
       unsetUserAuth: action,
+      messageInAppReady: observable,
+      setMessageInAppReady: action,
+      modalSignUserAgreementOpen: observable,
+      setModalSignUserAgreementOpen: action,
+      modalAccreditationLevelOpen: observable,
+      setModalAccreditationLevelOpen: action,
+      modalProposeControleParentaleOpen: observable,
+      setModalProposeControleParentaleOpen: action,
+      modalProposeSponsorshipOpen: observable,
+      setModalProposeSponsorshipOpen: action,
+      initLoading: observable,
+      setInitLoading: action,
     })
 
     void makePersistable(this, {
       name: 'FlexUserInterfaceStore',
-      properties: ['modalCreateOnBoardEventOpen', 'authenticationOnLoad', 'triggerAuthentication', 'amplifyAuthState'],
+      properties: ['modalCreateOnBoardEventOpen', 'modalSignUserAgreementOpen', 'authenticationOnLoad', 'triggerAuthentication', 'amplifyAuthState'],
       storage: !isServer ? window.localStorage : undefined,
     })
   }
@@ -146,7 +164,7 @@ export class UserInterfaceStore {
   /**
    * Triggers Authentication modal
    * @param {boolean} showAuthModal display or not the authentification modal
-   * @param {boolean} showCreateEventModal display or not the create web-app event modal afterwards
+   * @param {boolean} showCreateEventModal display or not the create onboard event modal afterwards
    * @returns {void}
    */
   setTriggerAuthentication = (showAuthModal: boolean, showCreateEventModal?: boolean) => {
@@ -181,6 +199,30 @@ export class UserInterfaceStore {
 
   unsetUserAuth = () => {
     this.userAuth = null
+  }
+
+  setMessageInAppReady = (ready: boolean) => {
+    this.messageInAppReady = ready
+  }
+
+  setModalSignUserAgreementOpen = (status: boolean) => {
+    this.modalSignUserAgreementOpen = status
+  }
+
+  setModalAccreditationLevelOpen = (status: boolean) => {
+    this.modalAccreditationLevelOpen = status
+  }
+
+  setModalProposeControleParentaleOpen = (status: boolean) => {
+    this.modalProposeControleParentaleOpen = status
+  }
+
+  setModalProposeSponsorshipOpen = (status: boolean) => {
+    this.modalProposeSponsorshipOpen = status
+  }
+
+  setInitLoading = (status: boolean) => {
+    this.initLoading = status
   }
 }
 
@@ -253,6 +295,24 @@ export function getUIStore() {
 
       // userAuth
       null,
+
+      // messageInAppReady
+      false,
+
+      // modalSignUserAgreementOpen
+      false,
+
+      // modalAccreditationLevelOpen
+      false,
+
+      // modalProposeControleParentaleOpen
+      false,
+
+      // modalProposeSponsorshipOpen
+      false,
+
+      // initLoading
+      false,
     )
     globalThis.Flexiness = {
       ...globalThis.Flexiness,
