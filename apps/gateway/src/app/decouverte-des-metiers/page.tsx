@@ -132,6 +132,8 @@ const CareerDiscoverySchema = z.object({
 
 type CareerDiscoveryFormData = z.infer<typeof CareerDiscoverySchema>;
 
+const showParticpantsRecents = false;
+
 export default function CareerDiscoveryForm() {
   const [formData, setFormData] = React.useState<CareerDiscoveryFormData>({
     email: '',
@@ -767,35 +769,40 @@ export default function CareerDiscoveryForm() {
                 </div>
               </div>
 
-              <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
-                Participants récents
-              </Title>
-              {responses
-                .filter(r => r.templateYear === activeTemplate.year)
-                .sort((a, b) => {
-                  // Current session participant appears first
-                  if (a.session === sessionId && b.session !== sessionId) return -1;
-                  if (a.session !== sessionId && b.session === sessionId) return 1;
-                  return 0;
-                })
-                .slice(0, 10)
-                .map((response) => (
-                  <div key={response.id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem', borderRadius: '4px' }}>
-                    <Text className={flexStyles.hasTextTeriary}>
-                      <strong>{response.firstName} {response.lastName}</strong> - {response.childrenClasses} - {response.jobDescription}<br/>
-                      <strong>Disponibilité :</strong> {AVAILABILITY_OPTIONS.find(opt => opt.value === response.availability)?.label || response.availability}
-                    </Text>
-                    {response.session === sessionId && (
-                      <Button
-                        onClick={() => deleteResponse(response.id, response.session || '')}
-                        variant={VariantState.PRIMARY}
-                        markup={ButtonMarkup.BUTTON}
-                      >
-                        <span style={{ marginTop: '0.5rem' }}>Supprimer</span>
-                      </Button>
-                    )}
-                  </div>
-                ))}
+              {showParticpantsRecents && (
+                <>
+                  <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                    Participants récents
+                  </Title>
+                  {responses
+                    .filter(r => r.templateYear === activeTemplate.year)
+                    .sort((a, b) => {
+                      // Current session participant appears first
+                      if (a.session === sessionId && b.session !== sessionId) return -1;
+                      if (a.session !== sessionId && b.session === sessionId) return 1;
+                      return 0;
+                    })
+                    .slice(0, 10)
+                    .map((response) => (
+                      <div key={response.id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem', borderRadius: '4px' }}>
+                        <Text className={flexStyles.hasTextTeriary}>
+                          <strong>{response.firstName} {response.lastName}</strong> - {response.childrenClasses} - {response.jobDescription}<br/>
+                          <strong>Disponibilité :</strong> {AVAILABILITY_OPTIONS.find(opt => opt.value === response.availability)?.label || response.availability}
+                        </Text>
+                        {response.session === sessionId && (
+                          <Button
+                            onClick={() => deleteResponse(response.id, response.session || '')}
+                            variant={VariantState.PRIMARY}
+                            markup={ButtonMarkup.BUTTON}
+                          >
+                            <span style={{ marginTop: '0.5rem' }}>Supprimer</span>
+                          </Button>
+                        )}
+                      </div>
+                    ))}
+                </>
+              )}
+
             </Section>
           )}
 
