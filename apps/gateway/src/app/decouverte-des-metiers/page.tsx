@@ -769,7 +769,7 @@ export default function CareerDiscoveryForm() {
                 </div>
               </div>
 
-              {showParticpantsRecents && (
+              {showParticpantsRecents && isAuthenticated && (
                 <>
                   <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
                     Participants récents

@@ -84,10 +84,15 @@ const mainConfig = new Config(async (phase, args) => {
     // https://www.giovannibenussi.com/blog/redirects-and-rewrites-on-nextjs
     trailingSlash: true,
     async rewrites() {
+      // Dynamically load active routes and exclude them from rewrite (except web-app)
+      const activeRoutes = JSON.parse(fs.readFileSync('./routes.active.json', 'utf8'))
+      const excludedRoutes = activeRoutes.filter(route => route !== 'web-app')
+      const exclusionPattern = excludedRoutes.join('|')
+
       return [
         {
-          source: '/:path*',
-          destination: '/web-app/:path*',
+          source: `/((?!${exclusionPattern}).*)/:path*`,
+          destination: '/web-app/$1/:path*',
         }
       ];
     },

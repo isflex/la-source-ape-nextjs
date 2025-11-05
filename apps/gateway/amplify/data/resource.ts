@@ -171,6 +171,17 @@ const schema = a.schema({
     })
     .authorization((allow) => [allow.publicApiKey()]),
 
+  // Newsletter Subscription Model
+  NewsletterSubscription: a
+    .model({
+      email: a.string().required(),
+      firstName: a.string().required(),
+      lastName: a.string().required(),
+      subscribedAt: a.datetime(),
+      isActive: a.boolean().default(true),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
   Sondage: a
     .model({
       firstname: a.string().required(),
