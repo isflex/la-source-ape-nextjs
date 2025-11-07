@@ -1,0 +1,55 @@
+{
+  "validNewsletter": {
+    "subject": "Café des Parents - Test",
+    "eventDate": "2025-02-15T00:00:00+02:00",
+    "publicationDate": "2025-02-10T00:00:00+02:00",
+    "title": "Rencontre des Parents",
+    "greetings": "Chers parents,",
+    "contentBlocks": [
+      {
+        "type": "LEFT_ALIGNED_TEXT",
+        "content": "Nous vous invitons à notre prochain café des parents.",
+        "order": 0
+      },
+      {
+        "type": "CENTERED_URL",
+        "content": "Plus d'informations",
+        "href": "https://example.com/info",
+        "order": 1
+      }
+    ]
+  },
+  "invalidNewsletter": {
+    "subject": "",
+    "eventDate": "2025-01-10T00:00:00+02:00",
+    "publicationDate": "2025-01-15T00:00:00+02:00"
+  },
+  "contentBlockTypes": {
+    "leftAlignedText": {
+      "type": "LEFT_ALIGNED_TEXT",
+      "content": "Sample left-aligned text content",
+      "subtitle": "Optional Subtitle"
+    },
+    "centredText": {
+      "type": "CENTRED_TEXT",
+      "content": "Sample centered text content"
+    },
+    "leftAlignedUrl": {
+      "type": "LEFT_ALIGNED_URL",
+      "content": "Visit our website",
+      "href": "https://example.com"
+    },
+    "centeredUrl": {
+      "type": "CENTERED_URL",
+      "content": "Important Link",
+      "href": "https://example.com/important"
+    },
+    "centredImage": {
+      "type": "CENTRED_IMAGE",
+      "filename": "test-image.jpg",
+      "filetype": "jpeg",
+      "encoding": "base64",
+      "content": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+    }
+  }
+}

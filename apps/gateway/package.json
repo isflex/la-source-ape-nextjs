@@ -5,6 +5,10 @@
   "type": "module",
   "scripts": {
     "build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build && node ./copy-assets.mjs",
+    "cypress:open": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress open",
+    "cypress:run": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress run",
+    "cypress:run:component": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress run --component",
+    "cypress:run:e2e": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress run --e2e",
     "lint": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next lint",
     "marp:build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm marp:html:build",
     "marp:dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm marp:html:dev",
@@ -14,7 +18,11 @@
     "next:dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
     "next:dev:debug": "FEDERATION_DEBUG='true' NODE_OPTIONS='--inspect' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
     "next:tsc": "pnpm exec tsc --project tsconfig.json --noEmit",
-    "start": "$FLEX_PROJ_ROOT/bin/run-start-gateway.sh"
+    "start": "$FLEX_PROJ_ROOT/bin/run-start-gateway.sh",
+    "test": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress run",
+    "test:open": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress open",
+    "test:unit": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress run --spec 'cypress/unit/**/*.cy.{js,ts}'",
+    "test:e2e": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress run --e2e"
   },
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "1.6.2",
@@ -80,6 +88,8 @@
     "@aws-cdk/toolkit-lib": "^1.1.0",
     "@aws-sdk/client-cloudformation": "^3.817.0",
     "@aws-sdk/types": "^3.804.0",
+    "@cypress/browserify-preprocessor": "^3.0.2",
+    "@cypress/webpack-preprocessor": "^7.0.1",
     "@marp-team/marp-cli": "^4.1.1",
     "@svgr/webpack": "8.1.0",
     "@types/cors": "2.8.17",
@@ -90,6 +100,7 @@
     "aws-cdk": "^2.1016.1",
     "aws-cdk-lib": "^2.198.0",
     "constructs": "^10.4.2",
+    "cypress": "^15.6.0",
     "eslint": "^8",
     "eslint-config-next": "14.1.4",
     "flexiness": "@types/flexiness@0.0.1",

@@ -89,3 +89,5 @@ Packages have interdependencies managed through workspace references. Always com
 ## AWS Amplify Integration
 
 The gateway app includes AWS Amplify Gen 2 setup for backend services. Developers need AWS CLI configured and appropriate AWS credentials.
+- To deploy in dev mode, we are going to use amplify sandbox : 
+cd apps/gateway && pnpm ampx sandbox --once
