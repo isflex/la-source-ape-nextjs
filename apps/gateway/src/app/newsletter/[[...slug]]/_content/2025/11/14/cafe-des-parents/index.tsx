@@ -38,7 +38,7 @@ const Email: React.FC = () => (
                       <td align="center">
                         <p>
                           <strong>
-                            Vendredi 21 mars au café Le Central (26 rue Marcel Allégot à Meudon) entre 8h30 et 9h30.
+                            Vendredi 14 novembre au café Le Central (26 rue Marcel Allégot à Meudon) entre 8h30 et 9h30.
                           </strong>
                         </p>
                       </td>

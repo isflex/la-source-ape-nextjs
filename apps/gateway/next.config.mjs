@@ -17,6 +17,7 @@ const execPromise = promisify(subprocess.exec)
 // import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
 import { Config } from 'next-recompose-plugins'
 // import { withSentryConfig } from '@sentry/nextjs'
+import createMDX from '@next/mdx'
 
 import camelCase from 'lodash/camelCase.js'
 
@@ -159,6 +160,9 @@ const mainConfig = new Config(async (phase, args) => {
       implementation: 'sass-embedded',
       silenceDeprecations: ['legacy-js-api'],
     },
+
+    // Support MDX files as pages:
+    pageExtensions: ['md', 'mdx', 'tsx', 'ts', 'jsx', 'js'],
 
     webpack: (config, options) => {
       const { isServer, webpack } = options
@@ -337,6 +341,20 @@ const mainConfig = new Config(async (phase, args) => {
 
   return nextConfig
 })
+.applyPlugin((phase, args, config) => {
+  // Uhh.. what's going on here!?
+  // throw new Error('Test');
+
+  // enhance the config with the desired plugin and return it back
+  return createMDX({
+    // Add markdown plugins here, as desired
+    // By default only the `.mdx` extension is supported.
+    extension: /\.mdx?$/,
+    options: {
+      /* otherOptions… */
+    },
+  })(config);
+}, '@next/mdx') // Pass an annotation as a last argument
 .build()
 
 export default mainConfig
