@@ -12,6 +12,12 @@
         "FLEX_*"
       ]
     },
+    "warm:api": {
+      "cache": false,
+      "env": [
+        "FLEX_*"
+      ]
+    },
     "next:dev": {
       "cache": false,
       "env": [
@@ -19,6 +25,15 @@
         "NEXT_PUBLIC_*",
         "SENTRY_*"
       ]
+    },
+    "next:dev:turbo": {
+      "cache": false,
+      "env": [
+        "FLEX_*",
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
+      ],
+      "with": ["marp:dev", "warm:api"]
     },
     "next:tsc": {
       "cache": false,
@@ -31,8 +46,14 @@
     "dev": {
       "dependsOn": [
         "^dev:packages:transit",
-        "marp:dev",
         "next:dev"
+      ],
+      "cache": false
+    },
+    "dev:turbo": {
+      "dependsOn": [
+        "^dev:packages:transit",
+        "next:dev:turbo"
       ],
       "cache": false
     },
@@ -43,6 +64,28 @@
       "cache": false,
       "persistent": false,
       "env": [
+        "DOTENV_*",
+        "FLEX_*"
+      ]
+    },
+     "amplify:sandbox:create": {
+      "outputs": [
+        "apps/gateway/amplify_outputs.json"
+      ],
+      "inputs": ["$TURBO_DEFAULT$", "apps/gateway/amplify/**/*"],
+      "cache": false,
+      "persistent": false,
+      "env": [
+        "AWS_*",
+        "DOTENV_*",
+        "FLEX_*"
+      ]
+    },
+     "amplify:sandbox:delete": {
+      "cache": false,
+      "persistent": false,
+      "env": [
+        "AWS_*",
         "DOTENV_*",
         "FLEX_*"
       ]

@@ -11,5 +11,7 @@ export default function ErasmusLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <section style={{ minHeight: '80vh' }}>{children}</section>
+  )
 }

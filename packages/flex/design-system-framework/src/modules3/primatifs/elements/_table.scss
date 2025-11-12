@@ -47,6 +47,20 @@ $subtable-fill: variables.$grey-lighter;
             color: var(--flex-table-cell-color, #{$table-cell-color});
             vertical-align: middle;
             padding: $table-cell-padding;
+
+            &.is-data-cell-responsive-helper {
+                @include mixins.mobile {
+                    padding: 0;
+
+                    & > * {
+                        padding: $table-cell-padding;
+                    }
+
+                    > *:first-child {
+                        background-color: var(--flex-table-head-fill, #{$table-head-fill});
+                    }
+                }
+            }
         }
 
         td {

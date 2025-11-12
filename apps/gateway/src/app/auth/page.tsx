@@ -1,0 +1,140 @@
+'use client';
+
+import React, { useEffect } from 'react';
+import { I18n } from 'aws-amplify/utils';
+import { Authenticator, useAuthenticator, translations } from '@aws-amplify/ui-react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Container, Section, Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-default';
+
+I18n.putVocabularies(translations)
+I18n.setLanguage('fr')
+I18n.putVocabularies({
+  // https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/dictionaries/authenticator/fr.ts
+  fr: {
+    // SignIn
+    'Sign In': 'Connexion sécurisée', // Tab header
+    'Sign in': 'Se connecter', // Button label
+    'Sign in to your account': 'Connectez-vous à votre compte', // Header text
+    'Username (Label)': `Nom d'utilisateur`,
+    'Username (Placeholder)': `Saisissez votre nom d'utilisateur`,
+    'Password (Label)': 'Mot de passe',
+    'Password (Placeholder)': 'Saisissez votre mot de passe',
+    'Forgot your password?': 'Réinitialiser votre mot de passe',
+    'There is already a signed in user.': 'Vous êtes déjà connecté. Actualiser la page.',
+    'User does not exist.': `L'utilisateur n'existe pas. Veuillez créer votre compte.`,
+    // SignUp
+    'Create Account': `Créer mon compte`, // Tab header
+    'Sign Up': `S'inscrire`, // Button label
+    'Create a new account': 'Créer un nouveau compte', // Header text
+    'Email (Label)': 'Adresse email',
+    'Email (Placeholder)': 'Saisissez votre adresse email',
+    'Phone Number (Label)': 'Numéro mobile',
+    'Phone Number (Placeholder)': 'Saisissez votre numéro de mobile',
+    'Confirm Password (Label)': 'Confirmation de mot de passe',
+    'Confirm Password (Placeholder)': 'Saisissez votre mot de passe de nouveau',
+    'GivenName (Label)': 'Prénom',
+    'GivenName (Placeholder)': 'Saisissez votre prénom',
+    'FamilyName (Label)': 'Nom',
+    'FamilyName (Placeholder)': 'Saisissez votre nom',
+    'username is required to signUp': 'Vous devez saisir une adresse email',
+    // 'username is required to signUp': 'Il faut renseigner une adresse email ou un numéro de téléphone',
+    // VerifyUser
+    'Account recovery requires verified contact information': 'La récupération du compte nécessite des informations de contact vérifiées',
+    Skip: 'Passer cet étape',
+    // Forgot Password
+    'Reset your password': 'Mot de passe oublié ?', // Link text
+    'Forgotten password': 'Réinitialisez votre mot de passe', // Header text
+    'Account username (Label)': `Nom d'utilisateur lié au compte`,
+    'Enter your account username (Placeholder)': `Saisissez votre nom d'utilisateur`,
+    // 'Enter your username (Placeholder)': `Saisissez votre nom d'utilisateur ou votre adresse e-mail`,
+    'Send code': 'Envoyer le code',
+    'Back to Sign In': 'Retour à la connexion',
+    'Enter Information': 'Saisir les informations',
+    // ConfirmResetPassword
+    'Confirm code (Label)': 'Code de vérification',
+    'Confirm code (Placeholder)': 'Entrez votre code de vérification',
+    'Send code again': 'Renvoyer le code à nouveau',
+    'Account password (Label)': `Nouveau mot de passe`,
+    'Enter your account password (Placeholder)': `Saisissez votre nouveau mot de passe`,
+    'Confirm Account password (Label)': `Confirmation de mot de passe`,
+    'Confirm account password (Placeholder)': `Confirmez votre nouveau mot de passe`,
+    // Validation Errors
+    'Password must have at least 8 characters': 'Le mot de passe doit comporter au moins 8 caractères',
+    "Cannot read properties of undefined (reading 'replace')": 'Veuillez fournir un numéro de mobile',
+    'Attribute value for phone_number must not be null': 'Veuillez fournir un numéro de mobile',
+    'Invalid phone number format.': "Le format du numéro mobile n'est pas valide",
+    'Username cannot be of email format, since user pool is configured for email alias.':
+      "Veuillez fournir un nom d'utilisateur qui diffère de l'adresse email",
+  },
+})
+
+function AuthenticatedContent() {
+  const { signOut, user } = useAuthenticator();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (user) {
+      // Get return URL from params, or from sessionStorage if OAuth redirect cleared the URL
+      let returnUrl = searchParams.get('returnUrl');
+
+      if (!returnUrl) {
+        // Check sessionStorage for preserved returnUrl from before OAuth redirect
+        returnUrl = sessionStorage.getItem('amplify-oauth-returnUrl');
+        sessionStorage.removeItem('amplify-oauth-returnUrl'); // Clean up
+      }
+
+      // Default fallback
+      if (!returnUrl) {
+        returnUrl = '/newsletter/souscrire/';
+      }
+
+      router.push(returnUrl);
+    }
+  }, [user, router, searchParams]);
+
+  return (
+    <div>
+      <p>Connexion réussie ! Redirection en cours...</p>
+      <button onClick={signOut}>Se déconnecter</button>
+    </div>
+  );
+}
+
+export default function AuthPage() {
+  const searchParams = useSearchParams();
+
+  // Store returnUrl in sessionStorage when auth page loads (before OAuth redirect)
+  React.useEffect(() => {
+    const returnUrl = searchParams.get('returnUrl');
+    if (returnUrl) {
+      sessionStorage.setItem('amplify-oauth-returnUrl', returnUrl);
+    }
+  }, [searchParams]);
+
+  // Determine auth mode from URL parameters
+  const mode = searchParams.get('mode') || 'admin'; // Default to admin for backward compatibility
+  const isAdminMode = mode === 'admin';
+  const isUserMode = mode === 'user';
+
+  // Configure authenticator based on mode
+  const hideSignUp = isAdminMode; // Admin mode hides signUp, user mode allows it
+  const pageTitle = isAdminMode ? 'Connexion Administrateur' : 'Connexion Utilisateur';
+
+  return (
+    <Container>
+      <Section>
+        <Title level={TitleLevel.LEVEL1}>
+          {pageTitle}
+        </Title>
+
+        <Authenticator
+          hideSignUp={hideSignUp}
+          signUpAttributes={isUserMode ? ['email'] : []}
+        >
+          <AuthenticatedContent />
+        </Authenticator>
+      </Section>
+    </Container>
+  );
+}

@@ -88,6 +88,8 @@ const mainConfig = new Config(async (phase, args) => {
       // Dynamically load active routes and exclude them from rewrite (except web-app)
       const activeRoutes = JSON.parse(fs.readFileSync('./routes.active.json', 'utf8'))
       const excludedRoutes = activeRoutes.filter(route => route !== 'web-app')
+      // Always exclude API routes from rewrite
+      excludedRoutes.push('api', '_next', 'favicon.ico')
       const exclusionPattern = excludedRoutes.join('|')
 
       return [

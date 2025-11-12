@@ -46,7 +46,7 @@
     "uuid": "8.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
+    "@babel/core": "^7.28.5",
     "@babel/plugin-transform-runtime": "7.24.3",
     "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
     "@rushstack/eslint-patch": "1.10.3",

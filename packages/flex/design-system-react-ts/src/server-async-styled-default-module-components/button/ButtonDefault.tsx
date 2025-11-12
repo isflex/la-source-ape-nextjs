@@ -31,6 +31,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param classList {array} Additionnal css classes (ONLY FOR WEB)
  * @param id {string} Custom id for button (ONLY FOR WEB)
  * @param to {string} Link
+ * @param title {string} advisory information related to the element. Discouraged due to inconsistant browser support, limitations with other devices and accesibility concerns
  */
 const Button = async ({
   markup,

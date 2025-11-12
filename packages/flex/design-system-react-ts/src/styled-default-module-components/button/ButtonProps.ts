@@ -19,5 +19,6 @@ export interface ButtonProps extends Loadable, Invertable, VariantProps, AlertPr
   to?: string
   id?: string
   compact?: boolean
+  title?: string
   type?: 'submit'
 }

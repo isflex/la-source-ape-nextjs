@@ -1,5 +1,3 @@
-// apps/gateway/src/app/layout.tsx
-
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { headers } from 'next/headers'
@@ -8,14 +6,13 @@ import Script from 'next/script'
 import  { title, description, jsonLd } from '@src/seo'
 // import { isServer } from '@src/utils'
 
-import outputs from '@root/amplify_outputs.json'
-// import { AMPLIFY_AUTH_CONFIG_V2 } from '@src/utils/amplify/configure'
-import { Amplify, type ResourcesConfig } from 'aws-amplify'
-Amplify.configure({
-  // ...(AMPLIFY_AUTH_CONFIG_V2 as ResourcesConfig),
-  ...outputs,
-}, { ssr: true })
+// Server-side Amplify configuration
+import { Amplify } from 'aws-amplify'
+import { outputs } from '@src/utils/amplify/configureAmplifyWithPortDetection'
+// Configure with base outputs for SSR (no window access available)
+Amplify.configure(outputs, { ssr: true })
 import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplifyOutputs'
+import AuthProvider from '@src/components/auth/AuthProvider'
 import {
   EC2Client,
   // DescribeAddressesCommand, type DescribeAddressesCommandOutput,
@@ -39,6 +36,7 @@ import {
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { inlineStyles } from '@src/styles/inlineStyles'
 import '@src/styles/globals.css'
+import '@aws-amplify/ui-react/styles.css'
 // import '@flexiness/domain-tailwind/globals.css'
 
 const remoteWebAppClient = process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST
@@ -241,12 +239,14 @@ const RootLayout = async ({
         {/* <StoreProvider> */}
           <PostHogProvider>
             <ConfigureAmplifyClientSide />
-            <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped )} theme='light'>
-              {/* <NavBarAuth isSignedIn={await isAuthenticated()} /> */}
-              <MainLayout>
-                {children}
-              </MainLayout>
-            </FlexRootView>
+            <AuthProvider>
+              <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped )} theme='light'>
+                {/* <NavBarAuth isSignedIn={await isAuthenticated()} /> */}
+                <MainLayout>
+                  {children}
+                </MainLayout>
+              </FlexRootView>
+            </AuthProvider>
           </PostHogProvider>
         {/* </StoreProvider> */}
       </body>

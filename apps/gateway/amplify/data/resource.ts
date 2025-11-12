@@ -102,6 +102,24 @@ const schema = a.schema({
     'TROIS_MOIS_TRIMESTRE'
   ]),
 
+  // Newsletter Content Block Types
+  EContentBlockType: a.enum([
+    'LEFT_ALIGNED_TEXT',
+    'LEFT_ALIGNED_URL',
+    'CENTRED_TEXT',
+    'CENTERED_URL',
+    'CENTRED_IMAGE',
+  ]),
+
+  // Piscine Planning specific enums
+  EDayOfWeek: a.enum([
+    'MONDAY',
+    'TUESDAY',
+    'WEDNESDAY',
+    'THURSDAY',
+    'FRIDAY'
+  ]),
+
   Questions: a
     .model({
       question: a.string().required(),
@@ -182,6 +200,48 @@ const schema = a.schema({
     })
     .authorization((allow) => [allow.publicApiKey()]),
 
+  // Newsletter Models
+  Newsletter: a
+    .model({
+      eventDate: a.datetime().required(),
+      subject: a.string().required(),
+      slug: a.string().required(),
+      publicationDate: a.datetime().required(),
+      title: a.string(),
+      greetings: a.string(),
+      htmlContent: a.string(),
+      emailParts: a.string().array(),
+      isDeleted: a.boolean().default(false),
+      contentBlocks: a.hasMany('ContentBlock', 'newsletterId'),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
+  ContentBlock: a
+    .model({
+      newsletterId: a.id().required(),
+      newsletter: a.belongsTo('Newsletter', 'newsletterId'),
+      order: a.integer().required(),
+      type: a.ref('EContentBlockType').required(),
+      subtitle: a.string(),
+      href: a.string(),
+      content: a.string(),
+      paragraph: a.string().array(),
+      // S3 Storage fields for images
+      s3Key: a.string(),           // S3 object key (e.g., "newsletter-images/image123.png")
+      s3Bucket: a.string(),        // S3 bucket name
+      originalFilename: a.string(), // Original filename for display
+      mimeType: a.string(),        // MIME type (e.g., "image/png")
+      fileSize: a.integer(),       // File size in bytes
+      // Legacy fields - deprecated but kept for backward compatibility
+      filename: a.string(),
+      filetype: a.string(),
+      encoding: a.string(),
+      path: a.string(),
+      contentType: a.string(),
+      raw: a.string().array(),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
   Sondage: a
     .model({
       firstname: a.string().required(),
@@ -192,6 +252,47 @@ const schema = a.schema({
       surveyType: a.ref('ESurveyType'),
       students: a.hasMany('Students', 'sondageId'),
       questions: a.hasMany('Questions', 'sondageId'),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
+  // Piscine Planning Models
+  PiscineForm: a
+    .model({
+      title: a.string().required(),
+      slug: a.string().required(),
+      dayOfWeek: a.ref('EDayOfWeek').required(),
+      startTime: a.string().required(), // Format: "HH:MM" (e.g., "10:30")
+      endTime: a.string().required(),   // Format: "HH:MM" (e.g., "12:30")
+      schoolLevel: a.ref('ESchoolLevel').required(),
+      teacherName: a.string().required(),
+      owner: a.string().required(), // Cognito user ID
+      dateSlots: a.hasMany('PiscineDateSlot', 'piscineFormId'),
+      candidats: a.hasMany('PiscineCandidat', 'piscineFormId'), // For direct access to all candidats
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
+  PiscineDateSlot: a
+    .model({
+      selectedDate: a.date().required(),
+      order: a.integer().default(0),
+      piscineFormId: a.id().required(),
+      piscineForm: a.belongsTo('PiscineForm', 'piscineFormId'),
+      candidats: a.hasMany('PiscineCandidat', 'piscineDateSlotId'),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
+  PiscineCandidat: a
+    .model({
+      firstName: a.string().required(),
+      lastName: a.string().required(),
+      email: a.string().required(),
+      phoneNumber: a.string().required(),
+      nameOfChild: a.string().required(),
+      order: a.integer().default(0), // For creator reordering within date slot
+      piscineDateSlotId: a.id().required(),
+      piscineDateSlot: a.belongsTo('PiscineDateSlot', 'piscineDateSlotId'),
+      piscineFormId: a.id().required(),
+      piscineForm: a.belongsTo('PiscineForm', 'piscineFormId'), // For easier queries
     })
     .authorization((allow) => [allow.publicApiKey()]),
 });

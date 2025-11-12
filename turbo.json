@@ -57,6 +57,18 @@
       "cache": true,
       "persistent": false
     },
+    "seed": {
+      "dependsOn": [
+        "gateway#amplify:sandbox:create"
+      ],
+      "env": [
+        "AWS_*",
+        "DOTENV_*",
+        "FLEX_*"
+      ],
+      "cache": true,
+      "persistent": false
+    },
     "build:lib": {
       "dependsOn": [
         "//#compile:clean:sh",

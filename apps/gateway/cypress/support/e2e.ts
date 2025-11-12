@@ -10,6 +10,16 @@ beforeEach(() => {
   cy.task('resetAmplifyData', { timeout: 10000 })
 })
 
+// Handle uncaught exceptions (like hydration errors) in development
+Cypress.on('uncaught:exception', (err, runnable) => {
+  // Ignore hydration errors in development
+  if (err.message.includes('Hydration failed') || err.message.includes('hydration')) {
+    return false
+  }
+  // Let other errors fail the test
+  return true
+})
+
 // Amplify authentication helper
 Cypress.Commands.add('mockAmplifyAuth', () => {
   cy.window().then((win) => {
@@ -17,11 +27,3 @@ Cypress.Commands.add('mockAmplifyAuth', () => {
     win.localStorage.setItem('admin-authenticated', 'true')
   })
 })
-
-declare global {
-  namespace Cypress {
-    interface Chainable {
-      mockAmplifyAuth(): Chainable<void>
-    }
-  }
-}

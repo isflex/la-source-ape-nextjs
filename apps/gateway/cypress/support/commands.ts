@@ -7,19 +7,23 @@ Cypress.Commands.add('createTestNewsletter', (data: any = {}) => {
     publicationDate: '2025-01-10T00:00:00+02:00',
     title: 'Test Title',
     greetings: 'Chers parents,',
-    contentBlocks: []
+    contentBlocks: [{
+      type: 'LEFT_ALIGNED_TEXT',
+      content: 'Default test content',
+      order: 0
+    }]
   }
 
   return cy.request({
     method: 'POST',
-    url: '/api/newsletter',
+    url: '/api/newsletter/',
     body: { ...defaultData, ...data }
   })
 })
 
 Cypress.Commands.add('cleanupTestData', () => {
   // Clean up test newsletters
-  cy.request('DELETE', '/api/newsletter/test-cleanup')
+  cy.request('DELETE', '/api/newsletter/')
 })
 
 // Newsletter form helpers

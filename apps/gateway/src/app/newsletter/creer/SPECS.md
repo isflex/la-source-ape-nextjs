@@ -18,7 +18,7 @@
   - [x] A newsletter event datetime field GMT+2 `YYYY-MM-DD`(Date de l'événement) which will be used to create part of the dynamic route `$baseURL/newsletter/year/month/day/...`. Final datetime is saved as `YYYY-MM-DDT00:00:00+02:00`. Required
   - [x] A subject string field (Sujet). Required. Must be unique. Concatenate at end with number in parentheses if same subject already present.
   - [x] The subject string (slug) converted to kebab-case. Read Only. Must be unique. Increment with number at end if same subject already present. Needed to compose the end part of the dynamic route : `$baseURL/newsletter/year/month/day/$subject`.
-  - [x] A publication datetime field GMT+2 `YYYY-MM-DD` (Date de publication) to indicate when the newsletter event should be made visible online publicly to all users. Final datetime is saved as `YYYY-MM-DDT00:00:00+02:00`. A publication date cannot be after event date. An admin user can view newsletter event at any time regardless of publication date. Required
+  - [x] A publication datetime field GMT+2 `YYYY-MM-DD` (Date de publication) to indicate when the newsletter event should be made visible online publicly to all users. Final datetime is saved as `YYYY-MM-DDT00:00:00+02:00`. La date de publication ne peut pas être postérieure à la date de l\'événement. An admin user can view newsletter event at any time regardless of publication date. Required
   - [x] A title string field (Titre). Optional
   - [x] A greetings string field (Salutations). Optional
   - [x] An array of any number of contentBlocks, at least one must be defined, that can be composed of any number of contentItems.

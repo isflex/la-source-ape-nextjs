@@ -6,7 +6,13 @@ export default defineConfig({
     supportFile: 'cypress/support/e2e.ts',
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      on('task', {
+        resetAmplifyData() {
+          // For now, return null to indicate task completion
+          // This will be implemented when we have Amplify properly configured
+          return null
+        },
+      })
     },
   },
   component: {

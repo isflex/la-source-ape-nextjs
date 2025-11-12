@@ -91,3 +91,10 @@ Packages have interdependencies managed through workspace references. Always com
 The gateway app includes AWS Amplify Gen 2 setup for backend services. Developers need AWS CLI configured and appropriate AWS credentials.
 - To deploy in dev mode, we are going to use amplify sandbox : 
 cd apps/gateway && pnpm ampx sandbox --once
+- ampx commands must be run from app/gateway (amplify root folder)
+- Bash(pnpm compile) for monorepo wide compilation
+- pnpm lint -> runs pnpm compile (monorepo tsc), pnpm next:tsc (gateway nextjs specific tsc) and pnpm next lint
+- For configuring tasks in turbo.json, it is best to omit defining persistent flag when combining independant tasks that are all long running... Until turbo finds a better solution.
+- the nextjs project uses trailing slash
+- To update Browserslist data (caniuse-lite) : pnpm exec update-browserslist-db latest
+- 'use server' directive has import from @flex-design-system/react-ts/server-async-styled-default-module-components and 'use client' directive has import from @flex-design-system/react-ts/client-sync-styled-default

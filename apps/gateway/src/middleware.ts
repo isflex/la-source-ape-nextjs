@@ -26,6 +26,40 @@ export function middleware(request: NextRequest) {
   requestHeaders.set('x-origin', request.nextUrl.origin)
   requestHeaders.set('x-host', request.headers.get('host') || '')
 
+  // Authentication flow handling
+  const pathname = request.nextUrl.pathname
+  const searchParams = request.nextUrl.searchParams
+
+  // Handle OAuth redirect back from Google
+  if (pathname === '/' && searchParams.has('code') && searchParams.has('state')) {
+    // This is an OAuth redirect from Google - redirect to auth page to handle it
+    const url = request.nextUrl.clone()
+    url.pathname = '/auth'
+    // Keep the OAuth parameters for Amplify to process
+    return NextResponse.redirect(url)
+  }
+
+  // Handle authentication redirects and return URLs
+  if (pathname === '/auth') {
+    // Auth page is being accessed
+    const mode = searchParams.get('mode')
+    const returnUrl = searchParams.get('returnUrl')
+
+    // Store auth context in headers for potential use
+    if (mode) {
+      requestHeaders.set('x-auth-mode', mode)
+    }
+    if (returnUrl) {
+      requestHeaders.set('x-auth-return-url', returnUrl)
+    }
+  }
+
+  // For protected routes, we could add auth checks here in the future
+  // if (pathname.startsWith('/newsletter/creer') || pathname.startsWith('/planning/piscine/creer')) {
+  //   // Could check authentication status and redirect to auth page with return URL
+  //   // This would require reading auth state from cookies/tokens
+  // }
+
   // requestHeaders.set(
   //   'Content-Security-Policy',
   //   contentSecurityPolicyHeaderValue

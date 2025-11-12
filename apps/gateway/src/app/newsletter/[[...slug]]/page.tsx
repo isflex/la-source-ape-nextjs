@@ -1,51 +1,40 @@
 'use client';
 
-import React, { useEffect, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import React, { useState, useEffect } from 'react'
+import { notFound } from 'next/navigation'
 import classNames from 'classnames'
 import {
   Box,
-  Button,
-  ButtonMarkup,
   Container,
   Section,
   Title,
   TitleLevel,
-  VariantState,
 } from '@flex-design-system/react-ts/client-sync-styled-default'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
-export default function NewsletterContentPage() {
-  const params = useParams()
-  const router = useRouter()
-  const slugArray = params.slug as string[] | undefined
-  const slugBase = slugArray?.[0] // Get first segment of the slug array
+interface NewsletterContentPageProps {
+  params: {
+    slug: string[]
+  }
+}
 
+export default function NewsletterContentPage({ params }: NewsletterContentPageProps) {
+  const slugArray = params.slug
   const [ContentComponent, setContentComponent] = useState<React.ComponentType | null>(null)
-  const [isLoadingContent, setIsLoadingContent] = useState(false)
-  const [contentNotFound, setContentNotFound] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [notFoundError, setNotFoundError] = useState(false)
 
-  // Handle redirects to static souscrire route
-  const shouldRedirectToSouscrire = !slugArray || slugArray.length === 0 || slugBase === 'souscrire'
+  // If we reach here, layout has already handled creer/souscrire redirects
+  // This page only handles dynamic content from _content folder
 
-  // Always call useEffect hooks at the top level
   useEffect(() => {
-    if (shouldRedirectToSouscrire) {
-      router.push('/newsletter/souscrire/')
-    }
-  }, [shouldRedirectToSouscrire, router])
-
-  // Single useEffect to handle content dynamic imports
-  useEffect(() => {
-    if (shouldRedirectToSouscrire) {
-      return // Don't load content if redirecting
+    if (!slugArray || slugArray.length === 0) {
+      setNotFoundError(true)
+      setIsLoading(false)
+      return
     }
 
-    const loadComponent = async () => {
-      setIsLoadingContent(true)
-      setContentNotFound(false)
-      setContentComponent(null)
-
+    const loadContent = async () => {
       try {
         // Try to load content from _content folder
         const contentPath = slugArray.join('/')
@@ -53,42 +42,28 @@ export default function NewsletterContentPage() {
         setContentComponent(() => moduleImport.default)
       } catch (error) {
         console.error(`Content not found at path: ${slugArray.join('/')}`, error)
-        setContentNotFound(true)
+        setNotFoundError(true)
       } finally {
-        setIsLoadingContent(false)
+        setIsLoading(false)
       }
     }
 
-    loadComponent()
-  }, [slugArray, shouldRedirectToSouscrire])
+    loadContent()
+  }, [slugArray])
 
-  if (shouldRedirectToSouscrire) {
-    return (
-      <div style={{
-        width: '100%',
-        height: '100%',
-        minHeight: '80vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-        <div>Redirection...</div>
-      </div>
-    )
+  if (notFoundError && !isLoading) {
+    notFound()
   }
 
-  if (isLoadingContent) {
+  if (isLoading) {
     return (
-      <div style={{
-        width: '100%',
-        height: '100%',
-        minHeight: '80vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-        <div>Chargement...</div>
-      </div>
+      <Container>
+        <Section>
+          <Title level={TitleLevel.LEVEL2} className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>
+            Chargement...
+          </Title>
+        </Section>
+      </Container>
     )
   }
 
@@ -108,16 +83,9 @@ export default function NewsletterContentPage() {
           <Title level={TitleLevel.LEVEL2} className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>
             Contenu introuvable
           </Title>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '2rem' }}>
-            <Button
-              id="newsletter-subscribe-not-found"
-              variant={VariantState.PRIMARY}
-              markup={ButtonMarkup.BUTTON}
-              onClick={() => router.push('/newsletter/souscrire/')}
-            >
-              S&apos;inscrire au newsletter
-            </Button>
-          </div>
+          <p style={{ textAlign: 'center', marginTop: '2rem' }}>
+            Le contenu demandé &quot;{slugArray.join('/')}&quot; n&apos;existe pas.
+          </p>
         </Section>
       </Box>
     </Container>
