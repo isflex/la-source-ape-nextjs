@@ -22,30 +22,36 @@ const AMPLIFY_AUTH_CONFIG_V2: ResourcesConfig = {
           // https://stackoverflow.com/a/77596876/10159170
           scopes: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
           redirectSignIn: [
+            `http://localhost:${process.env.FLEX_GATEWAY_PORT!}/`,
             `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_DOMAIN_NAME as string}/`,
             `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_FUTUR_PROOF_1_DOMAIN_NAME_1 as string}/`,
             `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_FUTUR_PROOF_1_DOMAIN_NAME_2 as string}/`,
+            `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_FUTUR_PROOF_2_BASE_DOMAIN as string}/`,
             `${process.env.FLEX_POKER_CLIENT_HOST as string}/`,
             `${process.env.FLEX_GATEWAY_HOST as string}/`,
             `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_DOMAIN_NAME as string}:${process.env.FLEX_PROXY_PORT as string}/`,
-            `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_FUTUR_PROOF_1_DOMAIN_NAME_1 as string}:${process.env.FLEX_PROXY_PORT as string}/`,
-            `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_FUTUR_PROOF_1_DOMAIN_NAME_2 as string}:${process.env.FLEX_PROXY_PORT as string}/`,
-            `http://localhost:${process.env.FLEX_GATEWAY_PORT!}/`,
+            `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_FUTUR_PROOF_1_DOMAIN_NAME_1 as string}:${process.env.FLEX_POKER_CLIENT_PORT as string}/`,
+            `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_FUTUR_PROOF_1_DOMAIN_NAME_2 as string}:9898/`,
             `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_1_HOSTNAME as string}/`,
+            `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_1_HOSTNAME as string}:9898/`,
             `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_2_HOSTNAME as string}/`,
+            `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_2_HOSTNAME as string}:9898/`,
           ],
           redirectSignOut: [
+            `http://localhost:${process.env.FLEX_GATEWAY_PORT!}/`,
             `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_DOMAIN_NAME as string}/`,
             `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_FUTUR_PROOF_1_DOMAIN_NAME_1 as string}/`,
             `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_FUTUR_PROOF_1_DOMAIN_NAME_2 as string}/`,
+            `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_FUTUR_PROOF_2_BASE_DOMAIN as string}/`,
             `${process.env.FLEX_POKER_CLIENT_HOST as string}/`,
             `${process.env.FLEX_GATEWAY_HOST as string}/`,
             `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_DOMAIN_NAME as string}:${process.env.FLEX_PROXY_PORT as string}/`,
-            `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_FUTUR_PROOF_1_DOMAIN_NAME_1 as string}:${process.env.FLEX_PROXY_PORT as string}/`,
-            `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_FUTUR_PROOF_1_DOMAIN_NAME_2 as string}:${process.env.FLEX_PROXY_PORT as string}/`,
-            `http://localhost:${process.env.FLEX_GATEWAY_PORT!}/`,
+            `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_FUTUR_PROOF_1_DOMAIN_NAME_1 as string}:${process.env.FLEX_POKER_CLIENT_PORT as string}/`,
+            `${process.env.FLEX_PROTOCOL as string}${process.env.FLEX_FUTUR_PROOF_1_DOMAIN_NAME_2 as string}:9898/`,
             `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_1_HOSTNAME as string}/`,
+            `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_1_HOSTNAME as string}:9898/`,
             `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_2_HOSTNAME as string}/`,
+            `${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_2_HOSTNAME as string}:9898/`,
           ],
           responseType: 'code', // or 'token', note that REFRESH token will only be generated when the responseType is code
           providers: ['Google'],
@@ -75,11 +81,13 @@ const AMPLIFY_AUTH_CONFIG_V2: ResourcesConfig = {
   API: {
     GraphQL: {
       endpoint: process.env.FLEX_AWS_APPSYNC_GRAPHQL_ENDPOINT as string,
+      // customEndpoint: process.env.FLEX_AWS_APPSYNC_GRAPHQL_ENDPOINT as string,
       region: process.env.FLEX_AWS_PROJECT_REGION as string,
+      // customEndpointRegion: process.env.FLEX_AWS_PROJECT_REGION as string,
       defaultAuthMode: 'userPool',
-      // Set the default auth mode to 'apiKey' and provide the API key value
+      // Set the default auth mode to "apiKey" and provide the API key value
       // defaultAuthMode: 'apiKey',
-      // apiKey: process.env.FLEX_AWS_APPSYNC_APIKEY as string,
+      apiKey: process.env.FLEX_AWS_APPSYNC_APIKEY as string,
     },
   },
 }
