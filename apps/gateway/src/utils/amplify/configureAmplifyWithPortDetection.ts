@@ -4,7 +4,7 @@ import { AMPLIFY_AUTH_CONFIG_V2 } from './configure';
 
 // Configuration mode switcher
 type ConfigMode = 'outputs' | 'v2-config';
-let CONFIG_MODE: ConfigMode = 'v2-config'; // Change this to switch between configurations
+let CONFIG_MODE: ConfigMode = 'outputs'; // Change this to switch between configurations
 
 // Function to set configuration mode
 export const setConfigMode = (mode: ConfigMode) => {

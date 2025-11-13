@@ -65,10 +65,10 @@ aws cognito-idp update-user-pool-client \
         "https://local.flexiness.com:4009/" \
         "https://main.d1cftsvc5q8k92.amplifyapp.com/" \
         "https://main.d1cftsvc5q8k92.amplifyapp.com/web-app/" \
-        "https://main.d2hx7qu8b35esn.amplifyapp.com/" \
-        "https://main.d2hx7qu8b35esn.amplifyapp.com/web-app/" \
-        "https://main.d2hx7qu8b35esn.amplifyapp.com:9898/" \
-        "https://main.d2hx7qu8b35esn.amplifyapp.com:9898/web-app/" \
+        "https://flexi.d2ybqei9w8j7t5.amplifyapp.com/" \
+        "https://flexi.d2ybqei9w8j7t5.amplifyapp.com/web-app/" \
+        "https://flexi.d2ybqei9w8j7t5.amplifyapp.com:9898/" \
+        "https://flexi.d2ybqei9w8j7t5.amplifyapp.com:9898/web-app/" \
         "https://web-app.ecolelasource.org/" \
         "https://web-app.ecolelasource.org:4009/" \
     --logout-urls \
@@ -87,10 +87,10 @@ aws cognito-idp update-user-pool-client \
         "https://local.flexiness.com:4009/" \
         "https://main.d1cftsvc5q8k92.amplifyapp.com/" \
         "https://main.d1cftsvc5q8k92.amplifyapp.com/web-app/" \
-        "https://main.d2hx7qu8b35esn.amplifyapp.com/" \
-        "https://main.d2hx7qu8b35esn.amplifyapp.com/web-app/" \
-        "https://main.d2hx7qu8b35esn.amplifyapp.com:9898/" \
-        "https://main.d2hx7qu8b35esn.amplifyapp.com:9898/web-app/" \
+        "https://flexi.d2ybqei9w8j7t5.amplifyapp.com/" \
+        "https://flexi.d2ybqei9w8j7t5.amplifyapp.com/web-app/" \
+        "https://flexi.d2ybqei9w8j7t5.amplifyapp.com:9898/" \
+        "https://flexi.d2ybqei9w8j7t5.amplifyapp.com:9898/web-app/" \
         "https://web-app.ecolelasource.org/" \
         "https://web-app.ecolelasource.org:4009/"
 
