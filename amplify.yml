@@ -32,15 +32,20 @@ applications:
         build:
           commands:
             - cd apps/gateway
-            # Load and decrypt environment variables with dotenvx
-            - pnpm dotenvx run --env-file=../../env/public/.env.production -- echo "Environment variables loaded"
-            # Run Amplify deployment with loaded environment variables
-            - pnpm dotenvx run --env-file=../../env/public/.env.production -- npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
+            # # Check current AWS identity
+            # - aws sts get-caller-identity
+            # # Load and decrypt environment variables with dotenvx
+            # - pnpm dotenvx run --env-file=../../env/public/.env.production -- echo "Environment variables loaded"
+            # # Run Amplify deployment with loaded environment variables
+            # - pnpm dotenvx run --env-file=../../env/public/.env.production -- sh -c "export CDK_DEFAULT_ACCOUNT=$FLEX_AWS_ORG_ID && pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug"
+            - npm install --cache .npm --prefer-offline
+            # - npx ampx info
+            - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
       cache:
         paths:
-          # - '.npm/**/*'
+          - '.npm/**/*'
           # - 'apps/gateway/.npm/**/*'
-          - 'node_modules/**/*'
+          # - 'node_modules/**/*'
     frontend:
       buildPath: /
       phases:
