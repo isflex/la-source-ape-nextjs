@@ -191,7 +191,7 @@ const setupSlider = function (slider: HTMLDivElement) {
   let numberOfPages = 1
   let moving = false
   let sliderPages: HTMLDivElement[]
-  let timerInterval: NodeJS.Timer | null = null
+  let timerInterval: ReturnType<typeof setInterval> | null = null
   const timerDurationDefault = 10000
 
   if (slider.getAttribute('data-slider-initialized') === 'true') {
