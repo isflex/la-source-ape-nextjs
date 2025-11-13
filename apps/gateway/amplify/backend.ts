@@ -1,15 +1,19 @@
 import { defineBackend } from '@aws-amplify/backend';
 // import { PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
 // import { Bucket } from 'aws-cdk-lib/aws-s3';
-import { auth } from './auth/resource';
+// import { auth } from './auth/resource';
 import { data } from './data/resource';
 // import { imageBase64Converter } from './functions/image-base64-converter/resource';
 
-const backend = defineBackend({
-  auth,
+defineBackend({
   data,
-  // imageBase64Converter,
 });
+
+// const backend = defineBackend({
+//   auth,
+//   data,
+//   imageBase64Converter,
+// });
 
 // // Reference existing S3 bucket instead of creating a new one
 // const existingBucketName = process.env.FLEX_AWS_STORAGE_BUCKET_NAME!;
