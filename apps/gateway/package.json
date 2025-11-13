@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "amplify:sandbox:create": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm ampx sandbox --once --identifier $AWS_PROFILE",
-    "amplify:sandbox:delete": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm ampx sandbox delete --identifier $AWS_PROFILE",
+    "amplify:sandbox:create": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm ampx sandbox --once --profile $AWS_PROFILE",
+    "amplify:sandbox:delete": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm ampx sandbox delete --profile $AWS_PROFILE",
+    "amplify:sandbox:watch": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm ampx sandbox --profile $AWS_PROFILE",
     "build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build && node ./copy-assets.mjs",
     "cypress:open": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress open",
     "cypress:run": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress run",

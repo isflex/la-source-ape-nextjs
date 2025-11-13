@@ -1,0 +1,11 @@
+{
+  "name": "custom-message",
+  "version": "1.0.0",
+  "type": "module",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.145",
+    "esbuild": "^0.19.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

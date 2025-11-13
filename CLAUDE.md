@@ -98,3 +98,4 @@ cd apps/gateway && pnpm ampx sandbox --once
 - the nextjs project uses trailing slash
 - To update Browserslist data (caniuse-lite) : pnpm exec update-browserslist-db latest
 - 'use server' directive has import from @flex-design-system/react-ts/server-async-styled-default-module-components and 'use client' directive has import from @flex-design-system/react-ts/client-sync-styled-default
+- Bash scripts go in bin/ folder ALWAYS.

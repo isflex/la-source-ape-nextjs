@@ -1,13 +1,20 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { I18n } from 'aws-amplify/utils';
 import { Authenticator, useAuthenticator, translations } from '@aws-amplify/ui-react';
+import { signUp, confirmSignUp, autoSignIn, type SignUpOutput, type SignUpInput, type ConfirmSignUpInput } from 'aws-amplify/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Container, Section, Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-default';
 
+// Configure translations
 I18n.putVocabularies(translations)
 I18n.setLanguage('fr')
+
+// Debug logging for auth flow
+const debugAuth = (message: string, data?: any) => {
+  console.log(`[AUTH DEBUG] ${message}`, data || '');
+};
 I18n.putVocabularies({
   // https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/dictionaries/authenticator/fr.ts
   fr: {
@@ -67,6 +74,69 @@ I18n.putVocabularies({
       "Veuillez fournir un nom d'utilisateur qui diffère de l'adresse email",
   },
 })
+
+// Custom authentication services
+const authServices = {
+  async handleSignUp(formData: SignUpInput) {
+    debugAuth('Starting signup process', { username: formData.username });
+
+    if (!formData.password) {
+      throw new Error('Password is required');
+    }
+
+    try {
+      const { isSignUpComplete, userId, nextStep }: SignUpOutput = await signUp({
+        username: formData.username,
+        password: formData.password,
+        options: {
+          userAttributes: formData.options?.userAttributes || {},
+          autoSignIn: true, // Enable auto sign-in after confirmation
+        },
+      });
+
+      debugAuth('Signup response', { isSignUpComplete, userId, nextStep });
+
+      if (nextStep?.signUpStep === 'CONFIRM_SIGN_UP') {
+        debugAuth('Signup requires confirmation - email should be sent');
+      }
+
+      return { isSignUpComplete, userId, nextStep };
+    } catch (error) {
+      debugAuth('Signup error', error);
+      throw error;
+    }
+  },
+
+  async handleConfirmSignUp(formData: ConfirmSignUpInput) {
+    debugAuth('Starting confirmation process', { username: formData.username });
+
+    try {
+      const { isSignUpComplete, nextStep } = await confirmSignUp({
+        username: formData.username,
+        confirmationCode: formData.confirmationCode,
+      });
+
+      debugAuth('Confirmation response', { isSignUpComplete, nextStep });
+
+      // Handle auto sign-in after confirmation (like Gen 1 implementation)
+      if (isSignUpComplete) {
+        debugAuth('Triggering auto sign-in');
+        try {
+          const signInResult = await autoSignIn();
+          debugAuth('Auto sign-in successful', signInResult);
+        } catch (autoSignInError) {
+          debugAuth('Auto sign-in failed', autoSignInError);
+          // Don't throw the error, let the user sign in manually
+        }
+      }
+
+      return { isSignUpComplete, nextStep };
+    } catch (error) {
+      debugAuth('Confirmation error', error);
+      throw error;
+    }
+  },
+};
 
 function AuthenticatedContent() {
   const { signOut, user } = useAuthenticator();
@@ -130,7 +200,60 @@ export default function AuthPage() {
 
         <Authenticator
           hideSignUp={hideSignUp}
-          signUpAttributes={isUserMode ? ['email'] : []}
+          signUpAttributes={isUserMode ? ['given_name', 'family_name', 'email'] : []}
+          services={authServices}
+          formFields={{
+            signUp: {
+              given_name: {
+                label: 'Prénom',
+                placeholder: 'Saisissez votre prénom',
+                order: 1,
+                isRequired: true,
+                type: 'text',
+                // autoComplete:: 'given-name',
+              },
+              family_name: {
+                label: 'Nom',
+                placeholder: 'Saisissez votre nom',
+                order: 2,
+                isRequired: true,
+                type: 'text',
+                // autoComplete:: 'family-name',
+              },
+              email: {
+                label: 'Adresse email',
+                placeholder: 'Saisissez votre adresse email',
+                order: 3,
+                isRequired: true,
+                type: 'email',
+                // autoComplete:: 'username',
+              },
+              // phone_number: { // Disabled until SNS production access
+              //   label: 'Numéro mobile (optionnel)',
+              //   placeholder: 'Saisissez votre numéro de mobile',
+              //   order: 4,
+              //   isRequired: false,
+              //   type: 'tel',
+              //   dialCode: '+33',
+              // },
+              password: {
+                label: 'Mot de passe',
+                placeholder: 'Saisissez votre mot de passe',
+                order: 4,
+                isRequired: true,
+                type: 'password',
+                // autoComplete:: 'new-password',
+              },
+              confirm_password: {
+                label: 'Confirmation de mot de passe',
+                placeholder: 'Confirmez votre mot de passe',
+                order: 5,
+                isRequired: true,
+                type: 'password',
+                // autoComplete:: 'new-password',
+              },
+            },
+          }}
         >
           <AuthenticatedContent />
         </Authenticator>
