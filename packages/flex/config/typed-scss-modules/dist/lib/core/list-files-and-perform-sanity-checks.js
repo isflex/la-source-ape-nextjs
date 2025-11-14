@@ -15,7 +15,7 @@ const alerts_1 = require("./alerts");
  */
 function listFilesAndPerformSanityChecks(pattern, options) {
     // Find all the files that match the provided pattern.
-    const files = glob_1.default.sync(pattern, { ignore: options.ignore });
+    const files = glob_1.globSync(pattern, { ignore: options.ignore })
     if (!files || !files.length) {
         alerts_1.alerts.error("No files found.");
     }

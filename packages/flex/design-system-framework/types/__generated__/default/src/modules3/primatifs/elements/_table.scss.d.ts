@@ -12,6 +12,7 @@ export type Styles = {
   isCompact: string;
   isComparative: string;
   isDanger: string;
+  isDataCellResponsiveHelper: string;
   isDebug: string;
   isExpandable: string;
   isExpanded: string;

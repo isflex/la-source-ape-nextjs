@@ -32,27 +32,17 @@ applications:
         build:
           commands:
             - cd apps/gateway
-            # - pwd
-            # https://github.com/vaadin/flow/issues/16098
-            # https://stackoverflow.com/a/21699210
-            # -
-            #   npm install
-            #   @aws-amplify/backend@latest
-            #   @aws-amplify/backend-cli@latest
-            #   @aws-amplify/data-construct@latest
-            #   aws-cdk@latest
-            #   aws-cdk-lib@latest
-            #   --cache .npm --prefer-offline
-            - npm install --cache .npm --prefer-offline
-            # - npx ampx info
-            - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
-            # - npx --use-pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
-            # - pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
+            # Check current AWS identity
+            - aws sts get-caller-identity
+            # Load and decrypt environment variables with dotenvx
+            - pnpm dotenvx run --env-file=../../env/public/.env.production -- echo "Environment variables loaded"
+            # Run Amplify deployment with loaded environment variables
+            - pnpm dotenvx run --env-file=../../env/public/.env.production -- sh -c "export CDK_DEFAULT_ACCOUNT=$FLEX_AWS_ORG_ID && export CDK_DEFAULT_REGION=eu-west-3 && pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug --verbose"
       cache:
         paths:
-          - '.npm/**/*'
+          # - '.npm/**/*'
           # - 'apps/gateway/.npm/**/*'
-          # - 'node_modules/**/*'
+          - 'node_modules/**/*'
     frontend:
       buildPath: /
       phases:

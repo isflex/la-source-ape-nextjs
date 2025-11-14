@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"workbench.colorTheme": "Default Dark+",
+		"typescript.enablePromptUseWorkspaceTsdk": true,
+		"json.schemaDownload.enable": true,
+		"typescript.tsdk": "node_modules/typescript/lib",
+		"htmltagwrap.tag": "div",
+		"htmltagwrap.autoDeselectClosingTag": true
+	}
+}
