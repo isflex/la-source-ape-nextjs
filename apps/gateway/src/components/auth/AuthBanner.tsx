@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { signOut, fetchUserAttributes, type UserAttributeKey } from 'aws-amplify/auth';
+import { useRouter } from 'next/navigation';
 
 import classNames from 'classnames';
 import {
@@ -35,18 +36,33 @@ interface AuthBannerProps {
 
 export default function AuthBanner({ className, style }: AuthBannerProps) {
   const { user } = useAuthenticator();
+  const router = useRouter();
   const isAuthenticated = !!user;
   const [userAttributes, setUserAttributes] = useState<Partial<Record<UserAttributeKey, string>> | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSignOut = async () => {
     try {
+      // Store current URL in sessionStorage for redirect after page reload
+      const currentPath = window.location.pathname + window.location.search;
+      sessionStorage.setItem('redirectAfterSignOut', currentPath);
+
       await signOut();
       setUserAttributes(null); // Clear attributes on sign out
+      // Note: signOut() will cause a page reload, redirect will be handled in useEffect
     } catch (error) {
       console.error('Error signing out:', error);
     }
   };
+
+  // Handle redirect after sign-out page reload
+  useEffect(() => {
+    const redirectPath = sessionStorage.getItem('redirectAfterSignOut');
+    if (redirectPath && !user) {
+      sessionStorage.removeItem('redirectAfterSignOut');
+      router.push(redirectPath);
+    }
+  }, [user, router]);
 
   // Fetch user attributes when user changes
   useEffect(() => {

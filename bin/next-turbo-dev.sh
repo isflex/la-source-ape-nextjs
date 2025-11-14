@@ -35,5 +35,5 @@ cleanup() {
 trap cleanup SIGINT SIGTERM EXIT
 
 # Start Next.js with Turbopack
-echo "🏃‍♂️ Running: next dev ./ --turbopack --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME"
-next dev ./ --turbopack --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME
+echo "🏃‍♂️ Running: NODE_OPTIONS='--max-old-space-size=8192' next dev ./ --turbopack --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME"
+NODE_OPTIONS='--max-old-space-size=8192' next dev ./ --turbopack --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME

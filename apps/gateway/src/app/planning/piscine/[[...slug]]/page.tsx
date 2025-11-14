@@ -26,6 +26,7 @@ import {
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import PiscineCandidatTable from '@src/components/piscine/PiscineCandidatTable';
 import { formatDayOfWeek, formatSchoolLevel } from '@src/lib/piscine-helpers';
+import AuthBanner from '@src/components/auth/AuthBanner';
 
 interface PiscineSlugPageProps {
   params: Promise<{
@@ -134,73 +135,76 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
   }
 
   return (
-    <Container>
-      <Section>
-        {/* Success/Error Messages */}
-        {message && (
-          <InfoBlock>
-            <InfoBlockHeader>
-              <Title level={TitleLevel.LEVEL3}>
-                {message.isError ? 'Erreur' : 'Succès'}
-              </Title>
-            </InfoBlockHeader>
-            <InfoBlockContent>
-              <Text>{message.text}</Text>
-            </InfoBlockContent>
-          </InfoBlock>
-        )}
+    <>
+      {user && <AuthBanner />}
+      <Container>
+        <Section>
+          {/* Success/Error Messages */}
+          {message && (
+            <InfoBlock>
+              <InfoBlockHeader>
+                <Title level={TitleLevel.LEVEL3}>
+                  {message.isError ? 'Erreur' : 'Succès'}
+                </Title>
+              </InfoBlockHeader>
+              <InfoBlockContent>
+                <Text>{message.text}</Text>
+              </InfoBlockContent>
+            </InfoBlock>
+          )}
 
-        {/* Header */}
-        <div>
-          <Title level={TitleLevel.LEVEL1}>
-            {piscineForm.title}
-          </Title>
+          {/* Header */}
+          <div>
+            <Title level={TitleLevel.LEVEL1}>
+              {piscineForm.title}
+            </Title>
 
-          <div className={classNames(
-            flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
-            flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
-            flexStyles.isMarginBottom4
-          )}>
-            <div>
-              <Text><strong>Jour:</strong> {formatDayOfWeek(piscineForm.dayOfWeek)}</Text>
-              <Text><strong>Horaires:</strong> {piscineForm.startTime} - {piscineForm.endTime}</Text>
-            </div>
-            <div>
-              <Text><strong>Niveau:</strong> {formatSchoolLevel(piscineForm.schoolLevel)}</Text>
-              <Text><strong>Enseignant:</strong> {piscineForm.teacherName}</Text>
+            <div className={classNames(
+              flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+              flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
+              flexStyles.isMarginBottom4
+            )}>
+              <div>
+                <Text><strong>Jour:</strong> {formatDayOfWeek(piscineForm.dayOfWeek)}</Text>
+                <Text><strong>Horaires:</strong> {piscineForm.startTime} - {piscineForm.endTime}</Text>
+              </div>
+              <div>
+                <Text><strong>Niveau:</strong> {formatSchoolLevel(piscineForm.schoolLevel)}</Text>
+                <Text><strong>Enseignant:</strong> {piscineForm.teacherName}</Text>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Creator Badge */}
-        {isCreator && (
-          <InfoBlock>
-            <InfoBlockHeader>
-              <Title level={TitleLevel.LEVEL3}>Mode Créateur</Title>
-            </InfoBlockHeader>
-            <InfoBlockContent>
-              <Text>Vous êtes le créateur de ce planning. Vous pouvez modifier et supprimer les inscriptions.</Text>
-            </InfoBlockContent>
-          </InfoBlock>
-        )}
+          {/* Creator Badge */}
+          {isCreator && (
+            <InfoBlock>
+              <InfoBlockHeader>
+                <Title level={TitleLevel.LEVEL3}>Mode Créateur</Title>
+              </InfoBlockHeader>
+              <InfoBlockContent>
+                <Text>Vous êtes le créateur de ce planning. Vous pouvez modifier et supprimer les inscriptions.</Text>
+              </InfoBlockContent>
+            </InfoBlock>
+          )}
 
-        {/* Candidat Table */}
-        <PiscineCandidatTable
-          piscineFormId={piscineForm.id}
-          isCreatorMode={!!isCreator}
-          isAuthenticated={!!user}
-          onMessage={handleMessage}
-          onAuthRequired={handleAuthRequired}
-          piscineFormData={{
-            title: piscineForm.title,
-            dayOfWeek: formatDayOfWeek(piscineForm.dayOfWeek),
-            startTime: piscineForm.startTime,
-            endTime: piscineForm.endTime,
-            schoolLevel: formatSchoolLevel(piscineForm.schoolLevel),
-            teacherName: piscineForm.teacherName
-          }}
-        />
-      </Section>
-    </Container>
+          {/* Candidat Table */}
+          <PiscineCandidatTable
+            piscineFormId={piscineForm.id}
+            isCreatorMode={!!isCreator}
+            isAuthenticated={!!user}
+            onMessage={handleMessage}
+            onAuthRequired={handleAuthRequired}
+            piscineFormData={{
+              title: piscineForm.title,
+              dayOfWeek: formatDayOfWeek(piscineForm.dayOfWeek),
+              startTime: piscineForm.startTime,
+              endTime: piscineForm.endTime,
+              schoolLevel: formatSchoolLevel(piscineForm.schoolLevel),
+              teacherName: piscineForm.teacherName
+            }}
+          />
+        </Section>
+      </Container>
+    </>
   );
 }

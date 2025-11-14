@@ -101,7 +101,7 @@
     "postcss-nested": "6.0.1",
     "postcss-preset-env": "9.5.4",
     "postcss-scss": "4.0.9",
-    "rimraf": "6.0.1",
+    "rimraf": "6.1.0",
     "rollup": "^2.76.0",
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-scss": "4.0.0",

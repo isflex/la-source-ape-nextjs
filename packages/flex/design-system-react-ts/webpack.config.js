@@ -310,8 +310,8 @@ const getConfig = async (target) => {
         ),
 
         alias: {
-          // '@flex-design-system/react-ts/client-sync-styled-default':
-          //   path.resolve(`${rootLocation}/packages/flex/design-system-react-ts/src/styled-default-module-components`),
+          '@flex-design-system/react-ts/client-sync-styled-default':
+            path.resolve(`${rootLocation}/packages/flex/design-system-react-ts/src/styled-default-module-components`),
 
           // /!\ Aliases are now defined by typescript paths thru TsconfigPathsPlugin
           // react: path.resolve(`${rootLocation}/node_modules/react`),
