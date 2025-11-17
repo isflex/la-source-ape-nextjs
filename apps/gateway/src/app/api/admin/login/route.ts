@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import outputs from '@root/amplify_outputs.json'
+import { getAuthConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection'
 
 /**
  * POST /api/admin/login
@@ -22,15 +22,17 @@ export async function POST(request: NextRequest) {
     // Dynamic import to avoid compilation blocking
     const { CognitoIdentityProviderClient, InitiateAuthCommand } = await import('@aws-sdk/client-cognito-identity-provider')
 
+    const authConfig = getAuthConfig();
+
     // Create Cognito client
     const cognitoClient = new CognitoIdentityProviderClient({
-      region: outputs?.auth?.aws_region || 'eu-west-3'
+      region: authConfig?.aws_region || 'eu-west-3'
     })
 
     // Use USER_PASSWORD_AUTH (enabled by default with defineAuth)
     const authCommand = new InitiateAuthCommand({
       AuthFlow: 'USER_PASSWORD_AUTH',
-      ClientId: outputs?.auth?.user_pool_client_id || '',
+      ClientId: authConfig?.user_pool_client_id || '',
       AuthParameters: {
         USERNAME: username,
         PASSWORD: password
@@ -84,10 +86,12 @@ export async function GET(request: NextRequest) {
     // Verify the Cognito JWT token
     const { CognitoJwtVerifier } = await import('aws-jwt-verify')
 
+    const authConfig = getAuthConfig();
+
     const verifier = CognitoJwtVerifier.create({
-      userPoolId: outputs?.auth?.user_pool_id || '',
+      userPoolId: authConfig?.user_pool_id || '',
       tokenUse: 'id',
-      clientId: outputs?.auth?.user_pool_client_id || ''
+      clientId: authConfig?.user_pool_client_id || ''
     })
 
     const payload = await verifier.verify(idToken)

@@ -13,16 +13,16 @@ import { getCurrentUser } from 'aws-amplify/auth/server';
 
 import { type Schema } from '@amplify/data/resource';
 // import { AMPLIFY_AUTH_CONFIG_V2 } from '@src/utils/amplify/configure';
-import outputs from '@root/amplify_outputs.json';
+import { getCurrentConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection';
 
 export const { runWithAmplifyServerContext } = createServerRunner({
   // config: AMPLIFY_AUTH_CONFIG_V2,
-  config: outputs,
+  config: getCurrentConfig(),
 });
 
 export const cookiesClient = generateServerClientUsingCookies<Schema>({
   // config: AMPLIFY_AUTH_CONFIG_V2,
-  config: outputs,
+  config: getCurrentConfig(),
   cookies,
 });
 

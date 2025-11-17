@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Readable } from 'stream'
-import outputs from '@root/amplify_outputs.json'
+import { getAuthConfig, getStorageConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection'
 
 // Disable Next.js body parser to handle streaming ourselves
 export const runtime = 'nodejs'
@@ -13,26 +13,29 @@ async function getS3ClientWithCognito(idToken: string) {
   const { fromCognitoIdentityPool } = await import('@aws-sdk/credential-provider-cognito-identity')
   const { CognitoIdentityClient } = await import('@aws-sdk/client-cognito-identity')
 
+  const authConfig = getAuthConfig();
+  const storageConfig = getStorageConfig();
+
   console.log('S3 Client Debug (Cognito):', {
-    region: outputs?.auth?.aws_region || 'eu-west-3',
-    identityPoolId: outputs?.auth?.identity_pool_id,
-    userPoolId: outputs?.auth?.user_pool_id,
-    bucketName: outputs?.storage?.bucket_name
+    region: authConfig?.aws_region || 'eu-west-3',
+    identityPoolId: authConfig?.identity_pool_id,
+    userPoolId: authConfig?.user_pool_id,
+    bucketName: storageConfig?.bucket_name
   })
 
   // Create Cognito Identity client
   const cognitoIdentity = new CognitoIdentityClient({
-    region: outputs?.auth?.aws_region || 'eu-west-3'
+    region: authConfig?.aws_region || 'eu-west-3'
   })
 
   // Use Cognito Identity Pool with authenticated user credentials
   const client = new S3Client({
-    region: outputs?.storage?.aws_region || outputs?.auth?.aws_region || 'eu-west-3',
+    region: storageConfig?.aws_region || authConfig?.aws_region || 'eu-west-3',
     credentials: fromCognitoIdentityPool({
       client: cognitoIdentity,
-      identityPoolId: outputs?.auth?.identity_pool_id || '',
+      identityPoolId: authConfig?.identity_pool_id || '',
       logins: {
-        [`cognito-idp.${outputs?.auth?.aws_region}.amazonaws.com/${outputs?.auth?.user_pool_id}`]: idToken
+        [`cognito-idp.${authConfig?.aws_region}.amazonaws.com/${authConfig?.user_pool_id}`]: idToken
       }
     })
   })
@@ -68,10 +71,12 @@ async function verifyAdminAuth(request: NextRequest): Promise<{ isAuthenticated:
     // Verify the Cognito JWT token
     const { CognitoJwtVerifier } = await import('aws-jwt-verify')
 
+    const authConfig = getAuthConfig();
+
     const verifier = CognitoJwtVerifier.create({
-      userPoolId: outputs?.auth?.user_pool_id || '',
+      userPoolId: authConfig?.user_pool_id || '',
       tokenUse: 'id', // Use ID token for user identity
-      clientId: outputs?.auth?.user_pool_client_id || ''
+      clientId: authConfig?.user_pool_client_id || ''
     })
 
     const payload = await verifier.verify(idToken)
@@ -286,7 +291,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get bucket name from Amplify outputs
-    const bucketName = outputs?.storage?.bucket_name
+    const bucketName: string = getStorageConfig()?.bucket_name!
     if (!bucketName) {
       console.error('S3 bucket not configured in Amplify outputs')
       return NextResponse.json(
@@ -404,7 +409,7 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    const bucketName = outputs?.storage?.bucket_name
+    const bucketName: string = getStorageConfig()?.bucket_name!
     if (!bucketName) {
       return NextResponse.json(
         { error: 'Server configuration error' },

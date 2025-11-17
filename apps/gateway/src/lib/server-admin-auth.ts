@@ -4,6 +4,7 @@
  */
 
 import { CognitoIdentityProviderClient, AdminInitiateAuthCommand, UpdateUserPoolClientCommand, AuthFlowType } from '@aws-sdk/client-cognito-identity-provider'
+import { getAuthConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection'
 
 export interface AdminAuthResult {
   success: boolean
@@ -61,11 +62,10 @@ async function enableAuthFlows(cognitoClient: CognitoIdentityProviderClient, use
  */
 export async function authenticateAdminUser(): Promise<AdminAuthResult> {
   try {
-    // Import outputs in server context
-    const outputs = (await import('@root/amplify_outputs.json')).default
-
-    const userPoolId = outputs?.auth?.user_pool_id
-    const clientId = outputs?.auth?.user_pool_client_id
+    // Use outputs from centralized configuration
+    const authConfig = getAuthConfig();
+    const userPoolId = authConfig?.user_pool_id
+    const clientId = authConfig?.user_pool_client_id
 
     if (!userPoolId || !clientId) {
       return {
@@ -163,8 +163,9 @@ export async function getAdminAuthStatus(): Promise<{
   message: string
 }> {
   try {
-    const outputs = (await import('@root/amplify_outputs.json')).default
-    const userPoolId = outputs?.auth?.user_pool_id
+    // Use outputs from centralized configuration
+    const authConfig = getAuthConfig();
+    const userPoolId = authConfig?.user_pool_id
     const adminEmail = process.env.FLEX_ADMIN_USERNAME
 
     if (!userPoolId) {

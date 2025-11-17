@@ -136,5 +136,33 @@ export const configureAmplifyWithPortDetection = () => {
   return customConfig;
 };
 
-// Export the outputs for backward compatibility
+// Configuration access functions that respect the current CONFIG_MODE
+export const getAuthConfig = () => {
+  if (CONFIG_MODE === 'v2-config') {
+    const cognitoAuth = AMPLIFY_AUTH_CONFIG_V2.Auth?.Cognito;
+    return {
+      aws_region: process.env.FLEX_AWS_PROJECT_REGION,
+      user_pool_id: cognitoAuth?.userPoolId,
+      user_pool_client_id: cognitoAuth?.userPoolClientId,
+      identity_pool_id: cognitoAuth?.identityPoolId,
+      oauth: cognitoAuth?.loginWith?.oauth
+    };
+  }
+  return outputs.auth;
+};
+
+export const getStorageConfig = () => {
+  // Storage config currently only exists in amplify_outputs.json
+  return outputs.storage;
+};
+
+// Get the current configuration that Amplify is actually using
+export const getCurrentConfig = () => {
+  if (CONFIG_MODE === 'v2-config') {
+    return AMPLIFY_AUTH_CONFIG_V2;
+  }
+  return outputs;
+};
+
+// Export the outputs for backward compatibility (deprecated - use getAuthConfig/getStorageConfig instead)
 export { outputs };

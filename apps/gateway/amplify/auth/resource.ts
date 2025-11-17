@@ -12,19 +12,19 @@
 
 
 import { referenceAuth } from '@aws-amplify/backend';
+// import { SecretValue } from 'aws-cdk-lib';
 
 /**
  * Reference existing Cognito User Pool for admin authentication
  * @see https://docs.amplify.aws/gen2/build-a-backend/auth/concepts/
  */
 
-// Determine if we're in production/CI environment or sandbox
-const isProduction = process.env.FLEX_MODE === 'production' || process.env.NODE_ENV === 'production' || process.env.AWS_BRANCH || process.env.CI;
-
 export const auth = referenceAuth({
-  // userPoolId: isProduction
-  //   ? `arn:aws:cognito-idp:${process.env.AWS_REGION}:${process.env.FLEX_AWS_ORG_ID }:userpool/${process.env.FLEX_AWS_COGNITO_USER_POOL_ID}`
-  //   : process.env.FLEX_AWS_COGNITO_USER_POOL_ID!,
+  // userPoolId: SecretValue.ssmSecure('FLEX_AWS_COGNITO_USER_POOL_ID').unsafeUnwrap(),
+  // identityPoolId: SecretValue.ssmSecure('FLEX_AWS_COGNITO_IDENTITY_POOL').unsafeUnwrap(),
+  // userPoolClientId: SecretValue.ssmSecure('FLEX_AWS_COGNITO_USER_POOL_APP_CLIENT_ID').unsafeUnwrap(),
+  // authRoleArn: SecretValue.ssmSecure('FLEX_AWS_AUTHENTICATED_ROLE_ARN').unsafeUnwrap(),
+  // unauthRoleArn: SecretValue.ssmSecure('FLEX_AWS_UNAUTHENTICATED_ROLE_ARN').unsafeUnwrap(),
   userPoolId: process.env.FLEX_AWS_COGNITO_USER_POOL_ID!,
   identityPoolId: process.env.FLEX_AWS_COGNITO_IDENTITY_POOL!,
   userPoolClientId: process.env.FLEX_AWS_COGNITO_USER_POOL_APP_CLIENT_ID!,

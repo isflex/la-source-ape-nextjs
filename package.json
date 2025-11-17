@@ -120,6 +120,7 @@
       "minimatch": "10.1.1",
       "rimraf": "6.1.0",
       "tsup": "^8.5.1",
+      "@aws-sdk/client-s3": "3.932.0",
       "@aws-sdk/client-sts": "3.699.0",
       "@aws-sdk/client-sso-oidc": "3.699.0",
       "webpack": "5.99.8",

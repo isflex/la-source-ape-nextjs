@@ -6,6 +6,8 @@
   "scripts": {
     "amplify:sandbox:create": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm ampx sandbox --once --profile $AWS_PROFILE",
     "amplify:sandbox:delete": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm ampx sandbox delete --profile $AWS_PROFILE",
+    "amplify:sandbox:watch": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm ampx sandbox --profile $AWS_PROFILE",
+    "amplify:secrets:list": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm ampx sandbox secret list --profile $AWS_PROFILE",
     "build": "NODE_OPTIONS='--max-old-space-size=8192' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build && node ./copy-assets.mjs",
     "cypress:open": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress open",
     "cypress:run": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress run",
@@ -95,6 +97,7 @@
     "@aws-amplify/schema-generator": "^1.4.0",
     "@aws-cdk/toolkit-lib": "^1.1.0",
     "@aws-sdk/client-cloudformation": "^3.817.0",
+    "@aws-sdk/client-s3": "3.932.0",
     "@aws-sdk/types": "^3.804.0",
     "@cypress/browserify-preprocessor": "^3.0.2",
     "@cypress/webpack-preprocessor": "^7.0.1",
@@ -118,7 +121,6 @@
     "webpack": "5.99.8"
   },
   "peerDependencies": {
-    "@aws-sdk/client-s3": "*",
     "@aws-sdk/client-sso-oidc": "*",
     "@aws-sdk/client-sts": "*",
     "graphql": "*"
