@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { Amplify } from 'aws-amplify'
 import { generateClient } from 'aws-amplify/data'
 import type { Schema } from '@amplify/data/resource'
-import outputs from '@root/amplify_outputs.json'
+import { getCurrentConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection'
 
 // Configure Amplify for server-side API routes
-Amplify.configure(outputs, { ssr: true })
+Amplify.configure(getCurrentConfig(), { ssr: true })
 
 const client = generateClient<Schema>()
 

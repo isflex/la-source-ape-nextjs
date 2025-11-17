@@ -7,9 +7,9 @@
 // Pages router
 import { createServerRunner } from '@aws-amplify/adapter-nextjs';
 // import { AMPLIFY_AUTH_CONFIG_V2 } from '@src/utils/amplify/configure';
-import outputs from '@root/amplify_outputs.json';
+import { getCurrentConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection';
 
 export const { runWithAmplifyServerContext } = createServerRunner({
   // config: AMPLIFY_AUTH_CONFIG_V2,
-  config: outputs,
+  config: getCurrentConfig(),
 })

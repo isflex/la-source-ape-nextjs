@@ -14,7 +14,17 @@ export const auth = defineAuth({
       google: {
         clientId: secret('FLEX_GOOGLE_APP_CLIENT_ID'),
         clientSecret: secret('FLEX_GOOGLE_APP_CLIENT_SECRET'),
-        scopes: ["email", "openid", "profile"]
+        scopes: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
+        attributeMapping: {
+          email: "email",
+          familyName: "family_name",
+          givenName: "given_name",
+          // Maps Google's phone_number to Cognito's phoneNumber if available.
+          // Google's standard profile scope typically does NOT include phone numbers.
+          // You may need to request additional permissions, but Google's OAuth2 for web applications has limited phone number access.
+          // Consider collecting them through your app's UI after Google OAuth login, rather than relying on Google to provide them.
+          phoneNumber: "phone_number"
+        }
       },
       callbackUrls: [
         "http://localhost:3000/",

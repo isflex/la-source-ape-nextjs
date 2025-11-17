@@ -2,20 +2,20 @@ import { NextRequest, NextResponse } from 'next/server'
 import { Amplify } from 'aws-amplify'
 import { generateClient } from 'aws-amplify/data'
 import type { Schema } from '@amplify/data/resource'
-import outputs from '@root/amplify_outputs.json'
+import { getCurrentConfig, getStorageConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection'
 import fs from 'fs'
 import path from 'path'
 import crypto from 'crypto'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 
 // Configure Amplify for server-side API routes
-Amplify.configure(outputs, { ssr: true })
+Amplify.configure(getCurrentConfig(), { ssr: true })
 
 const client = generateClient<Schema>()
 
 // Configure S3 client for server-side uploads
 const s3Client = new S3Client({
-  region: outputs?.storage?.aws_region || process.env.AWS_REGION || 'eu-west-3',
+  region: getStorageConfig()?.aws_region || process.env.AWS_REGION || 'eu-west-3',
 })
 
 // Logo management configuration
@@ -59,7 +59,7 @@ async function ensureNewsletterLogo(): Promise<string> {
     const logoS3Key = `newsletter-images/logo-${logoFileHash}.png`
 
     // Upload logo file to S3 using server-side SDK
-    const bucketName = outputs?.storage?.bucket_name
+    const bucketName: string = getStorageConfig()?.bucket_name!
     if (!bucketName) {
       throw new Error('S3 bucket not configured in Amplify outputs')
     }
