@@ -2,6 +2,7 @@ import { defineBackend } from '@aws-amplify/backend';
 import { PolicyStatement, Effect, Role, ServicePrincipal, PolicyDocument } from 'aws-cdk-lib/aws-iam';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { CfnUserPool } from 'aws-cdk-lib/aws-cognito';
+import * as aws_dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import { auth } from './auth/resource';
 import { data } from './data/resource';
 import { imageBase64Converter } from './functions/image-base64-converter/resource';
@@ -20,18 +21,31 @@ const backend = defineBackend({
   postConfirmation,
 });
 
-// Reference existing DynamoDB tables to preserve data (production only)
+// Add existing DynamoDB tables as external data sources (production only)
 // In dev sandbox, let Amplify create fresh tables to avoid data pollution
 if (process.env.FLEX_MODE === 'production') {
-  // Access the underlying CloudFormation resource to override table names
-  (backend.data.resources.tables["CareerDiscoveryTemplate"].node.defaultChild as any).addOverride(
-    'Properties.TableName',
-    'CareerDiscoveryTemplate-nu5mahmh6fb5vperr4pi7emfjq-NONE'
+  const externalDataSourcesStack = backend.createStack("ExternalDataSources")
+
+  const externalCareerTemplateTable = aws_dynamodb.Table.fromTableName(
+    externalDataSourcesStack,
+    "ExternalCareerDiscoveryTemplateTable",
+    "CareerDiscoveryTemplate-nu5mahmh6fb5vperr4pi7emfjq-NONE"
   )
 
-  (backend.data.resources.tables["CareerDiscoveryResponse"].node.defaultChild as any).addOverride(
-    'Properties.TableName',
-    'CareerDiscoveryResponse-nu5mahmh6fb5vperr4pi7emfjq-NONE'
+  const externalCareerResponseTable = aws_dynamodb.Table.fromTableName(
+    externalDataSourcesStack,
+    "ExternalCareerDiscoveryResponseTable",
+    "CareerDiscoveryResponse-nu5mahmh6fb5vperr4pi7emfjq-NONE"
+  )
+
+  backend.data.addDynamoDbDataSource(
+    "CareerDiscoveryTemplateDataSource",
+    externalCareerTemplateTable
+  )
+
+  backend.data.addDynamoDbDataSource(
+    "CareerDiscoveryResponseDataSource",
+    externalCareerResponseTable
   )
 }
 
