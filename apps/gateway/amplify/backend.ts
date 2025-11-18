@@ -49,12 +49,12 @@ if (process.env.FLEX_MODE === 'production') {
   )
 }
 
-// Add custom Cognito domain using CDK
-backend.auth.resources.userPool.addDomain('CustomDomain', {
-  cognitoDomain: {
-    domainPrefix: process.env.FLEX_GOOGLE_APP_DOMAIN_PREFIX!
-  }
-})
+// // Add custom Cognito domain using CDK
+// backend.auth.resources.userPool.addDomain('CustomDomain', {
+//   cognitoDomain: {
+//     domainPrefix: process.env.FLEX_GOOGLE_APP_DOMAIN_PREFIX!
+//   }
+// })
 
 // Reference existing S3 bucket instead of creating a new one
 const existingBucketName = process.env.FLEX_AWS_STORAGE_BUCKET_NAME!;
