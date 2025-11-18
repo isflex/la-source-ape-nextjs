@@ -20,6 +20,21 @@ const backend = defineBackend({
   postConfirmation,
 });
 
+// Reference existing DynamoDB tables to preserve data (production only)
+// In dev sandbox, let Amplify create fresh tables to avoid data pollution
+if (process.env.FLEX_MODE === 'production') {
+  // Access the underlying CloudFormation resource to override table names
+  (backend.data.resources.tables["CareerDiscoveryTemplate"].node.defaultChild as any).addOverride(
+    'Properties.TableName',
+    'CareerDiscoveryTemplate-nu5mahmh6fb5vperr4pi7emfjq-NONE'
+  )
+
+  (backend.data.resources.tables["CareerDiscoveryResponse"].node.defaultChild as any).addOverride(
+    'Properties.TableName',
+    'CareerDiscoveryResponse-nu5mahmh6fb5vperr4pi7emfjq-NONE'
+  )
+}
+
 // Add custom Cognito domain using CDK
 backend.auth.resources.userPool.addDomain('CustomDomain', {
   cognitoDomain: {
