@@ -12,6 +12,7 @@ export type Styles = {
   control: string;
   delete: string;
   fa: string;
+  flexinessRoot: string;
   hasArrowSeparator: string;
   hasBulletSeparator: string;
   hasDotSeparator: string;
@@ -56,7 +57,6 @@ export type Styles = {
   isFluid: string;
   isFocused: string;
   isFullhd: string;
-  isFullheight: string;
   isFullwidth: string;
   isHoverable: string;
   isIcon: string;
@@ -66,7 +66,6 @@ export type Styles = {
   isLowerAlpha: string;
   isLowerRoman: string;
   isMaxDesktop: string;
-  isMaxTablet: string;
   isMaxWidescreen: string;
   isMedium: string;
   isNarrow: string;

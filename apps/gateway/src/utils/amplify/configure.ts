@@ -81,9 +81,7 @@ const AMPLIFY_AUTH_CONFIG_V2: ResourcesConfig = {
   API: {
     GraphQL: {
       endpoint: process.env.FLEX_AWS_APPSYNC_GRAPHQL_ENDPOINT as string,
-      // customEndpoint: process.env.FLEX_AWS_APPSYNC_GRAPHQL_ENDPOINT as string,
       region: process.env.FLEX_AWS_PROJECT_REGION as string,
-      // customEndpointRegion: process.env.FLEX_AWS_PROJECT_REGION as string,
       defaultAuthMode: 'userPool',
       // Set the default auth mode to "apiKey" and provide the API key value
       // defaultAuthMode: 'apiKey',

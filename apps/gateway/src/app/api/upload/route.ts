@@ -13,29 +13,26 @@ async function getS3ClientWithCognito(idToken: string) {
   const { fromCognitoIdentityPool } = await import('@aws-sdk/credential-provider-cognito-identity')
   const { CognitoIdentityClient } = await import('@aws-sdk/client-cognito-identity')
 
-  const authConfig = getAuthConfig();
-  const storageConfig = getStorageConfig();
-
   console.log('S3 Client Debug (Cognito):', {
-    region: authConfig?.aws_region || 'eu-west-3',
-    identityPoolId: authConfig?.identity_pool_id,
-    userPoolId: authConfig?.user_pool_id,
-    bucketName: storageConfig?.bucket_name
+    region: getAuthConfig()?.aws_region || 'eu-west-3',
+    identityPoolId: getAuthConfig()?.identity_pool_id,
+    userPoolId: getAuthConfig()?.user_pool_id,
+    bucketName: getStorageConfig()?.bucket_name!
   })
 
   // Create Cognito Identity client
   const cognitoIdentity = new CognitoIdentityClient({
-    region: authConfig?.aws_region || 'eu-west-3'
+    region: getAuthConfig()?.aws_region || 'eu-west-3'
   })
 
   // Use Cognito Identity Pool with authenticated user credentials
   const client = new S3Client({
-    region: storageConfig?.aws_region || authConfig?.aws_region || 'eu-west-3',
+    region: getStorageConfig()?.aws_region || getAuthConfig()?.aws_region || 'eu-west-3',
     credentials: fromCognitoIdentityPool({
       client: cognitoIdentity,
-      identityPoolId: authConfig?.identity_pool_id || '',
+      identityPoolId: getAuthConfig()?.identity_pool_id || '',
       logins: {
-        [`cognito-idp.${authConfig?.aws_region}.amazonaws.com/${authConfig?.user_pool_id}`]: idToken
+        [`cognito-idp.${getAuthConfig()?.aws_region}.amazonaws.com/${getAuthConfig()?.user_pool_id}`]: idToken
       }
     })
   })
@@ -71,12 +68,10 @@ async function verifyAdminAuth(request: NextRequest): Promise<{ isAuthenticated:
     // Verify the Cognito JWT token
     const { CognitoJwtVerifier } = await import('aws-jwt-verify')
 
-    const authConfig = getAuthConfig();
-
     const verifier = CognitoJwtVerifier.create({
-      userPoolId: authConfig?.user_pool_id || '',
+      userPoolId: getAuthConfig()?.user_pool_id || '',
       tokenUse: 'id', // Use ID token for user identity
-      clientId: authConfig?.user_pool_client_id || ''
+      clientId: getAuthConfig()?.user_pool_client_id || ''
     })
 
     const payload = await verifier.verify(idToken)
@@ -250,9 +245,11 @@ async function streamUploadToS3(
   // Create readable stream from buffer
   const stream = Readable.from(fileBuffer)
 
-  // Dynamically import Upload for better compilation performance
-  const { Upload } = await import('@aws-sdk/lib-storage')
-  const client = await getS3ClientWithCognito(idToken)
+  // Dynamically import Upload and get client with consistent imports
+  const [{ Upload }, client] = await Promise.all([
+    import('@aws-sdk/lib-storage'),
+    getS3ClientWithCognito(idToken)
+  ])
 
   // Use S3 multipart upload with streaming
   const upload = new Upload({
