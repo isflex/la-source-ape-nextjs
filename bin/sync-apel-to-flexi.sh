@@ -15,10 +15,14 @@ SYNC_PATHS=(
 
 # Define paths to exclude from sync
 EXCLUDE_PATTERNS=(
+    "env/"
+    "pnpm-lock.yaml"
+    "apps/gateway/public/sitemap.xml"
     "apps/gateway/amplify/"
     "*.log"
     "node_modules/"
     ".DS_Store"
+    "apel-gateway.code-workspace"
 )
 
 # Check if flexi worktree exists
