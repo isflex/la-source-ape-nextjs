@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation'
 import { notFound } from 'next/navigation';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
@@ -20,8 +21,15 @@ import {
   ButtonMarkup,
   VariantState,
   InfoBlock,
+  InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
+  InfoBlockStatus,
+  IconName,
+  IconSize,
+  IconPosition,
+  IconStatus,
+  StatusIcon,
 } from '@flex-design-system/react-ts/client-sync-styled-default';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import PiscineCandidatTable from '@src/components/piscine/PiscineCandidatTable';
@@ -47,6 +55,7 @@ type PiscineFormData = {
 };
 
 export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
+  const router = useRouter();
   const { user } = useAuthenticator();
   const [piscineForm, setPiscineForm] = useState<PiscineFormData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -102,7 +111,7 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
   const handleAuthRequired = () => {
     // Use pathname + search to avoid port issues with OAuth redirects
     const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
-    window.location.href = `/auth/?mode=user&returnUrl=${returnUrl}`;
+    router.push(`/auth/?mode=user&returnUrl=${returnUrl}`);
   };
 
   if (isLoading) {
@@ -142,7 +151,9 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
           {/* Success/Error Messages */}
           {message && (
             <InfoBlock>
-              <InfoBlockHeader>
+              <InfoBlockHeader
+                status={message.isError ? InfoBlockStatus.DANGER : InfoBlockStatus.SUCCESS}
+                customIcon={message.isError ? IconName.UI_EXCLAMATION_CIRCLE : IconName.UI_CHECK_CIRCLE}>
                 <Title level={TitleLevel.LEVEL3}>
                   {message.isError ? 'Erreur' : 'Succès'}
                 </Title>
@@ -178,7 +189,7 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
           {/* Creator Badge */}
           {isCreator && (
             <InfoBlock>
-              <InfoBlockHeader>
+              <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.UI_INFO_CIRCLE}>
                 <Title level={TitleLevel.LEVEL3}>Mode Créateur</Title>
               </InfoBlockHeader>
               <InfoBlockContent>

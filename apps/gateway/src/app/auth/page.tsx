@@ -1,11 +1,27 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { I18n } from 'aws-amplify/utils';
+import { I18n, Hub } from 'aws-amplify/utils';
 import { Authenticator, useAuthenticator, translations } from '@aws-amplify/ui-react';
 import { signUp, confirmSignUp, autoSignIn, type SignUpOutput, type SignUpInput, type ConfirmSignUpInput } from 'aws-amplify/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Container, Section, Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-default';
+import {
+  Container,
+  InfoBlock,
+  InfoBlockAction,
+  InfoBlockContent,
+  InfoBlockHeader,
+  InfoBlockStatus,
+  IconName,
+  IconSize,
+  IconPosition,
+  IconStatus,
+  StatusIcon,
+  Section,
+  Text,
+  Title,
+  TitleLevel,
+} from '@flex-design-system/react-ts/client-sync-styled-default';
 
 // Configure translations
 I18n.putVocabularies(translations)
@@ -15,6 +31,43 @@ I18n.setLanguage('fr')
 const debugAuth = (message: string, data?: any) => {
   console.log(`[AUTH DEBUG] ${message}`, data || '');
 };
+
+function setupAuthListener() {
+  Hub.listen('auth', async (data) => {
+    debugAuth(`Hub event: ${data.payload.event}`, data.payload);
+
+    // "signInWithRedirect" | "signInWithRedirect_failure" | "tokenRefresh" | "tokenRefresh_failure" | "customOAuthState" | "signedIn" | "signedOut"
+    switch (data.payload.event) {
+      case 'signedIn':
+        debugAuth('SignIn event detected', data.payload);
+        break;
+      case 'signedIn':
+        debugAuth('SignOut event detected', data.payload);
+        break;
+      case 'tokenRefresh':
+        debugAuth('Token refresh detected', data.payload);
+        break;
+      case 'tokenRefresh_failure':
+        debugAuth('Token refresh failed', data.payload);
+        break;
+      case 'signInWithRedirect':
+        debugAuth('SignInwithRedirect detected', data.payload);
+        break;
+      case 'signInWithRedirect_failure':
+        debugAuth('SignInWithRedirect failed', data.payload);
+        break;
+      case 'customOAuthState':
+        debugAuth('Custom OAuth State', data.payload);
+        break;
+      default:
+        debugAuth(`Other auth event: ${data.payload.event}`, data.payload);
+        break;
+    }
+  });
+}
+
+// Initialize auth listener
+setupAuthListener();
 I18n.putVocabularies({
   // https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/dictionaries/authenticator/fr.ts
   fr: {
@@ -97,7 +150,8 @@ const authServices = {
       debugAuth('Signup response', { isSignUpComplete, userId, nextStep });
 
       if (nextStep?.signUpStep === 'CONFIRM_SIGN_UP') {
-        debugAuth('Signup requires confirmation - email should be sent');
+        const _deliveryMedium = nextStep?.codeDeliveryDetails?.deliveryMedium || 'email'
+        debugAuth(`Signup requires confirmation - ${_deliveryMedium} should be sent`);
       }
 
       return { isSignUpComplete, userId, nextStep };
@@ -118,16 +172,11 @@ const authServices = {
 
       debugAuth('Confirmation response', { isSignUpComplete, nextStep });
 
-      // Handle auto sign-in after confirmation (like Gen 1 implementation)
-      if (isSignUpComplete) {
-        debugAuth('Triggering auto sign-in');
-        try {
-          const signInResult = await autoSignIn();
-          debugAuth('Auto sign-in successful', signInResult);
-        } catch (autoSignInError) {
-          debugAuth('Auto sign-in failed', autoSignInError);
-          // Don't throw the error, let the user sign in manually
-        }
+      // Let the Hub listener handle autoSignIn
+      if (nextStep?.signUpStep === 'COMPLETE_AUTO_SIGN_IN') {
+        debugAuth('Confirmation complete, autoSignIn should be triggered by Hub');
+      } else if (isSignUpComplete) {
+        debugAuth('Sign-up complete', { nextStep });
       }
 
       return { isSignUpComplete, nextStep };
@@ -164,10 +213,14 @@ function AuthenticatedContent() {
   }, [user, router, searchParams]);
 
   return (
-    <div>
-      <p>Connexion réussie ! Redirection en cours...</p>
-      <button onClick={signOut}>Se déconnecter</button>
-    </div>
+    <InfoBlock>
+      <InfoBlockHeader status={InfoBlockStatus.SUCCESS} customIcon={IconName.UI_CHECK_CIRCLE}>
+        <Title level={TitleLevel.LEVEL3}>Connexion réussie !</Title>
+      </InfoBlockHeader>
+      <InfoBlockContent>
+        <Text>Redirection en cours...</Text>
+      </InfoBlockContent>
+    </InfoBlock>
   );
 }
 

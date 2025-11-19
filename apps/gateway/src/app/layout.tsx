@@ -31,8 +31,6 @@ import classNames from 'classnames'
 import {
   View as FlexRootView,
 } from '@src/components/flex-server-components'
-// import {
-//  } from '@flex-design-system/react-ts/client-sync-styled-default'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { inlineStyles } from '@src/styles/inlineStyles'
 import '@src/styles/globals.css'

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation'
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import DOMPurify from 'dompurify';
@@ -31,8 +32,15 @@ import {
   TitleLevel,
   VariantState,
   InfoBlock,
+  InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
+  InfoBlockStatus,
+  IconName,
+  IconSize,
+  IconPosition,
+  IconStatus,
+  StatusIcon,
   Text,
 } from '@flex-design-system/react-ts/client-sync-styled-default';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
@@ -51,6 +59,7 @@ type Newsletter = {
 };
 
 export default function NewsletterCreationPage() {
+  const router = useRouter();
   const { user } = useAuthenticator();
   const isAdmin = !!user;
 
@@ -138,7 +147,7 @@ export default function NewsletterCreationPage() {
     } else {
       // Redirect to auth page for admin login (no signup)
       const returnUrl = encodeURIComponent('/newsletter/creer/');
-      window.location.href = `/auth/?mode=admin&returnUrl=${returnUrl}`;
+      router.push(`/auth/?mode=admin&returnUrl=${returnUrl}`);
     }
   };
 
@@ -341,7 +350,7 @@ export default function NewsletterCreationPage() {
           {/* Success/Error Messages */}
           {createSuccess && (
             <InfoBlock>
-              <InfoBlockHeader>
+              <InfoBlockHeader status={InfoBlockStatus.SUCCESS} customIcon={IconName.UI_CHECK_CIRCLE}>
                 <Title level={TitleLevel.LEVEL3}>Succès</Title>
               </InfoBlockHeader>
               <InfoBlockContent>
@@ -352,7 +361,7 @@ export default function NewsletterCreationPage() {
 
           {createError && (
             <InfoBlock>
-              <InfoBlockHeader>
+              <InfoBlockHeader status={InfoBlockStatus.DANGER} customIcon={IconName.UI_EXCLAMATION_CIRCLE}>
                 <Title level={TitleLevel.LEVEL3}>Erreur</Title>
               </InfoBlockHeader>
               <InfoBlockContent>
@@ -367,7 +376,7 @@ export default function NewsletterCreationPage() {
               <Text className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>Chargement des newsletters...</Text>
             ) : error ? (
               <InfoBlock>
-                <InfoBlockHeader>
+                <InfoBlockHeader status={InfoBlockStatus.DANGER} customIcon={IconName.UI_EXCLAMATION_CIRCLE}>
                   <Title level={TitleLevel.LEVEL3}>Erreur</Title>
                 </InfoBlockHeader>
                 <InfoBlockContent>

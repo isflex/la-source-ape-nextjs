@@ -6,6 +6,7 @@
   "keywords": [],
   "license": "UNLICENSED",
   "author": "Flexiness <hello@flexiness.com>",
+  "sideEffects": false,
   "type": "module",
   "exports": {
     ".": {

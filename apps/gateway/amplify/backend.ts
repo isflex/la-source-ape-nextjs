@@ -39,17 +39,18 @@ if (process.env.FLEX_MODE === 'production') {
   )
 
   backend.data.addDynamoDbDataSource(
-    "CareerDiscoveryTemplateDataSource",
+    "CareerDiscoveryTemplateTable",
     externalCareerTemplateTable
   )
 
   backend.data.addDynamoDbDataSource(
-    "CareerDiscoveryResponseDataSource",
+    "CareerDiscoveryResponseTable",
     externalCareerResponseTable
   )
 }
 
 // // Add custom Cognito domain using CDK
+// // /!\ THIS WILL NOT WORK.
 // backend.auth.resources.userPool.addDomain('CustomDomain', {
 //   cognitoDomain: {
 //     domainPrefix: process.env.FLEX_GOOGLE_APP_DOMAIN_PREFIX!
@@ -105,6 +106,57 @@ backend.postConfirmation.resources.lambda.addToRolePolicy(
       `arn:aws:cognito-idp:${existingBucketRegion}:*:userpool/*`
     ],
   })
+);
+
+// Configure explicit authentication flows
+const { cfnResources } = backend.auth.resources;
+const { cfnUserPool, cfnUserPoolClient } = cfnResources;
+
+// Enable explicit authentication flows to support different auth types
+cfnUserPoolClient.explicitAuthFlows = [
+  // /////////////////////////////////////////////////////////////////////////////
+  // // Token refresh
+  // /////////////////////////////////////////////////////////////////////////////
+  'ALLOW_REFRESH_TOKEN_AUTH',
+
+  // /////////////////////////////////////////////////////////////////////////////
+  // // Client SRP (recommended)
+  // /////////////////////////////////////////////////////////////////////////////
+  'ALLOW_USER_SRP_AUTH',
+
+  // /////////////////////////////////////////////////////////////////////////////
+  // // Client password (no SRP)
+  // /////////////////////////////////////////////////////////////////////////////
+  // 'ALLOW_USER_PASSWORD_AUTH',
+
+  // /////////////////////////////////////////////////////////////////////////////
+  // Server password (no SRP)
+  // /////////////////////////////////////////////////////////////////////////////
+  'ALLOW_ADMIN_USER_PASSWORD_AUTH',
+
+  // /////////////////////////////////////////////////////////////////////////////
+  // // Choice-based modern flow. Allows users to choose from multiple authentication methods
+  // // - EMAIL_OTP - Email one-time password
+  // // - SMS_OTP - SMS one-time password
+  // // - WEB_AUTHN - WebAuthn passkeys
+  // // - PASSWORD - Traditional password
+  // // - PASSWORD_SRP - Password with SRP encryption
+  // /////////////////////////////////////////////////////////////////////////////
+  // 'ALLOW_USER_AUTH',
+
+  // /////////////////////////////////////////////////////////////////////////////
+  // // Custom challenges
+  // /////////////////////////////////////////////////////////////////////////////
+  // 'ALLOW_CUSTOM_AUTH',
+];
+
+// Enable passwordless sign-in methods (optional)
+cfnUserPool.addPropertyOverride(
+  'Policies.SignInPolicy.AllowedFirstAuthFactors',
+  [
+    'PASSWORD',
+    // 'WEB_AUTHN', 'EMAIL_OTP', 'SMS_OTP'
+  ]
 );
 
 // SMS Configuration - Disabled until SNS production access approved
