@@ -1,3 +1,0 @@
-Test file to trigger sync between worktrees
-Created in apel worktree
-Should sync to flexi
