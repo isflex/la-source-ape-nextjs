@@ -23,6 +23,7 @@ EXCLUDE_PATTERNS=(
     "node_modules/"
     ".DS_Store"
     "apel-gateway.code-workspace"
+    ".husky/pre-commit"
 )
 
 # Check if flexi worktree exists
