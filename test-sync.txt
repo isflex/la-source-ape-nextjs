@@ -1,3 +1,0 @@
-Test file for husky sync functionality
-Created: 2025-01-19 20:36
-Worktree: apel
