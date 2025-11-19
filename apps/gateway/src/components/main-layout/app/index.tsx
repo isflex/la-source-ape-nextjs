@@ -6,9 +6,6 @@ import { headers } from 'next/headers'
 import { isMobile } from '@src/utils'
 
 import classNames from 'classnames'
-// import {
-// } from '@flex-design-system/react-ts/client-sync-styled-default'
-// import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/layout.module.scss'
 
 // import {

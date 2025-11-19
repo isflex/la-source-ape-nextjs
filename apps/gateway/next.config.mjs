@@ -93,6 +93,12 @@ const mainConfig = new Config(async (phase, args) => {
       const exclusionPattern = excludedRoutes.join('|')
 
       return [
+        // Handle root route specifically - server-side rewrite to web-app
+        {
+          source: '/',
+          destination: '/web-app/',
+        },
+        // Handle all other non-excluded routes
         {
           source: `/((?!${exclusionPattern}).*)/:path*`,
           destination: '/web-app/$1/:path*',
