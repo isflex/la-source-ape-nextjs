@@ -1,33 +1,37 @@
 import React from 'react'
 import classNames from 'classnames'
+import { Box, BoxHeader, BoxContent } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
 import {
-  Box,
-  BoxHeader,
-  BoxContent,
-  Divider,
   Icon,
   IconSize,
   IconPosition,
   IconName,
-  IconColor,
-  Link,
-  Section,
+  IconColor
+} from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
+import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link';
+import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
+import {
   Table,
   TableBody,
   TableHead,
   TableTd,
   TableTh,
-  TableTr,
-  Text,
+  TableTr
+} from '@flex-design-system/react-ts/client-sync-styled-direct/table';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import {
   Title,
   TitleLevel,
   TitleMarkup,
+} from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import {
   TypographyAlign,
   TypographyBold,
   TypographyColor,
-  TypographyTransform,
-  View
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+  TypographyTransform
+} from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
+import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 const App: React.FC = () => {
   return (

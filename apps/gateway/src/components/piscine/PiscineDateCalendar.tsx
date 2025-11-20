@@ -5,21 +5,19 @@ import DatePicker from 'react-datepicker';
 import { fr } from 'date-fns/locale';
 import { format } from 'date-fns';
 import classNames from 'classnames';
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
-  Box,
-  Title,
-  TitleLevel,
-  Text,
-  Button,
-  ButtonMarkup,
-  VariantState,
   Table,
   TableHead,
   TableBody,
   TableTr,
   TableTh,
-  TableTd,
-} from '@flex-design-system/react-ts/client-sync-styled-default';
+  TableTd
+} from '@flex-design-system/react-ts/client-sync-styled-direct/table';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import { isWorkingDay, sortDates } from '@src/lib/piscine-helpers';
 

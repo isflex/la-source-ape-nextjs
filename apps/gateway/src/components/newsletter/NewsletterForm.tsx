@@ -2,33 +2,31 @@
 
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
+import { Input, type InputChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
+import { Textarea, type TextareaChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/textarea';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
-  Box,
-  Button,
-  ButtonMarkup,
-  Divider,
-  Input,
-  type InputChangeEvent,
-  Textarea,
-  type TextareaChangeEvent,
-  Title,
-  TitleLevel,
-  Text,
-  VariantState,
   InfoBlock,
   InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
-  InfoBlockStatus,
+  InfoBlockStatus
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
+import {
   Icon,
   IconSize,
   IconPosition,
   IconName,
   IconColor,
   IconStatus,
-  StatusIcon,
-  Section,
-} from '@flex-design-system/react-ts/client-sync-styled-default';
+  StatusIcon
+} from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
+import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import ContentBlockForm, { ContentBlock, ContentBlockType } from './ContentBlockForm';
 import { NewsletterSchema, type NewsletterFormData } from '@src/lib/newsletter-helpers';

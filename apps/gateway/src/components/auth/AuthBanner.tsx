@@ -6,26 +6,7 @@ import { signOut, fetchUserAttributes, type UserAttributeKey } from 'aws-amplify
 import { useRouter } from 'next/navigation';
 
 import classNames from 'classnames';
-import {
-  // Box,
-  // Button,
-  // ButtonMarkup,
-  // Container,
-  // Section,
-  // Table,
-  // TableHead,
-  // TableBody,
-  // TableTr,
-  // TableTh,
-  // TableTd,
-  // Title,
-  // TitleLevel,
-  // VariantState,
-  // InfoBlock,
-  // InfoBlockContent,
-  // InfoBlockHeader,
-  Text,
-} from '@flex-design-system/react-ts/client-sync-styled-default';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 
 

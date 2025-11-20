@@ -1,26 +1,26 @@
 'use client'
 
 import React, { useState, useRef, useCallback } from 'react'
+import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
-  Button,
-  ButtonMarkup,
-  Input,
-  VariantState,
   InfoBlock,
   InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
-  InfoBlockStatus,
+  InfoBlockStatus
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
+import {
   Icon,
   IconSize,
   IconPosition,
   IconName,
   IconColor,
-  IconStatus,
-  Text,
-  Title,
-  TitleLevel
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+  IconStatus
+} from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import classNames from 'classnames'
 

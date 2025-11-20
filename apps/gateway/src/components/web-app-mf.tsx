@@ -11,23 +11,13 @@ const MF = `${process.env.NEXT_PUBLIC_POKER_CLIENT_NAME}`
 const REMOTE = `${process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST}`
 
 // import classNames from 'classnames'
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import {
-  // flexStyles,
-  // Button,
-  // ButtonMarkup,
-  // Box,
-  // Link,
-  Text,
-  Title,
-  TitleLevel,
-  // VariantState,
-  // IconName,
   InfoBlock,
-  // InfoBlockAction,
   InfoBlockContent,
-  InfoBlockHeader,
-  // InfoBlockStatus,
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+  InfoBlockHeader
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block'
 // import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
 const WebAppMF: React.FC<{mobileCheck: boolean}> = observer((props) => {

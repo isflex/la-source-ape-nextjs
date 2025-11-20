@@ -6,26 +6,25 @@ import type { Schema } from '@amplify/data/resource';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { z } from 'zod';
 import classNames from 'classnames';
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
+import { Input, type InputChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
+import { Radio } from '@flex-design-system/react-ts/client-sync-styled-direct/radio';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
-  Box,
-  Button,
-  ButtonMarkup,
-  Divider,
-  Input,
-  type InputChangeEvent,
-  Radio,
-  Title,
-  TitleLevel,
-  Text,
-  VariantState,
   InfoBlock,
   InfoBlockContent,
-  InfoBlockHeader,
+  InfoBlockHeader
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
+import {
   Icon,
   IconSize,
   IconPosition,
-  IconName,
-} from '@flex-design-system/react-ts/client-sync-styled-default';
+  IconName
+} from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 
 import PiscineTimeSlotPicker from './PiscineTimeSlotPicker';

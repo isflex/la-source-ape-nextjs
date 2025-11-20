@@ -8,10 +8,7 @@ import routesActive from '@root/routes.active.json'
 import routesMeta from '@root/routes.meta.json'
 import { useGetPageNameClientSide } from '@src/utils'
 
-import {
-  // flexStyles,
-  Text,
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/navbar.module.scss'
 

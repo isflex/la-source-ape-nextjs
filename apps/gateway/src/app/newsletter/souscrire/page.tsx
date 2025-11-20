@@ -11,30 +11,30 @@ import type { Schema } from '@amplify/data/resource';
 const client = generateClient<Schema>();
 
 import classNames from 'classnames';
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
+import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
+import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
-  Box,
-  Button,
-  ButtonMarkup,
-  Container,
-  Divider,
-  Section,
-  Title,
-  TitleLevel,
-  VariantState,
   InfoBlock,
   InfoBlockContent,
   InfoBlockHeader,
-  InfoBlockStatus,
+  InfoBlockStatus
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
+import {
   Icon,
   IconSize,
   IconPosition,
   IconName,
   IconColor,
   IconStatus,
-  StatusIcon,
-  Input,
-  View,
-} from '@flex-design-system/react-ts/client-sync-styled-default';
+  StatusIcon
+} from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
+import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
+import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 
 // Zod validation schema for Newsletter signup

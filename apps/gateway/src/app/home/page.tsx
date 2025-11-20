@@ -8,23 +8,17 @@ import type { NextPage } from 'next'
 import { PageAppProps } from '@root/types/additional'
 
 import classNames from 'classnames'
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { IconName } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import {
-  // flexStyles,
-  // Button,
-  // ButtonMarkup,
-  Box,
-  // Link,
-  Text,
-  Title,
-  TitleLevel,
-  // VariantState,
-  IconName,
   InfoBlock,
   InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
-  InfoBlockStatus,
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+  InfoBlockStatus
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
 const Home: NextPage<PageAppProps> = () => {

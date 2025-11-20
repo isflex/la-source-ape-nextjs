@@ -5,15 +5,11 @@ import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import { z } from 'zod';
 import classNames from 'classnames';
-import {
-  Box,
-  Button,
-  ButtonMarkup,
-  Input,
-  type InputChangeEvent,
-  Text,
-  VariantState,
-} from '@flex-design-system/react-ts/client-sync-styled-default';
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { Input, type InputChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import { PiscineCandidatSchema, type PiscineCandidatData } from '@src/lib/piscine-helpers';
 

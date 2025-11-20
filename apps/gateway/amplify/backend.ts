@@ -39,12 +39,12 @@ if (process.env.FLEX_MODE === 'production') {
   )
 
   backend.data.addDynamoDbDataSource(
-    "CareerDiscoveryTemplateTable",
+    "CareerDiscoveryTemplateDataSource",
     externalCareerTemplateTable
   )
 
   backend.data.addDynamoDbDataSource(
-    "CareerDiscoveryResponseTable",
+    "CareerDiscoveryResponseDataSource",
     externalCareerResponseTable
   )
 }

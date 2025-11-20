@@ -1,18 +1,16 @@
 'use client';
 
 import React, { useState } from 'react';
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
-  Box,
-  Button,
-  ButtonMarkup,
-  Title,
-  TitleLevel,
-  Text,
-  VariantState,
   InfoBlock,
   InfoBlockContent,
-  InfoBlockHeader,
-} from '@flex-design-system/react-ts/client-sync-styled-default';
+  InfoBlockHeader
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 
 interface NewsletterFormData {

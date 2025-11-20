@@ -5,23 +5,24 @@ import { I18n, Hub } from 'aws-amplify/utils';
 import { Authenticator, useAuthenticator, translations } from '@aws-amplify/ui-react';
 import { signUp, confirmSignUp, autoSignIn, type SignUpOutput, type SignUpInput, type ConfirmSignUpInput } from 'aws-amplify/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
 import {
-  Container,
   InfoBlock,
   InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
-  InfoBlockStatus,
+  InfoBlockStatus
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
+import {
   IconName,
   IconSize,
   IconPosition,
   IconStatus,
-  StatusIcon,
-  Section,
-  Text,
-  Title,
-  TitleLevel,
-} from '@flex-design-system/react-ts/client-sync-styled-default';
+  StatusIcon
+} from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
+import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 
 // Configure translations
 I18n.putVocabularies(translations)

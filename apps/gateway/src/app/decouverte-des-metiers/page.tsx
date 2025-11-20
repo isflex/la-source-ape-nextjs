@@ -20,37 +20,36 @@ import {
 } from '@src/lib/admin-auth';
 
 import classNames from 'classnames';
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
+import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
+import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
-  Box,
-  Button,
-  ButtonMarkup,
-  Container,
-  Divider,
-  Section,
-  Text,
-  Title,
-  TitleLevel,
-  VariantState,
   InfoBlock,
   InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
-  InfoBlockStatus,
+  InfoBlockStatus
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
+import {
   Icon,
   IconSize,
   IconPosition,
   IconName,
   IconColor,
   IconStatus,
-  StatusIcon,
-  Input,
-  Radio,
-  Rows,
-  RowItem,
-  Textarea,
-  Link,
-  View,
-} from '@flex-design-system/react-ts/client-sync-styled-default';
+  StatusIcon
+} from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
+import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
+import { Radio } from '@flex-design-system/react-ts/client-sync-styled-direct/radio';
+import { Rows, RowItem } from '@flex-design-system/react-ts/client-sync-styled-direct/rows';
+import { Textarea } from '@flex-design-system/react-ts/client-sync-styled-direct/textarea';
+import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link';
+import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 
 // Mapping objects for availability options

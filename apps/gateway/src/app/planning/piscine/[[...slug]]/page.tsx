@@ -10,27 +10,27 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 const client = generateClient<Schema>();
 
 import classNames from 'classnames';
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
+import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
-  Box,
-  Container,
-  Section,
-  Title,
-  TitleLevel,
-  Text,
-  Button,
-  ButtonMarkup,
-  VariantState,
   InfoBlock,
   InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
-  InfoBlockStatus,
+  InfoBlockStatus
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
+import {
   IconName,
   IconSize,
   IconPosition,
   IconStatus,
-  StatusIcon,
-} from '@flex-design-system/react-ts/client-sync-styled-default';
+  StatusIcon
+} from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import PiscineCandidatTable from '@src/components/piscine/PiscineCandidatTable';
 import { formatDayOfWeek, formatSchoolLevel } from '@src/lib/piscine-helpers';

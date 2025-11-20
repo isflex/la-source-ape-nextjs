@@ -3,13 +3,10 @@
 import React, { useState, useEffect } from 'react'
 import { notFound } from 'next/navigation'
 import classNames from 'classnames'
-import {
-  Box,
-  Container,
-  Section,
-  Title,
-  TitleLevel,
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
+import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
 interface NewsletterContentPageProps {
