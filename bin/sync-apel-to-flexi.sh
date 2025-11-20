@@ -104,7 +104,7 @@ if [[ -n $(git status --porcelain) ]]; then
 Synced by post-commit hook
 Files synced:$RELEVANT_FILES
 
-[skip-ci]"
+[skip-cd]"
 
     echo "✅ Successfully synced and committed changes to flexi"
 else
