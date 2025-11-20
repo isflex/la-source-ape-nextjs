@@ -9,7 +9,7 @@ CURRENT_WORKTREE=$(basename "$(pwd)")
 echo "📍 Current worktree: $CURRENT_WORKTREE"
 
 # Execute appropriate sync script based on worktree
-if [ "$CURRENT_WORKTREE" = "flexi" ]; then
+if [ "$CURRENT_WORKTREE" = "apel" ]; then
   pnpm lint
   pnpm test
 

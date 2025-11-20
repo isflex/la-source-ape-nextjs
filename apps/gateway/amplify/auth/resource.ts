@@ -1,33 +1,104 @@
-// import { defineAuth } from '@aws-amplify/backend';
-
-// /**
-//  * Define auth resource for sandbox development
-//  * @see https://docs.amplify.aws/gen2/build-a-backend/auth/concepts/
-//  */
-// export const auth = defineAuth({
-//   loginWith: {
-//     email: true,
-//   },
-// });
-
-
-import { referenceAuth } from '@aws-amplify/backend';
-// import { SecretValue } from 'aws-cdk-lib';
+import { defineAuth, secret } from '@aws-amplify/backend';
+import { customMessage } from '../functions/custom-message/resource';
+import { postConfirmation } from '../functions/post-confirmation/resource';
 
 /**
- * Reference existing Cognito User Pool for admin authentication
- * @see https://docs.amplify.aws/gen2/build-a-backend/auth/concepts/
+ * Define auth resource with lambda triggers and Google OAuth
+ * Migrated from previous Amplify setup to match production configuration
  */
-
-export const auth = referenceAuth({
-  // userPoolId: SecretValue.ssmSecure('FLEX_AWS_COGNITO_USER_POOL_ID').unsafeUnwrap(),
-  // identityPoolId: SecretValue.ssmSecure('FLEX_AWS_COGNITO_IDENTITY_POOL').unsafeUnwrap(),
-  // userPoolClientId: SecretValue.ssmSecure('FLEX_AWS_COGNITO_USER_POOL_APP_CLIENT_ID').unsafeUnwrap(),
-  // authRoleArn: SecretValue.ssmSecure('FLEX_AWS_AUTHENTICATED_ROLE_ARN').unsafeUnwrap(),
-  // unauthRoleArn: SecretValue.ssmSecure('FLEX_AWS_UNAUTHENTICATED_ROLE_ARN').unsafeUnwrap(),
-  userPoolId: process.env.FLEX_AWS_COGNITO_USER_POOL_ID!,
-  identityPoolId: process.env.FLEX_AWS_COGNITO_IDENTITY_POOL!,
-  userPoolClientId: process.env.FLEX_AWS_COGNITO_USER_POOL_APP_CLIENT_ID!,
-  authRoleArn: process.env.FLEX_AWS_AUTHENTICATED_ROLE_ARN!,
-  unauthRoleArn: process.env.FLEX_AWS_UNAUTHENTICATED_ROLE_ARN!,
+export const auth = defineAuth({
+  loginWith: {
+    email: true,
+    // phone: true, // Disabled until SNS production access approved
+    externalProviders: {
+      google: {
+        clientId: secret('FLEX_GOOGLE_APP_CLIENT_ID'),
+        clientSecret: secret('FLEX_GOOGLE_APP_CLIENT_SECRET'),
+        scopes: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
+        attributeMapping: {
+          email: "email",
+          familyName: "family_name",
+          givenName: "given_name",
+          // Maps Google's phone_number to Cognito's phoneNumber if available.
+          // Google's standard profile scope typically does NOT include phone numbers.
+          // You may need to request additional permissions, but Google's OAuth2 for web applications has limited phone number access.
+          // Consider collecting them through your app's UI after Google OAuth login, rather than relying on Google to provide them.
+          phoneNumber: "phone_number"
+        }
+      },
+      callbackUrls: [
+        "http://localhost:3000/",
+        "http://localhost:3000/web-app/",
+        "http://localhost:3001/",
+        "http://localhost:4009/",
+        "https://after-school.flexiness.com/",
+        "https://after-school.flexiness.com:4009/",
+        "https://ape.ecolelasource.org/",
+        "https://ape.ecolelasource.org/web-app/",
+        "https://ape.ecolelasource.org:9898/",
+        "https://ape.ecolelasource.org:9898/web-app/",
+        "https://apelasource.org/",
+        "https://apelasource.org/web-app/",
+        "https://local.flexiness.com:4009/",
+        "https://main.d1cftsvc5q8k92.amplifyapp.com/",
+        "https://main.d1cftsvc5q8k92.amplifyapp.com/web-app/",
+        "https://main.d2hx7qu8b35esn.amplifyapp.com/",
+        "https://main.d2hx7qu8b35esn.amplifyapp.com/web-app/",
+        "https://main.d2hx7qu8b35esn.amplifyapp.com:9898/",
+        "https://main.d2hx7qu8b35esn.amplifyapp.com:9898/web-app/",
+        "https://web-app.ecolelasource.org/",
+        "https://web-app.ecolelasource.org:4009/"
+      ],
+      logoutUrls: [
+        "http://localhost:3000/",
+        "http://localhost:3000/web-app/",
+        "http://localhost:3001/",
+        "http://localhost:4009/",
+        "https://after-school.flexiness.com/",
+        "https://after-school.flexiness.com:4009/",
+        "https://ape.ecolelasource.org/",
+        "https://ape.ecolelasource.org/web-app/",
+        "https://ape.ecolelasource.org:9898/",
+        "https://ape.ecolelasource.org:9898/web-app/",
+        "https://apelasource.org/",
+        "https://apelasource.org/web-app/",
+        "https://local.flexiness.com:4009/",
+        "https://main.d1cftsvc5q8k92.amplifyapp.com/",
+        "https://main.d1cftsvc5q8k92.amplifyapp.com/web-app/",
+        "https://main.d2hx7qu8b35esn.amplifyapp.com/",
+        "https://main.d2hx7qu8b35esn.amplifyapp.com/web-app/",
+        "https://main.d2hx7qu8b35esn.amplifyapp.com:9898/",
+        "https://main.d2hx7qu8b35esn.amplifyapp.com:9898/web-app/",
+        "https://web-app.ecolelasource.org/",
+        "https://web-app.ecolelasource.org:4009/"
+      ],
+    },
+  },
+  // multifactor: {
+  //   mode: 'OPTIONAL',
+  //   sms: true,
+  // }, // Disabled until SNS production access approved
+  userAttributes: {
+    email: {
+      required: true,
+      mutable: true
+    },
+    phoneNumber: {
+      required: false,
+      mutable: true
+    },
+    givenName: {
+      required: true,
+      mutable: true
+    },
+    familyName: {
+      required: true,
+      mutable: true
+    }
+  },
+  triggers: {
+    customMessage,
+    postConfirmation
+  },
+  groups: ["v4onBoardSignUpGroup"]
 });

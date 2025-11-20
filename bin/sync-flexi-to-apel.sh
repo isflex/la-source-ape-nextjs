@@ -24,6 +24,8 @@ EXCLUDE_PATTERNS=(
     ".DS_Store"
     "flexi-gateway.code-workspace"
     ".husky/pre-commit"
+    "**/dist/"
+    "**/build/"
 )
 
 # Check if apel worktree exists

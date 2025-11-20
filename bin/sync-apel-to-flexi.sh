@@ -24,6 +24,8 @@ EXCLUDE_PATTERNS=(
     ".DS_Store"
     "apel-gateway.code-workspace"
     ".husky/pre-commit"
+    "**/dist/"
+    "**/build/"
 )
 
 # Check if flexi worktree exists
