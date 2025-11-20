@@ -9,23 +9,7 @@ import dynamic from 'next/dynamic'
 import { useInView } from 'react-intersection-observer'
 
 import classNames from 'classnames'
-import {
-  // flexStyles,
-  // Button,
-  // ButtonMarkup,
-  // Box,
-  Link,
-  // Text,
-  // Title,
-  // TitleLevel,
-  // VariantState,
-  // IconName,
-  // InfoBlock,
-  // InfoBlockAction,
-  // InfoBlockContent,
-  // InfoBlockHeader,
-  // InfoBlockStatus,
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/footer.module.scss'
 import { default as stylesLogo } from '@src/styles/scss/pages/logo.module.scss'

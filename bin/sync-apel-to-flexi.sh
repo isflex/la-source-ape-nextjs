@@ -19,11 +19,15 @@ EXCLUDE_PATTERNS=(
     "pnpm-lock.yaml"
     "apps/gateway/public/sitemap.xml"
     "apps/gateway/amplify/"
+    "apps/gateway/.amplify/"
+    "apps/gateway/amplify_outputs.json"
     "*.log"
     "node_modules/"
     ".DS_Store"
     "apel-gateway.code-workspace"
     ".husky/pre-commit"
+    "**/dist/"
+    "**/build/"
 )
 
 # Check if flexi worktree exists

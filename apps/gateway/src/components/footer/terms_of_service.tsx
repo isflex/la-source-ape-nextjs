@@ -1,17 +1,11 @@
 import React from 'react'
 import classNames from 'classnames'
-import {
-  Box,
-  BoxHeader,
-  BoxContent,
-  Divider,
-  Section,
-  Text,
-  Title,
-  TitleLevel,
-  TitleMarkup,
-  View
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+import { Box, BoxHeader, BoxContent } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
+import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { Title, TitleLevel, TitleMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 const App: React.FC = () => {
   return (

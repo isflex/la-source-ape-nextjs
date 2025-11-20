@@ -1,18 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  Box,
-  Button,
-  ButtonMarkup,
-  Input,
-  Select,
-  type SelectChangeEvent,
-  Textarea,
-  type TextareaChangeEvent,
-  VariantState,
-  Text,
-} from '@flex-design-system/react-ts/client-sync-styled-default';
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
+import { Select, type SelectChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/select';
+import { Textarea, type TextareaChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/textarea';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import { type ContentBlockData } from '@src/lib/newsletter-helpers';
 import ImageUploader, { type ImageData } from './ImageUploader';

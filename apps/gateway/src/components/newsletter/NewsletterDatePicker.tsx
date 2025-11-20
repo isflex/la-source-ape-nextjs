@@ -2,7 +2,8 @@
 
 import React, { forwardRef } from 'react'
 import DatePicker from 'react-datepicker'
-import { Input, IconName } from '@flex-design-system/react-ts/client-sync-styled-default'
+import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
+import { IconName } from '@flex-design-system/react-ts/client-sync-styled-direct/icon'
 import { fr } from 'date-fns/locale'
 import { format, parseISO } from 'date-fns'
 import classNames from 'classnames'

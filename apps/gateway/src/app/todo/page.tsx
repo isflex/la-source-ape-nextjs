@@ -11,24 +11,20 @@ import type { Schema } from '@amplify/data/resource'
 const client = generateClient<Schema>()
 
 import classNames from 'classnames'
+import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
+import { IconName } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import {
-  Button,
-  ButtonMarkup,
-  Link,
-  Text,
-  // TextLevel,
-  Title,
-  TitleLevel,
-  VariantState,
-  IconName,
   InfoBlock,
   InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
-  InfoBlockStatus,
-  Modal,
-  // flexStyles
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+  InfoBlockStatus
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
+import { Modal } from '@flex-design-system/react-ts/client-sync-styled-direct/modal';
 // import { default as flexStyles } from '@flex-design-system/framework'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 

@@ -2,12 +2,9 @@
 
 import React from 'react';
 import classNames from 'classnames';
-import {
-  Box,
-  Title,
-  TitleLevel,
-  Text,
-} from '@flex-design-system/react-ts/client-sync-styled-default';
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import { getTimeSlotOptions, validateTimeInRange } from '@src/lib/piscine-helpers';
 

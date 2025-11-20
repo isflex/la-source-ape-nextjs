@@ -7,41 +7,14 @@ import { isMobile } from '@src/utils'
 // const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf'), { ssr: true })
 
 // import classNames from 'classnames'
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { IconName } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import {
-  // Box,
-  // Button,
-  // ButtonMarkup,
-  // Columns,
-  // ColumnsItem,
-  // Container,
-  // Divider,
-  // Link,
-  // List,
-  // ListItem,
-  // ListItemDescription,
-  // Text,
-  Title,
-  TitleLevel,
-  // VariantState,
-  IconName,
-  // IconSize,
-  // IconPosition,
-  // IconStatus,
-  // StatusIcon,
   InfoBlock,
-  // InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
-  InfoBlockStatus,
-  // Input,
-  // Radio,
-  // Section,
-  // Select,
-  // SelectOption,
-  // Textarea,
-  // Modal,
-  // View,
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+  InfoBlockStatus
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
 // import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
 async function actionPageInfo() {

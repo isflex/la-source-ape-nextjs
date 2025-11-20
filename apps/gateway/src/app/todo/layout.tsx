@@ -8,9 +8,7 @@ import classNames from 'classnames'
 import {
   Title,
 } from '@src/components/flex-server-components'
-import {
-  TitleLevel
- } from '@flex-design-system/react-ts/client-sync-styled-default'
+import { TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/todo.module.scss'
 

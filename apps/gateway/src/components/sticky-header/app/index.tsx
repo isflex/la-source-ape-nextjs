@@ -5,10 +5,6 @@ import dynamic from 'next/dynamic'
 import Sticky from 'react-sticky-el'
 
 // import classNames from 'classnames'
-// import {
-//   // flexStyles,
-//   Text,
-// } from '@flex-design-system/react-ts/client-sync-styled-default'
 // import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/sticky.module.scss'
 

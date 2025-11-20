@@ -6,13 +6,8 @@ import { getStores } from '@flexiness/domain-store'
 const stores = getStores()
 
 import classNames from 'classnames'
-import {
-  Title,
-  Text,
-} from '@flex-design-system/react-ts/client-sync-styled-default'
-import {
-  TitleLevel
- } from '@flex-design-system/react-ts/client-sync-styled-default'
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss'
 

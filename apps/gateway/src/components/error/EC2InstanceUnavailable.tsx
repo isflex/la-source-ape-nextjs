@@ -3,25 +3,18 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import classNames from 'classnames'
+import { Button } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { Box, BoxContent } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
-  Button,
-  // ButtonMarkup,
-  Box,
-  BoxContent,
-  Divider,
-  // Link,
-  // Text,
-  Title,
-  TitleLevel,
-  VariantState,
-  // IconName,
   InfoBlock,
   InfoBlockAction,
   InfoBlockContent,
-  InfoBlockHeader,
-  // InfoBlockStatus,
-  Section,
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+  InfoBlockHeader
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
+import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import '@src/styles/globals.css'
 

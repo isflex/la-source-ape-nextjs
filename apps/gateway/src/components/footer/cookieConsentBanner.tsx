@@ -4,22 +4,15 @@ import React, { useEffect, useState } from 'react';
 import posthog from 'posthog-js';
 
 import classNames from 'classnames'
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Link as FlexLink } from '@flex-design-system/react-ts/client-sync-styled-direct/link';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import {
-  // flexStyles,
-  // Button,
-  // ButtonMarkup,
-  Box,
-  // BoxContent,
-  Link as FlexLink,
-  Text,
-  // Title,
-  // TitleLevel,
-  // VariantState,
   Icon,
   IconSize,
   IconPosition,
-  IconName,
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+  IconName
+} from '@flex-design-system/react-ts/client-sync-styled-direct/icon'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/footer.module.scss'
 

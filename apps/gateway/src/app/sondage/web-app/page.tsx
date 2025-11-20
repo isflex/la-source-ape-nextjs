@@ -10,41 +10,41 @@ import type { Schema } from '@amplify/data/resource'
 const client = generateClient<Schema>()
 
 import classNames from 'classnames'
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { Columns, ColumnsItem } from '@flex-design-system/react-ts/client-sync-styled-direct/columns';
+import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
+import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
+import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link';
 import {
-  Box,
-  Button,
-  ButtonMarkup,
-  Columns,
-  ColumnsItem,
-  Container,
-  Divider,
-  Link,
   List,
   ListItem,
-  ListItemDescription,
-  Text,
-  Title,
-  TitleLevel,
-  VariantState,
+  ListItemDescription
+} from '@flex-design-system/react-ts/client-sync-styled-direct/list';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
+import {
   IconName,
   IconSize,
   IconPosition,
   IconStatus,
-  StatusIcon,
+  StatusIcon
+} from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
+import {
   InfoBlock,
   InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
-  InfoBlockStatus,
-  Input,
-  Radio,
-  Section,
-  Select,
-  SelectOption,
-  Textarea,
-  Modal,
-  View,
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+  InfoBlockStatus
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
+import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
+import { Radio } from '@flex-design-system/react-ts/client-sync-styled-direct/radio';
+import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
+import { Select, SelectOption } from '@flex-design-system/react-ts/client-sync-styled-direct/select';
+import { Textarea } from '@flex-design-system/react-ts/client-sync-styled-direct/textarea';
+import { Modal } from '@flex-design-system/react-ts/client-sync-styled-direct/modal';
+import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
 // Zod validation schema

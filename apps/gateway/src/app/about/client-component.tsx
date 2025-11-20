@@ -19,23 +19,7 @@ import type {
 // declare let globalThis: FlexGlobalThis
 
 import classNames from 'classnames'
-import {
-  // flexStyles,
-  // Button,
-  // ButtonMarkup,
-  // Box,
-  Link as FlexLink,
-  // Text,
-  // Title,
-  // TitleLevel,
-  // VariantState,
-  // IconName,
-  // InfoBlock,
-  // InfoBlockAction,
-  // InfoBlockContent,
-  // InfoBlockHeader,
-  // InfoBlockStatus,
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+import { Link as FlexLink } from '@flex-design-system/react-ts/client-sync-styled-direct/link'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss'
 

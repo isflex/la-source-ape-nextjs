@@ -16,33 +16,35 @@ import NewsletterForm from '@src/components/newsletter/NewsletterForm';
 import AuthBanner from '@src/components/auth/AuthBanner';
 
 import classNames from 'classnames';
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
+import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
 import {
-  Box,
-  Button,
-  ButtonMarkup,
-  Container,
-  Section,
   Table,
   TableHead,
   TableBody,
   TableTr,
   TableTh,
-  TableTd,
-  Title,
-  TitleLevel,
-  VariantState,
+  TableTd
+} from '@flex-design-system/react-ts/client-sync-styled-direct/table';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
+import {
   InfoBlock,
   InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
-  InfoBlockStatus,
+  InfoBlockStatus
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
+import {
   IconName,
   IconSize,
   IconPosition,
   IconStatus,
-  StatusIcon,
-  Text,
-} from '@flex-design-system/react-ts/client-sync-styled-default';
+  StatusIcon
+} from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 
 type Newsletter = {

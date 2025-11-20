@@ -6,9 +6,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import posthog from 'posthog-js'
 import classNames from 'classnames'
-import {
-  View as FlexRootView,
-} from '@flex-design-system/react-ts/client-sync-styled-default'
+import { View as FlexRootView } from '@flex-design-system/react-ts/client-sync-styled-direct/view'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/layout.module.scss'
 import { inlineStyles } from '@src/styles/inlineStyles'
