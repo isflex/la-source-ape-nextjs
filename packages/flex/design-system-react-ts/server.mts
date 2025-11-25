@@ -123,19 +123,18 @@ const corsOptions = Cors({
   ...(process.env.FLEX_MODE === 'development'
     ? { origin: '*' }
     : { origin: [
+      new RegExp(`${regexEscape(`localhost:${process.env.FLEX_GATEWAY_PORT!}`)}`),
+      new RegExp(`${regexEscape(process.env.FLEX_HOST_IP!)}$`),
       new RegExp(`${regexEscape(process.env.FLEX_DOMAIN_NAME!)}`),
       new RegExp(`${regexEscape(`.${process.env.FLEX_BASE_DOMAIN!}`)}$`),
-      new RegExp(`${regexEscape(process.env.FLEX_FUTUR_PROOF_1_DOMAIN_NAME_1!)}`),
-      new RegExp(`${regexEscape(process.env.FLEX_FUTUR_PROOF_1_DOMAIN_NAME_2!)}`),
+      new RegExp(`${regexEscape(process.env.FLEX_FUTUR_PROOF_1_BASE_DOMAIN!)}`),
       new RegExp(`${regexEscape(`.${process.env.FLEX_FUTUR_PROOF_1_BASE_DOMAIN!}`)}$`),
-      new RegExp(`${regexEscape(process.env.FLEX_FUTUR_PROOF_2_DOMAIN_NAME_1!)}`),
-      new RegExp(`${regexEscape(process.env.FLEX_FUTUR_PROOF_2_DOMAIN_NAME_2!)}`),
-      new RegExp(`${regexEscape(`.${process.env.FLEX_FUTUR_PROOF_2_BASE_DOMAIN!}`)}$`),
       new RegExp(`${regexEscape(process.env.FLEX_FUTUR_PROOF_2_BASE_DOMAIN!)}`),
-      new RegExp(`${regexEscape(process.env.FLEX_HOST_IP!)}$`),
-      new RegExp(`${regexEscape(`localhost:${process.env.FLEX_GATEWAY_PORT!}`)}`),
-      new RegExp(`${regexEscape(process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_1_HOSTNAME!)}`),
-      new RegExp(`${regexEscape(process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_2_HOSTNAME!)}`),
+      new RegExp(`${regexEscape(`.${process.env.FLEX_FUTUR_PROOF_2_BASE_DOMAIN!}`)}$`),
+      new RegExp(`${regexEscape(process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_1_BASE_DOMAIN!)}`),
+      new RegExp(`${regexEscape(`.${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_1_BASE_DOMAIN!}`)}$`),
+      new RegExp(`${regexEscape(process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_2_BASE_DOMAIN!)}`),
+      new RegExp(`${regexEscape(`.${process.env.FLEX_GATEWAY_DEPLOYED_REMOTE_2_BASE_DOMAIN!}`)}$`),
     ] }
   ),
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],

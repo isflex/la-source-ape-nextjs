@@ -59,5 +59,6 @@
   "references": [
     { "path": "../../packages/flex/design-system-react-ts/tsconfig.build.json" },
     { "path": "../../packages/flex/domain-store/tsconfig.build.json" },
+    { "path": "../../packages/flex/domain-utils/tsconfig.esm.build.json" },
   ],
 }

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { signOut, fetchUserAttributes, type UserAttributeKey } from 'aws-amplify/auth';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 import classNames from 'classnames';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
@@ -18,15 +18,19 @@ interface AuthBannerProps {
 export default function AuthBanner({ className, style }: AuthBannerProps) {
   const { user } = useAuthenticator();
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const isAuthenticated = !!user;
   const [userAttributes, setUserAttributes] = useState<Partial<Record<UserAttributeKey, string>> | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSignOut = async () => {
     try {
-      // Store current URL in sessionStorage for redirect after page reload
-      const currentPath = window.location.pathname + window.location.search;
+      // Store current URL with ALL params in sessionStorage for redirect after page reload
+      const currentPath = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : '');
       sessionStorage.setItem('redirectAfterSignOut', currentPath);
+
+      console.log('[AUTH_BANNER] Stored current path for post-signOut redirect:', currentPath);
 
       await signOut();
       setUserAttributes(null); // Clear attributes on sign out

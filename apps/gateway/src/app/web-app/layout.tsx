@@ -32,6 +32,7 @@ import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf'), { ssr: true })
 const FallBackEC2InstanceUnavailable = dynamic(() => import('@src/components/error/EC2InstanceUnavailable'), { ssr: true })
+// const OAuthRedirectHandler = dynamic(() => import('@src/components/auth/OAuthRedirectHandler'))
 
 export const metadata: Metadata = {
   title: `${process.env.NEXT_PUBLIC_APP_TITLE}`,
@@ -57,67 +58,67 @@ export default async function WebAppLayout({
   const posthog = PostHogNodeClient()
   await posthog.shutdown()
 
-  if (process.env.NEXT_PUBLIC_FLEX_ACTIVATE_APE_SOURCE_CO === 'false' &&
-    (new RegExp(`${regexEscape(process.env.NEXT_PUBLIC_FLEX_FUTUR_PROOF_2_BASE_DOMAIN!)}`, 'g')).test(currentHost)
-  ) {
-    return (
-      <div className={classNames(
-        flexStyles.genericLayout1,
-        flexStyles.isPlain,
-        mobileCheck && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
-      )}>
-        <div style={{
-          height: 'auto',
-          padding: '0',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-          <div style={{
-            height: '20vh',
-            paddingTop: '10vh',
-            width: '100%',
-            background: 'linear-gradient(180deg, rgb(117 81 194), rgb(255 255 255))',
-          }}>
-            <LogoAPE />
-          </div>
-          {children}
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <ErrorBoundary fallback={<FallBackEC2InstanceUnavailable mobileCheck={mobileCheck} />}>
-      <div className={classNames(
-        flexStyles.genericLayout1,
-        flexStyles.isPlain,
-        mobileCheck && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
-      )}>
-        <div style={{
-          height: 'auto',
-          padding: '0',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+    <>
+      {/* <OAuthRedirectHandler /> */}
+      {process.env.NEXT_PUBLIC_FLEX_ACTIVATE_APE_SOURCE_CO === 'false' &&
+      (new RegExp(`${regexEscape(process.env.NEXT_PUBLIC_FLEX_FUTUR_PROOF_2_BASE_DOMAIN!)}`, 'g')).test(currentHost) ? (
+        <div className={classNames(
+          flexStyles.genericLayout1,
+          flexStyles.isPlain,
+          mobileCheck && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
+        )}>
           <div style={{
-            width: '100%',
-            background: 'linear-gradient(180deg, rgb(117 81 194), rgb(255 255 255))',
+            height: 'auto',
+            padding: '0',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
-            <LogoAPE isLoader={true} />
+            <div style={{
+              height: '20vh',
+              paddingTop: '10vh',
+              width: '100%',
+              background: 'linear-gradient(180deg, rgb(117 81 194), rgb(255 255 255))',
+            }}>
+              <LogoAPE />
+            </div>
+            {children}
           </div>
-
-          <main className={classNames(
-            // flexStyles.fullPage,
-            // flexStyles.hasSpaceBetweenContent
-          )}>
-            <WebAppMF mobileCheck={mobileCheck} />
-          </main>
         </div>
-      </div>
-    </ErrorBoundary>
+      ) : (
+        <ErrorBoundary fallback={<FallBackEC2InstanceUnavailable mobileCheck={mobileCheck} />}>
+          <div className={classNames(
+            flexStyles.genericLayout1,
+            flexStyles.isPlain,
+            mobileCheck && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
+          )}>
+            <div style={{
+              height: 'auto',
+              padding: '0',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              <div style={{
+                width: '100%',
+                background: 'linear-gradient(180deg, rgb(117 81 194), rgb(255 255 255))',
+              }}>
+                <LogoAPE isLoader={true} />
+              </div>
+
+              <main className={classNames(
+                // flexStyles.fullPage,
+                // flexStyles.hasSpaceBetweenContent
+              )}>
+                <WebAppMF mobileCheck={mobileCheck} />
+              </main>
+            </div>
+          </div>
+        </ErrorBoundary>
+      )}
+    </>
   )
 }

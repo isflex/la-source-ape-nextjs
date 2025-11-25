@@ -30,27 +30,20 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
   const searchParams = request.nextUrl.searchParams
 
-  // Handle OAuth redirect back from Google
-  if (pathname === '/' && searchParams.has('code') && searchParams.has('state')) {
-    // This is an OAuth redirect from Google - redirect to auth page to handle it
-    const url = request.nextUrl.clone()
-    url.pathname = '/auth'
-    // Keep the OAuth parameters for Amplify to process
-    return NextResponse.redirect(url)
-  }
-
-  // Handle authentication redirects and return URLs
+  // Handle /auth route parameter preservation for OAuth flow
   if (pathname === '/auth') {
-    // Auth page is being accessed
-    const mode = searchParams.get('mode')
-    const returnUrl = searchParams.get('returnUrl')
+    const hasOAuthParams = searchParams.has('code') && searchParams.has('state')
 
-    // Store auth context in headers for potential use
-    if (mode) {
-      requestHeaders.set('x-auth-mode', mode)
-    }
-    if (returnUrl) {
-      requestHeaders.set('x-auth-return-url', returnUrl)
+    if (hasOAuthParams) {
+      // OAuth redirect - set header to indicate this is an OAuth callback
+      // Client-side code will handle restoring original params from sessionStorage
+      requestHeaders.set('x-oauth-callback', 'true')
+    } else {
+      // Initial auth access - store all params in header for client-side sessionStorage
+      const allParams = Array.from(searchParams.entries())
+      if (allParams.length > 0) {
+        requestHeaders.set('x-auth-original-params', JSON.stringify(Object.fromEntries(allParams)))
+      }
     }
   }
 

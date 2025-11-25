@@ -1,6 +1,8 @@
 import { Amplify, type ResourcesConfig } from 'aws-amplify';
+import { cognitoUserPoolsTokenProvider } from 'aws-amplify/auth/cognito';
 import outputs from '@root/amplify_outputs.json';
 import { AMPLIFY_AUTH_CONFIG_V2 } from './configure';
+import { createSharedAuthStorage } from '@flexiness/domain-utils';
 
 // Configuration mode switcher
 type ConfigMode = 'outputs' | 'v2-config';
@@ -104,6 +106,17 @@ export const getOAuthConfig = (): OAuthConfig => {
 
 // Configure Amplify with port-aware OAuth settings
 export const configureAmplifyWithPortDetection = () => {
+  // Configure shared authentication storage for cross-system token sharing
+  const sharedStorage = createSharedAuthStorage({
+    domain: process.env.FLEX_DOMAIN_NAME || 'localhost',
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    storagePrefix: 'amplify_shared_'
+  });
+
+  // Set the shared storage before configuring Amplify
+  cognitoUserPoolsTokenProvider.setKeyValueStorage(sharedStorage);
+
   let customConfig: any;
 
   if (CONFIG_MODE === 'v2-config') {
@@ -133,6 +146,12 @@ export const configureAmplifyWithPortDetection = () => {
   }
 
   Amplify.configure(customConfig, { ssr: true });
+
+  // Debug logging for shared storage configuration
+  if (process.env.DEBUG === 'true') {
+    console.log('SharedAuthStorage configured:', sharedStorage.getStorageInfo());
+  }
+
   return customConfig;
 };
 

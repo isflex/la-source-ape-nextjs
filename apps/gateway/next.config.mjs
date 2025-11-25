@@ -108,6 +108,11 @@ const mainConfig = new Config(async (phase, args) => {
     async redirects() {
       return [
         {
+          source: '/',
+          destination: '/web-app',
+          permanent: false,
+        },
+        {
           source: '/qui-sommes-nous',
           destination: 'https://ecolelasource.org/une-ecole-active/role-des-parents/',
           permanent: false,

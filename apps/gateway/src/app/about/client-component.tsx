@@ -58,8 +58,11 @@ const About: NextPage<ServerPageInfo> = observer(({ mobileCheck }) => {
     if (
       (
         origin === `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_HOST}` ||
-        origin === `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_1_HOSTNAME}` ||
-        origin === `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_2_HOSTNAME}`
+        origin === `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_1_HOSTNAME_1}` ||
+        origin === `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_1_HOSTNAME_2}` ||
+        origin === `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_2_HOSTNAME_1}` ||
+        origin === `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_2_HOSTNAME_2}` ||
+        origin === `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_2_HOSTNAME_3}`
       ) &&
       postMessageRegex.test(data)
     ) {
