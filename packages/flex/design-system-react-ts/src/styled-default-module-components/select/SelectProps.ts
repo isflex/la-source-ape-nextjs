@@ -20,6 +20,7 @@ export interface SelectProps {
   label?: React.JSX.Element | string
   selected?: string
   nullable?: boolean
+  disabled?: boolean
   onChange?: SelectChangeEventHandler
   children?: GenericChildren | string
   dynamicPlaceholder?: boolean

@@ -41,13 +41,6 @@ const schema = a.schema({
     'CAREER_DISCOVERY'
   ]),
 
-  // Career Discovery specific enums
-  ECareerAvailability: a.enum([
-    'DECEMBER_8_2025',
-    'FEBRUARY_9_2026_WOMEN_PRIORITY',
-    'LATER_PRESENTATION'
-  ]),
-
   // Erasmus-specific enums (no spaces allowed in GraphQL enum values)
   EErasmusAwareness: a.enum([
     'OUI',
@@ -179,7 +172,7 @@ const schema = a.schema({
       lastName: a.string().required(),
       childrenClasses: a.string().required(),
       phone: a.string().required(),
-      availability: a.ref('ECareerAvailability').required(),
+      availability: a.string().array().required(), // Array of option text from template
       organization: a.string(),
       jobDescription: a.string().required(),
       companySector: a.string(),
@@ -260,14 +253,26 @@ const schema = a.schema({
     .model({
       title: a.string().required(),
       slug: a.string().required(),
-      dayOfWeek: a.ref('EDayOfWeek').required(),
-      startTime: a.string().required(), // Format: "HH:MM" (e.g., "10:30")
-      endTime: a.string().required(),   // Format: "HH:MM" (e.g., "12:30")
+      // isMultiDay only affects UI (radio vs checkbox), not data structure
+      isMultiDay: a.boolean().default(false), // false = single day selection, true = multiple days
       schoolLevel: a.ref('ESchoolLevel').required(),
       teacherName: a.string().required(),
       owner: a.string().required(), // Cognito user ID
+      timeSlots: a.hasMany('PiscineTimeSlot', 'piscineFormId'), // Always used (1 for single-day, N for multi-day)
       dateSlots: a.hasMany('PiscineDateSlot', 'piscineFormId'),
       candidats: a.hasMany('PiscineCandidat', 'piscineFormId'), // For direct access to all candidats
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
+  PiscineTimeSlot: a
+    .model({
+      dayOfWeek: a.ref('EDayOfWeek').required(), // MONDAY, TUESDAY, etc.
+      startTime: a.string().required(), // Format: "HH:MM" (e.g., "10:30")
+      endTime: a.string().required(),   // Format: "HH:MM" (e.g., "12:30")
+      order: a.integer().default(0), // Display order (0-4 for Mon-Fri)
+      piscineFormId: a.id().required(),
+      piscineForm: a.belongsTo('PiscineForm', 'piscineFormId'),
+      dateSlots: a.hasMany('PiscineDateSlot', 'piscineTimeSlotId'),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 
@@ -275,8 +280,11 @@ const schema = a.schema({
     .model({
       selectedDate: a.date().required(),
       order: a.integer().default(0),
+      dayOfWeek: a.ref('EDayOfWeek'), // Denormalized for quick filtering
+      piscineTimeSlotId: a.id().required(), // Always links to a PiscineTimeSlot
       piscineFormId: a.id().required(),
       piscineForm: a.belongsTo('PiscineForm', 'piscineFormId'),
+      piscineTimeSlot: a.belongsTo('PiscineTimeSlot', 'piscineTimeSlotId'),
       candidats: a.hasMany('PiscineCandidat', 'piscineDateSlotId'),
     })
     .authorization((allow) => [allow.publicApiKey()]),

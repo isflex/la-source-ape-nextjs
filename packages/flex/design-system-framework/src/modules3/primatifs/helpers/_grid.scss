@@ -233,6 +233,84 @@ $gap-values: (
 .is-grid-place-self-stretch { place-self: stretch !important; }
 
 // RESPONSIVE VARIANTS
+// MobileMax (420px+)
+@include mixins.mobile-max {
+  .is-grid-display-grid-mobile-max { display: grid !important; }
+  .is-grid-display-inline-grid-mobile-max { display: inline-grid !important; }
+  .is-grid-display-hidden-mobile-max { display: none !important; }
+
+  .is-grid-cols-none-mobile-max { grid-template-columns: none !important; }
+  .is-grid-cols-subgrid-mobile-max { grid-template-columns: subgrid !important; }
+
+  @for $i from 1 through 12 {
+    .is-grid-cols-#{$i}-mobile-max { grid-template-columns: repeat(#{$i}, minmax(0, 1fr)) !important; }
+    .is-grid-col-span-#{$i}-mobile-max { grid-column: span #{$i} / span #{$i} !important; }
+  }
+
+  .is-grid-rows-none-mobile-max { grid-template-rows: none !important; }
+  .is-grid-rows-subgrid-mobile-max { grid-template-rows: subgrid !important; }
+
+  @for $i from 1 through 6 {
+    .is-grid-rows-#{$i}-mobile-max { grid-template-rows: repeat(#{$i}, minmax(0, 1fr)) !important; }
+    .is-grid-row-span-#{$i}-mobile-max { grid-row: span #{$i} / span #{$i} !important; }
+  }
+
+  .is-grid-col-auto-mobile-max { grid-column: auto !important; }
+  .is-grid-col-span-full-mobile-max { grid-column: 1 / -1 !important; }
+
+  @for $i from 1 through 13 {
+    .is-grid-col-start-#{$i}-mobile-max { grid-column-start: #{$i} !important; }
+    .is-grid-col-end-#{$i}-mobile-max { grid-column-end: #{$i} !important; }
+  }
+
+  .is-grid-row-auto-mobile-max { grid-row: auto !important; }
+  .is-grid-row-span-full-mobile-max { grid-row: 1 / -1 !important; }
+
+  @for $i from 1 through 7 {
+    .is-grid-row-start-#{$i}-mobile-max { grid-row-start: #{$i} !important; }
+    .is-grid-row-end-#{$i}-mobile-max { grid-row-end: #{$i} !important; }
+  }
+
+  @each $name, $value in $gap-values {
+    .is-grid-gap-#{$name}-mobile-max { gap: #{$value} !important; }
+    .is-grid-gap-x-#{$name}-mobile-max { column-gap: #{$value} !important; }
+    .is-grid-gap-y-#{$name}-mobile-max { row-gap: #{$value} !important; }
+  }
+
+  // Grid flow, auto, justify, align, place utilities for mobile-max
+  .is-grid-flow-row-mobile-max { grid-auto-flow: row !important; }
+  .is-grid-flow-col-mobile-max { grid-auto-flow: column !important; }
+  .is-grid-flow-dense-mobile-max { grid-auto-flow: dense !important; }
+  .is-grid-flow-row-dense-mobile-max { grid-auto-flow: row dense !important; }
+  .is-grid-flow-col-dense-mobile-max { grid-auto-flow: column dense !important; }
+
+  .is-grid-justify-start-mobile-max { justify-content: flex-start !important; }
+  .is-grid-justify-end-mobile-max { justify-content: flex-end !important; }
+  .is-grid-justify-center-mobile-max { justify-content: center !important; }
+  .is-grid-justify-between-mobile-max { justify-content: space-between !important; }
+  .is-grid-justify-around-mobile-max { justify-content: space-around !important; }
+  .is-grid-justify-evenly-mobile-max { justify-content: space-evenly !important; }
+
+  .is-grid-items-start-mobile-max { align-items: flex-start !important; }
+  .is-grid-items-end-mobile-max { align-items: flex-end !important; }
+  .is-grid-items-center-mobile-max { align-items: center !important; }
+  .is-grid-items-baseline-mobile-max { align-items: baseline !important; }
+  .is-grid-items-stretch-mobile-max { align-items: stretch !important; }
+
+  .is-grid-place-content-center-mobile-max { place-content: center !important; }
+  .is-grid-place-content-start-mobile-max { place-content: start !important; }
+  .is-grid-place-content-end-mobile-max { place-content: end !important; }
+  .is-grid-place-content-between-mobile-max { place-content: space-between !important; }
+  .is-grid-place-content-around-mobile-max { place-content: space-around !important; }
+  .is-grid-place-content-evenly-mobile-max { place-content: space-evenly !important; }
+  .is-grid-place-content-stretch-mobile-max { place-content: stretch !important; }
+
+  .is-grid-place-items-start-mobile-max { place-items: start !important; }
+  .is-grid-place-items-end-mobile-max { place-items: end !important; }
+  .is-grid-place-items-center-mobile-max { place-items: center !important; }
+  .is-grid-place-items-stretch-mobile-max { place-items: stretch !important; }
+}
+
 // Tablet (768px+)
 @include mixins.tablet {
   .is-grid-display-grid-tablet { display: grid !important; }

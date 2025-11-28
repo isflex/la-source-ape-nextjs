@@ -346,3 +346,239 @@ export const validatePiscineCandidatData = (data: unknown): ValidationResult<Pis
     };
   }
 };
+
+// ============================================================================
+// MULTI-DAY PLANNING HELPERS
+// ============================================================================
+
+/**
+ * DayTimeSlot interface for multi-day planning
+ */
+export interface DayTimeSlot {
+  dayOfWeek: Schema['EDayOfWeek']['type'];
+  startTime: string;
+  endTime: string;
+  enabled: boolean;
+}
+
+/**
+ * TimeSlotInfo interface for backward compatibility
+ */
+export interface TimeSlotInfo {
+  startTime: string;
+  endTime: string;
+  dayOfWeek: Schema['EDayOfWeek']['type'];
+}
+
+/**
+ * Get time slot information for a date slot
+ * Handles both single-day (legacy) and multi-day modes
+ *
+ * @param form - The PiscineForm object
+ * @param dateSlot - The PiscineDateSlot object (with optional piscineTimeSlot relationship loaded)
+ * @returns Time slot information
+ */
+export const getTimeSlotInfo = (
+  form: { isMultiDay?: boolean | null; dayOfWeek?: string | null; startTime?: string | null; endTime?: string | null },
+  dateSlot: { piscineTimeSlot?: { dayOfWeek: string; startTime: string; endTime: string } | null; dayOfWeek?: string | null }
+): TimeSlotInfo => {
+  // Multi-day mode: Use time slot from dateSlot relationship
+  if (form.isMultiDay && dateSlot.piscineTimeSlot) {
+    return {
+      startTime: dateSlot.piscineTimeSlot.startTime,
+      endTime: dateSlot.piscineTimeSlot.endTime,
+      dayOfWeek: dateSlot.piscineTimeSlot.dayOfWeek as Schema['EDayOfWeek']['type']
+    };
+  }
+
+  // Legacy single-day mode: Use form-level times
+  if (form.dayOfWeek && form.startTime && form.endTime) {
+    return {
+      startTime: form.startTime,
+      endTime: form.endTime,
+      dayOfWeek: form.dayOfWeek as Schema['EDayOfWeek']['type']
+    };
+  }
+
+  throw new Error('Invalid form configuration: Missing time slot information');
+};
+
+/**
+ * Check if a date matches a specific day of the week
+ *
+ * @param date - The date to check
+ * @param dayOfWeek - The day of week enum value (MONDAY, TUESDAY, etc.)
+ * @returns true if the date is on the specified day of week
+ */
+export const matchesWeekday = (date: Date, dayOfWeek: Schema['EDayOfWeek']['type']): boolean => {
+  const dayMap: Record<Schema['EDayOfWeek']['type'], number> = {
+    'MONDAY': 1,
+    'TUESDAY': 2,
+    'WEDNESDAY': 3,
+    'THURSDAY': 4,
+    'FRIDAY': 5
+  };
+
+  const targetDay = dayMap[dayOfWeek];
+  const dateDay = date.getDay();
+
+  return dateDay === targetDay;
+};
+
+/**
+ * Calculate duration between two times
+ *
+ * @param startTime - Start time in HH:MM format
+ * @param endTime - End time in HH:MM format
+ * @returns Formatted duration string (e.g., "1h 30min", "2 heures")
+ */
+export const calculateDuration = (startTime: string, endTime: string): string => {
+  const startMinutes = timeToMinutes(startTime);
+  const endMinutes = timeToMinutes(endTime);
+  const durationMinutes = endMinutes - startMinutes;
+
+  if (durationMinutes <= 0) {
+    return '0 min';
+  }
+
+  const hours = Math.floor(durationMinutes / 60);
+  const minutes = durationMinutes % 60;
+
+  if (hours === 0) {
+    return `${minutes} min`;
+  }
+
+  if (minutes === 0) {
+    return hours === 1 ? '1 heure' : `${hours} heures`;
+  }
+
+  return `${hours}h ${minutes}min`;
+};
+
+/**
+ * Get the JavaScript day number for a day of week enum
+ *
+ * @param dayOfWeek - The day of week enum value
+ * @returns JavaScript day number (0=Sunday, 1=Monday, etc.)
+ */
+export const getDayNumber = (dayOfWeek: Schema['EDayOfWeek']['type']): number => {
+  const dayMap: Record<Schema['EDayOfWeek']['type'], number> = {
+    'MONDAY': 1,
+    'TUESDAY': 2,
+    'WEDNESDAY': 3,
+    'THURSDAY': 4,
+    'FRIDAY': 5
+  };
+
+  return dayMap[dayOfWeek];
+};
+
+/**
+ * Sort day time slots by weekday order
+ *
+ * @param dayTimeSlots - Array of day time slots
+ * @returns Sorted array with Monday first, Friday last
+ */
+export const sortDayTimeSlots = (dayTimeSlots: DayTimeSlot[]): DayTimeSlot[] => {
+  return [...dayTimeSlots].sort((a, b) => {
+    return getDayNumber(a.dayOfWeek) - getDayNumber(b.dayOfWeek);
+  });
+};
+
+/**
+ * Validation schema for a single day time slot configuration
+ */
+export const DayTimeSlotSchema = z.object({
+  dayOfWeek: z.enum(VALID_DAYS, {
+    required_error: 'Jour de la semaine requis'
+  }),
+
+  startTime: z.string()
+    .regex(TIME_REGEX, 'Format d\'heure invalide (HH:MM)')
+    .refine((time) => validateTimeInRange(time), 'L\'heure doit être entre 08:45 et 18:00'),
+
+  endTime: z.string()
+    .regex(TIME_REGEX, 'Format d\'heure invalide (HH:MM)')
+    .refine((time) => validateTimeInRange(time), 'L\'heure doit être entre 08:45 et 18:00'),
+
+  enabled: z.boolean()
+}).refine((data) => {
+  if (!data.enabled) return true; // Skip validation for disabled days
+  return isValidTimeRange(data.startTime, data.endTime);
+}, {
+  message: 'L\'heure de fin doit être postérieure à l\'heure de début',
+  path: ['endTime']
+}).refine((data) => {
+  if (!data.enabled) return true; // Skip validation for disabled days
+  return isValidDuration(data.startTime, data.endTime);
+}, {
+  message: 'La durée doit être entre 1 et 4 heures',
+  path: ['endTime']
+});
+
+/**
+ * Validation schema for multi-day form data
+ */
+export const MultiDayFormSchema = z.object({
+  title: z.string()
+    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .pipe(z.string().min(1, 'Le titre est requis')),
+
+  dayTimeSlots: z.array(DayTimeSlotSchema)
+    .refine((slots) => slots.some(slot => slot.enabled), {
+      message: 'Au moins un jour doit être sélectionné'
+    })
+    .refine((slots) => {
+      // All enabled slots must have valid times
+      const enabledSlots = slots.filter(s => s.enabled);
+      return enabledSlots.every(slot =>
+        slot.startTime && slot.endTime &&
+        isValidTimeRange(slot.startTime, slot.endTime) &&
+        isValidDuration(slot.startTime, slot.endTime)
+      );
+    }, {
+      message: 'Tous les jours sélectionnés doivent avoir des horaires valides'
+    }),
+
+  selectedDatesPerDay: z.record(z.array(z.date()))
+    .refine((datesPerDay) => {
+      // Each enabled day must have at least one date selected
+      return Object.values(datesPerDay).some(dates => dates.length > 0);
+    }, {
+      message: 'Au moins une date doit être sélectionnée pour chaque jour actif'
+    }),
+
+  schoolLevel: z.enum(VALID_SCHOOL_LEVELS, {
+    required_error: 'Veuillez sélectionner un niveau scolaire'
+  }),
+
+  teacherName: z.string()
+    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .pipe(z.string().min(1, 'Le nom de l\'enseignant est requis'))
+});
+
+export type MultiDayFormData = z.infer<typeof MultiDayFormSchema>;
+
+/**
+ * Validate multi-day form data
+ *
+ * @param data - The form data to validate
+ * @returns Validation result with parsed data or errors
+ */
+export const validateMultiDayFormData = (data: unknown): ValidationResult<MultiDayFormData> => {
+  try {
+    const validData = MultiDayFormSchema.parse(data);
+    return { success: true, data: validData };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return {
+        success: false,
+        errors: error.errors.map(err => `${err.path.join('.')}: ${err.message}`)
+      };
+    }
+    return {
+      success: false,
+      errors: ['Format de données invalide']
+    };
+  }
+};

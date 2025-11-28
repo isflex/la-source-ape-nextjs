@@ -15,14 +15,16 @@
   ],
   "tasks": {
     "dev:compile:transit": {
-      "dependsOn": [
-        "//#compile:watch:sh"
-      ]
+      "with": ["//#compile:watch:sh"],
+      "cache": false,
+      "persistent": true
     },
     "dev:packages:transit": {
       "dependsOn": [
         "^dev:compile:transit"
-      ]
+      ],
+      "cache": false,
+      "persistent": true
     },
     "//#compile:clean:sh": {
       "dependsOn": [
@@ -42,7 +44,7 @@
         "apps/gateway/public/slides/**"
       ],
       "cache": false,
-      "persistent": false
+      "persistent": true
     },
     "lint": {
       "dependsOn": [

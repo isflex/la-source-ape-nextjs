@@ -42,6 +42,8 @@ const Select = async ({
   placeholder,
   placeholderId,
   nullable,
+  ref,
+  disabled,
   ...others
 }: SelectProps): Promise<React.ReactNode> => {
   const wrapperClasses = classNames(styles.field, className, validate(classList))
@@ -70,6 +72,8 @@ const Select = async ({
             value={value}
             id={id || idGenerated}
             name={name}
+            ref={ref}
+            disabled={disabled || false}
             {...others}
           >
             {!!placeholder && (

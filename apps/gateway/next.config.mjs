@@ -178,7 +178,7 @@ const mainConfig = new Config(async (phase, args) => {
     pageExtensions: ['md', 'mdx', 'tsx', 'ts', 'jsx', 'js'],
 
     webpack: (config, options) => {
-      const { isServer, webpack } = options
+      const { isServer, webpack, dev } = options
 
       // config.plugins.push(
       //   new webpack.DefinePlugin({
@@ -194,28 +194,6 @@ const mainConfig = new Config(async (phase, args) => {
       // https://github.com/vercel/next.js/issues/71638#issuecomment-2464405044
       // https://stackoverflow.com/questions/74038400/convert-css-module-kebab-case-class-names-to-camelcase-in-next-js
       // https://stackoverflow.com/questions/78042657/hash-classnames-nextjs-v14
-
-      const regexEqual = (x, y) =>
-        x instanceof RegExp &&
-        y instanceof RegExp &&
-        x.source === y.source &&
-        x.global === y.global &&
-        x.ignoreCase === y.ignoreCase &&
-        x.multiline === y.multiline;
-
-      // function cssLoaderOptions(modules) {
-      //   const { getLocalIdent, ...others } = modules;
-      //   return {
-      //     ...others,
-      //     getLocalIdent: (context, _, exportName, options) => {
-      //       // const localIdent = getLocalIdent(context, _, exportName, options);
-      //       // return localIdent
-      //       const customIdent = `${camelCase(exportName)}__${_gitCommitSHA}`
-      //       return customIdent
-      //     },
-      //     exportLocalsConvention: 'camelCaseOnly',
-      //   }
-      // }
 
       function cssLoaderOptions(modules) {
         const { getLocalIdent, ...others } = modules
@@ -234,31 +212,6 @@ const mainConfig = new Config(async (phase, args) => {
           exportLocalsConvention: 'camelCase',
         }
       }
-
-      // const oneOf = config.module.rules.find(
-      //   (rule) => typeof rule.oneOf === 'object'
-      // )
-      // if (oneOf) {
-      //   const moduleSassRule = oneOf.oneOf.find((rule) =>
-      //     regexEqual(rule.test, /\.module\.(scss|sass)$/)
-      //   )
-      //   // console.log('moduleSassRule', moduleSassRule)
-      //   if (moduleSassRule) {
-      //     const cssLoader = moduleSassRule.use.find(({ loader }) => {
-      //       // console.log('loader', loader)
-      //       return loader.includes('webpack/loaders/css-loader')
-      //     })
-      //     if (cssLoader) {
-      //       // console.log('cssLoader', cssLoader)
-      //       // console.log('cssLoader options', cssLoader.options)
-      //       cssLoader.options = {
-      //         ...cssLoader.options,
-      //         modules: cssLoaderOptions(cssLoader.options.modules),
-      //       }
-      //       // console.log('cssLoader options', cssLoader.options)
-      //     }
-      //   }
-      // }
 
       const rules = config.module.rules
         .find((rule) => typeof rule.oneOf === 'object')
@@ -279,15 +232,33 @@ const mainConfig = new Config(async (phase, args) => {
         });
       });
 
-      // https://github.com/vercel/next.js/issues/12079
-      // Find and remove NextJS css rules.
-      // const cssRulesIdx = config.module.rules.findIndex(r => r.oneOf)
-      // if (cssRulesIdx === -1) {
-      //   throw new Error('Could not find NextJS CSS rule to overwrite.')
-      // }
-      // config.module.rules.splice(cssRulesIdx, 1)
+      // https://medium.com/@shrestha.sudaman/using-css-modules-with-typescript-a-puzzle-01d62420eb49
+      // config.module.rules.forEach((rule) => {
+      //   if (rule.oneOf) {
+      //     rule.oneOf.forEach((one) => {
+      //       if (one.use && Array.isArray(one.use)) {
+      //         one.use.forEach((use) => {
+      //           if (
+      //             typeof use === 'object' &&
+      //             use.loader &&
+      //             use.loader.includes('css-loader') &&
+      //             use.options &&
+      //             use.options.modules
+      //           ) {
+      //             // use.options.modules.exportLocalsConvention = 'camelCase';
 
-      return {
+      //             use.options = {
+      //               ...use.options,
+      //               modules: cssLoaderOptions(use.options.modules),
+      //             };
+      //           }
+      //         });
+      //       }
+      //     });
+      //   }
+      // });
+
+      const webpackConfig = {
         ...config,
 
         // mode: 'production',
@@ -337,6 +308,17 @@ const mainConfig = new Config(async (phase, args) => {
           // debug: [/PackFileCache/]
         },
       }
+
+      // Only add minimal watchOptions in dev mode for client bundles
+      // Let Next.js handle most of the watching, just ensure it's not disabled
+      if (dev && !isServer) {
+        // webpackConfig.watchOptions = {
+        //   ...config.watchOptions,
+        //   ignored: ['**/node_modules/**', '**/.next/**'],
+        // }
+      }
+
+      return webpackConfig
     },
 
     experimental: {

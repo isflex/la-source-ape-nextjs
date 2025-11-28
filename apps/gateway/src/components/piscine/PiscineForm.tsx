@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import { useAuthenticator } from '@aws-amplify/ui-react';
@@ -10,7 +10,6 @@ import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box'
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
 import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
 import { Input, type InputChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
-import { Radio } from '@flex-design-system/react-ts/client-sync-styled-direct/radio';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
@@ -19,23 +18,20 @@ import {
   InfoBlockContent,
   InfoBlockHeader
 } from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
-import {
-  Icon,
-  IconSize,
-  IconPosition,
-  IconName
-} from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 
-import PiscineTimeSlotPicker from './PiscineTimeSlotPicker';
-import PiscineDateCalendar from './PiscineDateCalendar';
+import MultiDaySelector from './MultiDaySelector';
+import MultiDayTimeSlotPicker from './MultiDayTimeSlotPicker';
+import MultiDayCalendarPicker from './MultiDayCalendarPicker';
 import {
   PiscineFormSchema,
   type PiscineFormData,
+  type DayTimeSlot,
   generateSlug,
   formatDayOfWeek,
   formatSchoolLevel,
-  dateToISOString
+  dateToISOString,
+  getDayNumber
 } from '@src/lib/piscine-helpers';
 
 const client = generateClient<Schema>();
@@ -44,6 +40,7 @@ interface PiscineFormProps {
   onSubmit: (success: boolean, message: string, slug?: string) => void;
   onCancel: () => void;
   existingSlugs?: string[];
+  editingFormId?: string; // Optional: if provided, load and edit existing form
 }
 
 interface FormErrors {
@@ -53,12 +50,8 @@ interface FormErrors {
 
 const INITIAL_FORM_DATA = {
   title: '',
-  dayOfWeek: undefined as Schema['EDayOfWeek']['type'] | undefined,
-  startTime: '',
-  endTime: '',
   schoolLevel: undefined as Schema['ESchoolLevel']['type'] | undefined,
-  teacherName: '',
-  selectedDates: [] as Date[]
+  teacherName: ''
 };
 
 const SCHOOL_LEVEL_OPTIONS: { value: Schema['ESchoolLevel']['type']; label: string }[] = [
@@ -78,20 +71,28 @@ const SCHOOL_LEVEL_OPTIONS: { value: Schema['ESchoolLevel']['type']; label: stri
   { value: 'ANCIEN_ELEVE', label: 'Ancien élève' }
 ];
 
-const DAY_OPTIONS: { value: Schema['EDayOfWeek']['type']; label: string }[] = [
-  { value: 'MONDAY', label: 'Lundi' },
-  { value: 'TUESDAY', label: 'Mardi' },
-  { value: 'WEDNESDAY', label: 'Mercredi' },
-  { value: 'THURSDAY', label: 'Jeudi' },
-  { value: 'FRIDAY', label: 'Vendredi' }
-];
-
-export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [] }: PiscineFormProps) {
+export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], editingFormId }: PiscineFormProps) {
   const { user } = useAuthenticator();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitting, setSubmitting] = useState(false);
+
+  // Edit mode state
+  const [isEditMode, setIsEditMode] = useState(!!editingFormId);
+  const [loadingExistingData, setLoadingExistingData] = useState(!!editingFormId);
+  const [existingDateSlotIds, setExistingDateSlotIds] = useState<string[]>([]);
+  const [orphanedDateSlots, setOrphanedDateSlots] = useState<Array<{id: string; date: string; participantCount: number}>>([]);
+
+  // Multi-day mode state (always in multi-day mode)
+  const [dayTimeSlots, setDayTimeSlots] = useState<DayTimeSlot[]>([
+    { dayOfWeek: 'MONDAY', startTime: '', endTime: '', enabled: false },
+    { dayOfWeek: 'TUESDAY', startTime: '', endTime: '', enabled: false },
+    { dayOfWeek: 'WEDNESDAY', startTime: '', endTime: '', enabled: false },
+    { dayOfWeek: 'THURSDAY', startTime: '', endTime: '', enabled: false },
+    { dayOfWeek: 'FRIDAY', startTime: '', endTime: '', enabled: false },
+  ]);
+  const [selectedDatesPerDay, setSelectedDatesPerDay] = useState<Record<string, Date[]>>({});
 
   const totalSteps = 5;
 
@@ -112,40 +113,154 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [] }: 
     return errors.fields?.[fieldName];
   };
 
+  // Load existing form data when in edit mode
+  useEffect(() => {
+    const loadExistingForm = async () => {
+      if (!editingFormId) return;
+
+      try {
+        setLoadingExistingData(true);
+
+        // Load the piscine form
+        const { data: form, errors: formErrors } = await client.models.PiscineForm.get({ id: editingFormId });
+
+        if (formErrors || !form) {
+          console.error('Error loading form:', formErrors);
+          setErrors({ general: 'Erreur lors du chargement du planning' });
+          setLoadingExistingData(false);
+          return;
+        }
+
+        // ===== MULTI-DAY MODE (only mode) =====
+
+        // Load time slots
+        const { data: timeSlots } = await client.models.PiscineTimeSlot.list({
+          filter: { piscineFormId: { eq: editingFormId } }
+        });
+
+        if (timeSlots && timeSlots.length > 0) {
+          // Sort time slots by order
+          const sortedTimeSlots = [...timeSlots].sort((a, b) => (a.order || 0) - (b.order || 0));
+
+          // Update dayTimeSlots state
+          const updatedDayTimeSlots = dayTimeSlots.map(slot => {
+            const existingSlot = sortedTimeSlots.find(ts => ts.dayOfWeek === slot.dayOfWeek);
+            if (existingSlot) {
+              return {
+                dayOfWeek: slot.dayOfWeek,
+                startTime: existingSlot.startTime || '',
+                endTime: existingSlot.endTime || '',
+                enabled: true
+              };
+            }
+            return slot;
+          });
+          setDayTimeSlots(updatedDayTimeSlots);
+
+          // Load date slots for each time slot
+          const allDateSlots: string[] = [];
+          const datesByDay: Record<string, Date[]> = {};
+
+          for (const timeSlot of sortedTimeSlots) {
+            const { data: dateSlots } = await client.models.PiscineDateSlot.list({
+              filter: { piscineTimeSlotId: { eq: timeSlot.id } }
+            });
+
+            if (dateSlots && dateSlots.length > 0) {
+              const dates = dateSlots.map(ds => {
+                allDateSlots.push(ds.id);
+                return new Date(ds.selectedDate);
+              });
+              datesByDay[timeSlot.dayOfWeek] = dates;
+            }
+          }
+
+          setSelectedDatesPerDay(datesByDay);
+          setExistingDateSlotIds(allDateSlots);
+        }
+
+        // Load basic form data
+        setFormData(prev => ({
+          ...prev,
+          title: form.title || '',
+          schoolLevel: form.schoolLevel as Schema['ESchoolLevel']['type'],
+          teacherName: form.teacherName || ''
+        }));
+
+      } catch (error) {
+        console.error('Error loading existing form:', error);
+        setErrors({ general: 'Erreur lors du chargement du planning' });
+      } finally {
+        setLoadingExistingData(false);
+      }
+    };
+
+    loadExistingForm();
+  }, [editingFormId]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Multi-day mode handlers
+  const handleDayToggle = (dayOfWeek: Schema['EDayOfWeek']['type'], enabled: boolean) => {
+    setDayTimeSlots(prev =>
+      prev.map(slot =>
+        slot.dayOfWeek === dayOfWeek ? { ...slot, enabled } : slot
+      )
+    );
+  };
+
+  const handleTimeSlotChange = (
+    dayOfWeek: Schema['EDayOfWeek']['type'],
+    field: 'startTime' | 'endTime',
+    value: string
+  ) => {
+    setDayTimeSlots(prev =>
+      prev.map(slot =>
+        slot.dayOfWeek === dayOfWeek ? { ...slot, [field]: value } : slot
+      )
+    );
+  };
+
   const validateCurrentStep = (): boolean => {
     setErrors({});
 
     try {
       switch (currentStep) {
         case 1: // Day selection
-          if (!formData.dayOfWeek) {
-            setErrors({ fields: { dayOfWeek: 'Veuillez sélectionner un jour de la semaine' } });
+          // Multi-day: At least one day must be enabled
+          const enabledDays = dayTimeSlots.filter(slot => slot.enabled);
+          if (enabledDays.length === 0) {
+            setErrors({ fields: { days: 'Sélectionnez au moins un jour' } });
             return false;
           }
           break;
 
         case 2: // Time slot
-          if (!formData.startTime || !formData.endTime) {
-            const errorFields: Record<string, string> = {};
-            if (!formData.startTime) errorFields.startTime = 'Heure de début requise';
-            if (!formData.endTime) errorFields.endTime = 'Heure de fin requise';
-            setErrors({ fields: errorFields });
-            return false;
-          }
-          // Validate time format and range
-          const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
-          if (!timeRegex.test(formData.startTime) || !timeRegex.test(formData.endTime)) {
-            const errorFields: Record<string, string> = {};
-            if (!timeRegex.test(formData.startTime)) errorFields.startTime = 'Format d\'heure invalide';
-            if (!timeRegex.test(formData.endTime)) errorFields.endTime = 'Format d\'heure invalide';
-            setErrors({ fields: errorFields });
+          // Multi-day: All enabled days must have valid time slots
+          const enabledDaysStep2 = dayTimeSlots.filter(slot => slot.enabled);
+          const invalidDays = enabledDaysStep2.filter(
+            slot => !slot.startTime || !slot.endTime
+          );
+          if (invalidDays.length > 0) {
+            setErrors({
+              fields: {
+                timeSlots: `Définissez les horaires pour tous les jours sélectionnés`
+              }
+            });
             return false;
           }
           break;
 
         case 3: // Dates
-          if (formData.selectedDates.length === 0) {
-            setErrors({ fields: { selectedDates: 'Au moins une date doit être sélectionnée' } });
+          // Multi-day: Each enabled day must have at least one date
+          const enabledDaysStep3 = dayTimeSlots.filter(slot => slot.enabled);
+          const daysWithoutDates = enabledDaysStep3.filter(
+            slot => !selectedDatesPerDay[slot.dayOfWeek]?.length
+          );
+          if (daysWithoutDates.length > 0) {
+            setErrors({
+              fields: {
+                dates: 'Sélectionnez au moins une date pour chaque jour actif'
+              }
+            });
             return false;
           }
           break;
@@ -201,31 +316,113 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [] }: 
       setSubmitting(true);
       setErrors({});
 
-      // Ensure all required fields are properly typed
-      if (!formData.dayOfWeek || !formData.schoolLevel) {
+      // ===== EDIT MODE: UPDATE EXISTING FORM =====
+      if (isEditMode && editingFormId) {
+        // Multi-day update (only mode)
+        if (!formData.schoolLevel || !formData.title.trim()) {
+          setErrors({ general: 'Tous les champs requis doivent être remplis' });
+          return;
+        }
+
+        // Update the piscine form
+        const { data: updatedForm, errors: updateErrors } = await client.models.PiscineForm.update({
+          id: editingFormId,
+          title: formData.title.trim(),
+          schoolLevel: formData.schoolLevel as Schema['ESchoolLevel']['type'],
+          teacherName: formData.teacherName.trim()
+        });
+
+        if (updateErrors || !updatedForm) {
+          console.error('PiscineForm update errors:', updateErrors);
+          setErrors({ general: 'Erreur lors de la mise à jour du planning' });
+          return;
+        }
+
+        // Delete all existing time slots (cascades to date slots)
+        const { data: existingTimeSlots } = await client.models.PiscineTimeSlot.list({
+          filter: { piscineFormId: { eq: editingFormId } }
+        });
+
+        if (existingTimeSlots) {
+          await Promise.all(
+            existingTimeSlots.map(ts => client.models.PiscineTimeSlot.delete({ id: ts.id }))
+          );
+        }
+
+        // Delete orphaned date slots that aren't linked to time slots
+        const { data: allDateSlots } = await client.models.PiscineDateSlot.list({
+          filter: { piscineFormId: { eq: editingFormId } }
+        });
+
+        if (allDateSlots) {
+          const orphanedDateSlots = allDateSlots.filter(ds => !ds.piscineTimeSlotId);
+          await Promise.all(
+            orphanedDateSlots.map(ds => client.models.PiscineDateSlot.delete({ id: ds.id }))
+          );
+        }
+
+        // Create new time slots
+        const enabledDays = dayTimeSlots.filter(slot => slot.enabled);
+        const timeSlotPromises = enabledDays.map(async (daySlot, index) => {
+          const { data: timeSlot } = await client.models.PiscineTimeSlot.create({
+            dayOfWeek: daySlot.dayOfWeek as Schema['EDayOfWeek']['type'],
+            startTime: daySlot.startTime,
+            endTime: daySlot.endTime,
+            order: index,
+            piscineFormId: editingFormId
+          });
+          return timeSlot;
+        });
+
+        const createdTimeSlots = await Promise.all(timeSlotPromises);
+
+        // Create new date slots
+        const dateSlotPromises = [];
+        let globalOrder = 0;
+
+        for (const timeSlot of createdTimeSlots) {
+          if (!timeSlot) continue;
+
+          const datesForDay = selectedDatesPerDay[timeSlot.dayOfWeek] || [];
+
+          for (const date of datesForDay) {
+            dateSlotPromises.push(
+              client.models.PiscineDateSlot.create({
+                selectedDate: dateToISOString(date),
+                dayOfWeek: timeSlot.dayOfWeek,
+                order: globalOrder++,
+                piscineFormId: editingFormId,
+                piscineTimeSlotId: timeSlot.id
+              })
+            );
+          }
+        }
+
+        await Promise.all(dateSlotPromises);
+
+        onSubmit(true, `Planning "${formData.title}" mis à jour avec succès !`, updatedForm.slug);
+        return;
+      }
+
+      // ===== CREATE MODE: NEW FORM =====
+      // Multi-day mode (only mode)
+
+      // Validate form data
+      if (!formData.schoolLevel || !formData.title.trim()) {
         setErrors({ general: 'Tous les champs requis doivent être remplis' });
         return;
       }
 
-      // Validate the complete form data
-      const validatedData = PiscineFormSchema.parse({
-        ...formData,
-        dayOfWeek: formData.dayOfWeek,
-        schoolLevel: formData.schoolLevel
-      });
-
       // Generate unique slug
-      const slug = generateSlug(validatedData.title, existingSlugs);
+      const slug = generateSlug(formData.title, existingSlugs);
 
-      // Create the piscine form
+      // Create the piscine form (always multi-day mode)
       const { data: piscineForm, errors: formErrors } = await client.models.PiscineForm.create({
-        title: validatedData.title,
+        title: formData.title.trim(),
         slug: slug,
-        dayOfWeek: validatedData.dayOfWeek as Schema['EDayOfWeek']['type'],
-        startTime: validatedData.startTime,
-        endTime: validatedData.endTime,
-        schoolLevel: validatedData.schoolLevel as Schema['ESchoolLevel']['type'],
-        teacherName: validatedData.teacherName,
+        isMultiDay: true,
+        schoolLevel: formData.schoolLevel as Schema['ESchoolLevel']['type'],
+        teacherName: formData.teacherName.trim(),
         owner: user.userId
       });
 
@@ -235,27 +432,62 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [] }: 
         return;
       }
 
-      // Create date slots
-      const dateSlotPromises = validatedData.selectedDates.map(async (date, index) => {
-        const { data: dateSlot, errors } = await client.models.PiscineDateSlot.create({
-          selectedDate: dateToISOString(date),
+      // Create PiscineTimeSlot records for each enabled day
+      const enabledDays = dayTimeSlots.filter(slot => slot.enabled);
+      const timeSlotPromises = enabledDays.map(async (daySlot, index) => {
+        const { data: timeSlot, errors } = await client.models.PiscineTimeSlot.create({
+          dayOfWeek: daySlot.dayOfWeek as Schema['EDayOfWeek']['type'],
+          startTime: daySlot.startTime,
+          endTime: daySlot.endTime,
           order: index,
           piscineFormId: piscineForm.id
         });
 
         if (errors) {
-          console.error('PiscineDateSlot creation error:', errors);
+          console.error('PiscineTimeSlot creation error:', errors);
         }
 
-        return dateSlot;
+        return timeSlot;
       });
+
+      const createdTimeSlots = await Promise.all(timeSlotPromises);
+
+      // Create PiscineDateSlot records linked to time slots
+      const dateSlotPromises = [];
+      let globalOrder = 0;
+
+      for (const timeSlot of createdTimeSlots) {
+        if (!timeSlot) continue;
+
+        const datesForDay = selectedDatesPerDay[timeSlot.dayOfWeek] || [];
+
+        for (const date of datesForDay) {
+          dateSlotPromises.push(
+            client.models.PiscineDateSlot.create({
+              selectedDate: dateToISOString(date),
+              dayOfWeek: timeSlot.dayOfWeek,
+              order: globalOrder++,
+              piscineFormId: piscineForm.id,
+              piscineTimeSlotId: timeSlot.id
+            })
+          );
+        }
+      }
 
       await Promise.all(dateSlotPromises);
 
-      onSubmit(true, `Planning "${validatedData.title}" créé avec succès !`, slug);
+      onSubmit(true, `Planning "${formData.title}" créé avec succès !`, slug);
 
       // Reset form
       setFormData(INITIAL_FORM_DATA);
+      setDayTimeSlots([
+        { dayOfWeek: 'MONDAY', startTime: '', endTime: '', enabled: false },
+        { dayOfWeek: 'TUESDAY', startTime: '', endTime: '', enabled: false },
+        { dayOfWeek: 'WEDNESDAY', startTime: '', endTime: '', enabled: false },
+        { dayOfWeek: 'THURSDAY', startTime: '', endTime: '', enabled: false },
+        { dayOfWeek: 'FRIDAY', startTime: '', endTime: '', enabled: false },
+      ]);
+      setSelectedDatesPerDay({});
       setCurrentStep(1);
 
     } catch (error) {
@@ -276,48 +508,21 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [] }: 
       case 1:
         return (
           <div>
-            <Title level={TitleLevel.LEVEL3}>
-              Étape 1: Choisir le jour de la semaine
-            </Title>
-
-            <div className={classNames(
-              flexStyles.isGridDisplayGrid, flexStyles.isGridGap3,
-            )}
-            style={{
-              gridTemplateColumns: 'repeat(auto-fit, minmax(125px, 1fr))',
-              gridTemplateRows: 'auto 1fr'
-            }}>
-              {DAY_OPTIONS.map((day) => (
-                <Radio
-                  key={day.value}
-                  name="dayOfWeek"
-                  id={`day-${day.value}`}
-                  value={day.value}
-                  label={day.label}
-                  checked={formData.dayOfWeek === day.value}
-                  onChange={() => setFormData(prev => ({ ...prev, dayOfWeek: day.value }))}
-                />
-              ))}
-            </div>
-
-            {getFieldError('dayOfWeek') && (
-              <div className={`${flexStyles.hasTextDanger} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop2}`}>
-                {getFieldError('dayOfWeek')}
-              </div>
-            )}
+            <MultiDaySelector
+              dayTimeSlots={dayTimeSlots}
+              onDayToggle={handleDayToggle}
+              error={getFieldError('days')}
+            />
           </div>
         );
 
       case 2:
         return (
           <div>
-            <PiscineTimeSlotPicker
-              startTime={formData.startTime}
-              endTime={formData.endTime}
-              onStartTimeChange={(time) => setFormData(prev => ({ ...prev, startTime: time }))}
-              onEndTimeChange={(time) => setFormData(prev => ({ ...prev, endTime: time }))}
-              startTimeError={getFieldError('startTime')}
-              endTimeError={getFieldError('endTime')}
+            <MultiDayTimeSlotPicker
+              dayTimeSlots={dayTimeSlots}
+              onTimeSlotChange={handleTimeSlotChange}
+              errors={errors.fields}
             />
           </div>
         );
@@ -325,10 +530,11 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [] }: 
       case 3:
         return (
           <div>
-            <PiscineDateCalendar
-              selectedDates={formData.selectedDates}
-              onDatesChange={(dates) => setFormData(prev => ({ ...prev, selectedDates: dates }))}
-              error={getFieldError('selectedDates')}
+            <MultiDayCalendarPicker
+              dayTimeSlots={dayTimeSlots}
+              selectedDatesPerDay={selectedDatesPerDay}
+              onDatesChange={setSelectedDatesPerDay}
+              error={getFieldError('dates')}
             />
           </div>
         );
@@ -443,18 +649,32 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [] }: 
               backgroundColor: '#f9f9f9',
               padding: '1rem',
               borderRadius: '4px',
-              border: '1px solid #e0e0e0'
+              border: '1px solid #e0e0e0',
+              marginTop: '1rem'
             }}>
               <Title level={TitleLevel.LEVEL4}>
                 Résumé du planning
               </Title>
 
               <div className={classNames(flexStyles.isGridDisplayGrid, flexStyles.isGridGap2)}>
-                <Text><strong>Jour:</strong> {formData.dayOfWeek ? formatDayOfWeek(formData.dayOfWeek) : ''}</Text>
-                <Text><strong>Horaires:</strong> {formData.startTime} - {formData.endTime}</Text>
+                {/* <Text><strong>Mode:</strong> Multi-jours</Text> */}
+                {dayTimeSlots.filter(s => s.enabled).map((daySlot) => {
+                  const datesCount = selectedDatesPerDay[daySlot.dayOfWeek]?.length || 0;
+                  return (
+                    <div key={daySlot.dayOfWeek} style={{ marginBottom: '0.5rem' }}>
+                      <Text><strong>{formatDayOfWeek(daySlot.dayOfWeek)}:</strong></Text>
+                      <Text style={{ marginLeft: '1rem' }}>
+                        • Horaires: {daySlot.startTime} - {daySlot.endTime}
+                      </Text>
+                      <Text style={{ marginLeft: '1rem' }}>
+                        • Dates: {datesCount} date{datesCount > 1 ? 's' : ''}
+                      </Text>
+                    </div>
+                  );
+                })}
+                <Divider />
                 <Text><strong>Niveau:</strong> {formData.schoolLevel ? formatSchoolLevel(formData.schoolLevel) : ''}</Text>
                 <Text><strong>Enseignant:</strong> {formData.teacherName}</Text>
-                <Text><strong>Nombre de dates:</strong> {formData.selectedDates.length}</Text>
               </div>
             </div>
           </div>
@@ -465,11 +685,25 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [] }: 
     }
   };
 
+  // Show loading indicator while loading existing data
+  if (loadingExistingData) {
+    return (
+      <div>
+        <Box>
+          <Title level={TitleLevel.LEVEL2}>Chargement...</Title>
+          <Text className={classNames(flexStyles.hasTextCentered, flexStyles.isMarginTop4)}>
+            Chargement des données du planning...
+          </Text>
+        </Box>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Box>
         <Title level={TitleLevel.LEVEL2}>
-          Créer un nouveau planning piscine
+          {isEditMode ? 'Modifier le planning piscine' : 'Créer un nouveau planning piscine'}
         </Title>
 
         {/* Progress indicator */}
@@ -572,7 +806,10 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [] }: 
               disabled={submitting}
               className="justify-self-end"
             >
-              {submitting ? 'Création...' : 'Créer le planning'}
+              {submitting
+                ? (isEditMode ? 'Mise à jour...' : 'Création...')
+                : (isEditMode ? 'Mettre à jour le planning' : 'Créer le planning')
+              }
             </Button>
           )}
         </div>

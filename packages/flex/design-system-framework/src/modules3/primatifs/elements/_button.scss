@@ -87,7 +87,7 @@ $is-check-button-icon-pos-left: functions.size(0.5em);
     &.is-small-mobile {
         height: functions.size(3.5em);
         font-size: variables.$text-15;
-        min-width: functions.size(12em);
+        min-width: functions.size(10em);
     }
 
     &.is-loading {

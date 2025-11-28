@@ -34,7 +34,16 @@ import {
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import PiscineCandidatTable from '@src/components/piscine/PiscineCandidatTable';
 import { formatDayOfWeek, formatSchoolLevel } from '@src/lib/piscine-helpers';
+import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
 import AuthBanner from '@src/components/auth/AuthBanner';
+
+type TimeSlotData = {
+  id: string;
+  dayOfWeek: Schema['EDayOfWeek']['type'];
+  startTime: string;
+  endTime: string;
+  order: number | null;
+};
 
 interface PiscineSlugPageProps {
   params: Promise<{
@@ -46,9 +55,7 @@ type PiscineFormData = {
   id: string;
   title: string;
   slug: string;
-  dayOfWeek: Schema['EDayOfWeek']['type'];
-  startTime: string;
-  endTime: string;
+  isMultiDay?: boolean | null;
   schoolLevel: Schema['ESchoolLevel']['type'];
   teacherName: string;
   owner: string;
@@ -58,6 +65,7 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
   const router = useRouter();
   const { user } = useAuthenticator();
   const [piscineForm, setPiscineForm] = useState<PiscineFormData | null>(null);
+  const [timeSlots, setTimeSlots] = useState<TimeSlotData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<{ text: string; isError: boolean } | null>(null);
@@ -89,7 +97,20 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
           return;
         }
 
-        setPiscineForm(forms[0]);
+        const form = forms[0];
+        setPiscineForm(form);
+
+        // Load time slots if multi-day mode
+        if (form.isMultiDay) {
+          const { data: timeSlotsData } = await client.models.PiscineTimeSlot.list({
+            filter: { piscineFormId: { eq: form.id } }
+          });
+
+          if (timeSlotsData) {
+            const sortedTimeSlots = timeSlotsData.sort((a, b) => (a.order || 0) - (b.order || 0));
+            setTimeSlots(sortedTimeSlots);
+          }
+        }
 
       } catch (error) {
         console.error('Error loading piscine form:', error);
@@ -170,20 +191,54 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
               {piscineForm.title}
             </Title>
 
-            <div className={classNames(
-              flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
-              flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
-              flexStyles.isMarginBottom4
-            )}>
-              <div>
-                <Text><strong>Jour:</strong> {formatDayOfWeek(piscineForm.dayOfWeek)}</Text>
-                <Text><strong>Horaires:</strong> {piscineForm.startTime} - {piscineForm.endTime}</Text>
+            {piscineForm.isMultiDay ? (
+              /* Multi-day display */
+              <div className={flexStyles.isMarginBottom4}>
+                <Text className={flexStyles.isMarginBottom2}>
+                  <strong>Mode:</strong> Planning multi-jours
+                </Text>
+
+                {timeSlots.map((timeSlot) => (
+                  <Box
+                    key={timeSlot.id}
+                    className={classNames(flexStyles.isMarginBottom2, flexStyles.isPadding2)}
+                  >
+                    <Text>
+                      <strong>{formatDayOfWeek(timeSlot.dayOfWeek)}:</strong>{' '}
+                      {timeSlot.startTime} - {timeSlot.endTime}
+                    </Text>
+                  </Box>
+                ))}
+
+                <Divider className={flexStyles.isMarginY3} />
+
+                <div className={classNames(
+                  flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+                  flexStyles.isGridCols1, flexStyles.isGridCols2Tablet
+                )}>
+                  <Text><strong>Niveau:</strong> {formatSchoolLevel(piscineForm.schoolLevel)}</Text>
+                  <Text><strong>Enseignant:</strong> {piscineForm.teacherName}</Text>
+                </div>
               </div>
-              <div>
-                <Text><strong>Niveau:</strong> {formatSchoolLevel(piscineForm.schoolLevel)}</Text>
-                <Text><strong>Enseignant:</strong> {piscineForm.teacherName}</Text>
-              </div>
-            </div>
+            ) : (
+              /* Single-day display */
+              timeSlots.length > 0 ? (
+                <div className={classNames(
+                  flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+                  flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
+                  flexStyles.isMarginBottom4
+                )}>
+                  <div>
+                    <Text><strong>Jour:</strong> {formatDayOfWeek(timeSlots[0].dayOfWeek)}</Text>
+                    <Text><strong>Horaires:</strong> {timeSlots[0].startTime} - {timeSlots[0].endTime}</Text>
+                  </div>
+                  <div>
+                    <Text><strong>Niveau:</strong> {formatSchoolLevel(piscineForm.schoolLevel)}</Text>
+                    <Text><strong>Enseignant:</strong> {piscineForm.teacherName}</Text>
+                  </div>
+                </div>
+              ) : null
+            )}
           </div>
 
           {/* Creator Badge */}
@@ -193,7 +248,10 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
                 <Title level={TitleLevel.LEVEL3}>Mode Créateur</Title>
               </InfoBlockHeader>
               <InfoBlockContent>
-                <Text>Vous êtes le créateur de ce planning. Vous pouvez modifier et supprimer les inscriptions.</Text>
+                <Text>Vous êtes le créateur de ce planning.
+                  Vous pouvez modifier et supprimer les inscriptions.
+                  Vous pouvez aussi glisser les participiants d&apos;un créneau horaire à un autre avec l&apos;icône ☰
+                </Text>
               </InfoBlockContent>
             </InfoBlock>
           )}
@@ -207,9 +265,6 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
             onAuthRequired={handleAuthRequired}
             piscineFormData={{
               title: piscineForm.title,
-              dayOfWeek: formatDayOfWeek(piscineForm.dayOfWeek),
-              startTime: piscineForm.startTime,
-              endTime: piscineForm.endTime,
               schoolLevel: formatSchoolLevel(piscineForm.schoolLevel),
               teacherName: piscineForm.teacherName
             }}

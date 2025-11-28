@@ -12,6 +12,7 @@ import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/tex
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import { PiscineCandidatSchema, type PiscineCandidatData } from '@src/lib/piscine-helpers';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 
 const client = generateClient<Schema>();
 
@@ -31,6 +32,7 @@ interface PiscineCandidatRowProps {
   onError?: (message: string) => void;
   isCreatorMode?: boolean;
   onCandidatChange?: () => void;
+  onCancel?: () => void; // Callback to notify parent when canceling new candidat form
 }
 
 const INITIAL_CANDIDAT_DATA = {
@@ -51,7 +53,8 @@ export default function PiscineCandidatRow({
   onSuccess,
   onError,
   isCreatorMode = false,
-  onCandidatChange
+  onCandidatChange,
+  onCancel
 }: PiscineCandidatRowProps) {
   const [candidatData, setCandidatData] = useState<Partial<PiscineCandidatData>>(() => {
     if (existingCandidat) {
@@ -204,6 +207,8 @@ export default function PiscineCandidatRow({
       });
       setIsEditing(false);
     } else {
+      // For new candidat, notify parent to close the form
+      onCancel?.();
       // Reset to empty
       setCandidatData({
         ...INITIAL_CANDIDAT_DATA,
@@ -218,10 +223,10 @@ export default function PiscineCandidatRow({
     // Display mode
     return (
       <div style={{
-        backgroundColor: '#f9f9f9',
-        padding: '1rem',
-        borderRadius: '4px',
-        border: '1px solid #e0e0e0',
+        // backgroundColor: '#f9f9f9',
+        // borderRadius: '4px',
+        // border: '1px solid #e0e0e0',
+        padding: '3rem 1rem 1rem',
         marginBottom: '0.5rem'
       }}>
         <div className={classNames(
@@ -229,16 +234,16 @@ export default function PiscineCandidatRow({
           flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
           flexStyles.isItemsCenter
         )}>
-          <div>
-            <Text style={{ fontWeight: 'bold', marginBottom: '0.25rem' }}>
+          <div style={{ margin: '-1.5rem 0 0' }}>
+            <Title level={TitleLevel.LEVEL5}>
               {existingCandidat.firstName} {existingCandidat.lastName}
-            </Text>
-            <Text style={{ fontSize: '0.875rem', color: '#666', marginBottom: '0.25rem' }}>
+            </Title>
+            <Title level={TitleLevel.LEVEL6}>
               Enfant: {existingCandidat.nameOfChild}
-            </Text>
-            <Text style={{ fontSize: '0.875rem', color: '#666' }}>
+            </Title>
+            <Title level={TitleLevel.LEVEL6}>
               {existingCandidat.email} • {existingCandidat.phoneNumber}
-            </Text>
+            </Title>
           </div>
 
           {isCreatorMode && (
@@ -250,29 +255,27 @@ export default function PiscineCandidatRow({
               flexStyles.isJustifiedCenter,
               flexStyles.isFullheight,
               flexStyles.isFullwidth,
-            )}>
-              <div style={{ maxWidth: '200px' }}>
-                <Button
-                  markup={ButtonMarkup.BUTTON}
-                  variant={VariantState.SECONDARY}
-                  onClick={() => setIsEditing(true)}
-                  disabled={isSubmitting}
-                  className="text-sm px-2 py-1"
-                >
-                  Modifier
-                </Button>
-              </div>
-              <div style={{ maxWidth: '200px' }}>
-                <Button
-                  markup={ButtonMarkup.BUTTON}
-                  variant={VariantState.DANGER}
-                  onClick={handleDelete}
-                  disabled={isSubmitting}
-                  className="text-sm px-2 py-1"
-                >
-                  Supprimer
-                </Button>
-              </div>
+            )} style={{ padding: '1rem 0 0'}}>
+              <Button
+                small
+                markup={ButtonMarkup.BUTTON}
+                variant={VariantState.SECONDARY}
+                onClick={() => setIsEditing(true)}
+                disabled={isSubmitting}
+                className="text-sm px-2 py-1"
+              >
+                Modifier
+              </Button>
+              <Button
+                small
+                markup={ButtonMarkup.BUTTON}
+                variant={VariantState.DANGER}
+                onClick={handleDelete}
+                disabled={isSubmitting}
+                className="text-sm px-2 py-1"
+              >
+                Supprimer
+              </Button>
             </div>
           )}
         </div>
@@ -287,7 +290,7 @@ export default function PiscineCandidatRow({
       padding: '1rem',
       borderRadius: '4px',
       border: existingCandidat ? '1px solid #fecaca' : '1px solid #bfdbfe',
-      marginBottom: '0.5rem'
+      // marginBottom: '0.5rem'
     }}>
       <div className={classNames(
         flexStyles.isGridDisplayGrid, flexStyles.isGridGap3,
@@ -398,29 +401,27 @@ export default function PiscineCandidatRow({
           flexStyles.isJustifiedCenter,
           flexStyles.isFullheight,
           flexStyles.isFullwidth,
-        )} style={{ margin: '0.5rem 0 0', alignSelf: 'center' }}>
-          <div style={{ maxWidth: '200px' }}>
-            <Button
-              markup={ButtonMarkup.BUTTON}
-              variant={VariantState.SECONDARY}
-              onClick={handleCancel}
-              disabled={isSubmitting}
-              className="text-sm px-4 py-2"
-            >
-              Annuler
-            </Button>
-          </div>
-          <div style={{ maxWidth: '200px' }}>
-            <Button
-              markup={ButtonMarkup.BUTTON}
-              variant={VariantState.PRIMARY}
-              onClick={validateAndSubmit}
-              disabled={isSubmitting}
-              className="text-sm px-4 py-2"
-            >
-              {isSubmitting ? 'Enregistrement...' : existingCandidat ? 'Mettre à jour' : 'S\'inscrire'}
-            </Button>
-          </div>
+        )} style={{ padding: '1rem 0 0'}}>
+          <Button
+            small
+            markup={ButtonMarkup.BUTTON}
+            variant={VariantState.SECONDARY}
+            onClick={handleCancel}
+            disabled={isSubmitting}
+            className="text-sm px-4 py-2"
+          >
+            Annuler
+          </Button>
+          <Button
+            small
+            markup={ButtonMarkup.BUTTON}
+            variant={VariantState.PRIMARY}
+            onClick={validateAndSubmit}
+            disabled={isSubmitting}
+            className="text-sm px-4 py-2"
+          >
+            {isSubmitting ? 'Enregistrement...' : existingCandidat ? 'Mettre à jour' : 'S\'inscrire'}
+          </Button>
         </div>
       </div>
     </div>

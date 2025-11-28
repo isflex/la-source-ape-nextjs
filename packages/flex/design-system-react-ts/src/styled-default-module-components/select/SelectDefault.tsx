@@ -43,6 +43,7 @@ const Select = ({
   placeholderId,
   nullable,
   ref,
+  disabled,
   ...others
 }: SelectProps): React.JSX.Element => {
   const wrapperClasses = classNames(styles.field, className, validate(classList))
@@ -79,6 +80,7 @@ const Select = ({
             id={id || idGenerated}
             name={name}
             ref={ref}
+            disabled={disabled || false}
             {...others}
           >
             {/* {!!placeholder && (

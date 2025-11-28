@@ -158,6 +158,12 @@
     }
 }
 
+@mixin mobile-max {
+    @media screen and (min-width: initial-variables.$mobile-max), print {
+        @content;
+    }
+}
+
 @mixin tablet {
     @media screen and (min-width: initial-variables.$tablet), print {
         @content;

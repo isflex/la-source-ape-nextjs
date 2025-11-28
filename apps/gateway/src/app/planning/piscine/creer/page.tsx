@@ -47,9 +47,7 @@ type PiscineFormData = {
   id: string;
   title: string;
   slug: string;
-  dayOfWeek: Schema['EDayOfWeek']['type'];
-  startTime: string;
-  endTime: string;
+  isMultiDay?: boolean | null;
   schoolLevel: Schema['ESchoolLevel']['type'];
   teacherName: string;
   owner: string;
@@ -64,12 +62,43 @@ export default function PiscineCreerPage() {
 
 
   const [showForm, setShowForm] = useState(false);
+  const [editingFormId, setEditingFormId] = useState<string | null>(null);
   const [forms, setForms] = useState<PiscineFormData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const [createSuccess, setCreateSuccess] = useState<string | null>(null);
   const [createError, setCreateError] = useState<string | null>(null);
+  const [formTimeSlots, setFormTimeSlots] = useState<Record<string, Array<{
+    dayOfWeek: Schema['EDayOfWeek']['type'];
+    startTime: string;
+    endTime: string;
+  }>>>({});
+
+  const loadTimeSlots = async (formId: string) => {
+    try {
+      const { data: timeSlots } = await client.models.PiscineTimeSlot.list({
+        filter: { piscineFormId: { eq: formId } }
+      });
+
+      if (timeSlots && timeSlots.length > 0) {
+        const sortedTimeSlots = timeSlots
+          .sort((a, b) => (a.order || 0) - (b.order || 0))
+          .map(ts => ({
+            dayOfWeek: ts.dayOfWeek as Schema['EDayOfWeek']['type'],
+            startTime: ts.startTime,
+            endTime: ts.endTime
+          }));
+
+        setFormTimeSlots(prev => ({
+          ...prev,
+          [formId]: sortedTimeSlots
+        }));
+      }
+    } catch (error) {
+      console.error('Error loading time slots:', error);
+    }
+  };
 
   const loadForms = async () => {
     try {
@@ -81,8 +110,16 @@ export default function PiscineCreerPage() {
             owner: { eq: user?.userId || '' }
           }
         }).subscribe({
-          next: ({ items }) => {
+          next: async ({ items }) => {
             setForms(items || []);
+
+            // Load time slots for each form
+            if (items) {
+              for (const form of items) {
+                await loadTimeSlots(form.id);
+              }
+            }
+
             setLoading(false);
           },
           error: (error) => {
@@ -179,6 +216,17 @@ export default function PiscineCreerPage() {
     return dayMap[day] || day;
   };
 
+  const formatShortDayOfWeek = (day: Schema['EDayOfWeek']['type']) => {
+    const dayMap: Record<Schema['EDayOfWeek']['type'], string> = {
+      'MONDAY': 'Lun',
+      'TUESDAY': 'Mar',
+      'WEDNESDAY': 'Mer',
+      'THURSDAY': 'Jeu',
+      'FRIDAY': 'Ven'
+    };
+    return dayMap[day] || day;
+  };
+
   return (
     <>
       <AuthBanner />
@@ -241,7 +289,7 @@ export default function PiscineCreerPage() {
                           flexStyles.isGridCols1,
                           flexStyles.isGridItemsCenter,
                           flexStyles.isFullwidth
-                        )}>
+                        )} style={{ marginTop: '1.5rem'}}>
                           <Box className={classNames(flexStyles.isFlat, flexStyles.isMarginless)}>
                             <Title level={TitleLevel.LEVEL7}>{form.title}</Title>
                           </Box>
@@ -249,10 +297,10 @@ export default function PiscineCreerPage() {
                             <TableHead>
                               <TableTr>
                                 <TableTh className={flexStyles.isHiddenMobile}>
-                                  <div style={{ padding: '0 0.5rem' }}>Jour</div>
+                                  <div style={{ padding: '0 0.5rem' }}>Jour(s)</div>
                                 </TableTh>
                                 <TableTh className={flexStyles.isHiddenMobile}>
-                                  <div style={{ padding: '0 0.5rem' }}>Horaires</div>
+                                  <div style={{ padding: '0 0.5rem' }}>Horaire(s)</div>
                                 </TableTh>
                                 <TableTh className={flexStyles.isHiddenMobile}>
                                   <div style={{ padding: '0 0.5rem' }}>Niveau</div>
@@ -283,13 +331,22 @@ export default function PiscineCreerPage() {
                                     <div className={classNames(
                                       flexStyles.isHiddenTablet,
                                       flexStyles.isFullwidth,
-                                    )} style={{ backgroundColor: 'var(--flex-table-head-fill)' }}>Jour</div>
+                                    )} style={{ backgroundColor: 'var(--flex-table-head-fill)' }}>Jour(s)</div>
                                     <div className={classNames(
                                       flexStyles.isFlexMobile,
+                                      flexStyles.isFlexDirectionColumn,
                                       flexStyles.isAlignItemsCenter,
                                       flexStyles.isJustifyContentStart,
                                       flexStyles.isFullwidth,
-                                    )} style={{ padding: '0 0.5rem' }}>{formatDayOfWeek(form.dayOfWeek)}</div>
+                                    )} style={{ padding: '0 0.5rem' }}>
+                                      {formTimeSlots[form.id]?.map((ts, index) => {
+                                        return (
+                                          <div key={index} className={classNames(flexStyles.isFullwidth)}>
+                                            {formatDayOfWeek(ts.dayOfWeek)}
+                                          </div>
+                                        )
+                                      })}
+                                    </div>
                                   </TableTd>
                                   <TableTd className={classNames(
                                     flexStyles.isFlexMobile,
@@ -300,13 +357,22 @@ export default function PiscineCreerPage() {
                                     <div className={classNames(
                                       flexStyles.isHiddenTablet,
                                       flexStyles.isFullwidth,
-                                    )} style={{ backgroundColor: 'var(--flex-table-head-fill)' }}>Horaires</div>
+                                    )} style={{ backgroundColor: 'var(--flex-table-head-fill)' }}>Horaire(s)</div>
                                     <div className={classNames(
                                       flexStyles.isFlexMobile,
+                                      flexStyles.isFlexDirectionColumn,
                                       flexStyles.isAlignItemsCenter,
                                       flexStyles.isJustifyContentStart,
                                       flexStyles.isFullwidth,
-                                    )} style={{ padding: '0 0.5rem' }}>{formatTime(form.startTime)} - {formatTime(form.endTime)}</div>
+                                    )} style={{ padding: '0 0.5rem' }}>
+                                      {formTimeSlots[form.id]?.map((ts, index) => {
+                                        return (
+                                          <div key={index} className={classNames(flexStyles.isFullwidth)}>
+                                            {`${ts.startTime}-${ts.endTime}`}<span className={flexStyles.isInvisibleTablet}>{`\u00A0\u00A0(${formatShortDayOfWeek(ts.dayOfWeek)})`}</span>
+                                          </div>
+                                        )
+                                      })}
+                                    </div>
                                   </TableTd>
                                   <TableTd className={classNames(
                                     flexStyles.isFlexMobile,
@@ -343,26 +409,45 @@ export default function PiscineCreerPage() {
                                     )} style={{ padding: '0 0.5rem' }}>{form.teacherName}</div>
                                   </TableTd>
                                   <TableTd className={classNames(
-                                    flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-                                    flexStyles.isGridCols2, flexStyles.isGridCols1Tablet,
-                                    flexStyles.isAlignItemsCenter,
-                                    flexStyles.isJustifyContentCenter,
-                                    flexStyles.isJustifiedCenter,
+                                    flexStyles.isGridDisplayGrid,
                                     flexStyles.isFullheight,
                                     flexStyles.isFullwidth,
+                                    flexStyles.isPaddingless,
                                   )}>
-                                    <div style={{ maxWidth: '200px' }}>
+                                    <div className={classNames(
+                                      flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+                                      // flexStyles.isGridCols1,
+                                      flexStyles.isGridCols1, flexStyles.isGridCols3MobileMax, flexStyles.isGridCols1Tablet,
+                                      flexStyles.isAlignItemsCenter,
+                                      flexStyles.isJustifyContentCenter,
+                                      flexStyles.isJustifiedCenter,
+                                      flexStyles.isFullheight,
+                                      flexStyles.isFullwidth,
+                                    )}
+                                    style={{ padding: '1rem 0 0' }}>
                                       <Button
+                                        small
                                         markup={ButtonMarkup.BUTTON}
                                         variant={VariantState.SECONDARY}
                                         onClick={() => handleViewOnline(form)}
-                                        className={flexStyles.isMarginRight2}
                                       >
-                                        Voir en ligne
+                                        Voir
                                       </Button>
-                                    </div>
-                                    <div style={{ maxWidth: '200px' }}>
                                       <Button
+                                        small
+                                        markup={ButtonMarkup.BUTTON}
+                                        variant={VariantState.PRIMARY}
+                                        onClick={() => {
+                                          setEditingFormId(form.id);
+                                          setShowForm(true);
+                                          setCreateSuccess(null);
+                                          setCreateError(null);
+                                        }}
+                                      >
+                                        Modifier
+                                      </Button>
+                                      <Button
+                                        small
                                         markup={ButtonMarkup.BUTTON}
                                         variant={VariantState.DANGER}
                                         onClick={() => handleDeleteForm(form.id, form.title)}
@@ -420,14 +505,15 @@ export default function PiscineCreerPage() {
             </div>
           </Box>
 
-          {/* Piscine Form Creation */}
+          {/* Piscine Form Creation/Editing */}
           {isAdmin && showForm && (
             <PiscineForm
               onSubmit={(success, message, slug) => {
                 if (success) {
                   setCreateSuccess(message);
                   setShowForm(false);
-                  // Reload forms to show the new one
+                  setEditingFormId(null); // Reset editing state
+                  // Reload forms to show the updated one
                   loadForms();
                   // Clear success message after 5 seconds
                   setTimeout(() => setCreateSuccess(null), 5000);
@@ -437,9 +523,11 @@ export default function PiscineCreerPage() {
               }}
               onCancel={() => {
                 setShowForm(false);
+                setEditingFormId(null); // Reset editing state
                 setCreateError(null);
               }}
               existingSlugs={forms.map(f => f.slug)}
+              editingFormId={editingFormId || undefined}
             />
           )}
         </Section>

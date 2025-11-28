@@ -20,6 +20,7 @@
     },
     "next:dev": {
       "cache": false,
+      "persistent": true,
       "env": [
         "FLEX_*",
         "NEXT_PUBLIC_*",
@@ -45,10 +46,11 @@
     },
     "dev": {
       "dependsOn": [
-        "^dev:packages:transit",
-        "next:dev"
+        "^dev:packages:transit"
       ],
-      "cache": false
+      "with": ["next:dev"],
+      "cache": false,
+      "persistent": true
     },
     "dev:turbo": {
       "dependsOn": [

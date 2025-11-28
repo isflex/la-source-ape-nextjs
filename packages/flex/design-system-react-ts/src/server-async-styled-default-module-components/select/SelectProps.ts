@@ -20,9 +20,12 @@ export interface SelectProps {
   label?: string
   selected?: string
   nullable?: boolean
+  disabled?: boolean
   onChange?: SelectChangeEventHandler
   children?: GenericChildren | string
   dynamicPlaceholder?: boolean
   placeholder?: string
   placeholderId?: string
+  // ref?: React.LegacyRef<HTMLSelectElement>
+  ref?: React.ForwardedRef<HTMLSelectElement>
 }

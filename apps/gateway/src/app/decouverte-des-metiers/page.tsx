@@ -45,7 +45,6 @@ import {
   StatusIcon
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
-import { Radio } from '@flex-design-system/react-ts/client-sync-styled-direct/radio';
 import { Rows, RowItem } from '@flex-design-system/react-ts/client-sync-styled-direct/rows';
 import { Textarea } from '@flex-design-system/react-ts/client-sync-styled-direct/textarea';
 import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link';
@@ -53,12 +52,6 @@ import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/vie
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 
 // Mapping objects for availability options
-const AVAILABILITY_OPTIONS = [
-  { value: 'DECEMBER_8_2025', label: 'Pour la présentation des métiers du 8 décembre 2025 de 8h45 à 9h30' },
-  { value: 'FEBRUARY_9_2026_WOMEN_PRIORITY', label: 'Pour la présentation des métiers du 9 février 2026 avec priorité aux femmes faisant un métier "dit d\'homme"' },
-  { value: 'LATER_PRESENTATION', label: 'Pour une présentation des métiers ultérieure' }
-];
-
 // SelectionSet for CareerDiscoveryResponse to ensure all fields are retrieved
 const careerResponseSelectionSet = [
   'id', 'email', 'firstName', 'lastName', 'childrenClasses',
@@ -115,9 +108,8 @@ const CareerDiscoverySchema = z.object({
       });
       return z.NEVER;
     }),
-  availability: z.enum(['DECEMBER_8_2025', 'FEBRUARY_9_2026_WOMEN_PRIORITY', 'LATER_PRESENTATION'], {
-    required_error: 'Veuillez sélectionner vos disponibilités'
-  }),
+  availability: z.array(z.string())
+    .min(1, 'Veuillez sélectionner au moins une disponibilité'),
   organization: z.string()
     .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
     .optional(),
@@ -140,7 +132,7 @@ export default function CareerDiscoveryForm() {
     lastName: '',
     childrenClasses: '',
     phone: '',
-    availability: 'DECEMBER_8_2025' as const,
+    availability: [],
     organization: '',
     jobDescription: '',
     companySector: '',
@@ -211,6 +203,21 @@ export default function CareerDiscoveryForm() {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const handleCheckboxChange = (field: 'availability', option: string) => {
+    setFormData(prev => {
+      const currentArray = prev[field];
+      const isSelected = currentArray.includes(option);
+
+      if (isSelected) {
+        // Remove from array
+        return { ...prev, [field]: currentArray.filter(item => item !== option) };
+      } else {
+        // Add to array
+        return { ...prev, [field]: [...currentArray, option] };
+      }
+    });
+  };
+
   const toggleForm = () => {
     setShowForm(prev => !prev);
   };
@@ -270,7 +277,7 @@ export default function CareerDiscoveryForm() {
           lastName: '',
           childrenClasses: '',
           phone: '',
-          availability: 'DECEMBER_8_2025' as const,
+          availability: [],
           organization: '',
           jobDescription: '',
           companySector: '',
@@ -344,7 +351,7 @@ export default function CareerDiscoveryForm() {
       response.lastName,
       response.childrenClasses,
       response.phone,
-      AVAILABILITY_OPTIONS.find(opt => opt.value === response.availability)?.label || response.availability,
+      response.availability.join('; '),
       response.organization || '',
       response.jobDescription,
       response.companySector || '',
@@ -539,38 +546,27 @@ export default function CareerDiscoveryForm() {
                 {/* Availability Section */}
                 <div>
                   <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
-                    6. Disponibilités *
+                    6. Disponibilités * (Plusieurs choix possibles)
                   </Title>
                   <div className={classNames(
                     flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
                     flexStyles.isGridCols1,
                     flexStyles.isGridItemsStart,
                   )} style={{ marginTop: '1rem' }}>
-                    {activeTemplate.availabilityOptions && activeTemplate.availabilityOptions.length > 0 ? (
-                      activeTemplate.availabilityOptions.map((option, index) => (
-                        <Radio
-                          key={`${option || `empty-${index}`}-${index}`}
-                          name="availability"
-                          id={`availability-${index}`}
-                          value={AVAILABILITY_OPTIONS[index]?.value || `OPTION_${index}`}
-                          label={option || ''}
-                          checked={formData.availability === (AVAILABILITY_OPTIONS[index]?.value || `OPTION_${index}`)}
-                          onChange={() => handleInputChange('availability', AVAILABILITY_OPTIONS[index]?.value || `OPTION_${index}`)}
+                    {activeTemplate?.availabilityOptions?.filter((opt): opt is string => opt !== null && opt !== undefined).map((option, index) => (
+                      <label
+                        key={`availability-${index}`}
+                        style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={formData.availability.includes(option)}
+                          onChange={() => handleCheckboxChange('availability', option)}
+                          style={{ marginRight: '0.5rem' }}
                         />
-                      ))
-                    ) : (
-                      AVAILABILITY_OPTIONS.map((option) => (
-                        <Radio
-                          key={option.value}
-                          name="availability"
-                          id={`availability-${option.value.toLowerCase()}`}
-                          value={option.value}
-                          label={option.label}
-                          checked={formData.availability === option.value}
-                          onChange={() => handleInputChange('availability', option.value)}
-                        />
-                      ))
-                    )}
+                        <Text>{option}</Text>
+                      </label>
+                    ))}
                   </div>
                   {getFieldErrors('availability').map((error, errorIndex) => (
                     <span key={errorIndex} style={{ color: 'red', fontSize: '0.875rem', display: 'flex', alignItems: 'center', marginTop: '0.5rem' }}>
@@ -747,25 +743,29 @@ export default function CareerDiscoveryForm() {
                     flexStyles.isGridCols1,
                     flexStyles.isGridItemsStart,
                   )}>
-                  {AVAILABILITY_OPTIONS.map((option) => {
+                  {activeTemplate.availabilityOptions?.map((option) => {
                     const count = responses.filter(r =>
-                      r.templateYear === activeTemplate.year && r.availability === option.value
+                      r.templateYear === activeTemplate.year &&
+                      r.availability?.includes(option)
                     ).length;
                     const total = responses.filter(r => r.templateYear === activeTemplate.year).length;
                     const percentage = total > 0 ? Math.round((count / total) * 100) : 0;
                     return (
-                      <div key={option.value} style={{
+                      <div key={option} style={{
                         backgroundColor: '#e8f5e8',
                         padding: '0.75rem',
                         borderRadius: '4px'
                       }}>
                         <Text style={{ fontWeight: 'bold' }}>
-                          {option.label}: {percentage}% ({count})
+                          {option}: {percentage}% ({count})
                         </Text>
                       </div>
                     );
                   })}
                 </div>
+                <Text style={{ fontSize: '0.875rem', fontStyle: 'italic', marginTop: '1rem' }}>
+                  Note: Le total peut dépasser 100% car les participants peuvent sélectionner plusieurs options.
+                </Text>
               </div>
 
               {showParticpantsRecents && isAuthenticated && (
@@ -786,7 +786,7 @@ export default function CareerDiscoveryForm() {
                       <div key={response.id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem', borderRadius: '4px' }}>
                         <Text className={flexStyles.hasTextTeriary}>
                           <strong>{response.firstName} {response.lastName}</strong> - {response.childrenClasses} - {response.jobDescription}<br/>
-                          <strong>Disponibilité :</strong> {AVAILABILITY_OPTIONS.find(opt => opt.value === response.availability)?.label || response.availability}
+                          <strong>Disponibilités :</strong> {response.availability.join(', ')}
                         </Text>
                         {response.session === sessionId && (
                           <Button
