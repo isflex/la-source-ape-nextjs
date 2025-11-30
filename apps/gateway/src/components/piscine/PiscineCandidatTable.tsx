@@ -5,6 +5,7 @@ import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { parseISODate } from '@src/lib/piscine-helpers';
 import classNames from 'classnames';
 import {
   DndContext,
@@ -33,7 +34,7 @@ type PiscineDateSlotWithCandidats = {
   id: string;
   selectedDate: string;
   order: number;
-  piscineTimeSlotId: string;
+  piscineTimeSlotId: string | null; // Nullable for orphaned slots
   candidats: Array<{
     id: string;
     firstName: string;
@@ -79,6 +80,11 @@ export default function PiscineCandidatTable({
   const [error, setError] = useState<string | null>(null);
   const [showNewCandidatForms, setShowNewCandidatForms] = useState<Record<string, boolean>>({});
   const [activeDragCandidat, setActiveDragCandidat] = useState<any | null>(null);
+
+  // Helper to check if a date slot is orphaned (time slot was deleted)
+  const isOrphanedSlot = (dateSlot: PiscineDateSlotWithCandidats): boolean => {
+    return !dateSlot.piscineTimeSlotId || !timeSlots[dateSlot.piscineTimeSlotId];
+  };
 
   // Configure sensors (press and hold for 250ms)
   const sensors = useSensors(
@@ -129,9 +135,9 @@ export default function PiscineCandidatTable({
       }
       setTimeSlots(timeSlotsMap);
 
-      // Load candidats for each date slot
+      // Load candidats for each date slot (filter out null slots)
       const dateSlotsWithCandidats = await Promise.all(
-        slots.map(async (slot) => {
+        slots.filter(slot => slot !== null).map(async (slot) => {
           const { data: candidats } = await client.models.PiscineCandidat.list({
             filter: { piscineDateSlotId: { eq: slot.id } }
           });
@@ -154,8 +160,18 @@ export default function PiscineCandidatTable({
         })
       );
 
+      // Filter date slots: keep valid ones OR orphaned ones with participants (to preserve data)
+      const validDateSlots = dateSlotsWithCandidats.filter(slot => {
+        const hasValidTimeSlot = slot.piscineTimeSlotId && timeSlotsMap[slot.piscineTimeSlotId];
+        const hasParticipants = slot.candidats.length > 0;
+
+        // Keep if: has valid time slot OR has participants (preserve participant data)
+        // Remove if: orphaned AND empty (no participants)
+        return hasValidTimeSlot || hasParticipants;
+      });
+
       // Sort date slots chronologically by selectedDate
-      const sortedDateSlots = dateSlotsWithCandidats.sort((a, b) =>
+      const sortedDateSlots = validDateSlots.sort((a, b) =>
         new Date(a.selectedDate).getTime() - new Date(b.selectedDate).getTime()
       );
       setDateSlots(sortedDateSlots);
@@ -279,12 +295,12 @@ export default function PiscineCandidatTable({
   };
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
+    const date = parseISODate(dateString);
     return format(date, 'EEEE dd MMMM yyyy', { locale: fr });
   };
 
   const formatShortDate = (dateString: string) => {
-    const date = new Date(dateString);
+    const date = parseISODate(dateString);
     return format(date, 'dd/MM/yyyy');
   };
 
@@ -436,7 +452,7 @@ export default function PiscineCandidatTable({
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}>
 
-      <div>
+      <div style={{ marginTop: '1.5rem' }}>
         <div className={classNames(
           flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
           flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
@@ -454,7 +470,7 @@ export default function PiscineCandidatTable({
 
           <div className={classNames(
             flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-            flexStyles.isGridCols2,
+            flexStyles.isGridCols1, flexStyles.isGridCols2MobileMax,
             flexStyles.isAlignItemsCenter,
             flexStyles.isJustifyContentCenter,
             flexStyles.isJustifiedCenter,
@@ -483,9 +499,7 @@ export default function PiscineCandidatTable({
         </div>
 
         {dateSlots.map((dateSlot) => (
-          <div key={dateSlot.id} className={classNames(
-              flexStyles.isMarginBottom4
-            )} style={{
+          <div key={dateSlot.id} style={{
               border: '1px solid #e0e0e0',
               borderRadius: '4px',
               overflow: 'hidden'
@@ -493,7 +507,7 @@ export default function PiscineCandidatTable({
 
             {/* Date Header */}
             <div style={{
-              backgroundColor: '#f8f9fa',
+              backgroundColor: isOrphanedSlot(dateSlot) ? '#fff3cd' : '#f8f9fa',
               padding: '1rem',
               borderBottom: '1px solid #e0e0e0'
               }}>
@@ -508,13 +522,23 @@ export default function PiscineCandidatTable({
                 )}>
                 <div className={classNames(
                   flexStyles.isGridColSpanFull,
-                  flexStyles.isGridColSpan9Tablet,
+                  flexStyles.isGridColSpan7Tablet,
+                  flexStyles.isGridColSpan8Desktop,
                   )} style={{ padding: '0 0 1rem' }}>
                   <Title level={TitleLevel.LEVEL3} className={flexStyles.isMarginless}>
                     {formatDate(dateSlot.selectedDate).replace(/^./, str => str.toUpperCase())}
-                    {timeSlots[dateSlot.piscineTimeSlotId] && (
+                    {isOrphanedSlot(dateSlot) ? (
+                      <span style={{
+                        fontSize: '0.875rem',
+                        color: '#856404',
+                        marginLeft: '0.5rem',
+                        fontWeight: 'normal'
+                      }}>
+                        • ⚠️ Créneau archivé
+                      </span>
+                    ) : dateSlot.piscineTimeSlotId && timeSlots[dateSlot.piscineTimeSlotId] ? (
                       <> • {timeSlots[dateSlot.piscineTimeSlotId].startTime} - {timeSlots[dateSlot.piscineTimeSlotId].endTime}</>
-                    )}
+                    ) : null}
                   </Title>
                   <Title level={TitleLevel.LEVEL7}>
                     {dateSlot.candidats.length} inscription{dateSlot.candidats.length > 1 ? 's' : ''}
@@ -524,7 +548,8 @@ export default function PiscineCandidatTable({
                 <div className={classNames(
                   flexStyles.isGridDisplayGrid,
                   flexStyles.isGridColSpanFull,
-                  flexStyles.isGridColSpan3Tablet,
+                  flexStyles.isGridColSpan5Tablet,
+                  flexStyles.isGridColSpan4Desktop,
                   flexStyles.isAlignSelfFlexCenter,
                   // flexStyles.isJustifyContentEnd,
                   flexStyles.isJustifyContentStretch,
@@ -532,12 +557,15 @@ export default function PiscineCandidatTable({
                   )}>
                   <Button
                     markup={ButtonMarkup.BUTTON}
-                    variant={isAuthenticated ? VariantState.PRIMARY : VariantState.TERTIARY}
+                    variant={isAuthenticated && !isOrphanedSlot(dateSlot) ? VariantState.PRIMARY : VariantState.TERTIARY}
                     onClick={() => toggleNewCandidatForm(dateSlot.id)}
+                    disabled={isOrphanedSlot(dateSlot)}
                     className={flexStyles.isFullwidth}>
-                    {isAuthenticated
-                      ? (showNewCandidatForms[dateSlot.id] ? 'Annuler' : '+ S\'inscrire')
-                      : '🔒 Se connecter pour s\'inscrire'
+                    {isOrphanedSlot(dateSlot)
+                      ? '🚫 Créneau archivé'
+                      : isAuthenticated
+                        ? (showNewCandidatForms[dateSlot.id] ? 'Annuler' : '+ S\'inscrire')
+                        : '🔒 Se connecter pour s\'inscrire'
                     }
                   </Button>
                 </div>
@@ -563,6 +591,23 @@ export default function PiscineCandidatTable({
                   }}>
                     <Text style={{ fontSize: '0.875rem', color: '#0369a1' }}>
                       ℹ️ Vous devez être connecté pour vous inscrire à cette session piscine.
+                    </Text>
+                  </div>
+                )}
+
+                {/* Orphaned date warning */}
+                {isOrphanedSlot(dateSlot) && dateSlot.candidats.length > 0 && (
+                  <div style={{
+                    backgroundColor: '#fff3cd',
+                    padding: '0.75rem',
+                    borderRadius: '4px',
+                    border: '1px solid #ffc107',
+                    marginBottom: '1rem'
+                  }}>
+                    <Text style={{ fontSize: '0.875rem', color: '#856404' }}>
+                      ℹ️ <strong>Date archivée</strong> : Ce créneau horaire n&apos;est plus disponible,
+                      mais les inscriptions existantes sont conservées.
+                      {isCreatorMode && ' Les participants peuvent être déplacés vers un autre créneau.'}
                     </Text>
                   </div>
                 )}
@@ -626,7 +671,7 @@ export default function PiscineCandidatTable({
                 )}
 
                 {/* Add another candidat button for existing date */}
-                {dateSlot.candidats.length > 0 && !showNewCandidatForms[dateSlot.id] && (
+                {dateSlot.candidats.length > 0 && !showNewCandidatForms[dateSlot.id] && !isOrphanedSlot(dateSlot) && (
                   <div style={{ marginTop: '1rem' }}>
                     <Button
                       markup={ButtonMarkup.BUTTON}

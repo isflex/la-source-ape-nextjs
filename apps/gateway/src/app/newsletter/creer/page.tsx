@@ -387,7 +387,7 @@ export default function NewsletterCreationPage() {
               </InfoBlock>
             ) : (
               <>
-                <Title level={TitleLevel.LEVEL2} className={flexStyles.isMarginBottom3}>
+                <Title level={TitleLevel.LEVEL2}>
                   Newsletters existantes
                 </Title>
 
@@ -413,7 +413,6 @@ export default function NewsletterCreationPage() {
                                 <input
                                   type="checkbox"
                                   title="Réutiliser le contenu"
-                                  className={flexStyles.isMarginRight2}
                                   checked={selectedNewsletters.has(newsletter.id)}
                                   onChange={(e) => handleNewsletterSelection(newsletter.id, e.target.checked)}
                                 />
@@ -422,7 +421,6 @@ export default function NewsletterCreationPage() {
                                 markup={ButtonMarkup.BUTTON}
                                 variant={VariantState.SECONDARY}
                                 onClick={() => handleViewOnline(newsletter)}
-                                className={flexStyles.isMarginRight2}
                               >
                                 Voir en ligne
                               </Button>
@@ -469,7 +467,6 @@ export default function NewsletterCreationPage() {
                     markup={ButtonMarkup.BUTTON}
                     variant={VariantState.TERTIARY}
                     onClick={handleReuseContent}
-                    className={flexStyles.isMarginLeft2}
                     disabled={selectedNewsletters.size === 0}
                   >
                     Réutiliser le contenu sélectionné ({selectedNewsletters.size})
@@ -478,7 +475,6 @@ export default function NewsletterCreationPage() {
                     markup={ButtonMarkup.BUTTON}
                     variant={showForm ? VariantState.SECONDARY : VariantState.PRIMARY}
                     onClick={() => setShowForm(!showForm)}
-                    className={flexStyles.isMarginLeft2}
                   >
                     {showForm ? 'Cacher le formulaire' : 'Créer un nouveau newsletter'}
                   </Button>

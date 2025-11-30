@@ -4,7 +4,8 @@
 @use "../utilities/animations";
 @use "../utilities/functions";
 
-$sticker-height: functions.size(3.5em);
+// $sticker-height: functions.size(3.5em);
+$sticker-height: 33px;
 
 @mixin sticker-default-paddings-desktop {
     padding: 0 functions.size(5em);
@@ -45,6 +46,7 @@ $sticker-height: functions.size(3.5em);
     height: $sticker-height;
     line-height: $sticker-height;
     flex-shrink: 0;
+    overflow-y: clip;
 
     @include mixins.desktop {
         @include sticker-default-paddings-desktop;
@@ -128,7 +130,7 @@ $sticker-height: functions.size(3.5em);
             padding-left: functions.size(0.7em);
             padding-right: functions.size(0.7em);
             line-height: 2em;
-            height: 100%;
+            height: 31px;
             display: block;
         }
 

@@ -338,28 +338,14 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
           return;
         }
 
-        // Delete all existing time slots (cascades to date slots)
+        // Load existing time slots and date slots
         const { data: existingTimeSlots } = await client.models.PiscineTimeSlot.list({
           filter: { piscineFormId: { eq: editingFormId } }
         });
 
-        if (existingTimeSlots) {
-          await Promise.all(
-            existingTimeSlots.map(ts => client.models.PiscineTimeSlot.delete({ id: ts.id }))
-          );
-        }
-
-        // Delete orphaned date slots that aren't linked to time slots
-        const { data: allDateSlots } = await client.models.PiscineDateSlot.list({
+        const { data: existingDateSlots } = await client.models.PiscineDateSlot.list({
           filter: { piscineFormId: { eq: editingFormId } }
         });
-
-        if (allDateSlots) {
-          const orphanedDateSlots = allDateSlots.filter(ds => !ds.piscineTimeSlotId);
-          await Promise.all(
-            orphanedDateSlots.map(ds => client.models.PiscineDateSlot.delete({ id: ds.id }))
-          );
-        }
 
         // Create new time slots
         const enabledDays = dayTimeSlots.filter(slot => slot.enabled);
@@ -376,8 +362,68 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
 
         const createdTimeSlots = await Promise.all(timeSlotPromises);
 
-        // Create new date slots
-        const dateSlotPromises = [];
+        // Build a map of new time slots by dayOfWeek for quick lookup
+        const newTimeSlotsMap = new Map<string, typeof createdTimeSlots[0]>();
+        createdTimeSlots.forEach(ts => {
+          if (ts) newTimeSlotsMap.set(ts.dayOfWeek, ts);
+        });
+
+        // Update existing date slots to point to new time slots, or mark for deletion
+        const dateSlotUpdates = [];
+        const dateSlotDeletions = [];
+        const existingDateSlotsByDayAndDate = new Map<string, typeof existingDateSlots[0]>();
+
+        if (existingDateSlots) {
+          // Filter out null slots and slots without dayOfWeek before processing
+          const validExistingSlots = existingDateSlots.filter(slot => slot !== null && slot.dayOfWeek !== null);
+
+          for (const dateSlot of validExistingSlots) {
+            const datesForDay = selectedDatesPerDay[dateSlot.dayOfWeek!] || [];
+            const dateKey = `${dateSlot.dayOfWeek}-${dateSlot.selectedDate}`;
+            existingDateSlotsByDayAndDate.set(dateKey, dateSlot);
+
+            // Check if this date is still selected
+            const dateStillSelected = datesForDay.some(
+              (d: Date) => dateToISOString(d) === dateSlot.selectedDate
+            );
+
+            const newTimeSlot = newTimeSlotsMap.get(dateSlot.dayOfWeek!);
+
+            if (dateStillSelected && newTimeSlot) {
+              // Update this date slot to point to new time slot
+              dateSlotUpdates.push(
+                client.models.PiscineDateSlot.update({
+                  id: dateSlot.id,
+                  piscineTimeSlotId: newTimeSlot.id
+                })
+              );
+            } else {
+              // This date is no longer selected or day is disabled, mark for deletion
+              // Check if it has participants first
+              const { data: candidats } = await client.models.PiscineCandidat.list({
+                filter: { piscineDateSlotId: { eq: dateSlot.id } }
+              });
+
+              if (!candidats || candidats.length === 0) {
+                // No participants, safe to delete
+                dateSlotDeletions.push(
+                  client.models.PiscineDateSlot.delete({ id: dateSlot.id })
+                );
+              } else {
+                // Has participants, set piscineTimeSlotId to null to mark as orphaned
+                dateSlotUpdates.push(
+                  client.models.PiscineDateSlot.update({
+                    id: dateSlot.id,
+                    piscineTimeSlotId: null
+                  })
+                );
+              }
+            }
+          }
+        }
+
+        // Create new date slots for dates that didn't exist before
+        const dateSlotCreations = [];
         let globalOrder = 0;
 
         for (const timeSlot of createdTimeSlots) {
@@ -386,19 +432,32 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
           const datesForDay = selectedDatesPerDay[timeSlot.dayOfWeek] || [];
 
           for (const date of datesForDay) {
-            dateSlotPromises.push(
-              client.models.PiscineDateSlot.create({
-                selectedDate: dateToISOString(date),
-                dayOfWeek: timeSlot.dayOfWeek,
-                order: globalOrder++,
-                piscineFormId: editingFormId,
-                piscineTimeSlotId: timeSlot.id
-              })
-            );
+            const dateKey = `${timeSlot.dayOfWeek}-${dateToISOString(date)}`;
+
+            // Only create if this date slot doesn't already exist
+            if (!existingDateSlotsByDayAndDate.has(dateKey)) {
+              dateSlotCreations.push(
+                client.models.PiscineDateSlot.create({
+                  selectedDate: dateToISOString(date),
+                  dayOfWeek: timeSlot.dayOfWeek,
+                  order: globalOrder++,
+                  piscineFormId: editingFormId,
+                  piscineTimeSlotId: timeSlot.id
+                })
+              );
+            }
           }
         }
 
-        await Promise.all(dateSlotPromises);
+        // Execute all date slot updates, deletions, and creations first
+        await Promise.all([...dateSlotUpdates, ...dateSlotDeletions, ...dateSlotCreations]);
+
+        // Then delete old time slots (after date slots have been updated to new time slots or orphaned)
+        if (existingTimeSlots) {
+          await Promise.all(
+            existingTimeSlots.map(ts => client.models.PiscineTimeSlot.delete({ id: ts.id }))
+          );
+        }
 
         onSubmit(true, `Planning "${formData.title}" mis à jour avec succès !`, updatedForm.slug);
         return;
@@ -582,7 +641,7 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
                     ))}
                   </select>
                   {getFieldError('schoolLevel') && (
-                    <div className={`${flexStyles.hasTextDanger} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop1}`}>
+                    <div className={flexStyles.hasTextDanger}>
                       {getFieldError('schoolLevel')}
                     </div>
                   )}
@@ -604,7 +663,7 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
                     className={getFieldError('teacherName') ? flexStyles.hasTextDanger : ''}
                   />
                   {getFieldError('teacherName') && (
-                    <div className={`${flexStyles.hasTextDanger} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop1}`}>
+                    <div className={flexStyles.hasTextDanger}>
                       {getFieldError('teacherName')}
                     </div>
                   )}
@@ -637,7 +696,7 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
                   className={getFieldError('title') ? flexStyles.hasTextDanger : ''}
                 />
                 {getFieldError('title') && (
-                  <div className={`${flexStyles.hasTextDanger} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop1}`}>
+                  <div className={flexStyles.hasTextDanger}>
                     {getFieldError('title')}
                   </div>
                 )}
@@ -691,7 +750,7 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
       <div>
         <Box>
           <Title level={TitleLevel.LEVEL2}>Chargement...</Title>
-          <Text className={classNames(flexStyles.hasTextCentered, flexStyles.isMarginTop4)}>
+          <Text className={classNames(flexStyles.hasTextCentered)}>
             Chargement des données du planning...
           </Text>
         </Box>

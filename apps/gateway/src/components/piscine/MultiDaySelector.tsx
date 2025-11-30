@@ -47,11 +47,11 @@ export default function MultiDaySelector({
 
   return (
     <div>
-      <Title level={TitleLevel.LEVEL3} className={flexStyles.isMarginBottom3}>
+      <Title level={TitleLevel.LEVEL3}>
         Étape 1 : Sélectionner les jours de la semaine
       </Title>
 
-      <Text className={flexStyles.isMarginBottom3}>
+      <Text>
         Sélectionnez un ou plusieurs jours de la semaine pour votre planning. Vous pourrez définir
         des horaires différents pour chaque jour à l&apos;étape suivante.
       </Text>
@@ -70,6 +70,7 @@ export default function MultiDaySelector({
             label={day.label}
             checked={isChecked(day.value)}
             onChange={() => handleToggle(day.value)}
+            removeField
           />
         ))}
       </div>

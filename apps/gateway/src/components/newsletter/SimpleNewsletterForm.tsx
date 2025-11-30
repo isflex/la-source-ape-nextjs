@@ -78,12 +78,12 @@ export default function SimpleNewsletterForm({ onSubmit, onCancel, loading = fal
 
   return (
     <Box>
-      <Title level={TitleLevel.LEVEL2} className={flexStyles.isMarginBottom3}>
+      <Title level={TitleLevel.LEVEL2}>
         Créer un nouveau newsletter
       </Title>
 
       {errors && (
-        <InfoBlock className={flexStyles.isMarginBottom3}>
+        <InfoBlock>
           <InfoBlockHeader>
             <Title level={TitleLevel.LEVEL3}>Erreur</Title>
           </InfoBlockHeader>
@@ -172,7 +172,6 @@ export default function SimpleNewsletterForm({ onSubmit, onCancel, loading = fal
             variant={VariantState.PRIMARY}
             type="submit"
             disabled={submitting || loading}
-            className={flexStyles.isMarginRight2}
           >
             {submitting ? 'Création en cours...' : 'Créer le newsletter'}
           </Button>

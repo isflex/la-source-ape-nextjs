@@ -42,7 +42,6 @@ export default function DraggableCandidatRow({
       className={classNames(
         flexStyles.isFlexDirectionRow,
         flexStyles.isAlignItemsCenter,
-        flexStyles.isMarginBottom2
       )}
     >
       {/* Drag handle - Only visible to creator */}
@@ -50,7 +49,6 @@ export default function DraggableCandidatRow({
         <div
           {...listeners}
           {...attributes}
-          className={classNames(flexStyles.isMarginRight2)}
           style={{
             padding: '0.5rem',
             cursor: 'grab',

@@ -7,6 +7,7 @@
 $grid-field-margin: functions.size(1em);
 
 // Base Grid Display
+.is-grid { display: grid; }
 .is-grid-display-grid { display: grid !important; }
 .is-grid-display-inline-grid { display: inline-grid !important; }
 .is-grid-display-hidden { display: none !important; }

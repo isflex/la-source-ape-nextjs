@@ -300,7 +300,7 @@ const S3ImageUploader: React.FC<S3ImageUploaderProps> = ({
   }
 
   return (
-    <div className={classNames(className, flexStyles.isMarginBottom2)}>
+    <div className={classNames(className)}>
       {/* File Input (Hidden) */}
       <input
         ref={fileInputRef}
@@ -313,10 +313,8 @@ const S3ImageUploader: React.FC<S3ImageUploaderProps> = ({
       {/* Upload Area */}
       {!previewUrl && (
         <div className={classNames(
-          flexStyles.isPadding4,
           flexStyles.hasBorderDashed,
           flexStyles.hasTextCentered,
-          flexStyles.isMarginBottom2
         )}
         style={{
           borderColor: error ? '#e74c3c' : '#3498db',
@@ -346,9 +344,6 @@ const S3ImageUploader: React.FC<S3ImageUploaderProps> = ({
         <div>
           <div className={classNames(
             flexStyles.hasTextCentered,
-            flexStyles.isPadding2,
-            flexStyles.hasBorderSolid,
-            flexStyles.isMarginBottom2
           )}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -366,7 +361,6 @@ const S3ImageUploader: React.FC<S3ImageUploaderProps> = ({
               markup={ButtonMarkup.BUTTON}
               variant={VariantState.SECONDARY}
               onClick={handleBrowseFiles}
-              className={flexStyles.isMarginRight2}
               disabled={isUploading}
             >
               Changer d&apos;image

@@ -11,11 +11,12 @@ const client = generateClient<Schema>();
 
 import classNames from 'classnames';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+// import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
 import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
 import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
+import { Sticker } from '@flex-design-system/react-ts/client-sync-styled-direct/sticker';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
-import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
   InfoBlock,
@@ -193,32 +194,133 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
 
             {piscineForm.isMultiDay ? (
               /* Multi-day display */
-              <div className={flexStyles.isMarginBottom4}>
-                <Text className={flexStyles.isMarginBottom2}>
-                  <strong>Mode:</strong> Planning multi-jours
-                </Text>
-
-                {timeSlots.map((timeSlot) => (
-                  <Box
-                    key={timeSlot.id}
-                    className={classNames(flexStyles.isMarginBottom2, flexStyles.isPadding2)}
-                  >
-                    <Text>
-                      <strong>{formatDayOfWeek(timeSlot.dayOfWeek)}:</strong>{' '}
-                      {timeSlot.startTime} - {timeSlot.endTime}
-                    </Text>
-                  </Box>
-                ))}
-
-                <Divider className={flexStyles.isMarginY3} />
+              <div className={classNames(
+                  flexStyles.isGrid, flexStyles.isGridGap2, flexStyles.isGridGap4Tablet,
+                  flexStyles.isGridCols12,
+                  flexStyles.isGridItemsCenter,
+                  flexStyles.isFlexTablet,
+                  flexStyles.isJustifyContentSpaceBetween,
+                )}>
 
                 <div className={classNames(
-                  flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
-                  flexStyles.isGridCols1, flexStyles.isGridCols2Tablet
-                )}>
-                  <Text><strong>Niveau:</strong> {formatSchoolLevel(piscineForm.schoolLevel)}</Text>
-                  <Text><strong>Enseignant:</strong> {piscineForm.teacherName}</Text>
+                    flexStyles.isGrid, flexStyles.isGridGap2,
+                    flexStyles.isGridColSpanFull,
+                    flexStyles.isGridCols1,
+                    flexStyles.isFlexTablet,
+                    flexStyles.isJustifyContentSpaceBetween,
+                  )}>
+                  <div className={classNames(
+                      flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+                      flexStyles.isGridColSpanFull,
+                      flexStyles.isGridCols12,
+                      flexStyles.isGridItemsCenter,
+                    )}>
+
+                      <div className={classNames(
+                          flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+                          flexStyles.isGridColSpanFull, flexStyles.isGridColSpan4Tablet,
+                        )}>
+                        <Text>
+                          <strong>{`Les créneaux\u00A0:`}</strong>
+                        </Text>
+                      </div>
+
+                      <div className={classNames(
+                        flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+                        flexStyles.isGridColSpanFull, flexStyles.isGridColSpan8Tablet,
+                        flexStyles.isGridItemsCenter,
+                        flexStyles.isGridJustifyCenter, flexStyles.isGridJustifyStartTablet,
+                      )} style= {{ minWidth: '150px'}}>
+                        {timeSlots.map((timeSlot) => (
+                          <Sticker key={timeSlot.id} stretched variant={VariantState.SECONDARY}>
+                            <Text className={classNames(flexStyles.isPaddingless, flexStyles.isMarginless)}>
+                              <span style={{ margin: '0.5rem 0.75rem', whiteSpace: 'nowrap' }}>
+                                {formatDayOfWeek(timeSlot.dayOfWeek)}{' '}:{' '}
+                                {timeSlot.startTime} - {timeSlot.endTime}
+                              </span>
+                            </Text>
+                          </Sticker>
+                        ))}
+                      </div>
+                  </div>
                 </div>
+
+                <div className={classNames(
+                    flexStyles.isGrid, flexStyles.isGridGap2,
+                    flexStyles.isGridColSpanFull,
+                    flexStyles.isGridCols1,
+                    flexStyles.isFlexTablet,
+                    flexStyles.isJustifyContentSpaceBetween,
+                  )}>
+                  <div className={classNames(
+                      flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+                      flexStyles.isGridColSpanFull,
+                      flexStyles.isGridCols12,
+                      flexStyles.isGridItemsCenter,
+                    )}>
+
+                    <div className={classNames(
+                        flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+                        flexStyles.isGridColSpanFull, flexStyles.isGridColSpan4Tablet,
+                      )}>
+                      <Text><strong>{`Niveau\u00A0:`}</strong></Text>
+                    </div>
+                    <div className={classNames(
+                        flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+                        flexStyles.isGridColSpanFull, flexStyles.isGridColSpan8Tablet,
+                        flexStyles.isGridItemsCenter,
+                        flexStyles.isGridJustifyCenter, flexStyles.isGridJustifyStartTablet,
+                      )} style= {{ minWidth: '150px'}}>
+                      <Sticker stretched variant={VariantState.SECONDARY}>
+                        <Text className={classNames(flexStyles.isPaddingless, flexStyles.isMarginless)}>
+                          <span style={{ margin: '0.5rem 0.75rem', whiteSpace: 'nowrap' }}>
+                            {formatSchoolLevel(piscineForm.schoolLevel)}
+                          </span>
+                        </Text>
+                      </Sticker>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div className={classNames(
+                    flexStyles.isGrid, flexStyles.isGridGap2,
+                    flexStyles.isGridColSpanFull,
+                    flexStyles.isGridCols1,
+                    flexStyles.isFlexTablet,
+                    flexStyles.isJustifyContentSpaceBetween,
+                  )}>
+                  <div className={classNames(
+                      flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+                      flexStyles.isGridColSpanFull,
+                      flexStyles.isGridCols12,
+                      flexStyles.isGridItemsCenter,
+                    )}>
+
+                    <div className={classNames(
+                        flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+                        flexStyles.isGridColSpanFull, flexStyles.isGridColSpan4Tablet,
+                      )}>
+                      <Text><strong>{`Enseignant\u00A0:`}</strong></Text>
+                    </div>
+                    <div className={classNames(
+                        flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+                        flexStyles.isGridColSpanFull, flexStyles.isGridColSpan8Tablet,
+                        flexStyles.isGridItemsCenter,
+                        flexStyles.isGridJustifyCenter, flexStyles.isGridJustifyStartTablet,
+                      )} style= {{ minWidth: '150px'}}>
+                      <Sticker stretched variant={VariantState.SECONDARY}>
+                        <Text className={classNames(flexStyles.isPaddingless, flexStyles.isMarginless)}>
+                          <span style={{ margin: '0.5rem 0.75rem', whiteSpace: 'nowrap' }}>
+                            {piscineForm.teacherName}
+                          </span>
+                        </Text>
+                      </Sticker>
+                    </div>
+
+                  </div>
+                </div>
+
               </div>
             ) : (
               /* Single-day display */
@@ -226,7 +328,6 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
                 <div className={classNames(
                   flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
                   flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
-                  flexStyles.isMarginBottom4
                 )}>
                   <div>
                     <Text><strong>Jour:</strong> {formatDayOfWeek(timeSlots[0].dayOfWeek)}</Text>

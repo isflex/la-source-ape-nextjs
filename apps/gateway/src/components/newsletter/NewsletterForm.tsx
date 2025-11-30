@@ -232,12 +232,12 @@ export default function NewsletterForm({ onSubmit, onCancel, loading = false, in
     <div>
       <form onSubmit={handleSubmit}>
         <Box>
-          <Title level={TitleLevel.LEVEL2} className={flexStyles.isMarginBottom3}>
+          <Title level={TitleLevel.LEVEL2}>
             Formulaire de création de newsletter
           </Title>
 
           {errors.general && (
-            <InfoBlock className={flexStyles.isMarginBottom3}>
+            <InfoBlock>
               <InfoBlockHeader status={InfoBlockStatus.WARNING} customIcon={IconName.UI_EXCLAMATION_CIRCLE}>
                 <Title level={TitleLevel.LEVEL3}>Erreur</Title>
               </InfoBlockHeader>
@@ -273,7 +273,7 @@ export default function NewsletterForm({ onSubmit, onCancel, loading = false, in
                   className={getFieldError('subject') ? flexStyles.hasTextDanger : ''}
                 />
                 {getFieldError('subject') && (
-                  <div className={`${flexStyles.hasTextDanger} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop1}`}>
+                  <div className={flexStyles.hasTextDanger}>
                     {getFieldError('subject')}
                   </div>
                 )}
@@ -316,7 +316,7 @@ export default function NewsletterForm({ onSubmit, onCancel, loading = false, in
                     minDate={new Date()} // Event date cannot be in the past
                   />
                   {getFieldError('eventDate') && (
-                    <div className={`${flexStyles.hasTextDanger} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop1}`}>
+                    <div className={flexStyles.hasTextDanger}>
                       {getFieldError('eventDate')}
                     </div>
                   )}
@@ -351,7 +351,7 @@ export default function NewsletterForm({ onSubmit, onCancel, loading = false, in
                     maxDate={formData.eventDate} // Cannot be after event date
                   />
                   {getFieldError('publicationDate') && (
-                    <div className={`${flexStyles.hasTextDanger} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop1}`}>
+                    <div className={flexStyles.hasTextDanger}>
                       {getFieldError('publicationDate')}
                     </div>
                   )}
@@ -467,7 +467,6 @@ export default function NewsletterForm({ onSubmit, onCancel, loading = false, in
               variant={VariantState.PRIMARY}
               type="submit"
               disabled={submitting || loading}
-              className={flexStyles.isMarginRight2}
             >
               {submitting ? 'Création en cours...' : 'Créer le newsletter'}
             </Button>

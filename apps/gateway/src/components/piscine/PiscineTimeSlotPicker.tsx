@@ -50,7 +50,6 @@ export default function PiscineTimeSlotPicker({
         flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
         flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
         flexStyles.isGridItemsStart,
-        flexStyles.isMarginBottom3
       )}>
 
         {/* Start Time */}
@@ -87,7 +86,7 @@ export default function PiscineTimeSlotPicker({
               ))}
             </select>
             {startTimeError && (
-              <div className={`${flexStyles.hasTextDanger} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop1}`}>
+              <div className={flexStyles.hasTextDanger}>
                 {startTimeError}
               </div>
             )}
@@ -129,7 +128,7 @@ export default function PiscineTimeSlotPicker({
               ))}
             </select>
             {endTimeError && (
-              <div className={`${flexStyles.hasTextDanger} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop1}`}>
+              <div className={flexStyles.hasTextDanger}>
                 {endTimeError}
               </div>
             )}
@@ -153,7 +152,7 @@ export default function PiscineTimeSlotPicker({
       )}
 
       {/* Help text */}
-      <div className={classNames(flexStyles.help, flexStyles.isInfo, flexStyles.isFullwidth, flexStyles.hasTextSmall, flexStyles.isMarginTop2)}>
+      <div className={classNames(flexStyles.help, flexStyles.isInfo, flexStyles.isFullwidth, flexStyles.hasTextSmall)}>
         <Text style={{ fontSize: '0.875rem', color: '#666' }}>
           Créneaux disponibles entre 08h45 et 18h00. La durée recommandée est de 2 heures.
         </Text>

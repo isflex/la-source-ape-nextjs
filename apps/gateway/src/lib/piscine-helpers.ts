@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import DOMPurify from 'dompurify';
 import parsePhoneNumberFromString from 'libphonenumber-js';
+import { format, parse } from 'date-fns';
 import type { Schema } from '@amplify/data/resource';
 
 // Valid day of week options
@@ -262,14 +263,14 @@ export const validateTimeInRange = (time: string): boolean => {
   return minutes >= minMinutes && minutes <= maxMinutes;
 };
 
-// Convert date to ISO string for database storage
+// Convert date to ISO string for database storage (YYYY-MM-DD in local timezone)
 export const dateToISOString = (date: Date): string => {
-  return date.toISOString().split('T')[0]; // YYYY-MM-DD format
+  return format(date, 'yyyy-MM-dd');
 };
 
-// Parse ISO date string to Date object
+// Parse ISO date string to Date object in local timezone (avoids day shift)
 export const parseISODate = (dateString: string): Date => {
-  return new Date(dateString + 'T00:00:00.000Z');
+  return parse(dateString, 'yyyy-MM-dd', new Date());
 };
 
 // Sort dates chronologically

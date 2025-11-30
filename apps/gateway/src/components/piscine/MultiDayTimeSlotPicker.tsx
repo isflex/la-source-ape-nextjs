@@ -51,20 +51,19 @@ export default function MultiDayTimeSlotPicker({
 
   return (
     <div>
-      <Title level={TitleLevel.LEVEL3} className={flexStyles.isMarginBottom3}>
+      <Title level={TitleLevel.LEVEL3}>
         Étape 2 : Définir les créneaux horaires
       </Title>
 
-      <Text className={flexStyles.isMarginBottom4}>
+      <Text>
         Définissez les horaires pour chaque jour sélectionné. Les horaires peuvent être différents pour chaque jour.
       </Text>
 
       {enabledDays.map((daySlot) => (
         <Box
           key={daySlot.dayOfWeek}
-          className={classNames(flexStyles.isMarginBottom4, flexStyles.isPadding4)}
         >
-          <Title level={TitleLevel.LEVEL4} className={flexStyles.isMarginBottom3}>
+          <Title level={TitleLevel.LEVEL4}>
             {formatDayOfWeek(daySlot.dayOfWeek)}
           </Title>
 
@@ -73,22 +72,24 @@ export default function MultiDayTimeSlotPicker({
               flexStyles.isGridDisplayGrid,
               flexStyles.isGridGap4,
               flexStyles.isGridCols2,
-              flexStyles.isMarginBottom3
             )}
           >
             {/* Start Time */}
             <div>
               <Title
                 level={TitleLevel.LEVEL5}
-                className={flexStyles.isMarginBottom2}
                 style={{ fontSize: '0.875rem', fontWeight: 600 }}
               >
                 Heure de début
               </Title>
-              <Select
+
+              <div className={classNames(flexStyles.field)}>
+              <div className={classNames(flexStyles.control)}>
+              <div className={classNames(flexStyles.select)}>
+              <select
                 id={`start-time-${daySlot.dayOfWeek}`}
-                value={daySlot.startTime}
-                onChange={(e: SelectChangeEvent) => onTimeSlotChange(daySlot.dayOfWeek, 'startTime', e.selectValue as Schema['EDayOfWeek']['type'])}
+                value={daySlot.startTime || ''}
+                onChange={(e) => onTimeSlotChange(daySlot.dayOfWeek, 'startTime', e.target.value)}
                 className={flexStyles.isFullwith}
               >
                 <option value="">Sélectionner</option>
@@ -97,7 +98,11 @@ export default function MultiDayTimeSlotPicker({
                     {opt.label}
                   </option>
                 ))}
-              </Select>
+              </select>
+              </div>
+              </div>
+              </div>
+
               {errors[`${daySlot.dayOfWeek}-startTime`] && (
                 <Text style={{ fontSize: '0.75rem', color: '#dc2626', marginTop: '0.25rem' }}>
                   {errors[`${daySlot.dayOfWeek}-startTime`]}
@@ -109,15 +114,18 @@ export default function MultiDayTimeSlotPicker({
             <div>
               <Title
                 level={TitleLevel.LEVEL5}
-                className={flexStyles.isMarginBottom2}
                 style={{ fontSize: '0.875rem', fontWeight: 600 }}
               >
                 Heure de fin
               </Title>
-              <Select
+
+              <div className={classNames(flexStyles.field)}>
+              <div className={classNames(flexStyles.control)}>
+              <div className={classNames(flexStyles.select)}>
+              <select
                 id={`end-time-${daySlot.dayOfWeek}`}
-                value={daySlot.endTime}
-                onChange={(e: SelectChangeEvent) => onTimeSlotChange(daySlot.dayOfWeek, 'endTime', e.selectValue as Schema['EDayOfWeek']['type'])}
+                value={daySlot.endTime || ''}
+                onChange={(e) => onTimeSlotChange(daySlot.dayOfWeek, 'endTime', e.target.value)}
                 disabled={!daySlot.startTime}
                 className={flexStyles.isFullwidth}
               >
@@ -127,7 +135,11 @@ export default function MultiDayTimeSlotPicker({
                     {opt.label}
                   </option>
                 ))}
-              </Select>
+              </select>
+              </div>
+              </div>
+              </div>
+
               {errors[`${daySlot.dayOfWeek}-endTime`] && (
                 <Text style={{ fontSize: '0.75rem', color: '#dc2626', marginTop: '0.25rem' }}>
                   {errors[`${daySlot.dayOfWeek}-endTime`]}
@@ -156,7 +168,8 @@ export default function MultiDayTimeSlotPicker({
             </div>
           )}
         </Box>
-      ))}
+      ))
+      }
 
       {errors.general && (
         <Text style={{ fontSize: '0.875rem', color: '#dc2626', marginTop: '0.5rem' }}>

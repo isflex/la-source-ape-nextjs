@@ -44,14 +44,62 @@ async function migrateCareerAvailability() {
 
     for (const response of responses) {
       try {
-        // Skip if already migrated (availability is already an array)
+        // Check if availability is an array and contains text (not enum)
         if (Array.isArray(response.availability)) {
-          console.log(`✓ Skipping ${response.id} - already migrated`);
-          alreadyMigratedCount++;
+          const firstValue = response.availability[0];
+
+          // If array contains text (not enum keys), it's already migrated
+          if (firstValue && !ENUM_TO_TEXT_MAP[firstValue]) {
+            console.log(`✓ Skipping ${response.id} - already migrated`);
+            alreadyMigratedCount++;
+            continue;
+          }
+
+          // Array contains enum values - need to migrate
+          const migratedValues = response.availability
+            .map(enumValue => {
+              if (!enumValue) {
+                console.warn(`⚠ Null or undefined enum value in array`);
+                return null;
+              }
+              const textValue = ENUM_TO_TEXT_MAP[enumValue];
+              if (!textValue) {
+                console.warn(`⚠ Unknown enum value in array: "${enumValue}"`);
+                return null;
+              }
+              return textValue;
+            })
+            .filter((v): v is string => v !== null);
+
+          if (migratedValues.length === 0) {
+            const errorMsg = `No valid enum values found in array: ${JSON.stringify(response.availability)}`;
+            console.error(`✗ ${response.id}: ${errorMsg}`);
+            failedRecords.push({ id: response.id, error: errorMsg });
+            errorCount++;
+            continue;
+          }
+
+          // Update with migrated text values
+          const updateResult = await client.models.CareerDiscoveryResponse.update({
+            id: response.id,
+            availability: migratedValues
+          });
+
+          if (updateResult.errors) {
+            const errorMsg = JSON.stringify(updateResult.errors);
+            console.error(`✗ Failed to migrate ${response.id}:`, errorMsg);
+            failedRecords.push({ id: response.id, error: errorMsg });
+            errorCount++;
+            continue;
+          }
+
+          console.log(`✓ Migrated ${response.id}`);
+          console.log(`  ${JSON.stringify(response.availability)} → ${JSON.stringify(migratedValues)}`);
+          successCount++;
           continue;
         }
 
-        // Map enum value to text
+        // Old format: single enum value (not array)
         const oldValue = response.availability as unknown as string;
         const newValue = ENUM_TO_TEXT_MAP[oldValue];
 
@@ -63,7 +111,7 @@ async function migrateCareerAvailability() {
           continue;
         }
 
-        // Update to array format
+        // Update to array format with text value
         const updateResult = await client.models.CareerDiscoveryResponse.update({
           id: response.id,
           availability: [newValue]  // Single value as array

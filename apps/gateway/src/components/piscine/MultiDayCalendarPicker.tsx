@@ -127,7 +127,7 @@ export default function MultiDayCalendarPicker({
 
   const renderCalendarForDay = (daySlot: DayTimeSlot) => (
     <Box key={daySlot.dayOfWeek}>
-      <Title level={TitleLevel.LEVEL4} className={flexStyles.isMarginBottom2}>
+      <Title level={TitleLevel.LEVEL4}>
         {formatDayOfWeek(daySlot.dayOfWeek)}
         {daySlot.startTime && daySlot.endTime && (
           <span
@@ -157,8 +157,8 @@ export default function MultiDayCalendarPicker({
 
       {/* Selected dates table */}
       {(selectedDatesPerDay[daySlot.dayOfWeek]?.length || 0) > 0 && (
-        <div className={flexStyles.isMarginTop3}>
-          <Title level={TitleLevel.LEVEL5} className={flexStyles.isMarginBottom2}>
+        <div>
+          <Title level={TitleLevel.LEVEL5}>
             Dates sélectionnées ({selectedDatesPerDay[daySlot.dayOfWeek].length})
           </Title>
           <Table className={classNames(flexStyles.isFullwidth)}>
@@ -176,7 +176,7 @@ export default function MultiDayCalendarPicker({
               </TableTr>
             </TableHead>
             <TableBody>
-              {selectedDatesPerDay[daySlot.dayOfWeek].map((date, idx) => (
+              {sortDates([...selectedDatesPerDay[daySlot.dayOfWeek]]).map((date, idx) => (
                 <TableTr key={idx}
                   className={classNames(
                     flexStyles.isFlexMobile,
@@ -240,11 +240,11 @@ export default function MultiDayCalendarPicker({
 
   return (
     <div>
-      <Title level={TitleLevel.LEVEL3} className={flexStyles.isMarginBottom3}>
+      <Title level={TitleLevel.LEVEL3}>
         Étape 3 : Sélectionner les dates
       </Title>
 
-      <Text className={flexStyles.isMarginBottom4}>
+      <Text>
         Sélectionnez les dates pour chaque jour de votre planning. Seules les dates correspondant
         au bon jour de la semaine sont disponibles.
       </Text>

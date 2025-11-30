@@ -32,12 +32,18 @@ import {
   InfoBlockStatus
 } from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
 import {
+  Icon,
   IconName,
   IconSize,
   IconPosition,
   IconStatus,
   StatusIcon
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
+import {
+  Stepper,
+  StepperStep,
+  StepperStepMarkup,
+} from '@flex-design-system/react-ts/client-sync-styled-direct/stepper';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import PiscineForm from '@src/components/piscine/PiscineForm';
@@ -232,9 +238,52 @@ export default function PiscineCreerPage() {
       <AuthBanner />
       <Container>
         <Section>
-          <Title level={TitleLevel.LEVEL1}>
+          <Title level={TitleLevel.LEVEL1} className={classNames(
+              flexStyles.isFullwidth,
+              flexStyles.hasTextCentered,
+            )}>
             Gestion des Plannings Piscine
           </Title>
+
+          <div style={{ marginTop: '1.5rem', marginBottom: '1rem' }}>
+            <Stepper
+              centered
+              className={classNames(
+                flexStyles.isFullwidth,
+                flexStyles.isFlex,
+                flexStyles.isJustifiedCenter,
+                flexStyles.isPaddingless,
+                flexStyles.isTransparentOnly
+              )}>
+                <StepperStep
+                  markup={StepperStepMarkup.DIV}
+                  validated
+                  highlighted
+                  label='Créez un formulaire qui définit les dates du planning'
+                  labelTablet='Créer votre formulaire'
+                  labelMobile='Créer votre formulaire'
+                  step={1}
+                />
+                <StepperStep
+                  markup={StepperStepMarkup.DIV}
+                  done
+                  highlighted
+                  label={`Partagez votre formulaire pour que d'autres parents puissent participer`}
+                  labelTablet='Partagez votre formulaire'
+                  labelMobile='Partagez votre formulaire'
+                  step={2}
+                />
+                <StepperStep
+                  markup={StepperStepMarkup.DIV}
+                  active
+                  current
+                  label={`Gérer les participants et partager les résultats avec l'enseignant`}
+                  labelTablet='Gérer les participants'
+                  labelMobile='Gérer les participants'
+                  step={3}
+                />
+            </Stepper>
+          </div>
 
           {/* Success/Error Messages */}
           {createSuccess && (
@@ -275,7 +324,7 @@ export default function PiscineCreerPage() {
                 </InfoBlock>
               ) : isAdmin ? (
                 <>
-                  <Title level={TitleLevel.LEVEL2} className={flexStyles.isMarginBottom3}>
+                  <Title level={TitleLevel.LEVEL2}>
                     Mes plannings piscine
                   </Title>
 
@@ -285,13 +334,37 @@ export default function PiscineCreerPage() {
                     <>
                       {forms.map(form => (
                         <div key={form.id} className={classNames(
-                          flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-                          flexStyles.isGridCols1,
-                          flexStyles.isGridItemsCenter,
-                          flexStyles.isFullwidth
-                        )} style={{ marginTop: '1.5rem'}}>
+                            flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
+                            flexStyles.isGridCols1,
+                            flexStyles.isGridItemsCenter,
+                            flexStyles.isFullwidth
+                          )} style={{ marginTop: '1.5rem'}}>
                           <Box className={classNames(flexStyles.isFlat, flexStyles.isMarginless)}>
-                            <Title level={TitleLevel.LEVEL7}>{form.title}</Title>
+                            {/* <Title level={TitleLevel.LEVEL7}>{form.title}</Title> */}
+
+                            <div className={classNames(
+                                flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
+                                flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
+                                flexStyles.isAlignItemsCenter,
+                                flexStyles.isJustifyContentSpaceBetween,
+                                flexStyles.isFullwidth,
+                              )}>
+                              <Title level={TitleLevel.LEVEL7}>{form.title}</Title>
+                              <div className={classNames(
+                                  flexStyles.help, flexStyles.isInfo, flexStyles.hasTextSmall,
+                                  flexStyles.isFullwidth,
+                                  flexStyles.isGridDisplayGrid,
+                                  flexStyles.isGridPlaceItemsStart, flexStyles.isGridPlaceItemsEndTablet,
+                                )}>
+                                <Icon
+                                  content={`Cliquez sur « Voir » pour accéder à la version participative.`}
+                                  size={IconSize.SMALL}
+                                  position={IconPosition.LEFT}
+                                  name={IconName.UI_INFO_CIRCLE}
+                                />
+                              </div>
+                            </div>
+
                           </Box>
                           <Table className={classNames(flexStyles.isFullwidth)}>
                             <TableHead>
@@ -461,12 +534,29 @@ export default function PiscineCreerPage() {
                           </Table>
                         </div>
                       ))}
+
+                      <Section>
+                        <InfoBlock>
+                          <InfoBlockHeader status={InfoBlockStatus.SUCCESS} customIcon={IconName.UI_CHECK_CIRCLE}>
+                            <Title level={TitleLevel.LEVEL3}>
+                              Vous avez créé votre formulaire avec succès.
+                            </Title>
+                          </InfoBlockHeader>
+                          <InfoBlockContent size={12}>
+                            <Title level={TitleLevel.LEVEL4}>
+                              {`Pour la consulter en ligne, cliquez sur « Voir ».`}<br/>
+                              {`Notez et copiez l'URL de la page.`}<br/>
+                              {`C'est cette URL là que vous partagerez ensuite avec d'autres parents afin qu'ils puissent s'inscrire et participer au planning.`}
+                            </Title>
+                          </InfoBlockContent>
+                        </InfoBlock>
+                      </Section>
                     </>
                   )}
                 </>
               ) : (
                 <Box>
-                  <Title level={TitleLevel.LEVEL2} className={flexStyles.isMarginBottom3}>
+                  <Title level={TitleLevel.LEVEL2}>
                     Accès réservé
                   </Title>
                   <Text>Vous devez être connecté pour créer des plannings piscine.</Text>
@@ -497,7 +587,6 @@ export default function PiscineCreerPage() {
                   markup={ButtonMarkup.BUTTON}
                   variant={showForm ? VariantState.SECONDARY : VariantState.PRIMARY}
                   onClick={() => setShowForm(!showForm)}
-                  className={flexStyles.isMarginLeft2}
                 >
                   {showForm ? 'Cacher le formulaire' : 'Créer un nouveau planning'}
                 </Button>

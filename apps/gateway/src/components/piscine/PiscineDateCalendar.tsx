@@ -120,7 +120,7 @@ export default function PiscineDateCalendar({
             calendarClassName="piscine-calendar"
           />
 
-          <div className={classNames(flexStyles.help, flexStyles.isInfo, flexStyles.isFullwidth, flexStyles.hasTextSmall, flexStyles.isMarginTop2)}>
+          <div className={classNames(flexStyles.help, flexStyles.isInfo, flexStyles.isFullwidth, flexStyles.hasTextSmall)}>
             <Text style={{ fontSize: '0.875rem', color: '#666' }}>
               Seuls les jours ouvrables (lundi à vendredi) peuvent être sélectionnés. Cliquez sur une date pour l&apos;ajouter à votre planning.
             </Text>
@@ -221,7 +221,7 @@ export default function PiscineDateCalendar({
         )}
 
         {error && (
-          <div className={`${flexStyles.hasTextDanger} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop1}`}>
+          <div className={flexStyles.hasTextDanger}>
             {error}
           </div>
         )}

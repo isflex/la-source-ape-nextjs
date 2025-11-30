@@ -48,7 +48,6 @@ export default function DroppableDateSlot({
   return (
     <div
       ref={setNodeRef}
-      className={classNames(flexStyles.isMarginBottom4)}
       style={{
         border: isOver ? '2px dashed #0ea5e9' : '1px solid #e0e0e0',
         backgroundColor: isOver ? '#f0f9ff' : 'white',
@@ -59,7 +58,7 @@ export default function DroppableDateSlot({
       }}
     >
       {/* Date header */}
-      <div className={flexStyles.isMarginBottom3}>
+      <div>
 
         {/*
         <Title level={TitleLevel.LEVEL3}>

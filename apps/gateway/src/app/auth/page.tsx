@@ -420,14 +420,14 @@ export default function AuthPage({ nonce }: AuthPageProps) {
                     type: 'email',
                     // autoComplete:: 'username',
                   },
-                  // phone_number: { // Disabled until SNS production access
-                  //   label: 'Numéro mobile (optionnel)',
-                  //   placeholder: 'Saisissez votre numéro de mobile',
-                  //   order: 4,
-                  //   isRequired: false,
-                  //   type: 'tel',
-                  //   dialCode: '+33',
-                  // },
+                  phone_number: { // Disabled until SNS production access
+                    label: 'Numéro mobile (optionnel)',
+                    placeholder: 'Saisissez votre numéro de mobile',
+                    order: 4,
+                    isRequired: false,
+                    type: 'tel',
+                    dialCode: '+33',
+                  },
                   password: {
                     label: 'Mot de passe',
                     placeholder: 'Saisissez votre mot de passe',

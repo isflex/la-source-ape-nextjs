@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
 import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
@@ -138,10 +139,10 @@ export default function ContentBlockForm({
   return (
     <Box
       data-testid={`content-block-${index}`}
-      className={`${flexStyles.isMarginBottom3} ${flexStyles.isPadding3} ${flexStyles.hasBorderGrey} ${flexStyles.hasBackgroundLightGrey}`}
+      className={classNames(flexStyles.hasBorderGrey, flexStyles.hasBackgroundLightGrey)}
     >
       {/* Header with move buttons and remove */}
-      <Box className={`${flexStyles.isFlexDirectionRow} ${flexStyles.isJustifyContentBetween} ${flexStyles.isAlignItemsCenter} ${flexStyles.isMarginBottom2}`}>
+      <Box className={classNames(flexStyles.isFlexDirectionRow, flexStyles.isJustifyContentBetween, flexStyles.isAlignItemsCenter)}>
         <div className={flexStyles.hasTextBold}>
           Bloc de contenu #{index + 1}
         </div>
@@ -152,7 +153,6 @@ export default function ContentBlockForm({
               variant={VariantState.SECONDARY}
               onClick={() => onMoveUp(index)}
               data-testid={`move-up-${index}`}
-              className={flexStyles.isMarginRight1}
               title="Déplacer vers le haut"
             >
               ↑
@@ -164,7 +164,6 @@ export default function ContentBlockForm({
               variant={VariantState.SECONDARY}
               onClick={() => onMoveDown(index)}
               data-testid={`move-down-${index}`}
-              className={flexStyles.isMarginRight2}
               title="Déplacer vers le bas"
             >
               ↓
@@ -193,7 +192,7 @@ export default function ContentBlockForm({
           data-testid={`content-block-type-${index}`}
           value={block.type || ''}
           onChange={handleTypeChange}
-          className={`${flexStyles.isFullwidth} ${errors.type ? flexStyles.hasTextDanger : ''}`}
+          className={classNames(flexStyles.isFullwidth, errors.type ? flexStyles.hasTextDanger : '')}
         >
           <option value="">Sélectionner un type...</option>
           {CONTENT_BLOCK_TYPES.map((type) => (
@@ -203,12 +202,12 @@ export default function ContentBlockForm({
           ))}
         </Select>
         {errors.type && hasInteractedWithType && (
-          <div className={`${flexStyles.hasTextDanger} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop1}`}>
+          <div className={flexStyles.hasTextDanger}>
             {errors.type}
           </div>
         )}
         {block.type && (
-          <div className={`${flexStyles.hasTextSecondary} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop1}`}>
+          <div className={flexStyles.hasTextSecondary}>
             {CONTENT_BLOCK_TYPES.find(t => t.value === block.type)?.description}
           </div>
         )}
@@ -248,17 +247,17 @@ export default function ContentBlockForm({
         )}
 
         {errors.content && (
-          <div className={`${flexStyles.hasTextDanger} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop1}`}>
+          <div className={flexStyles.hasTextDanger}>
             {errors.content}
           </div>
         )}
         {isUrlType && block.content && block.content.trim() && (
-          <div className={`${flexStyles.hasTextSecondary} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop1}`}>
+          <div className={flexStyles.hasTextSecondary}>
             Aperçu: <a href={block.content} target="_blank" rel="noopener noreferrer">{block.content}</a>
           </div>
         )}
         {isImageType && block.subtitle && (
-          <div className={`${flexStyles.hasTextSecondary} ${flexStyles.hasTextSmall} ${flexStyles.isMarginTop1}`}>
+          <div className={flexStyles.hasTextSecondary}>
             Dimensions: {block.subtitle}
           </div>
         )}

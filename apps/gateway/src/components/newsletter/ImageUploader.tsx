@@ -206,7 +206,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   }
 
   return (
-    <div className={classNames(className, flexStyles.isMarginBottom2)}>
+    <div className={classNames(className)}>
       {/* File Input (Hidden) */}
       <input
         ref={fileInputRef}
@@ -219,10 +219,8 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
       {/* Upload Area */}
       {!previewUrl && (
         <div className={classNames(
-          flexStyles.isPadding4,
           flexStyles.hasBorderDashed,
           flexStyles.hasTextCentered,
-          flexStyles.isMarginBottom2
         )}
         style={{
           borderColor: error ? '#e74c3c' : '#3498db',
@@ -252,9 +250,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         <div>
           <div className={classNames(
             flexStyles.hasTextCentered,
-            flexStyles.isPadding2,
-            flexStyles.hasBorderSolid,
-            flexStyles.isMarginBottom2
           )}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -272,7 +267,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
               markup={ButtonMarkup.BUTTON}
               variant={VariantState.SECONDARY}
               onClick={handleBrowseFiles}
-              className={flexStyles.isMarginRight2}
               disabled={isProcessing}
             >
               Changer d&apos;image

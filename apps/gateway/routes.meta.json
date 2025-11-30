@@ -1,14 +1,33 @@
 {
   "home": {
     "emoji": "🛩️",
-    "navTitle": "Accueil"
+    "navTitle": "Accueil",
+    "active": true
   },
   "decouverte-des-metiers": {
     "emoji": "🛸",
-    "navTitle": "Decouverte des metiers"
+    "navTitle": "Decouverte des metiers",
+    "active": true
+  },
+  "/planning/piscine/creer/": {
+    "emoji": "🏊",
+    "navTitle": "Planning piscine",
+    "active": true
+  },
+  "/newsletter/souscrire/": {
+    "emoji": "📧",
+    "navTitle": "Souscrire au newsletter",
+    "active": true
+  },
+  "/newsletter/creer/": {
+    "emoji": "📤",
+    "navTitle": "Créer newsletter",
+    "active": true,
+    "admin": true
   },
   "web-app": {
     "emoji": "🚀",
-    "navTitle": "Web app"
+    "navTitle": "Web app",
+    "active": true
   }
 }

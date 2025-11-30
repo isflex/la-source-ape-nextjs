@@ -281,7 +281,7 @@ const schema = a.schema({
       selectedDate: a.date().required(),
       order: a.integer().default(0),
       dayOfWeek: a.ref('EDayOfWeek'), // Denormalized for quick filtering
-      piscineTimeSlotId: a.id().required(), // Always links to a PiscineTimeSlot
+      piscineTimeSlotId: a.id(), // Optional - null indicates orphaned/archived slot
       piscineFormId: a.id().required(),
       piscineForm: a.belongsTo('PiscineForm', 'piscineFormId'),
       piscineTimeSlot: a.belongsTo('PiscineTimeSlot', 'piscineTimeSlotId'),
