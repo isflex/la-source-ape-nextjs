@@ -376,7 +376,90 @@ export default function AuthPage({ nonce }: AuthPageProps) {
           </View>
         )
       },
-    }
+    },
+    ConfirmSignUp: {
+      Header() {
+        return (
+          <View className='flex flex-col items-center px-2 md:px-0'>
+            <Title level={3}>{I18n.get('Enter Information')}</Title>
+          </View>
+        )
+      },
+      // Footer() {
+      //   return <Text>Footer Information</Text>
+      // },
+    },
+    VerifyUser: {
+      Header() {
+        return (
+          <View className='flex flex-col items-center px-2 md:px-0'>
+            <Title level={3} className={classNames(flexStyles.hasTextCentered)} style={{ marginBottom: '1rem' }}>
+              {I18n.get('Account recovery requires verified contact information')}
+            </Title>
+          </View>
+        )
+      },
+      // FormFields() {
+      //   const { skipVerification } = useAuthenticator()
+      //   return <Link onClick={() => skipVerification()}>{I18n.get('Skip')}</Link>
+      // },
+      // Footer() {
+      //   return <Text>Footer Information</Text>
+      // },
+    },
+    SetupTotp: {
+      Header() {
+        return (
+          <View className='flex flex-col items-center px-2 md:px-0'>
+            <Title level={3}>{I18n.get('Enter Information')}</Title>
+          </View>
+        )
+      },
+      // Footer() {
+      //   return <Text>Footer Information</Text>
+      // },
+    },
+    ConfirmSignIn: {
+      Header() {
+        return (
+          <View className='flex flex-col items-center px-2 md:px-0'>
+            <Title level={3}>{I18n.get('Enter Information')}</Title>
+          </View>
+        )
+      },
+      // Footer() {
+      //   return <Text>Footer Information</Text>
+      // },
+    },
+    ForgotPassword: {
+      Header() {
+        return (
+          <View className='flex flex-col items-center px-2 md:px-0'>
+            <Title level={3}>{I18n.get('Forgotten password')}</Title>
+          </View>
+        )
+      },
+      Footer() {
+        const { toSignIn } = useAuthenticator()
+        return (
+          <View className='flex flex-col items-center px-2 md:px-0' style={{ marginTop: '1rem' }}>
+            <Link onClick={() => toSignIn()}>{I18n.get('Back to Sign In')}</Link>
+          </View>
+        )
+      },
+    },
+    ConfirmResetPassword: {
+      Header() {
+        return (
+          <View className='flex flex-col items-center px-2 md:px-0'>
+            <Title level={3}>{I18n.get('Enter Information')}</Title>
+          </View>
+        )
+      },
+      // Footer() {
+      //   return <Text>Footer Information</Text>
+      // },
+    },
   }
 
   return (

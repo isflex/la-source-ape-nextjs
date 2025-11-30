@@ -5,7 +5,9 @@ main > [data-flex-theme] .footer {
   display: none;
 }
 
-:root, [data-user-mode] [data-amplify-theme="flex-override-theme-gateway"] [data-amplify-authenticator] [data-amplify-form] {
+:root,
+[data-user-mode] [data-amplify-theme="flex-override-theme-gateway"] [data-amplify-authenticator] [data-amplify-form][data-amplify-authenticator-signin],
+[data-user-mode] [data-amplify-theme="flex-override-theme-gateway"] [data-amplify-authenticator] [data-amplify-form][data-amplify-authenticator-signup] {
   --amplify-components-authenticator-form-padding: 0 2rem 2rem;
 
   margin-top: -1rem;

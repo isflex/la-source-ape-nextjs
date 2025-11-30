@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
+import { useAuthenticator } from '@aws-amplify/ui-react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { parseISODate } from '@src/lib/piscine-helpers';
@@ -43,6 +44,7 @@ type PiscineDateSlotWithCandidats = {
     phoneNumber: string;
     nameOfChild: string;
     order: number;
+    owner?: string | null; // Cognito userId of participant creator
   }>;
 };
 
@@ -74,6 +76,7 @@ export default function PiscineCandidatTable({
   onAuthRequired,
   piscineFormData
 }: PiscineCandidatTableProps) {
+  const { user } = useAuthenticator();
   const [dateSlots, setDateSlots] = useState<PiscineDateSlotWithCandidats[]>([]);
   const [timeSlots, setTimeSlots] = useState<Record<string, PiscineTimeSlotData>>({});
   const [loading, setLoading] = useState(true);
@@ -84,6 +87,13 @@ export default function PiscineCandidatTable({
   // Helper to check if a date slot is orphaned (time slot was deleted)
   const isOrphanedSlot = (dateSlot: PiscineDateSlotWithCandidats): boolean => {
     return !dateSlot.piscineTimeSlotId || !timeSlots[dateSlot.piscineTimeSlotId];
+  };
+
+  // Helper to check if current user can modify a participant
+  const canModifyCandidat = (candidat: { owner?: string | null }): boolean => {
+    if (isCreatorMode) return true; // Form creator can modify all
+    if (!user?.userId) return false; // Must be authenticated
+    return candidat.owner === user.userId; // Can modify own participants
   };
 
   // Configure sensors (press and hold for 250ms)
@@ -154,7 +164,8 @@ export default function PiscineCandidatTable({
               email: c.email,
               phoneNumber: c.phoneNumber,
               nameOfChild: c.nameOfChild,
-              order: c.order || 0
+              order: c.order || 0,
+              owner: c.owner || null
             }))
           };
         })
@@ -201,7 +212,10 @@ export default function PiscineCandidatTable({
     for (const dateSlot of dateSlots) {
       const candidat = dateSlot.candidats.find(c => `candidat-${c.id}` === active.id);
       if (candidat) {
-        setActiveDragCandidat(candidat);
+        // Check if current user has permission to drag this participant
+        if (canModifyCandidat(candidat)) {
+          setActiveDragCandidat(candidat);
+        }
         break;
       }
     }
@@ -221,11 +235,18 @@ export default function PiscineCandidatTable({
 
     // Find the candidat and its current date slot
     let currentDateSlotId: string | null = null;
+    let candidat: typeof dateSlots[0]['candidats'][0] | undefined;
     for (const dateSlot of dateSlots) {
-      if (dateSlot.candidats.some(c => c.id === candidatId)) {
+      candidat = dateSlot.candidats.find(c => c.id === candidatId);
+      if (candidat) {
         currentDateSlotId = dateSlot.id;
         break;
       }
+    }
+
+    // Check if current user has permission to move this participant
+    if (!candidat || !canModifyCandidat(candidat)) {
+      return;
     }
 
     // If dropped on the same slot, do nothing
@@ -650,23 +671,29 @@ export default function PiscineCandidatTable({
                     <Text style={{ fontSize: '0.875rem', fontWeight: 'bold', marginBottom: '1rem', color: '#059669' }}>
                       Inscriptions confirmées:
                     </Text>
-                    {dateSlot.candidats.map((candidat) => (
-                      <DraggableCandidatRow
-                        key={candidat.id}
-                        id={`candidat-${candidat.id}`}
-                        isCreatorMode={isCreatorMode}
-                      >
-                        <PiscineCandidatRow
-                          piscineDateSlotId={dateSlot.id}
-                          piscineFormId={piscineFormId}
-                          existingCandidat={candidat}
-                          onSuccess={(message) => onMessage?.(message, false)}
-                          onError={(message) => onMessage?.(message, true)}
+                    {dateSlot.candidats.map((candidat) => {
+                      const canModify = canModifyCandidat(candidat);
+
+                      return (
+                        <DraggableCandidatRow
+                          key={candidat.id}
+                          id={`candidat-${candidat.id}`}
                           isCreatorMode={isCreatorMode}
-                          onCandidatChange={handleCandidatChange}
-                        />
-                      </DraggableCandidatRow>
-                    ))}
+                          canDrag={canModify}
+                        >
+                          <PiscineCandidatRow
+                            piscineDateSlotId={dateSlot.id}
+                            piscineFormId={piscineFormId}
+                            existingCandidat={candidat}
+                            onSuccess={(message) => onMessage?.(message, false)}
+                            onError={(message) => onMessage?.(message, true)}
+                            isCreatorMode={isCreatorMode}
+                            canModify={canModify}
+                            onCandidatChange={handleCandidatChange}
+                          />
+                        </DraggableCandidatRow>
+                      );
+                    })}
                   </div>
                 )}
 

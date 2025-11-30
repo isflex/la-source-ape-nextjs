@@ -297,6 +297,7 @@ const schema = a.schema({
       phoneNumber: a.string().required(),
       nameOfChild: a.string().required(),
       order: a.integer().default(0), // For creator reordering within date slot
+      owner: a.string(), // Cognito userId of participant creator (nullable for backward compatibility)
       piscineDateSlotId: a.id().required(),
       piscineDateSlot: a.belongsTo('PiscineDateSlot', 'piscineDateSlotId'),
       piscineFormId: a.id().required(),

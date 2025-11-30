@@ -11,23 +11,25 @@ import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 interface DraggableCandidatRowProps {
   id: string;
   isCreatorMode: boolean;
+  canDrag: boolean; // NEW: whether current user can drag this participant
   children: React.ReactNode;
 }
 
 export default function DraggableCandidatRow({
   id,
   isCreatorMode,
+  canDrag,
   children
 }: DraggableCandidatRowProps) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: id,
-    disabled: !isCreatorMode, // Only creator can drag
+    disabled: !canDrag, // Only users with permission can drag
   });
 
   const style = {
     transform: CSS.Translate.toString(transform),
     opacity: isDragging ? 0.5 : 1,
-    cursor: isCreatorMode ? 'grab' : 'default',
+    cursor: canDrag ? 'grab' : 'default',
     transition: 'opacity 0.2s ease',
     backgroundColor: '#f9f9f9',
     borderRadius: '4px',
@@ -44,8 +46,8 @@ export default function DraggableCandidatRow({
         flexStyles.isAlignItemsCenter,
       )}
     >
-      {/* Drag handle - Only visible to creator */}
-      {isCreatorMode && (
+      {/* Drag handle - Only visible to users with permission */}
+      {canDrag && (
         <div
           {...listeners}
           {...attributes}

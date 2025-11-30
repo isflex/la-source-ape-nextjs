@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
+import { useAuthenticator } from '@aws-amplify/ui-react';
 import { z } from 'zod';
 import classNames from 'classnames';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
@@ -31,6 +32,7 @@ interface PiscineCandidatRowProps {
   onSuccess?: (message: string) => void;
   onError?: (message: string) => void;
   isCreatorMode?: boolean;
+  canModify?: boolean; // NEW: whether current user can modify this participant
   onCandidatChange?: () => void;
   onCancel?: () => void; // Callback to notify parent when canceling new candidat form
 }
@@ -53,9 +55,11 @@ export default function PiscineCandidatRow({
   onSuccess,
   onError,
   isCreatorMode = false,
+  canModify = false,
   onCandidatChange,
   onCancel
 }: PiscineCandidatRowProps) {
+  const { user } = useAuthenticator();
   const [candidatData, setCandidatData] = useState<Partial<PiscineCandidatData>>(() => {
     if (existingCandidat) {
       return {
@@ -125,6 +129,7 @@ export default function PiscineCandidatRow({
           nameOfChild: validatedData.nameOfChild,
           piscineDateSlotId: validatedData.piscineDateSlotId,
           piscineFormId: validatedData.piscineFormId,
+          owner: user?.userId || null, // Track who created this participant
           order: 0 // Will be assigned by database
         });
 
@@ -237,6 +242,11 @@ export default function PiscineCandidatRow({
           <div style={{ margin: '-1.5rem 0 0' }}>
             <Title level={TitleLevel.LEVEL5}>
               {existingCandidat.firstName} {existingCandidat.lastName}
+              {!isCreatorMode && canModify && (
+                <span style={{ marginLeft: '0.5rem', fontSize: '0.75rem', color: '#0ea5e9', fontWeight: 'normal' }}>
+                  👤 Vous
+                </span>
+              )}
             </Title>
             <Title level={TitleLevel.LEVEL6}>
               Enfant: {existingCandidat.nameOfChild}
@@ -246,7 +256,7 @@ export default function PiscineCandidatRow({
             </Title>
           </div>
 
-          {isCreatorMode && (
+          {canModify && (
             <div className={classNames(
               flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
               flexStyles.isGridCols2,

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation'
 import { notFound } from 'next/navigation';
 import { generateClient } from 'aws-amplify/data';
@@ -75,7 +75,10 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
   const isCreator = user?.userId && piscineForm?.owner === user.userId;
 
   useEffect(() => {
-    const loadPiscineForm = async () => {
+    let formSubscription: { unsubscribe: () => void } | null = null;
+    let timeSlotSubscription: { unsubscribe: () => void } | null = null;
+
+    const setupSubscriptions = async () => {
       try {
         const resolvedParams = await params;
 
@@ -87,41 +90,73 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
 
         const slug = resolvedParams.slug[0]; // Take the first slug segment
 
-        // Query for the piscine form by slug
-        const { data: forms } = await client.models.PiscineForm.list({
+        // Subscribe to piscine form changes with observeQuery
+        formSubscription = client.models.PiscineForm.observeQuery({
           filter: { slug: { eq: slug } }
+        }).subscribe({
+          next: ({ items }) => {
+            if (!items || items.length === 0) {
+              setError('Planning non trouvé');
+              setIsLoading(false);
+              return;
+            }
+
+            const form = items[0];
+            setPiscineForm(form);
+
+            // Subscribe to time slots if multi-day mode and we have a form ID
+            if (form.isMultiDay && form.id) {
+              // Unsubscribe from previous time slot subscription if it exists
+              if (timeSlotSubscription) {
+                timeSlotSubscription.unsubscribe();
+              }
+
+              // Subscribe to time slot changes
+              timeSlotSubscription = client.models.PiscineTimeSlot.observeQuery({
+                filter: { piscineFormId: { eq: form.id } }
+              }).subscribe({
+                next: ({ items: timeSlotsData }) => {
+                  if (timeSlotsData) {
+                    const sortedTimeSlots = [...timeSlotsData].sort((a, b) => (a.order || 0) - (b.order || 0));
+                    setTimeSlots(sortedTimeSlots);
+                  }
+                  setIsLoading(false);
+                },
+                error: (error) => {
+                  console.error('Error observing time slots:', error);
+                  setError('Erreur lors du chargement des créneaux');
+                  setIsLoading(false);
+                }
+              });
+            } else {
+              setIsLoading(false);
+            }
+          },
+          error: (error) => {
+            console.error('Error observing piscine form:', error);
+            setError('Erreur lors du chargement');
+            setIsLoading(false);
+          }
         });
 
-        if (!forms || forms.length === 0) {
-          setError('Planning non trouvé');
-          setIsLoading(false);
-          return;
-        }
-
-        const form = forms[0];
-        setPiscineForm(form);
-
-        // Load time slots if multi-day mode
-        if (form.isMultiDay) {
-          const { data: timeSlotsData } = await client.models.PiscineTimeSlot.list({
-            filter: { piscineFormId: { eq: form.id } }
-          });
-
-          if (timeSlotsData) {
-            const sortedTimeSlots = timeSlotsData.sort((a, b) => (a.order || 0) - (b.order || 0));
-            setTimeSlots(sortedTimeSlots);
-          }
-        }
-
       } catch (error) {
-        console.error('Error loading piscine form:', error);
+        console.error('Error setting up subscriptions:', error);
         setError('Erreur lors du chargement');
-      } finally {
         setIsLoading(false);
       }
     };
 
-    loadPiscineForm();
+    setupSubscriptions();
+
+    // Cleanup subscriptions on unmount
+    return () => {
+      if (formSubscription) {
+        formSubscription.unsubscribe();
+      }
+      if (timeSlotSubscription) {
+        timeSlotSubscription.unsubscribe();
+      }
+    };
   }, [params]);
 
   const handleMessage = (text: string, isError: boolean) => {
