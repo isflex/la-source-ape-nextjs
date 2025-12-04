@@ -1,4 +1,3 @@
-// import Stepper from './Stepper'
 import Stepper from './StepperDefault.js'
 import StepperStep from './step/index.js'
 

@@ -72,9 +72,6 @@ export const NewsletterDatePicker: React.FC<NewsletterDatePickerProps> = ({
     }
   }
 
-  // Format display value for input
-  const displayValue = selectedDate ? format(selectedDate, 'dd/MM/yyyy') : ''
-
   return (
     <DatePicker
       selected={selectedDate}
@@ -96,6 +93,7 @@ export const NewsletterDatePicker: React.FC<NewsletterDatePickerProps> = ({
       showMonthDropdown
       dropdownMode="select"
       todayButton="Aujourd'hui"
+      className={flexStyles.isFullwidth}
     />
   )
 }

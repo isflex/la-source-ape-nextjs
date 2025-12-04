@@ -1,20 +1,17 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import DOMPurify from 'dompurify';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
-import type { SelectionSet } from 'aws-amplify/data';
 const client = generateClient<Schema>();
 
 import { seedCareerDiscoveryTemplate } from '@src/lib/seed-career-discovery';
 import {
   isAdminAuthenticated,
-  setAdminAuthenticated,
   promptAdminPassword,
   logoutAdmin
 } from '@src/lib/admin-auth';
@@ -22,7 +19,6 @@ import {
 import classNames from 'classnames';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
-import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
 import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
 import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
@@ -30,7 +26,6 @@ import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styl
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
   InfoBlock,
-  InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
   InfoBlockStatus
@@ -40,14 +35,10 @@ import {
   IconSize,
   IconPosition,
   IconName,
-  IconColor,
   IconStatus,
   StatusIcon
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
-import { Rows, RowItem } from '@flex-design-system/react-ts/client-sync-styled-direct/rows';
-import { Textarea } from '@flex-design-system/react-ts/client-sync-styled-direct/textarea';
-import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link';
 import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 
@@ -148,8 +139,6 @@ export default function CareerDiscoveryForm() {
   const [showForm, setShowForm] = React.useState<boolean>(true);
   const [showAdmin, setShowAdmin] = React.useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = React.useState<boolean>(false);
-
-  const router = useRouter();
 
   // Store field-specific errors using Zod error paths
   const [fieldErrors, setFieldErrors] = React.useState<Record<string, string[]>>({});
@@ -402,7 +391,7 @@ export default function CareerDiscoveryForm() {
               </Title>
             ) : (
               <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary} style={{ marginTop: '0.5rem', marginBottom: '2rem' }}>
-                 Des présentations des métiers pour le niveau II le lundi 8 décembre, de 8h45 à 9h30.
+                 Les inscriptions pour la découverte des métiers sont actuellement fermées.
               </Title>
             )}
 
@@ -663,35 +652,37 @@ export default function CareerDiscoveryForm() {
               </div>
             )}
 
-            <div className={classNames(
-              flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-              flexStyles.isGridCols1, flexStyles.isGridCols3Tablet,
-              flexStyles.isGridItemsCenter,
-              flexStyles.isFullheight,
-              flexStyles.isFullwidth,
-            )} style={{ marginTop: '1.5rem', marginBottom: '0.5rem' }}>
-              {showForm && activeTemplate && (
+            {activeTemplate && (
+              <div className={classNames(
+                flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
+                flexStyles.isGridCols1, flexStyles.isGridCols3Tablet,
+                flexStyles.isGridItemsCenter,
+                flexStyles.isFullheight,
+                flexStyles.isFullwidth,
+              )} style={{ marginTop: '1.5rem', marginBottom: '0.5rem' }}>
+                {showForm && (
+                  <Button
+                    id="career-submit"
+                    onClick={validateAndSubmit}
+                    variant={VariantState.PRIMARY}
+                    markup={ButtonMarkup.BUTTON}
+                    disabled={isSubmitting}
+                  >
+                    <span style={{ marginBottom: '2rem' }}>
+                      {isSubmitting ? 'Envoi en cours...' : 'Soumettre le formulaire'}
+                    </span>
+                  </Button>
+                )}
                 <Button
-                  id="career-submit"
-                  onClick={validateAndSubmit}
-                  variant={VariantState.PRIMARY}
+                  id="toggle-form"
+                  onClick={toggleForm}
+                  variant={VariantState.SECONDARY}
                   markup={ButtonMarkup.BUTTON}
-                  disabled={isSubmitting}
                 >
-                  <span style={{ marginBottom: '2rem' }}>
-                    {isSubmitting ? 'Envoi en cours...' : 'Soumettre le formulaire'}
-                  </span>
+                  {showForm ? 'Masquer le formulaire' : 'Participer'}
                 </Button>
-              )}
-              <Button
-                id="toggle-form"
-                onClick={toggleForm}
-                variant={VariantState.SECONDARY}
-                markup={ButtonMarkup.BUTTON}
-              >
-                {showForm ? 'Masquer le formulaire' : 'Participer'}
-              </Button>
-            </div>
+              </div>
+            )}
           </Section>
 
           <Divider />
@@ -922,6 +913,20 @@ function AdminInterface({
     }
   };
 
+  const setInactiveTemplate = async (templateId: string) => {
+    try {
+      await client.models.CareerDiscoveryTemplate.update({
+        id: templateId,
+        isActive: false
+      });
+
+      alert('Modèle désactivé avec succès');
+    } catch (error) {
+      console.error('Erreur lors de la désactivation du modèle:', error);
+      alert('Erreur lors de la désactivation du modèle');
+    }
+  };
+
   const deleteTemplate = async (templateId: string) => {
     if (!confirm('Êtes-vous sûr de vouloir supprimer ce modèle ?')) return;
 
@@ -1099,6 +1104,15 @@ function AdminInterface({
                     markup={ButtonMarkup.BUTTON}
                   >
                     Activer
+                  </Button>
+                )}
+                {template.isActive && (
+                  <Button
+                    onClick={() => setInactiveTemplate(template.id)}
+                    variant={VariantState.SECONDARY}
+                    markup={ButtonMarkup.BUTTON}
+                  >
+                    Inactif
                   </Button>
                 )}
                 <Button

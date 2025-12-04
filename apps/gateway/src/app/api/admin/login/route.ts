@@ -100,6 +100,7 @@ export async function GET(request: NextRequest) {
       }
     })
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json({ authenticated: false }, { status: 401 })
   }

@@ -14,7 +14,8 @@
       "flexiness": ["../types"],
 
       "flex_design_system_react_ts_client": ["./src/styled-default.ts"],
-      "flex_design_system_react_ts_server": ["./src/server-async-styled-default.ts"],
+      "flex_design_system_react_ts_server": ["src/server-async-styled-default.ts"],
+      "flex_design_system_react_ts_temp_server": ["src/temp-server-async-styled-default.ts"],
 
       "flex-webpack/*": ["../config/webpack/src/*"]
     },

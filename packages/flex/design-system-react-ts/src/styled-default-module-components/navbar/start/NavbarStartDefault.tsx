@@ -7,7 +7,7 @@ import { NavbarStartWebProps } from './NavbarStartProps.js'
 
 // ///////////////////////////////////////////////////////////////////////////
 // /!\ When typed-scss-modules --exportType default
-import { default as styles, type Styles } from '@flex-design-system/framework'
+import { default as styles } from '@flex-design-system/framework'
 // import { default as styles, type Styles } from '@flex-design-system/framework/main/all.module.scss'
 // ///////////////////////////////////////////////////////////////////////////
 

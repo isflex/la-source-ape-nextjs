@@ -1,6 +1,5 @@
 import { z } from 'zod'
 import DOMPurify from 'dompurify'
-import { format, parseISO } from 'date-fns'
 import type { Schema } from '@amplify/data/resource'
 
 // Content block type validation based on Schema
@@ -157,12 +156,12 @@ export const ContentBlockSchemaLenient = BaseContentBlockSchema.refine((data) =>
 export const NewsletterSchema = z.object({
   subject: z.string().min(1, 'Le sujet est requis'),
   eventDate: z.coerce.date({
-    errorMap: (issue) => ({
+    errorMap: () => ({
       message: 'Date d\'événement invalide'
     })
   }),
   publicationDate: z.coerce.date({
-    errorMap: (issue) => ({
+    errorMap: () => ({
       message: 'Date de publication invalide'
     })
   }),
@@ -173,7 +172,7 @@ export const NewsletterSchema = z.object({
   // La date de publication ne peut pas être postérieure à la date de l'événement.
   return data.publicationDate <= data.eventDate
 }, {
-  message: "La date de publication ne peut pas être postérieure à la date de l\'événement",
+  message: "La date de publication ne peut pas être postérieure à la date de l'événement",
   path: ["publicationDate"]
 })
 
@@ -183,7 +182,7 @@ export type ContentBlockData = z.infer<typeof ContentBlockSchema>
 // Helper function to convert date string (YYYY-MM-DD) to ISO datetime string
 export const dateStringToISODateTime = (dateString: string): string => {
   // Convert YYYY-MM-DD to YYYY-MM-DDTHH:mm:ss+02:00 (France timezone)
-  return dateString + 'T00:00:00+02:00'
+  return `${dateString  }T00:00:00+02:00`
 }
 
 // Helper function to convert newsletter form data to API format

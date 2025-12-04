@@ -19,7 +19,6 @@ import {
   useSensors,
   closestCenter
 } from '@dnd-kit/core';
-import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
@@ -320,11 +319,6 @@ export default function PiscineCandidatTable({
     return format(date, 'EEEE dd MMMM yyyy', { locale: fr });
   };
 
-  const formatShortDate = (dateString: string) => {
-    const date = parseISODate(dateString);
-    return format(date, 'dd/MM/yyyy');
-  };
-
   const copyUrl = () => {
     navigator.clipboard.writeText(window.location.href);
     onMessage?.('URL copiée dans le presse-papier !', false);
@@ -384,7 +378,7 @@ export default function PiscineCandidatTable({
             return str;
           };
 
-          csvContent += [
+          csvContent += `${[
             formattedDate,
             dayName,
             escapeCSV(candidat.firstName),
@@ -393,7 +387,7 @@ export default function PiscineCandidatTable({
             escapeCSV(candidat.phoneNumber),
             escapeCSV(candidat.nameOfChild),
             candidat.order || 0
-          ].join(',') + '\n';
+          ].join(',')  }\n`;
         });
       });
 

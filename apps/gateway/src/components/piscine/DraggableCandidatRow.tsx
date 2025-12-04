@@ -17,7 +17,6 @@ interface DraggableCandidatRowProps {
 
 export default function DraggableCandidatRow({
   id,
-  isCreatorMode,
   canDrag,
   children
 }: DraggableCandidatRowProps) {

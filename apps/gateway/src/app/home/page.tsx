@@ -8,8 +8,6 @@ import type { NextPage } from 'next'
 import { PageAppProps } from '@root/types/additional'
 
 import classNames from 'classnames'
-import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
-import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { IconName } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import {

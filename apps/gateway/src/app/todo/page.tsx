@@ -2,7 +2,6 @@
 'use client';
 
 import React from 'react';
-import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -50,7 +49,7 @@ export default function ToDoApp() {
    }, [])
 
   function createTodo() {
-    let task = window.prompt('Nouvelle tâche')
+    const task = window.prompt('Nouvelle tâche')
     if (task === null) return
     if (task.toLowerCase() === '') {
       client.models.Todo.create({

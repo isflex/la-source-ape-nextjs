@@ -9,7 +9,6 @@ import NavbarAccordionItem from './item/accordion/index.js'
 import NavbarLink from './link/index.js'
 import NavbarLinks from './links/index.js'
 import NavbarMenu from './menu/index.js'
-// import Navbar from './Navbar'
 import Navbar from './NavbarDefault.js'
 
 import NavbarStart from './start/index.js'

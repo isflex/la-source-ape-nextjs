@@ -21,7 +21,7 @@ const NavbarApp = ({mobileCheck} : {mobileCheck: boolean} ) => {
   return (
     <div className={stylesPage.navBarContainer}>
       {Object.entries(routesMeta as RoutesMetaConfig)
-        .filter(([key, value], index) => {
+        .filter(([key, value]) => {
           // Support both formats:
           // 1. Old format: "segment" (e.g., "home")
           // 2. New format: "/full/path/" (e.g., "/planning/piscine/creer/")

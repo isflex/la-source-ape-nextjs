@@ -16,6 +16,15 @@ const LogoLaSource = dynamic(() => import('@src/components/logo-la-source'), { s
 const Header = dynamic(() => import('@src/components/sticky-header/app'), { ssr: true })
 const FallBackEC2InstanceUnavailable = dynamic(() => import('@src/components/error/EC2InstanceUnavailable'), { ssr: true })
 
+const NavigationLayout = ({ isMobile }: { isMobile: boolean }) => {
+  return (
+    <div className={classNames(stylesPage.navLayout)}>
+      <LogoLaSource className={stylesPage.navLogo} />
+      <Header mobileCheck={isMobile} />
+    </div>
+  )
+}
+
 export default function GlobalError({
   error,
   reset,
@@ -30,15 +39,6 @@ export default function GlobalError({
     // console.error(error)
     posthog.captureException(error)
   }, [error])
-
-  const NavigationLayout = () => {
-    return (
-      <div className={classNames(stylesPage.navLayout)}>
-        <LogoLaSource className={stylesPage.navLogo} />
-        <Header mobileCheck={isMobile} />
-      </div>
-    )
-  }
 
   return (
     // global-error must include html and body tags
@@ -58,7 +58,7 @@ export default function GlobalError({
       <body style={{ ...inlineStyles.reset }}>
         <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped )} theme='light'>
           <div id='gatewayLayout' className={classNames(stylesPage.gatewayLayout)}>
-            <NavigationLayout />
+            <NavigationLayout isMobile={isMobile} />
             <FallBackEC2InstanceUnavailable reset={() => reset()} mobileCheck={isMobile} />
           </div>
         </FlexRootView>

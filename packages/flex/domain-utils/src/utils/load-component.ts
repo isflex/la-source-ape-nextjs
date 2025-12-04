@@ -32,11 +32,11 @@ const fetchRemote: FetchRemote = (parsedUrl, remoteName, nonce) =>
     script.onload = () => {
       // The script is now loaded on window using the name defined within the remote
       const proxy = {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+         
         get: (request: unknown) => window[remoteName].get(request),
         init: (arg: unknown) => {
           try {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+             
             return window[remoteName].init(arg)
           } catch (e) {
             log.error(`Failed to initialize remote: ${remoteName}`)
@@ -84,17 +84,17 @@ export const loadComponent: LoadComponent = async ({
     if (!container.__initialized) {
       container.__initialized = true
       // Initialize the container, it may provide shared modules
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+       
       await container.init(__webpack_share_scopes__[scope])
     }
 
     // The module pass to get() must match the "exposes" item in our remote app exactly
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+     
     const factory = await container.get(`./${moduleName}`)
     // 'Module' is the React Component from our remote app's "exposes" configuration
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+     
     const Module = factory()
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+     
     return Module.default || Module
   }
 

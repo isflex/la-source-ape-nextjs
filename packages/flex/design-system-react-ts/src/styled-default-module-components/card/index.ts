@@ -1,4 +1,3 @@
-// import Card from './Card'
 import Card from './CardDefault.js'
 import CardImage from './image/index.js'
 import CardContent from './content/index.js'

@@ -12,7 +12,6 @@ import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/tex
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
   InfoBlock,
-  InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
   InfoBlockStatus
@@ -21,12 +20,8 @@ import {
   Icon,
   IconSize,
   IconPosition,
-  IconName,
-  IconColor,
-  IconStatus,
-  StatusIcon
+  IconName
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
-import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import ContentBlockForm, { ContentBlock, ContentBlockType } from './ContentBlockForm';
 import { NewsletterSchema, type NewsletterFormData } from '@src/lib/newsletter-helpers';

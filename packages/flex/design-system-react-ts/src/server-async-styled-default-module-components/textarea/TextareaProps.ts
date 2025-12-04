@@ -23,7 +23,7 @@ export interface TextareaProps {
   classList?: string[]
   hovered?: boolean
   focused?: boolean
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-redundant-type-constituents
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ref?: any | null
   keyboardStyle?: InputKeyboardAppearance
   autoCapitalize?: InputAutoCapitalize

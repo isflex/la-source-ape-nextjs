@@ -1,4 +1,3 @@
-// import Accordion from './Accordion'
 import Accordion from './AccordionDefault.js'
 import AccordionItem from './item/index.js'
 import AccordionHeader from './header/index.js'

@@ -1,4 +1,3 @@
-// import PricingPlan from './PricingPlan'
 import PricingPlan from './PricingPlanDefault.js'
 
 import PricingPlanItems from './items/index.js'

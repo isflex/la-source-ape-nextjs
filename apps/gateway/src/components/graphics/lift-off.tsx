@@ -61,33 +61,25 @@ const LiftOff = observer(() => {
           </defs>
           {stagger &&
           spaghettiContext.routes['pourquoi-ce-site'].status === 'read' && (
-            <>
-              <use href="#lift-off-green-desk" x="0" y="0" width="100%" height="100%" />
-            </>
+            <use href="#lift-off-green-desk" x="0" y="0" width="100%" height="100%" />
           )}
           {stagger &&
           spaghettiContext.routes['pourquoi-ce-site'].status === 'read' &&
           spaghettiContext.routes['dans-quel-but'].status === 'read' && (
-            <>
-              <use href="#lift-off-blue-desk" x="0" y="0" width="100%" height="100%" />
-            </>
+            <use href="#lift-off-blue-desk" x="0" y="0" width="100%" height="100%" />
           )}
           {stagger &&
           spaghettiContext.routes['pourquoi-ce-site'].status === 'read' &&
           spaghettiContext.routes['dans-quel-but'].status === 'read' &&
           spaghettiContext.routes['qu-est-ce-que-c-est'].status === 'read' &&
           spaghettiContext.routes['comment-contribuer'].status === 'read' &&  (
-            <>
-              <use href="#lift-off-red-desk" x="0" y="0" width="100%" height="100%" />
-            </>
+            <use href="#lift-off-red-desk" x="0" y="0" width="100%" height="100%" />
           )}
           {stagger &&
           spaghettiContext.routes['pourquoi-ce-site'].status === 'read' &&
           spaghettiContext.routes['dans-quel-but'].status === 'read' &&
           spaghettiContext.routes['qu-est-ce-que-c-est'].status === 'read' && (
-            <>
-              <use href="#lift-off-yellow-desk" x="0" y="0" width="100%" height="100%" />
-            </>
+            <use href="#lift-off-yellow-desk" x="0" y="0" width="100%" height="100%" />
           )}
         </svg>
       </div>
@@ -141,33 +133,25 @@ const LiftOff = observer(() => {
           </defs>
           {stagger &&
           spaghettiContext.routes['pourquoi-ce-site'].status === 'read' && (
-            <>
-              <use href="#lift-off-green-tab" x="0" y="0" width="100%" height="100%" />
-            </>
+            <use href="#lift-off-green-tab" x="0" y="0" width="100%" height="100%" />
           )}
           {stagger &&
           spaghettiContext.routes['pourquoi-ce-site'].status === 'read' &&
           spaghettiContext.routes['dans-quel-but'].status === 'read' && (
-            <>
-              <use href="#lift-off-blue-tab" x="0" y="0" width="100%" height="100%" />
-            </>
+            <use href="#lift-off-blue-tab" x="0" y="0" width="100%" height="100%" />
           )}
           {stagger &&
           spaghettiContext.routes['pourquoi-ce-site'].status === 'read' &&
           spaghettiContext.routes['dans-quel-but'].status === 'read' &&
           spaghettiContext.routes['qu-est-ce-que-c-est'].status === 'read' &&
           spaghettiContext.routes['comment-contribuer'].status === 'read' &&  (
-            <>
-              <use href="#lift-off-red-tab" x="0" y="0" width="100%" height="100%" />
-            </>
+            <use href="#lift-off-red-tab" x="0" y="0" width="100%" height="100%" />
           )}
           {stagger &&
           spaghettiContext.routes['pourquoi-ce-site'].status === 'read' &&
           spaghettiContext.routes['dans-quel-but'].status === 'read' &&
           spaghettiContext.routes['qu-est-ce-que-c-est'].status === 'read' && (
-            <>
-              <use href="#lift-off-yellow-tab" x="0" y="0" width="100%" height="100%" />
-            </>
+            <use href="#lift-off-yellow-tab" x="0" y="0" width="100%" height="100%" />
           )}
         </svg>
       </div>
@@ -232,45 +216,37 @@ const LiftOff = observer(() => {
           {/* <use href={`#matteLiftOff-mob`} /> */}
           {stagger &&
           spaghettiContext.routes['pourquoi-ce-site'].status === 'read' && (
-            <>
-              <use href="#lift-off-green-mob" x="0" y="0" width="100%" height="100%"
+            <use href="#lift-off-green-mob" x="0" y="0" width="100%" height="100%"
                 // {...(
                 //   spaghettiContext.routes['qu-est-ce-que-c-est'].status !== 'read' ? {
                 //     mask: `url(#maskLiftOff-mob)`
                 //   } : null
                 // )}
               />
-            </>
           )}
           {stagger &&
           spaghettiContext.routes['pourquoi-ce-site'].status === 'read' &&
           spaghettiContext.routes['dans-quel-but'].status === 'read' && (
-            <>
-              <use href="#lift-off-blue-mob" x="0" y="0" width="100%" height="100%"
+            <use href="#lift-off-blue-mob" x="0" y="0" width="100%" height="100%"
                 // {...(
                 //   spaghettiContext.routes['qu-est-ce-que-c-est'].status !== 'read' ? {
                 //     mask: `url(#maskLiftOff-mob)`
                 //   } : null
                 // )}
               />
-            </>
           )}
           {stagger &&
           spaghettiContext.routes['pourquoi-ce-site'].status === 'read' &&
           spaghettiContext.routes['dans-quel-but'].status === 'read' &&
           spaghettiContext.routes['qu-est-ce-que-c-est'].status === 'read' &&
           spaghettiContext.routes['comment-contribuer'].status === 'read' &&  (
-            <>
-              <use href="#lift-off-red-mob" x="0" y="0" width="100%" height="100%" />
-            </>
+            <use href="#lift-off-red-mob" x="0" y="0" width="100%" height="100%" />
           )}
           {stagger &&
           spaghettiContext.routes['pourquoi-ce-site'].status === 'read' &&
           spaghettiContext.routes['dans-quel-but'].status === 'read' &&
           spaghettiContext.routes['qu-est-ce-que-c-est'].status === 'read' && (
-            <>
-              <use href="#lift-off-yellow-mob" x="0" y="0" width="100%" height="100%" />
-            </>
+            <use href="#lift-off-yellow-mob" x="0" y="0" width="100%" height="100%" />
           )}
         </svg>
       </div>

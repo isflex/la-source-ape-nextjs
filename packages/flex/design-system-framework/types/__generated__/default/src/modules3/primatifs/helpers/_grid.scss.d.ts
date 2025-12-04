@@ -2,6 +2,7 @@ export type Styles = {
   control: string;
   field: string;
   input: string;
+  isGrid: string;
   isGridAutoColsAuto: string;
   isGridAutoColsFr: string;
   isGridAutoColsMax: string;
@@ -1357,6 +1358,7 @@ export type Styles = {
   isGridSelfEnd: string;
   isGridSelfStart: string;
   isGridSelfStretch: string;
+  select: string;
   textarea: string;
 };
 

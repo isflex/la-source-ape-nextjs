@@ -22,7 +22,7 @@
   "/newsletter/creer/": {
     "emoji": "📤",
     "navTitle": "Créer newsletter",
-    "active": true,
+    "active": false,
     "admin": true
   },
   "web-app": {

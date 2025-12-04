@@ -30,7 +30,7 @@ export default {
       //   }
       // ],
       failOnError: true,
-      sass: require('sass'),
+      sass: require('sass-embedded'),
       processor: () => postcss([
         postcssImport(),
         postcssNested(),

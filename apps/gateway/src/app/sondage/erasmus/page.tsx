@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import DOMPurify from 'dompurify';
 
@@ -12,7 +11,6 @@ const client = generateClient<Schema>();
 import classNames from 'classnames';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
-import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
 import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
 import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
@@ -20,7 +18,6 @@ import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styl
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
   InfoBlock,
-  InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
   InfoBlockStatus
@@ -155,8 +152,6 @@ export default function ErasmusSurvey() {
   const [sessionId] = React.useState<string>(() => crypto.randomUUID());
   const [responses, setResponses] = React.useState<Array<Schema['ErasmusResponse']['type']>>([]);
   const [showSurveyForm, setShowSurveyForm] = React.useState<boolean>(false);
-
-  const router = useRouter();
 
   const toggleSurveyForm = () => {
     setShowSurveyForm(prev => !prev);

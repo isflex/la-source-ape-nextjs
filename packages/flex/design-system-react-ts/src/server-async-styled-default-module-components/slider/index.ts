@@ -1,4 +1,3 @@
-// import Slider from './Slider'
 import Slider from './SliderDefault.js'
 
 import SliderItem from './item/index.js'

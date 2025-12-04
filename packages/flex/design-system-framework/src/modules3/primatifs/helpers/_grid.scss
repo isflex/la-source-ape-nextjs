@@ -28,6 +28,7 @@ $grid-field-margin: functions.size(1em);
       position: relative;
 
       .input,
+      .select,
       .textarea {
         // packages/flex/design-system-framework/src/modules3/primatifs/utilities/mixins/_controls.scss
         // packages/flex/design-system-framework/src/modules3/primatifs/elements/_entry.scss
@@ -37,11 +38,12 @@ $grid-field-margin: functions.size(1em);
         max-width: 100%;
       }
 
-      .input {
-        height: 2.8rem;
+      .input,
+      .select {
+        height: 3.2rem;
 
         &:placeholder-shown {
-          height: 2.8rem;
+          height: 3.2rem;
         }
 
         // https://stackoverflow.com/a/68419881

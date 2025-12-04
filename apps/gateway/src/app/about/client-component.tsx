@@ -109,7 +109,7 @@ const About: NextPage<ServerPageInfo> = observer(({ mobileCheck }) => {
       spaghettiContext,
       setSpaghettiContext
     } = stores.SpaghettiStore
-    Object.entries(spaghettiContext.routes).forEach(([key, value]) => {
+    Object.entries(spaghettiContext.routes).forEach(([key]) => {
       if (key === route) {
         setSpaghettiContext(
           {
@@ -157,7 +157,7 @@ const About: NextPage<ServerPageInfo> = observer(({ mobileCheck }) => {
       spaghettiContext,
       setSpaghettiContext
     } = stores.SpaghettiStore
-    Object.entries(spaghettiContext.routes).forEach(([key, value]) => {
+    Object.entries(spaghettiContext.routes).forEach(([key]) => {
       runInAction(() => {
         spaghettiContext.routes[key as keyof SpaghettiInterface['routes']].status = 'unopened'
       });

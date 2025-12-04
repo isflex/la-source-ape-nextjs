@@ -8,7 +8,6 @@ import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styl
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import type { DayTimeSlot } from '@src/lib/piscine-helpers';
-import { formatDayOfWeek } from '@src/lib/piscine-helpers';
 
 interface MultiDaySelectorProps {
   dayTimeSlots: DayTimeSlot[];

@@ -33,22 +33,22 @@ const Game = ({
 }) => {
   // const slug = (await params).slug
   const { slug } = use(params)
-  let url = React.useRef<string | null>(null);
+  const [url, setUrl] = React.useState<string | null>(null);
   React.useEffect(() => {
     switch (slug) {
       case 'terminus':
-        url.current = `https://luffah.xyz/bidules/Terminus/`
+        setUrl(`https://luffah.xyz/bidules/Terminus/`)
         break
       case 'ecureuil':
-        url.current = `/slides/squirrel.html`
+        setUrl(`/slides/squirrel.html`)
         break
       default:
-        url.current = null
+        setUrl(null)
         break
     }
   }, [slug])
 
-  if (!url.current) return null
+  if (!url) return null
   return (
     <iframe
       id="game-bash-terminus"
@@ -57,7 +57,7 @@ const Game = ({
       sandbox='allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation'
       referrerPolicy='no-referrer'
       className={stylesPage.gameIframe}
-      src={`${url.current}`}
+      src={url}
     />
   )
 }

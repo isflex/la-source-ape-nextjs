@@ -113,6 +113,38 @@ const schema = a.schema({
     'FRIDAY'
   ]),
 
+  // Jackpot (Cagnotte) specific enums
+  EJackpotStatus: a.enum([
+    'DRAFT',           // Created but not yet published
+    'ACTIVE',          // Published and accepting contributions
+    'CLOSED',          // Deadline reached, no more contributions
+    'PAID_OUT'         // Money has been transferred to creator
+  ]),
+
+  EPaymentStatus: a.enum([
+    'PENDING',         // Checkout session created but not completed
+    'SUCCEEDED',       // Payment confirmed by Stripe webhook
+    'FAILED',          // Payment failed
+    'REFUNDED',        // Payment was refunded
+    'CANCELED'         // Checkout session expired/canceled
+  ]),
+
+  // Stripe Connect Account Status
+  EStripeAccountStatus: a.enum([
+    'NOT_STARTED',        // User has not begun onboarding
+    'ONBOARDING_STARTED', // Account link created, but not completed
+    'ONBOARDING_COMPLETE',// Charges enabled, payouts may be pending
+    'ACTIVE',            // Fully verified, charges and payouts enabled
+    'RESTRICTED',        // Account restricted, may need reauth
+    'DISABLED'           // Account disabled by platform or Stripe
+  ]),
+
+  // Payment Method Types
+  EPaymentMethodType: a.enum([
+    'CARD',              // Credit/debit card payment
+    'SEPA'               // SEPA direct debit (EU bank transfer)
+  ]),
+
   Questions: a
     .model({
       question: a.string().required(),
@@ -302,6 +334,112 @@ const schema = a.schema({
       piscineDateSlot: a.belongsTo('PiscineDateSlot', 'piscineDateSlotId'),
       piscineFormId: a.id().required(),
       piscineForm: a.belongsTo('PiscineForm', 'piscineFormId'), // For easier queries
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
+  // Stripe Connect Account (for cagnotte creators)
+  StripeConnectAccount: a
+    .model({
+      userId: a.string().required(),  // Cognito user ID (unique per user)
+      stripeAccountId: a.string().required(),  // Stripe account ID (e.g., "acct_...")
+      accountStatus: a.ref('EStripeAccountStatus'),
+      onboardingComplete: a.boolean().default(false),
+      chargesEnabled: a.boolean().default(false),
+      payoutsEnabled: a.boolean().default(false),
+      detailsSubmitted: a.boolean().default(false),
+
+      // Account details (cached from Stripe for quick access)
+      email: a.string(),
+      displayName: a.string(),
+      country: a.string(),
+      currency: a.string(),
+
+      // Onboarding tracking
+      onboardingStartedAt: a.datetime(),
+      onboardingCompletedAt: a.datetime(),
+      lastOnboardingLinkCreatedAt: a.datetime(),
+
+      // Requirements tracking (for restricted accounts)
+      currentlyDue: a.string().array(),  // Array of requirement strings
+      eventuallyDue: a.string().array(),
+      pastDue: a.string().array(),
+      disabledReason: a.string(),  // Reason if account is disabled
+
+      // Metadata
+      createdAt: a.datetime(),
+      updatedAt: a.datetime(),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
+  // Jackpot (Cagnotte) Models
+  JackpotForm: a
+    .model({
+      title: a.string().required(),
+      slug: a.string().required(),
+      description: a.string(),
+      targetAmount: a.float(),
+      deadline: a.datetime().required(),
+      teacherName: a.string().required(),
+      schoolLevel: a.ref('ESchoolLevel'),
+      status: a.ref('EJackpotStatus'), // Default 'DRAFT' set in application logic
+      owner: a.string().required(),
+      imageS3Key: a.string(),
+      imageS3Bucket: a.string(),
+      imageMimeType: a.string(),
+      payoutRequested: a.boolean().default(false),
+      payoutRequestedAt: a.datetime(),
+      payoutCompletedAt: a.datetime(),
+      payoutNotes: a.string(),
+
+      // Stripe Connect fields
+      stripeAccountId: a.string(),  // Connect account that will receive funds
+
+      // Fee configuration (stored per cagnotte for historical accuracy)
+      feePayInPayer: a.string().default('platform'),  // 'platform' | 'contributor' | 'recipient'
+      feePayoutPayer: a.string().default('platform'),  // 'platform' | 'recipient'
+      platformCommissionPercent: a.float().default(0),  // e.g., 5 for 5%
+
+      // SEPA payment constraints
+      sepaPaymentsCutoffAt: a.datetime(),  // Calculated: deadline minus SEPA days
+      sepaPaymentsAllowed: a.boolean().default(false),
+
+      contributions: a.hasMany('JackpotContribution', 'jackpotFormId'),
+      createdAt: a.datetime(),
+      updatedAt: a.datetime(),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
+  JackpotContribution: a
+    .model({
+      jackpotFormId: a.id().required(),
+      jackpotForm: a.belongsTo('JackpotForm', 'jackpotFormId'),
+      contributorName: a.string().required(),
+      contributorEmail: a.string().required(),
+      contributorMessage: a.string(),
+      amount: a.float().required(),
+      stripeSessionId: a.string().required(),
+      stripePaymentIntentId: a.string(),
+      paymentStatus: a.ref('EPaymentStatus'), // Default 'PENDING' set in application logic
+      isAnonymous: a.boolean().default(false),
+      showAmount: a.boolean().default(true),
+      owner: a.string(),
+
+      // Payment method and fee breakdown
+      paymentMethodType: a.ref('EPaymentMethodType'),  // Default 'CARD' set in application logic
+      stripeChargeId: a.string(),
+
+      // Fee breakdown (for transparency and reconciliation)
+      chargeAmount: a.float(),  // What contributor was charged
+      contributionAmount: a.float(),  // What goes to pot (after fees if recipient pays)
+      stripeFeeAmount: a.float(),  // Stripe's processing fee
+      platformFeeAmount: a.float(),  // Platform commission
+      contributorPaidFees: a.float(),  // Extra contributor paid for fees
+      recipientPaidFees: a.float(),  // Deducted from recipient's share
+      feePayerType: a.string(),  // 'platform' | 'contributor' | 'recipient' (snapshot)
+      contributorOptedToCoverFees: a.boolean().default(false),  // If contributor chose to cover
+
+      createdAt: a.datetime(),
+      paidAt: a.datetime(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 });

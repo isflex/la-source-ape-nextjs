@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
 import React from 'react'
 import classNames from 'classnames'
@@ -151,10 +150,12 @@ const AccordionItem = ({
       data-collapsed={collapsedHeight}
       data-expanded={expandedHeight}
       onMouseEnter={(e) => {
-        onMouseEnter && onMouseEnter(e)
+        if (onMouseEnter) return onMouseEnter(e)
+        return
       }}
       onMouseLeave={(e) => {
-        onMouseLeave && onMouseLeave(e)
+        if (onMouseLeave) return onMouseLeave(e)
+        return
       }}
     >
       {childrenElement}

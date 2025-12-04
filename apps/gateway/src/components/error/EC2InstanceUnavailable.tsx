@@ -4,8 +4,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import classNames from 'classnames'
 import { Button } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
-import { Box, BoxContent } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
-import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {

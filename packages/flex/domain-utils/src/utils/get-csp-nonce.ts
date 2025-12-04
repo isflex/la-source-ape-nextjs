@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-/* eslint-disable prefer-destructuring */
+ 
 
 // https://stackoverflow.com/questions/68458931/module-not-found-error-cant-resolve-crypto-react-typescript-webpack
 // import crypto from 'crypto'

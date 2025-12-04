@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkFile = exports.listDifferent = void 0;
 const fs_1 = __importDefault(require("fs"));
-const sass_1 = require("../sass");
+const sass_1 = require("../sass-embedded");
 const typescript_1 = require("../typescript");
 const alerts_1 = require("./alerts");
 const list_files_and_perform_sanity_checks_1 = require("./list-files-and-perform-sanity-checks");

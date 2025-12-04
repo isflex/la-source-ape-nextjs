@@ -1,10 +1,7 @@
 import { TagVariant } from './TagEnum.js'
 
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 type TagClickEventHandler = React.MouseEvent<Element> | unknown
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 type TagMouseEnterEventHandler = React.SyntheticEvent<Element> | unknown
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 type TagMouseLeaveEventHandler = React.SyntheticEvent<Element> | unknown
 
 export interface TagClickEvent {

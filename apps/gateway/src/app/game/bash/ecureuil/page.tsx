@@ -1,6 +1,6 @@
 'use client'
 
-import React, { use } from 'react'
+import React from 'react'
 // import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import type { NextPage } from 'next'

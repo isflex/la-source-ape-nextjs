@@ -492,7 +492,7 @@ const getConfig = async (env, argv) => {
             {
               loader: require.resolve('sass-loader'),
               options: {
-                implementation: require.resolve('sass'),
+                implementation: require.resolve('sass-embedded'),
                 sourceMap: !prod,
                 api: 'modern-compiler',
                 sassOptions: {
@@ -592,7 +592,7 @@ const getConfig = async (env, argv) => {
         {
           loader: 'sass-loader',
           options: {
-            implementation: 'sass',
+            implementation: 'sass-embedded',
             sourceMap: !prod,
             api: 'modern-compiler',
             sassOptions: {
@@ -621,7 +621,7 @@ const getConfig = async (env, argv) => {
         {
           loader: 'sass-loader',
           options: {
-            implementation: 'sass',
+            implementation: 'sass-embedded',
             sourceMap: !prod,
             api: 'modern-compiler',
             sassOptions: {

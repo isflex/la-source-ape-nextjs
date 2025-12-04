@@ -12,3 +12,7 @@ main > [data-flex-theme] .footer {
 
   margin-top: -1rem;
 }
+
+#gatewayLayout .react-datepicker-wrapper {
+  width: 100%;
+}

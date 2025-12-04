@@ -5,7 +5,6 @@ import DatePicker from 'react-datepicker';
 import { fr } from 'date-fns/locale';
 import { format } from 'date-fns';
 import classNames from 'classnames';
-import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';

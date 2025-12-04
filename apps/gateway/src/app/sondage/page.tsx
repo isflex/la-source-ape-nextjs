@@ -6,12 +6,9 @@ import classNames from 'classnames';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
 import { Card, CardContent } from '@flex-design-system/react-ts/client-sync-styled-direct/card';
-import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
 import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
-import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
-import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link';
 import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 

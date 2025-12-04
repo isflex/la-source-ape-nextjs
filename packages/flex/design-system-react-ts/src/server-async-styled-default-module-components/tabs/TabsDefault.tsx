@@ -91,14 +91,12 @@ const Tabs = async ({
                 toggleActive(event, index)
                 if (child) {
                   if (child.props.onClick) {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                     child.props.onClick(event)
                   }
                 }
               },
             }
 
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-call
             return typeof child.valueOf() === 'string' ? (
               <TabsItem active={props.active} onClick={(e: unknown) => onClick && onClick(e)}>
                 <Text>{String(child)}</Text>

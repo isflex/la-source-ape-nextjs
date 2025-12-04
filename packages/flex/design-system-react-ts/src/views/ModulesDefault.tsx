@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 /* eslint-disable no-debugger */
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
@@ -1215,7 +1214,6 @@ const App = observer((): React.JSX.Element => {
               titleSup='The Litle Shiba'
               title='Shiba Dog'
               buttonText='Button'
-              // eslint-disable-next-line max-len
               text='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula ex, aliquam at neque eu, vulputate vera.'
             />
             <Button onClick={() => setSkeleton(!skeleton)} classList={['is-secondary']}>
@@ -1236,7 +1234,6 @@ const App = observer((): React.JSX.Element => {
               titleSup='The Litle Shiba'
               title='Shiba Dog'
               buttonText='Button'
-              // eslint-disable-next-line max-len
               text='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula ex, aliquam at neque eu, vulputate vera.'
             />
           </Card>
@@ -1564,7 +1561,6 @@ const App = observer((): React.JSX.Element => {
           label='Switch one'
           alert={AlertState.SUCCESS}
           name='switch'
-          // eslint-disable-next-line no-console
           onChange={(e: { switchState: unknown }) => console.log(e.switchState)}
           // checked
           // readonly
@@ -1578,7 +1574,6 @@ const App = observer((): React.JSX.Element => {
           alert={AlertState.WARNING}
           name='switch'
           checked
-          // eslint-disable-next-line no-console
           onChange={(e: { switchState: unknown }) => console.log(e.switchState)}
           readonly
         />
@@ -1616,7 +1611,6 @@ const App = observer((): React.JSX.Element => {
             label='Radio 1'
             name='radio1'
             value='default value 1'
-            // eslint-disable-next-line no-console
             onChange={(e) => console.log(e.radioValue, e.radioChecked)}
             checked={true}
           />
@@ -1625,7 +1619,6 @@ const App = observer((): React.JSX.Element => {
             label='Radio 2'
             name='radio1'
             value='default value 2'
-            // eslint-disable-next-line no-console
             onChange={(e) => console.log(e.radioValue, e.radioChecked)}
             checked={false}
           />
@@ -1645,7 +1638,6 @@ const App = observer((): React.JSX.Element => {
             label='Checkbox 1'
             name='checkbox'
             value='default value 1'
-            // eslint-disable-next-line no-console
             onClick={(e) => console.log(e.checkboxValue, e.checkboxChecked)}
             checked={false}
           />
@@ -1653,7 +1645,6 @@ const App = observer((): React.JSX.Element => {
           <Checkbox
             label='Checkbox 2'
             name='checkbox'
-            // eslint-disable-next-line no-console
             onClick={(e) => console.log(e.checkboxValue, e.checkboxChecked)}
             value='default value 2'
             checked={true}
@@ -1951,7 +1942,6 @@ const App = observer((): React.JSX.Element => {
                   label='Item label 1'
                   name='item1'
                   value='Value 1'
-                  // eslint-disable-next-line no-console
                   onChange={(e) => console.log(e)}
                 />
               </DropdownMenu>
@@ -1997,7 +1987,6 @@ const App = observer((): React.JSX.Element => {
             buttonContent='Valider'
             buttonMarkup={ButtonMarkup.BUTTON}
             // buttonVariant={VariantState.PRIMARY}
-            // eslint-disable-next-line no-alert
             buttonClick={() => alert('Test call to action click event')}
           />
         </Section>{' '}
@@ -2122,7 +2111,6 @@ const App = observer((): React.JSX.Element => {
           title='title modal'
           triggerContent='Open modal'
           ctaContent='Action'
-          // eslint-disable-next-line no-alert
           ctaOnClick={() => alert('Click on cta')}
           onOpen={() => alert('open modal')}
           onClose={() => alert('close modal')}
@@ -2213,7 +2201,6 @@ const App = observer((): React.JSX.Element => {
             label='50 Go'
             name='option'
             value='50go'
-            // eslint-disable-next-line no-console
             onChange={(e) => console.log(e.optionValue, e.optionChecked)}
             checked
           />
@@ -2221,7 +2208,6 @@ const App = observer((): React.JSX.Element => {
           <OptionsItem
             label='100 Go'
             name='option'
-            // eslint-disable-next-line no-console
             onChange={(e) => console.log(e.optionValue, e.optionChecked)}
             value='100go'
           />
@@ -2243,14 +2229,12 @@ const App = observer((): React.JSX.Element => {
               label='Item label 1'
               name='item1'
               value='Value 1'
-              // eslint-disable-next-line no-console
               onChange={(e) => console.log(e)}
             />
             <DropdownItem
               label='Item label 2'
               name='item2'
               value='Value 2'
-              // eslint-disable-next-line no-console
               onChange={(e) => console.log(e)}
             />
             <DropdownItem
@@ -2258,7 +2242,6 @@ const App = observer((): React.JSX.Element => {
               name='item3'
               value='Value 3'
               onClick={(e) => {
-                // eslint-disable-next-line no-console
                 console.log(e)
               }}
             />

@@ -18,7 +18,7 @@ const joycon_1 = __importDefault(require("joycon"));
 const path_1 = __importDefault(require("path"));
 const core_1 = require("./core");
 const implementations_1 = require("./implementations");
-const sass_1 = require("./sass");
+const sass_1 = require("./sass-embedded");
 const typescript_1 = require("./typescript");
 const VALID_CONFIG_FILES = [
     "typed-scss-modules.config.ts",
@@ -42,7 +42,7 @@ const loadConfig = () => __awaiter(void 0, void 0, void 0, function* () {
                 filepath: configPath,
             });
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            const config = 
+            const config =
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             configModule.mod.config || configModule.mod.default || configModule.mod;
             return config;

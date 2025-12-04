@@ -69,6 +69,7 @@ export default function SimpleNewsletterForm({ onSubmit, onCancel, loading = fal
         ...formData,
         contentBlocks: [{ type: 'LEFT_ALIGNED_TEXT', content: formData.greetings || 'Newsletter content', order: 0 }]
       });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setErrors('Erreur lors de la création du newsletter');
     } finally {

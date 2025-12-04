@@ -28,11 +28,7 @@ export function cookieConsentGiven() {
 }
 
 export const Banner: React.FC<BannerProps> = ({ logoFlexInView }) => {
-  const [consentGiven, setConsentGiven] = useState<string>('');
-
-  useEffect(() => {
-    setConsentGiven(cookieConsentGiven() || '');
-  }, []);
+  const [consentGiven, setConsentGiven] = useState<string>(() => cookieConsentGiven() || '');
 
   useEffect(() => {
     if (consentGiven !== '') {

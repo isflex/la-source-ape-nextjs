@@ -1,4 +1,3 @@
-// import Table from './Table'
 import Table from './TableDefault.js'
 import TableHead from './head/index.js'
 import TableBody from './body/index.js'

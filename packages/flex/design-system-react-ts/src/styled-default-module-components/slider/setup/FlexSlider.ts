@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 import '@flex-design-system/framework/flexslider.scss'
 // import 'flex-design-system-framework/standalone/flexslider.module.scss'

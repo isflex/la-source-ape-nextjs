@@ -1,4 +1,3 @@
-// import Slice from './Slice'
 import Slice from './SliceDefault.js'
 
 import SliceList from './list/index.js'

@@ -7,7 +7,7 @@ const useGetPageNameClientSide = () => {
   if (!pathname) return null
 
   // Ensure consistent trailing slash format
-  const normalized = pathname.endsWith('/') ? pathname : pathname + '/'
+  const normalized = pathname.endsWith('/') ? pathname : `${pathname  }/`
   return normalized
 }
 

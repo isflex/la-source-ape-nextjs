@@ -2,22 +2,15 @@
 
 import React, { useState, useRef, useCallback } from 'react'
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
-import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
   InfoBlock,
-  InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
   InfoBlockStatus
 } from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
 import {
-  Icon,
-  IconSize,
-  IconPosition,
-  IconName,
-  IconColor,
-  IconStatus
+  IconName
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title'

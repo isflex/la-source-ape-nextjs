@@ -3,9 +3,7 @@
  * Manages server-side admin credentials based on client-side authentication status
  */
 
-import { NextRequest } from 'next/server'
-import { fetchAuthSession, fetchUserAttributes } from 'aws-amplify/auth/server'
-import { runWithAmplifyServerContext, AuthGetCurrentUserServer, isAuthenticated } from '@src/utils/amplify/server/app.router'
+import { AuthGetCurrentUserServer, isAuthenticated } from '@src/utils/amplify/server/app.router'
 import { AdminAuthResult } from './server-admin-auth'
 
 export interface AdminCredentials {
@@ -18,7 +16,7 @@ export interface AdminCredentials {
 /**
  * Checks if the client is authenticated as admin using existing Amplify server utilities
  */
-export async function isClientAdminAuthenticated(request?: NextRequest): Promise<boolean> {
+export async function isClientAdminAuthenticated(): Promise<boolean> {
   try {
     // Use existing authentication check
     const authenticated = await isAuthenticated()
@@ -98,6 +96,7 @@ export async function areCredentialsExpired(): Promise<boolean> {
   try {
     // If user is still authenticated, tokens are valid
     return !(await isAuthenticated())
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return true
   }

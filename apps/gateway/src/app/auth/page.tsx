@@ -1,26 +1,21 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { I18n, Hub } from 'aws-amplify/utils';
 import { Authenticator, useAuthenticator, translations, ThemeProvider, type Theme } from '@aws-amplify/ui-react';
-import { signUp, confirmSignUp, autoSignIn, type SignUpOutput, type SignUpInput, type ConfirmSignUpInput } from 'aws-amplify/auth';
+import { signUp, confirmSignUp, type SignUpOutput, type SignUpInput, type ConfirmSignUpInput } from 'aws-amplify/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import classNames from 'classnames'
 import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
 import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
 import {
   InfoBlock,
-  InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
   InfoBlockStatus
 } from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
 import {
-  IconName,
-  IconSize,
-  IconPosition,
-  IconStatus,
-  StatusIcon
+  IconName
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link';
 import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
@@ -48,7 +43,7 @@ function setupAuthListener() {
       case 'signedIn':
         debugAuth('SignIn event detected', data.payload);
         break;
-      case 'signedIn':
+      case 'signedOut':
         debugAuth('SignOut event detected', data.payload);
         break;
       case 'tokenRefresh':
@@ -67,7 +62,7 @@ function setupAuthListener() {
         debugAuth('Custom OAuth State', data.payload);
         break;
       default:
-        debugAuth(`Other auth event: ${data.payload.event}`, data.payload);
+        debugAuth(`Unknown auth event type`, data.payload);
         break;
     }
   });
@@ -223,7 +218,7 @@ const authServices = {
 };
 
 function AuthenticatedContent() {
-  const { signOut, user } = useAuthenticator();
+  const { user } = useAuthenticator();
   const router = useRouter();
   const searchParams = useSearchParams();
 

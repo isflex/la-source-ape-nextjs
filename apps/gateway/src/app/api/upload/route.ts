@@ -5,9 +5,6 @@ import { getAuthConfig, getStorageConfig } from '@src/utils/amplify/configureAmp
 // Disable Next.js body parser to handle streaming ourselves
 export const runtime = 'nodejs'
 
-// Create S3 client lazily to reduce initial compilation time
-let s3Client: any = null
-
 async function getS3ClientWithCognito(idToken: string) {
   const { S3Client } = await import('@aws-sdk/client-s3')
   const { fromCognitoIdentityPool } = await import('@aws-sdk/credential-provider-cognito-identity')
@@ -17,7 +14,7 @@ async function getS3ClientWithCognito(idToken: string) {
     region: getAuthConfig()?.aws_region || 'eu-west-3',
     identityPoolId: getAuthConfig()?.identity_pool_id,
     userPoolId: getAuthConfig()?.user_pool_id,
-    bucketName: getStorageConfig()?.bucket_name!
+    bucketName: getStorageConfig()?.bucket_name || ''
   })
 
   // Create Cognito Identity client
@@ -107,7 +104,7 @@ function createStreamingMultipartParser(boundary: string) {
   let state: 'boundary' | 'headers' | 'data' = 'boundary'
   let filename = ''
   let contentType = ''
-  let fileDataChunks: Buffer[] = []
+  const fileDataChunks: Buffer[] = []
   let headerBuffer = ''
 
   const boundaryBuffer = Buffer.from(`--${boundary}`)
@@ -288,7 +285,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get bucket name from Amplify outputs
-    const bucketName: string = getStorageConfig()?.bucket_name!
+    const bucketName: string | undefined = getStorageConfig()?.bucket_name
     if (!bucketName) {
       console.error('S3 bucket not configured in Amplify outputs')
       return NextResponse.json(
@@ -406,7 +403,7 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    const bucketName: string = getStorageConfig()?.bucket_name!
+    const bucketName: string | undefined = getStorageConfig()?.bucket_name
     if (!bucketName) {
       return NextResponse.json(
         { error: 'Server configuration error' },

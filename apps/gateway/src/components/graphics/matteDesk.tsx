@@ -20,7 +20,7 @@ export default class Matte extends React.Component<IComponentProps> {
   }
 
   render() {
-    const bounds = this.props.bounds;
+    const {bounds} = this.props;
 
     return (
       <svg

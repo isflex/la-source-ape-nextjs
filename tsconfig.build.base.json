@@ -33,6 +33,7 @@
 
       "flex_design_system_react_ts_client": ["./packages/flex/design-system-react-ts/src/styled-default.ts"],
       "flex_design_system_react_ts_server": ["./packages/flex/design-system-react-ts/src/server-async-styled-default.ts"],
+      "flex_design_system_react_ts_temp_server": ["./packages/flex/design-system-react-ts/src/temp-server-async-styled-default.ts"],
 
       "flex-webpack/*": ["./packages/flex/config/webpack/src/*"],
 

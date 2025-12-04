@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'
-import { notFound } from 'next/navigation';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import { useAuthenticator } from '@aws-amplify/ui-react';
@@ -20,22 +19,16 @@ import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/tex
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
   InfoBlock,
-  InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
   InfoBlockStatus
 } from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
 import {
-  IconName,
-  IconSize,
-  IconPosition,
-  IconStatus,
-  StatusIcon
+  IconName
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import PiscineCandidatTable from '@src/components/piscine/PiscineCandidatTable';
 import { formatDayOfWeek, formatSchoolLevel } from '@src/lib/piscine-helpers';
-import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
 import AuthBanner from '@src/components/auth/AuthBanner';
 
 type TimeSlotData = {
@@ -269,7 +262,8 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
                         {timeSlots.map((timeSlot) => (
                           <Sticker key={timeSlot.id} stretched variant={VariantState.SECONDARY}>
                             <Text className={classNames(flexStyles.isPaddingless, flexStyles.isMarginless)}>
-                              <span style={{ margin: '0.5rem 0.75rem', whiteSpace: 'nowrap' }}>
+                              <span className={classNames(flexStyles.isNowrap)}
+                                style={{ margin: '0.5rem 0.75rem' }}>
                                 {formatDayOfWeek(timeSlot.dayOfWeek)}{' '}:{' '}
                                 {timeSlot.startTime} - {timeSlot.endTime}
                               </span>
@@ -308,7 +302,8 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
                       )} style= {{ minWidth: '150px'}}>
                       <Sticker stretched variant={VariantState.SECONDARY}>
                         <Text className={classNames(flexStyles.isPaddingless, flexStyles.isMarginless)}>
-                          <span style={{ margin: '0.5rem 0.75rem', whiteSpace: 'nowrap' }}>
+                          <span className={classNames(flexStyles.isNowrap)}
+                            style={{ margin: '0.5rem 0.75rem' }}>
                             {formatSchoolLevel(piscineForm.schoolLevel)}
                           </span>
                         </Text>
@@ -346,7 +341,8 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
                       )} style= {{ minWidth: '150px'}}>
                       <Sticker stretched variant={VariantState.SECONDARY}>
                         <Text className={classNames(flexStyles.isPaddingless, flexStyles.isMarginless)}>
-                          <span style={{ margin: '0.5rem 0.75rem', whiteSpace: 'nowrap' }}>
+                          <span className={classNames(flexStyles.isNowrap)}
+                            style={{ margin: '0.5rem 0.75rem' }}>
                             {piscineForm.teacherName}
                           </span>
                         </Text>

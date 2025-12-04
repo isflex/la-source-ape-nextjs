@@ -1,4 +1,3 @@
-// import Tag from './Tag'
 import Tag from './TagDefault.js'
 
 import TagList from './list/index.js'

@@ -1,4 +1,4 @@
-import sass from "sass";
+import sass from "sass-embedded";
 /**
  * A list of all possible SASS package implementations that can be used to
  * perform the compilation and parsing of the SASS files. The expectation is

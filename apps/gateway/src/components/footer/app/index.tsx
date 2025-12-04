@@ -2,13 +2,13 @@
 'use client'
 
 import React from 'react'
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
 // import Link from 'next/link'
 // import type { NextPage } from 'next'
 // import { PageAppProps } from '@root/types/additional'
 import { useInView } from 'react-intersection-observer'
 
-import classNames from 'classnames'
+// import classNames from 'classnames'
 import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/footer.module.scss'
@@ -16,11 +16,7 @@ import { default as stylesLogo } from '@src/styles/scss/pages/logo.module.scss'
 import { Banner } from '@src/components/footer/cookieConsentBanner'
 import LogoFlex from '@src/components/logo-flexiness'
 
-interface FooterAppProps {
-}
-
-// const Footer: NextPage<PageAppProps> = () => {
-const Footer: React.FC<FooterAppProps> = ({}) => {
+const Footer: React.FC = () => {
   const [logoFlexInView, setLogoFlexInView] = React.useState<boolean>(false)
 
   const { ref } = useInView({

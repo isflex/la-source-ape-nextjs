@@ -3,7 +3,12 @@
  * Clean implementation using AdminInitiateAuthCommand for server-side admin authentication
  */
 
-import { CognitoIdentityProviderClient, AdminInitiateAuthCommand, UpdateUserPoolClientCommand, AuthFlowType } from '@aws-sdk/client-cognito-identity-provider'
+import {
+  CognitoIdentityProviderClient,
+  AdminInitiateAuthCommand,
+  // UpdateUserPoolClientCommand,
+  AuthFlowType
+} from '@aws-sdk/client-cognito-identity-provider'
 import { getAuthConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection'
 
 export interface AdminAuthResult {
@@ -17,43 +22,6 @@ export interface AdminAuthResult {
     expiresAt: string
   }
   userPoolId?: string
-}
-
-/**
- * Updates User Pool client to enable required authentication flows
- * This enables ALLOW_USER_PASSWORD_AUTH and other necessary flows
- */
-async function enableAuthFlows(cognitoClient: CognitoIdentityProviderClient, userPoolId: string, clientId: string, region: string): Promise<boolean> {
-  try {
-    console.log('🔧 Updating User Pool client to enable authentication flows...')
-
-    const updateCommand = new UpdateUserPoolClientCommand({
-      UserPoolId: userPoolId,
-      ClientId: clientId,
-      ExplicitAuthFlows: [
-        'ALLOW_USER_SRP_AUTH',
-        'ALLOW_USER_PASSWORD_AUTH',
-        'ALLOW_ADMIN_USER_PASSWORD_AUTH',
-        'ALLOW_REFRESH_TOKEN_AUTH'
-      ]
-    })
-
-    await cognitoClient.send(updateCommand)
-    console.log('✅ User Pool client auth flows updated successfully')
-    return true
-
-  } catch (error: any) {
-    console.warn('⚠️  Failed to update User Pool client auth flows:', error.name, error.message)
-    console.warn(`⚠️  User Pool ID: ${userPoolId}`)
-    console.warn(`⚠️  Client ID: ${clientId}`)
-    console.warn(`⚠️  Region: ${region}`)
-    if (error.name === 'ResourceNotFoundException') {
-      console.warn(`⚠️  User Pool client ${clientId} not found in User Pool ${userPoolId}`)
-      console.warn('⚠️  This may be a permissions issue or the client ID may be incorrect')
-      console.warn('⚠️  Check if AWS credentials have cognito-idp:UpdateUserPoolClient permission')
-    }
-    return false
-  }
 }
 
 /**

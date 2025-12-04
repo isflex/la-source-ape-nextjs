@@ -1,11 +1,6 @@
-import * as path from 'path'
 // import os from 'node:os'
 // import fs, { writeFileSync } from 'node:fs'
 // import { v4 as uuidv4 } from 'uuid'
-
-import { fileURLToPath } from 'url'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
 
 import React from 'react'
 import dynamic from 'next/dynamic'
@@ -36,11 +31,7 @@ export const metadata: Metadata = {
   title: `À propos | ${title}`,
 }
 
-export default async function AboutLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function AboutLayout() {
 
   const userAgent = (await headers()).get('user-agent') || ''
   const mobileCheck = isMobile(userAgent)

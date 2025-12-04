@@ -6,13 +6,13 @@ import type { Schema } from '@amplify/data/resource';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
-import { Select, type SelectChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/select';
+// import { Select, type SelectChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/select';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
-import type { DayTimeSlot } from '@src/lib/piscine-helpers';
 import {
   formatDayOfWeek,
   getTimeSlotOptions,
-  calculateDuration
+  calculateDuration,
+  type DayTimeSlot,
 } from '@src/lib/piscine-helpers';
 
 interface MultiDayTimeSlotPickerProps {

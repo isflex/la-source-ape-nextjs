@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import  { title } from '@src/seo'
 
 export const metadata: Metadata = {
   title: `Sondage concernant l'accès à l'application ${process.env.NEXT_PUBLIC_APP_TITLE}`,

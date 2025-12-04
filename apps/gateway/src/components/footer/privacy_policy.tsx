@@ -7,7 +7,6 @@ import {
   IconSize,
   IconPosition,
   IconName,
-  IconColor
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link';
 import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
@@ -25,12 +24,6 @@ import {
   TitleLevel,
   TitleMarkup,
 } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
-import {
-  TypographyAlign,
-  TypographyBold,
-  TypographyColor,
-  TypographyTransform
-} from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 const App: React.FC = () => {

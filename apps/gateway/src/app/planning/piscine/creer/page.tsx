@@ -26,7 +26,6 @@ import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styl
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
   InfoBlock,
-  InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
   InfoBlockStatus
@@ -35,9 +34,7 @@ import {
   Icon,
   IconName,
   IconSize,
-  IconPosition,
-  IconStatus,
-  StatusIcon
+  IconPosition
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import {
   Stepper,
@@ -80,6 +77,7 @@ export default function PiscineCreerPage() {
     startTime: string;
     endTime: string;
   }>>>({});
+  const formRef = React.useRef<HTMLDivElement>(null);
 
   const loadTimeSlots = async (formId: string) => {
     try {
@@ -205,10 +203,6 @@ export default function PiscineCreerPage() {
   const handleViewOnline = (form: PiscineFormData) => {
     const url = `/planning/piscine/${form.slug}`;
     window.open(url, '_blank');
-  };
-
-  const formatTime = (time: string) => {
-    return time; // Already in HH:MM format
   };
 
   const formatDayOfWeek = (day: Schema['EDayOfWeek']['type']) => {
@@ -515,6 +509,10 @@ export default function PiscineCreerPage() {
                                           setShowForm(true);
                                           setCreateSuccess(null);
                                           setCreateError(null);
+                                          // Scroll to form after state update
+                                          setTimeout(() => {
+                                            formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                          }, 100);
                                         }}
                                       >
                                         Modifier
@@ -544,9 +542,9 @@ export default function PiscineCreerPage() {
                           </InfoBlockHeader>
                           <InfoBlockContent size={12}>
                             <Title level={TitleLevel.LEVEL4}>
-                              {`Pour la consulter en ligne, cliquez sur « Voir ».`}<br/>
-                              {`Notez et copiez l'URL de la page.`}<br/>
-                              {`C'est cette URL là que vous partagerez ensuite avec d'autres parents afin qu'ils puissent s'inscrire et participer au planning.`}
+                              Pour la consulter en ligne, cliquez sur <span className={classNames(flexStyles.isNowrap)}>« Voir ».</span><br/>
+                              Notez et copiez l&apos;URL de la page.<br/>
+                              C&apos;est cette URL que vous partagerez avec d&apos;autres parents pour qu&apos;ils puissent contribuer.
                             </Title>
                           </InfoBlockContent>
                         </InfoBlock>
@@ -596,28 +594,30 @@ export default function PiscineCreerPage() {
 
           {/* Piscine Form Creation/Editing */}
           {isAdmin && showForm && (
-            <PiscineForm
-              onSubmit={(success, message, slug) => {
-                if (success) {
-                  setCreateSuccess(message);
+            <div ref={formRef}>
+              <PiscineForm
+                onSubmit={(success, message) => {
+                  if (success) {
+                    setCreateSuccess(message);
+                    setShowForm(false);
+                    setEditingFormId(null); // Reset editing state
+                    // Reload forms to show the updated one
+                    loadForms();
+                    // Clear success message after 5 seconds
+                    setTimeout(() => setCreateSuccess(null), 5000);
+                  } else {
+                    setCreateError(message);
+                  }
+                }}
+                onCancel={() => {
                   setShowForm(false);
                   setEditingFormId(null); // Reset editing state
-                  // Reload forms to show the updated one
-                  loadForms();
-                  // Clear success message after 5 seconds
-                  setTimeout(() => setCreateSuccess(null), 5000);
-                } else {
-                  setCreateError(message);
-                }
-              }}
-              onCancel={() => {
-                setShowForm(false);
-                setEditingFormId(null); // Reset editing state
-                setCreateError(null);
-              }}
-              existingSlugs={forms.map(f => f.slug)}
-              editingFormId={editingFormId || undefined}
-            />
+                  setCreateError(null);
+                }}
+                existingSlugs={forms.map(f => f.slug)}
+                editingFormId={editingFormId || undefined}
+              />
+            </div>
           )}
         </Section>
       </Container>

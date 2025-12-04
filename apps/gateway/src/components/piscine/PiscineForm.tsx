@@ -10,8 +10,8 @@ import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box'
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
 import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
 import { Input, type InputChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
-import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
   InfoBlock,
@@ -24,14 +24,13 @@ import MultiDaySelector from './MultiDaySelector';
 import MultiDayTimeSlotPicker from './MultiDayTimeSlotPicker';
 import MultiDayCalendarPicker from './MultiDayCalendarPicker';
 import {
-  PiscineFormSchema,
-  type PiscineFormData,
+  // PiscineFormSchema,
+  // type PiscineFormData,
   type DayTimeSlot,
   generateSlug,
   formatDayOfWeek,
   formatSchoolLevel,
-  dateToISOString,
-  getDayNumber
+  dateToISOString
 } from '@src/lib/piscine-helpers';
 
 const client = generateClient<Schema>();
@@ -79,9 +78,12 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
   const [submitting, setSubmitting] = useState(false);
 
   // Edit mode state
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isEditMode, setIsEditMode] = useState(!!editingFormId);
   const [loadingExistingData, setLoadingExistingData] = useState(!!editingFormId);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [existingDateSlotIds, setExistingDateSlotIds] = useState<string[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [orphanedDateSlots, setOrphanedDateSlots] = useState<Array<{id: string; date: string; participantCount: number}>>([]);
 
   // Multi-day mode state (always in multi-day mode)
@@ -767,7 +769,20 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
 
         {/* Progress indicator */}
         <div style={{ marginBottom: '1.5rem' }}>
+          <Box className={classNames(
+            flexStyles.isHiddenTablet,
+            flexStyles.hasTextCentered,
+            flexStyles.isFlat,
+          )}>
+            <Title level={TitleLevel.LEVEL7}>
+              Étape <span className={flexStyles.hasTextInfo}>{currentStep}</span> sur {totalSteps}
+            </Title>
+          </Box>
+        </div>
+
+        <div style={{ marginBottom: '1.5rem' }}>
           <div className={classNames(
+            flexStyles.isHiddenMobile,
             flexStyles.isFlex,
             flexStyles.isFlexDirectionRow,
             flexStyles.isAlignItemsCenter,
@@ -801,7 +816,6 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
                     backgroundColor: i + 1 < currentStep ? '#0ea5e9' : '#e5e7eb',
                     marginLeft: '0.5rem',
                     marginRight: '0.5rem',
-                    transform: 'rotate(-90deg)',
                   }} />
                 )}
               </div>

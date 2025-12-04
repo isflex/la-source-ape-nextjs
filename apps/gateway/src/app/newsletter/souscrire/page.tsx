@@ -1,8 +1,6 @@
 'use client';
 
 import React from 'react';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import DOMPurify from 'dompurify';
 
@@ -13,7 +11,6 @@ const client = generateClient<Schema>();
 import classNames from 'classnames';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
-import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
 import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
 import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
@@ -29,7 +26,6 @@ import {
   IconSize,
   IconPosition,
   IconName,
-  IconColor,
   IconStatus,
   StatusIcon
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
@@ -54,10 +50,9 @@ const NewsletterUnsubscribeSchema = z.object({
 });
 
 type NewsletterSignupFormData = z.infer<typeof NewsletterSignupSchema>;
-type NewsletterUnsubscribeFormData = z.infer<typeof NewsletterUnsubscribeSchema>;
+// type NewsletterUnsubscribeFormData = z.infer<typeof NewsletterUnsubscribeSchema>;
 
 export default function NewsletterSignupForm() {
-  const router = useRouter();
   const [isUnsubscribeMode, setIsUnsubscribeMode] = React.useState<boolean>(false);
   const [formData, setFormData] = React.useState<NewsletterSignupFormData>({
     email: '',

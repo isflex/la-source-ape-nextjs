@@ -10,11 +10,7 @@ export const metadata: Metadata = {
   title: `Conditions générales d'utilisation | ${title}`,
 }
 
-export default async function Layout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function Layout() {
 
   const posthog = PostHogNodeClient()
   await posthog.shutdown()

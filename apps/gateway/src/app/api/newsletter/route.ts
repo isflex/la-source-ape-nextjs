@@ -59,7 +59,7 @@ async function ensureNewsletterLogo(): Promise<string> {
     const logoS3Key = `newsletter-images/logo-${logoFileHash}.png`
 
     // Upload logo file to S3 using server-side SDK
-    const bucketName: string = getStorageConfig()?.bucket_name!
+    const bucketName: string | undefined = getStorageConfig()?.bucket_name
     if (!bucketName) {
       throw new Error('S3 bucket not configured in Amplify outputs')
     }

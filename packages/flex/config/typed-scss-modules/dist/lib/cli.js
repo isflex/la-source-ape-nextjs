@@ -18,7 +18,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const yargs_1 = __importDefault(require("yargs"));
 const implementations_1 = require("./implementations");
 const main_1 = require("./main");
-const sass_1 = require("./sass");
+const sass_1 = require("./sass-embedded");
 const typescript_1 = require("./typescript");
 const _a = yargs_1.default
     .usage("Generate .scss.d.ts from CSS module .scss files.\nUsage: $0 <glob pattern> [options]")
@@ -29,7 +29,7 @@ const _a = yargs_1.default
     .example("$0 src/**/*.scss --aliases.~name variables", 'Replace all imports for "~name" with "variables"')
     .example("$0 src/**/*.scss --aliasPrefixes.~ ./node_modules/", 'Replace the "~" prefix with "./node_modules/" for all imports beginning with "~"')
     .example("$0 src/**/*.scss --ignore **/secret.scss", 'Ignore any file names "secret.scss"')
-    .example("$0 src/**/*.scss --implementation sass", "Use the Dart SASS package")
+    .example("$0 src/**/*.scss --implementation sass-embedded", "Use the Dart SASS package")
     .example("$0 src/**/*.scss -e default --quoteType double", "Use double quotes around class name definitions rather than single quotes.")
     .example("$0 src/**/*.scss --logLevel error", "Output only errors")
     .demandCommand(1)

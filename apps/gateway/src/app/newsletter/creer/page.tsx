@@ -4,14 +4,17 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
-import DOMPurify from 'dompurify';
 
 const client = generateClient<Schema>();
 
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { signOut } from 'aws-amplify/auth';
 
-import { generateSlug, prepareNewsletterDataForAPI, type NewsletterFormData } from '@src/lib/newsletter-helpers';
+import {
+  generateSlug,
+  // prepareNewsletterDataForAPI,
+  type NewsletterFormData
+} from '@src/lib/newsletter-helpers';
 import NewsletterForm from '@src/components/newsletter/NewsletterForm';
 import AuthBanner from '@src/components/auth/AuthBanner';
 
@@ -32,17 +35,17 @@ import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styl
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
   InfoBlock,
-  InfoBlockAction,
+  // InfoBlockAction,
   InfoBlockContent,
   InfoBlockHeader,
   InfoBlockStatus
 } from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
 import {
   IconName,
-  IconSize,
-  IconPosition,
-  IconStatus,
-  StatusIcon
+  // IconSize,
+  // IconPosition,
+  // IconStatus,
+  // StatusIcon
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';

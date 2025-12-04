@@ -1,4 +1,4 @@
-import { SASSOptions } from "../sass";
+import { SASSOptions } from "../sass-embedded";
 import { ExportType, LogLevel, QuoteType } from "../typescript";
 type CLIOnlyOptions = Extract<keyof SASSOptions, "importer">;
 export interface CLIOptions extends Exclude<SASSOptions, CLIOnlyOptions> {

@@ -1,4 +1,3 @@
-// import Footer from './Footer'
 import Footer from './FooterDefault.js'
 import FooterHeader from './header/index.js'
 import FooterBody from './body/index.js'

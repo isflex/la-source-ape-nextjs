@@ -20,7 +20,7 @@ import {
 } from '@flex-design-system/react-ts/client-sync-styled-direct/info-block'
 // import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
-const WebAppMF: React.FC<{mobileCheck: boolean}> = observer((props) => {
+const WebAppMF: React.FC<{mobileCheck: boolean}> = observer(() => {
 
   const FallBackWeHaveAProblem = () => {
     return (

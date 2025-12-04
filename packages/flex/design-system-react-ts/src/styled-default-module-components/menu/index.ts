@@ -1,4 +1,3 @@
-// import Menu from './Menu'
 import Menu from './MenuDefault.js'
 
 import MenuItem from './item/index.js'

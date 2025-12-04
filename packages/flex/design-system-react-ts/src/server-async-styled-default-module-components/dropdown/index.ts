@@ -1,4 +1,3 @@
-// import Dropdown from './Dropdown'
 import Dropdown from './DropdownDefault.js'
 import DropdownTrigger from './trigger/index.js'
 import DropdownMenu from './menu/index.js'

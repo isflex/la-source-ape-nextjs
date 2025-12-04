@@ -16,8 +16,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "lint": "pnpm lint:flat",
-    "lint:flat": "ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.ts\" --fix",
-    "lint:legacy": "cross-env ESLINT_USE_FLAT_CONFIG=false pnpm eslint \"./src/**/*.ts\" --color --cache --config ./.eslintrc.cjs --resolve-plugins-relative-to $FLEX_PROJ_ROOT/packages/flex/config/eslint/legacy"
+    "lint:flat": "cross-env ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.ts\" --fix"
   },
   "dependencies": {
     "@jsonforms/core": "3.4.0",
@@ -25,9 +24,9 @@
     "localforage": "1.10.0",
     "mobx": "6.13.7",
     "mobx-persist-store": "1.1.4",
-    "react": "19.1.0",
+    "react": "19.2.1",
     "react-device-detect": "2.2.3",
-    "react-dom": "19.1.0",
+    "react-dom": "19.2.1",
     "tslib": "^2.4.0"
   },
   "devDependencies": {
@@ -40,9 +39,9 @@
     "@types/express-serve-static-core": "5.0.2",
     "@types/google.maps": "3.58.1",
     "@types/node": "22.10.1",
-    "@types/react": "19.1.0",
-    "@types/react-dom": "19.1.2",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
     "@types/regex-escape": "3.4.1",
-    "typescript": "5.7.2"
+    "typescript": "5.9.3"
   }
 }

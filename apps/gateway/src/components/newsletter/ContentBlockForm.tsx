@@ -4,14 +4,12 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
-import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
 import { Select, type SelectChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/select';
 import { Textarea, type TextareaChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/textarea';
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 import { type ContentBlockData } from '@src/lib/newsletter-helpers';
-import ImageUploader, { type ImageData } from './ImageUploader';
 import S3ImageUploader, { type S3ImageData } from './S3ImageUploader';
 import type { Schema } from '@amplify/data/resource';
 
@@ -70,28 +68,29 @@ export default function ContentBlockForm({
     });
   };
 
-  const handleImageSelect = (imageData: ImageData | null) => {
-    if (imageData) {
-      onUpdate(index, {
-        ...block,
-        content: imageData.content,
-        filename: imageData.filename,
-        filetype: imageData.filetype,
-        encoding: imageData.encoding,
-        // Store dimensions for potential future use
-        subtitle: `${imageData.width}x${imageData.height}px, ${Math.round(imageData.size / 1024)}KB`
-      });
-    } else {
-      onUpdate(index, {
-        ...block,
-        content: '',
-        filename: undefined,
-        filetype: undefined,
-        encoding: undefined,
-        subtitle: undefined
-      });
-    }
-  };
+  // For future development with ImageUploader
+  // const handleImageSelect = (imageData: ImageData | null) => {
+  //   if (imageData) {
+  //     onUpdate(index, {
+  //       ...block,
+  //       content: imageData.content,
+  //       filename: imageData.filename,
+  //       filetype: imageData.filetype,
+  //       encoding: imageData.encoding,
+  //       // Store dimensions for potential future use
+  //       subtitle: `${imageData.width}x${imageData.height}px, ${Math.round(imageData.size / 1024)}KB`
+  //     });
+  //   } else {
+  //     onUpdate(index, {
+  //       ...block,
+  //       content: '',
+  //       filename: undefined,
+  //       filetype: undefined,
+  //       encoding: undefined,
+  //       subtitle: undefined
+  //     });
+  //   }
+  // };
 
   const handleS3ImageSelect = (imageData: S3ImageData | null) => {
     if (imageData) {

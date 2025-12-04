@@ -46,8 +46,6 @@ applications:
             # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
       cache:
         paths:
-          # - '.npm/**/*'
-          # - 'apps/gateway/.npm/**/*'
           - 'node_modules/**/*'
     frontend:
       buildPath: /
@@ -89,9 +87,8 @@ applications:
           - '**/*'
       cache:
         paths:
-          # - '.next/cache/**/*'
           - 'apps/gateway/.next/cache/**/*'
-          - 'node_modules/**/*'
+          # - 'node_modules/**/*'
   -
     appRoot: apps/express-app
     frontend:

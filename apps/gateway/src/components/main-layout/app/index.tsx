@@ -19,24 +19,23 @@ const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 const Header = dynamic(() => import('@src/components/sticky-header/app'), { ssr: true })
 const Footer = dynamic(() => import('@src/components/footer/app'), { ssr: true })
 
-const MainLayout = async ({children }: { children: React.ReactNode }) => {
+const NavigationLayout = ({mobileCheck} : { mobileCheck: boolean }) => {
+  return (
+    <div className={classNames(stylesPage.navLayout, mobileCheck && stylesPage.forceMobile)}>
+      {/* <LogoLaSource className={stylesPage.navLogo} /> */}
+      <LogoAPE isNavLogo={true} className={classNames(stylesPage.navLogo, stylesPage.navLogoApe)} />
+      <Header mobileCheck={mobileCheck} />
+    </div>
+  )
+}
 
+const MainLayout = async ({children }: { children: React.ReactNode }) => {
   const userAgent = (await headers()).get('user-agent') || ''
   const mobileCheck = isMobile(userAgent)
 
-  const NavigationLayout = () => {
-    return (
-      <div className={classNames(stylesPage.navLayout, mobileCheck && stylesPage.forceMobile)}>
-        {/* <LogoLaSource className={stylesPage.navLogo} /> */}
-        <LogoAPE isNavLogo={true} className={classNames(stylesPage.navLogo, stylesPage.navLogoApe)} />
-        <Header mobileCheck={mobileCheck} />
-      </div>
-    )
-  }
-
   return (
     <div id='gatewayLayout' className={classNames(stylesPage.gatewayLayout)}>
-      <NavigationLayout />
+      <NavigationLayout mobileCheck={mobileCheck} />
       { children }
       <Footer />
     </div>

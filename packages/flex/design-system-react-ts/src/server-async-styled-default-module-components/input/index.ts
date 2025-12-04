@@ -1,4 +1,3 @@
-// import Input from './Input'
 import Input from './InputDefault.js'
 
 export * from './InputEnum.js'

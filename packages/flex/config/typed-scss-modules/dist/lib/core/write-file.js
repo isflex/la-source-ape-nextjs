@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.writeFile = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const sass_1 = require("../sass");
+const sass_1 = require("../sass-embedded");
 const typescript_1 = require("../typescript");
 const alerts_1 = require("./alerts");
 const remove_file_1 = require("./remove-file");

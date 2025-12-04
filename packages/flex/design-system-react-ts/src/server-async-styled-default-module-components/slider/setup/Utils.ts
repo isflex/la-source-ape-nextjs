@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
 declare type CallBack = () => void
 
@@ -15,7 +13,7 @@ const moveAllNodesToLeft = function (nodes: HTMLElement[], value: number) {
   for (let i = 0; i < nodes.length; i++) {
     const child = nodes[i]
 
-    window.requestAnimationFrame((time) => {
+    window.requestAnimationFrame(() => {
       child.style.left = `${value}px`
     })
   }

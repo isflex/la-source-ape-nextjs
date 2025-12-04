@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 import { useDroppable } from '@dnd-kit/core';
-import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+// import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+// import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
 
 interface DroppableDateSlotProps {
   id: string;
@@ -16,7 +16,7 @@ interface DroppableDateSlotProps {
 
 export default function DroppableDateSlot({
   id,
-  selectedDate,
+  // selectedDate,
   isCreatorMode,
   children
 }: DroppableDateSlotProps) {

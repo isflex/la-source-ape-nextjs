@@ -2,17 +2,15 @@ const rulesBase = {
   'arrow-spacing': 2,
   'block-spacing': 1,
   'brace-style': 1,
-  camelcase: ['error', { properties: 'always' }],
+  camelcase: ['warn', { properties: 'always' }],
   'comma-dangle': [0, 'only-multiline'],
   'comma-spacing': 1,
   'comma-style': ['warn', 'last'],
-  'default-case': 'error',
+  'default-case': 'warn',
   'dot-location': ['warn', 'property'],
   'dot-notation': 0,
   'eol-last': 2,
   'func-call-spacing': 2,
-  // deprecated in ESLint v8.53.0.
-  // 'function-paren-newline': ['error', 'multiline-arguments'],
   indent: ['warn', 2, { SwitchCase: 1, VariableDeclarator: 1, flatTernaryExpressions: false, offsetTernaryExpressions: false }],
   'jsx-quotes': ['warn', 'prefer-single'],
   'key-spacing': 1,
@@ -24,7 +22,7 @@ const rulesBase = {
   'no-async-promise-executor': 1,
   'no-case-declarations': 1,
   'no-confusing-arrow': 1,
-  'no-console': 2,
+  'no-console': 1,
   'no-const-assign': 2,
   'no-duplicate-imports': 1,
   'no-eval': 2,
@@ -55,18 +53,6 @@ const rulesBase = {
 
   'jsx-a11y/click-events-have-key-events': 'off',
   'jsx-a11y/no-static-element-interactions': 'off',
-
-  'no-restricted-imports': [
-    'error',
-    {
-      paths: [
-        {
-          name: 'BrowserRouter',
-          message: "Please import { FlexBrowserRouter } from '@flexiness/domain-lib-mobx-react-router' instead.",
-        },
-      ],
-    },
-  ],
 }
 
 const rulesReact = {
@@ -80,4 +66,8 @@ const rulesReact = {
   'react/prop-types': 0,
 }
 
-export { rulesBase, rulesReact }
+const rulesTS = {
+  '@typescript-eslint/no-explicit-any': 1,
+}
+
+export { rulesBase, rulesReact, rulesTS }

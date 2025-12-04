@@ -6,7 +6,6 @@ import type { Schema } from '@amplify/data/resource';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { z } from 'zod';
 import classNames from 'classnames';
-import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
 import { Input, type InputChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';

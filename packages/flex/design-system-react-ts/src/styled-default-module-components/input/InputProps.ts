@@ -54,6 +54,9 @@ export interface InputProps {
   id?: string
   // type?: InputType
   type?: React.HTMLInputTypeAttribute
+  min?: number | string | undefined
+  max?: number | string | undefined
+  step?: number | string | undefined
   content?: string
   placeholder?: string
   // defaultValue?: string
@@ -80,15 +83,11 @@ export interface InputProps {
   keyboardStyle?: InputKeyboardAppearance
 
   autoCapitalize?: InputAutoCapitalize
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // autoCapitalize?: any
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   autoCorrect?: any
 
   autoComplete?: InputAutoCompleteType
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // autoComplete?: any
 
   textContentType?: InputTextContentType
   keyboardType?: InputKeyboardType
