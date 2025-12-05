@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 'use client'
 
 import React from 'react'
@@ -14,7 +16,7 @@ const LinePaths = ({id, viewBoxWidth, viewBoxHeight, preserveAspectRatio}) => {
 
   const strokeSize = 4;
   const boundsXOffset = 20;
-  const boundsYOffset = 10;
+  // const boundsYOffset = 10;
   const translateX = 0;
   const translateY = 0;
   const _preserveAspectRatio = preserveAspectRatio || 'none';
@@ -53,7 +55,7 @@ const LinePaths = ({id, viewBoxWidth, viewBoxHeight, preserveAspectRatio}) => {
           const green_yMid = svgHeight / 2
           const green_yMid2 = svgHeight / 2 + 150
           const green_yMax = svgHeight
-          const green_yMax2a = svgHeight + 12
+          // const green_yMax2a = svgHeight + 12
 
           const pathGreen = `
 
@@ -132,7 +134,7 @@ const LinePaths = ({id, viewBoxWidth, viewBoxHeight, preserveAspectRatio}) => {
           const blue_yMin = -58
           const blue_yMid = svgHeight / 2 - 150
           const blue_yMax = svgHeight
-          const blue_yMax2a = svgHeight + 12
+          // const blue_yMax2a = svgHeight + 12
 
           const pathBlue = `
 
@@ -189,10 +191,10 @@ const LinePaths = ({id, viewBoxWidth, viewBoxHeight, preserveAspectRatio}) => {
           const yellow_xMid = svgWidth / 2
           const yellow_xMid2a = svgWidth / 2 - svgWidth / 5
           const yellow_xMid2b = svgWidth / 2 + (boundsWidth * 0.04)
-          const yellow_xMax = svgWidth + 50
+          // const yellow_xMax = svgWidth + 50
           const yellow_yMin = -20
-          const yellow_yMid = svgHeight / 2
-          const yellow_yMid2a = svgHeight / 2 + 100
+          // const yellow_yMid = svgHeight / 2
+          // const yellow_yMid2a = svgHeight / 2 + 100
           const yellow_yMax = svgHeight + 20
           const yellow_yMax2a = svgHeight + 5
 
@@ -262,7 +264,7 @@ const LinePaths = ({id, viewBoxWidth, viewBoxHeight, preserveAspectRatio}) => {
           const red_xMid2b = svgWidth / 5 + (boundsWidth * 0.03)
           const red_xMax = svgWidth + 50
           const red_yMin = 0
-          const red_yMid = svgHeight / 2
+          // const red_yMid = svgHeight / 2
           const red_yMax = svgHeight + 50
           const red_yMax2a = svgHeight + 12
 

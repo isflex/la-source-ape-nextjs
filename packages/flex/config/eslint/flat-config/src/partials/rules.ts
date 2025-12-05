@@ -2,7 +2,10 @@ const rulesBase = {
   'arrow-spacing': 2,
   'block-spacing': 1,
   'brace-style': 1,
-  camelcase: ['warn', { properties: 'always' }],
+  camelcase: ['warn', { properties: 'always', allow: [
+    // Standard zod schema validation
+    'required_error', 'invalid_type_error'
+  ]}],
   'comma-dangle': [0, 'only-multiline'],
   'comma-spacing': 1,
   'comma-style': ['warn', 'last'],

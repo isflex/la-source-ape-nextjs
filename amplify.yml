@@ -85,10 +85,19 @@ applications:
         baseDirectory: apps/gateway/.next
         files:
           - '**/*'
+        # Nextjs standalone mode
+        # baseDirectory: apps/gateway
+        # files:
+        #   - '.next/standalone/**/*'
+        #   - '.next/static/**/*'
+        #   - 'public/**/*'
+        #   - '.next/BUILD_ID'
+        #   - '.next/routes-manifest.json'
+        #   - '.next/required-server-files.json'
       cache:
         paths:
           - 'apps/gateway/.next/cache/**/*'
-          # - 'node_modules/**/*'
+          - 'node_modules/**/*'
   -
     appRoot: apps/express-app
     frontend:

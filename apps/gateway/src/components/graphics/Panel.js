@@ -26,13 +26,13 @@ export default class Panel extends React.Component {
 
   render() {
     const id = this.props.id;
-    const preserveAspectRatio = this.props.preserveAspectRatio || 'none';
-    const bounds = this.props.bounds;
-    const viewbox = this.props.viewbox;
+    // const preserveAspectRatio = this.props.preserveAspectRatio || 'none';
+    // const bounds = this.props.bounds;
+    // const viewbox = this.props.viewbox;
     const strokeSize = this.props.strokeSize;
     const scale = this.props.scale;
-    const offset = this.props.offset;
-    const ratio = this.props.ratio;
+    // const offset = this.props.offset;
+    // const ratio = this.props.ratio;
 
     return (
       <svg

@@ -49,6 +49,9 @@ const eslintBaseTSConfig: Config = tseslint.config(
         project: ['apps/**/tsconfig*.build.json', 'packages/**/tsconfig*.build.json'],
         tsconfigRootDir: import.meta.dirname ? import.meta.dirname + '/../../../../../..' : process.cwd(),
       },
+      globals: {
+				...baseGlobals,
+			},
     },
   },
   {
@@ -108,6 +111,8 @@ const eslintBaseTSConfig: Config = tseslint.config(
       ...nextPlugin.configs['core-web-vitals'].rules,
       '@next/next/no-img-element': 'error',
       '@next/next/no-html-link-for-pages': ['off', 'apps/gateway'],
+      // Disable react/display-name due to ESLint 9 compatibility issue
+      'react/display-name': 'off',
     },
   },
   {

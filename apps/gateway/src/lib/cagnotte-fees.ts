@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 /**
  * Fee Management Module
  *

@@ -22,9 +22,9 @@ export default class Symbol extends React.Component {
     const bounds = this.props.bounds;
     const viewbox = this.props.viewbox;
     const strokeSize = this.props.strokeSize;
-    const scale = this.props.scale;
+    // const scale = this.props.scale;
     const color = this.props.color;
-    const offset = this.props.offset;
+    // const offset = this.props.offset;
 
     return (
       <svg style={styles} width='100%' height='100%' version='1.1' xmlns='http://www.w3.org/2000/svg'>

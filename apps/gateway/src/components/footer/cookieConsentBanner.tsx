@@ -21,6 +21,9 @@ interface BannerProps {
 }
 
 export function cookieConsentGiven() {
+  if (typeof window === 'undefined') {
+    return 'undecided';
+  }
   if (!localStorage.getItem('cookie_consent')) {
     return 'undecided';
   }

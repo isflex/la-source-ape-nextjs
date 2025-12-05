@@ -32,8 +32,11 @@ const memory = {
   }
 }
 
-const isStorageSupported = (function () { // eslint-disable-line wrap-iife
+const isStorageSupported = (function () {
   try {
+    if (typeof window === 'undefined') {
+      return false
+    }
     const hasStorage = typeof window.sessionStorage !== 'undefined' &&
       ('setItem' in window.sessionStorage) && window.sessionStorage.setItem
 
@@ -46,17 +49,18 @@ const isStorageSupported = (function () { // eslint-disable-line wrap-iife
     window.sessionStorage.removeItem(uid)
 
     return true
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     return false
   }
 })()
 
-const storage = isStorageSupported ? window.sessionStorage : memory
+const storage = isStorageSupported && typeof window !== 'undefined' ? window.sessionStorage : memory
 
 class Session {
   constructor(namespace, separator) {
     // this.namespace = namespace || 'flexiness'
-    this.namespace = namespace || 'a360'
+    this.namespace = namespace || 'apelasource'
     this.separator = separator || '-'
   }
 

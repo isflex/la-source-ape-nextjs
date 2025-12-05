@@ -1,3 +1,4 @@
+
 'use client'
 
 /**
@@ -23,16 +24,16 @@ class MeasureAndRender extends React.Component {
       measurement: this.el.getBoundingClientRect(),
       hasMeasured: true
     });
-
-    window.addEventListener('resize', this.onWindowResize);
+    if (typeof window !== 'undefined') window.addEventListener('resize', this.onWindowResize);
   }
 
   componentWillUnmount() {
     // stop listening to window resize
-    window.removeEventListener('resize', this.onWindowResize);
+    if (typeof window !== 'undefined') window.removeEventListener('resize', this.onWindowResize);
   }
 
   render() {
+    // eslint-disable-next-line prefer-const
     let style = {};
     if (this.props.stretch) {
       style.position = 'absolute';

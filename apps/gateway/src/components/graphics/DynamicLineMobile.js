@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 'use client'
 
 import React from 'react'
@@ -15,7 +17,7 @@ const LinePaths = ({id, viewBoxWidth, viewBoxHeight, preserveAspectRatio}) => {
   const strokeSize = 4;
   const boundsXOffset = 0;
   // const boundsXOffset = 0;
-  const boundsYOffset = 0;
+  // const boundsYOffset = 0;
   const translateX = 0;
   const translateY = 0;
   const _preserveAspectRatio = preserveAspectRatio || 'none';
@@ -45,23 +47,23 @@ const LinePaths = ({id, viewBoxWidth, viewBoxHeight, preserveAspectRatio}) => {
 
           const green_xMin = 10
           const green_xMin0a = (boundsWidth * 0.25) - 50
-          const green_xMin0b = green_xMin0a - (boundsWidth * 0.075) - 30
+          // const green_xMin0b = green_xMin0a - (boundsWidth * 0.075) - 30
           const green_xMin0b2 = green_xMin0a - (boundsWidth * 0.075)
           const green_xMin0c = green_xMin0a + (svgWidth / 2 * 0.45) - 80
           const green_xMin0c2 = green_xMin0a + (svgWidth / 2 * 0.45) - 100
           const green_xMin0d = green_xMin0a + (svgWidth / 2 * 0.01) - 80
-          const green_xMin0d2 = green_xMin0a + (svgWidth / 2 * 0.025) - 100
+          // const green_xMin0d2 = green_xMin0a + (svgWidth / 2 * 0.025) - 100
           // const green_xMin0e = green_xMin0a + (svgWidth / 2 * 0.125)
-          const green_xMin0e = (svgWidth / 8)
-          const green_xMin0e1a = green_xMin0e + 30
+          // const green_xMin0e = (svgWidth / 8)
+          // const green_xMin0e1a = green_xMin0e + 30
           const green_xMin0e1b = (svgWidth / 4) - 90
-          const green_xMin0f = (svgWidth / 2)
+          // const green_xMin0f = (svgWidth / 2)
 
 
 
-          const green_xMid = svgWidth / 2
+          // const green_xMid = svgWidth / 2
           const green_xMid0a = svgWidth / 2 + (boundsWidth * 0.1)
-          const green_xMid0b = svgWidth / 2 + (boundsWidth * 0.05)
+          // const green_xMid0b = svgWidth / 2 + (boundsWidth * 0.05)
           // const green_xMid0c = svgWidth / 2 + (boundsWidth * 0.15)
           const green_xMid0c = svgWidth - (boundsWidth * 0.25)
           // const green_xMid0d = svgWidth / 2 + (boundsWidth * 0.1)
@@ -69,21 +71,21 @@ const LinePaths = ({id, viewBoxWidth, viewBoxHeight, preserveAspectRatio}) => {
           const green_xMid0e = svgWidth - (boundsWidth * 0.4)
           const green_xMid0f = green_xMid0e - 60
           const green_xMid0g = green_xMid0f - (svgWidth / 2 * 0.1)
-          const green_xMid0h = green_xMid0g - (svgWidth / 2 * 0.1)
-          const green_xMid0i = green_xMid0h - (svgWidth / 2 * 0.1)
+          // const green_xMid0h = green_xMid0g - (svgWidth / 2 * 0.1)
+          // const green_xMid0i = green_xMid0h - (svgWidth / 2 * 0.1)
           // const green_xMid1a = green_xMin + (boundsWidth * 0.05) - 5
           const green_xMid1b = svgWidth / 2 + (boundsWidth * 0.05)
           const green_xMid1c = svgWidth / 2 - (boundsWidth * 0.2)
-          const green_xMid1d = green_xMid1b - 50
-          const green_xMid1e = svgWidth / 2 - (boundsWidth * 0.275)
+          // const green_xMid1d = green_xMid1b - 50
+          // const green_xMid1e = svgWidth / 2 - (boundsWidth * 0.275)
 
-          const green_xMid2e = svgWidth / 2 + (boundsWidth * 0.0002)
+          // const green_xMid2e = svgWidth / 2 + (boundsWidth * 0.0002)
           const green_xMid2e2 = svgWidth / 2 - (boundsWidth * 0.3) - 50
           const green_xMid2e3 = svgWidth / 2 - (boundsWidth * 0.1)
 
-          const green_xMid3a = green_xMid + (boundsWidth * 0.25)
-          const green_xMid3b = green_xMid3a - 30
-          const green_xMid3c = green_xMid3a + (boundsWidth * 0.15)
+          // const green_xMid3a = green_xMid + (boundsWidth * 0.25)
+          // const green_xMid3b = green_xMid3a - 30
+          // const green_xMid3c = green_xMid3a + (boundsWidth * 0.15)
 
           const green_xMid4a = (svgWidth / 3) + 40
 
@@ -95,10 +97,10 @@ const LinePaths = ({id, viewBoxWidth, viewBoxHeight, preserveAspectRatio}) => {
 
           const green_yMin = (boundsHeight * 0.03)
           // const green_yMin1a = svgHeight / 2 - (boundsHeight * 0.18)
-          const green_yMin1a = svgHeight / 9 - (boundsHeight * 0.08)
+          // const green_yMin1a = svgHeight / 9 - (boundsHeight * 0.08)
           // const green_yMin1a = svgHeight / 2 - svgHeight / 3.5
-          const green_yMin1b = svgHeight / 2 - (boundsHeight * 0.18)
-          const green_yMid = svgHeight / 2
+          // const green_yMin1b = svgHeight / 2 - (boundsHeight * 0.18)
+          // const green_yMid = svgHeight / 2
           const green_yMid1a = svgHeight / 2 - (boundsHeight * 0.12)
           const green_yMid1b = svgHeight / 2 + (boundsHeight * 0.12)
           const green_yMid1b2 = svgHeight / 2 + (boundsHeight * 0.1)
@@ -108,11 +110,11 @@ const LinePaths = ({id, viewBoxWidth, viewBoxHeight, preserveAspectRatio}) => {
           const green_yMid1e = svgHeight / 2 + (boundsHeight * 0.28)
           const green_yMid2a = svgHeight / 2 - (boundsHeight * 0.21)
           const green_yMid2b = svgHeight / 2 - (boundsHeight * 0.26)
-          const green_yMid2c = svgHeight / 2 + (boundsHeight * 0.003) - svgHeight / 12
+          // const green_yMid2c = svgHeight / 2 + (boundsHeight * 0.003) - svgHeight / 12
           const green_yMax = svgHeight - 80
           const green_yMax1a = green_yMax - (boundsHeight * 0.18)
           const green_yMax1b = green_yMax1a - 80
-          const green_yMax2a = green_yMax1a - 10
+          // const green_yMax2a = green_yMax1a - 10
 
           // (^(<path d=")|(" stroke="#8558D2" stroke-width="6"/>)$)
 
@@ -298,26 +300,26 @@ const LinePaths = ({id, viewBoxWidth, viewBoxHeight, preserveAspectRatio}) => {
 
           `;
 
-          const blue_xMin0 = 5
-          const blue_xMin = 20
-          const blue_xMin0a = blue_xMin + (boundsWidth * 0.02) - 20
-          const blue_xMin1b = blue_xMin - (boundsWidth * 0.08)
-          const blue_xMin1c = blue_xMin - (boundsWidth * 0.05)
+          // const blue_xMin0 = 5
+          // const blue_xMin = 20
+          // const blue_xMin0a = blue_xMin + (boundsWidth * 0.02) - 20
+          // const blue_xMin1b = blue_xMin - (boundsWidth * 0.08)
+          // const blue_xMin1c = blue_xMin - (boundsWidth * 0.05)
 
           const blue_xMid = svgWidth / 2 + svgWidth / 16
           const blue_xMid0a = svgWidth / 2 + svgWidth / 4
-          const blue_xMid0b = svgWidth / 2 + svgWidth / 6
-          const blue_xMid1a = svgWidth / 2 + svgWidth / 5 + (boundsWidth * 0.12)
-          const blue_xMid1b = svgWidth / 2 + (boundsWidth * 0.15)
-          const blue_xMid1c = svgWidth / 2 + svgWidth / 5 + (boundsWidth * 0.04)
-          const blue_xMid1d = svgWidth / 2 - svgWidth / 8
+          // const blue_xMid0b = svgWidth / 2 + svgWidth / 6
+          // const blue_xMid1a = svgWidth / 2 + svgWidth / 5 + (boundsWidth * 0.12)
+          // const blue_xMid1b = svgWidth / 2 + (boundsWidth * 0.15)
+          // const blue_xMid1c = svgWidth / 2 + svgWidth / 5 + (boundsWidth * 0.04)
+          // const blue_xMid1d = svgWidth / 2 - svgWidth / 8
           const blue_xMid1e = svgWidth / 2 - svgWidth / 4 - (boundsWidth * 0.01)
           const blue_xMid1f = svgWidth / 2 - svgWidth / 3 - (boundsWidth * 0.09)
           const blue_xMid1g = svgWidth / 2 - svgWidth / 3 - (boundsWidth * 0.12)
-          const blue_xMid1h = svgWidth / 2 + svgWidth / 16 - (boundsWidth * 0.12)
-          const blue_xMid1i = svgWidth / 2 + svgWidth / 16 + (boundsWidth * 0.02)
-          const blue_xMid2a = svgWidth / 2 - svgWidth / 7 - (boundsWidth * 0.09)
-          const blue_xMid2b = svgWidth / 2 + svgWidth / 10 + 50
+          // const blue_xMid1h = svgWidth / 2 + svgWidth / 16 - (boundsWidth * 0.12)
+          // const blue_xMid1i = svgWidth / 2 + svgWidth / 16 + (boundsWidth * 0.02)
+          // const blue_xMid2a = svgWidth / 2 - svgWidth / 7 - (boundsWidth * 0.09)
+          // const blue_xMid2b = svgWidth / 2 + svgWidth / 10 + 50
 
           const blue_xMax = svgWidth - (boundsWidth * 0.1)
           const blue_xMax0 = svgWidth - 25
@@ -325,27 +327,27 @@ const LinePaths = ({id, viewBoxWidth, viewBoxHeight, preserveAspectRatio}) => {
 
           const blue_yMin = 22
           const blue_yMin1a = blue_yMin + (boundsHeight * 0.08)
-          const blue_yMin1b = blue_yMin - (boundsHeight * 0.013)
-          const blue_yMin1c = blue_yMin - (boundsHeight * 0.015)
-          const blue_yMin1d = blue_yMin + (boundsHeight * 0.2)
+          // const blue_yMin1b = blue_yMin - (boundsHeight * 0.013)
+          // const blue_yMin1c = blue_yMin - (boundsHeight * 0.015)
+          // const blue_yMin1d = blue_yMin + (boundsHeight * 0.2)
 
           const blue_yMid = svgHeight / 2 - 98
           const blue_yMid1a = blue_yMid - (boundsHeight * 0.15)
           const blue_yMid1b = svgHeight / 2 - (boundsHeight * 0.16)
           const blue_yMid1c = svgHeight / 2 - (boundsHeight * 0.1)
-          const blue_yMid1d = svgHeight / 2 - (boundsHeight * 0.06)
-          const blue_yMid1e = svgHeight / 2 - (boundsHeight * 0.14)
-          const blue_yMid2a = svgHeight / 2 - 98
+          // const blue_yMid1d = svgHeight / 2 - (boundsHeight * 0.06)
+          // const blue_yMid1e = svgHeight / 2 - (boundsHeight * 0.14)
+          // const blue_yMid2a = svgHeight / 2 - 98
 
           const blue_yMax = svgHeight
           const blue_yMax1b = svgHeight - (boundsHeight * 0.4)
-          const blue_yMax1c = svgHeight - (boundsHeight * 0.7)
-          const blue_yMax1d = svgHeight - (boundsHeight * 0.4)
-          const blue_yMax1e = svgHeight - (boundsHeight * 0.35)
-          const blue_yMax2e = svgHeight - (boundsHeight * 0.3)
-          const blue_yMax1f = svgHeight - (boundsHeight * 0.2)
-          const blue_yMax1g = svgHeight - (boundsHeight * 0.25)
-          const blue_yMax2a = svgHeight + 12
+          // const blue_yMax1c = svgHeight - (boundsHeight * 0.7)
+          // const blue_yMax1d = svgHeight - (boundsHeight * 0.4)
+          // const blue_yMax1e = svgHeight - (boundsHeight * 0.35)
+          // const blue_yMax2e = svgHeight - (boundsHeight * 0.3)
+          // const blue_yMax1f = svgHeight - (boundsHeight * 0.2)
+          // const blue_yMax1g = svgHeight - (boundsHeight * 0.25)
+          // const blue_yMax2a = svgHeight + 12
 
           const pathBlue = `
 
@@ -579,12 +581,12 @@ const LinePaths = ({id, viewBoxWidth, viewBoxHeight, preserveAspectRatio}) => {
           const red_xMax1a = red_xMax - (boundsWidth * 0.01)
           const red_xMax1b = red_xMax - (boundsWidth * 0.05)
           const red_xMax2a = red_xMax - (boundsWidth * 0.01)
-          const red_xMax2c = svgWidth - (svgHeight / 4)
+          // const red_xMax2c = svgWidth - (svgHeight / 4)
           const red_yMin = (boundsHeight * 0.03)
           const red_yMin1a = svgHeight / 9 - (boundsHeight * 0.05)
           const red_yMid = svgHeight / 2 - svgHeight / 3.5
           // const red_yMax = svgHeight
-          const red_yMax1a = svgHeight + 12
+          // const red_yMax1a = svgHeight + 12
           // const red_yMax = svgHeight - (boundsHeight * 0.5)
           const red_yMax2a = svgHeight - 120
           const red_yMax2b = svgHeight - 105

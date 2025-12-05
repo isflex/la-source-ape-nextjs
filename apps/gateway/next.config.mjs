@@ -18,8 +18,13 @@ const execPromise = promisify(subprocess.exec)
 import { Config } from 'next-recompose-plugins'
 // import { withSentryConfig } from '@sentry/nextjs'
 import createMDX from '@next/mdx'
+import bundleAnalyzer from '@next/bundle-analyzer'
 
 import camelCase from 'lodash/camelCase.js'
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+})
 
 let _gitCommitSHA = ''
 let _buildId = ''
@@ -77,9 +82,9 @@ const mainConfig = new Config(async (phase, args) => {
 
   /** @type {import('next').NextConfig} */
   const nextConfig = {
-    // output: 'standalone',
+    // output: 'standalone', // Disabled - not supported by Amplify Hosting for SSR
 
-    // productionBrowserSourceMaps: true,
+    productionBrowserSourceMaps: false, // Disable to reduce build size
 
     // https://nextjs.org/docs/pages/api-reference/config/next-config-js/rewrites
     // https://www.giovannibenussi.com/blog/redirects-and-rewrites-on-nextjs
@@ -353,6 +358,10 @@ const mainConfig = new Config(async (phase, args) => {
     },
   })(config);
 }, '@next/mdx') // Pass an annotation as a last argument
+.applyPlugin((phase, args, config) => {
+  // Apply bundle analyzer when ANALYZE=true
+  return withBundleAnalyzer(config);
+}, '@next/bundle-analyzer')
 .build()
 
 export default mainConfig

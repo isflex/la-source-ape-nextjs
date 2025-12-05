@@ -24,7 +24,6 @@ import {
   InfoBlockStatus
 } from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
 import { Modal } from '@flex-design-system/react-ts/client-sync-styled-direct/modal';
-// import { default as flexStyles } from '@flex-design-system/framework'
 import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
 
 export default function ToDoApp() {

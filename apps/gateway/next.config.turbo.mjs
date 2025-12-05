@@ -95,32 +95,41 @@ function cssLoaderOptions(modules) {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
+
+  // productionBrowserSourceMaps: true,
+
   trailingSlash: true,
 
   async rewrites() {
-    let activeRoutes = ['about', 'newsletter', 'decouverte-des-metiers', 'game', 'games', 'home', 'privacy_policy', 'sondage', 'sondage-web-app', 'terms_of_service', 'todo']
-
-    try {
-      activeRoutes = JSON.parse(fs.readFileSync('./routes.active.json', 'utf8'))
-    } catch (error) {
-      console.warn('Using fallback routes for rewrites')
-    }
-
+    // Dynamically load active routes and exclude them from rewrite (except web-app)
+    const activeRoutes = JSON.parse(fs.readFileSync('./routes.active.json', 'utf8'))
     const excludedRoutes = activeRoutes.filter(route => route !== 'web-app')
     // Always exclude API routes from rewrite
     excludedRoutes.push('api', '_next', 'favicon.ico')
     const exclusionPattern = excludedRoutes.join('|')
 
     return [
+      // Handle root route specifically - server-side rewrite to web-app
+      {
+        source: '/',
+        destination: '/web-app/',
+      },
+      // Handle all other non-excluded routes
       {
         source: `/((?!${exclusionPattern}).*)/:path*`,
         destination: '/web-app/$1/:path*',
       }
-    ]
+    ];
   },
 
   async redirects() {
     return [
+      {
+        source: '/',
+        destination: '/web-app',
+        permanent: false,
+      },
       {
         source: '/qui-sommes-nous',
         destination: 'https://ecolelasource.org/une-ecole-active/role-des-parents/',

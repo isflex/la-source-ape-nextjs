@@ -50,8 +50,7 @@ export async function isClientAdminAuthenticated(): Promise<boolean> {
  * Returns null if client is not authenticated as admin
  */
 export async function getAdminCredentials(
-  serverAuthResult: AdminAuthResult,
-  request?: NextRequest
+  serverAuthResult: AdminAuthResult
 ): Promise<AdminCredentials | null> {
   // First check if server authentication was successful
   if (!serverAuthResult.success || !serverAuthResult.tokens) {
@@ -59,7 +58,7 @@ export async function getAdminCredentials(
   }
 
   // Check if client is authenticated as admin
-  if (!(await isClientAdminAuthenticated(request))) {
+  if (!(await isClientAdminAuthenticated())) {
     console.log('🚫 Client not authenticated as admin - withholding server credentials')
     return null
   }
@@ -106,10 +105,9 @@ export async function areCredentialsExpired(): Promise<boolean> {
  * Gets admin credentials for S3 operations using Amplify session
  */
 export async function getS3AdminCredentials(
-  serverAuthResult: AdminAuthResult,
-  request?: NextRequest
+  serverAuthResult: AdminAuthResult
 ): Promise<{ idToken: string; accessToken: string } | null> {
-  const credentials = await getAdminCredentials(serverAuthResult, request)
+  const credentials = await getAdminCredentials(serverAuthResult)
 
   if (!credentials) {
     return null

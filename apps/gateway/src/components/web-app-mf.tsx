@@ -55,12 +55,12 @@ const WebAppMF: React.FC<{mobileCheck: boolean}> = observer(() => {
       ],
       shared: {
         react: {
-          version: '19.1.0',
+          version: '19.2.1',
           scope: 'default',
           lib: () => React,
           shareConfig: {
             singleton: true,
-            requiredVersion: '19.1.0',
+            requiredVersion: '19.2.1',
           },
         },
         mobx: {

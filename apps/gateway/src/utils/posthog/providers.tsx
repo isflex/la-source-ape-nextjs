@@ -1,12 +1,12 @@
-// app/providers.tsx
+/* eslint-disable camelcase */
+
 'use client'
 
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, Suspense } from 'react'
-import { usePostHog } from 'posthog-js/react'
 
 import posthog from 'posthog-js'
-import { PostHogProvider as PHProvider } from 'posthog-js/react'
+import { PostHogProvider as PHProvider, usePostHog } from 'posthog-js/react'
 
 import { cookieConsentGiven } from '@src/components/footer/cookieConsentBanner'
 

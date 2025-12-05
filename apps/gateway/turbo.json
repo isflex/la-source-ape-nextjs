@@ -111,6 +111,25 @@
         "SENTRY_*"
       ]
     },
+    "analyze": {
+      "dependsOn": [
+        "//#compile:clean:sh",
+        "@flex-design-system/react-ts#build",
+        "marp:build"
+      ],
+      "outputs": [".next/**/*"],
+      "inputs": ["$TURBO_DEFAULT$", "amplify_outputs.json", "!README.md"],
+      "cache": true,
+      "persistent": false,
+      "env": [
+        "AWS_*",
+        "DOTENV_*",
+        "FLEX_*",
+        "GIT_*",
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
+      ]
+    },
     "start": {
       "cache": false,
       "env": [
