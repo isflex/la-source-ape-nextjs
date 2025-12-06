@@ -1,3 +1,5 @@
+/* eslint-disable no-alert */
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -6,6 +8,7 @@ import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { signOut } from 'aws-amplify/auth';
+import { debug } from '@flexiness/domain-utils';
 
 const client = generateClient<Schema>();
 
@@ -100,7 +103,7 @@ export default function PiscineCreerPage() {
         }));
       }
     } catch (error) {
-      console.error('Error loading time slots:', error);
+      debug.error('Error loading time slots:', error);
     }
   };
 
@@ -128,7 +131,7 @@ export default function PiscineCreerPage() {
           },
           error: (error) => {
             setError('Error loading piscine forms');
-            console.error('Error loading forms:', error);
+            debug.error('Error loading forms:', error);
             setLoading(false);
           }
         });
@@ -137,7 +140,7 @@ export default function PiscineCreerPage() {
       }
     } catch (err) {
       setError('Error loading piscine forms');
-      console.error('Error loading forms:', err);
+      debug.error('Error loading forms:', err);
     } finally {
       setLoading(false);
     }
@@ -196,7 +199,7 @@ export default function PiscineCreerPage() {
       }
     } catch (err) {
       alert('Erreur lors de la suppression du planning');
-      console.error('Error deleting form:', err);
+      debug.error('Error deleting form:', err);
     }
   };
 

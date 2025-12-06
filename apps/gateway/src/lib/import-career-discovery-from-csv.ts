@@ -1,3 +1,4 @@
+import { debug } from '@flexiness/domain-utils';
 import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
@@ -20,13 +21,13 @@ function parseDynamoDBArray(dynamoStr: string): string[] {
     const parsed = JSON.parse(dynamoStr);
     return parsed.map((item: { S: string }) => item.S);
   } catch (error) {
-    console.error('Error parsing DynamoDB array:', error);
+    debug.error('Error parsing DynamoDB array:', error);
     return [];
   }
 }
 
 async function importTemplates() {
-  console.log('Importing CareerDiscoveryTemplate records...');
+  debug.careerDiscovery('Importing CareerDiscoveryTemplate records...');
 
   const csvContent = fs.readFileSync(TEMPLATE_CSV, 'utf-8');
   const records = parse(csvContent, { columns: true, skip_empty_lines: true }) as Array<Record<string, string>>;
@@ -40,7 +41,7 @@ async function importTemplates() {
       // Check if already exists
       const { data: existing } = await client.models.CareerDiscoveryTemplate.get({ id: record.id });
       if (existing) {
-        console.log(`✓ Template ${record.id} already exists - skipping`);
+        debug.careerDiscovery(`✓ Template ${record.id} already exists - skipping`);
         continue;
       }
 
@@ -61,11 +62,11 @@ async function importTemplates() {
         throw new Error(JSON.stringify(createErrors));
       }
 
-      console.log(`✓ Imported template: ${record.title}`);
+      debug.careerDiscovery(`✓ Imported template: ${record.title}`);
       successCount++;
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : String(error);
-      console.error(`✗ Failed to import template ${record.id}:`, errorMsg);
+      debug.error(`✗ Failed to import template ${record.id}:`, errorMsg);
       errors.push({ id: record.id, error: errorMsg });
       errorCount++;
     }
@@ -75,7 +76,7 @@ async function importTemplates() {
 }
 
 async function importResponses() {
-  console.log('Importing CareerDiscoveryResponse records...');
+  debug.careerDiscovery('Importing CareerDiscoveryResponse records...');
 
   const csvContent = fs.readFileSync(RESPONSE_CSV, 'utf-8');
   const records = parse(csvContent, { columns: true, skip_empty_lines: true }) as Array<Record<string, string>>;
@@ -89,7 +90,7 @@ async function importResponses() {
       // Check if already exists
       const { data: existing } = await client.models.CareerDiscoveryResponse.get({ id: record.id });
       if (existing) {
-        console.log(`✓ Response ${record.id} already exists - skipping`);
+        debug.careerDiscovery(`✓ Response ${record.id} already exists - skipping`);
         continue;
       }
 
@@ -114,11 +115,11 @@ async function importResponses() {
         throw new Error(JSON.stringify(createErrors));
       }
 
-      console.log(`✓ Imported response: ${record.firstName} ${record.lastName}`);
+      debug.careerDiscovery(`✓ Imported response: ${record.firstName} ${record.lastName}`);
       successCount++;
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : String(error);
-      console.error(`✗ Failed to import response ${record.id}:`, errorMsg);
+      debug.error(`✗ Failed to import response ${record.id}:`, errorMsg);
       errors.push({ id: record.id, error: errorMsg });
       errorCount++;
     }
@@ -128,51 +129,51 @@ async function importResponses() {
 }
 
 async function main() {
-  console.log('='.repeat(60));
-  console.log('Career Discovery CSV Import');
-  console.log('='.repeat(60));
-  console.log('');
+  debug.careerDiscovery('='.repeat(60));
+  debug.careerDiscovery('Career Discovery CSV Import');
+  debug.careerDiscovery('='.repeat(60));
+  debug.careerDiscovery('');
 
   // Import templates
   const templateResults = await importTemplates();
-  console.log('');
-  console.log('Template Import Summary:');
-  console.log(`✓ Success: ${templateResults.successCount}`);
-  console.log(`✗ Errors: ${templateResults.errorCount}`);
+  debug.careerDiscovery('');
+  debug.careerDiscovery('Template Import Summary:');
+  debug.careerDiscovery(`✓ Success: ${templateResults.successCount}`);
+  debug.careerDiscovery(`✗ Errors: ${templateResults.errorCount}`);
 
   if (templateResults.errors.length > 0) {
-    console.log('Failed templates:');
+    debug.careerDiscovery('Failed templates:');
     templateResults.errors.forEach(({ id, error }) => {
-      console.log(`  - ${id}: ${error}`);
+      debug.careerDiscovery(`  - ${id}: ${error}`);
     });
   }
 
-  console.log('');
-  console.log('-'.repeat(60));
-  console.log('');
+  debug.careerDiscovery('');
+  debug.careerDiscovery('-'.repeat(60));
+  debug.careerDiscovery('');
 
   // Import responses
   const responseResults = await importResponses();
-  console.log('');
-  console.log('Response Import Summary:');
-  console.log(`✓ Success: ${responseResults.successCount}`);
-  console.log(`✗ Errors: ${responseResults.errorCount}`);
+  debug.careerDiscovery('');
+  debug.careerDiscovery('Response Import Summary:');
+  debug.careerDiscovery(`✓ Success: ${responseResults.successCount}`);
+  debug.careerDiscovery(`✗ Errors: ${responseResults.errorCount}`);
 
   if (responseResults.errors.length > 0) {
-    console.log('Failed responses:');
+    debug.careerDiscovery('Failed responses:');
     responseResults.errors.forEach(({ id, error }) => {
-      console.log(`  - ${id}: ${error}`);
+      debug.careerDiscovery(`  - ${id}: ${error}`);
     });
   }
 
-  console.log('');
-  console.log('='.repeat(60));
-  console.log('Import Complete!');
-  console.log('Next step: Run migrate-career-availability.ts to transform availability fields');
-  console.log('='.repeat(60));
+  debug.careerDiscovery('');
+  debug.careerDiscovery('='.repeat(60));
+  debug.careerDiscovery('Import Complete!');
+  debug.careerDiscovery('Next step: Run migrate-career-availability.ts to transform availability fields');
+  debug.careerDiscovery('='.repeat(60));
 }
 
 main().catch(error => {
-  console.error('Fatal error:', error);
+  debug.error('Fatal error:', error);
   process.exit(1);
 });

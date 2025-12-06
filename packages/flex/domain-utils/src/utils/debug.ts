@@ -69,6 +69,15 @@ const DEBUG_CATEGORIES = {
   SIGNED_FETCH: 'SIGNED_FETCH',
   MESSAGING_IN_APP: 'MESSAGING_IN_APP',
   CALENDAR_EVENTS: 'CALENDAR_EVENTS',
+  CAGNOTTE: 'CAGNOTTE',
+  NEWSLETTER: 'NEWSLETTER',
+  PISCINE: 'PISCINE',
+  SONDAGE: 'SONDAGE',
+  ADMIN: 'ADMIN',
+  CAREER_DISCOVERY: 'CAREER_DISCOVERY',
+  UPLOAD: 'UPLOAD',
+  WEB_APP: 'WEB_APP',
+  NAVIGATION: 'NAVIGATION',
 } as const
 
 type DebugCategory = keyof typeof DEBUG_CATEGORIES
@@ -118,6 +127,15 @@ export const debug = {
   signedFetch: createCategoryLogger('SIGNED_FETCH', '📡', '#ea33ccff'),
   messagingInApp: createCategoryLogger('MESSAGING_IN_APP', '💬', '#9333ea'),
   calendarEvents: createCategoryLogger('CALENDAR_EVENTS', '📅', '#f97316'),
+  cagnotte: createCategoryLogger('CAGNOTTE', '💰', '#22c55e'),
+  newsletter: createCategoryLogger('NEWSLETTER', '📰', '#06b6d4'),
+  piscine: createCategoryLogger('PISCINE', '🏊', '#3b82f6'),
+  sondage: createCategoryLogger('SONDAGE', '📋', '#8b5cf6'),
+  admin: createCategoryLogger('ADMIN', '👤', '#dc2626'),
+  careerDiscovery: createCategoryLogger('CAREER_DISCOVERY', '💼', '#f59e0b'),
+  upload: createCategoryLogger('UPLOAD', '📤', '#10b981'),
+  webApp: createCategoryLogger('WEB_APP', '🌍', '#6366f1'),
+  navigation: createCategoryLogger('NAVIGATION', '🧭', '#84cc16'),
 
   // Generic debug with custom prefix
   log: (prefix: string, ...args: any[]) => {
@@ -230,6 +248,51 @@ export const debug = {
     calendarEvents: (...args: any[]) => {
       if (getCategoryFlag('CALENDAR_EVENTS')) {
         console.log('%c📅 [CALENDAR_EVENTS]', 'color: #f97316; font-weight: bold', ...args)
+      }
+    },
+    cagnotte: (...args: any[]) => {
+      if (getCategoryFlag('CAGNOTTE')) {
+        console.log('%c💰 [CAGNOTTE]', 'color: #22c55e; font-weight: bold', ...args)
+      }
+    },
+    newsletter: (...args: any[]) => {
+      if (getCategoryFlag('NEWSLETTER')) {
+        console.log('%c📰 [NEWSLETTER]', 'color: #06b6d4; font-weight: bold', ...args)
+      }
+    },
+    piscine: (...args: any[]) => {
+      if (getCategoryFlag('PISCINE')) {
+        console.log('%c🏊 [PISCINE]', 'color: #3b82f6; font-weight: bold', ...args)
+      }
+    },
+    sondage: (...args: any[]) => {
+      if (getCategoryFlag('SONDAGE')) {
+        console.log('%c📋 [SONDAGE]', 'color: #8b5cf6; font-weight: bold', ...args)
+      }
+    },
+    admin: (...args: any[]) => {
+      if (getCategoryFlag('ADMIN')) {
+        console.log('%c👤 [ADMIN]', 'color: #dc2626; font-weight: bold', ...args)
+      }
+    },
+    careerDiscovery: (...args: any[]) => {
+      if (getCategoryFlag('CAREER_DISCOVERY')) {
+        console.log('%c💼 [CAREER_DISCOVERY]', 'color: #f59e0b; font-weight: bold', ...args)
+      }
+    },
+    upload: (...args: any[]) => {
+      if (getCategoryFlag('UPLOAD')) {
+        console.log('%c📤 [UPLOAD]', 'color: #10b981; font-weight: bold', ...args)
+      }
+    },
+    webApp: (...args: any[]) => {
+      if (getCategoryFlag('WEB_APP')) {
+        console.log('%c🌍 [WEB_APP]', 'color: #6366f1; font-weight: bold', ...args)
+      }
+    },
+    navigation: (...args: any[]) => {
+      if (getCategoryFlag('NAVIGATION')) {
+        console.log('%c🧭 [NAVIGATION]', 'color: #84cc16; font-weight: bold', ...args)
       }
     },
   },

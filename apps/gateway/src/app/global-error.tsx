@@ -36,7 +36,7 @@ export default function GlobalError({
 
   React.useEffect(() => {
     // Log the error to an error reporting service
-    // console.error(error)
+    // debug.error(error)
     posthog.captureException(error)
   }, [error])
 

@@ -80,7 +80,7 @@ To change the admin password:
    const password = 'new-password';
    const salt = 'la-source-admin-salt-2024-career-discovery';
    const hash = crypto.createHash('sha256').update(password + salt).digest('hex');
-   console.log('New hash:', hash);
+   debug.admin('New hash:', hash);
    ```
 3. Update `NEXT_PUBLIC_ADMIN_HASH` in environment variables
 
@@ -133,11 +133,11 @@ Uses native Web Crypto API for maximum compatibility and security.
     const hash = crypto.createHash('sha256')
       .update(password + salt)
       .digest('hex');
-    console.log('Password:', password);
-    console.log('Salt:', salt);
-    console.log('Generated Hash:', hash);
-    console.log('\nAdd this to your .env file:');
-    console.log(`NEXT_PUBLIC_ADMIN_HASH=${hash}`);
+    debug.admin('Password:', password);
+    debug.admin('Salt:', salt);
+    debug.admin('Generated Hash:', hash);
+    debug.admin('\nAdd this to your .env file:');
+    debug.admin(`NEXT_PUBLIC_ADMIN_HASH=${hash}`);
    ```
 2. Run it:
    ```bash

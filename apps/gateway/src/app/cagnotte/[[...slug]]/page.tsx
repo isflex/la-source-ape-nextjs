@@ -1,3 +1,5 @@
+/* eslint-disable no-alert */
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -36,6 +38,7 @@ import { DEFAULT_FEE_CONFIG, type FeeConfig } from '@src/lib/cagnotte-fees';
 import JackpotContributionTable from '@src/components/cagnotte/JackpotContributionTable';
 import StripeCheckoutButton from '@src/components/cagnotte/StripeCheckoutButton';
 import AuthBanner from '@src/components/auth/AuthBanner';
+import { debug } from '@flexiness/domain-utils';
 
 const client = generateClient<Schema>();
 
@@ -125,14 +128,14 @@ export default function CagnotteSlugPage() {
             setLoading(false);
           },
           error: (error) => {
-            console.error('Error loading contributions:', error);
+            debug.error('Error loading contributions:', error);
             setLoading(false);
           }
         });
 
         return unsubscribe;
       } catch (err) {
-        console.error('Error loading jackpot:', err);
+        debug.error('Error loading jackpot:', err);
         setError('Erreur lors du chargement de la cagnotte');
         setLoading(false);
       }
@@ -151,12 +154,12 @@ export default function CagnotteSlugPage() {
 
     if (success === 'true') {
       // Show success message (could use InfoBlock)
-      console.log('Payment successful!');
+      debug.cagnotte('Payment successful!');
     }
 
     if (canceled === 'true') {
       // Show canceled message
-      console.log('Payment canceled');
+      debug.cagnotte('Payment canceled');
     }
   }, [searchParams]);
 

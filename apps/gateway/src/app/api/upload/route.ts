@@ -1,3 +1,4 @@
+import { debug } from '@flexiness/domain-utils';
 import { NextRequest, NextResponse } from 'next/server'
 import { Readable } from 'stream'
 import { getAuthConfig, getStorageConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection'
@@ -10,7 +11,7 @@ async function getS3ClientWithCognito(idToken: string) {
   const { fromCognitoIdentityPool } = await import('@aws-sdk/credential-provider-cognito-identity')
   const { CognitoIdentityClient } = await import('@aws-sdk/client-cognito-identity')
 
-  console.log('S3 Client Debug (Cognito):', {
+  debug.upload('S3 Client Debug (Cognito):', {
     region: getAuthConfig()?.aws_region || 'eu-west-3',
     identityPoolId: getAuthConfig()?.identity_pool_id,
     userPoolId: getAuthConfig()?.user_pool_id,
@@ -34,7 +35,7 @@ async function getS3ClientWithCognito(idToken: string) {
     })
   })
 
-  console.log('✅ S3 Client configured with Cognito Identity Pool authentication')
+  debug.upload('✅ S3 Client configured with Cognito Identity Pool authentication')
   return client
 }
 
@@ -72,7 +73,7 @@ async function verifyAdminAuth(request: NextRequest): Promise<{ isAuthenticated:
     })
 
     const payload = await verifier.verify(idToken)
-    console.log('✅ Admin authenticated via Cognito:', {
+    debug.upload('✅ Admin authenticated via Cognito:', {
       userId: payload.sub,
       email: payload.email
     })
@@ -80,7 +81,7 @@ async function verifyAdminAuth(request: NextRequest): Promise<{ isAuthenticated:
     return { isAuthenticated: true, idToken }
 
   } catch (error) {
-    console.error('❌ Cognito auth verification failed:', error)
+    debug.error('❌ Cognito auth verification failed:', error)
     return { isAuthenticated: false }
   }
 }
@@ -287,7 +288,7 @@ export async function POST(request: NextRequest) {
     // Get bucket name from Amplify outputs
     const bucketName: string | undefined = getStorageConfig()?.bucket_name
     if (!bucketName) {
-      console.error('S3 bucket not configured in Amplify outputs')
+      debug.error('S3 bucket not configured in Amplify outputs')
       return NextResponse.json(
         { error: 'Server configuration error' },
         { status: 500 }
@@ -324,7 +325,7 @@ export async function POST(request: NextRequest) {
     // Generate S3 key
     const s3Key = generateS3Key(filename)
 
-    console.log('Admin streaming upload to S3:', {
+    debug.upload('Admin streaming upload to S3:', {
       key: s3Key,
       size: fileBuffer.length,
       type: contentType,
@@ -341,7 +342,7 @@ export async function POST(request: NextRequest) {
       authResult.idToken
     )
 
-    console.log('Streaming upload successful:', {
+    debug.upload('Streaming upload successful:', {
       key: s3Key,
       etag: uploadResult.ETag,
       location: uploadResult.Location
@@ -362,7 +363,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(responseData)
 
   } catch (error) {
-    console.error('Streaming upload error:', error)
+    debug.error('Streaming upload error:', error)
     return NextResponse.json(
       { error: 'Upload failed', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
@@ -411,7 +412,7 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    console.log('Admin delete from S3:', { key: s3Key, bucket: bucketName })
+    debug.upload('Admin delete from S3:', { key: s3Key, bucket: bucketName })
 
     // Delete from S3 using Cognito authenticated credentials
     const { DeleteObjectCommand } = await import('@aws-sdk/client-s3')
@@ -423,12 +424,12 @@ export async function DELETE(request: NextRequest) {
     })
 
     await client.send(deleteCommand)
-    console.log('Delete successful:', { key: s3Key })
+    debug.upload('Delete successful:', { key: s3Key })
 
     return NextResponse.json({ success: true, deletedKey: s3Key })
 
   } catch (error) {
-    console.error('Delete error:', error)
+    debug.error('Delete error:', error)
     return NextResponse.json(
       { error: 'Delete failed', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }

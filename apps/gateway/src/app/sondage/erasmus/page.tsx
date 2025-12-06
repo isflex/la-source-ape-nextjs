@@ -1,6 +1,9 @@
+/* eslint-disable no-alert */
+
 'use client';
 
 import React from 'react';
+import { debug } from '@flexiness/domain-utils';
 import { z } from 'zod';
 import DOMPurify from 'dompurify';
 
@@ -175,7 +178,7 @@ export default function ErasmusSurvey() {
     try {
       listResponses();
     } catch (err) {
-      console.error(err);
+      debug.error(err);
       setHasError(true);
     }
   }, []);
@@ -262,7 +265,7 @@ export default function ErasmusSurvey() {
         setFieldErrors(newFieldErrors);
         setValidationErrors(error.errors.map(e => e.message));
       } else {
-        console.error('Erreur lors de la soumission:', error);
+        debug.error('Erreur lors de la soumission:', error);
         setValidationErrors(['Erreur lors de la soumission du sondage']);
         setFieldErrors({});
       }
@@ -280,7 +283,7 @@ export default function ErasmusSurvey() {
     try {
       await client.models.ErasmusResponse.delete({ id });
     } catch (error) {
-      console.error('Erreur lors de la suppression:', error);
+      debug.error('Erreur lors de la suppression:', error);
     }
   };
 

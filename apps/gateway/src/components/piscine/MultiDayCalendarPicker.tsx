@@ -1,3 +1,5 @@
+/* eslint-disable no-alert */
+
 'use client';
 
 import React, { useState } from 'react';

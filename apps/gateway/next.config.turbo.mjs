@@ -95,9 +95,9 @@ function cssLoaderOptions(modules) {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  // output: 'standalone', // Disabled - not supported by Amplify Hosting for SSR
 
-  // productionBrowserSourceMaps: true,
+  productionBrowserSourceMaps: false, // Disable to reduce build size
 
   trailingSlash: true,
 

@@ -7,6 +7,7 @@
 // App router
 import { cookies } from 'next/headers';
 
+import { debug } from '@flexiness/domain-utils';
 import { createServerRunner } from '@aws-amplify/adapter-nextjs';
 import { generateServerClientUsingCookies, type ClientUsingSSRCookies } from '@aws-amplify/adapter-nextjs/api';
 import { getCurrentUser } from 'aws-amplify/auth/server';
@@ -34,7 +35,7 @@ export async function AuthGetCurrentUserServer() {
     });
     return currentUser;
   } catch (error) {
-    console.error(error);
+    debug.error(error);
   }
 }
 

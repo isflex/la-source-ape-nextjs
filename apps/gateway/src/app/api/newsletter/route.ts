@@ -7,6 +7,7 @@ import fs from 'fs'
 import path from 'path'
 import crypto from 'crypto'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import { debug } from '@flexiness/domain-utils'
 
 // Configure Amplify for server-side API routes
 Amplify.configure(getCurrentConfig(), { ssr: true })
@@ -38,7 +39,7 @@ async function ensureNewsletterLogo(): Promise<string> {
     const logoFileHash = crypto.createHash('md5').update(logoFileBuffer).digest('hex')
 
     if (existingLogo && existingLogo.path === logoFileHash) {
-      console.log('Logo ContentBlock exists and file unchanged, calling Lambda for base64...')
+      debug.newsletter('Logo ContentBlock exists and file unchanged, calling Lambda for base64...')
 
       // Logo exists and file hasn't changed, get base64 from Lambda
       if (existingLogo.s3Key) {
@@ -52,7 +53,7 @@ async function ensureNewsletterLogo(): Promise<string> {
       }
     }
 
-    console.log('Creating/updating newsletter logo...')
+    debug.newsletter('Creating/updating newsletter logo...')
 
     // Read logo file and calculate hash
     const logoFileName = path.basename(LOGO_FILE_PATH)
@@ -64,7 +65,7 @@ async function ensureNewsletterLogo(): Promise<string> {
       throw new Error('S3 bucket not configured in Amplify outputs')
     }
 
-    console.log(`Uploading logo to S3: ${bucketName}/${logoS3Key}`)
+    debug.newsletter(`Uploading logo to S3: ${bucketName}/${logoS3Key}`)
 
     const uploadCommand = new PutObjectCommand({
       Bucket: bucketName,
@@ -80,7 +81,7 @@ async function ensureNewsletterLogo(): Promise<string> {
     })
 
     await s3Client.send(uploadCommand)
-    console.log(`Logo uploaded successfully to S3: ${logoS3Key}`)
+    debug.newsletter(`Logo uploaded successfully to S3: ${logoS3Key}`)
 
     // Create or update ContentBlock record
     const logoContentBlock = {
@@ -111,19 +112,19 @@ async function ensureNewsletterLogo(): Promise<string> {
       const { base64 } = await lambdaResponse.json()
       return base64
     } else {
-      console.warn('Lambda function not available, falling back to direct base64')
+      debug.warn('Lambda function not available, falling back to direct base64')
       return logoFileBuffer.toString('base64')
     }
 
   } catch (error) {
-    console.error('Error ensuring newsletter logo:', error)
+    debug.error('Error ensuring newsletter logo:', error)
 
     // Fallback: read file and return base64 directly
     try {
       const logoFileBuffer = fs.readFileSync(LOGO_FILE_PATH)
       return logoFileBuffer.toString('base64')
     } catch (fallbackError) {
-      console.error('Fallback logo read failed:', fallbackError)
+      debug.error('Fallback logo read failed:', fallbackError)
       throw new Error('Logo not available')
     }
   }
@@ -143,7 +144,7 @@ export async function GET(request: NextRequest) {
           mimeType: 'image/png'
         })
       } catch (error) {
-        console.error('Error getting newsletter logo:', error)
+        debug.error('Error getting newsletter logo:', error)
         return NextResponse.json(
           { error: 'Failed to get newsletter logo' },
           { status: 500 }
@@ -160,7 +161,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ data: newsletters })
   } catch (error) {
-    console.error('Error fetching newsletters:', error)
+    debug.error('Error fetching newsletters:', error)
     return NextResponse.json(
       { error: 'Failed to fetch newsletters' },
       { status: 500 }
@@ -190,7 +191,7 @@ export async function DELETE() {
 
     return NextResponse.json({ message: 'Test data cleaned up' })
   } catch (error) {
-    console.error('Error cleaning up test data:', error)
+    debug.error('Error cleaning up test data:', error)
     return NextResponse.json(
       { error: 'Failed to cleanup test data' },
       { status: 500 }

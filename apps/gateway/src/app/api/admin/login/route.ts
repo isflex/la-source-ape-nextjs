@@ -1,3 +1,4 @@
+import { debug } from '@flexiness/domain-utils';
 import { NextRequest, NextResponse } from 'next/server'
 import { getAuthConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection'
 
@@ -17,7 +18,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    console.log('🔐 Attempting Cognito authentication for:', username)
+    debug.auth('🔐 Attempting Cognito authentication for:', username)
 
     // Dynamic import to avoid compilation blocking
     const { CognitoIdentityProviderClient, InitiateAuthCommand } = await import('@aws-sdk/client-cognito-identity-provider')
@@ -48,7 +49,7 @@ export async function POST(request: NextRequest) {
 
     const { AccessToken, IdToken, RefreshToken, ExpiresIn } = authResponse.AuthenticationResult
 
-    console.log('✅ Cognito authentication successful')
+    debug.auth('✅ Cognito authentication successful')
 
     return NextResponse.json({
       success: true,
@@ -60,7 +61,7 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error: any) {
-    console.error('❌ Cognito authentication failed:', error)
+    debug.error('❌ Cognito authentication failed:', error)
     return NextResponse.json(
       { error: 'Authentication failed', details: error.name || 'Unknown error' },
       { status: 401 }

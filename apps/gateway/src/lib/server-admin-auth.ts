@@ -3,6 +3,7 @@
  * Clean implementation using AdminInitiateAuthCommand for server-side admin authentication
  */
 
+import { debug } from '@flexiness/domain-utils';
 import {
   CognitoIdentityProviderClient,
   AdminInitiateAuthCommand,
@@ -53,7 +54,7 @@ export async function authenticateAdminUser(): Promise<AdminAuthResult> {
       }
     }
 
-    console.log('🔐 Attempting server-side admin authentication for:', adminEmail)
+    debug.admin('🔐 Attempting server-side admin authentication for:', adminEmail)
 
     // Create Cognito client
     // const region = outputs?.auth?.aws_region || 'eu-west-3'
@@ -63,9 +64,9 @@ export async function authenticateAdminUser(): Promise<AdminAuthResult> {
     // const authFlowsEnabled = await enableAuthFlows(cognitoClient, userPoolId, clientId, region)
 
     // if (authFlowsEnabled) {
-    //   console.log('✅ Auth flows enabled, proceeding with authentication...')
+    //   debug.admin('✅ Auth flows enabled, proceeding with authentication...')
     // } else {
-    //   console.log('⚠️  Failed to enable auth flows, trying with existing configuration...')
+    //   debug.admin('⚠️  Failed to enable auth flows, trying with existing configuration...')
     // }
 
     // Use AdminInitiateAuthCommand with ADMIN_USER_PASSWORD_AUTH
@@ -97,7 +98,7 @@ export async function authenticateAdminUser(): Promise<AdminAuthResult> {
       }
     }
 
-    console.log('✅ Server-side admin authentication successful')
+    debug.admin('✅ Server-side admin authentication successful')
 
     return {
       success: true,
@@ -113,7 +114,7 @@ export async function authenticateAdminUser(): Promise<AdminAuthResult> {
     }
 
   } catch (error: any) {
-    console.error('❌ Server-side admin authentication failed:', error)
+    debug.error('❌ Server-side admin authentication failed:', error)
     return {
       success: false,
       message: `Authentication error: ${error.name || 'Unknown error'}`

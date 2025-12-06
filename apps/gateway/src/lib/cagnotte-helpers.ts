@@ -467,7 +467,7 @@ export const previewContributionFees = (
   const calc = calculateChargeAmount(amountCentimes, feeConfig);
 
   // Build descriptive note about fees
-  let feeNote = '';
+  let feeNote = 'Non applicable';
   if (feeConfig.payInFeePayer === 'platform') {
     feeNote = 'La plateforme couvre les frais de traitement';
   } else if (feeConfig.payInFeePayer === 'contributor') {

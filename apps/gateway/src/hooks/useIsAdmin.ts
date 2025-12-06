@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { debug } from '@flexiness/domain-utils';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { fetchUserAttributes } from 'aws-amplify/auth';
 import { isAdminAuthenticated as checkAdminSession } from '@src/lib/admin-auth';
@@ -38,7 +39,7 @@ export function useIsAdmin(): boolean {
 
         setIsAdmin(userEmail === adminEmail);
       } catch (error) {
-        console.error('Error checking admin status:', error);
+        debug.error('Error checking admin status:', error);
         setIsAdmin(false);
       }
     };

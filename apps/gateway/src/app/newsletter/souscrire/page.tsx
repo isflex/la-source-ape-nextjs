@@ -32,6 +32,7 @@ import {
 import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
 import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
 import { default as flexStyles } from '@flex-design-system/framework';
+import { debug } from '@flexiness/domain-utils';
 
 // Zod validation schema for Newsletter signup
 const NewsletterSignupSchema = z.object({
@@ -169,7 +170,7 @@ export default function NewsletterSignupForm() {
         setFieldErrors(newFieldErrors);
         setValidationErrors(error.errors.map(e => e.message));
       } else {
-        console.error('Erreur lors de la soumission:', error);
+        debug.error('Erreur lors de la soumission:', error);
         setValidationErrors(['Erreur lors de la soumission du formulaire']);
         setFieldErrors({});
         setHasError(true);

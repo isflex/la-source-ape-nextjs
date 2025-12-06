@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import DOMPurify from 'dompurify'
 import type { Schema } from '@amplify/data/resource'
+import { debug } from '@flexiness/domain-utils'
 
 // Content block type validation based on Schema
 const VALID_CONTENT_BLOCK_TYPES: Schema['EContentBlockType']['type'][] = [
@@ -346,7 +347,7 @@ export const newsletterContentGeneratorHTML = async (
       logoSrc = `data:${mimeType};base64,${base64}`
     }
   } catch (error) {
-    console.warn('Failed to get newsletter logo base64, using fallback:', error)
+    debug.warn('Failed to get newsletter logo base64, using fallback:', error)
   }
 
   return `

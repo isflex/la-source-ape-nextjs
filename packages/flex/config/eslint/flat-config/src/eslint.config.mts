@@ -2,6 +2,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
+/*
+*
+https://eslint.org/docs/latest/extend/custom-processors
+We will need to develope a custom processor inorder :
+ - Show all level of linter messages when running -> pnpm lint
+ - Only show error level linter messages when running -> pnpm build
+ - Better usage of eslint cache if possible.
+*
+*/
+
 import tseslint, { type Config } from 'typescript-eslint'
 import eslint from '@eslint/js'
 import eslintConfigPrettier from 'eslint-config-prettier'

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { debug } from '@flexiness/domain-utils';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { signOut, fetchUserAttributes, type UserAttributeKey } from 'aws-amplify/auth';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
@@ -30,13 +31,13 @@ export default function AuthBanner({ className, style }: AuthBannerProps) {
       const currentPath = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : '');
       sessionStorage.setItem('redirectAfterSignOut', currentPath);
 
-      console.log('[AUTH_BANNER] Stored current path for post-signOut redirect:', currentPath);
+      debug.auth('[AUTH_BANNER] Stored current path for post-signOut redirect:', currentPath);
 
       await signOut();
       setUserAttributes(null); // Clear attributes on sign out
       // Note: signOut() will cause a page reload, redirect will be handled in useEffect
     } catch (error) {
-      console.error('Error signing out:', error);
+      debug.error('Error signing out:', error);
     }
   };
 
@@ -62,7 +63,7 @@ export default function AuthBanner({ className, style }: AuthBannerProps) {
         const attributes = await fetchUserAttributes();
         setUserAttributes(attributes);
       } catch (error) {
-        console.error('Error fetching user attributes:', error);
+        debug.error('Error fetching user attributes:', error);
         setUserAttributes(null);
       } finally {
         setLoading(false);

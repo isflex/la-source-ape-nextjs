@@ -108,7 +108,7 @@ export function calculateChargeAmount(
   const platformFee = platformCommission;
 
   switch (config.payInFeePayer) {
-    case 'platform':
+    case 'platform': {
       // Platform covers Stripe fees
       // Contributor pays exact amount, recipient gets exact amount
       // Platform absorbs Stripe fee via reduced margin
@@ -116,8 +116,8 @@ export function calculateChargeAmount(
       contributionAmount = desiredContributionCentimes;
       // Note: Stripe fee comes out of platform's application_fee or margin
       break;
-
-    case 'contributor':
+    }
+    case 'contributor': {
       // Contributor covers Stripe fees
       // We need to charge more so that after Stripe takes their cut,
       // the desired amount reaches the recipient
@@ -129,16 +129,17 @@ export function calculateChargeAmount(
       contributionAmount = desiredContributionCentimes;
       contributorPays = chargeAmount - desiredContributionCentimes;
       break;
-
-    case 'recipient':
+    }
+    case 'recipient': {
       // Recipient covers Stripe fees (deducted from their share)
       chargeAmount = desiredContributionCentimes;
       contributionAmount = desiredContributionCentimes - stripeFee;
       recipientPays = stripeFee;
       break;
-
-    default:
+    }
+    default: {
       throw new Error(`Invalid payInFeePayer: ${config.payInFeePayer}`);
+    }
   }
 
   return {
@@ -289,6 +290,8 @@ export function formatFeeBreakdown(
     case 'recipient':
       feeNote = `Frais déduits de la cagnotte: ${format(calc.recipientPays)}`;
       break;
+    default:
+      feeNote = 'Non applicable'
   }
 
   return {

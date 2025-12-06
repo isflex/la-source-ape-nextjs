@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { debug } from '@flexiness/domain-utils';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import { useAuthenticator } from '@aws-amplify/ui-react';
@@ -127,7 +128,7 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
         const { data: form, errors: formErrors } = await client.models.PiscineForm.get({ id: editingFormId });
 
         if (formErrors || !form) {
-          console.error('Error loading form:', formErrors);
+          debug.error('Error loading form:', formErrors);
           setErrors({ general: 'Erreur lors du chargement du planning' });
           setLoadingExistingData(false);
           return;
@@ -190,7 +191,7 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
         }));
 
       } catch (error) {
-        console.error('Error loading existing form:', error);
+        debug.error('Error loading existing form:', error);
         setErrors({ general: 'Erreur lors du chargement du planning' });
       } finally {
         setLoadingExistingData(false);
@@ -226,7 +227,8 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
 
     try {
       switch (currentStep) {
-        case 1: // Day selection
+        case 1: {
+          // Day selection
           // Multi-day: At least one day must be enabled
           const enabledDays = dayTimeSlots.filter(slot => slot.enabled);
           if (enabledDays.length === 0) {
@@ -234,8 +236,9 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
             return false;
           }
           break;
-
-        case 2: // Time slot
+        }
+        case 2: {
+          // Time slot
           // Multi-day: All enabled days must have valid time slots
           const enabledDaysStep2 = dayTimeSlots.filter(slot => slot.enabled);
           const invalidDays = enabledDaysStep2.filter(
@@ -250,8 +253,9 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
             return false;
           }
           break;
-
-        case 3: // Dates
+        }
+        case 3: {
+          // Dates
           // Multi-day: Each enabled day must have at least one date
           const enabledDaysStep3 = dayTimeSlots.filter(slot => slot.enabled);
           const daysWithoutDates = enabledDaysStep3.filter(
@@ -266,8 +270,9 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
             return false;
           }
           break;
-
-        case 4: // School info
+        }
+        case 4: {
+          // School info
           if (!formData.schoolLevel || !formData.teacherName.trim()) {
             const errorFields: Record<string, string> = {};
             if (!formData.schoolLevel) errorFields.schoolLevel = 'Niveau scolaire requis';
@@ -276,13 +281,18 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
             return false;
           }
           break;
-
-        case 5: // Title
+        }
+        case 5: {
+          // Title
           if (!formData.title.trim()) {
             setErrors({ fields: { title: 'Le titre est requis' } });
             return false;
           }
           break;
+        }
+        default: {
+          return true
+        }
       }
 
       return true;
@@ -335,7 +345,7 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
         });
 
         if (updateErrors || !updatedForm) {
-          console.error('PiscineForm update errors:', updateErrors);
+          debug.error('PiscineForm update errors:', updateErrors);
           setErrors({ general: 'Erreur lors de la mise à jour du planning' });
           return;
         }
@@ -488,7 +498,7 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
       });
 
       if (formErrors || !piscineForm) {
-        console.error('PiscineForm creation errors:', formErrors);
+        debug.error('PiscineForm creation errors:', formErrors);
         setErrors({ general: 'Erreur lors de la création du planning' });
         return;
       }
@@ -505,7 +515,7 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
         });
 
         if (errors) {
-          console.error('PiscineTimeSlot creation error:', errors);
+          debug.error('PiscineTimeSlot creation error:', errors);
         }
 
         return timeSlot;
@@ -552,7 +562,7 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
       setCurrentStep(1);
 
     } catch (error) {
-      console.error('Error creating piscine form:', error);
+      debug.error('Error creating piscine form:', error);
       if (error instanceof z.ZodError) {
         setErrors(handleZodErrors(error));
       } else {

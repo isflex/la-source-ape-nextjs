@@ -3,7 +3,9 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthenticator } from '@aws-amplify/ui-react';
+import { fetchAuthSession } from 'aws-amplify/auth';
 import classNames from 'classnames';
+import { debug } from '@flexiness/domain-utils';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
 import { Input, type InputChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
@@ -87,11 +89,25 @@ export default function StripeCheckoutButton({
     try {
       setLoading(true);
 
-      // Call API route to create Stripe Checkout Session
-      const response = await fetch('/api/cagnotte/create-checkout-session', {
+      // Get auth session for backend authentication
+      const session = await fetchAuthSession();
+      const accessToken = session.tokens?.accessToken?.toString();
+      const idToken = session.tokens?.idToken?.toString();
+
+      if (!accessToken || !idToken) {
+        throw new Error('Session non valide. Veuillez vous reconnecter.');
+      }
+
+      // Get backend URL and current origin for redirects
+      const backendUrl = process.env.NEXT_PUBLIC_POKER_BACK_HOST || 'http://localhost:8080';
+      const baseUrl = window.location.origin;
+
+      // Call backend API to create Stripe Checkout Session
+      const response = await fetch(`${backendUrl}/api/stripe/create-checkout-session`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken},${idToken}`,
         },
         body: JSON.stringify({
           jackpotFormId,
@@ -104,6 +120,7 @@ export default function StripeCheckoutButton({
           owner: user?.userId || null,
           coverFees,
           paymentMethodType,
+          baseUrl,
         }),
       });
 
@@ -116,7 +133,7 @@ export default function StripeCheckoutButton({
       // Redirect to Stripe Checkout
       window.location.href = data.url;
     } catch (error) {
-      console.error('Error creating checkout session:', error);
+      debug.error('Error creating checkout session:', error);
       onError(error instanceof Error ? error.message : 'Erreur lors de la création de la session de paiement');
       setLoading(false);
     }

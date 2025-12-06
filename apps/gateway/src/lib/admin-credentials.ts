@@ -3,6 +3,7 @@
  * Manages server-side admin credentials based on client-side authentication status
  */
 
+import { debug } from '@flexiness/domain-utils';
 import { AuthGetCurrentUserServer, isAuthenticated } from '@src/utils/amplify/server/app.router'
 import { AdminAuthResult } from './server-admin-auth'
 
@@ -40,7 +41,7 @@ export async function isClientAdminAuthenticated(): Promise<boolean> {
 
     return false
   } catch (error) {
-    console.log('Client admin authentication check failed:', error)
+    debug.admin('Client admin authentication check failed:', error)
     return false
   }
 }
@@ -59,12 +60,12 @@ export async function getAdminCredentials(
 
   // Check if client is authenticated as admin
   if (!(await isClientAdminAuthenticated())) {
-    console.log('🚫 Client not authenticated as admin - withholding server credentials')
+    debug.admin('🚫 Client not authenticated as admin - withholding server credentials')
     return null
   }
 
   // Client is authenticated, provide server credentials
-  console.log('✅ Client authenticated as admin - providing server credentials')
+  debug.admin('✅ Client authenticated as admin - providing server credentials')
   return {
     accessToken: serverAuthResult.tokens.accessToken,
     idToken: serverAuthResult.tokens.idToken,
@@ -82,9 +83,9 @@ export async function revokeAdminCredentials(): Promise<void> {
 
     await signOut()
 
-    console.log('🔄 Admin credentials revoked via Amplify signOut')
+    debug.admin('🔄 Admin credentials revoked via Amplify signOut')
   } catch (error) {
-    console.error('Failed to revoke admin credentials:', error)
+    debug.error('Failed to revoke admin credentials:', error)
   }
 }
 

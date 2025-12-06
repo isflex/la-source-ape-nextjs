@@ -1,5 +1,6 @@
 'use client';
 
+import { debug } from '@flexiness/domain-utils';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 
@@ -12,7 +13,7 @@ export async function seedCareerDiscoveryTemplate() {
     const existing2025Template = existingTemplates.data?.find(t => t.year === '2025-2026');
 
     if (existing2025Template) {
-      console.log('Template 2025-2026 already exists');
+      debug.careerDiscovery('Template 2025-2026 already exists');
       return existing2025Template;
     }
 
@@ -29,11 +30,11 @@ export async function seedCareerDiscoveryTemplate() {
       isActive: true,
     });
 
-    console.log('Default template created successfully:', defaultTemplate);
+    debug.careerDiscovery('Default template created successfully:', defaultTemplate);
     return defaultTemplate.data;
 
   } catch (error) {
-    console.error('Error creating default template:', error);
+    debug.error('Error creating default template:', error);
     throw error;
   }
 }
@@ -44,7 +45,7 @@ export async function getActiveTemplate() {
     const templates = await client.models.CareerDiscoveryTemplate.list();
     return templates.data?.find(t => t.isActive) || null;
   } catch (error) {
-    console.error('Error fetching active template:', error);
+    debug.error('Error fetching active template:', error);
     return null;
   }
 }
@@ -55,7 +56,7 @@ export async function getResponsesByYear(year: string) {
     const responses = await client.models.CareerDiscoveryResponse.list();
     return responses.data?.filter(r => r.templateYear === year) || [];
   } catch (error) {
-    console.error('Error fetching responses:', error);
+    debug.error('Error fetching responses:', error);
     return [];
   }
 }

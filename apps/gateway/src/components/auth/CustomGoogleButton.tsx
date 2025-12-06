@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { debug } from '@flexiness/domain-utils';
 import { signInWithRedirect } from 'aws-amplify/auth';
 import { useSearchParams } from 'next/navigation';
 
@@ -40,14 +41,14 @@ export default function CustomGoogleButton({ mode, btnText }: CustomGoogleButton
       // Store all params in sessionStorage
       sessionStorage.setItem('amplify-oauth-original-params', JSON.stringify(allParams));
 
-      console.log('[CUSTOM_GOOGLE_BUTTON] Stored OAuth source: /auth');
-      console.log('[CUSTOM_GOOGLE_BUTTON] Stored all params:', allParams);
+      debug.auth('[CUSTOM_GOOGLE_BUTTON] Stored OAuth source: /auth');
+      debug.auth('[CUSTOM_GOOGLE_BUTTON] Stored all params:', allParams);
 
       await signInWithRedirect({
         provider: 'Google'
       });
     } catch (error) {
-      console.error('Error initiating Google sign-in:', error);
+      debug.error('Error initiating Google sign-in:', error);
       setIsLoading(false);
     }
   };

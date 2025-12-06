@@ -4,7 +4,11 @@ const rulesBase = {
   'brace-style': 1,
   camelcase: ['warn', { properties: 'always', allow: [
     // Standard zod schema validation
-    'required_error', 'invalid_type_error'
+    'required_error', 'invalid_type_error',
+    // Standard amplify auth attributes
+    'given_name', 'family_name', 'phone_number', 'confirm_password',
+    // csv-parse
+    'skip_empty_lines',
   ]}],
   'comma-dangle': [0, 'only-multiline'],
   'comma-spacing': 1,
@@ -43,7 +47,7 @@ const rulesBase = {
   'object-curly-spacing': [1, 'always'],
   'object-curly-newline': 1,
   'prefer-const': 1,
-  'prefer-destructuring': ['warn', { array: true, object: true }],
+  'prefer-destructuring': ['warn', { array: false, object: true }],
   'prefer-rest-params': 1,
   'prefer-spread': 1,
   'prefer-template': 1,

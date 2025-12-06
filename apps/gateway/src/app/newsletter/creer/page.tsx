@@ -1,3 +1,5 @@
+/* eslint-disable no-alert */
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -49,6 +51,7 @@ import {
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { default as flexStyles } from '@flex-design-system/framework';
+import { debug } from '@flexiness/domain-utils';
 
 type Newsletter = {
   id: string;
@@ -95,7 +98,7 @@ export default function NewsletterCreationPage() {
           },
           error: (error) => {
             setError('Error loading newsletters');
-            console.error('Error loading newsletters:', error);
+            debug.error('Error loading newsletters:', error);
             setLoading(false);
           }
         });
@@ -115,7 +118,7 @@ export default function NewsletterCreationPage() {
       }
     } catch (err) {
       setError('Error loading newsletters');
-      console.error('Error loading newsletters:', err);
+      debug.error('Error loading newsletters:', err);
     } finally {
       setLoading(false);
     }
@@ -172,7 +175,7 @@ export default function NewsletterCreationPage() {
       }
     } catch (err) {
       alert('Erreur lors de la suppression de la newsletter');
-      console.error('Error deleting newsletter:', err);
+      debug.error('Error deleting newsletter:', err);
     }
   };
 
@@ -207,7 +210,7 @@ export default function NewsletterCreationPage() {
       const existingSlugs = newsletters.map(n => n.slug);
       const slug = generateSlug(formData.subject, existingSlugs);
 
-      console.log('Creating newsletter with client-side AppSync:', { formData, slug });
+      debug.newsletter('Creating newsletter with client-side AppSync:', { formData, slug });
 
       // Create newsletter using Amplify client
       const { data: newsletter, errors: newsletterErrors } = await client.models.Newsletter.create({
@@ -221,12 +224,12 @@ export default function NewsletterCreationPage() {
       });
 
       if (newsletterErrors || !newsletter) {
-        console.error('Newsletter creation errors:', newsletterErrors);
+        debug.error('Newsletter creation errors:', newsletterErrors);
         setCreateError('Erreur lors de la création de la newsletter');
         return;
       }
 
-      console.log('Newsletter created successfully:', newsletter);
+      debug.newsletter('Newsletter created successfully:', newsletter);
 
       // Create content blocks
       if (formData.contentBlocks && formData.contentBlocks.length > 0) {
@@ -256,7 +259,7 @@ export default function NewsletterCreationPage() {
           const { data: contentBlock, errors } = await client.models.ContentBlock.create(contentBlockData);
 
           if (errors) {
-            console.error('ContentBlock creation error:', errors);
+            debug.error('ContentBlock creation error:', errors);
           }
 
           return contentBlock;
@@ -273,7 +276,7 @@ export default function NewsletterCreationPage() {
       // Clear success message after 5 seconds
       setTimeout(() => setCreateSuccess(null), 5000);
     } catch (err) {
-      console.error('Error creating newsletter:', err);
+      debug.error('Error creating newsletter:', err);
       setCreateError('Erreur lors de la création du newsletter');
     }
   };
@@ -336,7 +339,7 @@ export default function NewsletterCreationPage() {
         setSelectedNewsletters(new Set()); // Clear selection
       }
     } catch (err) {
-      console.error('Error reusing content:', err);
+      debug.error('Error reusing content:', err);
       setCreateError('Erreur lors de la réutilisation du contenu');
     }
   };

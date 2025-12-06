@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { debug } from '@flexiness/domain-utils';
 import { I18n, Hub } from 'aws-amplify/utils';
 import { Authenticator, useAuthenticator, translations, ThemeProvider, type Theme } from '@aws-amplify/ui-react';
 import { signUp, confirmSignUp, type SignUpOutput, type SignUpInput, type ConfirmSignUpInput } from 'aws-amplify/auth';
@@ -31,7 +32,7 @@ I18n.setLanguage('fr')
 
 // Debug logging for auth flow
 const debugAuth = (message: string, data?: any) => {
-  console.log(`[AUTH DEBUG] ${message}`, data || '');
+  debug.auth(`[AUTH DEBUG] ${message}`, data || '');
 };
 
 function setupAuthListener() {
@@ -258,7 +259,9 @@ interface AuthPageProps {
   nonce: string
 }
 
-export default function AuthPage({ nonce }: AuthPageProps) {
+const AuthPage: React.FC<AuthPageProps> = ({
+  nonce
+}) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -275,7 +278,7 @@ export default function AuthPage({ nonce }: AuthPageProps) {
         try {
           const originalParams = JSON.parse(originalParamsStr);
 
-          console.log('[AUTH_PAGE] Restoring original params:', originalParams);
+          debug.auth('[AUTH_PAGE] Restoring original params:', originalParams);
 
           // Build new URL with original params plus OAuth params
           const currentUrl = new URL(window.location.href);
@@ -291,7 +294,7 @@ export default function AuthPage({ nonce }: AuthPageProps) {
           // Clean up sessionStorage
           sessionStorage.removeItem('amplify-oauth-original-params');
         } catch (error) {
-          console.error('[AUTH_PAGE] Error parsing original params:', error);
+          debug.error('[AUTH_PAGE] Error parsing original params:', error);
         }
       }
     } else if (!hasOAuthParams) {
@@ -303,7 +306,7 @@ export default function AuthPage({ nonce }: AuthPageProps) {
 
       if (Object.keys(allParams).length > 0) {
         sessionStorage.setItem('amplify-oauth-original-params', JSON.stringify(allParams));
-        console.log('[AUTH_PAGE] Stored original params for OAuth:', allParams);
+        debug.auth('[AUTH_PAGE] Stored original params for OAuth:', allParams);
       }
     }
   }, [searchParams, router]);
@@ -533,3 +536,4 @@ export default function AuthPage({ nonce }: AuthPageProps) {
     </Container>
   );
 }
+export default AuthPage

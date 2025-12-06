@@ -1,3 +1,5 @@
+/* eslint-disable no-alert */
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -49,6 +51,7 @@ import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/tex
 import { default as flexStyles } from '@flex-design-system/framework';
 import JackpotForm from '@src/components/cagnotte/JackpotForm';
 import AuthBanner from '@src/components/auth/AuthBanner';
+import { debug } from '@flexiness/domain-utils';
 
 type JackpotFormData = {
   id: string;
@@ -104,7 +107,7 @@ export default function CagnotteCreerPage() {
         }));
       }
     } catch (error) {
-      console.error('Error loading contribution stats:', error);
+      debug.error('Error loading contribution stats:', error);
     }
   };
 
@@ -132,7 +135,7 @@ export default function CagnotteCreerPage() {
           },
           error: (error) => {
             setError('Erreur lors du chargement des cagnottes');
-            console.error('Error loading forms:', error);
+            debug.error('Error loading forms:', error);
             setLoading(false);
           }
         });
@@ -141,7 +144,7 @@ export default function CagnotteCreerPage() {
       }
     } catch (err) {
       setError('Erreur lors du chargement des cagnottes');
-      console.error('Error loading forms:', err);
+      debug.error('Error loading forms:', err);
     } finally {
       setLoading(false);
     }
@@ -176,7 +179,7 @@ export default function CagnotteCreerPage() {
         setConnectLoading(false);
       },
       error: (error) => {
-        console.error('Error loading Connect account:', error);
+        debug.error('Error loading Connect account:', error);
         setConnectLoading(false);
       }
     });
@@ -222,7 +225,7 @@ export default function CagnotteCreerPage() {
       }
     } catch (err) {
       alert('Erreur lors de la suppression de la cagnotte');
-      console.error('Error deleting form:', err);
+      debug.error('Error deleting form:', err);
     }
   };
 
@@ -252,7 +255,7 @@ export default function CagnotteCreerPage() {
       }
     } catch (err) {
       alert('Erreur lors de la demande de paiement');
-      console.error('Error requesting payout:', err);
+      debug.error('Error requesting payout:', err);
     }
   };
 
@@ -284,7 +287,7 @@ export default function CagnotteCreerPage() {
       }
     } catch (err) {
       alert('Erreur lors de la publication');
-      console.error('Error publishing jackpot:', err);
+      debug.error('Error publishing jackpot:', err);
     }
   };
 

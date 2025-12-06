@@ -1,3 +1,5 @@
+import { debug } from '@flexiness/domain-utils';
+
 export function register() {
   // No-op for initialization
 }
@@ -22,7 +24,7 @@ export const onRequestError = async (
           const postHogData = JSON.parse(decodedCookie)
           distinctId = postHogData.distinct_id
         } catch (e) {
-          console.error('Error parsing PostHog cookie:', e)
+          debug.error('Error parsing PostHog cookie:', e)
         }
       }
     }

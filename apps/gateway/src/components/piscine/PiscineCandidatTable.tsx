@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { debug } from '@flexiness/domain-utils';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import { useAuthenticator } from '@aws-amplify/ui-react';
@@ -187,7 +188,7 @@ export default function PiscineCandidatTable({
       setDateSlots(sortedDateSlots);
 
     } catch (error) {
-      console.error('Error loading date slots with candidats:', error);
+      debug.error('Error loading date slots with candidats:', error);
       setError('Erreur lors du chargement des inscriptions');
     } finally {
       setLoading(false);
@@ -293,7 +294,7 @@ export default function PiscineCandidatTable({
       // Reload to get accurate data
       loadDateSlotsWithCandidats();
     } catch (error) {
-      console.error('Error moving candidat:', error);
+      debug.error('Error moving candidat:', error);
       onMessage?.('Erreur lors du déplacement du participant', true);
 
       // Revert optimistic update
@@ -419,7 +420,7 @@ export default function PiscineCandidatTable({
       onMessage?.(`Export CSV réussi ! ${totalCandidats} inscription(s) exportée(s).`, false);
 
     } catch (error) {
-      console.error('Error exporting CSV:', error);
+      debug.error('Error exporting CSV:', error);
       onMessage?.('Erreur lors de l\'export CSV', true);
     }
   };

@@ -1,3 +1,4 @@
+import { debug } from '@flexiness/domain-utils';
 import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
@@ -16,26 +17,26 @@ const ENUM_TO_TEXT_MAP: Record<string, string> = {
 };
 
 async function migrateCareerAvailability() {
-  console.log('Starting Career Discovery availability migration...');
-  console.log('');
+  debug.careerDiscovery('Starting Career Discovery availability migration...');
+  debug.careerDiscovery('');
 
   try {
     // Fetch all responses
-    console.log('Fetching all CareerDiscoveryResponse records...');
+    debug.careerDiscovery('Fetching all CareerDiscoveryResponse records...');
     const { data: responses, errors } = await client.models.CareerDiscoveryResponse.list({});
 
     if (errors) {
-      console.error('Error fetching responses:', errors);
+      debug.error('Error fetching responses:', errors);
       return;
     }
 
     if (!responses || responses.length === 0) {
-      console.log('No responses found to migrate');
+      debug.careerDiscovery('No responses found to migrate');
       return;
     }
 
-    console.log(`Found ${responses.length} responses`);
-    console.log('');
+    debug.careerDiscovery(`Found ${responses.length} responses`);
+    debug.careerDiscovery('');
 
     let successCount = 0;
     let alreadyMigratedCount = 0;
@@ -50,7 +51,7 @@ async function migrateCareerAvailability() {
 
           // If array contains text (not enum keys), it's already migrated
           if (firstValue && !ENUM_TO_TEXT_MAP[firstValue]) {
-            console.log(`✓ Skipping ${response.id} - already migrated`);
+            debug.careerDiscovery(`✓ Skipping ${response.id} - already migrated`);
             alreadyMigratedCount++;
             continue;
           }
@@ -59,12 +60,12 @@ async function migrateCareerAvailability() {
           const migratedValues = response.availability
             .map(enumValue => {
               if (!enumValue) {
-                console.warn(`⚠ Null or undefined enum value in array`);
+                debug.warn(`⚠ Null or undefined enum value in array`);
                 return null;
               }
               const textValue = ENUM_TO_TEXT_MAP[enumValue];
               if (!textValue) {
-                console.warn(`⚠ Unknown enum value in array: "${enumValue}"`);
+                debug.warn(`⚠ Unknown enum value in array: "${enumValue}"`);
                 return null;
               }
               return textValue;
@@ -73,7 +74,7 @@ async function migrateCareerAvailability() {
 
           if (migratedValues.length === 0) {
             const errorMsg = `No valid enum values found in array: ${JSON.stringify(response.availability)}`;
-            console.error(`✗ ${response.id}: ${errorMsg}`);
+            debug.error(`✗ ${response.id}: ${errorMsg}`);
             failedRecords.push({ id: response.id, error: errorMsg });
             errorCount++;
             continue;
@@ -87,14 +88,14 @@ async function migrateCareerAvailability() {
 
           if (updateResult.errors) {
             const errorMsg = JSON.stringify(updateResult.errors);
-            console.error(`✗ Failed to migrate ${response.id}:`, errorMsg);
+            debug.error(`✗ Failed to migrate ${response.id}:`, errorMsg);
             failedRecords.push({ id: response.id, error: errorMsg });
             errorCount++;
             continue;
           }
 
-          console.log(`✓ Migrated ${response.id}`);
-          console.log(`  ${JSON.stringify(response.availability)} → ${JSON.stringify(migratedValues)}`);
+          debug.careerDiscovery(`✓ Migrated ${response.id}`);
+          debug.careerDiscovery(`  ${JSON.stringify(response.availability)} → ${JSON.stringify(migratedValues)}`);
           successCount++;
           continue;
         }
@@ -105,7 +106,7 @@ async function migrateCareerAvailability() {
 
         if (!newValue) {
           const errorMsg = `Unknown enum value: "${oldValue}"`;
-          console.error(`✗ ${response.id}: ${errorMsg}`);
+          debug.error(`✗ ${response.id}: ${errorMsg}`);
           failedRecords.push({ id: response.id, error: errorMsg });
           errorCount++;
           continue;
@@ -119,57 +120,57 @@ async function migrateCareerAvailability() {
 
         if (updateResult.errors) {
           const errorMsg = JSON.stringify(updateResult.errors);
-          console.error(`✗ Failed to migrate ${response.id}:`, errorMsg);
+          debug.error(`✗ Failed to migrate ${response.id}:`, errorMsg);
           failedRecords.push({ id: response.id, error: errorMsg });
           errorCount++;
           continue;
         }
 
-        console.log(`✓ Migrated ${response.id}`);
-        console.log(`  "${oldValue}" → ["${newValue}"]`);
+        debug.careerDiscovery(`✓ Migrated ${response.id}`);
+        debug.careerDiscovery(`  "${oldValue}" → ["${newValue}"]`);
         successCount++;
 
       } catch (error) {
         const errorMsg = error instanceof Error ? error.message : String(error);
-        console.error(`✗ Failed to migrate ${response.id}:`, errorMsg);
+        debug.error(`✗ Failed to migrate ${response.id}:`, errorMsg);
         failedRecords.push({ id: response.id, error: errorMsg });
         errorCount++;
       }
     }
 
     // Summary
-    console.log('');
-    console.log('='.repeat(60));
-    console.log('Migration Summary');
-    console.log('='.repeat(60));
-    console.log(`Total records processed: ${responses.length}`);
-    console.log(`✓ Successfully migrated: ${successCount}`);
-    console.log(`✓ Already migrated: ${alreadyMigratedCount}`);
-    console.log(`✗ Errors: ${errorCount}`);
-    console.log('');
+    debug.careerDiscovery('');
+    debug.careerDiscovery('='.repeat(60));
+    debug.careerDiscovery('Migration Summary');
+    debug.careerDiscovery('='.repeat(60));
+    debug.careerDiscovery(`Total records processed: ${responses.length}`);
+    debug.careerDiscovery(`✓ Successfully migrated: ${successCount}`);
+    debug.careerDiscovery(`✓ Already migrated: ${alreadyMigratedCount}`);
+    debug.careerDiscovery(`✗ Errors: ${errorCount}`);
+    debug.careerDiscovery('');
 
     if (failedRecords.length > 0) {
-      console.log('Failed Records:');
+      debug.careerDiscovery('Failed Records:');
       failedRecords.forEach(({ id, error }) => {
-        console.log(`  - ${id}: ${error}`);
+        debug.careerDiscovery(`  - ${id}: ${error}`);
       });
-      console.log('');
+      debug.careerDiscovery('');
     }
 
     if (errorCount === 0) {
-      console.log('✅ Migration completed successfully!');
+      debug.careerDiscovery('✅ Migration completed successfully!');
     } else {
-      console.log('⚠️  Migration completed with errors. Please review the failed records above.');
+      debug.careerDiscovery('⚠️  Migration completed with errors. Please review the failed records above.');
     }
 
   } catch (error) {
-    console.error('Fatal error during migration:', error);
+    debug.error('Fatal error during migration:', error);
     throw error;
   }
 }
 
 // Run migration
 migrateCareerAvailability().catch((error) => {
-  console.error('Migration failed:', error);
+  debug.error('Migration failed:', error);
   process.exit(1);
 });

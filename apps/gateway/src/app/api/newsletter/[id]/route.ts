@@ -1,3 +1,4 @@
+import { debug } from '@flexiness/domain-utils';
 import { NextRequest, NextResponse } from 'next/server'
 import { Amplify } from 'aws-amplify'
 import { generateClient } from 'aws-amplify/data'
@@ -35,7 +36,7 @@ export async function DELETE(
 
     return NextResponse.json({ data: newsletter })
   } catch (error) {
-    console.error('Error deleting newsletter:', error)
+    debug.error('Error deleting newsletter:', error)
     return NextResponse.json(
       { error: 'Failed to delete newsletter' },
       { status: 500 }
@@ -77,7 +78,7 @@ export async function GET(
 
     return NextResponse.json({ data: newsletter })
   } catch (error) {
-    console.error('Error fetching newsletter:', error)
+    debug.error('Error fetching newsletter:', error)
     return NextResponse.json(
       { error: 'Failed to fetch newsletter' },
       { status: 500 }
@@ -107,7 +108,7 @@ export async function PUT(
 
     return NextResponse.json({ data: newsletter })
   } catch (error) {
-    console.error('Error updating newsletter:', error)
+    debug.error('Error updating newsletter:', error)
     return NextResponse.json(
       { error: 'Failed to update newsletter' },
       { status: 500 }

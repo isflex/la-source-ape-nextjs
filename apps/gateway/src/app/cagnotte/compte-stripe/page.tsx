@@ -3,9 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuthenticator } from '@aws-amplify/ui-react';
+import { fetchAuthSession } from 'aws-amplify/auth';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import classNames from 'classnames';
+import { debug } from '@flexiness/domain-utils';
 import { default as flexStyles } from '@flex-design-system/framework';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
@@ -59,7 +61,7 @@ export default function StripeAccountPage() {
         setLoading(false);
       },
       error: (error) => {
-        console.error('Error loading account:', error);
+        debug.error('Error loading account:', error);
         setError('Erreur lors du chargement du compte');
         setLoading(false);
       }
@@ -75,12 +77,29 @@ export default function StripeAccountPage() {
     setError(null);
 
     try {
-      const response = await fetch('/api/stripe-connect/create-account-link/', {
+      // Get auth session for backend authentication
+      const session = await fetchAuthSession();
+      const accessToken = session.tokens?.accessToken?.toString();
+      const idToken = session.tokens?.idToken?.toString();
+
+      if (!accessToken || !idToken) {
+        throw new Error('Session non valide. Veuillez vous reconnecter.');
+      }
+
+      // Get backend URL and current origin for redirects
+      const backendUrl = process.env.NEXT_PUBLIC_POKER_BACK_HOST || 'http://localhost:8080';
+      const baseUrl = window.location.origin;
+
+      const response = await fetch(`${backendUrl}/api/stripe/create-account-link`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken},${idToken}`,
+        },
         body: JSON.stringify({
           userId: user.userId,
           email: user.signInDetails?.loginId || '',
+          baseUrl,
         }),
       });
 

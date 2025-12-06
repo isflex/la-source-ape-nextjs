@@ -1,6 +1,9 @@
+/* eslint-disable no-alert */
+
 'use client';
 
 import React from 'react';
+import { debug } from '@flexiness/domain-utils';
 import { useRouter } from 'next/navigation'
 import { z } from 'zod';
 import DOMPurify from 'dompurify'
@@ -190,7 +193,7 @@ export default function SondageApp() {
       listSondages()
       listQuestions()
     } catch(err) {
-      console.error(err)
+      debug.error(err)
       setHasError(true)
     }
   }, []);
@@ -279,8 +282,8 @@ export default function SondageApp() {
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
-        // console.log(error)
-        // console.log(error.errors)
+        // debug.sondage(error)
+        // debug.sondage(error.errors)
 
         // Create field-specific error mapping using Zod paths
         const newFieldErrors: Record<string, string[]> = {};
@@ -296,7 +299,7 @@ export default function SondageApp() {
         setFieldErrors(newFieldErrors);
         setValidationErrors(error.errors.map(e => e.message));
       } else {
-        console.error('Erreur lors de la soumission:', error);
+        debug.error('Erreur lors de la soumission:', error);
         setValidationErrors(['Erreur lors de la soumission du sondage']);
         setFieldErrors({});
       }
@@ -314,7 +317,7 @@ export default function SondageApp() {
     try {
       await client.models.Sondage.delete({ id });
     } catch (error) {
-      console.error('Erreur lors de la suppression:', error);
+      debug.error('Erreur lors de la suppression:', error);
     }
   };
 

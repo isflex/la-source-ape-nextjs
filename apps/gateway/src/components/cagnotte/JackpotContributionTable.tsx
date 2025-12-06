@@ -22,6 +22,7 @@ import {
   getPaymentStatusLabel,
   type JackpotContributionData
 } from '@src/lib/cagnotte-helpers';
+import { debug } from '@flexiness/domain-utils';
 
 const client = generateClient<Schema>();
 
@@ -53,7 +54,7 @@ export default function JackpotContributionTable({
           setLoading(false);
         },
         error: (error) => {
-          console.error('Error loading contributions:', error);
+          debug.error('Error loading contributions:', error);
           setLoading(false);
         }
       });

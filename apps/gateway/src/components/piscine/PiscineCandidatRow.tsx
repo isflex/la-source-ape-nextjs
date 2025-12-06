@@ -1,6 +1,9 @@
+/* eslint-disable no-alert */
+
 'use client';
 
 import React, { useState } from 'react';
+import { debug } from '@flexiness/domain-utils';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import { useAuthenticator } from '@aws-amplify/ui-react';
@@ -111,7 +114,7 @@ export default function PiscineCandidatRow({
         });
 
         if (updateErrors || !data) {
-          console.error('Update candidat errors:', updateErrors);
+          debug.error('Update candidat errors:', updateErrors);
           onError?.('Erreur lors de la mise à jour de l\'inscription');
           return;
         }
@@ -133,7 +136,7 @@ export default function PiscineCandidatRow({
         });
 
         if (createErrors || !data) {
-          console.error('Create candidat errors:', createErrors);
+          debug.error('Create candidat errors:', createErrors);
           onError?.('Erreur lors de l\'inscription');
           return;
         }
@@ -150,7 +153,7 @@ export default function PiscineCandidatRow({
       onCandidatChange?.(); // Refresh parent component
 
     } catch (error) {
-      console.error('Validation error:', error);
+      debug.error('Validation error:', error);
       if (error instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
         error.errors.forEach(err => {
@@ -180,7 +183,7 @@ export default function PiscineCandidatRow({
       });
 
       if (errors) {
-        console.error('Delete candidat errors:', errors);
+        debug.error('Delete candidat errors:', errors);
         onError?.('Erreur lors de la suppression');
         return;
       }
@@ -189,7 +192,7 @@ export default function PiscineCandidatRow({
       onCandidatChange?.(); // Refresh parent component
 
     } catch (error) {
-      console.error('Delete error:', error);
+      debug.error('Delete error:', error);
       onError?.('Erreur lors de la suppression');
     } finally {
       setIsSubmitting(false);

@@ -1,6 +1,9 @@
+/* eslint-disable no-alert */
+
 'use client';
 
 import React from 'react';
+import { debug } from '@flexiness/domain-utils';
 import { z } from 'zod';
 import DOMPurify from 'dompurify';
 import parsePhoneNumberFromString from 'libphonenumber-js';
@@ -180,7 +183,7 @@ export default function CareerDiscoveryForm() {
         listResponses();
         listTemplates();
       } catch (err) {
-        console.error(err);
+        debug.error(err);
         setHasError(true);
       }
     };
@@ -291,7 +294,7 @@ export default function CareerDiscoveryForm() {
         setFieldErrors(newFieldErrors);
         setValidationErrors(error.errors.map(e => e.message));
       } else {
-        console.error('Erreur lors de la soumission:', error);
+        debug.error('Erreur lors de la soumission:', error);
         setValidationErrors(['Erreur lors de la soumission du formulaire']);
         setFieldErrors({});
       }
@@ -309,7 +312,7 @@ export default function CareerDiscoveryForm() {
     try {
       await client.models.CareerDiscoveryResponse.delete({ id });
     } catch (error) {
-      console.error('Erreur lors de la suppression:', error);
+      debug.error('Erreur lors de la suppression:', error);
     }
   };
 
@@ -884,7 +887,7 @@ function AdminInterface({
       setNewSubtitle('');
       alert('Modèle créé avec succès');
     } catch (error) {
-      console.error('Erreur lors de la création du modèle:', error);
+      debug.error('Erreur lors de la création du modèle:', error);
       alert('Erreur lors de la création du modèle');
     }
   };
@@ -908,7 +911,7 @@ function AdminInterface({
 
       alert('Modèle activé avec succès');
     } catch (error) {
-      console.error('Erreur lors de l\'activation du modèle:', error);
+      debug.error('Erreur lors de l\'activation du modèle:', error);
       alert('Erreur lors de l\'activation du modèle');
     }
   };
@@ -922,7 +925,7 @@ function AdminInterface({
 
       alert('Modèle désactivé avec succès');
     } catch (error) {
-      console.error('Erreur lors de la désactivation du modèle:', error);
+      debug.error('Erreur lors de la désactivation du modèle:', error);
       alert('Erreur lors de la désactivation du modèle');
     }
   };
@@ -934,7 +937,7 @@ function AdminInterface({
       await client.models.CareerDiscoveryTemplate.delete({ id: templateId });
       alert('Modèle supprimé avec succès');
     } catch (error) {
-      console.error('Erreur lors de la suppression du modèle:', error);
+      debug.error('Erreur lors de la suppression du modèle:', error);
       alert('Erreur lors de la suppression du modèle');
     }
   };

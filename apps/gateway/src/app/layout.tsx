@@ -1,4 +1,5 @@
 import React from 'react'
+import { debug } from '@flexiness/domain-utils';
 import dynamic from 'next/dynamic'
 import { headers } from 'next/headers'
 import type { Metadata } from 'next'
@@ -166,7 +167,7 @@ const RootLayout = async ({
     }
   } catch (error) {
     // error handling.
-    console.log(error)
+    debug.error(error)
   } finally {
     if (
       responseEC2SpotRequests?.SpotInstanceRequests?.[0]?.Status?.Code === 'fulfilled' &&
@@ -175,7 +176,7 @@ const RootLayout = async ({
       statusEC2Active = true
       resultModFeds = await fetchMFAssets().catch((e) => {
         // handle the error as needed
-        console.error('An error occurred while fetching the data from fetchMFAssets : ', e)
+        debug.error('An error occurred while fetching the data from fetchMFAssets : ', e)
       })
     }
   }

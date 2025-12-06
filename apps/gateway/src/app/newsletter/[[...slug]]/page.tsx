@@ -8,6 +8,7 @@ import { Container } from '@flex-design-system/react-ts/client-sync-styled-direc
 import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { default as flexStyles } from '@flex-design-system/framework'
+import { debug } from '@flexiness/domain-utils'
 
 interface NewsletterContentPageProps {
   params: {
@@ -38,7 +39,7 @@ export default function NewsletterContentPage({ params }: NewsletterContentPageP
         const moduleImport = await import(`./_content/${contentPath}/index`)
         setContentComponent(() => moduleImport.default)
       } catch (error) {
-        console.error(`Content not found at path: ${slugArray.join('/')}`, error)
+        debug.error(`Content not found at path: ${slugArray.join('/')}`, error)
         setNotFoundError(true)
       } finally {
         setIsLoading(false)

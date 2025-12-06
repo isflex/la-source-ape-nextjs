@@ -20,6 +20,7 @@ import { useAuthenticator } from '@aws-amplify/ui-react'
 import { fetchAuthSession } from 'aws-amplify/auth'
 import { default as flexStyles } from '@flex-design-system/framework'
 import classNames from 'classnames'
+import { debug } from '@flexiness/domain-utils'
 
 export interface S3ImageData {
   s3Key: string           // S3 object key
@@ -69,7 +70,7 @@ const S3ImageUploader: React.FC<S3ImageUploaderProps> = ({
       const idToken = session.tokens?.idToken?.toString()
       return idToken || null
     } catch (error) {
-      console.error('Error getting auth token:', error)
+      debug.error('Error getting auth token:', error)
       return null
     }
   }, [user])
@@ -182,7 +183,7 @@ const S3ImageUploader: React.FC<S3ImageUploaderProps> = ({
         processedFile = await resizeImageIfNeeded(file, maxWidth, maxHeight, 0.9)
       }
 
-      console.log('Uploading via admin API:', { name: file.name, size: processedFile.size })
+      debug.newsletter('Uploading via admin API:', { name: file.name, size: processedFile.size })
 
       // Get authentication token
       const authToken = await getAuthToken()
@@ -208,7 +209,7 @@ const S3ImageUploader: React.FC<S3ImageUploaderProps> = ({
       }
 
       const uploadResult = await uploadResponse.json()
-      console.log('Upload successful:', uploadResult)
+      debug.newsletter('Upload successful:', uploadResult)
 
       // Get a temporary preview URL using Amplify storage
       const previewUrl = await getUrl({
@@ -236,7 +237,7 @@ const S3ImageUploader: React.FC<S3ImageUploaderProps> = ({
       const errorMessage = err instanceof Error ? err.message : "Erreur lors du traitement de l'image"
       setError(errorMessage)
       onImageSelect(null)
-      console.error('Upload error:', err)
+      debug.error('Upload error:', err)
     } finally {
       setIsUploading(false)
     }
@@ -254,12 +255,12 @@ const S3ImageUploader: React.FC<S3ImageUploaderProps> = ({
     try {
       // If there's a current image with S3 key, delete it from S3
       if (currentImage?.s3Key) {
-        console.log('Deleting from S3:', currentImage.s3Key)
+        debug.newsletter('Deleting from S3:', currentImage.s3Key)
 
         // Get authentication token
         const authToken = await getAuthToken()
         if (!authToken) {
-          console.warn('No auth token for delete - skipping S3 cleanup')
+          debug.warn('No auth token for delete - skipping S3 cleanup')
         } else {
           const deleteResponse = await fetch(`/api/upload?key=${encodeURIComponent(currentImage.s3Key)}`, {
             method: 'DELETE',
@@ -269,15 +270,15 @@ const S3ImageUploader: React.FC<S3ImageUploaderProps> = ({
           })
 
           if (!deleteResponse.ok) {
-            console.warn('Failed to delete from S3:', await deleteResponse.text())
+            debug.warn('Failed to delete from S3:', await deleteResponse.text())
             // Continue with UI cleanup even if S3 delete fails
           } else {
-            console.log('Successfully deleted from S3:', currentImage.s3Key)
+            debug.newsletter('Successfully deleted from S3:', currentImage.s3Key)
           }
         }
       }
     } catch (error) {
-      console.warn('Error deleting from S3:', error)
+      debug.warn('Error deleting from S3:', error)
       // Continue with UI cleanup even if delete fails
     }
 

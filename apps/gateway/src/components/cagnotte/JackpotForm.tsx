@@ -30,6 +30,7 @@ import {
 } from '@src/lib/cagnotte-helpers';
 import DOMPurify from 'dompurify';
 import NewsletterDatePicker from '@src/components/newsletter/NewsletterDatePicker';
+import { debug } from '@flexiness/domain-utils';
 
 const client = generateClient<Schema>();
 
@@ -89,7 +90,7 @@ export default function JackpotForm({ onSubmit, onCancel, existingSlugs = [], ed
           setDeadline(form.deadline.split('T')[0]); // Extract date part
         }
       } catch (error) {
-        console.error('Error loading jackpot:', error);
+        debug.error('Error loading jackpot:', error);
       }
     };
     loadExisting();
@@ -186,7 +187,7 @@ export default function JackpotForm({ onSubmit, onCancel, existingSlugs = [], ed
         }
       }
     } catch (error) {
-      console.error('Error submitting jackpot:', error);
+      debug.error('Error submitting jackpot:', error);
       onSubmit(false, 'Une erreur est survenue');
     } finally {
       setSubmitting(false);

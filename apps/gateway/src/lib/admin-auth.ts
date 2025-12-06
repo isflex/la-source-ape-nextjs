@@ -1,9 +1,13 @@
+/* eslint-disable no-alert */
+
 'use client';
 
 /**
  * Admin Authentication Utility
  * Provides secure client-side password verification using Web Crypto API
  */
+
+import { debug } from '@flexiness/domain-utils';
 
 // Environment variables for admin credentials
 const ADMIN_PASSWORD_HASH = process.env.NEXT_PUBLIC_ADMIN_HASH || '';
@@ -18,7 +22,7 @@ export const verifyAdminPassword = async (inputPassword: string): Promise<boolea
   try {
     // Early return if no hash is configured
     if (!ADMIN_PASSWORD_HASH) {
-      console.warn('Admin password hash not configured');
+      debug.warn('Admin password hash not configured');
       return false;
     }
 
@@ -36,7 +40,7 @@ export const verifyAdminPassword = async (inputPassword: string): Promise<boolea
     // Compare with stored hash
     return hashHex === ADMIN_PASSWORD_HASH;
   } catch (error) {
-    console.error('Error verifying admin password:', error);
+    debug.error('Error verifying admin password:', error);
     return false;
   }
 };
