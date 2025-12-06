@@ -112,7 +112,7 @@ if (clientStats) {
   // console.log('flex-framework-styles : ', flexFrameworkStylesAsset)
 }
 
-function setCustomCacheControl (res, path) {
+function setCustomCacheControl (req: Express.Request, res: Express.Response) {
   if (serveStatic.mime.lookup(path) === 'text/html') {
     // Custom Cache-Control for HTML files
     res.setHeader('Cache-Control', 'public, max-age=0')

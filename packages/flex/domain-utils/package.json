@@ -36,6 +36,7 @@
     "@aws-crypto/sha256-browser": "5.2.0",
     "@aws-crypto/sha256-js": "5.2.0",
     "crypto-browserify": "3.12.0",
+    "express": "5.1.0",
     "helmet-csp": "3.4.0",
     "loglevel": "1.8.0",
     "psl": "1.9.0",

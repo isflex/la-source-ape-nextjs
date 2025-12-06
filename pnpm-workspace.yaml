@@ -2,5 +2,4 @@ packages:
   - 'apps/**'
   - '!apps/gateway/.next/standalone/**'
   - '!apps/gateway/amplify/**'
-  - '!apps/express-app/**'
   - 'packages/**'
