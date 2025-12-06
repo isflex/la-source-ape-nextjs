@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 'use server'
 
 import { NextRequest, NextResponse } from 'next/server';

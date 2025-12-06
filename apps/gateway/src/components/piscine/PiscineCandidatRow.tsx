@@ -10,7 +10,7 @@ import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-s
 import { Input, type InputChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import { PiscineCandidatSchema, type PiscineCandidatData } from '@src/lib/piscine-helpers';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 
@@ -236,7 +236,7 @@ export default function PiscineCandidatRow({
         <div className={classNames(
           flexStyles.isGridDisplayGrid, flexStyles.isGridGap3,
           flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
-          flexStyles.isItemsCenter
+          flexStyles.isGridItemsCenter
         )}>
           <div style={{ margin: '-1.5rem 0 0' }}>
             <Title level={TitleLevel.LEVEL5}>

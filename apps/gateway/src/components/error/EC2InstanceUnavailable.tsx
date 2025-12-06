@@ -14,7 +14,8 @@ import {
   InfoBlockHeader
 } from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
 import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
+import { default as stylesGeneric } from '@src/styles/scss/flex/generic.module.scss'
 import '@src/styles/globals.css'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
@@ -30,7 +31,7 @@ const FallBackEC2InstanceUnavailable: React.FC<ErrorBoundaryProps> = (props) => 
   const isMobile = mobileCheck || false
   return (
     <div className={classNames(
-      flexStyles.genericLayout1,
+      stylesGeneric.genericLayout1,
       isMobile && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
     )}>
       <div style={{
@@ -46,7 +47,7 @@ const FallBackEC2InstanceUnavailable: React.FC<ErrorBoundaryProps> = (props) => 
         }}>
           <LogoAPE />
         </div>
-        <main className={classNames(flexStyles.fullPage, flexStyles.hasSpaceBetweenContent)}>
+        <main className={classNames(stylesGeneric.fullPage, stylesGeneric.hasSpaceBetweenContent)}>
           <section className={classNames(
             flexStyles.isFullwidth
           )}>

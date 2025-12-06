@@ -6,7 +6,7 @@ import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/tex
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Switch, type SwitchChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/switch';
 import { AlertState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import { previewContributionFees } from '@src/lib/cagnotte-helpers';
 import type { FeeConfig } from '@src/lib/cagnotte-fees';
 

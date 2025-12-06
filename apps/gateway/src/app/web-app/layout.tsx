@@ -25,7 +25,8 @@ import classNames from 'classnames'
 //   Text,
 // } from '@src/components/flex-server-components'
 // import { TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+// import { default as flexStyles } from '@flex-design-system/framework'
+import { default as stylesGeneric } from '@src/styles/scss/flex/generic.module.scss'
 // import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
@@ -63,8 +64,8 @@ export default async function WebAppLayout({
       {process.env.NEXT_PUBLIC_FLEX_ACTIVATE_APE_SOURCE_CO === 'false' &&
       (new RegExp(`${regexEscape(process.env.NEXT_PUBLIC_FLEX_FUTUR_PROOF_2_BASE_DOMAIN!)}`, 'g')).test(currentHost) ? (
         <div className={classNames(
-          flexStyles.genericLayout1,
-          flexStyles.isPlain,
+          stylesGeneric.genericLayout1,
+          stylesGeneric.isPlain,
           mobileCheck && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
         )}>
           <div style={{
@@ -89,8 +90,8 @@ export default async function WebAppLayout({
       ) : (
         <ErrorBoundary fallback={<FallBackEC2InstanceUnavailable mobileCheck={mobileCheck} />}>
           <div className={classNames(
-            flexStyles.genericLayout1,
-            flexStyles.isPlain,
+            stylesGeneric.genericLayout1,
+            stylesGeneric.isPlain,
             mobileCheck && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
           )}>
             <div style={{
@@ -109,8 +110,8 @@ export default async function WebAppLayout({
               </div>
 
               <main className={classNames(
-                // flexStyles.fullPage,
-                // flexStyles.hasSpaceBetweenContent
+                // stylesGeneric.fullPage,
+                // stylesGeneric.hasSpaceBetweenContent
               )}>
                 <WebAppMF mobileCheck={mobileCheck} />
               </main>

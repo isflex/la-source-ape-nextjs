@@ -7,7 +7,7 @@ import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box'
 import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
 import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
 
 interface NewsletterContentPageProps {
   params: {
@@ -75,7 +75,7 @@ export default function NewsletterContentPage({ params }: NewsletterContentPageP
   // Show content not found
   return (
     <Container>
-      <Box className={classNames(flexStyles.hasTextTeriary)}>
+      <Box className={classNames(flexStyles.hasTextTertiary)}>
         <Section>
           <Title level={TitleLevel.LEVEL2} className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>
             Contenu introuvable

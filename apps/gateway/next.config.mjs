@@ -140,7 +140,7 @@ const mainConfig = new Config(async (phase, args) => {
 
     transpilePackages: [
       '@types/flexiness',
-      '@flex-design-system/framework',
+      // '@flex-design-system/framework',
       '@flex-design-system/react-ts',
       '@flexiness/domain-utils',
       '@flexiness/domain-store'

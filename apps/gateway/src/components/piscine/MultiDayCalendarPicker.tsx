@@ -19,7 +19,7 @@ import {
   TableHead,
   TableTr
 } from '@flex-design-system/react-ts/client-sync-styled-direct/table';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import { formatDayOfWeek, matchesWeekday, isWorkingDay, sortDates, type DayTimeSlot } from '@src/lib/piscine-helpers';
 
 // Import react-datepicker CSS

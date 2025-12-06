@@ -48,6 +48,7 @@
     "build/types/**/*.ts",
     "amplify_outputs.json",
     "amplify/**/*",
+    "routes.*.json",
   ],
   "exclude": [
     "node_modules",

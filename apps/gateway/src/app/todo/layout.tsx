@@ -9,7 +9,8 @@ import {
   Title,
 } from '@src/components/flex-server-components'
 import { TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
+import { default as stylesGeneric } from '@src/styles/scss/flex/generic.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/todo.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
@@ -28,7 +29,7 @@ export default async function ToDoAppLayout({
   await posthog.shutdown()
 
   return (
-    <div className={classNames(flexStyles.genericLayout1, stylesPage.todoApp)}>
+    <div className={classNames(stylesGeneric.genericLayout1, stylesPage.todoApp)}>
       <div style={{
         height: 'auto',
         padding: '2rem 0',

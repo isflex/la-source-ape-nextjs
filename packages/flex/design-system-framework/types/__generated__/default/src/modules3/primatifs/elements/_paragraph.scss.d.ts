@@ -5,6 +5,9 @@ export type Styles = {
   fromRight: string;
   fromTop: string;
   hasInheritedColor: string;
+  hasTextLarge: string;
+  hasTextMedium: string;
+  hasTextSmall: string;
   is1: string;
   is2: string;
   is3: string;

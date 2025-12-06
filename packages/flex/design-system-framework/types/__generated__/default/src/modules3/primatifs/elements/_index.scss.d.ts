@@ -68,6 +68,9 @@ export type Styles = {
   hasPasswordDiscover: string;
   hasStatus: string;
   hasTextCentered: string;
+  hasTextLarge: string;
+  hasTextMedium: string;
+  hasTextSmall: string;
   heading: string;
   help: string;
   hoverColor: string;
@@ -130,6 +133,7 @@ export type Styles = {
   isCompact: string;
   isComparative: string;
   isDanger: string;
+  isDataCellResponsiveHelper: string;
   isDebug: string;
   isDescendant: string;
   isDescriptive: string;
@@ -180,6 +184,7 @@ export type Styles = {
   isLoading: string;
   isLong: string;
   isMaxDesktop: string;
+  isMaxTablet: string;
   isMaxWidescreen: string;
   isMedium: string;
   isMobile: string;

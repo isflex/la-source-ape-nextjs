@@ -6,7 +6,7 @@ import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 // import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Icon, IconName, IconSize } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 
 interface DraggableCandidatRowProps {
   id: string;

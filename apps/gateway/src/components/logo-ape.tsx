@@ -8,7 +8,7 @@ import { getStores } from '@flexiness/domain-store'
 import { motion } from 'framer-motion'
 import classNames from 'classnames'
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
 import { default as stylesPage } from '@src/styles/scss/pages/logo.module.scss'
 import { default as stylesLayout } from '@src/styles/scss/pages/layout.module.scss'
 

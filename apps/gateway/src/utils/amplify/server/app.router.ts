@@ -8,7 +8,7 @@
 import { cookies } from 'next/headers';
 
 import { createServerRunner } from '@aws-amplify/adapter-nextjs';
-import { generateServerClientUsingCookies } from '@aws-amplify/adapter-nextjs/api';
+import { generateServerClientUsingCookies, type ClientUsingSSRCookies } from '@aws-amplify/adapter-nextjs/api';
 import { getCurrentUser } from 'aws-amplify/auth/server';
 
 import { type Schema } from '@amplify/data/resource';
@@ -20,7 +20,7 @@ export const { runWithAmplifyServerContext } = createServerRunner({
   config: getCurrentConfig(),
 });
 
-export const cookiesClient = generateServerClientUsingCookies<Schema>({
+export const cookiesClient: ClientUsingSSRCookies<Schema> = generateServerClientUsingCookies<Schema>({
   // config: AMPLIFY_AUTH_CONFIG_V2,
   config: getCurrentConfig(),
   cookies,

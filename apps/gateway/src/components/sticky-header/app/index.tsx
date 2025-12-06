@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import Sticky from 'react-sticky-el'
 
 // import classNames from 'classnames'
-// import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+// import { default as flexStyles } from '@flex-design-system/framework'
 import { default as stylesPage } from '@src/styles/scss/pages/sticky.module.scss'
 
 const NavBarApp = dynamic(() => import('@src/components/navbar/app'), { ssr: true })

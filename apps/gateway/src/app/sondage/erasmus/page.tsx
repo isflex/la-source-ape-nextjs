@@ -34,7 +34,7 @@ import { Radio } from '@flex-design-system/react-ts/client-sync-styled-direct/ra
 import { Textarea } from '@flex-design-system/react-ts/client-sync-styled-direct/textarea';
 import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link';
 import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 
 // Mapping objects for enum values (database vs display)
 const ERASMUS_AWARENESS_OPTIONS = [
@@ -301,10 +301,10 @@ export default function ErasmusSurvey() {
 
   return (
     <View>
-      <Box className={classNames(flexStyles.hasTextTeriary)}>
+      <Box className={classNames(flexStyles.hasTextTertiary)}>
         <div style={{ maxWidth: '920px' }}>
           <Section>
-            <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTeriary}>
+            <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTertiary}>
               {showSurveyForm
                 ? "Sondage sur la mobilité Erasmus (à remplir par les familles)"
                 : "Participer au sondage sur la mobilité Erasmus"
@@ -331,7 +331,7 @@ export default function ErasmusSurvey() {
             <div id="erasmus-survey-form">
               {/* Email Section */}
               <Section>
-                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                   1.  Email *
                 </Title>
                 <div className={classNames(
@@ -358,7 +358,7 @@ export default function ErasmusSurvey() {
 
               {/* Child Details Section */}
               <Section>
-                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                   2.  Indiquez nom, prénom, classe de votre enfant *
                 </Title>
                 <div className={classNames(
@@ -385,7 +385,7 @@ export default function ErasmusSurvey() {
 
               {/* Erasmus Awareness Section */}
               <Section>
-                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                   3.  Connaissez-vous Erasmus ? *
                 </Title>
                 <div className={classNames(
@@ -417,7 +417,7 @@ export default function ErasmusSurvey() {
 
               {/* Erasmus Definition Section */}
               <Section>
-                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                   4.  Si oui, comment définiriez-vous Erasmus ?
                 </Title>
                 <div className={classNames(
@@ -438,7 +438,7 @@ export default function ErasmusSurvey() {
 
               {/* Erasmus Interest Section */}
               <Section>
-                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                   5.  Votre enfant serait-il intéressé par une mobilité Erasmus ? *
                 </Title>
                 <div className={classNames(
@@ -470,7 +470,7 @@ export default function ErasmusSurvey() {
 
               {/* Comfort Level Section */}
               <Section>
-                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                   6.  En tant que parent, vous sentez-vous à l&apos;aise avec l&apos;idée d&apos;une mobilité Erasmus pour votre enfant ? *
                 </Title>
                 <div className={classNames(
@@ -502,7 +502,7 @@ export default function ErasmusSurvey() {
 
               {/* Motivations Section */}
               <Section>
-                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                   7.  Quelles seraient vos motivations pour une mobilité Erasmus ? * (Plusieurs choix possibles)
                 </Title>
                 <div className={classNames(
@@ -534,7 +534,7 @@ export default function ErasmusSurvey() {
 
               {/* Desired Information Section */}
               <Section>
-                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                   8.  Quelles sont les principales informations ou aides que vous souhaiteriez recevoir ? *
                 </Title>
                 <div className={classNames(
@@ -561,7 +561,7 @@ export default function ErasmusSurvey() {
 
               {/* Concerns Section */}
               <Section>
-                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                   9.  Quelles sont vos principales préoccupations concernant une mobilité Erasmus ? * (Plusieurs choix possibles)
                 </Title>
                 <div className={classNames(
@@ -593,7 +593,7 @@ export default function ErasmusSurvey() {
 
               {/* Financing Willingness Section */}
               <Section>
-                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                   10.  Seriez-vous prêt(e) à financer une partie des coûts d&apos;une mobilité Erasmus ? *
                 </Title>
                 <div className={classNames(
@@ -625,7 +625,7 @@ export default function ErasmusSurvey() {
 
               {/* Ideal Duration Section - Question 11 */}
               <Section>
-                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                   11.  Quelle serait la durée de séjour idéale pour un échange Erasmus ? *
                 </Title>
                 <div className={classNames(
@@ -657,7 +657,7 @@ export default function ErasmusSurvey() {
 
               {/* Previous Experience Section - Question 12 */}
               <Section>
-                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                   12.  Si votre enfant a déjà participé à un programme Erasmus, pouvez-vous partager votre expérience ?
                 </Title>
                 <div className={classNames(
@@ -684,7 +684,7 @@ export default function ErasmusSurvey() {
 
               {/* Suggestions Section - Question 13 */}
               <Section>
-                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                   13.  Avez-vous des suggestions ou des commentaires à propos du programme Erasmus ?
                 </Title>
                 <div className={classNames(
@@ -744,13 +744,13 @@ export default function ErasmusSurvey() {
           {responses.length > 0 && (
             <>
               <Section>
-                <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTertiary}>
                   Résultats du sondage Erasmus
                 </Title>
 
                 {/* Response Statistics */}
                 <div style={{ marginTop: '2rem' }}>
-                  <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                  <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                     Répartition des réponses ({responses.length} participant{responses.length > 1 ? 's' : ''})
                   </Title>
 
@@ -762,7 +762,7 @@ export default function ErasmusSurvey() {
                     borderRadius: '4px',
                     backgroundColor: '#f9f9f9'
                   }}>
-                    <Text className={flexStyles.hasTextTeriary} style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
+                    <Text className={flexStyles.hasTextTertiary} style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
                       Connaissez-vous Erasmus ?
                     </Text>
                     <div className={classNames(
@@ -797,7 +797,7 @@ export default function ErasmusSurvey() {
                     borderRadius: '4px',
                     backgroundColor: '#f9f9f9'
                   }}>
-                    <Text className={flexStyles.hasTextTeriary} style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
+                    <Text className={flexStyles.hasTextTertiary} style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
                       Intérêt pour une mobilité Erasmus
                     </Text>
                     <div className={classNames(
@@ -832,7 +832,7 @@ export default function ErasmusSurvey() {
                     borderRadius: '4px',
                     backgroundColor: '#f9f9f9'
                   }}>
-                    <Text className={flexStyles.hasTextTeriary} style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
+                    <Text className={flexStyles.hasTextTertiary} style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
                       Principales motivations
                     </Text>
                     {MOTIVATION_OPTIONS.map((motivation) => {
@@ -851,7 +851,7 @@ export default function ErasmusSurvey() {
               </Section>
 
               <Section>
-                <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTertiary}>
                   Participants au sondage
                 </Title>
                 {responses
@@ -863,7 +863,7 @@ export default function ErasmusSurvey() {
                   })
                   .map((response) => (
                     <div key={response.id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem', borderRadius: '4px' }}>
-                      <Text className={flexStyles.hasTextTeriary}>
+                      <Text className={flexStyles.hasTextTertiary}>
                         {response.email} - {response.childDetails}
                       </Text>
                       {response.session === sessionId && (

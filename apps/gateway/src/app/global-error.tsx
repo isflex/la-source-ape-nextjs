@@ -7,8 +7,8 @@ import dynamic from 'next/dynamic'
 import posthog from 'posthog-js'
 import classNames from 'classnames'
 import { View as FlexRootView } from '@flex-design-system/react-ts/client-sync-styled-direct/view'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
-import { default as stylesPage } from '@src/styles/scss/pages/layout.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
+import { default as stylesLayout } from '@src/styles/scss/pages/layout.module.scss'
 import { inlineStyles } from '@src/styles/inlineStyles'
 import '@src/styles/globals.css'
 
@@ -18,8 +18,8 @@ const FallBackEC2InstanceUnavailable = dynamic(() => import('@src/components/err
 
 const NavigationLayout = ({ isMobile }: { isMobile: boolean }) => {
   return (
-    <div className={classNames(stylesPage.navLayout)}>
-      <LogoLaSource className={stylesPage.navLogo} />
+    <div className={classNames(stylesLayout.navLayout)}>
+      <LogoLaSource className={stylesLayout.navLogo} />
       <Header mobileCheck={isMobile} />
     </div>
   )
@@ -57,7 +57,7 @@ export default function GlobalError({
     </head>
       <body style={{ ...inlineStyles.reset }}>
         <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped )} theme='light'>
-          <div id='gatewayLayout' className={classNames(stylesPage.gatewayLayout)}>
+          <div id='gatewayLayout' className={classNames(stylesLayout.gatewayLayout)}>
             <NavigationLayout isMobile={isMobile} />
             <FallBackEC2InstanceUnavailable reset={() => reset()} mobileCheck={isMobile} />
           </div>

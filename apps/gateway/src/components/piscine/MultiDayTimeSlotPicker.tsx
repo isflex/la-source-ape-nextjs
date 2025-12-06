@@ -7,7 +7,7 @@ import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box'
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 // import { Select, type SelectChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/select';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import {
   formatDayOfWeek,
   getTimeSlotOptions,
@@ -90,7 +90,7 @@ export default function MultiDayTimeSlotPicker({
                 id={`start-time-${daySlot.dayOfWeek}`}
                 value={daySlot.startTime || ''}
                 onChange={(e) => onTimeSlotChange(daySlot.dayOfWeek, 'startTime', e.target.value)}
-                className={flexStyles.isFullwith}
+                className={flexStyles.isFullwidth}
               >
                 <option value="">Sélectionner</option>
                 {timeOptions.map(opt => (

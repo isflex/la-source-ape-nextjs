@@ -6,7 +6,7 @@ import type { Schema } from '@amplify/data/resource';
 import { Checkbox } from '@flex-design-system/react-ts/client-sync-styled-direct/checkbox';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import type { DayTimeSlot } from '@src/lib/piscine-helpers';
 
 interface MultiDaySelectorProps {

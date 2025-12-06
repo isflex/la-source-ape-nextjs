@@ -31,7 +31,7 @@ import {
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
 import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 
 // Zod validation schema for Newsletter signup
 const NewsletterSignupSchema = z.object({
@@ -198,7 +198,7 @@ export default function NewsletterSignupForm() {
     return (
       <View>
         <div style={{ maxWidth: '920px', margin: '0 auto' }}>
-          <Box className={classNames(flexStyles.hasTextTeriary)}>
+          <Box className={classNames(flexStyles.hasTextTertiary)}>
             <Section>
               <InfoBlock>
                 <InfoBlockHeader status={InfoBlockStatus.SUCCESS} customIcon={IconName.UI_CHECK_CIRCLE}>
@@ -255,9 +255,9 @@ export default function NewsletterSignupForm() {
   return (
     <View>
       <div style={{ maxWidth: '920px', margin: '0 auto' }}>
-        <Box className={classNames(flexStyles.hasTextTeriary)}>
+        <Box className={classNames(flexStyles.hasTextTertiary)}>
           <Section>
-            <div className={flexStyles.hasTextTeriary} style={{ marginBottom: '3rem' }}>
+            <div className={flexStyles.hasTextTertiary} style={{ marginBottom: '3rem' }}>
               <div className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>
                 <Icon size={IconSize.LARGE} position={IconPosition.UP} name={IconName.MAIL} />
               </div>
@@ -281,7 +281,7 @@ export default function NewsletterSignupForm() {
               {isUnsubscribeMode ? (
                 // Unsubscribe form
                 <div>
-                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                     Adresse e-mail à désabonner *
                   </Title>
                   <div className={classNames(
@@ -308,7 +308,7 @@ export default function NewsletterSignupForm() {
                 <>
                   {/* Email Section */}
                   <div>
-                    <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                    <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                       1. Adresse e-mail *
                     </Title>
                     <div className={classNames(
@@ -335,7 +335,7 @@ export default function NewsletterSignupForm() {
 
                   {/* First Name Section */}
                   <div>
-                    <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                    <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                       2. Prénom *
                     </Title>
                     <div className={classNames(
@@ -362,7 +362,7 @@ export default function NewsletterSignupForm() {
 
                   {/* Last Name Section */}
                   <div>
-                    <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                    <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                       3. Nom de famille *
                     </Title>
                     <div className={classNames(

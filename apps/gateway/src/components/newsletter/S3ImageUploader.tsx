@@ -18,7 +18,7 @@ import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styl
 import { getUrl } from 'aws-amplify/storage'
 import { useAuthenticator } from '@aws-amplify/ui-react'
 import { fetchAuthSession } from 'aws-amplify/auth'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
 import classNames from 'classnames'
 
 export interface S3ImageData {
@@ -308,10 +308,10 @@ const S3ImageUploader: React.FC<S3ImageUploaderProps> = ({
       {/* Upload Area */}
       {!previewUrl && (
         <div className={classNames(
-          flexStyles.hasBorderDashed,
           flexStyles.hasTextCentered,
         )}
         style={{
+          borderStyle: 'dashed',
           borderColor: error ? '#e74c3c' : '#3498db',
           backgroundColor: error ? '#fdf2f2' : '#f8f9fa'
         }}>

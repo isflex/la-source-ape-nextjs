@@ -4,7 +4,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import {
   getTimeSlotOptions,
   // validateTimeInRange
@@ -56,7 +56,7 @@ export default function PiscineTimeSlotPicker({
 
         {/* Start Time */}
         <div>
-          <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+          <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
             Heure de début <span className={flexStyles.hasTextDanger}>*</span>
           </Title>
           <div className={classNames(
@@ -97,7 +97,7 @@ export default function PiscineTimeSlotPicker({
 
         {/* End Time */}
         <div>
-          <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+          <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
             Heure de fin <span className={flexStyles.hasTextDanger}>*</span>
           </Title>
           <div className={classNames(

@@ -20,7 +20,7 @@ import type {
 
 import classNames from 'classnames'
 import { Link as FlexLink } from '@flex-design-system/react-ts/client-sync-styled-direct/link'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
 import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss'
 
 const stores = getStores()

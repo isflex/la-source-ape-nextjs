@@ -18,6 +18,7 @@ export type Styles = {
   isCentered: string;
   isClippedToBottom: string;
   isElastic: string;
+  isFullheight: string;
   isFullwidth: string;
   isInfo: string;
   isInstit: string;

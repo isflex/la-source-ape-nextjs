@@ -10,7 +10,8 @@ import { useInView } from 'react-intersection-observer'
 
 // import classNames from 'classnames'
 import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+// import { default as flexStyles } from '@flex-design-system/framework'
+import { default as stylesGeneric } from '@src/styles/scss/flex/generic.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/footer.module.scss'
 import { default as stylesLogo } from '@src/styles/scss/pages/logo.module.scss'
 import { Banner } from '@src/components/footer/cookieConsentBanner'
@@ -36,7 +37,7 @@ const Footer: React.FC = () => {
         <small>
           <Link href={`/privacy_policy`} target='_blank' rel='privacy-policy'>politique de confidentialité</Link>
         </small>
-        <button className={flexStyles.btnStd} onClick={() => window.open('https://ci.flexiness.com', '_blank')}>
+        <button className={stylesGeneric.btnStd} onClick={() => window.open('https://ci.flexiness.com', '_blank')}>
           <LogoFlex ref={ref} className={stylesLogo.logoFooter} />
         </button>
         <small>

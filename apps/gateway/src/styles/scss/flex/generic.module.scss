@@ -1,0 +1,90 @@
+.dom-overlay-mode {
+  overflow-y: hidden;
+}
+
+.generic-layout-1 {
+  position: relative;
+  margin: 0;
+  background: linear-gradient(180deg, rgb(117 81 194), rgb(255 255 255));
+  width: 100vw;
+  min-height: 100vh;
+  min-width: #{var(--min-width-mob)};
+
+  &.mobile-mode {
+    @media screen and (max-width: '768px') and (orientation: portrait) {
+      margin-bottom: 3rem;
+    }
+
+    @media screen and (max-width: '768px') and (orientation: landscape) {
+      margin-bottom: 1rem;
+    }
+
+    .dom-overlay-mode & {
+      margin-bottom: 0;
+    }
+
+    // main [data-amplify-authenticator][data-variation="modal"] [data-amplify-container] {
+    //   height: 100%;
+    // }
+
+    // main [data-amplify-authenticator][data-variation="modal"] [data-amplify-container] [data-amplify-router] {
+    //   height: 100%;
+    // }
+  }
+
+  &:not(.mobile-mode) {
+    main [data-amplify-authenticator][data-variation="modal"] {
+      top: 4.2rem;
+      height: calc(100vh - 4.2rem);
+    }
+
+    main [data-amplify-authenticator][data-variation="modal"] [data-amplify-container] {
+      margin-top: 2.5rem;
+    }
+  }
+
+  main {
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    &.has-centered-content {
+      justify-content: center;
+      align-items: center;
+    }
+
+    &.has-space-between-content {
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &.full-page {
+      min-height: calc(100vh - 485px);
+    }
+  }
+
+  &.is-plain {
+    background: transparent;
+
+    main {
+      width: calc(100% - 0.8rem);
+      padding: 0 0.8rem 0 0;
+
+      > div {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.btn-std {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  background: transparent;
+  border: none;
+  margin: 0 1rem;
+  padding: 0.35rem 1rem 0;
+}

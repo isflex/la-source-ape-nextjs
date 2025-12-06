@@ -15,7 +15,7 @@ import {
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { Sticker } from '@flex-design-system/react-ts/client-sync-styled-direct/sticker';
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import {
   getContributorDisplayName,
   getContributionDisplayAmount,

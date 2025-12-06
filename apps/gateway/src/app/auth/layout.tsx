@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import {
   Text,
 } from '@src/components/flex-server-components'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
 
 export default async function AuthLayout() {
   const _nonce = (await headers()).get('x-nonce')

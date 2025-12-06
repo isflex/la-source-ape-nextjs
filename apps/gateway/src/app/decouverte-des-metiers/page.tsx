@@ -40,7 +40,7 @@ import {
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
 import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 
 // Mapping objects for availability options
 // SelectionSet for CareerDiscoveryResponse to ensure all fields are retrieved
@@ -380,17 +380,17 @@ export default function CareerDiscoveryForm() {
   return (
     <View>
       <div style={{ maxWidth: '920px', margin: '0 auto' }}>
-        <Box className={classNames(flexStyles.hasTextTeriary)}>
+        <Box className={classNames(flexStyles.hasTextTertiary)}>
           <Section>
-            <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTeriary}>
+            <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTertiary}>
               {activeTemplate?.title || "Découverte des métiers"}
             </Title>
             {activeTemplate?.subtitle ? (
-              <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary} style={{ marginTop: '0.5rem', marginBottom: '2rem' }}>
+              <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary} style={{ marginTop: '0.5rem', marginBottom: '2rem' }}>
                 {activeTemplate.subtitle}
               </Title>
             ) : (
-              <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary} style={{ marginTop: '0.5rem', marginBottom: '2rem' }}>
+              <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary} style={{ marginTop: '0.5rem', marginBottom: '2rem' }}>
                  Les inscriptions pour la découverte des métiers sont actuellement fermées.
               </Title>
             )}
@@ -399,7 +399,7 @@ export default function CareerDiscoveryForm() {
               <div id="career-discovery-form">
                 {/* Email Section */}
                 <div>
-                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                     1. Adresse e-mail *
                   </Title>
                   <div className={classNames(
@@ -426,7 +426,7 @@ export default function CareerDiscoveryForm() {
 
                 {/* First Name Section */}
                 <div>
-                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                     2. Prénom *
                   </Title>
                   <div className={classNames(
@@ -453,7 +453,7 @@ export default function CareerDiscoveryForm() {
 
                 {/* Last Name Section */}
                 <div>
-                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                     3. Nom de famille *
                   </Title>
                   <div className={classNames(
@@ -480,7 +480,7 @@ export default function CareerDiscoveryForm() {
 
                 {/* Children Classes Section */}
                 <div>
-                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                     4. Classe de vos enfants *
                   </Title>
                   <div className={classNames(
@@ -507,7 +507,7 @@ export default function CareerDiscoveryForm() {
 
                 {/* Phone Section */}
                 <div>
-                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                     5. Numéro de téléphone *
                   </Title>
                   <div className={classNames(
@@ -534,7 +534,7 @@ export default function CareerDiscoveryForm() {
 
                 {/* Availability Section */}
                 <div>
-                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                     6. Disponibilités * (Plusieurs choix possibles)
                   </Title>
                   <div className={classNames(
@@ -569,7 +569,7 @@ export default function CareerDiscoveryForm() {
 
                 {/* Organization Section */}
                 <div>
-                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                     7. L&apos;organisation pour laquelle vous travaillez
                   </Title>
                   <div className={classNames(
@@ -590,7 +590,7 @@ export default function CareerDiscoveryForm() {
 
                 {/* Job Description Section */}
                 <div>
-                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                     8. Descriptif rapide de votre métier *
                   </Title>
                   <div className={classNames(
@@ -617,7 +617,7 @@ export default function CareerDiscoveryForm() {
 
                 {/* Company Sector Section */}
                 <div>
-                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                  <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                     9. Secteur de votre société
                   </Title>
                   <div className={classNames(
@@ -690,7 +690,7 @@ export default function CareerDiscoveryForm() {
           {/* Display existing responses for current active template */}
           {responses.length > 0 && activeTemplate && (
             <Section>
-              <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTeriary}>
+              <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTertiary}>
                 Résultats pour {activeTemplate.year}
               </Title>
 
@@ -701,7 +701,7 @@ export default function CareerDiscoveryForm() {
                 flexStyles.isFullheight,
                 flexStyles.isFullwidth,
               )} style={{ marginTop: '2rem', marginBottom: '1rem' }}>
-                <Title level={TitleLevel.LEVEL4} className={classNames(flexStyles.hasTextTeriary, flexStyles.isMarginless)}>
+                <Title level={TitleLevel.LEVEL4} className={classNames(flexStyles.hasTextTertiary, flexStyles.isMarginless)}>
                   Nombre de participants ({responses.filter(r => r.templateYear === activeTemplate.year).length})
                 </Title>
                 {/* Export button for current year */}
@@ -726,7 +726,7 @@ export default function CareerDiscoveryForm() {
                   borderRadius: '4px',
                   backgroundColor: '#f9f9f9'
                 }}>
-                <Text className={flexStyles.hasTextTeriary} style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
+                <Text className={flexStyles.hasTextTertiary} style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
                   Répartition des disponibilités
                 </Text>
                 <div className={classNames(
@@ -761,7 +761,7 @@ export default function CareerDiscoveryForm() {
 
               {showParticpantsRecents && isAuthenticated && (
                 <>
-                  <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                  <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                     Participants récents
                   </Title>
                   {responses
@@ -775,7 +775,7 @@ export default function CareerDiscoveryForm() {
                     .slice(0, 10)
                     .map((response) => (
                       <div key={response.id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem', borderRadius: '4px' }}>
-                        <Text className={flexStyles.hasTextTeriary}>
+                        <Text className={flexStyles.hasTextTertiary}>
                           <strong>{response.firstName} {response.lastName}</strong> - {response.childrenClasses} - {response.jobDescription}<br/>
                           <strong>Disponibilités :</strong> {response.availability.join(', ')}
                         </Text>
@@ -941,7 +941,7 @@ function AdminInterface({
 
   return (
     <Section>
-      <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTeriary}>
+      <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTertiary}>
         Administration des formulaires
       </Title>
 

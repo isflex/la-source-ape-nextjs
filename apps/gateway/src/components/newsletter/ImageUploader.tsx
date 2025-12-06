@@ -14,7 +14,7 @@ import {
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
 import classNames from 'classnames'
 
 export interface ImageData {
@@ -212,10 +212,10 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
       {/* Upload Area */}
       {!previewUrl && (
         <div className={classNames(
-          flexStyles.hasBorderDashed,
           flexStyles.hasTextCentered,
         )}
         style={{
+          borderStyle: 'dashed',
           borderColor: error ? '#e74c3c' : '#3498db',
           backgroundColor: error ? '#fdf2f2' : '#f8f9fa'
         }}>

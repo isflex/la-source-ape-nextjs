@@ -10,7 +10,7 @@ import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 
 export default function SondageLanding() {
   const router = useRouter();
@@ -41,10 +41,10 @@ export default function SondageLanding() {
 
   return (
     <View>
-      <Box className={classNames(flexStyles.hasTextTeriary)}>
+      <Box className={classNames(flexStyles.hasTextTertiary)}>
         <div style={{ maxWidth: '920px' }}>
           <Section>
-            <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTeriary}>
+            <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTertiary}>
               Sélectionnez le sondage auquel vous souhaitez participer :
             </Title>
           </Section>

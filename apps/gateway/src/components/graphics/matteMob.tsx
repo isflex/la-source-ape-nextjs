@@ -1,7 +1,7 @@
 import React from 'react'
 // import { observer } from 'mobx-react-lite'
 // import classNames from 'classnames';
-// import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+// import { default as flexStyles } from '@flex-design-system/framework';
 // import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss';
 
 // https://gist.github.com/mikebridge/b1d4f195dfa7b6fc8f0ae31682c8fcf8

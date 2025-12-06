@@ -11,7 +11,7 @@ import { useIsAdmin } from '@src/hooks/useIsAdmin'
 import type { RoutesMetaConfig } from '@src/types/routes'
 
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
 import { default as stylesPage } from '@src/styles/scss/pages/navbar.module.scss'
 
 const NavbarApp = ({mobileCheck} : {mobileCheck: boolean} ) => {

@@ -18,7 +18,7 @@ import {
   InfoBlockContent,
   InfoBlockHeader
 } from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 
 import MultiDaySelector from './MultiDaySelector';
 import MultiDayTimeSlotPicker from './MultiDayTimeSlotPicker';
@@ -615,7 +615,7 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
 
               {/* School Level */}
               <div>
-                <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                   Niveau scolaire <span className={flexStyles.hasTextDanger}>*</span>
                 </Title>
                 <div style={{ marginTop: '1rem' }}>
@@ -652,7 +652,7 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
 
               {/* Teacher Name */}
               <div>
-                <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                   Nom de l&apos;enseignant <span className={flexStyles.hasTextDanger}>*</span>
                 </Title>
                 <div style={{ marginTop: '1rem' }}>
@@ -685,7 +685,7 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
 
             {/* Title Input */}
             <div>
-              <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+              <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                 Titre du planning <span className={flexStyles.hasTextDanger}>*</span>
               </Title>
               <div style={{ marginTop: '1rem' }}>

@@ -26,7 +26,7 @@ import {
 import {
   IconName
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import PiscineCandidatTable from '@src/components/piscine/PiscineCandidatTable';
 import { formatDayOfWeek, formatSchoolLevel } from '@src/lib/piscine-helpers';
 import AuthBanner from '@src/components/auth/AuthBanner';
@@ -179,7 +179,7 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
   if (error || !piscineForm) {
     return (
       <Container>
-        <Box className={classNames(flexStyles.hasTextTeriary)}>
+        <Box className={classNames(flexStyles.hasTextTertiary)}>
           <Section>
             <Title level={TitleLevel.LEVEL2} className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>
               {error || 'Planning non trouvé'}

@@ -15,7 +15,7 @@ import {
   InfoBlockHeader,
   InfoBlockStatus
 } from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
-// import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+// import { default as flexStyles } from '@flex-design-system/framework'
 
 // async function actionPageInfo() {
 //   'use server'

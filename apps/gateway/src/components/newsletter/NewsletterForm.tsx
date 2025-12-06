@@ -22,7 +22,7 @@ import {
   IconPosition,
   IconName
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import ContentBlockForm, { ContentBlock, ContentBlockType } from './ContentBlockForm';
 import { NewsletterSchema, type NewsletterFormData } from '@src/lib/newsletter-helpers';
 import NewsletterDatePicker from './NewsletterDatePicker';
@@ -251,7 +251,7 @@ export default function NewsletterForm({ onSubmit, onCancel, loading = false, in
 
             {/* Subject */}
             <div>
-              <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+              <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                 Sujet <span className={flexStyles.hasTextDanger}>*</span>
               </Title>
               <div className={classNames(
@@ -294,7 +294,7 @@ export default function NewsletterForm({ onSubmit, onCancel, loading = false, in
             )}>
               <div>
                 {/* Event Date */}
-                <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                   Date de l&apos;événement <span className={flexStyles.hasTextDanger}>*</span>
                 </Title>
                 <div className={classNames(
@@ -328,7 +328,7 @@ export default function NewsletterForm({ onSubmit, onCancel, loading = false, in
 
               <div>
                 {/* Publication Date */}
-                <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                   Date de publication <span className={flexStyles.hasTextDanger}>*</span>
                 </Title>
                 <div className={classNames(
@@ -366,7 +366,7 @@ export default function NewsletterForm({ onSubmit, onCancel, loading = false, in
 
             {/* Optional Title */}
             <div>
-              <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+              <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                 Titre en tête (optionnel)
               </Title>
               <div className={classNames(
@@ -387,7 +387,7 @@ export default function NewsletterForm({ onSubmit, onCancel, loading = false, in
 
             {/* Optional Greetings */}
             <div>
-              <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTeriary}>
+              <Title level={TitleLevel.LEVEL5} className={flexStyles.hasTextTertiary}>
                 Message d&apos;accueil (optionnel)
               </Title>
               <div className={classNames(

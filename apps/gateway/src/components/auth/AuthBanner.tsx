@@ -7,7 +7,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 import classNames from 'classnames';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 
 
 interface AuthBannerProps {

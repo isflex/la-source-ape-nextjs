@@ -23,7 +23,7 @@ import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-s
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import PiscineCandidatRow from './PiscineCandidatRow';
 import DroppableDateSlot from './DroppableDateSlot';
 import DraggableCandidatRow from './DraggableCandidatRow';
@@ -471,8 +471,8 @@ export default function PiscineCandidatTable({
         <div className={classNames(
           flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
           flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
-          flexStyles.isJustifyContentBetween,
           flexStyles.isAlignItemsCenter,
+          flexStyles.isJustifyContentSpaceBetween,
           flexStyles.isFullwidth,
           )} style={{ margin: '0 0 1.5rem'}}>
 
@@ -565,9 +565,9 @@ export default function PiscineCandidatTable({
                   flexStyles.isGridColSpanFull,
                   flexStyles.isGridColSpan5Tablet,
                   flexStyles.isGridColSpan4Desktop,
-                  flexStyles.isAlignSelfFlexCenter,
+                  flexStyles.isAlignSelfCenter,
                   // flexStyles.isJustifyContentEnd,
-                  flexStyles.isJustifyContentStretch,
+                  flexStyles.isGridJustifyStretch,
                   flexStyles.isFullwidth,
                   )}>
                   <Button

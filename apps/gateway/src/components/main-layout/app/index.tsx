@@ -6,7 +6,7 @@ import { headers } from 'next/headers'
 import { isMobile } from '@src/utils'
 
 import classNames from 'classnames'
-import { default as stylesPage } from '@src/styles/scss/pages/layout.module.scss'
+import { default as stylesLayout } from '@src/styles/scss/pages/layout.module.scss'
 
 // import {
 //   FlexGlobalThis
@@ -21,9 +21,9 @@ const Footer = dynamic(() => import('@src/components/footer/app'), { ssr: true }
 
 const NavigationLayout = ({mobileCheck} : { mobileCheck: boolean }) => {
   return (
-    <div className={classNames(stylesPage.navLayout, mobileCheck && stylesPage.forceMobile)}>
-      {/* <LogoLaSource className={stylesPage.navLogo} /> */}
-      <LogoAPE isNavLogo={true} className={classNames(stylesPage.navLogo, stylesPage.navLogoApe)} />
+    <div className={classNames(stylesLayout.navLayout, mobileCheck && stylesLayout.forceMobile)}>
+      {/* <LogoLaSource className={stylesLayout.navLogo} /> */}
+      <LogoAPE isNavLogo={true} className={classNames(stylesLayout.navLogo, stylesLayout.navLogoApe)} />
       <Header mobileCheck={mobileCheck} />
     </div>
   )
@@ -34,7 +34,7 @@ const MainLayout = async ({children }: { children: React.ReactNode }) => {
   const mobileCheck = isMobile(userAgent)
 
   return (
-    <div id='gatewayLayout' className={classNames(stylesPage.gatewayLayout)}>
+    <div id='gatewayLayout' className={classNames(stylesLayout.gatewayLayout)}>
       <NavigationLayout mobileCheck={mobileCheck} />
       { children }
       <Footer />

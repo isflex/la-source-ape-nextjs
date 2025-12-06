@@ -22,7 +22,7 @@ import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import CustomGoogleButton from '@src/components/auth/CustomGoogleButton';
 
 // Configure translations

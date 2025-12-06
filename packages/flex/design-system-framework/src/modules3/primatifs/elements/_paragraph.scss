@@ -51,6 +51,18 @@
         &.has-inherited-color {
             color: inherit;
         }
+
+        &.has-text-small {
+            font-size: variables.$size-small;
+        }
+
+        &.has-text-medium {
+            font-size: variables.$size-medium;
+        }
+
+        &.has-text-large {
+            font-size: variables.$size-large;
+        }
     }
 
     &.is-wrapped {

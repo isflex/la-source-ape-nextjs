@@ -7,7 +7,7 @@ import { IconName } from '@flex-design-system/react-ts/client-sync-styled-direct
 import { fr } from 'date-fns/locale'
 import { format, parseISO } from 'date-fns'
 import classNames from 'classnames'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
 
 // Import react-datepicker CSS
 import 'react-datepicker/dist/react-datepicker.css'

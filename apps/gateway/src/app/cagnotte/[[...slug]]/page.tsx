@@ -21,7 +21,7 @@ import {
 } from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
 import { IconName } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { Sticker } from '@flex-design-system/react-ts/client-sync-styled-direct/sticker';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import {
   formatCurrency,
   formatDeadline,

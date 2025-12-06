@@ -8,7 +8,7 @@ import { Select, type SelectChangeEvent } from '@flex-design-system/react-ts/cli
 import { Textarea, type TextareaChangeEvent } from '@flex-design-system/react-ts/client-sync-styled-direct/textarea';
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import { type ContentBlockData } from '@src/lib/newsletter-helpers';
 import S3ImageUploader, { type S3ImageData } from './S3ImageUploader';
 import type { Schema } from '@amplify/data/resource';
@@ -138,11 +138,11 @@ export default function ContentBlockForm({
   return (
     <Box
       data-testid={`content-block-${index}`}
-      className={classNames(flexStyles.hasBorderGrey, flexStyles.hasBackgroundLightGrey)}
+      className={classNames(flexStyles.isFlat, flexStyles.hasBackgroundGreyLight)}
     >
       {/* Header with move buttons and remove */}
-      <Box className={classNames(flexStyles.isFlexDirectionRow, flexStyles.isJustifyContentBetween, flexStyles.isAlignItemsCenter)}>
-        <div className={flexStyles.hasTextBold}>
+      <Box className={classNames(flexStyles.isFlexDirectionRow, flexStyles.isJustifyContentSpaceBetween, flexStyles.isAlignItemsCenter)}>
+        <div className={flexStyles.hasTextWeightBold}>
           Bloc de contenu #{index + 1}
         </div>
         <div className={flexStyles.isFlexDirectionRow}>
@@ -173,7 +173,6 @@ export default function ContentBlockForm({
             variant={VariantState.DANGER}
             onClick={() => onRemove(index)}
             data-testid={`remove-block-${index}`}
-            className={flexStyles.hasTextSmall}
             title="Supprimer ce bloc"
           >
             ✕

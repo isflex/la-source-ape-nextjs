@@ -8,7 +8,7 @@ const stores = getStores()
 import classNames from 'classnames'
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
 import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss'
 
 const TitleContent = ({mobileCheck}) => {

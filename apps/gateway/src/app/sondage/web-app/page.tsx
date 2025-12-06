@@ -38,7 +38,7 @@ import { Select } from '@flex-design-system/react-ts/client-sync-styled-direct/s
 import { Textarea } from '@flex-design-system/react-ts/client-sync-styled-direct/textarea';
 import { Modal } from '@flex-design-system/react-ts/client-sync-styled-direct/modal';
 import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
 
 // Zod validation schema
 const StudentSchema = z.object({
@@ -337,10 +337,10 @@ export default function SondageApp() {
 
   return (
     <View>
-      <Box className={classNames(flexStyles.hasTextTeriary)}>
+      <Box className={classNames(flexStyles.hasTextTertiary)}>
         <div style={{ maxWidth: '920px' }}>
           <Section>
-            <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTeriary}>
+            <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTertiary}>
               {showSondageForm
                 ? `Merci de remplir ce sondage concernant l'accès à l'application ${`\u00AB`} ${process.env.NEXT_PUBLIC_APP_TITLE} ${`\u00BB`}.`
                 : `Participer au sondage concernant l'accès à l'application ${`\u00AB`} ${process.env.NEXT_PUBLIC_APP_TITLE} ${`\u00BB`}.`
@@ -361,7 +361,7 @@ export default function SondageApp() {
             <div id="sondage-form">
             {/* Questions Section */}
             <Section>
-              <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTeriary}>
+              <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTertiary}>
                 Questions (toutes obligatoires)
               </Title>
               {formData.questions.map((question, index) => (
@@ -375,7 +375,7 @@ export default function SondageApp() {
                       flexStyles.isGridColSpan12,
                     )} style={{ marginBottom: '1rem' }}>
                       <div className={classNames(
-                        flexStyles.hasTextTeriary,
+                        flexStyles.hasTextTertiary,
                         flexStyles.isFlex, flexStyles.isFlexDirectionRow, flexStyles.isFlexWrapNowrap,
                         flexStyles.isAlignItemsBaseline,
                       )}>
@@ -424,7 +424,7 @@ export default function SondageApp() {
 
             {/* Parent Information */}
             <Section>
-              <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTeriary}>
+              <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTertiary}>
                 Informations Parent
               </Title>
 
@@ -504,7 +504,7 @@ export default function SondageApp() {
                 flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
                 flexStyles.isGridItemsCenter,
               )} style={{ marginBottom: '1rem' }}>
-                <Title level={TitleLevel.LEVEL3} className={classNames(flexStyles.hasTextTeriary, flexStyles.isMarginless)}>
+                <Title level={TitleLevel.LEVEL3} className={classNames(flexStyles.hasTextTertiary, flexStyles.isMarginless)}>
                   Élèves (au moins un requis)
                 </Title>
                 <div>
@@ -520,7 +520,7 @@ export default function SondageApp() {
               </div>
 
               {formData.students.map((student, index) => (
-                <Box key={index} className={classNames(flexStyles.hasBorderInfo)}>
+                <Box key={index} className={classNames(flexStyles.isFlat, flexStyles.isFlatSecondary)}>
                   <div className={classNames(
                     flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
                     flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
@@ -620,7 +620,7 @@ export default function SondageApp() {
 
             {/* Comment Section */}
             <Section>
-              <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTeriary}>
+              <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTertiary}>
                 Commentaire (optionnel)
               </Title>
 
@@ -685,13 +685,13 @@ export default function SondageApp() {
           {sondages.length > 0 && (
             <>
               <Section>
-                <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTertiary}>
                   Résultat des sondages soumis
                 </Title>
 
                 {/* Results Tally */}
                 <div style={{ marginTop: '2rem' }}>
-                  <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTeriary}>
+                  <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
                     Répartition des réponses par question
                   </Title>
                   {PREDEFINED_QUESTIONS.map((questionElement, questionIndex) => {
@@ -716,7 +716,7 @@ export default function SondageApp() {
                         borderRadius: '4px',
                         backgroundColor: '#f9f9f9'
                       }}>
-                        <Text className={flexStyles.hasTextTeriary} style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
+                        <Text className={flexStyles.hasTextTertiary} style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
                           Question {questionIndex + 1}: {questionElement}
                         </Text>
 
@@ -764,7 +764,7 @@ export default function SondageApp() {
                 </div>
               </Section>
               <Section>
-                <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTeriary}>
+                <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTertiary}>
                   Participants au sondage
                 </Title>
                 {sondages
@@ -776,7 +776,7 @@ export default function SondageApp() {
                   })
                   .map((sondage) => (
                     <div key={sondage.id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem', borderRadius: '4px' }}>
-                    <Text className={flexStyles.hasTextTeriary}>
+                    <Text className={flexStyles.hasTextTertiary}>
                       {sondage.firstname} {sondage.surname} - {sondage.email || "Pas d'email"}
                     </Text>
                       {sondage.session === sessionId && (

@@ -10,7 +10,8 @@ import {
   Title,
 } from '@src/components/flex-server-components'
 import { TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
+import { default as stylesGeneric } from '@src/styles/scss/flex/generic.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 
@@ -38,7 +39,7 @@ export default async function NewsletterLayout({
 
   return (
     <div className={classNames(
-      flexStyles.genericLayout1,
+      stylesGeneric.genericLayout1,
     )}>
       <div style={{
         height: 'auto',

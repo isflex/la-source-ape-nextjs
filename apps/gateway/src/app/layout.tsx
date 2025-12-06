@@ -31,7 +31,7 @@ import classNames from 'classnames'
 import {
   View as FlexRootView,
 } from '@src/components/flex-server-components'
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss'
+import { default as flexStyles } from '@flex-design-system/framework'
 import { inlineStyles } from '@src/styles/inlineStyles'
 import '@src/styles/globals.css'
 import '@aws-amplify/ui-react/styles.css'

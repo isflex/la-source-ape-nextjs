@@ -42,7 +42,7 @@ import {
   StepperStepMarkup,
 } from '@flex-design-system/react-ts/client-sync-styled-direct/stepper';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import PiscineForm from '@src/components/piscine/PiscineForm';
 import AuthBanner from '@src/components/auth/AuthBanner';
 
@@ -344,7 +344,7 @@ export default function PiscineCreerPage() {
                                 flexStyles.isFullwidth,
                               )}>
                               <Title level={TitleLevel.LEVEL7}>{form.title}</Title>
-                              <div className={classNames(
+                              <Text className={classNames(
                                   flexStyles.help, flexStyles.isInfo, flexStyles.hasTextSmall,
                                   flexStyles.isFullwidth,
                                   flexStyles.isGridDisplayGrid,
@@ -356,7 +356,7 @@ export default function PiscineCreerPage() {
                                   position={IconPosition.LEFT}
                                   name={IconName.UI_INFO_CIRCLE}
                                 />
-                              </div>
+                              </Text>
                             </div>
 
                           </Box>

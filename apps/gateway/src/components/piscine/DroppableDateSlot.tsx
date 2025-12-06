@@ -5,7 +5,7 @@ import React from 'react';
 import { useDroppable } from '@dnd-kit/core';
 // import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
-// import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+// import { default as flexStyles } from '@flex-design-system/framework';
 
 interface DroppableDateSlotProps {
   id: string;

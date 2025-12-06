@@ -46,7 +46,7 @@ import {
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { Sticker } from '@flex-design-system/react-ts/client-sync-styled-direct/sticker';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
-import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+import { default as flexStyles } from '@flex-design-system/framework';
 import JackpotForm from '@src/components/cagnotte/JackpotForm';
 import AuthBanner from '@src/components/auth/AuthBanner';
 
@@ -401,7 +401,7 @@ export default function CagnotteCreerPage() {
                                 )}>
                                 <Title level={TitleLevel.LEVEL7}>{form.title}</Title>
                                 <div className={classNames(
-                                    flexStyles.help, flexStyles.isInfo, flexStyles.hasTextSmall,
+                                    flexStyles.help, flexStyles.isInfo,
                                     flexStyles.isFullwidth,
                                     flexStyles.isGridDisplayGrid,
                                     flexStyles.isGridPlaceItemsStart, flexStyles.isGridPlaceItemsEndTablet,

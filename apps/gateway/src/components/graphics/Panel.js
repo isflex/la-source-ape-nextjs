@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion'
 // import { motion, stagger } from 'motion'
 // import classNames from 'classnames';
-// import { default as flexStyles } from '@src/styles/scss/flex/all.module.scss';
+// import { default as flexStyles } from '@flex-design-system/framework';
 // import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss';
 
 const styles = {

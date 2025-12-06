@@ -1,7 +1,6 @@
 export type Styles = {
   control: string;
   fa: string;
-  flexinessRoot: string;
   isActive: string;
   isAdmin: string;
   isCobalt: string;
