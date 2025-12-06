@@ -1,13 +1,31 @@
 #!/bin/bash
 
 run_local () {
-  echo "//////////////////////// Running local start ////////////////////////";
-  concurrently -k -n BUILD,HTTP -s first 'pnpm --filter=gateway buildGateway' 'pnpm start:client';
+  if [[ ${FLEX_GATEWAY_BUILD_STANDALONE} = 'false' ]]; then
+
+  echo "//////////////////////// Running local gateway build ////////////////////////";
+  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build;
+
+  else
+
+  echo "//////////////////////// Running local gateway build standalone ////////////////////////";
+  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build && node ./copy-assets.mjs;
+
+  fi
 }
 
 run_ci () {
-  echo "//////////////////////// Running CI start ////////////////////////";
-  concurrently -k -n BUILD,HTTP -s first 'pnpm --filter=gateway buildGateway' 'pnpm start:client';
+  if [[ ${FLEX_GATEWAY_BUILD_STANDALONE} = 'false' ]]; then
+
+  echo "//////////////////////// Running CI gateway build ////////////////////////";
+  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build;
+
+  else
+
+  echo "//////////////////////// Running CI gateway build standalone ////////////////////////";
+  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build && node ./copy-assets.mjs;
+
+  fi
 }
 
 if [[ ! -v CI ]]; then

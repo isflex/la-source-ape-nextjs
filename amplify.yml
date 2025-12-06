@@ -31,6 +31,8 @@ applications:
             - pnpm ampx info
         build:
           commands:
+            # Create symlink to root pnpm-lock.yaml for monorepo support
+            - ln -sf ../../pnpm-lock.yaml apps/gateway/pnpm-lock.yaml
             - cd apps/gateway
             # # Check current AWS identity
             # - aws sts get-caller-identity
@@ -85,7 +87,7 @@ applications:
         baseDirectory: apps/gateway/.next
         files:
           - '**/*'
-        # Nextjs standalone mode
+        # # Nextjs standalone mode
         # baseDirectory: apps/gateway
         # files:
         #   - '.next/standalone/**/*'
