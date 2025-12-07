@@ -526,9 +526,6 @@ importers:
       chokidar:
         specifier: ^3.5.3
         version: 3.6.0
-      esbuild:
-        specifier: 0.27.0
-        version: 0.27.0
       glob:
         specifier: 10.3.12
         version: 10.3.12
