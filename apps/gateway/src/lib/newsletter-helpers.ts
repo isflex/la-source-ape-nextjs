@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import DOMPurify from 'dompurify'
+import DOMPurify from 'isomorphic-dompurify';
 import type { Schema } from '@amplify/data/resource'
 import { debug } from '@flexiness/domain-utils'
 

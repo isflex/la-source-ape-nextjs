@@ -5,7 +5,7 @@
 import React from 'react';
 import { debug } from '@flexiness/domain-utils';
 import { z } from 'zod';
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 
 import { generateClient } from 'aws-amplify/data';

@@ -48,7 +48,7 @@ applications:
             # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
       cache:
         paths:
-          - 'node_modules/**/*'
+          # - 'node_modules/**/*'
     frontend:
       buildPath: /
       phases:
@@ -99,4 +99,4 @@ applications:
       cache:
         paths:
           - 'apps/gateway/.next/cache/**/*'
-          - 'node_modules/**/*'
+          # - 'node_modules/**/*'

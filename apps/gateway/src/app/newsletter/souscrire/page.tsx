@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { z } from 'zod';
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';

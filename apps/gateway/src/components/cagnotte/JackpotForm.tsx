@@ -28,7 +28,7 @@ import {
   getSepaConfig,
   calculateSepaCutoffDate
 } from '@src/lib/cagnotte-helpers';
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 import NewsletterDatePicker from '@src/components/newsletter/NewsletterDatePicker';
 import { debug } from '@flexiness/domain-utils';
 

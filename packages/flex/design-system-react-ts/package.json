@@ -108,7 +108,7 @@
     "regex-escape": "3.4.10",
     "serve-index": "1.9.1",
     "serve-static": "1.15.0",
-    "tslib": "^2.4.0",
+    "tslib": "^2.8.1",
     "tsx": "^4.7.3",
     "vue-tsc": "^2.0.26"
   },

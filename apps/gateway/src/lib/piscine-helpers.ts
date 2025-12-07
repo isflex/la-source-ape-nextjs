@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 import { format, parse } from 'date-fns';
 import type { Schema } from '@amplify/data/resource';
