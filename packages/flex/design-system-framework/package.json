@@ -77,7 +77,6 @@
     "@abcaustralia/postcss-to-camel-case": "0.0.0",
     "@dotenvx/dotenvx": "1.44.0",
     "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
-    "@rushstack/eslint-patch": "1.10.3",
     "@vusion/webfonts-generator": "0.8.0",
     "autoprefixer": "^10.4.14",
     "bulma": "1.0.3",
