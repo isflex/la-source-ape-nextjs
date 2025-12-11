@@ -28,11 +28,13 @@ const client = generateClient<Schema>();
 
 interface JackpotContributionTableProps {
   jackpotFormId: string;
+  jackpotFormStatus: string;
   isCreatorMode: boolean;
 }
 
 export default function JackpotContributionTable({
   jackpotFormId,
+  jackpotFormStatus,
   isCreatorMode
 }: JackpotContributionTableProps) {
   const [contributions, setContributions] = useState<JackpotContributionData[]>([]);
@@ -69,7 +71,7 @@ export default function JackpotContributionTable({
     return <Text>Chargement des contributions...</Text>;
   }
 
-  if (contributions.length === 0) {
+  if (jackpotFormStatus === 'ACTIVE' && contributions.length === 0) {
     return (
       <Text style={{ fontStyle: 'italic', opacity: 0.7 }}>
         Aucune contribution pour le moment. Soyez le premier à contribuer !
@@ -109,152 +111,209 @@ export default function JackpotContributionTable({
   };
 
   return (
-    <div style={{ overflowX: 'auto' }}>
-      <Table className={classNames(flexStyles.isFullwidth)}>
-        <TableHead>
-          <TableTr>
-            <TableTh className={flexStyles.isHiddenMobile}>
-              <div style={{ padding: '0 0.5rem' }}>Contributeur</div>
-            </TableTh>
-            <TableTh className={flexStyles.isHiddenMobile}>
-              <div style={{ padding: '0 0.5rem' }}>Montant</div>
-            </TableTh>
-            <TableTh className={flexStyles.isHiddenMobile}>
-              <div style={{ padding: '0 0.5rem' }}>Message</div>
-            </TableTh>
-            <TableTh className={flexStyles.isHiddenMobile}>
-              <div style={{ padding: '0 0.5rem' }}>Date</div>
-            </TableTh>
-            {isCreatorMode && (
-              <>
-                <TableTh className={flexStyles.isHiddenMobile}>
-                  <div style={{ padding: '0 0.5rem' }}>Email</div>
-                </TableTh>
-                <TableTh className={flexStyles.isHiddenMobile}>
-                  <div style={{ padding: '0 0.5rem' }}>Statut</div>
-                </TableTh>
-              </>
-            )}
-          </TableTr>
-        </TableHead>
-        <TableBody>
-          {displayContributions.map((contribution) => (
-            <TableTr
-              key={contribution.id}
-              className={classNames(
-                flexStyles.isFlexMobile,
-                flexStyles.isFlexDirectionColumn,
-                flexStyles.isFullwidthMobile,
-                flexStyles.isTableRowTablet,
-                flexStyles.isColumnSpanAllTablet
-              )}
-            >
-              {/* Contributor Name */}
-              <TableTd className={classNames(
-                flexStyles.isFlexMobile,
-                flexStyles.isAlignItemsCenter,
-                flexStyles.isJustifyContentSpaceBetween,
-                flexStyles.isDataCellResponsiveHelper,
-              )}>
-                <div className={classNames(
-                  flexStyles.isHiddenTablet,
-                  flexStyles.isFullwidth,
-                )} style={{ backgroundColor: 'var(--flex-table-head-fill)' }}>Contributeur</div>
-                <div style={{ padding: '0 0.5rem' }}>
-                  {getContributorDisplayName(contribution)}
-                </div>
-              </TableTd>
-
-              {/* Amount */}
-              <TableTd className={classNames(
-                flexStyles.isFlexMobile,
-                flexStyles.isAlignItemsCenter,
-                flexStyles.isJustifyContentSpaceBetween,
-                flexStyles.isDataCellResponsiveHelper,
-              )}>
-                <div className={classNames(
-                  flexStyles.isHiddenTablet,
-                  flexStyles.isFullwidth,
-                )} style={{ backgroundColor: 'var(--flex-table-head-fill)' }}>Montant</div>
-                <div style={{ padding: '0 0.5rem' }}>
-                  <strong>{getContributionDisplayAmount(contribution)}</strong>
-                </div>
-              </TableTd>
-
-              {/* Message */}
-              <TableTd className={classNames(
-                flexStyles.isFlexMobile,
-                flexStyles.isAlignItemsCenter,
-                flexStyles.isJustifyContentSpaceBetween,
-                flexStyles.isDataCellResponsiveHelper,
-              )}>
-                <div className={classNames(
-                  flexStyles.isHiddenTablet,
-                  flexStyles.isFullwidth,
-                )} style={{ backgroundColor: 'var(--flex-table-head-fill)' }}>Message</div>
-                <div style={{ padding: '0 0.5rem', fontStyle: contribution.contributorMessage ? 'normal' : 'italic', opacity: contribution.contributorMessage ? 1 : 0.7 }}>
-                  {contribution.contributorMessage || 'Aucun message'}
-                </div>
-              </TableTd>
-
-              {/* Date */}
-              <TableTd className={classNames(
-                flexStyles.isFlexMobile,
-                flexStyles.isAlignItemsCenter,
-                flexStyles.isJustifyContentSpaceBetween,
-                flexStyles.isDataCellResponsiveHelper,
-              )}>
-                <div className={classNames(
-                  flexStyles.isHiddenTablet,
-                  flexStyles.isFullwidth,
-                )} style={{ backgroundColor: 'var(--flex-table-head-fill)' }}>Date</div>
-                <div style={{ padding: '0 0.5rem', fontSize: '0.875rem' }}>
-                  {formatDate(contribution.paidAt || contribution.createdAt)}
-                </div>
-              </TableTd>
-
-              {/* Creator-only columns */}
+    <>
+      {jackpotFormStatus === 'DRAFT' && (
+        <Text style={{ fontStyle: 'italic', opacity: 0.7, marginBottom: '1rem' }}>
+          Les contributions ne sont pas encore ouvertes pour le moment !
+        </Text>
+      )}
+      {/* equivalent to isClosed */}
+      {/* {(jackpotFormStatus === 'CLOSED' || jackpotFormStatus === 'PAID_OUT') && (
+        <Text style={{ fontStyle: 'italic', opacity: 0.7, marginBottom: '1rem' }}>
+          Les contributions sont fermées. La cagnotte est clos !
+        </Text>
+      )} */}
+      <div style={{ overflowX: 'auto' }}>
+        <Table className={classNames(flexStyles.isFullwidth)}>
+          <TableHead>
+            <TableTr>
+              <TableTh className={flexStyles.isHiddenMobile}>
+                <div style={{ padding: '0 0.5rem' }}>Contributeur</div>
+              </TableTh>
+              <TableTh className={flexStyles.isHiddenMobile}>
+                <div style={{ padding: '0 0.5rem' }}>Montant</div>
+              </TableTh>
+              <TableTh className={flexStyles.isHiddenMobile}>
+                <div style={{ padding: '0 0.5rem' }}>Message</div>
+              </TableTh>
+              <TableTh className={flexStyles.isHiddenMobile}>
+                <div style={{ padding: '0 0.5rem' }}>Date</div>
+              </TableTh>
               {isCreatorMode && (
                 <>
-                  {/* Email */}
-                  <TableTd className={classNames(
-                    flexStyles.isFlexMobile,
-                    flexStyles.isAlignItemsCenter,
-                    flexStyles.isJustifyContentSpaceBetween,
-                    flexStyles.isDataCellResponsiveHelper,
-                  )}>
-                    <div className={classNames(
-                      flexStyles.isHiddenTablet,
-                      flexStyles.isFullwidth,
-                    )} style={{ backgroundColor: 'var(--flex-table-head-fill)' }}>Email</div>
-                    <div style={{ padding: '0 0.5rem', fontSize: '0.875rem' }}>
-                      {contribution.contributorEmail}
-                    </div>
-                  </TableTd>
-
-                  {/* Status */}
-                  <TableTd className={classNames(
-                    flexStyles.isFlexMobile,
-                    flexStyles.isAlignItemsCenter,
-                    flexStyles.isJustifyContentSpaceBetween,
-                    flexStyles.isDataCellResponsiveHelper,
-                  )}>
-                    <div className={classNames(
-                      flexStyles.isHiddenTablet,
-                      flexStyles.isFullwidth,
-                    )} style={{ backgroundColor: 'var(--flex-table-head-fill)' }}>Statut</div>
-                    <div style={{ padding: '0 0.5rem' }}>
-                      <Sticker variant={getPaymentStatusVariant(contribution.paymentStatus)}>
-                        {getPaymentStatusLabel(contribution.paymentStatus)}
-                      </Sticker>
-                    </div>
-                  </TableTd>
+                  <TableTh className={flexStyles.isHiddenMobile}>
+                    <div style={{ padding: '0 0.5rem' }}>Email</div>
+                  </TableTh>
+                  <TableTh className={flexStyles.isHiddenMobile}>
+                    <div style={{ padding: '0 0.5rem' }}>Statut</div>
+                  </TableTh>
                 </>
               )}
             </TableTr>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+          </TableHead>
+          <TableBody>
+            {displayContributions.map((contribution) => (
+              <TableTr
+                key={contribution.id}
+                className={classNames(
+                  // flexStyles.isFlexMobile,
+                  // flexStyles.isFlexDirectionColumn,
+                  flexStyles.isGridDisplayGridMobile,
+                  flexStyles.isBorderedBoxMobileGrey,
+                  flexStyles.isFullwidthMobile,
+                  flexStyles.isTableRowTablet,
+                  flexStyles.isColumnSpanAllTablet
+                )} style={{ marginBottom: '1rem' }}>
+
+                {/* Contributor Name */}
+                <TableTd className={classNames(
+                    // flexStyles.isFlexMobile,
+                    flexStyles.isGridDisplayGridMobile,
+                    flexStyles.isAlignItemsCenter,
+                    flexStyles.isJustifyContentSpaceBetween,
+                    flexStyles.isDataCellResponsiveHelper,
+                  )} style={{ gridTemplateColumns: '140px 1fr' }}>
+                    <div className={classNames(
+                      flexStyles.isHiddenTablet,
+                      flexStyles.isFullwidth,
+                    )}>Contributeur</div>
+                    <div className={classNames(
+                      flexStyles.isFlexMobile,
+                      flexStyles.isFlexDirectionColumn,
+                      flexStyles.isAlignItemsCenter,
+                      flexStyles.isJustifyContentStart,
+                      flexStyles.isFullwidth,
+                    )} style={{ padding: '0 0.5rem' }}>
+                      {getContributorDisplayName(contribution)}
+                    </div>
+                </TableTd>
+
+                {/* Amount */}
+                <TableTd className={classNames(
+                    // flexStyles.isFlexMobile,
+                    flexStyles.isGridDisplayGridMobile,
+                    flexStyles.isAlignItemsCenter,
+                    flexStyles.isJustifyContentSpaceBetween,
+                    flexStyles.isDataCellResponsiveHelper,
+                  )} style={{ gridTemplateColumns: '140px 1fr' }}>
+                    <div className={classNames(
+                      flexStyles.isHiddenTablet,
+                      flexStyles.isFullwidth,
+                    )}>Montant</div>
+                    <div className={classNames(
+                        flexStyles.isFlexMobile,
+                        flexStyles.isFlexDirectionColumn,
+                        flexStyles.isAlignItemsCenter,
+                        flexStyles.isJustifyContentStart,
+                        flexStyles.isFullwidth,
+                      )} style={{ padding: '0 0.5rem' }}>
+                      <strong>{getContributionDisplayAmount(contribution)}</strong>
+                    </div>
+                </TableTd>
+
+                {/* Message */}
+                <TableTd className={classNames(
+                    // flexStyles.isFlexMobile,
+                    flexStyles.isGridDisplayGridMobile,
+                    flexStyles.isAlignItemsCenter,
+                    flexStyles.isJustifyContentSpaceBetween,
+                    flexStyles.isDataCellResponsiveHelper,
+                  )} style={{ gridTemplateColumns: '140px 1fr' }}>
+                    <div className={classNames(
+                      flexStyles.isHiddenTablet,
+                      flexStyles.isFullwidth,
+                    )}>Message</div>
+                    <div className={classNames(
+                        flexStyles.isFlexMobile,
+                        flexStyles.isFlexDirectionColumn,
+                        flexStyles.isAlignItemsCenter,
+                        flexStyles.isJustifyContentStart,
+                        flexStyles.isFullwidth,
+                      )} style={{ padding: '0 0.5rem', fontStyle: contribution.contributorMessage ? 'normal' : 'italic', opacity: contribution.contributorMessage ? 1 : 0.7 }}>
+                      {contribution.contributorMessage || 'Aucun message'}
+                    </div>
+                </TableTd>
+
+                {/* Date */}
+                <TableTd className={classNames(
+                    // flexStyles.isFlexMobile,
+                    flexStyles.isGridDisplayGridMobile,
+                    flexStyles.isAlignItemsCenter,
+                    flexStyles.isJustifyContentSpaceBetween,
+                    flexStyles.isDataCellResponsiveHelper,
+                  )} style={{ gridTemplateColumns: '140px 1fr' }}>
+                    <div className={classNames(
+                      flexStyles.isHiddenTablet,
+                      flexStyles.isFullwidth,
+                    )}>Date</div>
+                    <div className={classNames(
+                        flexStyles.isFlexMobile,
+                        flexStyles.isFlexDirectionColumn,
+                        flexStyles.isAlignItemsCenter,
+                        flexStyles.isJustifyContentStart,
+                        flexStyles.isFullwidth,
+                      )} style={{ padding: '0 0.5rem', fontSize: '0.875rem' }}>
+                      {formatDate(contribution.paidAt || contribution.createdAt)}
+                    </div>
+                </TableTd>
+
+                {/* Creator-only columns */}
+                {isCreatorMode && (
+                  <>
+                    {/* Email */}
+                    <TableTd className={classNames(
+                        // flexStyles.isFlexMobile,
+                        flexStyles.isGridDisplayGridMobile,
+                        flexStyles.isAlignItemsCenter,
+                        flexStyles.isJustifyContentSpaceBetween,
+                        flexStyles.isDataCellResponsiveHelper,
+                      )} style={{ gridTemplateColumns: '140px 1fr' }}>
+                        <div className={classNames(
+                          flexStyles.isHiddenTablet,
+                          flexStyles.isFullwidth,
+                        )}>Email</div>
+                        <div className={classNames(
+                            flexStyles.isFlexMobile,
+                            flexStyles.isFlexDirectionColumn,
+                            flexStyles.isAlignItemsCenter,
+                            flexStyles.isJustifyContentStart,
+                            flexStyles.isFullwidth,
+                          )} style={{ padding: '0 0.5rem', fontSize: '0.875rem' }}>
+                          {contribution.contributorEmail}
+                        </div>
+                    </TableTd>
+
+                    {/* Status */}
+                    <TableTd className={classNames(
+                        // flexStyles.isFlexMobile,
+                        flexStyles.isGridDisplayGridMobile,
+                        flexStyles.isAlignItemsCenter,
+                        flexStyles.isJustifyContentSpaceBetween,
+                        flexStyles.isDataCellResponsiveHelper,
+                      )} style={{ gridTemplateColumns: '140px 1fr' }}>
+                        <div className={classNames(
+                          flexStyles.isHiddenTablet,
+                          flexStyles.isFullwidth,
+                        )}>Statut</div>
+                        <div className={classNames(
+                            flexStyles.isFlexMobile,
+                            flexStyles.isFlexDirectionColumn,
+                            flexStyles.isAlignItemsCenter,
+                            flexStyles.isJustifyContentStart,
+                            flexStyles.isFullwidth,
+                          )} style={{ padding: '0 0.5rem' }}>
+                          <Sticker variant={getPaymentStatusVariant(contribution.paymentStatus)}>
+                            {getPaymentStatusLabel(contribution.paymentStatus)}
+                          </Sticker>
+                        </div>
+                    </TableTd>
+                  </>
+                )}
+              </TableTr>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </>
   );
 }

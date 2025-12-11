@@ -16,7 +16,7 @@
 
     // { "path": "./packages/flex/config/languages/tsconfig.build.json" },
 
-    // { "path": "./packages/flex/domain-tailwind/tsconfig.build.json" },
+    { "path": "./packages/flex/domain-tailwind/tsconfig.build.json" },
 
     { "path": "./packages/flex/design-system-framework/tsconfig.build.json" },
     { "path": "./packages/flex/design-system-react-ts/tsconfig.build.json" },
@@ -34,6 +34,6 @@
     // { "path": "./apps/on-board/client/tsconfig.build.json" },
     // { "path": "./apps/on-board/server/tsconfig.build.json" },
 
-    { "path": "./apps/gateway/tsconfig.build.json" },
+    // { "path": "./apps/gateway/tsconfig.build.json" },
   ]
 }

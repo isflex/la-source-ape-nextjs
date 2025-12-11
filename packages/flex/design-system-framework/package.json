@@ -54,7 +54,7 @@
     "build:framework:default": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm build:types:modules3:default",
     "build:framework:named": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm build:types:modules3:named",
     "build:lib": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- pnpm build:all",
-    "build:types:modules3:default": "pnpm typed-scss-modules \"./src/modules3/**/*.scss\" --exportType default --implementation sass-embedded --aliasPrefixes.~ ../../../node_modules/ --outputFolder \"./types/__generated__/default\" --updateStaleOnly",
+    "build:types:modules3:default": "pnpm typed-scss-modules \"./src/modules3/**/*.scss\" --exportType default --implementation sass-embedded --aliasPrefixes.~ ../../../node_modules/ --outputFolder \"./types/__generated__/default\"",
     "build:types:modules3:named": "pnpm typed-scss-modules \"./src/modules3/**/*.scss\" --exportType named --implementation sass-embedded --aliasPrefixes.~ ../../../node_modules/ --outputFolder \"./types/__generated__/named\" --updateStaleOnly",
     "build:types:scss": "pnpm build:types:modules3:default",
     "clean:css": "pnpm exec rimraf '{dist/flexiness*.css,dist/modules/*.module.css,../domain-content/content/css/flexiness*.css,../domain-content/content/css/modules/*.css}'",

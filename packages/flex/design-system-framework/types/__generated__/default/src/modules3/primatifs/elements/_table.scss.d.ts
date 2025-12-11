@@ -8,6 +8,9 @@ export type Styles = {
   isAdmin: string;
   isBodyHeader: string;
   isBordered: string;
+  isBorderedBoxMobileGrey: string;
+  isBorderedBoxMobilePurple: string;
+  isBorderedBoxMobileSecondary: string;
   isCobalt: string;
   isCompact: string;
   isComparative: string;
@@ -22,6 +25,7 @@ export type Styles = {
   isFlexPink: string;
   isFlexPurple: string;
   isFullwidth: string;
+  isGridDisplayGridMobile: string;
   isHoverable: string;
   isInfo: string;
   isLarge: string;

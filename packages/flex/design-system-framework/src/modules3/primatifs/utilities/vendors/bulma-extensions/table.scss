@@ -100,6 +100,80 @@ $table-colors: variables.$colors !default;
         color: currentcolor;
       }
     }
+
+    @include mixins.mobile {
+      &.is-bordered-box-mobile-purple {
+        border: var(--table-cell-border,  #{$table-cell-border});
+        border-width: 1px;
+        border-color: var(--flex-purple, #{variables.$flex-purple});
+
+        > td {
+          &:first-child {
+            background-color: var(--flex-purple,  #{variables.$flex-purple}) !important;
+            color: var(--flex-white,  #{variables.$white}) !important;
+            font-weight: bold;
+          }
+
+          &:not(:first-child) {
+            background-color: var(--flex-white,  #{variables.$white});
+
+            > *:first-child {
+              background-color: var(--flex-purple,  #{variables.$flex-purple});
+              display: flex;
+              align-items: center;
+            }
+          }
+        }
+      }
+
+      &.is-bordered-box-mobile-secondary {
+        border: var(--table-cell-border,  #{$table-cell-border});
+        border-width: 1px;
+        border-color: var(--flex-secondary, #{variables.$secondary});
+
+        > td {
+          &:first-child {
+            background-color: var(--flex-secondary,  #{variables.$secondary}) !important;
+            color: var(--flex-white,  #{variables.$white}) !important;
+            font-weight: bold;
+          }
+
+          &:not(:first-child) {
+            background-color: var(--flex-white,  #{variables.$white});
+
+            > *:first-child {
+              background-color: var(--flex-secondary,  #{variables.$secondary});
+              display: flex;
+              align-items: center;
+            }
+          }
+        }
+      }
+
+      &.is-bordered-box-mobile-grey {
+        border: var(--table-cell-border,  #{$table-cell-border});
+        border-width: 1px;
+        border-color: var(--flex-grey-dark, #{variables.$border-grey-dark});
+
+        > td {
+          &:first-child {
+            background-color: var(--flex-grey,  #{variables.$grey}) !important;
+            color: var(--flex-white,  #{variables.$white}) !important;
+            font-weight: bold;
+          }
+
+          &:not(:first-child) {
+            background-color: var(--flex-white,  #{variables.$white});
+
+            > *:first-child {
+              background-color: var(--flex-grey,  #{variables.$grey});
+              display: flex;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
   }
 
   thead {
@@ -126,7 +200,7 @@ $table-colors: variables.$colors !default;
     background-color: var(--table-body-background-color,  #{$table-body-background-color});
 
     tr {
-      &:last-child {
+      &:last-child:not(.is-data-cell-responsive-helper) {
         td,
         th {
           border-bottom-width: 0;

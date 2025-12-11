@@ -3,14 +3,18 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import { useAuthenticator } from '@aws-amplify/ui-react';
+import CagnotteModal from './cagnotte-modal'
+import { LoadingBackdrop } from '@src/components/loading/LoadingBackdrop'
 import classNames from 'classnames';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
 import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
+import { Modal } from '@flex-design-system/react-ts/client-sync-styled-direct/modal';
 import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
@@ -72,6 +76,7 @@ export default function CagnotteSlugPage() {
   const [error, setError] = useState<string | null>(null);
   const [contributions, setContributions] = useState<JackpotContributionData[]>([]);
   const [mounted, setMounted] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const isCreator = user?.userId && jackpotForm?.owner === user.userId;
   const status = jackpotForm?.status || 'DRAFT';
@@ -101,10 +106,15 @@ export default function CagnotteSlugPage() {
   // Load jackpot form and contributions
   useEffect(() => {
     const loadJackpot = async () => {
-      if (!slug) return;
 
       try {
         setLoading(true);
+
+        if (!slug) {
+          setShowModal(true)
+          setLoading(false);
+          return;
+        }
 
         // Load jackpot form
         const { data: forms } = await client.models.JackpotForm.list({
@@ -163,24 +173,86 @@ export default function CagnotteSlugPage() {
     }
   }, [searchParams]);
 
-  if (!mounted) {
-    return (
-      <Container>
-        <Section>
-          <Text className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>Chargement...</Text>
-        </Section>
-      </Container>
-    );
+  const toggleModal = () => {
+    setShowModal(!showModal)
   }
+
+  if (!mounted) {
+    return null;
+  }
+
+  if (showModal) {
+    return (
+      <>
+        {createPortal(
+          <div
+            onClick={(e) => {
+              ;(e as React.MouseEvent<HTMLDivElement, MouseEvent>).stopPropagation()
+            }}
+          >
+            <Modal
+              active={showModal}
+              onClose={() => {
+                toggleModal()
+              }}
+            >
+              <br/><br/>
+              <CagnotteModal toggleModal={() => toggleModal()}/>
+            </Modal>
+          </div>,
+          document.querySelector('#root-portal') as unknown as HTMLDivElement,
+        )}
+    </>
+  )}
 
   if (loading) {
     return (
       <Container>
         <Section>
-          <Text className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>Chargement de la cagnotte...</Text>
+          <Title level={TitleLevel.LEVEL1} className={classNames(
+            flexStyles.isFullwidth,
+            flexStyles.hasTextCentered,
+          )}>
+            Cagnottes APE La Source
+          </Title>
         </Section>
+        <LoadingBackdrop />
       </Container>
     );
+  }
+
+  if (!slug) {
+    return (
+      <>
+        <AuthBanner />
+        <Container>
+          <Section>
+            <InfoBlock>
+              <InfoBlockHeader status={InfoBlockStatus.WARNING} customIcon={IconName.UI_EXCLAMATION_CIRCLE}>
+                <Title level={TitleLevel.LEVEL3}>{'Cagnotte introuvable'}</Title>
+              </InfoBlockHeader>
+              <InfoBlockContent>
+                <Text>{'Un parent organisateur devra vous communiquer l\'URL exacte de la cagnotte'}</Text>
+              </InfoBlockContent>
+            </InfoBlock>
+            <div className={classNames(
+              flexStyles.isFlex,
+              flexStyles.isAlignItemsCenter,
+              flexStyles.isJustifyContentCenter,
+              flexStyles.isFullwidth,
+            )}>
+              <Button
+                markup={ButtonMarkup.BUTTON}
+                variant={VariantState.PRIMARY}
+                onClick={() => router.push('/cagnotte/info/')}
+              >
+                En savoir plus
+              </Button>
+            </div>
+          </Section>
+        </Container>
+      </>
+    )
   }
 
   if (error || !jackpotForm) {
@@ -197,7 +269,12 @@ export default function CagnotteSlugPage() {
                 <Text>{error || 'Cagnotte introuvable'}</Text>
               </InfoBlockContent>
             </InfoBlock>
-            <div style={{ marginTop: '1rem' }}>
+            <div className={classNames(
+              flexStyles.isFlex,
+              flexStyles.isAlignItemsCenter,
+              flexStyles.isJustifyContentCenter,
+              flexStyles.isFullwidth,
+            )}>
               <Button
                 markup={ButtonMarkup.BUTTON}
                 variant={VariantState.PRIMARY}
@@ -233,11 +310,11 @@ export default function CagnotteSlugPage() {
         <Section>
           {/* Header */}
           <div className={classNames(
-            flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-            flexStyles.isGridCols1,
-            flexStyles.isAlignItemsCenter,
-            flexStyles.isFullwidth,
-          )}>
+              flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
+              flexStyles.isGridCols1,
+              flexStyles.isAlignItemsCenter,
+              flexStyles.isFullwidth,
+            )}>
             <Title level={TitleLevel.LEVEL1} className={classNames(
               flexStyles.isFullwidth,
               flexStyles.hasTextCentered,
@@ -246,9 +323,9 @@ export default function CagnotteSlugPage() {
             </Title>
 
             <div className={classNames(
-              flexStyles.isFullwidth,
-              flexStyles.hasTextCentered,
-            )}>
+                flexStyles.isFullwidth,
+                flexStyles.hasTextCentered,
+              )}>
               <Sticker variant={statusBadge.variant}>
                 {statusBadge.label}
               </Sticker>
@@ -387,6 +464,7 @@ export default function CagnotteSlugPage() {
               <div style={{ marginTop: '1rem' }}>
                 <JackpotContributionTable
                   jackpotFormId={jackpotForm.id}
+                  jackpotFormStatus={status}
                   isCreatorMode={!!isCreator}
                 />
               </div>

@@ -156,7 +156,8 @@ const nextConfig = {
     '@flex-design-system/framework',
     '@flex-design-system/react-ts',
     '@flexiness/domain-utils',
-    '@flexiness/domain-store'
+    '@flexiness/domain-store',
+    '@flexiness/domain-tailwind'
   ],
 
   serverExternalPackages: [

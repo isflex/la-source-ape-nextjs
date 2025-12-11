@@ -16,7 +16,7 @@ import { default as stylesLayout } from '@src/styles/scss/pages/layout.module.sc
 
 // const LogoLaSource = dynamic(() => import('@src/components/logo-la-source'), { ssr: true })
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
-const Header = dynamic(() => import('@src/components/sticky-header/app'), { ssr: true })
+const StickyHeader = dynamic(() => import('@src/components/sticky-header/app'), { ssr: true })
 const Footer = dynamic(() => import('@src/components/footer/app'), { ssr: true })
 
 const NavigationLayout = ({mobileCheck} : { mobileCheck: boolean }) => {
@@ -24,7 +24,7 @@ const NavigationLayout = ({mobileCheck} : { mobileCheck: boolean }) => {
     <div className={classNames(stylesLayout.navLayout, mobileCheck && stylesLayout.forceMobile)}>
       {/* <LogoLaSource className={stylesLayout.navLogo} /> */}
       <LogoAPE isNavLogo={true} className={classNames(stylesLayout.navLogo, stylesLayout.navLogoApe)} />
-      <Header mobileCheck={mobileCheck} />
+      <StickyHeader mobileCheck={mobileCheck} />
     </div>
   )
 }

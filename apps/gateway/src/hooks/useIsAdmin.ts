@@ -13,8 +13,20 @@ import { isAdminAuthenticated as checkAdminSession } from '@src/lib/admin-auth';
  * - OR Cognito user email is admin@apelasource.org
  */
 export function useIsAdmin(): boolean {
-  const { user } = useAuthenticator();
   const [isAdmin, setIsAdmin] = useState(false);
+
+  // Call useAuthenticator unconditionally (required by Rules of Hooks)
+  // If context not available, user will be undefined/null
+  let authenticatorUser = null;
+  try {
+    const auth = useAuthenticator((context) => [context.user]);
+    authenticatorUser = auth.user;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    // Context not available - this is acceptable
+    // We'll rely on sessionStorage check only
+    debug.warn('Authenticator context not available, using sessionStorage check only');
+  }
 
   useEffect(() => {
     const checkAdmin = async () => {
@@ -26,8 +38,8 @@ export function useIsAdmin(): boolean {
         return;
       }
 
-      // Check 2: Cognito admin email
-      if (!user) {
+      // Check 2: Cognito admin email (only if user available)
+      if (!authenticatorUser) {
         setIsAdmin(false);
         return;
       }
@@ -45,7 +57,7 @@ export function useIsAdmin(): boolean {
     };
 
     checkAdmin();
-  }, [user]);
+  }, [authenticatorUser]);
 
   return isAdmin;
 }

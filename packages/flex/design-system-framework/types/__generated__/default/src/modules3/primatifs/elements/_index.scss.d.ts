@@ -100,6 +100,9 @@ export type Styles = {
   isBanner: string;
   isBodyHeader: string;
   isBordered: string;
+  isBorderedBoxMobileGrey: string;
+  isBorderedBoxMobilePurple: string;
+  isBorderedBoxMobileSecondary: string;
   isBottom: string;
   isBottomRight: string;
   isBoxed: string;
@@ -166,6 +169,7 @@ export type Styles = {
   isGreyDark: string;
   isGreyLight: string;
   isGreyLighter: string;
+  isGridDisplayGridMobile: string;
   isGrouped: string;
   isGroupedCentered: string;
   isGroupedMultiline: string;

@@ -62,7 +62,7 @@ cat > /tmp/cors-config.json << EOF
                 "https://after-school.flexiness.com",
                 "https://ape.ecolelasource.org",
                 "https://apelasource.org",
-                "https://main.d1cftsvc5q8k92.amplifyapp.com",
+                "https://main.d3tphwcexh4ipl.amplifyapp.com",
                 "https://flexi.d2ybqei9w8j7t5.amplifyapp.com",
                 "https://web-app.ecolelasource.org"
             ],

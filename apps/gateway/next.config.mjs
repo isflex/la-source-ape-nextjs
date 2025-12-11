@@ -152,7 +152,7 @@ const mainConfig = new Config(async (phase, args) => {
       '@marp-team/marp-cli',
     ],
 
-    // outputFileTracingRoot: process.env.FLEX_PROJ_ROOT,
+    outputFileTracingRoot: process.env.FLEX_PROJ_ROOT,
 
     typescript: {
       ignoreBuildErrors: false,

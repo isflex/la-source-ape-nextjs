@@ -19,6 +19,7 @@ import {
 } from '@src/lib/newsletter-helpers';
 import NewsletterForm from '@src/components/newsletter/NewsletterForm';
 import AuthBanner from '@src/components/auth/AuthBanner';
+import { LoadingBackdrop } from '@src/components/loading/LoadingBackdrop'
 
 import classNames from 'classnames';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
@@ -142,7 +143,7 @@ export default function NewsletterCreationPage() {
           <Title level={TitleLevel.LEVEL1}>
             Gestion des Newsletters
           </Title>
-          <Text className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>Chargement...</Text>
+          <LoadingBackdrop />
         </Section>
       </Container>
     );

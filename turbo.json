@@ -15,7 +15,9 @@
   ],
   "tasks": {
     "dev:compile:transit": {
-      "with": ["//#compile:watch:sh"],
+      "with": [
+        "@flexiness/domain-tailwind#dev:tailwind"
+      ],
       "cache": false,
       "persistent": true
     },

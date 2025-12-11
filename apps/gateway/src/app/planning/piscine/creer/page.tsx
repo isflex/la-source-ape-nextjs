@@ -12,6 +12,8 @@ import { debug } from '@flexiness/domain-utils';
 
 const client = generateClient<Schema>();
 
+import { LoadingBackdrop } from '@src/components/loading/LoadingBackdrop'
+
 import classNames from 'classnames';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
@@ -168,7 +170,7 @@ export default function PiscineCreerPage() {
           <Title level={TitleLevel.LEVEL1}>
             Gestion des Plannings Piscine
           </Title>
-          <Text className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>Chargement...</Text>
+          <LoadingBackdrop />
         </Section>
       </Container>
     );

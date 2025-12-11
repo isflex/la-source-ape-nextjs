@@ -7,7 +7,7 @@ import { TableTdProps } from './TableTdProps.js'
 
 // ///////////////////////////////////////////////////////////////////////////
 // /!\ When typed-scss-modules --exportType default
-// import { type Styles } from '@flex-design-system/framework'
+import { default as styles } from '@flex-design-system/framework'
 // import { type Styles } from '@flex-design-system/framework/main/all.module.scss'
 // ///////////////////////////////////////////////////////////////////////////
 
@@ -21,7 +21,13 @@ import { TableTdProps } from './TableTdProps.js'
  * @param colSpan {number} Defines the number of columns a cell should span
  */
 const TableTd = async ({ className, classList, rowSpan, colSpan, ...others }: TableTdProps): Promise<React.ReactNode> => {
-  const classes = classNames(className, validate(classList))
+  const classes = classNames(
+    {
+      [styles.table]: true,
+    },
+    className,
+    validate(classList)
+  )
 
   return <td className={classes} rowSpan={rowSpan} colSpan={colSpan} {...others} />
 }

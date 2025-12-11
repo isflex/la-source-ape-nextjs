@@ -347,6 +347,7 @@ export type Styles = {
   isGridDisplayGrid: string;
   isGridDisplayGridDesktop: string;
   isGridDisplayGridFullhd: string;
+  isGridDisplayGridMobile: string;
   isGridDisplayGridMobileMax: string;
   isGridDisplayGridTablet: string;
   isGridDisplayGridWidescreen: string;

@@ -20,18 +20,27 @@ interface BannerProps {
   logoFlexInView: boolean
 }
 
-export function cookieConsentGiven() {
+export function cookieConsentGiven(): string {
   if (typeof window === 'undefined') {
     return 'undecided';
   }
-  if (!localStorage.getItem('cookie_consent')) {
-    return 'undecided';
-  }
-  return localStorage.getItem('cookie_consent');
+  const consent = localStorage.getItem('cookie_consent');
+  return consent || 'undecided';
 }
 
 export const Banner: React.FC<BannerProps> = ({ logoFlexInView }) => {
-  const [consentGiven, setConsentGiven] = useState<string>(() => cookieConsentGiven() || '');
+  const [consentGiven, setConsentGiven] = useState<string>('undecided');
+
+  // Check localStorage after hydration to avoid hydration mismatch
+  // We initialize with 'undecided' for both server and client, then update
+  // from localStorage only on the client side after hydration is complete
+  useEffect(() => {
+    const storedConsent = cookieConsentGiven();
+    if (storedConsent && storedConsent !== 'undecided') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Required to sync localStorage after hydration without causing hydration errors
+      setConsentGiven(storedConsent);
+    }
+  }, []);
 
   useEffect(() => {
     if (consentGiven !== '') {

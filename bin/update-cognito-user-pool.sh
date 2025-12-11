@@ -63,8 +63,8 @@ aws cognito-idp update-user-pool-client \
         "https://apelasource.org/" \
         "https://apelasource.org/web-app/" \
         "https://local.flexiness.com:4009/" \
-        "https://main.d1cftsvc5q8k92.amplifyapp.com/" \
-        "https://main.d1cftsvc5q8k92.amplifyapp.com/web-app/" \
+        "https://main.d3tphwcexh4ipl.amplifyapp.com/" \
+        "https://main.d3tphwcexh4ipl.amplifyapp.com/web-app/" \
         "https://flexi.d2ybqei9w8j7t5.amplifyapp.com/" \
         "https://flexi.d2ybqei9w8j7t5.amplifyapp.com/web-app/" \
         "https://flexi.d2ybqei9w8j7t5.amplifyapp.com:9898/" \
@@ -85,8 +85,8 @@ aws cognito-idp update-user-pool-client \
         "https://apelasource.org/" \
         "https://apelasource.org/web-app/" \
         "https://local.flexiness.com:4009/" \
-        "https://main.d1cftsvc5q8k92.amplifyapp.com/" \
-        "https://main.d1cftsvc5q8k92.amplifyapp.com/web-app/" \
+        "https://main.d3tphwcexh4ipl.amplifyapp.com/" \
+        "https://main.d3tphwcexh4ipl.amplifyapp.com/web-app/" \
         "https://flexi.d2ybqei9w8j7t5.amplifyapp.com/" \
         "https://flexi.d2ybqei9w8j7t5.amplifyapp.com/web-app/" \
         "https://flexi.d2ybqei9w8j7t5.amplifyapp.com:9898/" \

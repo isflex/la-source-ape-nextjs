@@ -3,3 +3,15 @@ packages:
   - '!apps/gateway/.next/standalone/**'
   - '!apps/gateway/amplify/**'
   - 'packages/**'
+
+ignoredBuiltDependencies:
+  - '@rspack/binding'
+#   - fsevents
+#   - sharp
+#   - '@parcel/watcher'
+#   - core-js
+#   - cypress
+#   - esbuild
+#   - sharp
+#   - ttf2woff2
+#   - unrs-resolver

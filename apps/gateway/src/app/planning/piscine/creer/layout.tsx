@@ -6,6 +6,6 @@ export default function PiscineCreerLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section style={{ minHeight: '80vh' }}>{children}</section>
+    <section style={{ minHeight: '100vh' }}>{children}</section>
   );
 }

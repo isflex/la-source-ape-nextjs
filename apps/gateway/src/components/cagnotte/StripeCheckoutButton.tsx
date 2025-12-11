@@ -89,49 +89,81 @@ export default function StripeCheckoutButton({
     try {
       setLoading(true);
 
-      // Get auth session for backend authentication
-      const session = await fetchAuthSession();
-      const accessToken = session.tokens?.accessToken?.toString();
-      const idToken = session.tokens?.idToken?.toString();
+      // Check Stripe mode: 'local' (default) or 'backend'
+      const stripeMode = process.env.NEXT_PUBLIC_STRIPE_MODE || 'local';
 
-      if (!accessToken || !idToken) {
-        throw new Error('Session non valide. Veuillez vous reconnecter.');
+      if (stripeMode === 'backend') {
+        // BACKEND MODE: Call backend API (for shared/joint Stripe accounts)
+        const session = await fetchAuthSession();
+        const accessToken = session.tokens?.accessToken?.toString();
+        const idToken = session.tokens?.idToken?.toString();
+
+        if (!accessToken || !idToken) {
+          throw new Error('Session non valide. Veuillez vous reconnecter.');
+        }
+
+        const backendUrl = process.env.NEXT_PUBLIC_POKER_BACK_HOST || 'http://localhost:8080';
+        const baseUrl = window.location.origin;
+
+        const response = await fetch(`${backendUrl}/api/stripe/create-checkout-session`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken},${idToken}`,
+          },
+          body: JSON.stringify({
+            jackpotFormId,
+            contributorName,
+            contributorEmail,
+            amount: parseFloat(amount),
+            contributorMessage: contributorMessage || undefined,
+            isAnonymous,
+            showAmount,
+            owner: user?.userId || null,
+            coverFees,
+            paymentMethodType,
+            baseUrl,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to create checkout session');
+        }
+
+        window.location.href = data.url;
+
+      } else {
+        // LOCAL MODE: Call Next.js API route (default, for own Stripe account)
+        const response = await fetch('/api/cagnotte/create-checkout-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            jackpotFormId,
+            contributorName,
+            contributorEmail,
+            amount: parseFloat(amount),
+            contributorMessage: contributorMessage || undefined,
+            isAnonymous,
+            showAmount,
+            owner: user?.userId || null,
+            coverFees,
+            paymentMethodType,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to create checkout session');
+        }
+
+        window.location.href = data.url;
       }
 
-      // Get backend URL and current origin for redirects
-      const backendUrl = process.env.NEXT_PUBLIC_POKER_BACK_HOST || 'http://localhost:8080';
-      const baseUrl = window.location.origin;
-
-      // Call backend API to create Stripe Checkout Session
-      const response = await fetch(`${backendUrl}/api/stripe/create-checkout-session`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken},${idToken}`,
-        },
-        body: JSON.stringify({
-          jackpotFormId,
-          contributorName,
-          contributorEmail,
-          amount: parseFloat(amount),
-          contributorMessage: contributorMessage || undefined,
-          isAnonymous,
-          showAmount,
-          owner: user?.userId || null,
-          coverFees,
-          paymentMethodType,
-          baseUrl,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to create checkout session');
-      }
-
-      // Redirect to Stripe Checkout
-      window.location.href = data.url;
     } catch (error) {
       debug.error('Error creating checkout session:', error);
       onError(error instanceof Error ? error.message : 'Erreur lors de la création de la session de paiement');
@@ -151,6 +183,7 @@ export default function StripeCheckoutButton({
             Vous devez être connecté pour contribuer à cette cagnotte.
           </Text>
           <Button
+            id='cagnotte-stripe-checkout-connect-btn'
             markup={ButtonMarkup.BUTTON}
             variant={VariantState.PRIMARY}
             onClick={() => {

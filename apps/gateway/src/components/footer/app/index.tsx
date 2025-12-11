@@ -6,7 +6,9 @@ import React from 'react'
 // import Link from 'next/link'
 // import type { NextPage } from 'next'
 // import { PageAppProps } from '@root/types/additional'
-import { useInView } from 'react-intersection-observer'
+import {
+  useInView,
+} from 'react-intersection-observer'
 
 // import classNames from 'classnames'
 import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link'
@@ -38,7 +40,10 @@ const Footer: React.FC = () => {
           <Link href={`/privacy_policy`} target='_blank' rel='privacy-policy'>politique de confidentialité</Link>
         </small>
         <button className={stylesGeneric.btnStd} onClick={() => window.open('https://ci.flexiness.com', '_blank')}>
-          <LogoFlex ref={ref} className={stylesLogo.logoFooter} />
+          <LogoFlex
+            ref={ref}
+            className={stylesLogo.logoFooter}
+          />
         </button>
         <small>
           <Link href={`/terms_of_service`} target='_blank' rel='terms-of-service'>conditions générales d&apos;utilisation</Link>

@@ -36,7 +36,7 @@ import { default as flexStyles } from '@flex-design-system/framework'
 import { inlineStyles } from '@src/styles/inlineStyles'
 import '@src/styles/globals.css'
 import '@aws-amplify/ui-react/styles.css'
-// import '@flexiness/domain-tailwind/globals.css'
+import '@src/styles/tailwind.css'
 
 const remoteWebAppClient = process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST
 
@@ -248,6 +248,7 @@ const RootLayout = async ({
             </AuthProvider>
           </PostHogProvider>
         {/* </StoreProvider> */}
+        <div id='root-portal' />
       </body>
     </html>
   )

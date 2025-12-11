@@ -1,8 +1,12 @@
 export type Styles = {
   isAdmin: string;
   isBordered: string;
+  isBorderedBoxMobileGrey: string;
+  isBorderedBoxMobilePurple: string;
+  isBorderedBoxMobileSecondary: string;
   isCobalt: string;
   isDanger: string;
+  isDataCellResponsiveHelper: string;
   isDebug: string;
   isFlexGreen: string;
   isFlexOrange: string;

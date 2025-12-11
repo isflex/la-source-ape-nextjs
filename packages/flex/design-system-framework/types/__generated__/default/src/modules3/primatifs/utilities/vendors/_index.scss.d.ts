@@ -42,11 +42,15 @@ export type Styles = {
   isAdmin: string;
   isAncestor: string;
   isBordered: string;
+  isBorderedBoxMobileGrey: string;
+  isBorderedBoxMobilePurple: string;
+  isBorderedBoxMobileSecondary: string;
   isCentered: string;
   isChild: string;
   isCobalt: string;
   isCurrent: string;
   isDanger: string;
+  isDataCellResponsiveHelper: string;
   isDebug: string;
   isDisabled: string;
   isFlexGreen: string;

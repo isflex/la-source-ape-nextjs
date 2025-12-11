@@ -29,6 +29,6 @@ export default function NewsletterCatchAllLayout({
 
   // For all other routes, render the dynamic content
   return (
-    <section style={{ minHeight: '80vh' }}>{children}</section>
+    <section style={{ minHeight: '100vh' }}>{children}</section>
   )
 }

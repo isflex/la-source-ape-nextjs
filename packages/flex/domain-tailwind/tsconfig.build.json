@@ -1,0 +1,21 @@
+{
+  "extends": "../../../tsconfig.build.settings.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "outDir": "dist",
+    "rootDir": "src",
+    "paths": {
+      "flexiness": ["../types"]
+    },
+    "customConditions": ["@flexiness/source"],
+  },
+  "exclude": [
+    "node_modules",
+    "dist/**/*",
+  ],
+  "include": [
+    "src/**/*",
+    "./types/**/*.d.ts",
+  ]
+}

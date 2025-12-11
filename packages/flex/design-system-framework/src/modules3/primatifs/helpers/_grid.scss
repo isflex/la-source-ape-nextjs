@@ -12,6 +12,10 @@ $grid-field-margin: functions.size(1em);
 .is-grid-display-inline-grid { display: inline-grid !important; }
 .is-grid-display-hidden { display: none !important; }
 
+@include mixins.mobile {
+  .is-grid-display-grid-mobile { display: grid !important; }
+}
+
 .is-grid-display-grid,
 .is-grid-display-inline-grid {
   .field {

@@ -19,6 +19,9 @@ import {
 
 const client = generateClient<Schema>();
 
+import { CreerCagnotteList1, CreerCagnotteList2 } from '@src/components/cagnotte/CagnotteInfoLists'
+import { LoadingBackdrop } from '@src/components/loading/LoadingBackdrop'
+
 import classNames from 'classnames';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
@@ -111,62 +114,74 @@ export default function CagnotteCreerPage() {
     }
   };
 
-  const loadForms = async () => {
-    try {
-      setLoading(true);
-
-      if (isAuthenticated) {
-        const { unsubscribe } = client.models.JackpotForm.observeQuery({
-          filter: {
-            owner: { eq: user?.userId || '' }
-          }
-        }).subscribe({
-          next: async ({ items }) => {
-            setForms(items || []);
-
-            // Load contribution stats for each form
-            if (items) {
-              for (const form of items) {
-                await loadContributionStats(form.id);
-              }
-            }
-
-            setLoading(false);
-          },
-          error: (error) => {
-            setError('Erreur lors du chargement des cagnottes');
-            debug.error('Error loading forms:', error);
-            setLoading(false);
-          }
-        });
-
-        return unsubscribe;
-      }
-    } catch (err) {
-      setError('Erreur lors du chargement des cagnottes');
-      debug.error('Error loading forms:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Required to prevent hydration mismatch
     setMounted(true);
 
+    // Track unsubscribe function for cleanup
+    let unsubscribeFromForms: (() => void) | undefined;
+
     const initializeForms = async () => {
-      await loadForms();
+      try {
+        setLoading(true);
+
+        if (isAuthenticated && user) {
+          // Setup observeQuery subscription
+          const { unsubscribe } = client.models.JackpotForm.observeQuery({
+            filter: {
+              owner: { eq: user.userId }
+            }
+          }).subscribe({
+            next: async ({ items }) => {
+              setForms(items || []);
+
+              // Load contribution stats for each form
+              if (items) {
+                for (const form of items) {
+                  await loadContributionStats(form.id);
+                }
+              }
+
+              setLoading(false);
+            },
+            error: (error) => {
+              setError('Erreur lors du chargement des cagnottes');
+              debug.error('Error loading forms:', error);
+              setLoading(false);
+            }
+          });
+
+          // Store unsubscribe reference for cleanup
+          unsubscribeFromForms = unsubscribe;
+        } else {
+          setLoading(false);
+        }
+      } catch (err) {
+        setError('Erreur lors du chargement des cagnottes');
+        debug.error('Error loading forms:', err);
+        setLoading(false);
+      }
     };
 
-    if (isAuthenticated) {
-      initializeForms();
-    } else {
-      setLoading(false);
-    }
-  }, [isAuthenticated]); // eslint-disable-line react-hooks/exhaustive-deps
+    initializeForms();
+
+    // Cleanup function - called when component unmounts or effect re-runs
+    return () => {
+      if (unsubscribeFromForms) {
+        try {
+          unsubscribeFromForms();
+        } catch (error) {
+          // Amplify subscription cleanup may fail if already closed - safe to ignore
+          debug.warn('Subscription cleanup warning:', error);
+        }
+      }
+    };
+  }, [isAuthenticated, user?.userId]);
 
   // Load Stripe Connect account status
   useEffect(() => {
     if (!user) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Required to set initial loading state when no user
       setConnectLoading(false);
       return;
     }
@@ -184,8 +199,15 @@ export default function CagnotteCreerPage() {
       }
     });
 
-    return unsubscribe;
-  }, [user]);
+    return () => {
+      try {
+        unsubscribe();
+      } catch (error) {
+        // Amplify subscription cleanup may fail if already closed - safe to ignore
+        debug.warn('Subscription cleanup warning:', error);
+      }
+    };
+  }, [user?.userId]);
 
   // Prevent hydration mismatch
   if (!mounted) {
@@ -195,7 +217,7 @@ export default function CagnotteCreerPage() {
           <Title level={TitleLevel.LEVEL1}>
             Gestion des Cagnottes
           </Title>
-          <Text className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>Chargement...</Text>
+          <LoadingBackdrop />
         </Section>
       </Container>
     );
@@ -220,9 +242,8 @@ export default function CagnotteCreerPage() {
 
       if (response.errors) {
         alert('Erreur lors de la suppression de la cagnotte');
-      } else {
-        await loadForms();
       }
+      // Note: observeQuery will automatically update the forms list
     } catch (err) {
       alert('Erreur lors de la suppression de la cagnotte');
       debug.error('Error deleting form:', err);
@@ -251,7 +272,7 @@ export default function CagnotteCreerPage() {
         alert('Erreur lors de la demande de paiement');
       } else {
         alert('Demande de paiement envoyée avec succès');
-        await loadForms();
+        // Note: observeQuery will automatically update the forms list
       }
     } catch (err) {
       alert('Erreur lors de la demande de paiement');
@@ -282,7 +303,7 @@ export default function CagnotteCreerPage() {
         alert('Erreur lors de la publication');
       } else {
         setCreateSuccess('Cagnotte publiée avec succès ! Les participants peuvent maintenant contribuer.');
-        await loadForms();
+        // Note: observeQuery will automatically update the forms list
         setTimeout(() => setCreateSuccess(null), 5000);
       }
     } catch (err) {
@@ -338,14 +359,8 @@ export default function CagnotteCreerPage() {
                     ? 'Vous devez configurer votre compte Stripe Connect pour créer des cagnottes et recevoir des contributions.'
                     : 'Votre compte Stripe Connect n\'est pas encore actif. Veuillez compléter le processus de vérification.'}
                 </Text>
-                <Text style={{ fontSize: '0.875rem', marginBottom: '1rem' }}>
-                  Ce compte vous permettra de :
-                </Text>
-                <ul style={{ marginLeft: '1.5rem', marginBottom: '1rem' }}>
-                  <li><Text style={{ fontSize: '0.875rem' }}>Recevoir les contributions directement sur votre compte bancaire</Text></li>
-                  <li><Text style={{ fontSize: '0.875rem' }}>Créer et gérer des cagnottes</Text></li>
-                  <li><Text style={{ fontSize: '0.875rem' }}>Suivre vos paiements en temps réel</Text></li>
-                </ul>
+                <CreerCagnotteList1 />
+                <CreerCagnotteList2 />
                 <Button
                   markup={ButtonMarkup.BUTTON}
                   variant={VariantState.PRIMARY}
@@ -701,7 +716,7 @@ export default function CagnotteCreerPage() {
                     setCreateSuccess(message);
                     setShowForm(false);
                     setEditingFormId(null);
-                    loadForms();
+                    // Note: observeQuery will automatically update the forms list
                     setTimeout(() => setCreateSuccess(null), 5000);
                   } else {
                     setCreateError(message);

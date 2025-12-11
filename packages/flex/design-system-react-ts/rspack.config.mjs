@@ -17,8 +17,6 @@ import { promisify } from 'node:util'
 const execPromise = promisify(subprocess.exec)
 
 import rspack from '@rspack/core'
-// const { ModuleFederationPlugin } = require('@module-federation/enhanced-rspack')
-// const { ModuleFederationPlugin } = require('@module-federation/enhanced/rspack')
 const { DotenvPlugin } = require('rspack-plugin-dotenv')
 const { CssExtractRspackPlugin } = require('@rspack/core')
 // const ReactRefreshPlugin = require('@rspack/plugin-react-refresh')

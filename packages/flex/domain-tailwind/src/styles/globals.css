@@ -1,0 +1,30 @@
+
+@import "./modules/tw-gateway.css";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  html {
+    font-family: var(--flex-font-family);
+  }
+}
+
+/*
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*/
+
+/*
+The path you provide to the @config directive is relative to that CSS file,
+and will take precedence over a path defined in your PostCSS configuration or in the Tailwind CLI.
+*/
+
+/* @config '../../tailwind.config.js'; */
+
+@layer utilities {
+  .no-tailwind {
+    all: unset;
+  }
+}

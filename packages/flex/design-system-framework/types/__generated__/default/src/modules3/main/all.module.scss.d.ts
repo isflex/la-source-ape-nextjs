@@ -897,6 +897,9 @@ export type Styles = {
   isBlockWidescreenOnly: string;
   isBodyHeader: string;
   isBordered: string;
+  isBorderedBoxMobileGrey: string;
+  isBorderedBoxMobilePurple: string;
+  isBorderedBoxMobileSecondary: string;
   isBottom: string;
   isBottomRight: string;
   isBoxed: string;
@@ -1390,6 +1393,7 @@ export type Styles = {
   isGridDisplayGrid: string;
   isGridDisplayGridDesktop: string;
   isGridDisplayGridFullhd: string;
+  isGridDisplayGridMobile: string;
   isGridDisplayGridMobileMax: string;
   isGridDisplayGridTablet: string;
   isGridDisplayGridWidescreen: string;

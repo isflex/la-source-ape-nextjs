@@ -83,6 +83,8 @@ applications:
             - pwd
             - export FLEX_PROJ_ROOT=$(pwd)
             - pnpm build
+            - rm -f node_modules/@rspack/binding-linux-x64-gnu/rspack.linux-x64-gnu.node
+            - rm -f node_modules/@rspack/binding-linux-x64-musl/rspack.linux-x64-musl.node
       artifacts:
         baseDirectory: apps/gateway/.next
         files:

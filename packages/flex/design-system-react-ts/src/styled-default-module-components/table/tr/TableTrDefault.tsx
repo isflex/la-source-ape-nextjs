@@ -22,6 +22,9 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  */
 const TableTr = ({ className, classList, expandable, expanded, ...others }: TableTrProps): React.JSX.Element => {
   const classes = classNames(
+    {
+      [styles.table]: true,
+    },
     expandable && styles[camelCase(is('expandable')) as keyof Styles],
     expanded ? styles[camelCase(is('expanded')) as keyof Styles] : null,
     className,
