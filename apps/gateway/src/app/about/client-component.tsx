@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { createPortal } from 'react-dom'
 // import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import type { NextPage } from 'next'
@@ -69,14 +70,10 @@ const About: NextPage<ServerPageInfo> = observer(({ mobileCheck }) => {
       // let route: string | null = null
       switch (data) {
         case 'go2routeTerminus':
-          // route = `https://luffah.xyz/bidules/Terminus/`
-          router.push('/game/bash/terminus')
-          // router.push('/games/terminus')
+          router.push('/games/terminus/')
           break
         case 'go2routeSquirrel':
-          // route = `/slides/squirrel.html`
-          router.push('/game/bash/ecureuil')
-          // router.push('/games/ecureuil')
+          router.push('/games/ecureuil/')
           break
         default:
           break
@@ -222,8 +219,11 @@ const About: NextPage<ServerPageInfo> = observer(({ mobileCheck }) => {
 
   const ToggleSlideBtn = () => {
     if (!showSlide) return null
-    return (
-      <div className={classNames(stylesPage.slidesMenuOpen)}>
+    return createPortal(
+      <div className={classNames(stylesPage.slidesMenuOpen)}
+        onClick={(e) => {
+          ;(e as React.MouseEvent<HTMLDivElement, MouseEvent>).stopPropagation()
+        }}>
         <button onClick={handleCloseSlide}
           className={classNames(
             stylesPage.slidesTogglerClose
@@ -231,7 +231,8 @@ const About: NextPage<ServerPageInfo> = observer(({ mobileCheck }) => {
             <span />
             <span />
         </button>
-      </div>
+      </div>,
+      document.querySelector('body #gatewayLayout') as unknown as HTMLDivElement,
     )
   }
 

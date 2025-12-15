@@ -45,14 +45,7 @@ export default async function AboutLayout() {
         stylesPage.aboutApp,
         mobileCheck && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
       )}>
-      <div style={{
-        height: 'auto',
-        padding: '2rem 0',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+      <div className={stylesPage.graphicsHolder}>
         <div style={{
           width: '100%',
         }}>

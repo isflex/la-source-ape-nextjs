@@ -1,5 +1,12 @@
 .dom-overlay-mode {
   overflow-y: hidden;
+
+  .nav-layout,
+  .generic-layout-1 .graphics-holder,
+  .generic-layout-1 main .titel-holder,
+  .footer-container {
+    display: none;
+  }
 }
 
 .generic-layout-1 {

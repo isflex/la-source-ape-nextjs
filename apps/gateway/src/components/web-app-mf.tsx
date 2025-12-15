@@ -1,9 +1,12 @@
 'use client'
 
 import React from 'react'
+import * as mobx from 'mobx'
+import * as mobxReactLite from 'mobx-react-lite'
+import * as framerMotion from 'framer-motion'
 // import dynamic from 'next/dynamic'
 import loadable from '@loadable/component'
-import { init, loadRemote } from '@module-federation/enhanced/runtime'
+import { createInstance } from '@module-federation/enhanced/runtime'
 import { observer } from 'mobx-react-lite'
 
 const HOST = `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_NAME}`
@@ -43,7 +46,7 @@ const WebAppMF: React.FC<{mobileCheck: boolean}> = observer(() => {
   }
 
   const WebAppRemote = loadable(async () => {
-    init({
+    const instance = createInstance({
       name: `@${HOST}/web-app`,
       remotes: [
         {
@@ -66,6 +69,7 @@ const WebAppMF: React.FC<{mobileCheck: boolean}> = observer(() => {
         mobx: {
           version: '6.13.7',
           scope: 'default',
+          lib: () => mobx,
           shareConfig: {
             singleton: true,
             requiredVersion: '6.13.7',
@@ -74,11 +78,22 @@ const WebAppMF: React.FC<{mobileCheck: boolean}> = observer(() => {
         'mobx-react-lite': {
           version: '4.1.0',
           scope: 'default',
+          lib: () => mobxReactLite,
           shareConfig: {
             singleton: true,
             requiredVersion: '4.1.0',
           },
         },
+        'framer-motion': {
+          version: '12.23.12',
+          scope: 'default',
+          lib: () => framerMotion,
+          shareConfig: {
+            singleton: true,
+            requiredVersion: '12.23.12',
+          },
+        },
+
         // 'react-router': {
         //   version: '7.6.0',
         //   scope: 'default',
@@ -87,19 +102,11 @@ const WebAppMF: React.FC<{mobileCheck: boolean}> = observer(() => {
         //     requiredVersion: '7.6.0',
         //   },
         // },
-        'framer-motion': {
-          version: '12.23.12',
-          scope: 'default',
-          shareConfig: {
-            singleton: true,
-            requiredVersion: '12.23.12',
-          },
-        },
       },
       shareStrategy: 'loaded-first',
     })
 
-    const responseRemote = await loadRemote(`${MF}/App`)
+    const responseRemote = await instance.loadRemote(`${MF}/App`)
       .then((m: any) => {
         // console.log(m)
         if (m?.__esModule) return m?.default as React.ComponentType<any>

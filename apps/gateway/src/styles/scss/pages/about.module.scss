@@ -7,6 +7,15 @@ $spaghetti-min-height-mob: 768px !default;
 $spaghetti-min-height-desk: 864px !default;
 
 .about-app {
+  .graphics-holder {
+    height: auto;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   &.mobile-mode {
     .section-about {
       display: grid;

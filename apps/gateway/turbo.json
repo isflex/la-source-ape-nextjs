@@ -18,6 +18,14 @@
         "FLEX_*"
       ]
     },
+    "dev:all:transit": {
+      "cache": false,
+      "env": [
+        "DOTENV_*",
+        "FLEX_*"
+      ],
+      "with": ["marp:dev", "warm:api"]
+    },
     "next:dev": {
       "cache": false,
       "persistent": true,
@@ -27,6 +35,15 @@
         "SENTRY_*"
       ]
     },
+    "next:dev:all": {
+      "cache": false,
+      "env": [
+        "FLEX_*",
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
+      ],
+      "with": ["dev:all:transit"]
+    },
     "next:dev:turbo": {
       "cache": false,
       "env": [
@@ -34,7 +51,7 @@
         "NEXT_PUBLIC_*",
         "SENTRY_*"
       ],
-      "with": ["marp:dev", "warm:api"]
+      "with": ["dev:all:transit"]
     },
     "next:tsc": {
       "cache": false,
@@ -52,12 +69,21 @@
       "cache": false,
       "persistent": true
     },
+    "dev:all": {
+      "dependsOn": [
+        "^dev:packages:transit"
+      ],
+      "with": ["next:dev:all"],
+      "cache": false,
+      "persistent": true
+    },
     "dev:turbo": {
       "dependsOn": [
         "^dev:packages:transit",
         "next:dev:turbo"
       ],
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "marp:build": {
       "outputs": [

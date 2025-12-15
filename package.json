@@ -19,6 +19,7 @@
     "compile:watch": "turbo run compile:watch:sh",
     "compile:watch:sh": "./bin/run-compile-watch.sh",
     "dev": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run dev",
+    "dev:all": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run dev:all",
     "dev:turbo": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run dev:turbo",
     "install:prod": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- ./bin/run-install-prod.sh",
     "lint": "cross-env NODE_OPTIONS='--max-old-space-size=8192' turbo run lint",

@@ -23,6 +23,7 @@
     "marp:html:build": "cross-env BUILD_RUNNING=true marp --config ./marp.config.mjs",
     "marp:html:dev": "cross-env BUILD_RUNNING=false marp --config ./marp.config.mjs",
     "next:dev": "cross-env NODE_OPTIONS='--max-old-space-size=8192' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
+    "next:dev:all": "cross-env NODE_OPTIONS='--max-old-space-size=8192' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
     "next:dev:debug": "FEDERATION_DEBUG='true' NODE_OPTIONS='--max-old-space-size=8192 --inspect' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
     "next:dev:turbo": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- $FLEX_PROJ_ROOT/bin/next-turbo-dev.sh",
     "next:tsc": "pnpm exec tsc --project tsconfig.json --noEmit",
