@@ -17,6 +17,6 @@ main > [data-flex-theme] .footer {
   width: 100%;
 }
 
-#gatewayLayout [data-amplify-theme="flex-override-theme-gateway"] .main-header-block .main-title .main-title-inset {
+#gatewayLayout .main-header-block .main-title .main-title-inset {
   margin: 10px 0 0 ;
 }

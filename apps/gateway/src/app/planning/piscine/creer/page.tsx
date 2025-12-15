@@ -66,7 +66,7 @@ type PiscineFormData = {
 export default function PiscineCreerPage() {
   const router = useRouter();
   const { user } = useAuthenticator();
-  const isAdmin = !!user;
+  const isAuthenticated = !!user;
 
 
   const [showForm, setShowForm] = useState(false);
@@ -113,7 +113,7 @@ export default function PiscineCreerPage() {
     try {
       setLoading(true);
 
-      if (isAdmin) {
+      if (isAuthenticated) {
         const { unsubscribe } = client.models.PiscineForm.observeQuery({
           filter: {
             owner: { eq: user?.userId || '' }
@@ -155,12 +155,12 @@ export default function PiscineCreerPage() {
       await loadForms();
     };
 
-    if (isAdmin) {
+    if (isAuthenticated) {
       initializeForms();
     } else {
       setLoading(false);
     }
-  }, [isAdmin]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Prevent hydration mismatch by not rendering admin-specific content until mounted
   if (!mounted) {
@@ -177,12 +177,17 @@ export default function PiscineCreerPage() {
   }
 
   const handleAdminToggle = async () => {
-    if (isAdmin) {
-      await signOut();
+    const returnUrl = encodeURIComponent('/planning/piscine/creer/');
+    if (isAuthenticated) {
+      await signOut({
+        global: false,
+        oauth: {
+          redirectUrl: `/auth/?returnUrl=${returnUrl}`
+        }
+      });
       setShowForm(false);
     } else {
       // Redirect to auth page for normal user login/signup
-      const returnUrl = encodeURIComponent('/planning/piscine/creer/');
       router.push(`/auth/?mode=user&returnUrl=${returnUrl}`);
     }
   };
@@ -321,7 +326,7 @@ export default function PiscineCreerPage() {
                     <Text>{error}</Text>
                   </InfoBlockContent>
                 </InfoBlock>
-              ) : isAdmin ? (
+              ) : isAuthenticated ? (
                 <>
                   <Title level={TitleLevel.LEVEL2}>
                     Mes plannings piscine
@@ -579,13 +584,13 @@ export default function PiscineCreerPage() {
             )}>
               <Button
                 markup={ButtonMarkup.BUTTON}
-                variant={isAdmin ? VariantState.SUCCESS : VariantState.TERTIARY}
+                variant={isAuthenticated ? VariantState.SUCCESS : VariantState.TERTIARY}
                 onClick={handleAdminToggle}
               >
-                {isAdmin ? 'Déconnexion 🔓' : 'Connexion 🔒'}
+                {isAuthenticated ? 'Déconnexion 🔓' : 'Connexion 🔒'}
               </Button>
 
-              {isAdmin && (
+              {isAuthenticated && (
                 <Button
                   markup={ButtonMarkup.BUTTON}
                   variant={showForm ? VariantState.SECONDARY : VariantState.PRIMARY}
@@ -598,7 +603,7 @@ export default function PiscineCreerPage() {
           </Box>
 
           {/* Piscine Form Creation/Editing */}
-          {isAdmin && showForm && (
+          {isAuthenticated && showForm && (
             <div ref={formRef}>
               <PiscineForm
                 onSubmit={(success, message) => {

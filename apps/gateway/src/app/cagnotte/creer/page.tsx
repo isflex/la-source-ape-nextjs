@@ -224,11 +224,17 @@ export default function CagnotteCreerPage() {
   }
 
   const handleAuthToggle = async () => {
+    const returnUrl = encodeURIComponent('/cagnotte/creer/');
     if (isAuthenticated) {
-      await signOut();
+      await signOut({
+        global: false,
+        oauth: {
+          redirectUrl: `/auth/?returnUrl=${returnUrl}`
+        }
+      });
       setShowForm(false);
     } else {
-      const returnUrl = encodeURIComponent('/cagnotte/creer/');
+      // Redirect to auth page for normal user login/signup
       router.push(`/auth/?mode=user&returnUrl=${returnUrl}`);
     }
   };

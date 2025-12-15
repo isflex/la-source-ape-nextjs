@@ -13,6 +13,6 @@ export default async function AuthLayout() {
   )
 
   return (
-    <section style={{ minHeight: '100vh' }}><AuthPage nonce={_nonce}/></section>
+    <section style={{ minHeight: '100vh' }}><AuthPage nonce={_nonce} /></section>
   );
 }

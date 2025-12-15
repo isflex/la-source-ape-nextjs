@@ -225,13 +225,29 @@ function AuthenticatedContent() {
 
   useEffect(() => {
     if (user) {
-      // Get return URL from params (now properly restored after OAuth)
-      let returnUrl = searchParams.get('returnUrl');
+      // Priority 1: Check sessionStorage for OAuth flow (handles race condition)
+      let returnUrl: string | null = null;
+      const originalParamsStr = sessionStorage.getItem('amplify-oauth-original-params');
+      if (originalParamsStr) {
+        try {
+          const originalParams = JSON.parse(originalParamsStr);
+          returnUrl = originalParams.returnUrl || null;
+          sessionStorage.removeItem('amplify-oauth-original-params'); // Clean up
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (e) {
+          // Ignore parse errors
+        }
+      }
 
-      // Fallback to sessionStorage (legacy support)
+      // Priority 2: Get from URL params (for non-OAuth flows)
+      if (!returnUrl) {
+        returnUrl = searchParams.get('returnUrl');
+      }
+
+      // Priority 3: Legacy sessionStorage key
       if (!returnUrl) {
         returnUrl = sessionStorage.getItem('amplify-oauth-returnUrl');
-        sessionStorage.removeItem('amplify-oauth-returnUrl'); // Clean up
+        sessionStorage.removeItem('amplify-oauth-returnUrl');
       }
 
       // Default fallback
@@ -291,8 +307,8 @@ const AuthPage: React.FC<AuthPageProps> = ({
           // Use router.replace to trigger React re-render
           router.replace(currentUrl.pathname + currentUrl.search);
 
-          // Clean up sessionStorage
-          sessionStorage.removeItem('amplify-oauth-original-params');
+          // NOTE: Don't clean up sessionStorage here - AuthenticatedContent needs it
+          // to handle the race condition where user is set before router.replace completes
         } catch (error) {
           debug.error('[AUTH_PAGE] Error parsing original params:', error);
         }

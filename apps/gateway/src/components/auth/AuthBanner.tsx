@@ -33,10 +33,18 @@ export default function AuthBanner({ className, style }: AuthBannerProps) {
 
       debug.auth('[AUTH_BANNER] Stored current path for post-signOut redirect:', currentPath);
 
-      await signOut();
+      const returnUrl = encodeURIComponent(currentPath);
+      await signOut({
+        global: false,
+        oauth: {
+          redirectUrl: `/auth/?returnUrl=${returnUrl}`
+        }
+      });
       setUserAttributes(null); // Clear attributes on sign out
       // Note: signOut() will cause a page reload, redirect will be handled in useEffect
     } catch (error) {
+      const signOutErrorRegex = new RegExp(/InvalidPreferredRedirectUrlException/g)
+      if (signOutErrorRegex.test(error as string)) return // dismiss InvalidPreferredRedirectUrlException error
       debug.error('Error signing out:', error);
     }
   };

@@ -70,7 +70,7 @@ type Newsletter = {
 export default function NewsletterCreationPage() {
   const router = useRouter();
   const { user } = useAuthenticator();
-  const isAdmin = !!user;
+  const isAuthenticated = !!user;
 
   const [showForm, setShowForm] = useState(false);
   const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
@@ -87,7 +87,7 @@ export default function NewsletterCreationPage() {
       setLoading(true);
 
       // Use observeQuery for real-time updates in admin mode
-      if (isAdmin) {
+      if (isAuthenticated) {
         const { unsubscribe } = client.models.Newsletter.observeQuery({
           filter: {
             isDeleted: { eq: false }
@@ -133,7 +133,7 @@ export default function NewsletterCreationPage() {
     };
 
     initializeNewsletters();
-  }, [isAdmin]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Prevent hydration mismatch by not rendering admin-specific content until mounted
   if (!mounted) {
@@ -150,12 +150,17 @@ export default function NewsletterCreationPage() {
   }
 
   const handleAdminToggle = async () => {
-    if (isAdmin) {
-      await signOut();
+    const returnUrl = encodeURIComponent('/newsletter/creer/');
+    if (isAuthenticated) {
+      await signOut({
+        global: false,
+        oauth: {
+          redirectUrl: `/auth/?returnUrl=${returnUrl}`
+        }
+      });
       setShowForm(false);
     } else {
-      // Redirect to auth page for admin login (no signup)
-      const returnUrl = encodeURIComponent('/newsletter/creer/');
+      // Redirect to auth page for admin login/signup
       router.push(`/auth/?mode=admin&returnUrl=${returnUrl}`);
     }
   };
@@ -184,7 +189,7 @@ export default function NewsletterCreationPage() {
     const now = new Date();
     const publicationDate = new Date(newsletter.publicationDate);
 
-    if (!isAdmin && publicationDate > now) {
+    if (!isAuthenticated && publicationDate > now) {
       alert("L'événement n'est pas encore publié");
       return;
     }
@@ -416,7 +421,7 @@ export default function NewsletterCreationPage() {
                           <TableTd>{formatDate(newsletter.publicationDate)}</TableTd>
                           <TableTd>
                             <div className={flexStyles.isFlexDirectionRow}>
-                              {isAdmin && (
+                              {isAuthenticated && (
                                 <input
                                   type="checkbox"
                                   title="Réutiliser le contenu"
@@ -431,7 +436,7 @@ export default function NewsletterCreationPage() {
                               >
                                 Voir en ligne
                               </Button>
-                              {isAdmin && (
+                              {isAuthenticated && (
                                 <Button
                                   markup={ButtonMarkup.BUTTON}
                                   variant={VariantState.DANGER}
@@ -462,13 +467,13 @@ export default function NewsletterCreationPage() {
             )}>
               <Button
                 markup={ButtonMarkup.BUTTON}
-                variant={isAdmin ? VariantState.SUCCESS : VariantState.TERTIARY}
+                variant={isAuthenticated ? VariantState.SUCCESS : VariantState.TERTIARY}
                 onClick={handleAdminToggle}
               >
-                {isAdmin ? 'Déconnexion Admin 🔓' : 'Administration 🔒'}
+                {isAuthenticated ? 'Déconnexion Admin 🔓' : 'Administration 🔒'}
               </Button>
 
-              {isAdmin && (
+              {isAuthenticated && (
                 <>
                   <Button
                     markup={ButtonMarkup.BUTTON}
@@ -491,7 +496,7 @@ export default function NewsletterCreationPage() {
           </Box>
 
           {/* Newsletter Creation Form */}
-          {isAdmin && showForm && (
+          {isAuthenticated && showForm && (
             <NewsletterForm
               onSubmit={handleCreateNewsletter}
               onCancel={handleCancelForm}
