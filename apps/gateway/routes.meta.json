@@ -9,6 +9,11 @@
     "navTitle": "Decouverte des metiers",
     "active": true
   },
+  "/cagnotte/creer/": {
+    "emoji": "🎁",
+    "navTitle": "Cagnotte Cadeau Maîtresse",
+    "active": true
+  },
   "/planning/piscine/creer/": {
     "emoji": "🏊",
     "navTitle": "Planning piscine",
