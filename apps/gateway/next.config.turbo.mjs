@@ -59,7 +59,7 @@ async function getActiveRoutes() {
       .readdirSync(path.resolve(__dirname, 'src/app'), { withFileTypes: true })
       .filter((file) => file.isDirectory())
       .map((folder) => folder.name.replace(regexFolderName, ''))
-      .filter((folder) => !folder.startsWith('layout') && folder !== 'api')
+      .filter((folder) => !folder.startsWith('layout') && folder !== 'api' && folder !== 'actions')
   } catch (error) {
     console.warn('Could not read app directory for routes:', error.message)
     routes = ['web-app', 'about', 'newsletter']

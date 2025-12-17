@@ -8,6 +8,7 @@ import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import Stripe from 'stripe';
 import { getCurrentConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection';
+import { logApiError } from '@src/lib/with-error-logging';
 
 // Configure Amplify for server-side API routes
 Amplify.configure(getCurrentConfig(), { ssr: true });
@@ -19,8 +20,13 @@ const stripe = new Stripe(process.env.FLEX_STRIPE_SECRET_KEY!, {
 });
 
 export async function POST(request: NextRequest) {
+  let userId: string | undefined;
+  let existingAccountsCount = 0;
+
   try {
-    const { userId, email } = await request.json();
+    const body = await request.json();
+    userId = body.userId;
+    const email = body.email;
 
     if (!userId || !email) {
       return NextResponse.json(
@@ -33,9 +39,10 @@ export async function POST(request: NextRequest) {
     const { data: existingAccounts } = await client.models.StripeConnectAccount.list({
       filter: { userId: { eq: userId } }
     });
+    existingAccountsCount = existingAccounts?.length || 0;
 
     let stripeAccountId: string;
-    let accountRecord: any;
+    let accountRecord: Schema['StripeConnectAccount']['type'] | null = null;
 
     if (existingAccounts && existingAccounts.length > 0) {
       // Use existing account
@@ -148,9 +155,17 @@ export async function POST(request: NextRequest) {
       accountId: stripeAccountId,
     });
   } catch (error) {
-    console.error('Error creating account link:', error);
+    const requestId = await logApiError(error, request, {
+      operation: 'create-account-link',
+      userId,
+      hasExistingAccount: existingAccountsCount > 0
+    });
+
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Internal server error' },
+      {
+        error: error instanceof Error ? error.message : 'Internal server error',
+        requestId
+      },
       { status: 500 }
     );
   }

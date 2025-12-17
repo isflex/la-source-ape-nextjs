@@ -1,34 +1,40 @@
-import { debug } from '@flexiness/domain-utils';
-
 export function register() {
   // No-op for initialization
 }
 
 export const onRequestError = async (
-  err: any,
-  request: any,
-  // context: any
+  err: Error,
+  request: {
+    path: string
+    method: string
+    headers: { cookie?: string; 'user-agent'?: string }
+  },
+  context: {
+    routerKind: 'Pages Router' | 'App Router'
+    routePath: string
+    routeType: 'render' | 'route'
+  }
 ) => {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
-    const { getPostHogServer } = await import('./app/posthog-server')
-    const posthog = await getPostHogServer()
+    const {
+      logServerError,
+      extractDistinctIdFromCookies
+    } = await import('./lib/server-error-logger')
 
-    let distinctId = null
-    if (request.headers.cookie) {
-      const cookieString = request.headers.cookie
-      const postHogCookieMatch = cookieString.match(/ph_phc_.*?_posthog=([^;]+)/)
+    const distinctId = extractDistinctIdFromCookies(
+      request.headers.cookie || null
+    )
 
-      if (postHogCookieMatch && postHogCookieMatch[1]) {
-        try {
-          const decodedCookie = decodeURIComponent(postHogCookieMatch[1])
-          const postHogData = JSON.parse(decodedCookie)
-          distinctId = postHogData.distinct_id
-        } catch (e) {
-          debug.error('Error parsing PostHog cookie:', e)
-        }
+    await logServerError(err, {
+      route: context.routePath || request.path,
+      method: request.method as 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
+      distinctId,
+      userAgent: request.headers['user-agent'],
+      additionalContext: {
+        routerKind: context.routerKind,
+        routeType: context.routeType,
+        source: 'instrumentation.onRequestError'
       }
-    }
-
-    await posthog.captureException(err, distinctId || undefined)
+    })
   }
 }

@@ -1,6 +1,8 @@
 import { defineBackend } from '@aws-amplify/backend';
 import { PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
+import { RemovalPolicy } from 'aws-cdk-lib';
 import { auth } from './auth/resource';
 import { data } from './data/resource';
 import { imageBase64Converter } from './functions/image-base64-converter/resource';
@@ -47,3 +49,19 @@ backend.imageBase64Converter.addEnvironment(
   'FLEX_AWS_STORAGE_BUCKET_NAME',
   existingBucketName
 );
+
+// Create CloudWatch Log Group for server-side error tracing
+const loggingStack = backend.createStack('error-logging-stack');
+const errorLogGroup = new LogGroup(loggingStack, 'GatewayErrorLogs', {
+  logGroupName: '/apelasource/gateway/errors',
+  retention: RetentionDays.ONE_MONTH,
+  removalPolicy: RemovalPolicy.RETAIN, // Keep logs even if stack is deleted
+});
+
+// Export the log group name for reference
+backend.addOutput({
+  custom: {
+    errorLogGroupName: errorLogGroup.logGroupName,
+    errorLogGroupArn: errorLogGroup.logGroupArn,
+  }
+});

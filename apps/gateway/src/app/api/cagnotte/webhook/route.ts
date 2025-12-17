@@ -4,6 +4,7 @@ import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import Stripe from 'stripe';
 import { getCurrentConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection';
+import { logServerError, type ErrorContext } from '@src/lib/server-error-logger';
 
 // Configure Amplify for server-side API routes
 Amplify.configure(getCurrentConfig(), { ssr: true });
@@ -17,14 +18,37 @@ const stripe = new Stripe(process.env.FLEX_STRIPE_SECRET_KEY!, {
 
 const webhookSecret = process.env.FLEX_STRIPE_WEBHOOK_SECRET!;
 
+// Helper to log webhook errors
+async function logWebhookError(
+  error: Error | unknown,
+  eventType: string,
+  additionalContext?: Record<string, unknown>
+): Promise<void> {
+  const context: ErrorContext = {
+    route: '/api/cagnotte/webhook',
+    method: 'POST',
+    additionalContext: {
+      source: 'stripe-webhook',
+      eventType,
+      ...additionalContext
+    }
+  };
+  await logServerError(error, context);
+}
+
 export async function POST(request: NextRequest) {
+  let eventType = 'unknown';
+
   try {
     // Get the raw body as text (required for signature verification)
     const body = await request.text();
     const signature = request.headers.get('stripe-signature');
 
     if (!signature) {
-      console.error('Missing Stripe signature');
+      await logWebhookError(
+        new Error('Missing Stripe signature'),
+        'signature_missing'
+      );
       return NextResponse.json(
         { error: 'Missing stripe-signature header' },
         { status: 400 }
@@ -40,12 +64,14 @@ export async function POST(request: NextRequest) {
         webhookSecret
       );
     } catch (err) {
-      console.error('Webhook signature verification failed:', err);
+      await logWebhookError(err, 'signature_verification_failed');
       return NextResponse.json(
         { error: 'Webhook signature verification failed' },
         { status: 400 }
       );
     }
+
+    eventType = event.type;
 
     // Handle the event
     switch (event.type) {
@@ -86,7 +112,7 @@ export async function POST(request: NextRequest) {
     // Return 200 to acknowledge receipt
     return NextResponse.json({ received: true });
   } catch (error) {
-    console.error('Webhook handler error:', error);
+    await logWebhookError(error, eventType);
     // Always return 200 to prevent Stripe from retrying
     return NextResponse.json({ received: true });
   }
@@ -97,7 +123,11 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     const { contributionId } = session.metadata || {};
 
     if (!contributionId) {
-      console.error('No contributionId in session metadata');
+      await logWebhookError(
+        new Error('No contributionId in session metadata'),
+        'checkout.session.completed',
+        { sessionId: session.id }
+      );
       return;
     }
 
@@ -107,13 +137,16 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     });
 
     if (!contribution) {
-      console.error(`Contribution ${contributionId} not found`);
+      await logWebhookError(
+        new Error(`Contribution ${contributionId} not found`),
+        'checkout.session.completed',
+        { contributionId, sessionId: session.id }
+      );
       return;
     }
 
     // Check if already processed (prevent duplicate processing)
     if (contribution.paymentStatus === 'SUCCEEDED') {
-      console.log(`Contribution ${contributionId} already processed`);
       return;
     }
 
@@ -124,10 +157,11 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
       stripePaymentIntentId: session.payment_intent as string,
       paidAt: new Date().toISOString(),
     });
-
-    console.log(`Payment succeeded for contribution ${contributionId}`);
   } catch (error) {
-    console.error('Error handling checkout.session.completed:', error);
+    await logWebhookError(error, 'checkout.session.completed', {
+      sessionId: session.id,
+      contributionId: session.metadata?.contributionId
+    });
   }
 }
 
@@ -151,10 +185,11 @@ async function handleCheckoutExpired(session: Stripe.Checkout.Session) {
       id: contributionId,
       paymentStatus: 'CANCELED',
     });
-
-    console.log(`Checkout session expired for contribution ${contributionId}`);
   } catch (error) {
-    console.error('Error handling checkout.session.expired:', error);
+    await logWebhookError(error, 'checkout.session.expired', {
+      sessionId: session.id,
+      contributionId: session.metadata?.contributionId
+    });
   }
 }
 
@@ -177,10 +212,10 @@ async function handlePaymentFailed(paymentIntent: Stripe.PaymentIntent) {
       id: contribution.id,
       paymentStatus: 'FAILED',
     });
-
-    console.log(`Payment failed for contribution ${contribution.id}`);
   } catch (error) {
-    console.error('Error handling payment_intent.payment_failed:', error);
+    await logWebhookError(error, 'payment_intent.payment_failed', {
+      paymentIntentId: paymentIntent.id
+    });
   }
 }
 
@@ -209,10 +244,11 @@ async function handleChargeRefunded(charge: Stripe.Charge) {
       id: contribution.id,
       paymentStatus: 'REFUNDED',
     });
-
-    console.log(`Charge refunded for contribution ${contribution.id}`);
   } catch (error) {
-    console.error('Error handling charge.refunded:', error);
+    await logWebhookError(error, 'charge.refunded', {
+      chargeId: charge.id,
+      paymentIntentId: charge.payment_intent as string
+    });
   }
 }
 
@@ -224,7 +260,7 @@ async function handleAccountUpdated(account: Stripe.Account) {
     });
 
     if (!connectAccounts || connectAccounts.length === 0) {
-      console.log(`StripeConnectAccount not found for account ${account.id}`);
+      // This is not necessarily an error - could be a new account not yet in our system
       return;
     }
 
@@ -259,9 +295,9 @@ async function handleAccountUpdated(account: Stripe.Account) {
         ? new Date().toISOString()
         : connectAccount.onboardingCompletedAt,
     });
-
-    console.log(`Account ${account.id} updated to status ${accountStatus}`);
   } catch (error) {
-    console.error('Error handling account.updated:', error);
+    await logWebhookError(error, 'account.updated', {
+      stripeAccountId: account.id
+    });
   }
 }

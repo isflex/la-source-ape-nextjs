@@ -66,7 +66,7 @@ async function getActiveRoutes() {
       .map((folder) => folder.name.replace(regexFolderName, ''))
       .filter(
         (folder) =>
-          !folder.startsWith('layout') && folder !== 'api',
+          !folder.startsWith('layout') && folder !== 'api' && folder !== 'actions',
       )
   ])
 

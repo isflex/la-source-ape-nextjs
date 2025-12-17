@@ -10,6 +10,7 @@ import { View as FlexRootView } from '@flex-design-system/react-ts/client-sync-s
 import { default as flexStyles } from '@flex-design-system/framework'
 import { default as stylesLayout } from '@src/styles/scss/pages/layout.module.scss'
 import { inlineStyles } from '@src/styles/inlineStyles'
+import { logClientError } from '@src/app/actions/log-error'
 import '@src/styles/globals.css'
 
 const LogoLaSource = dynamic(() => import('@src/components/logo-la-source'), { ssr: true })
@@ -35,9 +36,17 @@ export default function GlobalError({
   const isMobile: boolean = false
 
   React.useEffect(() => {
-    // Log the error to an error reporting service
-    // debug.error(error)
+    // Log the error to PostHog (client-side)
     posthog.captureException(error)
+
+    // Also log via server action for CloudWatch
+    logClientError({
+      errorName: error.name,
+      errorMessage: error.message,
+      errorDigest: error.digest,
+      route: typeof window !== 'undefined' ? window.location.pathname : 'unknown',
+      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : undefined
+    })
   }, [error])
 
   return (

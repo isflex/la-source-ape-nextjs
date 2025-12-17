@@ -15,6 +15,7 @@ import {
   type FeeConfig
 } from '@src/lib/cagnotte-fees';
 import { getCurrentConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection';
+import { logApiError } from '@src/lib/with-error-logging';
 
 // Configure Amplify for server-side API routes
 Amplify.configure(getCurrentConfig(), { ssr: true });
@@ -27,8 +28,12 @@ const stripe = new Stripe(process.env.FLEX_STRIPE_SECRET_KEY!, {
 });
 
 export async function POST(request: NextRequest) {
+  let logJackpotFormId: string | undefined;
+  let logContributionId: string | undefined;
+
   try {
     const body = await request.json();
+    logJackpotFormId = body.jackpotFormId;
 
     // Validate input
     const validation = ContributionSchema.safeParse(body);
@@ -172,12 +177,22 @@ export async function POST(request: NextRequest) {
     });
 
     if (contributionErrors || !contribution) {
-      console.error('Error creating contribution:', contributionErrors);
+      const requestId = await logApiError(
+        new Error('Failed to create contribution record'),
+        request,
+        {
+          operation: 'create-checkout-session',
+          jackpotFormId: logJackpotFormId,
+          contributionErrors
+        }
+      );
       return NextResponse.json(
-        { error: 'Failed to create contribution record' },
+        { error: 'Failed to create contribution record', requestId },
         { status: 500 }
       );
     }
+
+    logContributionId = contribution.id;
 
     // Get base URL
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ||
@@ -250,9 +265,16 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error creating checkout session:', error);
+    const requestId = await logApiError(error, request, {
+      operation: 'create-checkout-session',
+      jackpotFormId: logJackpotFormId,
+      contributionId: logContributionId
+    });
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Internal server error' },
+      {
+        error: error instanceof Error ? error.message : 'Internal server error',
+        requestId
+      },
       { status: 500 }
     );
   }
