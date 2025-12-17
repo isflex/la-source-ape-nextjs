@@ -155,6 +155,14 @@ export async function POST(request: NextRequest) {
       accountId: stripeAccountId,
     });
   } catch (error) {
+    // Immediate sync logging for debugging (Amplify captures stdout/stderr)
+    console.error('[STRIPE-CONNECT-ERROR]', JSON.stringify({
+      timestamp: new Date().toISOString(),
+      error: error instanceof Error ? { name: error.name, message: error.message, stack: error.stack } : String(error),
+      userId,
+      hasExistingAccount: existingAccountsCount > 0
+    }, null, 2));
+
     const requestId = await logApiError(error, request, {
       operation: 'create-account-link',
       userId,
