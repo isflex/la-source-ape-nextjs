@@ -61,6 +61,7 @@ type JackpotFormData = {
   feePayoutPayer?: string | null;
   platformCommissionPercent?: number | null;
   sepaPaymentsAllowed?: boolean | null;
+  isPubliclyVisible?: boolean | null;
 };
 
 export default function CagnotteSlugPage() {
@@ -77,6 +78,8 @@ export default function CagnotteSlugPage() {
   const [contributions, setContributions] = useState<JackpotContributionData[]>([]);
   const [mounted, setMounted] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [publicJackpots, setPublicJackpots] = useState<JackpotFormData[]>([]);
+  const [publicJackpotStats, setPublicJackpotStats] = useState<Record<string, { totalAmount: number; contributorCount: number }>>({});
 
   const isCreator = user?.userId && jackpotForm?.owner === user.userId;
   const status = jackpotForm?.status || 'DRAFT';
@@ -111,6 +114,35 @@ export default function CagnotteSlugPage() {
         setLoading(true);
 
         if (!slug) {
+          // Load public jackpots for landing page
+          const { data: publicForms } = await client.models.JackpotForm.list({
+            filter: {
+              isPubliclyVisible: { eq: true },
+              status: { eq: 'ACTIVE' }
+            }
+          });
+
+          if (publicForms && publicForms.length > 0) {
+            setPublicJackpots(publicForms as JackpotFormData[]);
+
+            // Load contribution stats for each public jackpot
+            for (const form of publicForms) {
+              const { data: contribs } = await client.models.JackpotContribution.list({
+                filter: { jackpotFormId: { eq: form.id } }
+              });
+              if (contribs) {
+                const stats = calculateJackpotStats(contribs as JackpotContributionData[]);
+                setPublicJackpotStats(prev => ({
+                  ...prev,
+                  [form.id]: {
+                    totalAmount: stats.totalAmount,
+                    contributorCount: stats.contributorCount
+                  }
+                }));
+              }
+            }
+          }
+
           setShowModal(true)
           setLoading(false);
           return;
@@ -227,14 +259,73 @@ export default function CagnotteSlugPage() {
         <AuthBanner />
         <Container>
           <Section>
+            {/* Public Cagnottes List */}
+            {publicJackpots.length > 0 && (
+              <Box>
+                <Title level={TitleLevel.LEVEL2} className={classNames(
+                  flexStyles.isFullwidth,
+                  flexStyles.hasTextCentered,
+                )}>
+                  Cagnottes publiques
+                </Title>
+                <Text className={classNames(flexStyles.hasTextCentered)} style={{ marginBottom: '1.5rem' }}>
+                  Ces cagnottes sont ouvertes aux contributions de tous les parents.
+                </Text>
+
+                <div className={classNames(
+                  flexStyles.isGridDisplayGrid,
+                  flexStyles.isGridGap4,
+                  flexStyles.isGridCols1,
+                  flexStyles.isGridCols2Tablet,
+                  flexStyles.isFullwidth,
+                )}>
+                  {publicJackpots.map((jackpot) => {
+                    const stats = publicJackpotStats[jackpot.id] || { totalAmount: 0, contributorCount: 0 };
+                    return (
+                      <Box key={jackpot.id} className={classNames(flexStyles.isFlat)}>
+                        <Title level={TitleLevel.LEVEL4}>{jackpot.title}</Title>
+                        <Text><strong>Pour :</strong> {jackpot.teacherName}</Text>
+                        <Text style={{ fontSize: '0.875rem', opacity: 0.8 }}>
+                          Échéance : {formatDeadline(new Date(jackpot.deadline))} ({getDeadlineDistance(new Date(jackpot.deadline))})
+                        </Text>
+                        <div style={{ marginTop: '0.5rem' }}>
+                          <Text>
+                            <strong>{formatCurrency(stats.totalAmount)}</strong> collecté
+                            {jackpot.targetAmount && (
+                              <span style={{ opacity: 0.8 }}> / {formatCurrency(jackpot.targetAmount)}</span>
+                            )}
+                          </Text>
+                          <Text style={{ fontSize: '0.875rem', opacity: 0.8 }}>
+                            {stats.contributorCount} contributeur{stats.contributorCount !== 1 ? 's' : ''}
+                          </Text>
+                        </div>
+                        <div style={{ marginTop: '1rem' }}>
+                          <Button
+                            small
+                            markup={ButtonMarkup.BUTTON}
+                            variant={VariantState.PRIMARY}
+                            onClick={() => router.push(`/cagnotte/${jackpot.slug}/`)}
+                          >
+                            Voir et contribuer
+                          </Button>
+                        </div>
+                      </Box>
+                    );
+                  })}
+                </div>
+              </Box>
+            )}
+
+            {/* Info block for private cagnottes */}
             <InfoBlock>
-              <InfoBlockHeader status={InfoBlockStatus.WARNING} customIcon={IconName.UI_EXCLAMATION_CIRCLE}>
-                <Title level={TitleLevel.LEVEL3}>{'Cagnotte introuvable'}</Title>
+              <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.UI_INFO_CIRCLE}>
+                <Title level={TitleLevel.LEVEL3}>Vous cherchez une cagnotte privée ?</Title>
               </InfoBlockHeader>
               <InfoBlockContent>
-                <Text>{'Un parent organisateur devra vous communiquer l\'URL exacte de la cagnotte'}</Text>
+                <Text>Un parent organisateur devra vous communiquer l&apos;URL exacte de la cagnotte.</Text>
               </InfoBlockContent>
             </InfoBlock>
+
             <div className={classNames(
               flexStyles.isFlex,
               flexStyles.isAlignItemsCenter,

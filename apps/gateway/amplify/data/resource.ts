@@ -403,6 +403,9 @@ const schema = a.schema({
       sepaPaymentsCutoffAt: a.datetime(),  // Calculated: deadline minus SEPA days
       sepaPaymentsAllowed: a.boolean().default(false),
 
+      // Public visibility (for discovery on landing page)
+      isPubliclyVisible: a.boolean().default(false),
+
       contributions: a.hasMany('JackpotContribution', 'jackpotFormId'),
       createdAt: a.datetime(),
       updatedAt: a.datetime(),

@@ -51,16 +51,18 @@ export const Banner: React.FC<BannerProps> = ({ logoFlexInView }) => {
   const handleAcceptCookies = () => {
     localStorage.setItem('cookie_consent', 'yes');
     setConsentGiven('yes');
+    posthog.opt_in_capturing();
   };
 
   const handleDeclineCookies = () => {
     localStorage.setItem('cookie_consent', 'no');
     setConsentGiven('no');
+    posthog.opt_out_capturing();
   };
 
   return (
     <div className={classNames(stylesPage.cookiesConsentContainer, logoFlexInView && stylesPage.atFooterBottom)}>
-      {consentGiven === 'undecided' && (
+      {(consentGiven === 'undecided' || posthog.get_explicit_consent_status() === 'pending') && (
         <div className={stylesPage.cookiesConsentHolder}>
           <Box className={classNames(flexStyles.isPaddingless, flexStyles.isFlat, flexStyles.isFlatFlexPurple, flexStyles.isGreyDark)}>
             <div style={{ padding: '0 0.5rem'}}>

@@ -71,6 +71,7 @@ export default function JackpotForm({ onSubmit, onCancel, existingSlugs = [], ed
   const [description, setDescription] = useState('');
   const [targetAmount, setTargetAmount] = useState('');
   const [deadline, setDeadline] = useState('');
+  const [isPubliclyVisible, setIsPubliclyVisible] = useState(false);
 
   const totalSteps = 4; // Simplified: Basic Info, Description, Target/Deadline, Review
 
@@ -88,6 +89,7 @@ export default function JackpotForm({ onSubmit, onCancel, existingSlugs = [], ed
           setDescription(form.description || '');
           setTargetAmount(form.targetAmount?.toString() || '');
           setDeadline(form.deadline.split('T')[0]); // Extract date part
+          setIsPubliclyVisible(form.isPubliclyVisible || false);
         }
       } catch (error) {
         debug.error('Error loading jackpot:', error);
@@ -162,6 +164,8 @@ export default function JackpotForm({ onSubmit, onCancel, existingSlugs = [], ed
         // SEPA configuration from environment
         sepaPaymentsAllowed: sepaConfig.enabled,
         sepaPaymentsCutoffAt: sepaCutoffDate ? sepaCutoffDate.toISOString() : undefined,
+        // Public visibility
+        isPubliclyVisible,
       };
 
       if (editingFormId) {
@@ -406,6 +410,24 @@ export default function JackpotForm({ onSubmit, onCancel, existingSlugs = [], ed
               </label>
             </div>
           </div>
+
+          <div style={{ marginTop: '1.5rem' }}>
+            <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                checked={isPubliclyVisible}
+                onChange={(e) => setIsPubliclyVisible(e.target.checked)}
+                style={{ marginTop: '0.25rem' }}
+              />
+              <div>
+                <Text><strong>Rendre cette cagnotte publique</strong></Text>
+                <Text style={{ fontSize: '0.875rem', opacity: 0.7 }}>
+                  Si cochée, la cagnotte apparaîtra dans la liste publique et sera plus facilement
+                  découvrable par d&apos;autres parents (idéal pour les enseignants intervenant dans plusieurs classes).
+                </Text>
+              </div>
+            </label>
+          </div>
         </div>
       )}
 
@@ -445,6 +467,9 @@ export default function JackpotForm({ onSubmit, onCancel, existingSlugs = [], ed
                 <Text><strong>Date limite :</strong> {new Date(deadline).toLocaleDateString('fr-FR', {
                   year: 'numeric', month: 'long', day: 'numeric'
                 })}</Text>
+              </div>
+              <div style={{ marginBottom: '1rem' }}>
+                <Text><strong>Visibilité :</strong> {isPubliclyVisible ? 'Publique (visible sur la page d\'accueil)' : 'Privée (URL à partager)'}</Text>
               </div>
             </InfoBlockContent>
           </InfoBlock>
