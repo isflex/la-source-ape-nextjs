@@ -9,22 +9,20 @@ import type { Schema } from '@amplify/data/resource';
 import Stripe from 'stripe';
 import { getCurrentConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection';
 import { logApiError } from '@src/lib/with-error-logging';
+import { getStripeSecrets } from '@src/lib/secrets';
 
 // Configure Amplify for server-side API routes
 Amplify.configure(getCurrentConfig(), { ssr: true });
 
 const client = generateClient<Schema>();
 
-// Lazy initialization with caching - env vars may not be available at module load in Amplify
+// Lazy initialization with caching - fetches secrets from AWS Secrets Manager
 let stripeClient: Stripe | null = null;
 
-function getStripeClient(): Stripe {
+async function getStripeClient(): Promise<Stripe> {
   if (!stripeClient) {
-    const apiKey = process.env.FLEX_STRIPE_SECRET_KEY;
-    if (!apiKey) {
-      throw new Error('FLEX_STRIPE_SECRET_KEY environment variable is not set');
-    }
-    stripeClient = new Stripe(apiKey, {
+    const secrets = await getStripeSecrets();
+    stripeClient = new Stripe(secrets.FLEX_STRIPE_SECRET_KEY, {
       apiVersion: '2025-11-17.clover',
     });
   }
@@ -32,7 +30,7 @@ function getStripeClient(): Stripe {
 }
 
 export async function POST(request: NextRequest) {
-  const stripe = getStripeClient();
+  const stripe = await getStripeClient();
   let userId: string | undefined;
   let existingAccountsCount = 0;
 

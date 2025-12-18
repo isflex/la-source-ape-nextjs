@@ -5,34 +5,33 @@ import type { Schema } from '@amplify/data/resource';
 import Stripe from 'stripe';
 import { getCurrentConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection';
 import { logServerError, type ErrorContext } from '@src/lib/server-error-logger';
+import { getStripeSecrets } from '@src/lib/secrets';
 
 // Configure Amplify for server-side API routes
 Amplify.configure(getCurrentConfig(), { ssr: true });
 
 const client = generateClient<Schema>();
 
-// Lazy initialization with caching - env vars may not be available at module load in Amplify
+// Lazy initialization with caching - fetches secrets from AWS Secrets Manager
 let stripeClient: Stripe | null = null;
+let cachedWebhookSecret: string | null = null;
 
-function getStripeClient(): Stripe {
+async function getStripeClient(): Promise<Stripe> {
   if (!stripeClient) {
-    const apiKey = process.env.FLEX_STRIPE_SECRET_KEY;
-    if (!apiKey) {
-      throw new Error('FLEX_STRIPE_SECRET_KEY environment variable is not set');
-    }
-    stripeClient = new Stripe(apiKey, {
+    const secrets = await getStripeSecrets();
+    stripeClient = new Stripe(secrets.FLEX_STRIPE_SECRET_KEY, {
       apiVersion: '2025-11-17.clover',
     });
   }
   return stripeClient;
 }
 
-function getWebhookSecret(): string {
-  const secret = process.env.FLEX_STRIPE_WEBHOOK_SECRET;
-  if (!secret) {
-    throw new Error('FLEX_STRIPE_WEBHOOK_SECRET environment variable is not set');
+async function getWebhookSecret(): Promise<string> {
+  if (!cachedWebhookSecret) {
+    const secrets = await getStripeSecrets();
+    cachedWebhookSecret = secrets.FLEX_STRIPE_WEBHOOK_SECRET;
   }
-  return secret;
+  return cachedWebhookSecret;
 }
 
 // Helper to log webhook errors
@@ -75,10 +74,12 @@ export async function POST(request: NextRequest) {
     // Verify webhook signature (CRITICAL for security)
     let event: Stripe.Event;
     try {
-      event = getStripeClient().webhooks.constructEvent(
+      const stripe = await getStripeClient();
+      const webhookSecret = await getWebhookSecret();
+      event = stripe.webhooks.constructEvent(
         body,
         signature,
-        getWebhookSecret()
+        webhookSecret
       );
     } catch (err) {
       await logWebhookError(err, 'signature_verification_failed');
