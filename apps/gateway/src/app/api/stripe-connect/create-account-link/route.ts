@@ -15,11 +15,24 @@ Amplify.configure(getCurrentConfig(), { ssr: true });
 
 const client = generateClient<Schema>();
 
-const stripe = new Stripe(process.env.FLEX_STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-11-17.clover',
-});
+// Lazy initialization with caching - env vars may not be available at module load in Amplify
+let stripeClient: Stripe | null = null;
+
+function getStripeClient(): Stripe {
+  if (!stripeClient) {
+    const apiKey = process.env.FLEX_STRIPE_SECRET_KEY;
+    if (!apiKey) {
+      throw new Error('FLEX_STRIPE_SECRET_KEY environment variable is not set');
+    }
+    stripeClient = new Stripe(apiKey, {
+      apiVersion: '2025-11-17.clover',
+    });
+  }
+  return stripeClient;
+}
 
 export async function POST(request: NextRequest) {
+  const stripe = getStripeClient();
   let userId: string | undefined;
   let existingAccountsCount = 0;
 

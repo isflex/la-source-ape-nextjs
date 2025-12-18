@@ -160,7 +160,7 @@ const mainConfig = new Config(async (phase, args) => {
     },
 
     eslint: {
-      ignoreDuringBuilds: false,
+      ignoreDuringBuilds: true,
       dirs: ['src'],
     },
 

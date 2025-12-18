@@ -159,6 +159,8 @@
     "start": {
       "cache": false,
       "env": [
+        "AWS_*",
+        "DOTENV_*",
         "FLEX_*",
         "NEXT_PUBLIC_*",
         "SENTRY_*"

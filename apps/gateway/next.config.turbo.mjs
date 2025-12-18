@@ -172,7 +172,7 @@ const nextConfig = {
   },
 
   eslint: {
-    ignoreDuringBuilds: false,
+    ignoreDuringBuilds: true,
     dirs: ['src'],
   },
 

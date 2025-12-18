@@ -11,12 +11,29 @@ Amplify.configure(getCurrentConfig(), { ssr: true });
 
 const client = generateClient<Schema>();
 
-// Initialize Stripe
-const stripe = new Stripe(process.env.FLEX_STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-11-17.clover',
-});
+// Lazy initialization with caching - env vars may not be available at module load in Amplify
+let stripeClient: Stripe | null = null;
 
-const webhookSecret = process.env.FLEX_STRIPE_WEBHOOK_SECRET!;
+function getStripeClient(): Stripe {
+  if (!stripeClient) {
+    const apiKey = process.env.FLEX_STRIPE_SECRET_KEY;
+    if (!apiKey) {
+      throw new Error('FLEX_STRIPE_SECRET_KEY environment variable is not set');
+    }
+    stripeClient = new Stripe(apiKey, {
+      apiVersion: '2025-11-17.clover',
+    });
+  }
+  return stripeClient;
+}
+
+function getWebhookSecret(): string {
+  const secret = process.env.FLEX_STRIPE_WEBHOOK_SECRET;
+  if (!secret) {
+    throw new Error('FLEX_STRIPE_WEBHOOK_SECRET environment variable is not set');
+  }
+  return secret;
+}
 
 // Helper to log webhook errors
 async function logWebhookError(
@@ -58,10 +75,10 @@ export async function POST(request: NextRequest) {
     // Verify webhook signature (CRITICAL for security)
     let event: Stripe.Event;
     try {
-      event = stripe.webhooks.constructEvent(
+      event = getStripeClient().webhooks.constructEvent(
         body,
         signature,
-        webhookSecret
+        getWebhookSecret()
       );
     } catch (err) {
       await logWebhookError(err, 'signature_verification_failed');

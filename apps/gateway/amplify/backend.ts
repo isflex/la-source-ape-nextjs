@@ -7,10 +7,6 @@ import { auth } from './auth/resource';
 import { data } from './data/resource';
 import { imageBase64Converter } from './functions/image-base64-converter/resource';
 
-// defineBackend({
-//   data,
-// });
-
 const backend = defineBackend({
   auth,
   data,
