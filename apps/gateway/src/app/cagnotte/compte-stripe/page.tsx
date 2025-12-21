@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import { debug } from '@flexiness/domain-utils';
 import { LoadingBackdrop } from '@src/components/loading/LoadingBackdrop'
 import { SuccessCelebration } from '@src/components/animations/index'
-import { CreerCagnotteList3 } from '@src/components/cagnotte/CagnotteInfoLists'
+import { CreerCagnotteListSteps } from '@src/components/cagnotte/CagnotteInfoLists'
 
 import { default as flexStyles } from '@flex-design-system/framework';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
@@ -32,6 +32,82 @@ const client = generateClient<Schema>();
 
 type ConnectAccountData = Schema['StripeConnectAccount']['type'];
 
+// SelectionSet for StripeConnectAccount to ensure all fields are retrieved for real-time updates
+const stripeConnectAccountSelectionSet = [
+  'id', 'userId', 'stripeAccountId', 'accountStatus',
+  'onboardingComplete', 'chargesEnabled', 'payoutsEnabled', 'detailsSubmitted',
+  'email', 'displayName', 'country', 'currency',
+  'onboardingStartedAt', 'onboardingCompletedAt', 'lastOnboardingLinkCreatedAt',
+  'currentlyDue', 'eventuallyDue', 'pastDue', 'disabledReason',
+  'createdAt', 'updatedAt'
+] as const;
+
+// Helper to categorize Stripe requirements into onboarding steps
+type OnboardingStep = {
+  step: 1 | 2;
+  label: string;
+  description: string;
+  requirements: string[];
+};
+
+function categorizeRequirements(currentlyDue: (string | null)[] | null | undefined): {
+  step1Pending: boolean;
+  step2Pending: boolean;
+  steps: OnboardingStep[];
+} {
+  if (!currentlyDue || currentlyDue.length === 0) {
+    return { step1Pending: false, step2Pending: false, steps: [] };
+  }
+
+  // Filter out null values
+  const requirements = currentlyDue.filter((req): req is string => req !== null);
+
+  if (requirements.length === 0) {
+    return { step1Pending: false, step2Pending: false, steps: [] };
+  }
+
+  // Step 2: Identity verification (document upload)
+  const verificationPatterns = ['verification.document', 'verification.additional_document'];
+
+  const step1Requirements: string[] = [];
+  const step2Requirements: string[] = [];
+
+  requirements.forEach(req => {
+    const isVerification = verificationPatterns.some(pattern => req.includes(pattern));
+    if (isVerification) {
+      step2Requirements.push(req);
+    } else {
+      step1Requirements.push(req);
+    }
+  });
+
+  const steps: OnboardingStep[] = [];
+
+  if (step1Requirements.length > 0) {
+    steps.push({
+      step: 1,
+      label: 'Étape 1 : Coordonnées personnelles',
+      description: 'Renseignez vos informations personnelles (nom, adresse, date de naissance)',
+      requirements: step1Requirements
+    });
+  }
+
+  if (step2Requirements.length > 0) {
+    steps.push({
+      step: 2,
+      label: 'Étape 2 : Vérification d\'identité',
+      description: 'Validez votre identité avec une pièce d\'identité officielle',
+      requirements: step2Requirements
+    });
+  }
+
+  return {
+    step1Pending: step1Requirements.length > 0,
+    step2Pending: step2Requirements.length > 0,
+    steps
+  };
+}
+
 export default function StripeAccountPage() {
   const { user } = useAuthenticator();
   const router = useRouter();
@@ -42,14 +118,63 @@ export default function StripeAccountPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  // Check for success message from return URL
+  // Handle return from Stripe onboarding
   useEffect(() => {
     if (searchParams.get('success') === 'true') {
-      setSuccess('Intégration Stripe terminée avec succès ! Veuillez patienter pendant la vérification...');
+      // Don't show "terminée avec succès" - the actual status display will reflect the true state
+      // Just show a neutral message indicating we're processing
+      setSuccess('Étape complétée. Vérification en cours...');
       // Remove query param
       router.replace('/cagnotte/compte-stripe/');
     }
   }, [searchParams, router]);
+
+  // Polling fallback for real-time subscription reliability
+  // Activates when success message is shown (user just returned from onboarding)
+  useEffect(() => {
+    if (!success || !user) return;
+
+    debug.log('[StripeConnect] Starting polling fallback');
+
+    const pollInterval = setInterval(async () => {
+      try {
+        const { data: accounts } = await client.models.StripeConnectAccount.list({
+          filter: { userId: { eq: user.userId } },
+          selectionSet: stripeConnectAccountSelectionSet as any
+        });
+
+        if (accounts && accounts.length > 0) {
+          const account = accounts[0];
+          debug.log('[StripeConnect] Poll result:', { status: account.accountStatus });
+
+          // Update state if status changed
+          if (account.accountStatus !== connectAccount?.accountStatus) {
+            setConnectAccount(account as ConnectAccountData);
+          }
+
+          // Stop polling if account is fully active or verified
+          if (account.accountStatus === 'ACTIVE') {
+            debug.log('[StripeConnect] Stopping polling - status updated');
+            clearInterval(pollInterval);
+            setSuccess(null); // Clear success message once verified
+          }
+        }
+      } catch (err) {
+        debug.error('[StripeConnect] Poll error:', err);
+      }
+    }, 3000); // Poll every 3 seconds
+
+    // Stop polling after 2 minutes maximum
+    const timeout = setTimeout(() => {
+      debug.log('[StripeConnect] Polling timeout reached');
+      clearInterval(pollInterval);
+    }, 120000);
+
+    return () => {
+      clearInterval(pollInterval);
+      clearTimeout(timeout);
+    };
+  }, [success, user?.userId, connectAccount?.accountStatus]);
 
   // Load account status with observeQuery for real-time updates
   useEffect(() => {
@@ -59,14 +184,20 @@ export default function StripeAccountPage() {
     }
 
     const { unsubscribe } = client.models.StripeConnectAccount.observeQuery({
-      filter: { userId: { eq: user.userId } }
+      filter: { userId: { eq: user.userId } },
+      selectionSet: stripeConnectAccountSelectionSet as any
     }).subscribe({
-      next: ({ items }) => {
-        setConnectAccount(items[0] || null);
+      next: ({ items, isSynced }) => {
+        debug.log('[StripeConnect] observeQuery update:', {
+          itemCount: items.length,
+          isSynced,
+          status: items[0]?.accountStatus
+        });
+        setConnectAccount((items[0] as ConnectAccountData) || null);
         setLoading(false);
       },
       error: (error) => {
-        debug.error('Error loading account:', error);
+        debug.error('[StripeConnect] observeQuery error:', error);
         setError('Erreur lors du chargement du compte');
         setLoading(false);
       }
@@ -178,9 +309,9 @@ export default function StripeAccountPage() {
       case 'ONBOARDING_COMPLETE':
         return { variant: VariantState.INFO, label: 'En attente de vérification' };
       case 'ONBOARDING_STARTED':
-        return { variant: VariantState.WARNING, label: 'Intégration en cours' };
+        return { variant: VariantState.INFO, label: 'Intégration en cours' };
       case 'RESTRICTED':
-        return { variant: VariantState.DANGER, label: 'Restreint' };
+        return { variant: VariantState.WARNING, label: 'Restreint' };
       case 'DISABLED':
         return { variant: VariantState.DANGER, label: 'Désactivé' };
       case 'NOT_STARTED':
@@ -193,7 +324,7 @@ export default function StripeAccountPage() {
   if (!user && !loading) {
     return (
       <div style={{ marginTop: '2rem' }}>
-        <Container>
+        <Container className={classNames(flexStyles.isPaddinglessMobile)}>
           <Title level={TitleLevel.LEVEL1} className={classNames(flexStyles.hasTextCentered)}>
             Compte Stripe Connect
           </Title>
@@ -225,7 +356,7 @@ export default function StripeAccountPage() {
   if (loading) {
     return (
       <div style={{ marginTop: '2rem' }}>
-        <Container>
+        <Container className={classNames(flexStyles.isPaddinglessMobile)}>
           <Title level={TitleLevel.LEVEL1} className={classNames(flexStyles.hasTextCentered)}>
             Compte Stripe Connect
           </Title>
@@ -237,7 +368,10 @@ export default function StripeAccountPage() {
 
   const statusBadge = getStatusBadge(connectAccount?.accountStatus || undefined);
   const isActive = connectAccount?.accountStatus === 'ACTIVE';
+  const isStillProcessing = connectAccount?.accountStatus === 'ONBOARDING_COMPLETE' || connectAccount?.accountStatus === 'RESTRICTED'
   const needsOnboarding = !connectAccount || connectAccount.accountStatus === 'NOT_STARTED' || connectAccount.accountStatus === 'ONBOARDING_STARTED';
+  const { step1Pending, step2Pending, steps } = categorizeRequirements(connectAccount?.currentlyDue);
+  const hasRequirements = connectAccount?.currentlyDue && connectAccount.currentlyDue.length > 0;
 
   return (
     <div className={classNames(
@@ -248,13 +382,34 @@ export default function StripeAccountPage() {
         <Title level={TitleLevel.LEVEL1} className={classNames(flexStyles.hasTextCentered)}>
           Compte Stripe Connect
         </Title>
-        <Text style={{ marginTop: '0.5rem' }}>
+        <Text style={{ marginTop: '0.5rem' }} className={classNames(flexStyles.hasTextCentered, flexStyles.isStrong )}>
           Configurez votre compte Stripe pour recevoir les contributions des cagnottes.
         </Text>
+
+        {/* Two-step process information banner */}
+        {success && isStillProcessing && (
+          <div className={flexStyles.hasTextSmall}>
+            <Text style={{ marginBottom: '0.75rem' }} className={classNames(flexStyles.hasTextCentered, flexStyles.isItalic, flexStyles.hasTextFlexPurple)}>
+              Il se peut que vous soyez amené à configurer votre compte en deux temps :
+            </Text>
+            <ol style={{ marginLeft: '1.5rem', marginBottom: '0' }}>
+              <li style={{ marginBottom: '0.25rem' }}>
+                <Text>
+                  <strong>Coordonnées personnelles et bancaires</strong> — Renseignez vos informations (nom, adresse, date de naissance, IBAN)
+                </Text>
+              </li>
+              <li>
+                <Text>
+                  <strong>Vérification d&apos;identité</strong> — Validez vos coordonnées avec une pièce d&apos;identité officielle
+                </Text>
+              </li>
+            </ol>
+          </div>
+        )}
       </div>
 
       {/* Success message */}
-      {success && (
+      {(success && isActive) && (
         <>
         <div className={flexStyles.isHiddenMobile} style={{ position: 'absolute', left: '0', top: '0', width: '100%' }}>
           <Container>
@@ -267,7 +422,7 @@ export default function StripeAccountPage() {
               <SuccessCelebration />
             </Container>
           </div>
-          <Container>
+          <Container className={classNames(flexStyles.isPaddinglessMobile)}>
             <div className={classNames(
                 flexStyles.box, flexStyles.isFlat,
               )} style={{ marginBottom: '2rem', backgroundColor: 'transparent' }}>
@@ -288,7 +443,7 @@ export default function StripeAccountPage() {
       {/* Error message */}
       {error && (
         <div style={{ marginBottom: '2rem' }}>
-          <Container>
+          <Container className={classNames(flexStyles.isPaddinglessMobile)}>
             <Box>
               <InfoBlock>
                 <InfoBlockHeader status={InfoBlockStatus.DANGER} customIcon={IconName.UI_EXCLAMATION_CIRCLE}>
@@ -303,116 +458,142 @@ export default function StripeAccountPage() {
         </div>
       )}
 
-        {/* Account Status */}
-        <Container>
+      {/* Account Status */}
+      <Container className={classNames(flexStyles.isPaddinglessMobile)}>
+        <div className={classNames(
+            flexStyles.box, flexStyles.isFlat, flexStyles.isFlatSecondary, flexStyles.hasBackgroundGreyLight
+          )} style={{ marginBottom: '2rem' }}>
+
           <div className={classNames(
-              flexStyles.box, flexStyles.isFlat, flexStyles.isFlatSecondary, flexStyles.hasBackgroundGreyLight
-            )} style={{ marginBottom: '2rem' }}>
+              flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
+              flexStyles.isGridCols1,
+              flexStyles.isGridItemsCenter,
+              flexStyles.isFullwidth
+            )} style={{ marginBottom: '1rem' }}>
 
             <div className={classNames(
                 flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-                flexStyles.isGridCols1,
-                flexStyles.isGridItemsCenter,
                 flexStyles.isFullwidth
-              )} style={{ marginBottom: '1rem' }}>
-
-              <div className={classNames(
-                  flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-                  flexStyles.isFullwidth
-                )} style={{ gridTemplateColumns: 'auto max-content', alignItems: 'end' }}>
-                <Title level={TitleLevel.LEVEL2} className={flexStyles.isMarginless}>Statut du compte</Title>
-                <Sticker variant={statusBadge.variant}>
-                  {statusBadge.label}
-                </Sticker>
-              </div>
-
-              {connectAccount && (
-                <div style={{ marginTop: '1rem' }}>
-                  <Text className={classNames(flexStyles.hasTextSmall)}>
-                    <strong>ID du compte : </strong>{connectAccount.stripeAccountId}
-                  </Text>
-                  {connectAccount.email && (
-                    <Text className={classNames(flexStyles.hasTextSmall)}>
-                      <strong>Email : </strong>{connectAccount.email}
-                    </Text>
-                  )}
-                </div>
-              )}
+              )} style={{ gridTemplateColumns: 'auto max-content', alignItems: 'end' }}>
+              <Title level={TitleLevel.LEVEL2} className={flexStyles.isMarginless}>Statut du compte</Title>
+              <Sticker variant={statusBadge.variant}>
+                {statusBadge.label}
+              </Sticker>
             </div>
 
-            {isActive && (
-              <div>
-                <Box>
-                  <InfoBlock>
-                    <InfoBlockHeader status={InfoBlockStatus.SUCCESS} customIcon={IconName.UI_CHECK_CIRCLE}>
-                      <Title level={TitleLevel.LEVEL3}>Compte activé</Title>
-                    </InfoBlockHeader>
-                    <InfoBlockContent>
-                      <Text>
-                        Votre compte Stripe Connect est actif. Vous pouvez maintenant créer des cagnottes et recevoir des contributions.
-                      </Text>
-                      <div style={{ marginTop: '1rem' }}>
-                        <Button
-                          id='cagnotte-stripe-account-onboarding-complete-create-pot'
-                          markup={ButtonMarkup.BUTTON}
-                          variant={VariantState.PRIMARY}
-                          onClick={() => router.push('/cagnotte/creer/')}
-                        >
-                          Créer une cagnotte
-                        </Button>
-                      </div>
-                    </InfoBlockContent>
-                  </InfoBlock>
-                </Box>
+            {connectAccount && (
+              <div style={{ marginTop: '1rem' }}>
+                <Text className={classNames(flexStyles.hasTextSmall)}>
+                  <strong>ID du compte : </strong>{connectAccount.stripeAccountId}
+                </Text>
+                {connectAccount.email && (
+                  <Text className={classNames(flexStyles.hasTextSmall)}>
+                    <strong>Email : </strong>{connectAccount.email}
+                  </Text>
+                )}
               </div>
             )}
+          </div>
 
-            {needsOnboarding && (
-              <div>
-                <Box>
-                  <InfoBlock>
-                    <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.UI_INFO_CIRCLE}>
-                      <Title level={TitleLevel.LEVEL3}>Configuration requise</Title>
-                    </InfoBlockHeader>
-                    <InfoBlockContent>
-                      <Text style={{ marginBottom: '1rem' }}>
-                        {!connectAccount
-                          ? 'Vous devez configurer votre compte Stripe Connect pour créer des cagnottes.'
-                          : 'Votre intégration Stripe n\'est pas terminée. Veuillez continuer le processus.'}
-                      </Text>
-                      <CreerCagnotteList3 />
+          {isActive && (
+            <div>
+              <Box>
+                <InfoBlock>
+                  <InfoBlockHeader status={InfoBlockStatus.SUCCESS} customIcon={IconName.UI_CHECK_CIRCLE}>
+                    <Title level={TitleLevel.LEVEL3}>Compte activé</Title>
+                  </InfoBlockHeader>
+                  <InfoBlockContent>
+                    <Text>
+                      Votre compte Stripe Connect est actif. Vous pouvez maintenant créer des cagnottes et recevoir des contributions.
+                    </Text>
+                    <div style={{ marginTop: '1rem' }}>
                       <Button
-                        id='cagnotte-stripe-account-onboarding-start'
+                        id='cagnotte-stripe-account-onboarding-complete-create-pot'
                         markup={ButtonMarkup.BUTTON}
                         variant={VariantState.PRIMARY}
-                        onClick={handleStartOnboarding}
-                        disabled={creating}
+                        onClick={() => router.push('/cagnotte/creer/')}
                       >
-                        {creating ? 'Chargement...' : !connectAccount ? 'Commencer la configuration' : 'Continuer la configuration'}
+                        Créer une cagnotte
                       </Button>
-                    </InfoBlockContent>
-                  </InfoBlock>
-                </Box>
-              </div>
-            )}
+                    </div>
+                  </InfoBlockContent>
+                </InfoBlock>
+              </Box>
+            </div>
+          )}
 
-            {/* Requirements (if account is restricted) */}
-            {connectAccount?.currentlyDue && connectAccount.currentlyDue.length > 0 && (
-              <div>
-                <Box>
-                  <InfoBlock>
-                    <InfoBlockHeader status={InfoBlockStatus.WARNING} customIcon={IconName.UI_EXCLAMATION_CIRCLE}>
-                      <Title level={TitleLevel.LEVEL3}>Informations requises</Title>
-                    </InfoBlockHeader>
-                    <InfoBlockContent>
-                      <Text style={{ marginBottom: '0.5rem' }}>
-                        Stripe a besoin d&apos;informations supplémentaires:
-                      </Text>
-                      <ul style={{ marginLeft: '1.5rem', marginBottom: '1rem' }}>
-                        {connectAccount.currentlyDue.map((req, idx) => (
-                          <li key={idx}><Text style={{ fontSize: '0.875rem' }}>{req}</Text></li>
-                        ))}
-                      </ul>
+          {needsOnboarding && (
+            <div>
+              <Box>
+                <InfoBlock>
+                  <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.UI_INFO_CIRCLE}>
+                    <Title level={TitleLevel.LEVEL3}>Configuration requise</Title>
+                  </InfoBlockHeader>
+                  <InfoBlockContent>
+                    <Text style={{ marginBottom: '1rem' }}>
+                      Vous devez configurer votre compte Stripe Connect pour créer des cagnottes.
+                    </Text>
+                    <CreerCagnotteListSteps
+                      currentlyDue={connectAccount?.currentlyDue}
+                      eventuallyDue={connectAccount?.eventuallyDue}
+                      hasStartedOnboarding={!!connectAccount && connectAccount.accountStatus !== 'NOT_STARTED'}
+                      detailsSubmitted={connectAccount?.detailsSubmitted || false}
+                    />
+                    <br/>
+                    <Button
+                      id='cagnotte-stripe-account-onboarding-start'
+                      markup={ButtonMarkup.BUTTON}
+                      variant={VariantState.PRIMARY}
+                      onClick={handleStartOnboarding}
+                      disabled={creating}
+                    >
+                      {creating ? 'Chargement...' : !connectAccount ? 'Commencer la configuration' : 'Continuer la configuration'}
+                    </Button>
+                  </InfoBlockContent>
+                </InfoBlock>
+              </Box>
+            </div>
+          )}
+
+          {/* Step-based requirements display */}
+          {hasRequirements && steps.length > 0 && (
+            <div>
+              <Box>
+                <InfoBlock>
+                  <InfoBlockHeader status={InfoBlockStatus.WARNING} customIcon={IconName.UI_EXCLAMATION_CIRCLE}>
+                    <Title level={TitleLevel.LEVEL3}>
+                      {/* {steps.length === 1 ? steps[0].label : 'Étapes requises'} */}
+                      Votre intégration Stripe n&apos;est pas terminée. Veuillez continuer le processus.
+                    </Title>
+                  </InfoBlockHeader>
+                  <InfoBlockContent>
+                    {/* {steps.map((stepInfo, stepIdx) => (
+                      <div key={stepIdx} style={{ marginBottom: stepIdx < steps.length - 1 ? '1rem' : '0' }}>
+                        {steps.length > 1 && (
+                          <Text style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
+                            {stepInfo.label}
+                          </Text>
+                        )}
+                        <Text style={{ marginBottom: '0.5rem', fontSize: '0.9rem' }}>
+                          {stepInfo.description}
+                        </Text>
+                        <ul style={{ marginLeft: '1.5rem', marginBottom: '0.5rem' }}>
+                          {[...new Set(stepInfo.requirements.map(getRequirementLabel))].map((label, idx) => (
+                            <li key={idx}>
+                              <Text style={{ fontSize: '0.875rem' }}>{label}</Text>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))} */}
+                    <CreerCagnotteListSteps
+                      currentlyDue={connectAccount?.currentlyDue}
+                      eventuallyDue={connectAccount?.eventuallyDue}
+                      hasStartedOnboarding={!!connectAccount && connectAccount.accountStatus !== 'NOT_STARTED'}
+                      detailsSubmitted={connectAccount?.detailsSubmitted || false}
+                    />
+                    <br/>
+                    <div style={{ marginTop: '1rem' }}>
                       <Button
                         id='cagnotte-stripe-account-onboarding-continue'
                         markup={ButtonMarkup.BUTTON}
@@ -420,29 +601,32 @@ export default function StripeAccountPage() {
                         onClick={handleStartOnboarding}
                         disabled={creating}
                       >
-                        {creating ? 'Chargement...' : 'Mettre à jour les informations'}
+                        {creating ? 'Chargement...' : step2Pending && !step1Pending
+                          ? 'Vérifier mon identité'
+                          : 'Compléter mes informations'}
                       </Button>
-                    </InfoBlockContent>
-                  </InfoBlock>
-                </Box>
-              </div>
-            )}
+                    </div>
+                  </InfoBlockContent>
+                </InfoBlock>
+              </Box>
+            </div>
+          )}
 
-          </div>
-        </Container>
-
-        {/* Navigation back to dashboard */}
-        <div style={{ marginTop: '2rem', marginBottom: '2rem' }}>
-          <Button
-            id='cagnotte-stripe-account-back-btn'
-            markup={ButtonMarkup.BUTTON}
-            variant={VariantState.SECONDARY}
-            onClick={() => router.push('/cagnotte/creer/')}
-          >
-            ← Retour au tableau de bord
-          </Button>
         </div>
+      </Container>
+
+      {/* Navigation back to dashboard */}
+      <div style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+        <Button
+          id='cagnotte-stripe-account-back-btn'
+          markup={ButtonMarkup.BUTTON}
+          variant={VariantState.SECONDARY}
+          onClick={() => router.push('/cagnotte/creer/')}
+        >
+          ← Retour au tableau de bord
+        </Button>
       </div>
+    </div>
 
   );
 }

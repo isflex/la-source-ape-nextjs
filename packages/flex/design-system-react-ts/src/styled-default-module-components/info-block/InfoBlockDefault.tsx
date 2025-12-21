@@ -8,7 +8,7 @@ import { InfoBlockProps } from './InfoBlockProps.js'
 
 // ///////////////////////////////////////////////////////////////////////////
 // /!\ When typed-scss-modules --exportType default
-// import { type Styles } from '@flex-design-system/framework'
+import { default as styles } from '@flex-design-system/framework'
 // import { type Styles } from '@flex-design-system/framework/main/all.module.scss'
 // ///////////////////////////////////////////////////////////////////////////
 
@@ -33,7 +33,7 @@ const InfoBlock = ({ className, classList, boxed, children, ...others }: InfoBlo
   }
 
   return (
-    <div style={{ padding: '2.5rem' }}>
+    <div className={ styles.hasBoxPadding }>
       <div className={classNames('info-block', className, validate(classList))} {...others}>
         {children}
       </div>

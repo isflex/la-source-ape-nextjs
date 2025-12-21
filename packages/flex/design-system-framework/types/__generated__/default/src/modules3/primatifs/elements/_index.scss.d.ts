@@ -52,6 +52,7 @@ export type Styles = {
   hasBgGradient: string;
   hasBgImage: string;
   hasBody: string;
+  hasBoxPadding: string;
   hasDescription: string;
   hasDynamicPlaceholder: string;
   hasFixedSize: string;

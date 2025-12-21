@@ -47,17 +47,17 @@ backend.imageBase64Converter.addEnvironment(
 );
 
 // Create CloudWatch Log Group for server-side error tracing
-const loggingStack = backend.createStack('error-logging-stack');
-const errorLogGroup = new LogGroup(loggingStack, 'GatewayErrorLogs', {
-  logGroupName: '/apelasource/gateway/errors',
-  retention: RetentionDays.ONE_MONTH,
-  removalPolicy: RemovalPolicy.RETAIN, // Keep logs even if stack is deleted
-});
+// const loggingStack = backend.createStack('error-logging-stack');
+// const errorLogGroup = new LogGroup(loggingStack, 'GatewayErrorLogs', {
+//   logGroupName: '/apelasource/gateway/errors',
+//   retention: RetentionDays.ONE_MONTH,
+//   removalPolicy: RemovalPolicy.RETAIN, // Keep logs even if stack is deleted
+// });
 
-// Export the log group name for reference
-backend.addOutput({
-  custom: {
-    errorLogGroupName: errorLogGroup.logGroupName,
-    errorLogGroupArn: errorLogGroup.logGroupArn,
-  }
-});
+// // Export the log group name for reference
+// backend.addOutput({
+//   custom: {
+//     errorLogGroupName: errorLogGroup.logGroupName,
+//     errorLogGroupArn: errorLogGroup.logGroupArn,
+//   }
+// });

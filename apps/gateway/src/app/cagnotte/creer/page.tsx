@@ -19,6 +19,16 @@ import {
 
 const client = generateClient<Schema>();
 
+// SelectionSet for StripeConnectAccount to ensure all fields are retrieved for real-time updates
+const stripeConnectAccountSelectionSet = [
+  'id', 'userId', 'stripeAccountId', 'accountStatus',
+  'onboardingComplete', 'chargesEnabled', 'payoutsEnabled', 'detailsSubmitted',
+  'email', 'displayName', 'country', 'currency',
+  'onboardingStartedAt', 'onboardingCompletedAt', 'lastOnboardingLinkCreatedAt',
+  'currentlyDue', 'eventuallyDue', 'pastDue', 'disabledReason',
+  'createdAt', 'updatedAt'
+] as const;
+
 import { CreerCagnotteList1, CreerCagnotteList2 } from '@src/components/cagnotte/CagnotteInfoLists'
 import { LoadingBackdrop } from '@src/components/loading/LoadingBackdrop'
 
@@ -187,10 +197,11 @@ export default function CagnotteCreerPage() {
     }
 
     const { unsubscribe } = client.models.StripeConnectAccount.observeQuery({
-      filter: { userId: { eq: user.userId } }
+      filter: { userId: { eq: user.userId } },
+      selectionSet: stripeConnectAccountSelectionSet as any
     }).subscribe({
       next: ({ items }) => {
-        setConnectAccount(items[0] || null);
+        setConnectAccount((items[0] as Schema['StripeConnectAccount']['type']) || null);
         setConnectLoading(false);
       },
       error: (error) => {

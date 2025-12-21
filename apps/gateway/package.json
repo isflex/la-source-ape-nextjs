@@ -85,8 +85,8 @@
     "uuid": "8.3.2"
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^1.18.0",
-    "@aws-amplify/backend-cli": "^1.8.0",
+    "@aws-amplify/backend": "^1.19.0",
+    "@aws-amplify/backend-cli": "^1.8.1",
     "@aws-sdk/types": "^3.804.0",
     "@marp-team/marp-cli": "^4.1.1",
     "@next/bundle-analyzer": "^16.0.7",

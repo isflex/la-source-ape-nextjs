@@ -291,13 +291,24 @@ async function handleAccountUpdated(account: Stripe.Account) {
       accountStatus = 'ACTIVE';
     } else if (account.details_submitted) {
       accountStatus = 'ONBOARDING_COMPLETE';
-    } else if (account.requirements?.disabled_reason) {
-      accountStatus = 'DISABLED';
     } else if (account.requirements?.currently_due && account.requirements.currently_due.length > 0) {
+      // Has pending requirements - show as RESTRICTED (recoverable)
       accountStatus = 'RESTRICTED';
+    } else if (account.requirements?.disabled_reason &&
+               account.requirements.disabled_reason !== 'requirements.past_due') {
+      // Only set DISABLED for real issues (fraud, compliance) - not just past_due
+      accountStatus = 'DISABLED';
     }
 
     // Update StripeConnectAccount with latest info from Stripe
+    console.log('[WEBHOOK] account.updated processing:', {
+      stripeAccountId: account.id,
+      chargesEnabled: account.charges_enabled,
+      payoutsEnabled: account.payouts_enabled,
+      detailsSubmitted: account.details_submitted,
+      computedStatus: accountStatus
+    });
+
     await client.models.StripeConnectAccount.update({
       id: connectAccount.id,
       accountStatus,
@@ -312,6 +323,7 @@ async function handleAccountUpdated(account: Stripe.Account) {
       onboardingCompletedAt: (account.charges_enabled && account.payouts_enabled)
         ? new Date().toISOString()
         : connectAccount.onboardingCompletedAt,
+      updatedAt: new Date().toISOString(), // Explicit update to ensure subscription change detection
     });
   } catch (error) {
     await logWebhookError(error, 'account.updated', {

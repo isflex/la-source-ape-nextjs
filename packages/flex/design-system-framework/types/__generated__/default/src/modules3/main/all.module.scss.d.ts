@@ -576,6 +576,7 @@ export type Styles = {
   hasBorderRadius: string;
   hasBorderRadiusLarge: string;
   hasBorderRadiusSmall: string;
+  hasBoxPadding: string;
   hasBulletSeparator: string;
   hasDescription: string;
   hasDotSeparator: string;
@@ -2726,6 +2727,15 @@ export type Styles = {
   isOverlapped: string;
   isOverlay: string;
   isPaddingless: string;
+  isPaddinglessDesktop: string;
+  isPaddinglessDesktopOnly: string;
+  isPaddinglessFullhd: string;
+  isPaddinglessMobile: string;
+  isPaddinglessTablet: string;
+  isPaddinglessTabletOnly: string;
+  isPaddinglessTouch: string;
+  isPaddinglessWidescreen: string;
+  isPaddinglessWidescreenOnly: string;
   isParent: string;
   isPartner: string;
   isPlain: string;

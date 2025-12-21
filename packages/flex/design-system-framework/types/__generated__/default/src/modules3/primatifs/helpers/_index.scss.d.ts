@@ -1665,6 +1665,15 @@ export type Styles = {
   isMultiline: string;
   isOverlay: string;
   isPaddingless: string;
+  isPaddinglessDesktop: string;
+  isPaddinglessDesktopOnly: string;
+  isPaddinglessFullhd: string;
+  isPaddinglessMobile: string;
+  isPaddinglessTablet: string;
+  isPaddinglessTabletOnly: string;
+  isPaddinglessTouch: string;
+  isPaddinglessWidescreen: string;
+  isPaddinglessWidescreenOnly: string;
   isPulledLeft: string;
   isPulledRight: string;
   isRadiusless: string;

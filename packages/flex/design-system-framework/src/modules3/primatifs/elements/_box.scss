@@ -6,6 +6,7 @@
 
 $space-between-tiles: functions.size(0.5em);
 $padding-box: functions.size(1.5em);
+$padding-box-mobile: functions.size(0.5em);
 $padding-content: functions.size(2em);
 $padding-content-desktop: functions.size(3em);
 
@@ -270,5 +271,13 @@ a.box {
                 color: var(#{'--flex-'}#{$name}#{'-invert'}, #{$inverted-color});
             }
         }
+    }
+}
+
+.has-box-padding {
+    padding: $padding-box-mobile;
+
+    @include mixins.tablet {
+        padding: $padding-box;
     }
 }

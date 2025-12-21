@@ -417,7 +417,7 @@ export default function JackpotForm({ onSubmit, onCancel, existingSlugs = [], ed
                 type="checkbox"
                 checked={isPubliclyVisible}
                 onChange={(e) => setIsPubliclyVisible(e.target.checked)}
-                style={{ marginTop: '0.25rem' }}
+                style={{ marginTop: '0.35rem' }}
               />
               <div>
                 <Text><strong>Rendre cette cagnotte publique</strong></Text>

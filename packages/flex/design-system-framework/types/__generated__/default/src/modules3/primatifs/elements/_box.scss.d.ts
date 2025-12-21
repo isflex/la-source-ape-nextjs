@@ -9,6 +9,7 @@ export type Styles = {
   fromRight: string;
   fromTop: string;
   hasBackground: string;
+  hasBoxPadding: string;
   hasHat: string;
   isAdmin: string;
   isChild: string;

@@ -17,6 +17,20 @@ export async function getStripeSecrets(): Promise<StripeSecrets> {
     return cachedSecrets;
   }
 
+  // Local development: use env vars directly (Stripe CLI provides webhook secret)
+  const localSecretKey = process.env.FLEX_STRIPE_SECRET_KEY;
+  const localWebhookSecret = process.env.FLEX_STRIPE_WEBHOOK_SECRET;
+
+  if (localSecretKey && localWebhookSecret) {
+    cachedSecrets = {
+      FLEX_STRIPE_SECRET_KEY: localSecretKey,
+      FLEX_STRIPE_WEBHOOK_SECRET: localWebhookSecret,
+    };
+    cacheExpiry = Date.now() + CACHE_TTL;
+    return cachedSecrets;
+  }
+
+  // Production: fetch from AWS Secrets Manager
   const command = new GetSecretValueCommand({
     SecretId: process.env.FLEX_STRIPE_SECRET_ARN || 'apelasource/stripe',
   });
