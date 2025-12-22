@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { debug } from '@flexiness/domain-utils';
 import { I18n, Hub } from 'aws-amplify/utils';
 import { Authenticator, useAuthenticator, translations, ThemeProvider, type Theme } from '@aws-amplify/ui-react';
-import { signUp, confirmSignUp, type SignUpOutput, type SignUpInput, type ConfirmSignUpInput } from 'aws-amplify/auth';
+import { signUp, confirmSignUp, fetchAuthSession, fetchUserAttributes, type SignUpOutput, type SignUpInput, type ConfirmSignUpInput } from 'aws-amplify/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import classNames from 'classnames'
 import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
@@ -405,6 +405,35 @@ const AuthPage: React.FC<AuthPageProps> = ({
     },
     VerifyUser: {
       Header() {
+        const { skipVerification } = useAuthenticator();
+
+        useEffect(() => {
+          const checkVerificationStatus = async () => {
+            try {
+              // Try fetchUserAttributes first - should have all user attributes
+              const attributes = await fetchUserAttributes();
+              debugAuth('User attributes from fetchUserAttributes:', attributes);
+
+              // Check for email_verified - could be boolean or string
+              const emailVerified = attributes.email_verified === 'true';
+
+              // Check for phone_number_verified
+              const phoneVerified = attributes.phone_number_verified === 'true';
+
+              debugAuth('Verification status check', { emailVerified, phoneVerified });
+
+              if (emailVerified && phoneVerified) {
+                debugAuth('Contact already verified, skipping verification step');
+                skipVerification();
+              }
+            } catch (error) {
+              debugAuth('Could not fetch user attributes for verification check', error);
+            }
+          };
+
+          checkVerificationStatus();
+        }, [skipVerification]);
+
         return (
           <View className='flex flex-col items-center px-2 md:px-0'>
             <Title level={3} className={classNames(flexStyles.hasTextCentered)} style={{ marginBottom: '1rem' }}>
@@ -413,13 +442,6 @@ const AuthPage: React.FC<AuthPageProps> = ({
           </View>
         )
       },
-      // FormFields() {
-      //   const { skipVerification } = useAuthenticator()
-      //   return <Link onClick={() => skipVerification()}>{I18n.get('Skip')}</Link>
-      // },
-      // Footer() {
-      //   return <Text>Footer Information</Text>
-      // },
     },
     SetupTotp: {
       Header() {
