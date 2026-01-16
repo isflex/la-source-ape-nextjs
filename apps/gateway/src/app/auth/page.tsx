@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { debug } from '@flexiness/domain-utils';
 import { I18n, Hub } from 'aws-amplify/utils';
 import { Authenticator, useAuthenticator, translations, ThemeProvider, type Theme } from '@aws-amplify/ui-react';
-import { signUp, confirmSignUp, fetchAuthSession, fetchUserAttributes, type SignUpOutput, type SignUpInput, type ConfirmSignUpInput } from 'aws-amplify/auth';
+import { signUp, confirmSignUp, fetchUserAttributes, type SignUpOutput, type SignUpInput, type ConfirmSignUpInput } from 'aws-amplify/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import classNames from 'classnames'
 import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';

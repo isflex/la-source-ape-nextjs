@@ -36,6 +36,10 @@
     "warm:api": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- $FLEX_PROJ_ROOT/bin/warm-api-routes.sh"
   },
   "dependencies": {
+    "@copilotkit/react-core": "^1.8.0",
+    "@copilotkit/react-ui": "^1.8.0",
+    "@copilotkit/runtime": "^1.8.0",
+    "@flexiness/copilotkit": "@flexiness/copilotkit@0.0.1",
     "@aws-amplify/adapter-nextjs": "1.6.2",
     "@aws-amplify/ui-react": "^6.13.0",
     "@aws-sdk/client-cloudwatch-logs": "^3.953.0",

@@ -14,6 +14,7 @@ import { outputs } from '@src/utils/amplify/configureAmplifyWithPortDetection'
 Amplify.configure(outputs, { ssr: true })
 import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplifyOutputs'
 import AuthProvider from '@src/components/auth/AuthProvider'
+import { CopilotKitProvider } from '@src/components/copilotkit'
 import {
   EC2Client,
   // DescribeAddressesCommand, type DescribeAddressesCommandOutput,
@@ -239,12 +240,14 @@ const RootLayout = async ({
           <PostHogProvider>
             <ConfigureAmplifyClientSide />
             <AuthProvider>
-              <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped )} theme='light'>
-                {/* <NavBarAuth isSignedIn={await isAuthenticated()} /> */}
-                <MainLayout>
-                  {children}
-                </MainLayout>
-              </FlexRootView>
+              <CopilotKitProvider showSidebar={true}>
+                <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped )} theme='light'>
+                  {/* <NavBarAuth isSignedIn={await isAuthenticated()} /> */}
+                  <MainLayout>
+                    {children}
+                  </MainLayout>
+                </FlexRootView>
+              </CopilotKitProvider>
             </AuthProvider>
           </PostHogProvider>
         {/* </StoreProvider> */}

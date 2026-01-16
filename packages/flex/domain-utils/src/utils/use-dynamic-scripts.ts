@@ -40,6 +40,7 @@ const useDynamicScript = (args: { url: string; nonce: string }) => {
       console.log(`Dynamic Script Removed: ${args.url}`)
       document.head.removeChild(element)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [args.url])
 
   return {

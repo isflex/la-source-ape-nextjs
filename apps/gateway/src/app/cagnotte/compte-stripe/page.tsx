@@ -174,6 +174,7 @@ export default function StripeAccountPage() {
       clearInterval(pollInterval);
       clearTimeout(timeout);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, user?.userId, connectAccount?.accountStatus]);
 
   // Load account status with observeQuery for real-time updates
@@ -211,6 +212,7 @@ export default function StripeAccountPage() {
         debug.warn('Subscription cleanup warning:', error);
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.userId]);
 
   const handleStartOnboarding = async () => {

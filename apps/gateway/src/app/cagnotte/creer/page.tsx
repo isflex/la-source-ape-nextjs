@@ -186,6 +186,7 @@ export default function CagnotteCreerPage() {
         }
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, user?.userId]);
 
   // Load Stripe Connect account status
@@ -218,6 +219,7 @@ export default function CagnotteCreerPage() {
         debug.warn('Subscription cleanup warning:', error);
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.userId]);
 
   // Prevent hydration mismatch

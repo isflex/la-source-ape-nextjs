@@ -1,0 +1,48 @@
+{
+  "name": "@flexiness/copilotkit-mcp-server",
+  "version": "0.0.1",
+  "private": true,
+  "description": "MCP server for automated CopilotKit integration in React components",
+  "keywords": ["mcp", "copilotkit", "ai", "react", "code-analysis"],
+  "license": "MIT",
+  "author": "Flexiness <hello@flexiness.com>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "copilotkit-mcp-server": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "clean:compile": "pnpm exec rimraf '{dist,*.tsbuildinfo}'",
+    "compile:tsup": "tsup",
+    "lint": "pnpm lint:flat",
+    "lint:flat": "cross-env ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.{ts,tsx}\" --fix",
+    "start": "node dist/cli.js",
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@typescript-eslint/typescript-estree": "^8.32.1",
+    "glob": "^11.0.0",
+    "tslib": "^2.8.1"
+  },
+  "devDependencies": {
+    "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
+    "@types/node": "22.10.1",
+    "cross-env": "7.0.3",
+    "rimraf": "6.1.0",
+    "tsup": "^8.5.1",
+    "typescript": "5.9.3"
+  }
+}

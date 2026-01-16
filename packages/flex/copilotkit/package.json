@@ -1,0 +1,74 @@
+{
+  "name": "@flexiness/copilotkit",
+  "version": "0.0.1",
+  "private": true,
+  "description": "CopilotKit integration package for Flexiness monorepo - provides React hooks and providers",
+  "keywords": ["copilotkit", "ai", "chatbot", "react", "hooks"],
+  "license": "MIT",
+  "author": "Flexiness <hello@flexiness.com>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.js",
+      "require": "./dist/hooks/index.cjs"
+    },
+    "./provider": {
+      "types": "./dist/provider/index.d.ts",
+      "import": "./dist/provider/index.js",
+      "require": "./dist/provider/index.cjs"
+    },
+    "./runtime": {
+      "types": "./dist/runtime/index.d.ts",
+      "import": "./dist/runtime/index.js",
+      "require": "./dist/runtime/index.cjs"
+    },
+    "./actions": {
+      "types": "./dist/actions/index.d.ts",
+      "import": "./dist/actions/index.js",
+      "require": "./dist/actions/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "clean:compile": "pnpm exec rimraf '{dist,*.tsbuildinfo}'",
+    "compile:tsup": "tsup",
+    "lint": "pnpm lint:flat",
+    "lint:flat": "cross-env ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.{ts,tsx}\" --fix",
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "@copilotkit/react-core": "^1.8.0",
+    "@copilotkit/react-ui": "^1.8.0",
+    "@copilotkit/runtime": "^1.8.0",
+    "tslib": "^2.8.1"
+  },
+  "devDependencies": {
+    "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
+    "@types/node": "22.10.1",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "cross-env": "7.0.3",
+    "flexiness": "workspace:../types",
+    "rimraf": "6.1.0",
+    "tsup": "^8.5.1",
+    "typescript": "5.9.3"
+  },
+  "peerDependencies": {
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
