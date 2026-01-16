@@ -15,7 +15,7 @@ import { promisify } from 'node:util'
 const execPromise = promisify(subprocess.exec)
 
 import createMDX from '@next/mdx'
-import camelCase from 'lodash/camelCase.js'
+import { camelCase } from 'lodash-es'
 
 let _gitCommitSHA = ''
 let _buildId = ''

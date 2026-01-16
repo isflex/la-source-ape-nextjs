@@ -4,7 +4,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { is, validate } from '../../../services/index.js'
-import { camelCase } from 'lodash'
+import { camelCase } from 'lodash-es'
 import { Link } from '../../link/index.js'
 import { MenuItemWebProps } from './MenuItemProps.js'
 // import { Route, BrowserRouter } from 'react-router-dom'

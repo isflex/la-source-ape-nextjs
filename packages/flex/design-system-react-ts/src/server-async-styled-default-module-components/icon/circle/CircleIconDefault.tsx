@@ -3,7 +3,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { getStatusBackground, is, validate } from '../../../services/index.js'
-import { camelCase } from 'lodash'
+import { camelCase } from 'lodash-es'
 import { IconProps } from '../IconProps.js'
 import { IconStatus } from '../IconEnum.js'
 

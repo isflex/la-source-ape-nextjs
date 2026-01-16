@@ -2,7 +2,7 @@
 
 import React from 'react'
 import classNames from 'classnames'
-// import { camelCase } from 'lodash'
+// import { camelCase } from 'lodash-es'
 import { validate } from '../../../services/index.js'
 import { ListItemProps, ListIconStatus } from './ListItemProps.js'
 import { Icon, IconSize } from '../../icon/index.js'

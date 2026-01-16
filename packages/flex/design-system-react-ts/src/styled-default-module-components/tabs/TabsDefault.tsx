@@ -3,7 +3,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { is, validate } from '../../services/index.js'
-import { camelCase } from 'lodash'
+import { camelCase } from 'lodash-es'
 import TabsItem from './item/index.js'
 import { Text } from '../text/index.js'
 import { TabsProps } from './TabsProps.js'

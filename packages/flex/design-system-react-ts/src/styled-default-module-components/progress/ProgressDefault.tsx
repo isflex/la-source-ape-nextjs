@@ -3,7 +3,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { is, has, validate } from '../../services/index.js'
-import { camelCase } from 'lodash'
+import { camelCase } from 'lodash-es'
 import { ProgressProps } from './ProgressProps.js'
 import { Text, TextLevel } from '../text/index.js'
 import { Columns, ColumnsItem } from '../columns/index.js'

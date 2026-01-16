@@ -5,7 +5,7 @@
 import * as React from 'react'
 import composeClasses from '../../mui/composeClasses/index.js'
 import classNames  from 'classnames'
-import { camelCase } from 'lodash'
+import { camelCase } from 'lodash-es'
 import { getImageListUtilityClass } from './imageListClasses.js'
 import ImageListContext from './ImageListContext.js'
 import { ImageListProps } from './ImageListProps.js'

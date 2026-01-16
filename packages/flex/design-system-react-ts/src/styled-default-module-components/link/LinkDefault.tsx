@@ -3,7 +3,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { validate, is, has } from '../../services/index.js'
-import { camelCase } from 'lodash'
+import { camelCase } from 'lodash-es'
 import { Text, TextMarkup } from '../text/index.js'
 import { LinkProps } from './LinkProps.js'
 import { Link as RouterLink } from 'react-router'

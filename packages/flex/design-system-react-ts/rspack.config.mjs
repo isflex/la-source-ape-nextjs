@@ -219,9 +219,9 @@ const getConfig = async (env, argv) => {
       //     //   // requiredVersion: depsMonorepo['prop-types'],
       //     //   eager: true,
       //     // },
-      //     // lodash: {
+      //     // lodash-es: {
       //     //   singleton: true,
-      //     //   requiredVersion: depsMonorepo['lodash'],
+      //     //   requiredVersion: depsMonorepo['lodash-es'],
       //     //   eager: true,
       //     // },
       //     // mobx: {

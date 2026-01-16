@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { is, validate } from '../../services/index.js'
-import { camelCase } from 'lodash'
+import { camelCase } from 'lodash-es'
 import { Icon, IconName } from '../icon/index.js'
 import { PaginationProps, Pager } from './PaginationProps.js'
 

@@ -3,7 +3,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { validate } from '../../services/index.js'
-// import { camelCase } from 'lodash'
+// import { camelCase } from 'lodash-es'
 import { DropdownWebProps } from './DropdownProps.js'
 
 // ///////////////////////////////////////////////////////////////////////////

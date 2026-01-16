@@ -3,7 +3,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { is, validate } from '../../services/index.js'
-import { camelCase } from 'lodash'
+import { camelCase } from 'lodash-es'
 import { TextProps } from './TextProps.js'
 import { TextMarkup } from './TextEnum.js'
 

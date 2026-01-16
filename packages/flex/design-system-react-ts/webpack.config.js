@@ -164,7 +164,7 @@ const getConfig = async (target) => {
           // splitChunks: {
           //   cacheGroups: {
           //     vendor: {
-          //       test: /[\\/]node_modules[\\/](react-dom|mobx|reactstrap|lodash)[\\/]/,
+          //       test: /[\\/]node_modules[\\/](react-dom|mobx|reactstrap|lodash-es)[\\/]/,
           //       name: 'vendors',
           //       chunks: 'all',
           //     },
@@ -185,7 +185,7 @@ const getConfig = async (target) => {
           //       name: 'vendor-store'
           //     },
           //     vendorUtility: {
-          //       test: /[\\/]node_modules[\\/](lodash|moment|moment-timezone)[\\/]/,
+          //       test: /[\\/]node_modules[\\/](lodash-es|moment|moment-timezone)[\\/]/,
           //       name: 'vendor-utility'
           //     },
           //     vendorBootstrap: {
@@ -193,7 +193,7 @@ const getConfig = async (target) => {
           //       name: 'vendor-bootstrap'
           //     },
           //     vendor: {
-          //       test: /[\\/]node_modules[\\/](!react)(!react-dom)(!react-router)(!react-router-dom)(!mobx)(!mobx-react-lite)(!lodash)(!moment)(!moment-timezone)(!react-bootstrap)(!reactstrap)[\\/]/,
+          //       test: /[\\/]node_modules[\\/](!react)(!react-dom)(!react-router)(!react-router-dom)(!mobx)(!mobx-react-lite)(!lodash-es)(!moment)(!moment-timezone)(!react-bootstrap)(!reactstrap)[\\/]/,
           //       name: 'vendor'
           //     },
           //   },
@@ -318,7 +318,7 @@ const getConfig = async (target) => {
           // 'react-dom': path.resolve(`${rootLocation}/node_modules/react-dom`),
           // 'react-helmet': path.resolve(`${rootLocation}/node_modules/react-helmet`),
           // 'react-router-dom': path.resolve(`${rootLocation}/node_modules/react-router-dom`),
-          // lodash: path.resolve(`${rootLocation}/node_modules/lodash`),
+          // lodash-es: path.resolve(`${rootLocation}/node_modules/lodash-es`),
         }
       },
 
@@ -408,9 +408,9 @@ const getConfig = async (target) => {
         //     //   // requiredVersion: depsMonorepo['prop-types'],
         //     //   eager: true,
         //     // },
-        //     // lodash: {
+        //     // lodash-es: {
         //     //   singleton: true,
-        //     //   requiredVersion: depsMonorepo['lodash'],
+        //     //   requiredVersion: depsMonorepo['lodash-es'],
         //     //   eager: true,
         //     // },
         //     // mobx: {

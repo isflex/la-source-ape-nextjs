@@ -3,7 +3,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { is, validate } from '../../services/index.js'
-import { camelCase } from 'lodash'
+import { camelCase } from 'lodash-es'
 import { StickerProps } from './StickerProps.js'
 import { StickerMarkup } from './StickerEnum.js'
 

@@ -1,4 +1,4 @@
-import { keys, isUndefined, forIn, zipObject } from 'lodash'
+import { keys, isUndefined, forIn, zipObject } from 'lodash-es'
 
 let memoryHasMap = {}
 

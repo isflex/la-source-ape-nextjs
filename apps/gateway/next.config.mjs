@@ -20,7 +20,7 @@ import { Config } from 'next-recompose-plugins'
 import createMDX from '@next/mdx'
 import bundleAnalyzer from '@next/bundle-analyzer'
 
-import camelCase from 'lodash/camelCase.js'
+import { camelCase } from 'lodash-es'
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',

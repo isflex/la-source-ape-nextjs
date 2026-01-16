@@ -37,7 +37,7 @@
 
       "flex-webpack/*": ["../config/webpack/src/*"]
     },
-    "types": ["node", "lodash", "react"]
+    "types": ["node", "lodash-es", "react"]
   },
   "include": [
     "src/**/*.ts",

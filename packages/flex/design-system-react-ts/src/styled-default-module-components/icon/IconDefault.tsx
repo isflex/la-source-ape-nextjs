@@ -3,7 +3,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { is, validate } from '../../services/index.js'
-import { camelCase } from 'lodash'
+import { camelCase } from 'lodash-es'
 import { IconProps } from './IconProps.js'
 import StatusIcon from './status/index.js'
 import CircleIcon from './circle/index.js'

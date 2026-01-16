@@ -2,7 +2,7 @@
 
 import React from 'react'
 import classNames from 'classnames'
-// import { camelCase } from 'lodash'
+// import { camelCase } from 'lodash-es'
 import { validate } from '../../../services/index.js'
 import { InfoBlockHeaderProps } from './InfoBlockHeaderProps.js'
 import { InfoBlockStatus } from '../InfoBlockEnum.js'

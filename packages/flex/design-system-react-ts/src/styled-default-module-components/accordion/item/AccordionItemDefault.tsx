@@ -3,7 +3,7 @@ import React from 'react'
 import classNames from 'classnames'
 import { nanoid } from 'nanoid'
 import { is, validate } from '../../../services/index.js'
-import { camelCase } from 'lodash'
+import { camelCase } from 'lodash-es'
 import { AccordionItemProps, OnClickEvent, TargetElement } from './AccordionItemProps.js'
 
 // ///////////////////////////////////////////////////////////////////////////

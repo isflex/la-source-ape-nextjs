@@ -3,7 +3,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { has, validate } from '../../../services/index.js'
-import { camelCase } from 'lodash'
+import { camelCase } from 'lodash-es'
 import { ProgressRadialProps } from './ProgressRadialProps.js'
 
 // ///////////////////////////////////////////////////////////////////////////

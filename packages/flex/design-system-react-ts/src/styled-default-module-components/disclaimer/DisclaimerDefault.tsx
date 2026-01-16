@@ -3,7 +3,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { is, validate } from '../../services/index.js'
-// import { camelCase } from 'lodash'
+// import { camelCase } from 'lodash-es'
 import { DisclaimerWebProps } from './DisclaimerProps.js'
 import { Accordion, AccordionItem, AccordionHeader, AccordionBody } from '../accordion/index.js'
 import { Title, TitleLevel } from '../title/index.js'
