@@ -10,8 +10,8 @@ export interface ReadableOptions {
 }
 
 // Store readable options for MobX integration
-export interface StoreReadableOptions extends ReadableOptions {
-  selector?: (store: unknown) => unknown;
+export interface StoreReadableOptions<T = unknown> extends ReadableOptions {
+  selector?: (store: T) => unknown;
 }
 
 // User context for useReadableUser

@@ -159,7 +159,7 @@ export default function NewsletterSignupForm() {
         // Create field-specific error mapping using Zod paths
         const newFieldErrors: Record<string, string[]> = {};
 
-        error.errors.forEach(err => {
+        error.issues.forEach((err) => {
           const path = err.path.join('.');
           if (!newFieldErrors[path]) {
             newFieldErrors[path] = [];
@@ -168,7 +168,7 @@ export default function NewsletterSignupForm() {
         });
 
         setFieldErrors(newFieldErrors);
-        setValidationErrors(error.errors.map(e => e.message));
+        setValidationErrors(error.issues.map((e: { message: string }) => e.message));
       } else {
         debug.error('Erreur lors de la soumission:', error);
         setValidationErrors(['Erreur lors de la soumission du formulaire']);

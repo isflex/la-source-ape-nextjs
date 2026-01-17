@@ -10,6 +10,7 @@
   "scripts": {
     "ai:claude": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- claude --mcp-debug --settings .claude/settings.json",
     "ai:claude:debug": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- claude --debug --mcp-debug --settings .claude/settings.json",
+    "ampx:sandbox": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- ./bin/ampx-sandbox.sh",
     "build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- ./bin/run-build-client.sh",
     "compile": "turbo run compile:clean:sh",
     "compile:clean:sh": "./bin/run-compile.sh clean",

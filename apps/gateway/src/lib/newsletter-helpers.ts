@@ -157,14 +157,10 @@ export const ContentBlockSchemaLenient = BaseContentBlockSchema.refine((data) =>
 export const NewsletterSchema = z.object({
   subject: z.string().min(1, 'Le sujet est requis'),
   eventDate: z.coerce.date({
-    errorMap: () => ({
-      message: 'Date d\'événement invalide'
-    })
+    error: 'Date d\'événement invalide'
   }),
   publicationDate: z.coerce.date({
-    errorMap: () => ({
-      message: 'Date de publication invalide'
-    })
+    error: 'Date de publication invalide'
   }),
   title: z.string().optional(),
   greetings: z.string().optional(),
@@ -209,7 +205,7 @@ export const validateNewsletterData = (data: unknown): ValidationResult => {
     if (error instanceof z.ZodError) {
       return {
         success: false,
-        errors: error.errors.map(err => `${err.path.join('.')}: ${err.message}`)
+        errors: error.issues.map(err => `${err.path.join('.')}: ${err.message}`)
       }
     }
     return {

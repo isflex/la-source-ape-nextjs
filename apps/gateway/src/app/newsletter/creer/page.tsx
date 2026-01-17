@@ -53,6 +53,7 @@ import {
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { default as flexStyles } from '@flex-design-system/framework';
 import { debug } from '@flexiness/domain-utils';
+import { useCopilotReadable } from '@flexiness/copilotkit';
 
 type Newsletter = {
   id: string;
@@ -81,6 +82,33 @@ export default function NewsletterCreationPage() {
   const [createError, setCreateError] = useState<string | null>(null);
   const [selectedNewsletters, setSelectedNewsletters] = useState<Set<string>>(new Set());
   const [reusedNewsletterData, setReusedNewsletterData] = useState<Partial<NewsletterFormData> | null>(null);
+
+  // CopilotKit: Expose page context to AI assistant
+  useCopilotReadable({
+    description: 'Current page context - Newsletter management page for creating and managing school newsletters',
+    value: JSON.stringify({
+      page: 'newsletter/creer',
+      pageTitle: 'Gestion des Newsletters',
+      isAuthenticated,
+      totalNewsletters: newsletters.length,
+      selectedCount: selectedNewsletters.size,
+      showingForm: showForm,
+    }),
+    categories: ['page', 'navigation', 'newsletter'],
+  });
+
+  useCopilotReadable({
+    description: 'List of existing newsletters with their details',
+    value: JSON.stringify(newsletters.map(newsletter => ({
+      id: newsletter.id,
+      subject: newsletter.subject,
+      slug: newsletter.slug,
+      eventDate: newsletter.eventDate,
+      publicationDate: newsletter.publicationDate,
+      title: newsletter.title,
+    }))),
+    categories: ['newsletter', 'data'],
+  });
 
   const loadNewsletters = async () => {
     try {

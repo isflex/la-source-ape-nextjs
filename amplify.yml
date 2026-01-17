@@ -1,7 +1,6 @@
 version: 1
 applications:
-  -
-    appRoot: apps/gateway
+  - appRoot: apps/gateway
     backend:
       phases:
         preBuild:
@@ -24,6 +23,9 @@ applications:
             - printenv PATH
             - pnpm config set global-bin-dir /root/bin
             - pnpm install --frozen-lockfile
+            # Switch to Zod 3.x for Amplify CLI compatibility
+            - node bin/switch-zod-version.mjs 3
+            - pnpm install --no-frozen-lockfile
             # - pnpm add -g react-router@7.6.0
             # - pnpm store path
             # - pnpm list react*
@@ -48,7 +50,7 @@ applications:
             # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
       cache:
         paths:
-          - 'node_modules/**/*'
+          - "node_modules/**/*"
     frontend:
       buildPath: /
       phases:
@@ -88,7 +90,7 @@ applications:
       artifacts:
         baseDirectory: apps/gateway/.next
         files:
-          - '**/*'
+          - "**/*"
         # # Nextjs standalone mode
         # baseDirectory: apps/gateway
         # files:
@@ -100,5 +102,5 @@ applications:
         #   - '.next/required-server-files.json'
       cache:
         paths:
-          - 'apps/gateway/.next/cache/**/*'
-          - 'node_modules/**/*'
+          - "apps/gateway/.next/cache/**/*"
+          - "node_modules/**/*"

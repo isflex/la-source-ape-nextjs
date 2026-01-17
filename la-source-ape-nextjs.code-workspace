@@ -166,6 +166,10 @@
       "FLEX_PROJ_ROOT": "${workspaceFolder}",
       "FLEX_MODE": "development",
     },
+    "terminal.integrated.env.windows": {
+      // "CLAUDE_CODE_GIT_BASH_PATH": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "CLAUDE_CODE_GIT_BASH_PATH": "C:\\Users\\inoe\\Git\\bin\\bash.exe",
+    },
 
     // ========================================
     // TAILWIND CSS

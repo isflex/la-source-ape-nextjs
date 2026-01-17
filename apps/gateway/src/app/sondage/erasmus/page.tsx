@@ -100,16 +100,16 @@ const ErasmusSchema = z.object({
     .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
     .pipe(z.string().min(1, 'Détails de l\'enfant requis')),
   erasmusAwareness: z.enum(['OUI', 'NON', 'PAS_VRAIMENT'], {
-    required_error: 'Veuillez répondre à cette question'
+    error: 'Veuillez répondre à cette question'
   }),
   erasmusDefinition: z.string()
     .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
     .optional(),
   erasmusInterest: z.enum(['OUI_BEAUCOUP', 'OUI_UN_PEU', 'PAS_VRAIMENT', 'PAS_DU_TOUT'], {
-    required_error: 'Veuillez indiquer votre niveau d\'intérêt'
+    error: 'Veuillez indiquer votre niveau d\'intérêt'
   }),
   comfortLevel: z.enum(['TRES_A_LAISE', 'ASSEZ_A_LAISE', 'PARTAGE', 'PAS_DU_TOUT_A_LAISE'], {
-    required_error: 'Veuillez indiquer votre niveau de confort'
+    error: 'Veuillez indiquer votre niveau de confort'
   }),
   motivations: z.array(z.string()).min(1, 'Veuillez sélectionner au moins une motivation'),
   desiredInformation: z.string()
@@ -117,10 +117,10 @@ const ErasmusSchema = z.object({
     .pipe(z.string().min(1, 'Veuillez indiquer les informations souhaitées')),
   concerns: z.array(z.string()).min(1, 'Veuillez sélectionner au moins une préoccupation'),
   financingWillingness: z.enum(['OUI_SANS_HESITATION', 'OUI_SELON_COUT', 'PEUT_ETRE', 'PROBABLEMENT_PAS', 'NON'], {
-    required_error: 'Veuillez indiquer votre volonté de financement'
+    error: 'Veuillez indiquer votre volonté de financement'
   }),
   idealDuration: z.enum(['UNE_SEMAINE', 'DEUX_SEMAINES', 'UN_MOIS', 'TROIS_MOIS_TRIMESTRE'], {
-    required_error: 'Veuillez sélectionner la durée idéale'
+    error: 'Veuillez sélectionner la durée idéale'
   }),
   previousExperience: z.string()
     .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
@@ -254,7 +254,7 @@ export default function ErasmusSurvey() {
         // Create field-specific error mapping using Zod paths
         const newFieldErrors: Record<string, string[]> = {};
 
-        error.errors.forEach(err => {
+        error.issues.forEach((err) => {
           const path = err.path.join('.');
           if (!newFieldErrors[path]) {
             newFieldErrors[path] = [];
@@ -263,7 +263,7 @@ export default function ErasmusSurvey() {
         });
 
         setFieldErrors(newFieldErrors);
-        setValidationErrors(error.errors.map(e => e.message));
+        setValidationErrors(error.issues.map((e: { message: string }) => e.message));
       } else {
         debug.error('Erreur lors de la soumission:', error);
         setValidationErrors(['Erreur lors de la soumission du sondage']);

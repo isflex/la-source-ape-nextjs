@@ -65,6 +65,7 @@ import { default as flexStyles } from '@flex-design-system/framework';
 import JackpotForm from '@src/components/cagnotte/JackpotForm';
 import AuthBanner from '@src/components/auth/AuthBanner';
 import { debug } from '@flexiness/domain-utils';
+import { useCopilotReadable } from '@flexiness/copilotkit';
 
 type JackpotFormData = {
   id: string;
@@ -102,6 +103,36 @@ export default function CagnotteCreerPage() {
   const [connectAccount, setConnectAccount] = useState<Schema['StripeConnectAccount']['type'] | null>(null);
   const [connectLoading, setConnectLoading] = useState(true);
   const formRef = React.useRef<HTMLDivElement>(null);
+
+  // CopilotKit: Expose page context to AI assistant
+  useCopilotReadable({
+    description: 'Current page context - Jackpot/Cagnotte management page for creating and managing fundraising campaigns',
+    value: JSON.stringify({
+      page: 'cagnotte/creer',
+      pageTitle: 'Gestion des Cagnottes',
+      isAuthenticated,
+      totalJackpots: forms.length,
+      hasStripeAccount: !!connectAccount,
+      stripeAccountStatus: connectAccount?.accountStatus || 'none',
+    }),
+    categories: ['page', 'navigation', 'cagnotte'],
+  });
+
+  useCopilotReadable({
+    description: 'List of user jackpots/cagnottes with their statistics',
+    value: JSON.stringify(forms.map(form => ({
+      id: form.id,
+      title: form.title,
+      slug: form.slug,
+      status: form.status,
+      teacherName: form.teacherName,
+      schoolLevel: form.schoolLevel,
+      targetAmount: form.targetAmount,
+      deadline: form.deadline,
+      stats: formStats[form.id] || { totalAmount: 0, contributorCount: 0 },
+    }))),
+    categories: ['cagnotte', 'data', 'jackpots'],
+  });
 
   const loadContributionStats = async (formId: string) => {
     try {

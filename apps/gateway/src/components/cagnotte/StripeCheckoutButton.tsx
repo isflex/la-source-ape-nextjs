@@ -78,7 +78,7 @@ export default function StripeCheckoutButton({
 
     if (!validation.success) {
       const newErrors: Record<string, string> = {};
-      validation.error.errors.forEach(err => {
+      validation.error.issues.forEach((err) => {
         const field = err.path[0] as string;
         newErrors[field] = err.message;
       });

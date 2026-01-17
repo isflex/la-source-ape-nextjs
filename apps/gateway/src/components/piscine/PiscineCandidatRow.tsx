@@ -156,7 +156,7 @@ export default function PiscineCandidatRow({
       debug.error('Validation error:', error);
       if (error instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
-        error.errors.forEach(err => {
+        error.issues.forEach((err) => {
           const path = err.path.join('.');
           fieldErrors[path] = err.message;
         });

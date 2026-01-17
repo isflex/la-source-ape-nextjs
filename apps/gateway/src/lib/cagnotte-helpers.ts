@@ -133,7 +133,7 @@ export const ContributionSchema = z.object({
     .email('Format email invalide'),
 
   amount: z.coerce.number({
-      invalid_type_error: 'Le montant doit être un nombre valide',
+      error: 'Le montant doit être un nombre valide',
     })
     .min(MIN_CONTRIBUTION_AMOUNT, `Le montant minimum est de ${MIN_CONTRIBUTION_AMOUNT}€`)
     .max(MAX_CONTRIBUTION_AMOUNT, `Le montant maximum est de ${MAX_CONTRIBUTION_AMOUNT}€`),
@@ -343,7 +343,7 @@ export const validateJackpotFormData = (data: unknown): ValidationResult<Jackpot
     if (error instanceof z.ZodError) {
       return {
         success: false,
-        errors: error.errors.map(err => `${err.path.join('.')}: ${err.message}`)
+        errors: error.issues.map(err => `${err.path.join('.')}: ${err.message}`)
       };
     }
     return {
@@ -367,7 +367,7 @@ export const validateContributionData = (data: unknown): ValidationResult<Contri
     if (error instanceof z.ZodError) {
       return {
         success: false,
-        errors: error.errors.map(err => `${err.path.join('.')}: ${err.message}`)
+        errors: error.issues.map(err => `${err.path.join('.')}: ${err.message}`)
       };
     }
     return {

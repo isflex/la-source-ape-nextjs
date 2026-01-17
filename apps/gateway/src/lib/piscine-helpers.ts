@@ -96,7 +96,7 @@ export const PiscineFormSchema = z.object({
     .pipe(z.string().min(1, 'Le titre est requis')),
 
   dayOfWeek: z.enum(VALID_DAYS, {
-    required_error: 'Veuillez sélectionner un jour de la semaine'
+    error: 'Veuillez sélectionner un jour de la semaine'
   }),
 
   startTime: z.string()
@@ -114,7 +114,7 @@ export const PiscineFormSchema = z.object({
       `L'heure de fin doit être après ${MIN_TIME}`),
 
   schoolLevel: z.enum(VALID_SCHOOL_LEVELS, {
-    required_error: 'Veuillez sélectionner un niveau scolaire'
+    error: 'Veuillez sélectionner un niveau scolaire'
   }),
 
   teacherName: z.string()
@@ -320,7 +320,7 @@ export const validatePiscineFormData = (data: unknown): ValidationResult<Piscine
     if (error instanceof z.ZodError) {
       return {
         success: false,
-        errors: error.errors.map(err => `${err.path.join('.')}: ${err.message}`)
+        errors: error.issues.map(err => `${err.path.join('.')}: ${err.message}`)
       };
     }
     return {
@@ -338,7 +338,7 @@ export const validatePiscineCandidatData = (data: unknown): ValidationResult<Pis
     if (error instanceof z.ZodError) {
       return {
         success: false,
-        errors: error.errors.map(err => `${err.path.join('.')}: ${err.message}`)
+        errors: error.issues.map(err => `${err.path.join('.')}: ${err.message}`)
       };
     }
     return {
@@ -491,7 +491,7 @@ export const sortDayTimeSlots = (dayTimeSlots: DayTimeSlot[]): DayTimeSlot[] => 
  */
 export const DayTimeSlotSchema = z.object({
   dayOfWeek: z.enum(VALID_DAYS, {
-    required_error: 'Jour de la semaine requis'
+    error: 'Jour de la semaine requis'
   }),
 
   startTime: z.string()
@@ -541,16 +541,16 @@ export const MultiDayFormSchema = z.object({
       message: 'Tous les jours sélectionnés doivent avoir des horaires valides'
     }),
 
-  selectedDatesPerDay: z.record(z.array(z.date()))
+  selectedDatesPerDay: z.record(z.string(), z.array(z.date()))
     .refine((datesPerDay) => {
       // Each enabled day must have at least one date selected
-      return Object.values(datesPerDay).some(dates => dates.length > 0);
+      return Object.values(datesPerDay).some((dates: Date[]) => dates.length > 0);
     }, {
       message: 'Au moins une date doit être sélectionnée pour chaque jour actif'
     }),
 
   schoolLevel: z.enum(VALID_SCHOOL_LEVELS, {
-    required_error: 'Veuillez sélectionner un niveau scolaire'
+    error: 'Veuillez sélectionner un niveau scolaire'
   }),
 
   teacherName: z.string()
@@ -574,7 +574,7 @@ export const validateMultiDayFormData = (data: unknown): ValidationResult<MultiD
     if (error instanceof z.ZodError) {
       return {
         success: false,
-        errors: error.errors.map(err => `${err.path.join('.')}: ${err.message}`)
+        errors: error.issues.map(err => `${err.path.join('.')}: ${err.message}`)
       };
     }
     return {

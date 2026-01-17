@@ -1,10 +1,37 @@
 'use client';
 
 import React from 'react';
-import { Authenticator } from '@aws-amplify/ui-react';
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
+import { useReadableUser } from '@flexiness/copilotkit';
+import type { UserContext } from '@flexiness/copilotkit';
 
 interface AuthProviderProps {
   children: React.ReactNode;
+}
+
+/**
+ * Inner component that exposes user context to CopilotKit
+ * Must be inside Authenticator.Provider to use useAuthenticator
+ */
+function AuthContextBridge({ children }: { children: React.ReactNode }) {
+  const { user, authStatus } = useAuthenticator((context) => [context.user, context.authStatus]);
+
+  // Map Amplify user to CopilotKit UserContext
+  const userContext: UserContext | null = user && authStatus === 'authenticated'
+    ? {
+        id: user.userId,
+        email: user.signInDetails?.loginId,
+        name: user.username,
+        authStatus,
+      }
+    : null;
+
+  useReadableUser(userContext, {
+    description: 'Current authenticated user from AWS Cognito',
+    categories: ['user', 'auth', 'cognito'],
+  });
+
+  return <>{children}</>;
 }
 
 /**
@@ -15,7 +42,9 @@ interface AuthProviderProps {
 export default function AuthProvider({ children }: AuthProviderProps) {
   return (
     <Authenticator.Provider>
-      {children}
+      <AuthContextBridge>
+        {children}
+      </AuthContextBridge>
     </Authenticator.Provider>
   );
 }

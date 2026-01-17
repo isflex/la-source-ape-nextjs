@@ -66,7 +66,7 @@ const StudentSchema = z.object({
     'PRIMAIRE_CM2',
     'PRIMAIRE_CP',
     'ANCIEN_ELEVE'
-  ], { required_error: 'Niveau scolaire requis', invalid_type_error: 'Niveau scolaire requis' })
+  ], { error: 'Niveau scolaire requis' })
 });
 
 const QuestionSchema = z.object({
@@ -283,12 +283,12 @@ export default function SondageApp() {
     } catch (error) {
       if (error instanceof z.ZodError) {
         // debug.sondage(error)
-        // debug.sondage(error.errors)
+        // debug.sondage(error.issues)
 
         // Create field-specific error mapping using Zod paths
         const newFieldErrors: Record<string, string[]> = {};
 
-        error.errors.forEach(err => {
+        error.issues.forEach((err) => {
           const path = err.path.join('.');
           if (!newFieldErrors[path]) {
             newFieldErrors[path] = [];
@@ -297,7 +297,7 @@ export default function SondageApp() {
         });
 
         setFieldErrors(newFieldErrors);
-        setValidationErrors(error.errors.map(e => e.message));
+        setValidationErrors(error.issues.map((e: { message: string }) => e.message));
       } else {
         debug.error('Erreur lors de la soumission:', error);
         setValidationErrors(['Erreur lors de la soumission du sondage']);

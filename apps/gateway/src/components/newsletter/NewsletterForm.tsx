@@ -78,7 +78,7 @@ export default function NewsletterForm({ onSubmit, onCancel, loading = false, in
   const handleZodErrors = (error: z.ZodError): NewsletterFormErrors => {
     const fields: Record<string, string> = {};
 
-    error.errors.forEach(err => {
+    error.issues.forEach((err) => {
       const path = err.path.join('.');
       fields[path] = err.message;
     });

@@ -43,6 +43,7 @@ import JackpotContributionTable from '@src/components/cagnotte/JackpotContributi
 import StripeCheckoutButton from '@src/components/cagnotte/StripeCheckoutButton';
 import AuthBanner from '@src/components/auth/AuthBanner';
 import { debug } from '@flexiness/domain-utils';
+import { useCopilotReadable } from '@flexiness/copilotkit';
 
 const client = generateClient<Schema>();
 
@@ -85,6 +86,39 @@ export default function CagnotteSlugPage() {
   const status = jackpotForm?.status || 'DRAFT';
   const isActive = status === 'ACTIVE';
   const isClosed = status === 'CLOSED' || status === 'PAID_OUT';
+
+  // CopilotKit: Expose jackpot context to AI assistant
+  useCopilotReadable({
+    description: 'Current jackpot/cagnotte page context and details',
+    value: JSON.stringify({
+      page: slug ? `cagnotte/${slug}` : 'cagnotte',
+      pageTitle: jackpotForm?.title || 'Cagnottes APE La Source',
+      hasJackpot: !!jackpotForm,
+      isCreator,
+      status,
+      isActive,
+      isClosed,
+      publicJackpotsCount: publicJackpots.length,
+    }),
+    categories: ['page', 'navigation', 'cagnotte'],
+  });
+
+  useCopilotReadable({
+    description: 'Current jackpot details including contributions and progress',
+    value: jackpotForm ? JSON.stringify({
+      id: jackpotForm.id,
+      title: jackpotForm.title,
+      slug: jackpotForm.slug,
+      teacherName: jackpotForm.teacherName,
+      schoolLevel: jackpotForm.schoolLevel,
+      targetAmount: jackpotForm.targetAmount,
+      deadline: jackpotForm.deadline,
+      status: jackpotForm.status,
+      contributionsCount: contributions.length,
+      stats: calculateJackpotStats(contributions),
+    }) : 'No jackpot selected',
+    categories: ['cagnotte', 'data', 'contributions'],
+  });
 
   // Check if deadline passed and auto-close
   useEffect(() => {
