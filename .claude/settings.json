@@ -1,33 +1,3 @@
 {
-  "enableAllProjectMcpServers": true,
-  "mcpServers": {
-    "filesystem": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "${FLEX_PROJ_ROOT:-./}",
-        "${FLEX_PROJ_ROOT:-./}/apps",
-        "${FLEX_PROJ_ROOT:-./}/packages"
-      ]
-    },
-    "copilotkit-integration": {
-      "command": "node",
-      "args": [
-        "${FLEX_PROJ_ROOT:-./}/packages/flex/copilotkit-mcp-server/dist/cli.js"
-      ],
-      "env": {
-        "FLEX_PROJ_ROOT": "${FLEX_PROJ_ROOT:-./}"
-      }
-    }
-  },
-  "contextLength": "medium",
-  "autoSave": true,
-  "codeStyle": {
-    "typescript": {
-      "quotes": "single",
-      "semicolons": true,
-      "tabWidth": 2
-    }
-  }
+  "enableAllProjectMcpServers": true
 }

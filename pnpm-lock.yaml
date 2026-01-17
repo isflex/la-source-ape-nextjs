@@ -43,7 +43,7 @@ overrides:
   '@rspack/core': ^1.6.6
   sass-embedded: ^1.93.3
   '@jridgewell/gen-mapping': 0.3.8
-  zod: 3.25.17
+  zod: 4.3.5
 
 importers:
 
@@ -104,8 +104,8 @@ importers:
         specifier: ^2.8.1
         version: 2.8.1
       zod:
-        specifier: 3.25.17
-        version: 3.25.17
+        specifier: 4.3.5
+        version: 4.3.5
     devDependencies:
       '@flexiness/eslint-config-flat':
         specifier: workspace:./packages/flex/config/eslint/flat-config
@@ -238,13 +238,13 @@ importers:
         version: 3.699.0
       '@copilotkit/react-core':
         specifier: ^1.8.0
-        version: 1.51.0(@ag-ui/client@0.0.42)(@copilotkit/runtime-client-gql@1.51.0(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(react@19.2.1))(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/react@1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(@copilotkitnext/web-inspector@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(micromark-util-types@2.0.2)(micromark@4.0.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@3.25.17)
+        version: 1.51.0(@ag-ui/client@0.0.42)(@copilotkit/runtime-client-gql@1.51.0(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(react@19.2.1))(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/react@1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(@copilotkitnext/web-inspector@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(micromark-util-types@2.0.2)(micromark@4.0.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)
       '@copilotkit/react-ui':
         specifier: ^1.8.0
-        version: 1.51.0(33a43d5dacc2e57a97cdc03e02714c17)
+        version: 1.51.0(b977d0bf7cc060a83b8f6527e39dd2f9)
       '@copilotkit/runtime':
         specifier: ^1.8.0
-        version: 1.51.0(772775aa75798c85d4ae646ac24c43cb)
+        version: 1.51.0(46882d414f3537a7445cbb13cd50f81f)
       '@dnd-kit/core':
         specifier: ^6.3.1
         version: 6.3.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -377,7 +377,7 @@ importers:
     devDependencies:
       '@aws-amplify/backend':
         specifier: ^1.19.0
-        version: 1.19.0(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-cloudformation@3.943.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(zod@3.25.17)
+        version: 1.19.0(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-cloudformation@3.943.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(zod@4.3.5)
       '@aws-amplify/backend-cli':
         specifier: ^1.8.1
         version: 1.8.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(@types/node@22.10.1)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)
@@ -727,22 +727,13 @@ importers:
     dependencies:
       '@copilotkit/react-core':
         specifier: ^1.8.0
-        version: 1.51.0(@ag-ui/client@0.0.42)(@copilotkit/runtime-client-gql@1.51.0(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(react@19.2.1))(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/react@1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(@copilotkitnext/web-inspector@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(micromark-util-types@2.0.2)(micromark@4.0.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@3.25.17)
+        version: 1.51.0(@ag-ui/client@0.0.42)(@copilotkit/runtime-client-gql@1.51.0(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(react@19.2.1))(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/react@1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(@copilotkitnext/web-inspector@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(micromark-util-types@2.0.2)(micromark@4.0.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)
       '@copilotkit/react-ui':
         specifier: ^1.8.0
-        version: 1.51.0(33a43d5dacc2e57a97cdc03e02714c17)
+        version: 1.51.0(b977d0bf7cc060a83b8f6527e39dd2f9)
       '@copilotkit/runtime':
         specifier: ^1.8.0
-        version: 1.51.0(ce00c237038d2730e3ac9c937d161b2f)
-      '@langchain/aws':
-        specifier: ^0.1.4
-        version: 0.1.15(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17)))
-      '@langchain/core':
-        specifier: ^0.3.40
-        version: 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17))
-      '@langchain/langgraph':
-        specifier: ^0.2.50
-        version: 0.2.74(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod-to-json-schema@3.25.1(zod@3.25.17))
+        version: 1.51.0(c2d1af1f779f8b457aeadad7610d468a)
       next:
         specifier: 15.5.7
         version: 15.5.7(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.93.3)
@@ -788,7 +779,7 @@ importers:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.0.0
-        version: 1.25.2(@cfworker/json-schema@4.1.1)(hono@4.11.4)(zod@3.25.17)
+        version: 1.25.2(@cfworker/json-schema@4.1.1)(hono@4.11.4)(zod@4.3.5)
       '@typescript-eslint/typescript-estree':
         specifier: ^8.32.1
         version: 8.48.1(typescript@5.9.3)
@@ -1533,43 +1524,43 @@ packages:
     resolution: {integrity: sha512-DREpYqW2pylgaj69gZ+K8u92bo9DaMgFdictYnY+IwYeY3bawQ4zI7l/o1VkDsBDljAx8iYz5lPURwVZNu+Xpg==}
     engines: {node: '>=18'}
     peerDependencies:
-      zod: 3.25.17
+      zod: 4.3.5
 
   '@ai-sdk/gateway@2.0.27':
     resolution: {integrity: sha512-8hbezMsGa0crSt7/DKjkYL1UbbJJW/UFxTfhmf5qcIeYeeWG4dTNmm+DWbUdIsTaWvp59KC4eeC9gYXBbTHd7w==}
     engines: {node: '>=18'}
     peerDependencies:
-      zod: 3.25.17
+      zod: 4.3.5
 
   '@ai-sdk/google@2.0.52':
     resolution: {integrity: sha512-2XUnGi3f7TV4ujoAhA+Fg3idUoG/+Y2xjCRg70a1/m0DH1KSQqYaCboJ1C19y6ZHGdf5KNT20eJdswP6TvrY2g==}
     engines: {node: '>=18'}
     peerDependencies:
-      zod: 3.25.17
+      zod: 4.3.5
 
   '@ai-sdk/mcp@0.0.8':
     resolution: {integrity: sha512-9y9GuGcZ9/+pMIHfpOCJgZVp+AZMv6TkjX2NVT17SQZvTF2N8LXuCXyoUPyi1PxIxzxl0n463LxxaB2O6olC+Q==}
     engines: {node: '>=18'}
     peerDependencies:
-      zod: 3.25.17
+      zod: 4.3.5
 
   '@ai-sdk/openai@2.0.89':
     resolution: {integrity: sha512-4+qWkBCbL9HPKbgrUO/F2uXZ8GqrYxHa8SWEYIzxEJ9zvWw3ISr3t1/27O1i8MGSym+PzEyHBT48EV4LAwWaEw==}
     engines: {node: '>=18'}
     peerDependencies:
-      zod: 3.25.17
+      zod: 4.3.5
 
   '@ai-sdk/provider-utils@3.0.17':
     resolution: {integrity: sha512-TR3Gs4I3Tym4Ll+EPdzRdvo/rc8Js6c4nVhFLuvGLX/Y4V9ZcQMa/HTiYsHEgmYrf1zVi6Q145UEZUfleOwOjw==}
     engines: {node: '>=18'}
     peerDependencies:
-      zod: 3.25.17
+      zod: 4.3.5
 
   '@ai-sdk/provider-utils@3.0.20':
     resolution: {integrity: sha512-iXHVe0apM2zUEzauqJwqmpC37A5rihrStAih5Ks+JE32iTe4LZ58y17UGBjpQQTCRw9YxMeo2UFLxLpBluyvLQ==}
     engines: {node: '>=18'}
     peerDependencies:
-      zod: 3.25.17
+      zod: 4.3.5
 
   '@ai-sdk/provider@2.0.0':
     resolution: {integrity: sha512-6o7Y2SeO9vFKB8lArHXehNuusnpddKPk7xqL7T2/b+OvXMRIXUO1rR4wcv1hAFUAT9avGZshty3Wlua/XA7TvA==}
@@ -1690,7 +1681,7 @@ packages:
   '@aws-amplify/backend-output-schemas@1.7.1':
     resolution: {integrity: sha512-SbYKo5EwqVJ2WS0dOjYTTwrggNb/Vw7Roreiiea+VsG6rKoS0+DJu9NB3MZ6+Kddvkp7+yysQIb25dXWXeB/6w==}
     peerDependencies:
-      zod: 3.25.17
+      zod: 4.3.5
 
   '@aws-amplify/backend-output-storage@1.3.2':
     resolution: {integrity: sha512-pbhxXsB97SIlfHtzF2ek0ZRTfiUdcY5ItQrgnaJPwvwu2mPjtKzLLukW6HT+EfwAjpXkCyXSfr3e8HXr9hjitQ==}
@@ -4012,7 +4003,7 @@ packages:
       '@copilotkitnext/react': 1.51.0
       react: 19.2.1
       react-dom: 19.2.1
-      zod: 3.25.17
+      zod: 4.3.5
 
   '@copilotkit/react-ui@1.51.0':
     resolution: {integrity: sha512-bX6mhI5R3k7l/BahRqlm5giwwuKQNwu9LeKBSEKDwBMPSauOQG4CzARJqacwKSDEBGRjah0HjKWInnco0Jgpsg==}
@@ -5783,26 +5774,6 @@ packages:
     resolution: {integrity: sha512-vcJDV2vk1AlCwSh3aBm/urQ1ZrlXFFBocv11bz/NBUfLWD5/UDNMzwPdaAd2dKvNmTWa9FM2lirLU3+JCf4cRA==}
     engines: {node: '>=18'}
 
-  '@langchain/langgraph-checkpoint@0.0.18':
-    resolution: {integrity: sha512-IS7zJj36VgY+4pf8ZjsVuUWef7oTwt1y9ylvwu0aLuOn1d0fg05Om9DLm3v2GZ2Df6bhLV1kfWAM0IAl9O5rQQ==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@langchain/core': '>=0.2.31 <0.4.0'
-
-  '@langchain/langgraph-sdk@0.0.112':
-    resolution: {integrity: sha512-/9W5HSWCqYgwma6EoOspL4BGYxGxeJP6lIquPSF4FA0JlKopaUv58ucZC3vAgdJyCgg6sorCIV/qg7SGpEcCLw==}
-    peerDependencies:
-      '@langchain/core': '>=0.2.31 <0.4.0'
-      react: 19.2.1
-      react-dom: 19.2.1
-    peerDependenciesMeta:
-      '@langchain/core':
-        optional: true
-      react:
-        optional: true
-      react-dom:
-        optional: true
-
   '@langchain/langgraph-sdk@0.1.10':
     resolution: {integrity: sha512-9srSCb2bSvcvehMgjA2sMMwX0o1VUgPN6ghwm5Fwc9JGAKsQa6n1S4eCwy1h4abuYxwajH5n3spBw+4I2WYbgw==}
     peerDependencies:
@@ -5815,16 +5786,6 @@ packages:
       react:
         optional: true
       react-dom:
-        optional: true
-
-  '@langchain/langgraph@0.2.74':
-    resolution: {integrity: sha512-oHpEi5sTZTPaeZX1UnzfM2OAJ21QGQrwReTV6+QnX7h8nDCBzhtipAw1cK616S+X8zpcVOjgOtJuaJhXa4mN8w==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@langchain/core': '>=0.2.36 <0.3.0 || >=0.3.40 < 0.4.0'
-      zod-to-json-schema: ^3.x
-    peerDependenciesMeta:
-      zod-to-json-schema:
         optional: true
 
   '@leichtgewicht/ip-codec@2.0.5':
@@ -5932,7 +5893,7 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       '@cfworker/json-schema': ^4.1.1
-      zod: 3.25.17
+      zod: 4.3.5
     peerDependenciesMeta:
       '@cfworker/json-schema':
         optional: true
@@ -8759,7 +8720,7 @@ packages:
     resolution: {integrity: sha512-3iYPdARKGLryC/7OA9RgBUaym1gynvWS7UPy8NwoRNCKP52lshldtHB5xcEfVviw7liWH2zJlW9yEzsDglcIEQ==}
     engines: {node: '>=18'}
     peerDependencies:
-      zod: 3.25.17
+      zod: 4.3.5
 
   ajv-formats@2.1.1:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
@@ -14526,7 +14487,7 @@ packages:
     hasBin: true
     peerDependencies:
       ws: ^8.18.0
-      zod: 3.25.17
+      zod: 4.3.5
     peerDependenciesMeta:
       ws:
         optional: true
@@ -18829,16 +18790,16 @@ packages:
   zod-to-json-schema@3.25.1:
     resolution: {integrity: sha512-pM/SU9d3YAggzi6MtR4h7ruuQlqKtad8e9S0fmxcMi+ueAK5Korys/aWcV9LIIHTVbj01NdzxcnXSN+O74ZIVA==}
     peerDependencies:
-      zod: 3.25.17
+      zod: 4.3.5
 
   zod-validation-error@4.0.2:
     resolution: {integrity: sha512-Q6/nZLe6jxuU80qb/4uJ4t5v2VEZ44lzQjPDhYJNztRQ4wyWc6VF3D3Kb/fAuPetZQnhS3hnajCf9CsWesghLQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      zod: 3.25.17
+      zod: 4.3.5
 
-  zod@3.25.17:
-    resolution: {integrity: sha512-8hQzQ/kMOIFbwOgPrm9Sf9rtFHpFUMy4HvN0yEB0spw14aYi0uT5xG5CE2DB9cd51GWNsz+DNO7se1kztHMKnw==}
+  zod@4.3.5:
+    resolution: {integrity: sha512-k7Nwx6vuWx1IJ9Bjuf4Zt1PEllcwe7cls3VNzm4CQ1/hgtFUK2bRNG3rvnpPUhFjmqJKAKtjV576KnUkHocg/g==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -18869,24 +18830,24 @@ snapshots:
       rxjs: 7.8.1
       untruncate-json: 0.0.1
       uuid: 11.1.0
-      zod: 3.25.17
+      zod: 4.3.5
 
   '@ag-ui/core@0.0.42':
     dependencies:
       rxjs: 7.8.1
-      zod: 3.25.17
+      zod: 4.3.5
 
   '@ag-ui/encoder@0.0.42':
     dependencies:
       '@ag-ui/core': 0.0.42
       '@ag-ui/proto': 0.0.42
 
-  '@ag-ui/langgraph@0.0.20(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@3.25.17))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@ag-ui/langgraph@0.0.20(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@ag-ui/client': 0.0.42
       '@ag-ui/core': 0.0.42
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@3.25.17))
-      '@langchain/langgraph-sdk': 0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@3.25.17)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))
+      '@langchain/langgraph-sdk': 0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       partial-json: 0.1.7
       rxjs: 7.8.1
     transitivePeerDependencies:
@@ -18897,12 +18858,12 @@ snapshots:
       - react
       - react-dom
 
-  '@ag-ui/langgraph@0.0.20(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@ag-ui/langgraph@0.0.20(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@ag-ui/client': 0.0.42
       '@ag-ui/core': 0.0.42
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17))
-      '@langchain/langgraph-sdk': 0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@4.3.5))
+      '@langchain/langgraph-sdk': 0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       partial-json: 0.1.7
       rxjs: 7.8.1
     transitivePeerDependencies:
@@ -18919,51 +18880,51 @@ snapshots:
       '@bufbuild/protobuf': 2.10.1
       '@protobuf-ts/protoc': 2.11.1
 
-  '@ai-sdk/anthropic@2.0.57(zod@3.25.17)':
+  '@ai-sdk/anthropic@2.0.57(zod@4.3.5)':
     dependencies:
       '@ai-sdk/provider': 2.0.1
-      '@ai-sdk/provider-utils': 3.0.20(zod@3.25.17)
-      zod: 3.25.17
+      '@ai-sdk/provider-utils': 3.0.20(zod@4.3.5)
+      zod: 4.3.5
 
-  '@ai-sdk/gateway@2.0.27(zod@3.25.17)':
+  '@ai-sdk/gateway@2.0.27(zod@4.3.5)':
     dependencies:
       '@ai-sdk/provider': 2.0.1
-      '@ai-sdk/provider-utils': 3.0.20(zod@3.25.17)
+      '@ai-sdk/provider-utils': 3.0.20(zod@4.3.5)
       '@vercel/oidc': 3.1.0
-      zod: 3.25.17
+      zod: 4.3.5
 
-  '@ai-sdk/google@2.0.52(zod@3.25.17)':
+  '@ai-sdk/google@2.0.52(zod@4.3.5)':
     dependencies:
       '@ai-sdk/provider': 2.0.1
-      '@ai-sdk/provider-utils': 3.0.20(zod@3.25.17)
-      zod: 3.25.17
+      '@ai-sdk/provider-utils': 3.0.20(zod@4.3.5)
+      zod: 4.3.5
 
-  '@ai-sdk/mcp@0.0.8(zod@3.25.17)':
+  '@ai-sdk/mcp@0.0.8(zod@4.3.5)':
     dependencies:
       '@ai-sdk/provider': 2.0.0
-      '@ai-sdk/provider-utils': 3.0.17(zod@3.25.17)
+      '@ai-sdk/provider-utils': 3.0.17(zod@4.3.5)
       pkce-challenge: 5.0.1
-      zod: 3.25.17
+      zod: 4.3.5
 
-  '@ai-sdk/openai@2.0.89(zod@3.25.17)':
+  '@ai-sdk/openai@2.0.89(zod@4.3.5)':
     dependencies:
       '@ai-sdk/provider': 2.0.1
-      '@ai-sdk/provider-utils': 3.0.20(zod@3.25.17)
-      zod: 3.25.17
+      '@ai-sdk/provider-utils': 3.0.20(zod@4.3.5)
+      zod: 4.3.5
 
-  '@ai-sdk/provider-utils@3.0.17(zod@3.25.17)':
+  '@ai-sdk/provider-utils@3.0.17(zod@4.3.5)':
     dependencies:
       '@ai-sdk/provider': 2.0.0
       '@standard-schema/spec': 1.1.0
       eventsource-parser: 3.0.6
-      zod: 3.25.17
+      zod: 4.3.5
 
-  '@ai-sdk/provider-utils@3.0.20(zod@3.25.17)':
+  '@ai-sdk/provider-utils@3.0.20(zod@4.3.5)':
     dependencies:
       '@ai-sdk/provider': 2.0.1
       '@standard-schema/spec': 1.1.0
       eventsource-parser: 3.0.6
-      zod: 3.25.17
+      zod: 4.3.5
 
   '@ai-sdk/provider@2.0.0':
     dependencies:
@@ -19101,10 +19062,10 @@ snapshots:
       - encoding
       - supports-color
 
-  '@aws-amplify/auth-construct@1.10.0(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)':
+  '@aws-amplify/auth-construct@1.10.0(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)':
     dependencies:
-      '@aws-amplify/backend-output-schemas': 1.7.1(zod@3.25.17)
-      '@aws-amplify/backend-output-storage': 1.3.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)
+      '@aws-amplify/backend-output-schemas': 1.7.1(zod@4.3.5)
+      '@aws-amplify/backend-output-storage': 1.3.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)
       '@aws-amplify/platform-core': 1.10.3(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-amplify/plugin-types': 1.11.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-sdk/util-arn-parser': 3.893.0
@@ -19125,11 +19086,11 @@ snapshots:
       '@smithy/types': 3.7.2
       tslib: 2.8.1
 
-  '@aws-amplify/backend-auth@1.9.0(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)':
+  '@aws-amplify/backend-auth@1.9.0(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)':
     dependencies:
-      '@aws-amplify/auth-construct': 1.10.0(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)
-      '@aws-amplify/backend-output-schemas': 1.7.1(zod@3.25.17)
-      '@aws-amplify/backend-output-storage': 1.3.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)
+      '@aws-amplify/auth-construct': 1.10.0(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)
+      '@aws-amplify/backend-output-schemas': 1.7.1(zod@4.3.5)
+      '@aws-amplify/backend-output-storage': 1.3.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)
       '@aws-amplify/plugin-types': 1.11.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       aws-cdk-lib: 2.223.0(constructs@10.4.3)
       constructs: 10.4.3
@@ -19144,13 +19105,13 @@ snapshots:
   '@aws-amplify/backend-cli@1.8.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(@types/node@22.10.1)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)':
     dependencies:
       '@aws-amplify/backend-deployer': 2.1.4(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(typescript@5.9.3)
-      '@aws-amplify/backend-output-schemas': 1.7.1(zod@3.25.17)
+      '@aws-amplify/backend-output-schemas': 1.7.1(zod@4.3.5)
       '@aws-amplify/backend-secret': 1.4.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-amplify/cli-core': 2.2.3(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(@types/node@22.10.1)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-amplify/client-config': 1.9.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-amplify@3.943.0)(@aws-sdk/client-cloudformation@3.943.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)
       '@aws-amplify/deployed-backend-client': 1.8.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-amplify@3.943.0)(@aws-sdk/client-cloudformation@3.943.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-amplify/form-generator': 1.2.6(encoding@0.1.13)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@aws-amplify/model-generator': 1.2.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-amplify@3.943.0)(@aws-sdk/client-cloudformation@3.943.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(zod@3.25.17)
+      '@aws-amplify/model-generator': 1.2.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-amplify@3.943.0)(@aws-sdk/client-cloudformation@3.943.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(zod@4.3.5)
       '@aws-amplify/platform-core': 1.10.3(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-amplify/plugin-types': 1.11.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-amplify/sandbox': 2.1.4(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-amplify@3.943.0)(@aws-sdk/client-cloudformation@3.943.0)(@aws-sdk/client-s3@3.932.0)(@types/node@22.10.1)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(typescript@5.9.3)
@@ -19175,7 +19136,7 @@ snapshots:
       open: 10.2.0
       semver: 7.7.3
       yargs: 17.7.2
-      zod: 3.25.17
+      zod: 4.3.5
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
       - '@types/node'
@@ -19194,10 +19155,10 @@ snapshots:
       - tedious
       - typescript
 
-  '@aws-amplify/backend-data@1.6.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(zod@3.25.17)':
+  '@aws-amplify/backend-data@1.6.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(zod@4.3.5)':
     dependencies:
-      '@aws-amplify/backend-output-schemas': 1.7.1(zod@3.25.17)
-      '@aws-amplify/backend-output-storage': 1.3.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)
+      '@aws-amplify/backend-output-schemas': 1.7.1(zod@4.3.5)
+      '@aws-amplify/backend-output-storage': 1.3.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)
       '@aws-amplify/data-construct': 1.16.3(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-amplify/data-schema-types': 1.2.0
       '@aws-amplify/graphql-generator': 0.5.3(encoding@0.1.13)
@@ -19234,10 +19195,10 @@ snapshots:
       - constructs
       - react-native-b4a
 
-  '@aws-amplify/backend-function@1.15.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)':
+  '@aws-amplify/backend-function@1.15.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)':
     dependencies:
-      '@aws-amplify/backend-output-schemas': 1.7.1(zod@3.25.17)
-      '@aws-amplify/backend-output-storage': 1.3.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)
+      '@aws-amplify/backend-output-schemas': 1.7.1(zod@4.3.5)
+      '@aws-amplify/backend-output-storage': 1.3.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)
       '@aws-amplify/plugin-types': 1.11.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-sdk/client-s3': 3.932.0
       aws-cdk-lib: 2.223.0(constructs@10.4.3)
@@ -19251,13 +19212,13 @@ snapshots:
       - react-native-b4a
       - zod
 
-  '@aws-amplify/backend-output-schemas@1.7.1(zod@3.25.17)':
+  '@aws-amplify/backend-output-schemas@1.7.1(zod@4.3.5)':
     dependencies:
-      zod: 3.25.17
+      zod: 4.3.5
 
-  '@aws-amplify/backend-output-storage@1.3.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)':
+  '@aws-amplify/backend-output-storage@1.3.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)':
     dependencies:
-      '@aws-amplify/backend-output-schemas': 1.7.1(zod@3.25.17)
+      '@aws-amplify/backend-output-schemas': 1.7.1(zod@4.3.5)
       '@aws-amplify/platform-core': 1.10.3(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-amplify/plugin-types': 1.11.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       aws-cdk-lib: 2.223.0(constructs@10.4.3)
@@ -19284,10 +19245,10 @@ snapshots:
       - constructs
       - react-native-b4a
 
-  '@aws-amplify/backend-storage@1.4.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)':
+  '@aws-amplify/backend-storage@1.4.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)':
     dependencies:
-      '@aws-amplify/backend-output-schemas': 1.7.1(zod@3.25.17)
-      '@aws-amplify/backend-output-storage': 1.3.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)
+      '@aws-amplify/backend-output-schemas': 1.7.1(zod@4.3.5)
+      '@aws-amplify/backend-output-storage': 1.3.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)
       '@aws-amplify/plugin-types': 1.11.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       aws-cdk-lib: 2.223.0(constructs@10.4.3)
       constructs: 10.4.3
@@ -19299,15 +19260,15 @@ snapshots:
       - react-native-b4a
       - zod
 
-  '@aws-amplify/backend@1.19.0(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-cloudformation@3.943.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(zod@3.25.17)':
+  '@aws-amplify/backend@1.19.0(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-cloudformation@3.943.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(zod@4.3.5)':
     dependencies:
-      '@aws-amplify/backend-auth': 1.9.0(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)
-      '@aws-amplify/backend-data': 1.6.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(zod@3.25.17)
-      '@aws-amplify/backend-function': 1.15.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)
-      '@aws-amplify/backend-output-schemas': 1.7.1(zod@3.25.17)
-      '@aws-amplify/backend-output-storage': 1.3.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)
+      '@aws-amplify/backend-auth': 1.9.0(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)
+      '@aws-amplify/backend-data': 1.6.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(zod@4.3.5)
+      '@aws-amplify/backend-function': 1.15.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)
+      '@aws-amplify/backend-output-schemas': 1.7.1(zod@4.3.5)
+      '@aws-amplify/backend-output-storage': 1.3.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)
       '@aws-amplify/backend-secret': 1.4.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
-      '@aws-amplify/backend-storage': 1.4.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@3.25.17)
+      '@aws-amplify/backend-storage': 1.4.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(zod@4.3.5)
       '@aws-amplify/client-config': 1.9.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-amplify@3.943.0)(@aws-sdk/client-cloudformation@3.943.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)
       '@aws-amplify/data-schema': 1.22.0
       '@aws-amplify/platform-core': 1.10.3(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
@@ -19339,7 +19300,7 @@ snapshots:
       semver: 7.7.3
       strip-ansi: 7.1.2
       wrap-ansi: 9.0.2
-      zod: 3.25.17
+      zod: 4.3.5
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
       - '@aws-sdk/types'
@@ -19352,15 +19313,15 @@ snapshots:
 
   '@aws-amplify/client-config@1.9.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-amplify@3.943.0)(@aws-sdk/client-cloudformation@3.943.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)':
     dependencies:
-      '@aws-amplify/backend-output-schemas': 1.7.1(zod@3.25.17)
+      '@aws-amplify/backend-output-schemas': 1.7.1(zod@4.3.5)
       '@aws-amplify/deployed-backend-client': 1.8.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-amplify@3.943.0)(@aws-sdk/client-cloudformation@3.943.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
-      '@aws-amplify/model-generator': 1.2.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-amplify@3.943.0)(@aws-sdk/client-cloudformation@3.943.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(zod@3.25.17)
+      '@aws-amplify/model-generator': 1.2.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-amplify@3.943.0)(@aws-sdk/client-cloudformation@3.943.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(zod@4.3.5)
       '@aws-amplify/platform-core': 1.10.3(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-amplify/plugin-types': 1.11.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-sdk/client-amplify': 3.943.0
       '@aws-sdk/client-cloudformation': 3.943.0
       '@aws-sdk/client-s3': 3.932.0
-      zod: 3.25.17
+      zod: 4.3.5
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
       - '@aws-sdk/types'
@@ -19434,14 +19395,14 @@ snapshots:
 
   '@aws-amplify/deployed-backend-client@1.8.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-amplify@3.943.0)(@aws-sdk/client-cloudformation@3.943.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)':
     dependencies:
-      '@aws-amplify/backend-output-schemas': 1.7.1(zod@3.25.17)
+      '@aws-amplify/backend-output-schemas': 1.7.1(zod@4.3.5)
       '@aws-amplify/platform-core': 1.10.3(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-amplify/plugin-types': 1.11.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-sdk/client-amplify': 3.943.0
       '@aws-sdk/client-cloudformation': 3.943.0
       '@aws-sdk/client-s3': 3.932.0
       '@aws-sdk/types': 3.969.0
-      zod: 3.25.17
+      zod: 4.3.5
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
       - aws-cdk-lib
@@ -19572,9 +19533,9 @@ snapshots:
       source-map-support: 0.5.21
       yargs: 15.4.1
 
-  '@aws-amplify/model-generator@1.2.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-amplify@3.943.0)(@aws-sdk/client-cloudformation@3.943.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(zod@3.25.17)':
+  '@aws-amplify/model-generator@1.2.2(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-amplify@3.943.0)(@aws-sdk/client-cloudformation@3.943.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)(encoding@0.1.13)(zod@4.3.5)':
     dependencies:
-      '@aws-amplify/backend-output-schemas': 1.7.1(zod@3.25.17)
+      '@aws-amplify/backend-output-schemas': 1.7.1(zod@4.3.5)
       '@aws-amplify/deployed-backend-client': 1.8.1(@aws-cdk/cli-plugin-contract@2.181.1)(@aws-sdk/client-amplify@3.943.0)(@aws-sdk/client-cloudformation@3.943.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.223.0(constructs@10.4.3))(constructs@10.4.3)
       '@aws-amplify/graphql-generator': 0.5.3(encoding@0.1.13)
       '@aws-amplify/graphql-types-generator': 3.6.0
@@ -19619,7 +19580,7 @@ snapshots:
       lodash.snakecase: 4.1.1
       semver: 7.7.3
       uuid: 11.1.0
-      zod: 3.25.17
+      zod: 4.3.5
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
       - '@aws-sdk/types'
@@ -20085,6 +20046,7 @@ snapshots:
       tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
+    optional: true
 
   '@aws-sdk/client-bedrock-runtime@3.969.0':
     dependencies:
@@ -20137,6 +20099,7 @@ snapshots:
       tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
+    optional: true
 
   '@aws-sdk/client-cloudcontrol@3.943.0':
     dependencies:
@@ -20820,6 +20783,7 @@ snapshots:
       tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
+    optional: true
 
   '@aws-sdk/client-kinesis@3.621.0':
     dependencies:
@@ -21822,6 +21786,7 @@ snapshots:
       tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
+    optional: true
 
   '@aws-sdk/client-sts@3.699.0':
     dependencies:
@@ -22019,6 +21984,7 @@ snapshots:
       '@smithy/util-middleware': 4.2.8
       '@smithy/util-utf8': 4.2.0
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/credential-provider-cognito-identity@3.943.0':
     dependencies:
@@ -22100,6 +22066,7 @@ snapshots:
       '@smithy/property-provider': 4.2.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/credential-provider-http@3.621.0':
     dependencies:
@@ -22228,6 +22195,7 @@ snapshots:
       '@smithy/types': 4.12.0
       '@smithy/util-stream': 4.5.10
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/credential-provider-ini@3.621.0(@aws-sdk/client-sso-oidc@3.699.0(@aws-sdk/client-sts@3.699.0))(@aws-sdk/client-sts@3.699.0)':
     dependencies:
@@ -22413,6 +22381,7 @@ snapshots:
       tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
+    optional: true
 
   '@aws-sdk/credential-provider-login@3.943.0':
     dependencies:
@@ -22465,6 +22434,7 @@ snapshots:
       tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
+    optional: true
 
   '@aws-sdk/credential-provider-node@3.621.0(@aws-sdk/client-sso-oidc@3.699.0(@aws-sdk/client-sts@3.699.0))(@aws-sdk/client-sts@3.699.0)':
     dependencies:
@@ -22641,6 +22611,7 @@ snapshots:
       tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
+    optional: true
 
   '@aws-sdk/credential-provider-process@3.620.1':
     dependencies:
@@ -22721,6 +22692,7 @@ snapshots:
       '@smithy/shared-ini-file-loader': 4.4.3
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/credential-provider-sso@3.621.0(@aws-sdk/client-sso-oidc@3.699.0(@aws-sdk/client-sts@3.699.0))':
     dependencies:
@@ -22852,6 +22824,7 @@ snapshots:
       tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
+    optional: true
 
   '@aws-sdk/credential-provider-web-identity@3.621.0(@aws-sdk/client-sts@3.699.0)':
     dependencies:
@@ -22952,6 +22925,7 @@ snapshots:
       tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
+    optional: true
 
   '@aws-sdk/credential-providers@3.943.0':
     dependencies:
@@ -22994,6 +22968,7 @@ snapshots:
       '@smithy/eventstream-codec': 4.2.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/lib-storage@3.943.0(@aws-sdk/client-s3@3.932.0)':
     dependencies:
@@ -23022,6 +22997,7 @@ snapshots:
       '@smithy/protocol-http': 5.3.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/middleware-expect-continue@3.930.0':
     dependencies:
@@ -23094,6 +23070,7 @@ snapshots:
       '@smithy/protocol-http': 5.3.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/middleware-location-constraint@3.930.0':
     dependencies:
@@ -23142,6 +23119,7 @@ snapshots:
       '@aws-sdk/types': 3.969.0
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/middleware-recursion-detection@3.620.0':
     dependencies:
@@ -23195,6 +23173,7 @@ snapshots:
       '@smithy/protocol-http': 5.3.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/middleware-sdk-ec2@3.622.0':
     dependencies:
@@ -23344,6 +23323,7 @@ snapshots:
       '@smithy/protocol-http': 5.3.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/middleware-websocket@3.969.0':
     dependencies:
@@ -23357,6 +23337,7 @@ snapshots:
       '@smithy/types': 4.12.0
       '@smithy/util-hex-encoding': 4.2.0
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/nested-clients@3.844.0':
     dependencies:
@@ -23658,6 +23639,7 @@ snapshots:
       tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
+    optional: true
 
   '@aws-sdk/region-config-resolver@3.614.0':
     dependencies:
@@ -23717,6 +23699,7 @@ snapshots:
       '@smithy/node-config-provider': 4.3.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/signature-v4-multi-region@3.932.0':
     dependencies:
@@ -23828,6 +23811,7 @@ snapshots:
       tslib: 2.8.1
     transitivePeerDependencies:
       - aws-crt
+    optional: true
 
   '@aws-sdk/types@3.387.0':
     dependencies:
@@ -23931,6 +23915,7 @@ snapshots:
       '@smithy/url-parser': 4.2.8
       '@smithy/util-endpoints': 3.2.8
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/util-format-url@3.609.0':
     dependencies:
@@ -23952,6 +23937,7 @@ snapshots:
       '@smithy/querystring-builder': 4.2.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/util-locate-window@3.893.0':
     dependencies:
@@ -24005,6 +23991,7 @@ snapshots:
       '@smithy/types': 4.12.0
       bowser: 2.12.1
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/util-user-agent-node@3.614.0':
     dependencies:
@@ -24076,6 +24063,7 @@ snapshots:
       '@smithy/node-config-provider': 4.3.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@aws-sdk/xml-builder@3.821.0':
     dependencies:
@@ -24099,6 +24087,7 @@ snapshots:
       '@smithy/types': 4.12.0
       fast-xml-parser: 5.2.5
       tslib: 2.8.1
+    optional: true
 
   '@aws/lambda-invoke-store@0.1.1': {}
 
@@ -25143,7 +25132,7 @@ snapshots:
     dependencies:
       chalk: 4.1.2
 
-  '@copilotkit/react-core@1.51.0(@ag-ui/client@0.0.42)(@copilotkit/runtime-client-gql@1.51.0(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(react@19.2.1))(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/react@1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(@copilotkitnext/web-inspector@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(micromark-util-types@2.0.2)(micromark@4.0.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@3.25.17)':
+  '@copilotkit/react-core@1.51.0(@ag-ui/client@0.0.42)(@copilotkit/runtime-client-gql@1.51.0(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(react@19.2.1))(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/react@1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(@copilotkitnext/web-inspector@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(micromark-util-types@2.0.2)(micromark@4.0.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)':
     dependencies:
       '@ag-ui/client': 0.0.42
       '@copilotkit/runtime-client-gql': 1.51.0(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(graphql@16.12.0)(react@19.2.1)
@@ -25155,14 +25144,14 @@ snapshots:
       react-dom: 19.2.1(react@19.2.1)
       react-markdown: 8.0.7(@types/react@19.2.7)(react@19.2.1)
       untruncate-json: 0.0.1
-      zod: 3.25.17
+      zod: 4.3.5
     transitivePeerDependencies:
       - '@types/react'
       - supports-color
 
-  '@copilotkit/react-ui@1.51.0(33a43d5dacc2e57a97cdc03e02714c17)':
+  '@copilotkit/react-ui@1.51.0(b977d0bf7cc060a83b8f6527e39dd2f9)':
     dependencies:
-      '@copilotkit/react-core': 1.51.0(@ag-ui/client@0.0.42)(@copilotkit/runtime-client-gql@1.51.0(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(react@19.2.1))(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/react@1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(@copilotkitnext/web-inspector@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(micromark-util-types@2.0.2)(micromark@4.0.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@3.25.17)
+      '@copilotkit/react-core': 1.51.0(@ag-ui/client@0.0.42)(@copilotkit/runtime-client-gql@1.51.0(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(react@19.2.1))(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/react@1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(@copilotkitnext/web-inspector@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(micromark-util-types@2.0.2)(micromark@4.0.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)
       '@copilotkit/runtime-client-gql': 1.51.0(@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13))(graphql@16.12.0)(react@19.2.1)
       '@copilotkit/shared': 1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13)
       '@headlessui/react': 2.2.9(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -25187,17 +25176,17 @@ snapshots:
     transitivePeerDependencies:
       - graphql
 
-  '@copilotkit/runtime@1.51.0(772775aa75798c85d4ae646ac24c43cb)':
+  '@copilotkit/runtime@1.51.0(46882d414f3537a7445cbb13cd50f81f)':
     dependencies:
       '@ag-ui/client': 0.0.42
       '@ag-ui/core': 0.0.42
-      '@ag-ui/langgraph': 0.0.20(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@3.25.17))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@ag-ui/langgraph': 0.0.20(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@copilotkit/shared': 1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13)
       '@copilotkitnext/agent': 1.51.0(@ag-ui/client@0.0.42)(@cfworker/json-schema@4.1.1)(hono@4.11.4)
-      '@copilotkitnext/runtime': 1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@ag-ui/encoder@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(openai@5.23.2(ws@8.18.0)(zod@3.25.17))
+      '@copilotkitnext/runtime': 1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@ag-ui/encoder@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))
       '@graphql-yoga/plugin-defer-stream': 3.18.0(graphql-yoga@5.18.0(graphql@16.12.0))(graphql@16.12.0)
       '@hono/node-server': 1.19.9(hono@4.11.4)
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@3.25.17))
+      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))
       '@scarf/scarf': 1.4.0
       class-transformer: 0.5.1
       class-validator: 0.14.3
@@ -25211,23 +25200,23 @@ snapshots:
       reflect-metadata: 0.2.2
       rxjs: 7.8.1
       type-graphql: 2.0.0-rc.1(class-validator@0.14.3)(graphql-scalars@1.25.0(graphql@16.12.0))(graphql@16.12.0)
-      zod: 3.25.17
+      zod: 4.3.5
     optionalDependencies:
-      '@langchain/aws': 0.1.15(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@3.25.17)))
-      '@langchain/langgraph-sdk': 0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@3.25.17)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      openai: 5.23.2(ws@8.18.0)(zod@3.25.17)
+      '@langchain/aws': 0.1.15(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))
+      '@langchain/langgraph-sdk': 0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      openai: 5.23.2(ws@8.18.0)(zod@4.3.5)
 
-  '@copilotkit/runtime@1.51.0(ce00c237038d2730e3ac9c937d161b2f)':
+  '@copilotkit/runtime@1.51.0(c2d1af1f779f8b457aeadad7610d468a)':
     dependencies:
       '@ag-ui/client': 0.0.42
       '@ag-ui/core': 0.0.42
-      '@ag-ui/langgraph': 0.0.20(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@ag-ui/langgraph': 0.0.20(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@copilotkit/shared': 1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13)
       '@copilotkitnext/agent': 1.51.0(@ag-ui/client@0.0.42)(@cfworker/json-schema@4.1.1)(hono@4.11.4)
-      '@copilotkitnext/runtime': 1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@ag-ui/encoder@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(openai@5.23.2(ws@8.18.3)(zod@3.25.17))
+      '@copilotkitnext/runtime': 1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@ag-ui/encoder@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(openai@5.23.2(ws@8.18.3)(zod@4.3.5))
       '@graphql-yoga/plugin-defer-stream': 3.18.0(graphql-yoga@5.18.0(graphql@16.12.0))(graphql@16.12.0)
       '@hono/node-server': 1.19.9(hono@4.11.4)
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17))
+      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@4.3.5))
       '@scarf/scarf': 1.4.0
       class-transformer: 0.5.1
       class-validator: 0.14.3
@@ -25241,11 +25230,11 @@ snapshots:
       reflect-metadata: 0.2.2
       rxjs: 7.8.1
       type-graphql: 2.0.0-rc.1(class-validator@0.14.3)(graphql-scalars@1.25.0(graphql@16.12.0))(graphql@16.12.0)
-      zod: 3.25.17
+      zod: 4.3.5
     optionalDependencies:
-      '@langchain/aws': 0.1.15(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17)))
-      '@langchain/langgraph-sdk': 0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      openai: 5.23.2(ws@8.18.3)(zod@3.25.17)
+      '@langchain/aws': 0.1.15(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@4.3.5)))
+      '@langchain/langgraph-sdk': 0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      openai: 5.23.2(ws@8.18.3)(zod@4.3.5)
 
   '@copilotkit/shared@1.51.0(@ag-ui/core@0.0.42)(encoding@0.1.13)':
     dependencies:
@@ -25254,21 +25243,21 @@ snapshots:
       chalk: 4.1.2
       graphql: 16.12.0
       uuid: 10.0.0
-      zod: 3.25.17
+      zod: 4.3.5
     transitivePeerDependencies:
       - encoding
 
   '@copilotkitnext/agent@1.51.0(@ag-ui/client@0.0.42)(@cfworker/json-schema@4.1.1)(hono@4.11.4)':
     dependencies:
       '@ag-ui/client': 0.0.42
-      '@ai-sdk/anthropic': 2.0.57(zod@3.25.17)
-      '@ai-sdk/google': 2.0.52(zod@3.25.17)
-      '@ai-sdk/mcp': 0.0.8(zod@3.25.17)
-      '@ai-sdk/openai': 2.0.89(zod@3.25.17)
-      '@modelcontextprotocol/sdk': 1.25.2(@cfworker/json-schema@4.1.1)(hono@4.11.4)(zod@3.25.17)
-      ai: 5.0.121(zod@3.25.17)
+      '@ai-sdk/anthropic': 2.0.57(zod@4.3.5)
+      '@ai-sdk/google': 2.0.52(zod@4.3.5)
+      '@ai-sdk/mcp': 0.0.8(zod@4.3.5)
+      '@ai-sdk/openai': 2.0.89(zod@4.3.5)
+      '@modelcontextprotocol/sdk': 1.25.2(@cfworker/json-schema@4.1.1)(hono@4.11.4)(zod@4.3.5)
+      ai: 5.0.121(zod@4.3.5)
       rxjs: 7.8.2
-      zod: 3.25.17
+      zod: 4.3.5
     transitivePeerDependencies:
       - '@cfworker/json-schema'
       - hono
@@ -25279,8 +25268,8 @@ snapshots:
       '@ag-ui/client': 0.0.42
       '@copilotkitnext/shared': 1.51.0(@ag-ui/client@0.0.42)
       rxjs: 7.8.1
-      zod: 3.25.17
-      zod-to-json-schema: 3.25.1(zod@3.25.17)
+      zod: 4.3.5
+      zod-to-json-schema: 3.25.1(zod@4.3.5)
 
   '@copilotkitnext/react@1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42)))(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(@copilotkitnext/web-inspector@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/core@1.51.0(@ag-ui/client@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(micromark-util-types@2.0.2)(micromark@4.0.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
@@ -25304,7 +25293,7 @@ snapshots:
       ts-deepmerge: 7.0.3
       tw-animate-css: 1.4.0
       use-stick-to-bottom: 1.1.1(react@19.2.1)
-      zod: 3.25.17
+      zod: 4.3.5
     transitivePeerDependencies:
       - '@types/mdast'
       - '@types/react'
@@ -25313,7 +25302,7 @@ snapshots:
       - micromark-util-types
       - supports-color
 
-  '@copilotkitnext/runtime@1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@ag-ui/encoder@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(openai@5.23.2(ws@8.18.0)(zod@3.25.17))':
+  '@copilotkitnext/runtime@1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@ag-ui/encoder@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))':
     dependencies:
       '@ag-ui/client': 0.0.42
       '@ag-ui/core': 0.0.42
@@ -25322,12 +25311,12 @@ snapshots:
       cors: 2.8.5
       express: 4.22.1
       hono: 4.11.4
-      openai: 5.23.2(ws@8.18.0)(zod@3.25.17)
+      openai: 5.23.2(ws@8.18.0)(zod@4.3.5)
       rxjs: 7.8.1
     transitivePeerDependencies:
       - supports-color
 
-  '@copilotkitnext/runtime@1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@ag-ui/encoder@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(openai@5.23.2(ws@8.18.3)(zod@3.25.17))':
+  '@copilotkitnext/runtime@1.51.0(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@ag-ui/encoder@0.0.42)(@copilotkitnext/shared@1.51.0(@ag-ui/client@0.0.42))(openai@5.23.2(ws@8.18.3)(zod@4.3.5))':
     dependencies:
       '@ag-ui/client': 0.0.42
       '@ag-ui/core': 0.0.42
@@ -25336,7 +25325,7 @@ snapshots:
       cors: 2.8.5
       express: 4.22.1
       hono: 4.11.4
-      openai: 5.23.2(ws@8.18.3)(zod@3.25.17)
+      openai: 5.23.2(ws@8.18.3)(zod@4.3.5)
       rxjs: 7.8.1
     transitivePeerDependencies:
       - supports-color
@@ -27162,117 +27151,89 @@ snapshots:
 
   '@keyv/serialize@1.1.1': {}
 
-  '@langchain/aws@0.1.15(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@3.25.17)))':
+  '@langchain/aws@0.1.15(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))':
     dependencies:
       '@aws-sdk/client-bedrock-agent-runtime': 3.969.0
       '@aws-sdk/client-bedrock-runtime': 3.969.0
       '@aws-sdk/client-kendra': 3.969.0
-      '@aws-sdk/credential-provider-node': 3.954.0
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@3.25.17))
+      '@aws-sdk/credential-provider-node': 3.969.0
+      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))
     transitivePeerDependencies:
       - aws-crt
     optional: true
 
-  '@langchain/aws@0.1.15(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17)))':
+  '@langchain/aws@0.1.15(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@4.3.5)))':
     dependencies:
       '@aws-sdk/client-bedrock-agent-runtime': 3.969.0
       '@aws-sdk/client-bedrock-runtime': 3.969.0
       '@aws-sdk/client-kendra': 3.969.0
-      '@aws-sdk/credential-provider-node': 3.954.0
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17))
+      '@aws-sdk/credential-provider-node': 3.969.0
+      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@4.3.5))
     transitivePeerDependencies:
       - aws-crt
+    optional: true
 
-  '@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@3.25.17))':
+  '@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))':
     dependencies:
       '@cfworker/json-schema': 4.1.1
       ansi-styles: 5.2.0
       camelcase: 6.3.0
       decamelize: 1.2.0
       js-tiktoken: 1.0.21
-      langsmith: 0.3.87(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@3.25.17))
+      langsmith: 0.3.87(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))
       mustache: 4.2.0
       p-queue: 6.6.2
       p-retry: 4.6.2
       uuid: 10.0.0
-      zod: 3.25.17
-      zod-to-json-schema: 3.25.1(zod@3.25.17)
+      zod: 4.3.5
+      zod-to-json-schema: 3.25.1(zod@4.3.5)
     transitivePeerDependencies:
       - '@opentelemetry/api'
       - '@opentelemetry/exporter-trace-otlp-proto'
       - '@opentelemetry/sdk-trace-base'
       - openai
 
-  '@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17))':
+  '@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@4.3.5))':
     dependencies:
       '@cfworker/json-schema': 4.1.1
       ansi-styles: 5.2.0
       camelcase: 6.3.0
       decamelize: 1.2.0
       js-tiktoken: 1.0.21
-      langsmith: 0.3.87(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17))
+      langsmith: 0.3.87(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@4.3.5))
       mustache: 4.2.0
       p-queue: 6.6.2
       p-retry: 4.6.2
       uuid: 10.0.0
-      zod: 3.25.17
-      zod-to-json-schema: 3.25.1(zod@3.25.17)
+      zod: 4.3.5
+      zod-to-json-schema: 3.25.1(zod@4.3.5)
     transitivePeerDependencies:
       - '@opentelemetry/api'
       - '@opentelemetry/exporter-trace-otlp-proto'
       - '@opentelemetry/sdk-trace-base'
       - openai
 
-  '@langchain/langgraph-checkpoint@0.0.18(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17)))':
-    dependencies:
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17))
-      uuid: 10.0.0
-
-  '@langchain/langgraph-sdk@0.0.112(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@types/json-schema': 7.0.15
       p-queue: 6.6.2
       p-retry: 4.6.2
       uuid: 9.0.1
     optionalDependencies:
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17))
+      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
-  '@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@3.25.17)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@types/json-schema': 7.0.15
       p-queue: 6.6.2
       p-retry: 4.6.2
       uuid: 9.0.1
     optionalDependencies:
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@3.25.17))
+      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@4.3.5))
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
-
-  '@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
-    dependencies:
-      '@types/json-schema': 7.0.15
-      p-queue: 6.6.2
-      p-retry: 4.6.2
-      uuid: 9.0.1
-    optionalDependencies:
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17))
-      react: 19.2.1
-      react-dom: 19.2.1(react@19.2.1)
-
-  '@langchain/langgraph@0.2.74(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod-to-json-schema@3.25.1(zod@3.25.17))':
-    dependencies:
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17))
-      '@langchain/langgraph-checkpoint': 0.0.18(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17)))
-      '@langchain/langgraph-sdk': 0.0.112(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      uuid: 10.0.0
-      zod: 3.25.17
-    optionalDependencies:
-      zod-to-json-schema: 3.25.1(zod@3.25.17)
-    transitivePeerDependencies:
-      - react
-      - react-dom
 
   '@leichtgewicht/ip-codec@2.0.5': {}
 
@@ -27424,7 +27385,7 @@ snapshots:
     dependencies:
       langium: 3.3.1
 
-  '@modelcontextprotocol/sdk@1.25.2(@cfworker/json-schema@4.1.1)(hono@4.11.4)(zod@3.25.17)':
+  '@modelcontextprotocol/sdk@1.25.2(@cfworker/json-schema@4.1.1)(hono@4.11.4)(zod@4.3.5)':
     dependencies:
       '@hono/node-server': 1.19.9(hono@4.11.4)
       ajv: 8.17.1
@@ -27440,8 +27401,8 @@ snapshots:
       json-schema-typed: 8.0.2
       pkce-challenge: 5.0.1
       raw-body: 3.0.1
-      zod: 3.25.17
-      zod-to-json-schema: 3.25.1(zod@3.25.17)
+      zod: 4.3.5
+      zod-to-json-schema: 3.25.1(zod@4.3.5)
     optionalDependencies:
       '@cfworker/json-schema': 4.1.1
     transitivePeerDependencies:
@@ -28685,6 +28646,7 @@ snapshots:
     dependencies:
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/chunked-blob-reader-native@4.2.1':
     dependencies:
@@ -28729,6 +28691,7 @@ snapshots:
       '@smithy/util-endpoints': 3.2.8
       '@smithy/util-middleware': 4.2.8
       tslib: 2.8.1
+    optional: true
 
   '@smithy/core@2.5.7':
     dependencies:
@@ -28779,6 +28742,7 @@ snapshots:
       '@smithy/util-utf8': 4.2.0
       '@smithy/uuid': 1.1.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/credential-provider-imds@3.2.8':
     dependencies:
@@ -28811,6 +28775,7 @@ snapshots:
       '@smithy/types': 4.12.0
       '@smithy/url-parser': 4.2.8
       tslib: 2.8.1
+    optional: true
 
   '@smithy/eventstream-codec@3.1.10':
     dependencies:
@@ -28832,6 +28797,7 @@ snapshots:
       '@smithy/types': 4.12.0
       '@smithy/util-hex-encoding': 4.2.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/eventstream-serde-browser@3.0.14':
     dependencies:
@@ -28850,6 +28816,7 @@ snapshots:
       '@smithy/eventstream-serde-universal': 4.2.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/eventstream-serde-config-resolver@3.0.11':
     dependencies:
@@ -28865,6 +28832,7 @@ snapshots:
     dependencies:
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/eventstream-serde-node@3.0.13':
     dependencies:
@@ -28883,6 +28851,7 @@ snapshots:
       '@smithy/eventstream-serde-universal': 4.2.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/eventstream-serde-universal@3.0.13':
     dependencies:
@@ -28901,6 +28870,7 @@ snapshots:
       '@smithy/eventstream-codec': 4.2.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/fetch-http-handler@3.2.9':
     dependencies:
@@ -28941,6 +28911,7 @@ snapshots:
       '@smithy/types': 4.12.0
       '@smithy/util-base64': 4.3.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/hash-blob-browser@4.2.6':
     dependencies:
@@ -28976,6 +28947,7 @@ snapshots:
       '@smithy/util-buffer-from': 4.2.0
       '@smithy/util-utf8': 4.2.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/hash-stream-node@4.2.5':
     dependencies:
@@ -29002,6 +28974,7 @@ snapshots:
     dependencies:
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/is-array-buffer@2.2.0':
     dependencies:
@@ -29050,6 +29023,7 @@ snapshots:
       '@smithy/protocol-http': 5.3.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/middleware-endpoint@3.2.8':
     dependencies:
@@ -29094,6 +29068,7 @@ snapshots:
       '@smithy/url-parser': 4.2.8
       '@smithy/util-middleware': 4.2.8
       tslib: 2.8.1
+    optional: true
 
   '@smithy/middleware-retry@3.0.34':
     dependencies:
@@ -29142,6 +29117,7 @@ snapshots:
       '@smithy/util-retry': 4.2.8
       '@smithy/uuid': 1.1.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/middleware-serde@3.0.11':
     dependencies:
@@ -29165,6 +29141,7 @@ snapshots:
       '@smithy/protocol-http': 5.3.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/middleware-stack@3.0.11':
     dependencies:
@@ -29185,6 +29162,7 @@ snapshots:
     dependencies:
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/node-config-provider@3.1.12':
     dependencies:
@@ -29213,6 +29191,7 @@ snapshots:
       '@smithy/shared-ini-file-loader': 4.4.3
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/node-http-handler@3.3.3':
     dependencies:
@@ -29245,6 +29224,7 @@ snapshots:
       '@smithy/querystring-builder': 4.2.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/property-provider@3.1.11':
     dependencies:
@@ -29265,6 +29245,7 @@ snapshots:
     dependencies:
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/protocol-http@4.1.8':
     dependencies:
@@ -29285,6 +29266,7 @@ snapshots:
     dependencies:
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/querystring-builder@3.0.11':
     dependencies:
@@ -29309,6 +29291,7 @@ snapshots:
       '@smithy/types': 4.12.0
       '@smithy/util-uri-escape': 4.2.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/querystring-parser@3.0.11':
     dependencies:
@@ -29329,6 +29312,7 @@ snapshots:
     dependencies:
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/service-error-classification@3.0.11':
     dependencies:
@@ -29345,6 +29329,7 @@ snapshots:
   '@smithy/service-error-classification@4.2.8':
     dependencies:
       '@smithy/types': 4.12.0
+    optional: true
 
   '@smithy/shared-ini-file-loader@3.1.12':
     dependencies:
@@ -29365,6 +29350,7 @@ snapshots:
     dependencies:
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/signature-v4@4.2.4':
     dependencies:
@@ -29409,6 +29395,7 @@ snapshots:
       '@smithy/util-uri-escape': 4.2.0
       '@smithy/util-utf8': 4.2.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/smithy-client@3.7.0':
     dependencies:
@@ -29439,6 +29426,7 @@ snapshots:
       '@smithy/types': 4.12.0
       '@smithy/util-stream': 4.5.10
       tslib: 2.8.1
+    optional: true
 
   '@smithy/smithy-client@4.9.6':
     dependencies:
@@ -29493,6 +29481,7 @@ snapshots:
       '@smithy/querystring-parser': 4.2.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/util-base64@3.0.0':
     dependencies:
@@ -29566,6 +29555,7 @@ snapshots:
       '@smithy/smithy-client': 4.10.7
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/util-defaults-mode-browser@4.3.9':
     dependencies:
@@ -29613,6 +29603,7 @@ snapshots:
       '@smithy/smithy-client': 4.10.7
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/util-endpoints@2.1.7':
     dependencies:
@@ -29637,6 +29628,7 @@ snapshots:
       '@smithy/node-config-provider': 4.3.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/util-hex-encoding@2.0.0':
     dependencies:
@@ -29669,6 +29661,7 @@ snapshots:
     dependencies:
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/util-retry@3.0.11':
     dependencies:
@@ -29693,6 +29686,7 @@ snapshots:
       '@smithy/service-error-classification': 4.2.8
       '@smithy/types': 4.12.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/util-stream@3.3.4':
     dependencies:
@@ -29715,6 +29709,7 @@ snapshots:
       '@smithy/util-hex-encoding': 4.2.0
       '@smithy/util-utf8': 4.2.0
       tslib: 2.8.1
+    optional: true
 
   '@smithy/util-stream@4.5.6':
     dependencies:
@@ -30967,13 +30962,13 @@ snapshots:
       clean-stack: 2.2.0
       indent-string: 4.0.0
 
-  ai@5.0.121(zod@3.25.17):
+  ai@5.0.121(zod@4.3.5):
     dependencies:
-      '@ai-sdk/gateway': 2.0.27(zod@3.25.17)
+      '@ai-sdk/gateway': 2.0.27(zod@4.3.5)
       '@ai-sdk/provider': 2.0.1
-      '@ai-sdk/provider-utils': 3.0.20(zod@3.25.17)
+      '@ai-sdk/provider-utils': 3.0.20(zod@4.3.5)
       '@opentelemetry/api': 1.9.0
-      zod: 3.25.17
+      zod: 4.3.5
 
   ajv-formats@2.1.1(ajv@8.17.1):
     optionalDependencies:
@@ -31989,7 +31984,7 @@ snapshots:
     dependencies:
       devtools-protocol: 0.0.1521046
       mitt: 3.0.1
-      zod: 3.25.17
+      zod: 4.3.5
 
   ci-info@3.9.0: {}
 
@@ -33859,8 +33854,8 @@ snapshots:
       '@babel/parser': 7.28.5
       eslint: 9.39.1(jiti@2.4.2)
       hermes-parser: 0.25.1
-      zod: 3.25.17
-      zod-validation-error: 4.0.2(zod@3.25.17)
+      zod: 4.3.5
+      zod-validation-error: 4.0.2(zod@4.3.5)
     transitivePeerDependencies:
       - supports-color
 
@@ -36451,7 +36446,7 @@ snapshots:
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.0.8
 
-  langsmith@0.3.87(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@3.25.17)):
+  langsmith@0.3.87(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)):
     dependencies:
       '@types/uuid': 10.0.0
       chalk: 4.1.2
@@ -36462,9 +36457,9 @@ snapshots:
     optionalDependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/sdk-trace-base': 2.2.0(@opentelemetry/api@1.9.0)
-      openai: 5.23.2(ws@8.18.0)(zod@3.25.17)
+      openai: 5.23.2(ws@8.18.0)(zod@4.3.5)
 
-  langsmith@0.3.87(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@3.25.17)):
+  langsmith@0.3.87(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.3)(zod@4.3.5)):
     dependencies:
       '@types/uuid': 10.0.0
       chalk: 4.1.2
@@ -36475,7 +36470,7 @@ snapshots:
     optionalDependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/sdk-trace-base': 2.2.0(@opentelemetry/api@1.9.0)
-      openai: 5.23.2(ws@8.18.3)(zod@3.25.17)
+      openai: 5.23.2(ws@8.18.3)(zod@4.3.5)
 
   language-subtag-registry@0.3.23: {}
 
@@ -38160,15 +38155,15 @@ snapshots:
       is-inside-container: 1.0.0
       wsl-utils: 0.1.0
 
-  openai@5.23.2(ws@8.18.0)(zod@3.25.17):
+  openai@5.23.2(ws@8.18.0)(zod@4.3.5):
     optionalDependencies:
       ws: 8.18.0
-      zod: 3.25.17
+      zod: 4.3.5
 
-  openai@5.23.2(ws@8.18.3)(zod@3.25.17):
+  openai@5.23.2(ws@8.18.3)(zod@4.3.5):
     optionalDependencies:
       ws: 8.18.3
-      zod: 3.25.17
+      zod: 4.3.5
 
   opener@1.5.2: {}
 
@@ -43249,14 +43244,14 @@ snapshots:
       compress-commons: 6.0.2
       readable-stream: 4.7.0
 
-  zod-to-json-schema@3.25.1(zod@3.25.17):
+  zod-to-json-schema@3.25.1(zod@4.3.5):
     dependencies:
-      zod: 3.25.17
+      zod: 4.3.5
 
-  zod-validation-error@4.0.2(zod@3.25.17):
+  zod-validation-error@4.0.2(zod@4.3.5):
     dependencies:
-      zod: 3.25.17
+      zod: 4.3.5
 
-  zod@3.25.17: {}
+  zod@4.3.5: {}
 
   zwitch@2.0.4: {}

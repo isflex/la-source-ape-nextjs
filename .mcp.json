@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "copilotkit-integration": {
+      "command": "node",
+      "args": ["./packages/flex/copilotkit-mcp-server/dist/cli.js"]
+    }
+  }
+}
