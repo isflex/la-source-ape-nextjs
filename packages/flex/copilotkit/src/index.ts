@@ -6,8 +6,14 @@
  * Provides React hooks and providers for integrating CopilotKit
  * AI capabilities into applications.
  *
- * Note: For LLM adapters, use CopilotKit's built-in adapters from
- * @copilotkit/runtime (e.g., BedrockAdapter, OpenAIAdapter).
+ * IMPORTANT: This main entry point is CLIENT-SAFE and can be used in
+ * React client components. For server-side runtime exports (BedrockAdapter,
+ * CopilotRuntime, etc.), use the `/runtime` subpath instead:
+ *
+ * ```tsx
+ * // Server-side API route
+ * import { createCopilotRouteHandlers } from '@flexiness/copilotkit/runtime';
+ * ```
  *
  * @example
  * ```tsx
@@ -34,7 +40,7 @@
  * ```
  */
 
-// Types
+// Types (client-safe)
 export type {
   ReadableOptions,
   StoreReadableOptions,
@@ -48,10 +54,10 @@ export type {
   MCPToolResult,
 } from './types';
 
-// Provider
+// Provider (client-side)
 export { FlexCopilotProvider, type FlexCopilotProviderProps } from './provider';
 
-// Hooks
+// Hooks (client-side)
 export {
   useReadableState,
   useReadableStore,
@@ -64,7 +70,7 @@ export {
   useCopilotChatSuggestions,
 } from './hooks';
 
-// Actions
+// Actions (client-safe)
 export {
   createAction,
   createActions,
@@ -72,19 +78,11 @@ export {
   ActionTemplates,
 } from './actions';
 
-// Runtime (server-side)
-export {
-  BedrockAdapter,
-  createCopilotRouteHandlers,
-  NEXTJS_RUNTIME,
-  CopilotRuntime,
-  copilotRuntimeNextJSAppRouterEndpoint,
-  type RouteHandlerConfig,
-} from './runtime';
-
-// MCP
-export {
-  MCPBridgeClient,
-  createMCPBridgeClientFromEnv,
-  createMCPBridgeActions,
-} from './mcp';
+// NOTE: Runtime and MCP exports are NOT included in the main entry point
+// to keep this bundle client-safe. Use subpath imports instead:
+//
+// Server-side runtime:
+//   import { createCopilotRouteHandlers, BedrockAdapter } from '@flexiness/copilotkit/runtime';
+//
+// MCP (server-side):
+//   import { MCPBridgeClient } from '@flexiness/copilotkit/mcp';
