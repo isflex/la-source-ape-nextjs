@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
-import { useReadableUser } from '@flexiness/copilotkit';
-import type { UserContext } from '@flexiness/copilotkit';
+import { useReadableUser,  type UserContext } from '@flexiness/copilotkit';
 
 interface AuthProviderProps {
   children: React.ReactNode;
