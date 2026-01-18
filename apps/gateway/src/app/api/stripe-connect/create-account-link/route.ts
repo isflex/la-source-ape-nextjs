@@ -1,15 +1,15 @@
 /* eslint-disable camelcase */
 
-'use server'
+"use server";
 
-import { NextRequest, NextResponse } from 'next/server';
-import { Amplify } from 'aws-amplify';
-import { generateClient } from 'aws-amplify/data';
-import type { Schema } from '@amplify/data/resource';
-import Stripe from 'stripe';
-import { getCurrentConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection';
-import { logApiError } from '@src/lib/with-error-logging';
-import { getStripeSecrets } from '@src/lib/secrets';
+import { NextRequest, NextResponse } from "next/server";
+import { Amplify } from "aws-amplify";
+import { generateClient } from "aws-amplify/data";
+import type { Schema } from "@amplify/data/resource";
+import Stripe from "stripe";
+import { getCurrentConfig } from "@src/utils/amplify/configureAmplifyWithPortDetection";
+import { logApiError } from "@src/lib/with-error-logging";
+import { getStripeSecrets } from "@src/lib/secrets";
 
 // Configure Amplify for server-side API routes
 Amplify.configure(getCurrentConfig(), { ssr: true });
@@ -23,7 +23,7 @@ async function getStripeClient(): Promise<Stripe> {
   if (!stripeClient) {
     const secrets = await getStripeSecrets();
     stripeClient = new Stripe(secrets.FLEX_STRIPE_SECRET_KEY, {
-      apiVersion: '2025-11-17.clover',
+      apiVersion: "2025-12-15.clover",
     });
   }
   return stripeClient;
@@ -40,20 +40,17 @@ export async function POST(request: NextRequest) {
     const email = body.email;
 
     if (!userId || !email) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
     // Check if account already exists
     const { data: existingAccounts } = await client.models.StripeConnectAccount.list({
-      filter: { userId: { eq: userId } }
+      filter: { userId: { eq: userId } },
     });
     existingAccountsCount = existingAccounts?.length || 0;
 
     let stripeAccountId: string;
-    let accountRecord: Schema['StripeConnectAccount']['type'] | null = null;
+    let accountRecord: Schema["StripeConnectAccount"]["type"] | null = null;
 
     if (existingAccounts && existingAccounts.length > 0) {
       // Use existing account
@@ -62,21 +59,21 @@ export async function POST(request: NextRequest) {
     } else {
       // Get base URL for business profile (only valid in production)
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-      const isProduction = baseUrl && !baseUrl.includes('localhost');
+      const isProduction = baseUrl && !baseUrl.includes("localhost");
 
       // Build business profile - URL fields only in production (Stripe requires valid public URLs)
-      const businessProfile: Stripe.AccountCreateParams['business_profile'] = {
+      const businessProfile: Stripe.AccountCreateParams["business_profile"] = {
         // Educational Services MCC code
-        mcc: '8299',
+        mcc: "8299",
 
         // Description for Stripe risk assessment
-        product_description: 'Cagnotte collective pour cadeau enseignant - plateforme APE La Source',
+        product_description: "Cagnotte collective pour cadeau enseignant - plateforme APE La Source",
 
         // Business name (appears on bank statements)
-        name: 'Cagnotte APE La Source',
+        name: "Cagnotte APE La Source",
 
         // Support contact
-        support_email: process.env.FLEX_HELP_EMAIL || 'contact@apelasource.org',
+        support_email: process.env.FLEX_HELP_EMAIL || "contact@apelasource.org",
       };
 
       // Add URL fields only in production (Stripe requires valid public URLs)
@@ -89,8 +86,8 @@ export async function POST(request: NextRequest) {
       // NOTE: 'transfers' capability allows receiving funds from platform account
       // This is NOT about SEPA bank transfers - those are handled by Stripe payouts
       const account = await stripe.accounts.create({
-        type: 'express',
-        country: 'FR',
+        type: "express",
+        country: "FR",
         email: email,
 
         // Business profile prefill for Stripe verification
@@ -98,20 +95,20 @@ export async function POST(request: NextRequest) {
 
         capabilities: {
           card_payments: { requested: true },
-          transfers: { requested: true },  // Allows receiving transfers from platform
+          transfers: { requested: true }, // Allows receiving transfers from platform
         },
-        business_type: 'individual',
+        business_type: "individual",
 
         // Payout settings - manual payouts for cagnotte workflow
         settings: {
           payouts: {
-            schedule: { interval: 'manual' },
+            schedule: { interval: "manual" },
           },
         },
 
         metadata: {
           userId: userId,
-          platform: 'apelasource-cagnotte'
+          platform: "apelasource-cagnotte",
         },
       });
 
@@ -121,7 +118,7 @@ export async function POST(request: NextRequest) {
       const { data: newAccount, errors } = await client.models.StripeConnectAccount.create({
         userId,
         stripeAccountId: account.id,
-        accountStatus: 'ONBOARDING_STARTED',
+        accountStatus: "ONBOARDING_STARTED",
         onboardingComplete: false,
         chargesEnabled: false,
         payoutsEnabled: false,
@@ -130,26 +127,22 @@ export async function POST(request: NextRequest) {
       });
 
       if (errors) {
-        console.error('Error creating StripeConnectAccount:', errors);
-        return NextResponse.json(
-          { error: 'Failed to save account record' },
-          { status: 500 }
-        );
+        console.error("Error creating StripeConnectAccount:", errors);
+        return NextResponse.json({ error: "Failed to save account record" }, { status: 500 });
       }
 
       accountRecord = newAccount;
     }
 
     // Get base URL
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ||
-      `${request.headers.get('x-forwarded-proto') || 'http'}://${request.headers.get('host')}`;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || `${request.headers.get("x-forwarded-proto") || "http"}://${request.headers.get("host")}`;
 
     // Create account link for onboarding
     const accountLink = await stripe.accountLinks.create({
       account: stripeAccountId,
       refresh_url: `${baseUrl}/cagnotte/compte-stripe/`,
       return_url: `${baseUrl}/cagnotte/compte-stripe/?success=true`,
-      type: 'account_onboarding',
+      type: "account_onboarding",
     });
 
     // Update last link created timestamp
@@ -167,25 +160,32 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     // Immediate sync logging for debugging (Amplify captures stdout/stderr)
-    console.error('[STRIPE-CONNECT-ERROR]', JSON.stringify({
-      timestamp: new Date().toISOString(),
-      error: error instanceof Error ? { name: error.name, message: error.message, stack: error.stack } : String(error),
-      userId,
-      hasExistingAccount: existingAccountsCount > 0
-    }, null, 2));
+    console.error(
+      "[STRIPE-CONNECT-ERROR]",
+      JSON.stringify(
+        {
+          timestamp: new Date().toISOString(),
+          error: error instanceof Error ? { name: error.name, message: error.message, stack: error.stack } : String(error),
+          userId,
+          hasExistingAccount: existingAccountsCount > 0,
+        },
+        null,
+        2,
+      ),
+    );
 
     const requestId = await logApiError(error, request, {
-      operation: 'create-account-link',
+      operation: "create-account-link",
       userId,
-      hasExistingAccount: existingAccountsCount > 0
+      hasExistingAccount: existingAccountsCount > 0,
     });
 
     return NextResponse.json(
       {
-        error: error instanceof Error ? error.message : 'Internal server error',
-        requestId
+        error: error instanceof Error ? error.message : "Internal server error",
+        requestId,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -23,7 +23,7 @@
     "dev:all": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run dev:all",
     "dev:turbo": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run dev:turbo",
     "install:prod": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- ./bin/run-install-prod.sh",
-    "lint": "cross-env NODE_OPTIONS='--max-old-space-size=8192' turbo run lint",
+    "lint": "cross-env NODE_OPTIONS='--max-old-space-size=8192' turbo run lint --concurrency 1",
     "prepare": "node .husky/install.mjs",
     "reset:compile": "./bin/run-reset-compile.sh",
     "seed": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run seed",
@@ -99,7 +99,7 @@
     "typescript": "5.9.3",
     "webpack": "5.103.0"
   },
-  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39",
+  "packageManager": "pnpm@10.28.0+sha512.05df71d1421f21399e053fde567cea34d446fa02c76571441bfc1c7956e98e363088982d940465fd34480d4d90a0668bc12362f8aa88000a64e83d0b0e47be48",
   "pnpm": {
     "overrides": {
       "flexiness": "workspace:./packages/flex/types",
@@ -140,7 +140,9 @@
       "@rspack/core": "^1.6.6",
       "sass-embedded": "^1.93.3",
       "@jridgewell/gen-mapping": "0.3.8",
-      "zod": "4.3.5"
+      "zod": "4.3.5",
+      "openai": "5.23.2",
+      "@copilotkit/runtime>openai": "5.23.2"
     }
   }
 }

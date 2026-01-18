@@ -74,7 +74,7 @@
     // ========================================
     // TYPESCRIPT SETTINGS
     // ========================================
-    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.tsdk": "✨ monorepo/node_modules/typescript/lib",
     "typescript.enablePromptUseWorkspaceTsdk": true,
     "typescript.preferences.quoteStyle": "single",
     "typescript.preferences.importModuleSpecifier": "relative",

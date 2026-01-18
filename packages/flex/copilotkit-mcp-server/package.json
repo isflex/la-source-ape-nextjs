@@ -3,7 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "description": "MCP server for automated CopilotKit integration in React components",
-  "keywords": ["mcp", "copilotkit", "ai", "react", "code-analysis"],
+  "keywords": [
+    "mcp",
+    "copilotkit",
+    "ai",
+    "react",
+    "code-analysis"
+  ],
   "license": "MIT",
   "author": "Flexiness <hello@flexiness.com>",
   "type": "module",
@@ -27,7 +33,7 @@
     "clean:compile": "pnpm exec rimraf '{dist,*.tsbuildinfo}'",
     "compile:tsup": "tsup",
     "lint": "pnpm lint:flat",
-    "lint:flat": "cross-env ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.{ts,tsx}\" --fix",
+    "lint:flat": "cross-env NODE_OPTIONS='--max-old-space-size=8192' ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.{ts,tsx}\" --fix",
     "start": "node dist/cli.js",
     "tsc": "tsc"
   },

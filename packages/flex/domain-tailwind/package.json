@@ -37,7 +37,7 @@
     "dev:tailwind:css:gateway:watch": "tailwindcss --watch -i ./src/styles/globals.css -o $FLEX_PROJ_ROOT/apps/gateway/src/styles/tailwind.css",
     "dev:tailwind:css:watch": "tailwindcss --watch -i ./src/styles/globals.css -o ./dist/styles/tailwind.css",
     "lint": "pnpm lint:flat",
-    "lint:flat": "cross-env ESLINT_USE_FLAT_CONFIG=true pnpm eslint './src/**/*.{js,jsx,ts,tsx,cts,mts}' --config $FLEX_PROJ_ROOT/eslint.config.mjs"
+    "lint:flat": "cross-env NODE_OPTIONS='--max-old-space-size=8192' ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.{ts,tsx}\""
   },
   "dependencies": {
     "@dotenvx/dotenvx": "1.44.0",
