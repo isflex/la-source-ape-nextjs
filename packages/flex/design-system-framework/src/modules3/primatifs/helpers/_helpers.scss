@@ -102,7 +102,7 @@ $alignments: ("centered": "center", "justified": "justify", "left": "left", "rig
     @each $size in derived-variables.$sizes {
         $i: list.index(derived-variables.$sizes, $size);
 
-        .is-size-#{$i}#{if($target == "", "", "-" + $target)} {
+        .is-size-#{$i}#{if(sass($target == ""): ""; else: "-" + $target)} {
             font-size: $size !important;
         }
     }

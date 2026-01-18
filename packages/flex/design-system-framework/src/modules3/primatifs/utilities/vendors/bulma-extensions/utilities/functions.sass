@@ -219,7 +219,7 @@ $-light-breakpoint: 0.55
 @function bulmaVarLighten($color, $amount)
   $name: unwrap($color)
   @if meta.type-of($name) == 'string' // and map-has-key($colors, $name)
-    $name-l: calc(var(--#{$name}-l) + #{if(math.is-unitless($amount), ($amount * 1%), $amount)})
+    $name-l: calc(var(--#{$name}-l) + #{if(sass(math.is-unitless($amount)): ($amount * 1%); else: $amount)})
     @return hsla(var(--#{$name}-h), var(--#{$name}-s), #{$name-l}, var(--#{$name}-a))
   @return $color
 
