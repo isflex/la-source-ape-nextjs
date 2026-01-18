@@ -11,7 +11,7 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
-import { toolDefinitions, handleToolCall } from './tools';
+import { toolDefinitions, handleToolCall } from './tools/index.js';
 
 // Type definitions to avoid deep type instantiation issues with MCP SDK
 interface ToolRequest {

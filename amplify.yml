@@ -66,6 +66,9 @@ applications:
             # - rm -rf .next
             - cd ../../ # run install and build from monorepo project root
             - pwd
+            # Switch back to Zod 4.x for CopilotKit compatibility in frontend build
+            - node bin/switch-zod-version.mjs 4
+            - pnpm install --no-frozen-lockfile
             # - npm install -g pnpm
             # - npm install --global corepack@latest
             # - corepack enable
