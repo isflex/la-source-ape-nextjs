@@ -3,6 +3,10 @@
     "copilotkit-integration": {
       "command": "node",
       "args": ["./packages/flex/copilotkit-mcp-server/dist/cli.js"]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest"]
     }
   }
 }

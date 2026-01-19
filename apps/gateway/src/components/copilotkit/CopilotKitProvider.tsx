@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { Component, type ReactNode } from 'react';
 import { CopilotKit } from '@copilotkit/react-core';
 import { CopilotSidebar } from '@copilotkit/react-ui';
 import '@copilotkit/react-ui/styles.css';
@@ -9,6 +9,39 @@ import { useCopilotStore } from '@src/hooks/useCopilotStore';
 interface CopilotKitProviderProps {
   children: React.ReactNode;
   showSidebar?: boolean;
+}
+
+interface FallbackBoundaryProps {
+  children: ReactNode;
+  fallback: ReactNode;
+}
+
+interface FallbackBoundaryState {
+  hasError: boolean;
+}
+
+/**
+ * Fallback error boundary for CopilotKit
+ * Catches any errors that CopilotKit doesn't handle internally,
+ * allowing the app to degrade gracefully when the CopilotKit runtime is unavailable.
+ */
+class CopilotKitFallbackBoundary extends Component<FallbackBoundaryProps, FallbackBoundaryState> {
+  state: FallbackBoundaryState = { hasError: false };
+
+  static getDerivedStateFromError(): FallbackBoundaryState {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error): void {
+    console.warn('[CopilotKit] Error caught, degrading gracefully:', error.message);
+  }
+
+  render(): ReactNode {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
 }
 
 /**
@@ -41,26 +74,29 @@ export default function CopilotKitProvider({
   }
 
   return (
-    <CopilotKit
-      runtimeUrl="/api/copilotkit/"
-      showDevConsole={process.env.NODE_ENV === 'development'}
-    >
-      <StoreContextBridge>
-        {showSidebar ? (
-          <CopilotSidebar
-            defaultOpen={false}
-            labels={{
-              title: 'Assistant APE',
-              initial: 'Bonjour! Je suis votre assistant. Comment puis-je vous aider?',
-            }}
-            instructions="Tu es un assistant pour le site La Source APE. Tu aides les utilisateurs à naviguer sur le site, créer des newsletters, gérer des cagnottes, et comprendre les fonctionnalités disponibles. Réponds toujours en français."
-          >
-            {children}
-          </CopilotSidebar>
-        ) : (
-          children
-        )}
-      </StoreContextBridge>
-    </CopilotKit>
+    <CopilotKitFallbackBoundary fallback={<>{children}</>}>
+      <CopilotKit
+        runtimeUrl="/api/copilotkit/"
+        agent="ape_assistant"
+        showDevConsole={false}
+      >
+        <StoreContextBridge>
+          {showSidebar ? (
+            <CopilotSidebar
+              defaultOpen={false}
+              labels={{
+                title: 'Assistant APE',
+                initial: 'Bonjour! Je suis votre assistant. Comment puis-je vous aider?',
+              }}
+              instructions="Tu es un assistant pour le site La Source APE. Tu aides les utilisateurs à naviguer sur le site, créer des newsletters, gérer des cagnottes, et comprendre les fonctionnalités disponibles. Réponds toujours en français."
+            >
+              {children}
+            </CopilotSidebar>
+          ) : (
+            children
+          )}
+        </StoreContextBridge>
+      </CopilotKit>
+    </CopilotKitFallbackBoundary>
   );
 }

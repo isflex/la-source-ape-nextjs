@@ -36,6 +36,7 @@
     "warm:api": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- $FLEX_PROJ_ROOT/bin/warm-api-routes.sh"
   },
   "dependencies": {
+    "@ag-ui/client": "^0.0.43",
     "@aws-amplify/adapter-nextjs": "1.6.2",
     "@aws-amplify/ui-react": "^6.13.0",
     "@aws-sdk/client-cloudwatch-logs": "^3.953.0",
@@ -61,6 +62,7 @@
     "@mdx-js/react": "3.1.1",
     "@module-federation/enhanced": "0.21.6",
     "@next/mdx": "16.0.1",
+    "@strands-agents/sdk": "^0.1.5",
     "@stripe/react-stripe-js": "^5.4.1",
     "@stripe/stripe-js": "^8.5.3",
     "cors": "2.8.5",
