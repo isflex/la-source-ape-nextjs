@@ -6,11 +6,6 @@ import { CopilotKitProvider, CopilotSidebar, useAgent } from '@copilotkitnext/re
 import type { FlexCopilotProviderConfig } from '../types';
 import { mergeConfig } from './config';
 
-// Import CopilotKit v2 styles
-// import '@copilotkitnext/react/styles.css';
-// import '@copilotkit/react-ui/v2/index.css';
-// import '@copilotkit/react-ui/index.css';
-
 export interface FlexCopilotProviderProps {
   children: ReactNode;
   config?: Partial<FlexCopilotProviderConfig>;
@@ -19,8 +14,19 @@ export interface FlexCopilotProviderProps {
   /** Sidebar configuration */
   sidebarConfig?: {
     defaultOpen?: boolean;
-    header?: string;
-    labels?: Record<string, string>;
+    /** Custom header component for the sidebar (React node) */
+    header?: React.ReactNode;
+    /** Custom labels for the sidebar - uses v2 CopilotChatLabels keys */
+    labels?: {
+      /** Title displayed in modal header */
+      modalHeaderTitle?: string;
+      /** Placeholder text for the input field */
+      chatInputPlaceholder?: string;
+      /** Disclaimer text at bottom */
+      chatDisclaimerText?: string;
+      /** Other v2 label keys */
+      [key: string]: string | undefined;
+    };
   };
 }
 
@@ -51,7 +57,8 @@ function FlexCopilotContent({
         <CopilotSidebar
           agentId={agentId}
           defaultOpen={sidebarConfig.defaultOpen ?? false}
-          header={sidebarConfig.header}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          header={sidebarConfig.header as any}
           labels={sidebarConfig.labels}
         />
       )}

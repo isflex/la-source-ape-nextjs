@@ -100,6 +100,7 @@ export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) 
         defaultOpen: false,
         header: 'Assistant APE',
         labels: {
+          modalHeaderTitle: 'Assistant APE',
           chatInputPlaceholder: 'Comment puis-je vous aider?',
         },
       }}

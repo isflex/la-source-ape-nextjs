@@ -43,7 +43,7 @@ import JackpotContributionTable from '@src/components/cagnotte/JackpotContributi
 import StripeCheckoutButton from '@src/components/cagnotte/StripeCheckoutButton';
 import AuthBanner from '@src/components/auth/AuthBanner';
 import { debug } from '@flexiness/domain-utils';
-import { useCopilotReadable } from '@flexiness/copilotkit';
+import { useAgentContext } from '@copilotkitnext/react';
 
 const client = generateClient<Schema>();
 
@@ -87,10 +87,10 @@ export default function CagnotteSlugPage() {
   const isActive = status === 'ACTIVE';
   const isClosed = status === 'CLOSED' || status === 'PAID_OUT';
 
-  // CopilotKit: Expose jackpot context to AI assistant
-  useCopilotReadable({
+  // CopilotKit v2: Expose jackpot context to AI agent
+  useAgentContext({
     description: 'Current jackpot/cagnotte page context and details',
-    value: JSON.stringify({
+    value: {
       page: slug ? `cagnotte/${slug}` : 'cagnotte',
       pageTitle: jackpotForm?.title || 'Cagnottes APE La Source',
       hasJackpot: !!jackpotForm,
@@ -99,25 +99,25 @@ export default function CagnotteSlugPage() {
       isActive,
       isClosed,
       publicJackpotsCount: publicJackpots.length,
-    }),
-    categories: ['page', 'navigation', 'cagnotte'],
+    },
   });
 
-  useCopilotReadable({
+  useAgentContext({
     description: 'Current jackpot details including contributions and progress',
-    value: jackpotForm ? JSON.stringify({
+    value: jackpotForm ? {
       id: jackpotForm.id,
       title: jackpotForm.title,
       slug: jackpotForm.slug,
       teacherName: jackpotForm.teacherName,
-      schoolLevel: jackpotForm.schoolLevel,
-      targetAmount: jackpotForm.targetAmount,
+      schoolLevel: jackpotForm.schoolLevel ?? null,
+      targetAmount: jackpotForm.targetAmount ?? null,
       deadline: jackpotForm.deadline,
-      status: jackpotForm.status,
+      status: jackpotForm.status ?? null,
       contributionsCount: contributions.length,
-      stats: calculateJackpotStats(contributions),
-    }) : 'No jackpot selected',
-    categories: ['cagnotte', 'data', 'contributions'],
+      // Extract only serializable stats fields
+      totalAmount: calculateJackpotStats(contributions).totalAmount,
+      contributorCount: calculateJackpotStats(contributions).contributorCount,
+    } : null,
   });
 
   // Check if deadline passed and auto-close

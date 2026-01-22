@@ -78,6 +78,7 @@ const DEBUG_CATEGORIES = {
   UPLOAD: 'UPLOAD',
   WEB_APP: 'WEB_APP',
   NAVIGATION: 'NAVIGATION',
+  COPILOT_KIT: 'COPILOT_KIT',
 } as const
 
 type DebugCategory = keyof typeof DEBUG_CATEGORIES
@@ -136,6 +137,7 @@ export const debug = {
   upload: createCategoryLogger('UPLOAD', '📤', '#10b981'),
   webApp: createCategoryLogger('WEB_APP', '🌍', '#6366f1'),
   navigation: createCategoryLogger('NAVIGATION', '🧭', '#84cc16'),
+  copilotKit: createCategoryLogger('COPILOT_KIT', '🤖', '#4477ef'),
 
   // Generic debug with custom prefix
   log: (prefix: string, ...args: any[]) => {
@@ -293,6 +295,11 @@ export const debug = {
     navigation: (...args: any[]) => {
       if (getCategoryFlag('NAVIGATION')) {
         console.log('%c🧭 [NAVIGATION]', 'color: #84cc16; font-weight: bold', ...args)
+      }
+    },
+    copilotKit: (...args: any[]) => {
+      if (getCategoryFlag('COPILOT_KIT')) {
+        console.log('%c🤖 [COPILOT_KIT]', 'color: #4477ef; font-weight: bold', ...args)
       }
     },
   },

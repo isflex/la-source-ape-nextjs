@@ -1,3 +1,3 @@
 export { useIsAdmin } from './useIsAdmin';
 export { useOrigin } from './useOrigin';
-export { useCopilotStore } from './useCopilotStore';
+// useCopilotStore removed - use StoreContextBridge from @flexiness/copilotkit instead

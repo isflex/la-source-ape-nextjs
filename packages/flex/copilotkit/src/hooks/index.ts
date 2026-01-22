@@ -1,18 +1,19 @@
 /**
  * @flexiness/copilotkit/hooks
  *
- * React hooks for CopilotKit integration
+ * React hooks for CopilotKit v2 integration
+ *
+ * NOTE: v1 hooks (useCopilotReadable, etc.) have been removed.
+ * Use useAgentContext from '@copilotkitnext/react' or the context bridges
+ * (StoreContextBridge, AuthContextBridge) instead.
  */
 
+// Re-export v2 hooks from @copilotkitnext/react
+export { useAgentContext, useAgent } from '@copilotkitnext/react';
+
+// Legacy v1 hooks - DEPRECATED, use context bridges or useAgentContext instead
+// Keeping exports for backwards compatibility but they require v1 provider
 export { useReadableState } from './useReadableState';
 export { useReadableStore } from './useReadableStore';
 export { useReadableUser } from './useReadableUser';
 export { useReadableApi } from './useReadableApi';
-
-// Re-export native CopilotKit hooks for convenience
-export {
-  useCopilotReadable,
-  useCopilotAction,
-  useCopilotChat,
-  useCopilotChatSuggestions,
-} from '@copilotkit/react-core';

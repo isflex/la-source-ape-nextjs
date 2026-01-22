@@ -53,7 +53,7 @@ import {
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { default as flexStyles } from '@flex-design-system/framework';
 import { debug } from '@flexiness/domain-utils';
-import { useCopilotReadable } from '@flexiness/copilotkit';
+import { useAgentContext } from '@copilotkitnext/react';
 
 type Newsletter = {
   id: string;
@@ -83,31 +83,29 @@ export default function NewsletterCreationPage() {
   const [selectedNewsletters, setSelectedNewsletters] = useState<Set<string>>(new Set());
   const [reusedNewsletterData, setReusedNewsletterData] = useState<Partial<NewsletterFormData> | null>(null);
 
-  // CopilotKit: Expose page context to AI assistant
-  useCopilotReadable({
+  // CopilotKit v2: Expose page context to AI agent
+  useAgentContext({
     description: 'Current page context - Newsletter management page for creating and managing school newsletters',
-    value: JSON.stringify({
+    value: {
       page: 'newsletter/creer',
       pageTitle: 'Gestion des Newsletters',
       isAuthenticated,
       totalNewsletters: newsletters.length,
       selectedCount: selectedNewsletters.size,
       showingForm: showForm,
-    }),
-    categories: ['page', 'navigation', 'newsletter'],
+    },
   });
 
-  useCopilotReadable({
+  useAgentContext({
     description: 'List of existing newsletters with their details',
-    value: JSON.stringify(newsletters.map(newsletter => ({
+    value: newsletters.map(newsletter => ({
       id: newsletter.id,
       subject: newsletter.subject,
       slug: newsletter.slug,
       eventDate: newsletter.eventDate,
       publicationDate: newsletter.publicationDate,
-      title: newsletter.title,
-    }))),
-    categories: ['newsletter', 'data'],
+      title: newsletter.title ?? null,
+    })),
   });
 
   const loadNewsletters = async () => {

@@ -636,7 +636,7 @@ export default function PiscineForm({ onSubmit, onCancel, existingSlugs = [], ed
                       ...prev,
                       schoolLevel: e.target.value as Schema['ESchoolLevel']['type'] || undefined
                     }))}
-                    className="border rounded px-3 py-2 w-full"
+                    className="border rounded-sm px-3 py-2 w-full"
                     style={{
                       border: getFieldError('schoolLevel') ? '2px solid #ef4444' : '1px solid #d1d5db',
                       borderRadius: '4px',

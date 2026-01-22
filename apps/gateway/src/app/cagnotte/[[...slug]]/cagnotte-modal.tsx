@@ -107,7 +107,7 @@ const CagnotteModal: React.FC<CagnotteModalProps> = ({ toggleModal }) => {
         <Title level={TitleLevel.LEVEL3} className={classNames(flexStyles.isMarginless, flexStyles.hasTextLeft)}>Comment ça marche ?</Title>
         <ol className="space-y-2 text-sm text-gray-600">
           <li className="flex items-start gap-3">
-            <span className="flex-shrink-0 w-6 h-6 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
+            <span className="shrink-0 w-6 h-6 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
               1
             </span>
             <span>
@@ -115,7 +115,7 @@ const CagnotteModal: React.FC<CagnotteModalProps> = ({ toggleModal }) => {
             </span>
           </li>
           <li className="flex items-start gap-3">
-            <span className="flex-shrink-0 w-6 h-6 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
+            <span className="shrink-0 w-6 h-6 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
               2
             </span>
             <span>
@@ -123,7 +123,7 @@ const CagnotteModal: React.FC<CagnotteModalProps> = ({ toggleModal }) => {
             </span>
           </li>
           <li className="flex items-start gap-3">
-            <span className="flex-shrink-0 w-6 h-6 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
+            <span className="shrink-0 w-6 h-6 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
               3
             </span>
             <span>
@@ -131,7 +131,7 @@ const CagnotteModal: React.FC<CagnotteModalProps> = ({ toggleModal }) => {
             </span>
           </li>
           <li className="flex items-start gap-3">
-            <span className="flex-shrink-0 w-6 h-6 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
+            <span className="shrink-0 w-6 h-6 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
               4
             </span>
             <span>

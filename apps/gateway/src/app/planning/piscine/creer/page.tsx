@@ -50,7 +50,7 @@ import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/tex
 import { default as flexStyles } from '@flex-design-system/framework';
 import PiscineForm from '@src/components/piscine/PiscineForm';
 import AuthBanner from '@src/components/auth/AuthBanner';
-import { useCopilotReadable } from '@flexiness/copilotkit';
+import { useAgentContext } from '@copilotkitnext/react';
 
 type PiscineFormData = {
   id: string;
@@ -85,32 +85,30 @@ export default function PiscineCreerPage() {
   }>>>({});
   const formRef = React.useRef<HTMLDivElement>(null);
 
-  // CopilotKit: Expose page context to AI assistant
-  useCopilotReadable({
+  // CopilotKit v2: Expose page context to AI agent
+  useAgentContext({
     description: 'Current page context - Pool (Piscine) planning management page for organizing parent volunteer schedules',
-    value: JSON.stringify({
+    value: {
       page: 'planning/piscine/creer',
       pageTitle: 'Gestion des Plannings Piscine',
       isAuthenticated,
       totalForms: forms.length,
       showingForm: showForm,
       editingFormId,
-    }),
-    categories: ['page', 'navigation', 'piscine', 'planning'],
+    },
   });
 
-  useCopilotReadable({
+  useAgentContext({
     description: 'List of pool planning forms with time slots',
-    value: JSON.stringify(forms.map(form => ({
+    value: forms.map(form => ({
       id: form.id,
       title: form.title,
       slug: form.slug,
       schoolLevel: form.schoolLevel,
       teacherName: form.teacherName,
-      isMultiDay: form.isMultiDay,
+      isMultiDay: form.isMultiDay ?? false,
       timeSlots: formTimeSlots[form.id] || [],
-    }))),
-    categories: ['piscine', 'data', 'planning'],
+    })),
   });
 
   const loadTimeSlots = async (formId: string) => {

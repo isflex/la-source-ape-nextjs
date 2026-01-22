@@ -69,7 +69,7 @@ export default function PiscineTimeSlotPicker({
               value={startTime}
               onChange={(e) => onStartTimeChange(e.target.value)}
               className={classNames(
-                'border rounded px-3 py-2 w-full',
+                'border rounded-sm px-3 py-2 w-full',
                 startTimeError && 'border-red-500'
               )}
               style={{
@@ -110,7 +110,7 @@ export default function PiscineTimeSlotPicker({
               value={endTime}
               onChange={(e) => onEndTimeChange(e.target.value)}
               className={classNames(
-                'border rounded px-3 py-2 w-full',
+                'border rounded-sm px-3 py-2 w-full',
                 endTimeError && 'border-red-500'
               )}
               style={{

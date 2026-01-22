@@ -21,23 +21,21 @@
  *
  * @see https://docs.copilotkit.ai/whats-new/v1-50#v2-interfaces
  */
-import {
-  CopilotRuntime,
-  InMemoryAgentRunner,
-  createCopilotEndpoint,
-} from '@copilotkit/runtime/v2';
-import { HttpAgent } from '@ag-ui/client';
-import { handle } from 'hono/vercel';
+import { CopilotRuntime, InMemoryAgentRunner, createCopilotEndpoint } from "@copilotkit/runtime/v2";
+import { HttpAgent } from "@ag-ui/client";
+import { handle } from "hono/vercel";
+
+import { debug } from "@flexiness/domain-utils";
 
 // Next.js runtime configuration
-export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 // Agent configuration
-const AGENT_URL = process.env.STRANDS_AGENT_URL || 'http://localhost:8000';
-const AGENT_ID = 'ape_assistant';
+const AGENT_URL = process.env.STRANDS_AGENT_URL || "http://localhost:8000";
+const AGENT_ID = "ape_assistant";
 
-console.log(`[CopilotKit v2] Agent "${AGENT_ID}" → ${AGENT_URL}`);
+debug.copilotKit(`[v2] Agent "${AGENT_ID}" → ${AGENT_URL}`);
 
 // Create the HttpAgent instance (shared between aliases)
 const strandsAgent = new HttpAgent({ url: AGENT_URL });
@@ -56,42 +54,42 @@ const copilotRuntime = new CopilotRuntime({
 // Create Hono app with CopilotKit endpoints
 const app = createCopilotEndpoint({
   runtime: copilotRuntime,
-  basePath: '/api/copilotkit',
+  basePath: "/api/copilotkit",
 });
 
 // Add debug middleware to log all requests at Hono level
-app.use('*', async (c, next) => {
-  console.log('[CopilotKit Hono] Request:', {
+app.use("*", async (c, next) => {
+  debug.copilotKit("[Hono] Request:", {
     method: c.req.method,
     path: c.req.path,
     url: c.req.url,
   });
   await next();
-  console.log('[CopilotKit Hono] Response status:', c.res.status);
+  debug.copilotKit("[Hono] Response status:", c.res.status);
 });
 
 // Handle root POST - CopilotKit v2 client uses JSON-RPC style routing
 // The 'method' field in the body determines which endpoint to call
-app.post('/', async (c) => {
-  console.log('[CopilotKit] Root POST received');
+app.post("/", async (c) => {
+  debug.copilotKit("Root POST received");
   try {
     const body = await c.req.json();
     const { method, params, body: requestBody } = body;
-    console.log('[CopilotKit] Root POST method:', method, 'params:', JSON.stringify(params));
+    debug.copilotKit("Root POST method:", method, "params:", JSON.stringify(params));
 
     // Route based on the method field (JSON-RPC style)
-    if (method === 'info') {
+    if (method === "info") {
       // Return agent info
       return c.json({
-        version: '1.51.2',
+        version: "1.51.2",
         agents: {
           [AGENT_ID]: {
             name: AGENT_ID,
-            description: 'APE Assistant powered by Strands Agent',
+            description: "APE Assistant powered by Strands Agent",
           },
           default: {
-            name: 'default',
-            description: 'Default agent (alias for ' + AGENT_ID + ')',
+            name: "default",
+            description: "Default agent (alias for " + AGENT_ID + ")",
           },
         },
         defaultAgent: AGENT_ID,
@@ -99,24 +97,24 @@ app.post('/', async (c) => {
       });
     }
 
-    if (method === 'agent/connect' || method === 'agent/run') {
+    if (method === "agent/connect" || method === "agent/run") {
       // Extract agentId from params, default to AGENT_ID
       const agentId = params?.agentId || AGENT_ID;
-      const action = method.split('/')[1]; // 'connect' or 'run'
+      const action = method.split("/")[1]; // 'connect' or 'run'
 
       // Map 'default' agent to actual agent ID
-      const resolvedAgentId = agentId === 'default' ? AGENT_ID : agentId;
+      const resolvedAgentId = agentId === "default" ? AGENT_ID : agentId;
 
-      console.log(`[CopilotKit] Routing to agent/${resolvedAgentId}/${action}`);
+      debug.copilotKit(`Routing to agent/${resolvedAgentId}/${action}`);
 
       // Forward the request to the correct agent endpoint
       // We need to make an internal fetch to the agent endpoint
       const agentUrl = new URL(`/api/copilotkit/agent/${resolvedAgentId}/${action}`, c.req.url);
 
       const response = await fetch(agentUrl.toString(), {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(requestBody || {}),
       });
@@ -126,7 +124,7 @@ app.post('/', async (c) => {
         return new Response(response.body, {
           status: response.status,
           headers: {
-            'Content-Type': response.headers.get('Content-Type') || 'application/json',
+            "Content-Type": response.headers.get("Content-Type") || "application/json",
           },
         });
       }
@@ -135,31 +133,28 @@ app.post('/', async (c) => {
     }
 
     // Fallback: return info for unknown methods
-    console.log('[CopilotKit] Unknown method:', method);
+    debug.copilotKit("Unknown method:", method);
     return c.json({
-      version: '1.51.2',
+      version: "1.51.2",
       agents: {
-        [AGENT_ID]: { name: AGENT_ID, description: 'APE Assistant' },
-        default: { name: 'default', description: 'Default agent' },
+        [AGENT_ID]: { name: AGENT_ID, description: "APE Assistant" },
+        default: { name: "default", description: "Default agent" },
       },
       defaultAgent: AGENT_ID,
       audioFileTranscriptionEnabled: false,
     });
   } catch (error) {
-    console.error('[CopilotKit] Root POST error:', error);
-    return c.json({ error: 'Invalid request body' }, 400);
+    debug.error("Root POST error:", error);
+    return c.json({ error: "Invalid request body" }, 400);
   }
 });
 
 // Export handlers using Hono's Vercel adapter with debug logging
 const honoHandler = handle(app);
 
-export const GET = async (
-  req: Request,
-  ctx: { params: Promise<{ path?: string[] }> }
-) => {
+export const GET = async (req: Request, ctx: { params: Promise<{ path?: string[] }> }) => {
   const params = await ctx.params;
-  console.log('[CopilotKit] GET request:', {
+  debug.copilotKit("GET request:", {
     path: params.path,
     url: req.url,
     pathname: new URL(req.url).pathname,
@@ -167,12 +162,9 @@ export const GET = async (
   return honoHandler(req);
 };
 
-export const POST = async (
-  req: Request,
-  ctx: { params: Promise<{ path?: string[] }> }
-) => {
+export const POST = async (req: Request, ctx: { params: Promise<{ path?: string[] }> }) => {
   const params = await ctx.params;
-  console.log('[CopilotKit] POST request:', {
+  debug.copilotKit("POST request:", {
     path: params.path,
     url: req.url,
     pathname: new URL(req.url).pathname,

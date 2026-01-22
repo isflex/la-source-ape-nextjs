@@ -1,27 +1,33 @@
+/* Tailwind v4 - CSS-first configuration */
+@import "tailwindcss";
 
+/* Content paths - v4 uses @source instead of config.content */
+@source "../../../../../apps/gateway/src/**/*.{js,ts,jsx,tsx}";
+@source "../../../copilotkit/src/**/*.{js,ts,jsx,tsx}";
+
+/* Load @tailwindcss/forms plugin */
+@plugin "@tailwindcss/forms";
+
+/* Custom theme - replaces tailwind.config.cjs */
+@theme {
+  /* Custom breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-mf: 900px;   /* Mobile-first custom */
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  --breakpoint-3xl: 1800px; /* Extra large custom */
+}
+
+/* Import local styles after Tailwind setup */
 @import "./modules/tw-gateway.css";
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
 
 @layer base {
   html {
     font-family: var(--flex-font-family);
   }
 }
-
-/*
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-*/
-
-/*
-The path you provide to the @config directive is relative to that CSS file,
-and will take precedence over a path defined in your PostCSS configuration or in the Tailwind CLI.
-*/
-
-/* @config '../../tailwind.config.js'; */
 
 @layer utilities {
   .no-tailwind {

@@ -70,17 +70,14 @@ export {
   type JsonValue,
 } from './bridges';
 
-// Hooks (client-side) - v1 compatible, still useful for simple cases
+// Hooks (client-side)
+// Note: useAgentContext and useAgent are exported above from @copilotkitnext/react
+// Legacy v1 hooks - DEPRECATED, kept for backwards compatibility
 export {
   useReadableState,
   useReadableStore,
   useReadableUser,
   useReadableApi,
-  // Re-exported from CopilotKit
-  useCopilotReadable,
-  useCopilotAction,
-  useCopilotChat,
-  useCopilotChatSuggestions,
 } from './hooks';
 
 // Actions (client-safe)

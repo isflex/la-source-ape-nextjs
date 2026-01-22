@@ -39,11 +39,11 @@ import '@src/styles/globals.css'
 import '@aws-amplify/ui-react/styles.css'
 import '@src/styles/tailwind.css'
 
-// Import CopilotKit v1 styles
-// import '@copilotkit/react-ui/styles.css';
-
-// Import CopilotKit v2 styles
+// Import CopilotKit styles
+// v2 styles (Tailwind v4 based) - provides structure
 import '@copilotkitnext/react/styles.css';
+// v1 styles - provides refined look (complementary to v2)
+import '@copilotkit/react-ui/styles.css';
 
 const remoteWebAppClient = process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST
 
