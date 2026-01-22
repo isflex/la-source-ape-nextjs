@@ -14,7 +14,7 @@ import { outputs } from '@src/utils/amplify/configureAmplifyWithPortDetection'
 Amplify.configure(outputs, { ssr: true })
 import ConfigureAmplifyClientSide from '@src/components/auth/ConfigureAmplifyOutputs'
 import AuthProvider from '@src/components/auth/AuthProvider'
-import { CopilotKitProvider } from '@src/components/copilotkit'
+import CopilotKitWrapper from '@src/components/copilotkit/CopilotKitWrapper'
 import {
   EC2Client,
   // DescribeAddressesCommand, type DescribeAddressesCommandOutput,
@@ -38,6 +38,12 @@ import { inlineStyles } from '@src/styles/inlineStyles'
 import '@src/styles/globals.css'
 import '@aws-amplify/ui-react/styles.css'
 import '@src/styles/tailwind.css'
+
+// Import CopilotKit v1 styles
+// import '@copilotkit/react-ui/styles.css';
+
+// Import CopilotKit v2 styles
+import '@copilotkitnext/react/styles.css';
 
 const remoteWebAppClient = process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST
 
@@ -240,14 +246,14 @@ const RootLayout = async ({
           <PostHogProvider>
             <ConfigureAmplifyClientSide />
             <AuthProvider>
-              <CopilotKitProvider showSidebar={true}>
+              <CopilotKitWrapper>
                 <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped )} theme='light'>
                   {/* <NavBarAuth isSignedIn={await isAuthenticated()} /> */}
                   <MainLayout>
                     {children}
                   </MainLayout>
                 </FlexRootView>
-              </CopilotKitProvider>
+              </CopilotKitWrapper>
             </AuthProvider>
           </PostHogProvider>
         {/* </StoreProvider> */}

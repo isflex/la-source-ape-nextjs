@@ -1,44 +1,47 @@
 /**
  * @flexiness/copilotkit
  *
- * CopilotKit integration package for Flexiness monorepo
+ * CopilotKit v2 integration package for Flexiness monorepo
  *
- * Provides React hooks and providers for integrating CopilotKit
- * AI capabilities into applications.
+ * Provides React hooks, providers, and context bridges for integrating
+ * CopilotKit v2 AI capabilities with AG-UI protocol support.
  *
- * IMPORTANT: This main entry point is CLIENT-SAFE and can be used in
- * React client components. For server-side runtime exports (BedrockAdapter,
- * CopilotRuntime, etc.), use the `/runtime` subpath instead:
- *
- * ```tsx
- * // Server-side API route
- * import { createCopilotRouteHandlers } from '@flexiness/copilotkit/runtime';
- * ```
+ * Features:
+ * - Shared state between React and agent (bidirectional)
+ * - Time travel (state history and rollback)
+ * - Multi-agent execution
+ * - Threads and persistence
  *
  * @example
  * ```tsx
  * // In your root layout
- * import { FlexCopilotProvider } from '@flexiness/copilotkit';
+ * import { FlexCopilotProvider, StoreContextBridge, AuthContextBridge } from '@flexiness/copilotkit';
  *
  * export default function RootLayout({ children }) {
  *   return (
- *     <FlexCopilotProvider>
- *       {children}
+ *     <FlexCopilotProvider
+ *       agentId="my_assistant"
+ *       sidebarConfig={{
+ *         defaultOpen: false,
+ *         header: 'AI Assistant',
+ *       }}
+ *     >
+ *       <AuthContextBridge user={user}>
+ *         <StoreContextBridge store={store} selector={(s) => ({ data: s.data })}>
+ *           {children}
+ *         </StoreContextBridge>
+ *       </AuthContextBridge>
  *     </FlexCopilotProvider>
  *   );
  * }
- *
- * // In a component
- * import { useReadableState, useReadableUser } from '@flexiness/copilotkit';
- *
- * function Dashboard({ user }) {
- *   const [data, setData] = useState([]);
- *   useReadableUser(user);
- *   useReadableState('dashboardData', data);
- *   return <DashboardView data={data} />;
- * }
  * ```
+ *
+ * @see https://docs.copilotkit.ai/whats-new/v1-50#v2-interfaces
  */
+
+// v2 Re-exports from copilotkitnext
+export { CopilotKitProvider, useAgent, useAgentContext } from '@copilotkitnext/react';
+export { CopilotSidebar, CopilotPopup } from '@copilotkitnext/react';
 
 // Types (client-safe)
 export type {
@@ -54,10 +57,20 @@ export type {
   MCPToolResult,
 } from './types';
 
-// Provider (client-side)
+// Provider (client-side) - v2 enhanced
 export { FlexCopilotProvider, type FlexCopilotProviderProps } from './provider';
 
-// Hooks (client-side)
+// Context Bridges (client-side) - v2 useAgentContext based
+export {
+  StoreContextBridge,
+  AuthContextBridge,
+  type StoreContextBridgeProps,
+  type AuthContextBridgeProps,
+  type AuthUserContext,
+  type JsonValue,
+} from './bridges';
+
+// Hooks (client-side) - v1 compatible, still useful for simple cases
 export {
   useReadableState,
   useReadableStore,
@@ -77,12 +90,3 @@ export {
   param,
   ActionTemplates,
 } from './actions';
-
-// NOTE: Runtime and MCP exports are NOT included in the main entry point
-// to keep this bundle client-safe. Use subpath imports instead:
-//
-// Server-side runtime:
-//   import { createCopilotRouteHandlers, BedrockAdapter } from '@flexiness/copilotkit/runtime';
-//
-// MCP (server-side):
-//   import { MCPBridgeClient } from '@flexiness/copilotkit/mcp';

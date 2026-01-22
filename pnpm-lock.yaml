@@ -43,9 +43,10 @@ overrides:
   '@rspack/core': ^1.6.6
   sass-embedded: ^1.93.3
   '@jridgewell/gen-mapping': 0.3.8
+  rxjs: 7.8.1
+  openai: ^6.16.0
+  graphql: ^16.12.0
   zod: 4.3.5
-  openai: 5.23.2
-  '@copilotkit/runtime>openai': 5.23.2
 
 importers:
 
@@ -80,7 +81,7 @@ importers:
         version: 2.5.1
       isomorphic-dompurify:
         specifier: ^2.33.0
-        version: 2.35.0
+        version: 2.35.0(@noble/hashes@1.8.0)
       mobx:
         specifier: 6.13.7
         version: 6.13.7
@@ -120,7 +121,7 @@ importers:
         version: link:packages/flex/config/webpack
       '@rspack/cli':
         specifier: ^1.6.6
-        version: 1.7.2(@rspack/core@1.7.2(@swc/helpers@0.5.18))(@types/express@4.17.21)(webpack-cli@6.0.1)(webpack@5.103.0)
+        version: 1.7.2(@rspack/core@1.7.2(@swc/helpers@0.5.18))(@types/express@4.17.21)(tslib@2.8.1)(webpack-cli@6.0.1)(webpack@5.103.0)
       '@rspack/core':
         specifier: ^1.6.6
         version: 1.7.2(@swc/helpers@0.5.18)
@@ -238,15 +239,6 @@ importers:
       '@aws-sdk/client-sts':
         specifier: 3.699.0
         version: 3.699.0
-      '@copilotkit/react-core':
-        specifier: ^1.51.0
-        version: 1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)
-      '@copilotkit/react-ui':
-        specifier: ^1.51.0
-        version: 1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)
-      '@copilotkit/runtime':
-        specifier: ^1.51.0
-        version: 1.51.2(@copilotkit/shared@1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13))(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@dnd-kit/core':
         specifier: ^6.3.1
         version: 6.3.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -297,10 +289,10 @@ importers:
         version: 16.0.1(@mdx-js/loader@3.1.1(webpack@5.103.0))(@mdx-js/react@3.1.1(@types/react@19.2.7)(react@19.2.1))
       '@stripe/react-stripe-js':
         specifier: ^5.4.1
-        version: 5.4.1(@stripe/stripe-js@8.6.1)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+        version: 5.4.1(@stripe/stripe-js@8.6.3)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@stripe/stripe-js':
         specifier: ^8.5.3
-        version: 8.6.1
+        version: 8.6.3
       cors:
         specifier: 2.8.5
         version: 2.8.5
@@ -317,11 +309,11 @@ importers:
         specifier: 12.23.12
         version: 12.23.12(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       graphql:
-        specifier: '*'
+        specifier: ^16.12.0
         version: 16.12.0
       isomorphic-dompurify:
         specifier: ^2.33.0
-        version: 2.35.0
+        version: 2.35.0(@noble/hashes@1.8.0)
       libphonenumber-js:
         specifier: 1.12.23
         version: 1.12.23
@@ -339,7 +331,7 @@ importers:
         version: 3.0.0(next@15.5.7(@babel/core@7.28.6)(@opentelemetry/api@1.9.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.97.2))
       posthog-js:
         specifier: ^1.236.7
-        version: 1.328.0
+        version: 1.330.0
       posthog-node:
         specifier: 4.17.2
         version: 4.17.2
@@ -379,10 +371,10 @@ importers:
     devDependencies:
       '@aws-amplify/backend':
         specifier: ^1.19.0
-        version: 1.20.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(zod@4.3.5)
+        version: 1.20.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(zod@4.3.5)
       '@aws-amplify/backend-cli':
         specifier: ^1.8.1
-        version: 1.8.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(@types/node@22.10.1)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)
+        version: 1.8.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(@types/node@22.10.1)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)
       '@aws-sdk/types':
         specifier: ^3.804.0
         version: 3.969.0
@@ -421,7 +413,7 @@ importers:
         version: 2.1101.0
       aws-cdk-lib:
         specifier: ^2.198.0
-        version: 2.235.0(constructs@10.4.5)
+        version: 2.235.1(constructs@10.4.5)
       constructs:
         specifier: ^10.4.2
         version: 10.4.5
@@ -485,10 +477,10 @@ importers:
         version: 19.2.7
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.48.0
-        version: 8.53.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+        version: 8.53.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
       '@typescript-eslint/parser':
         specifier: ^8.48.0
-        version: 8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+        version: 8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
       eslint:
         specifier: 9.39.1
         version: 9.39.1(jiti@2.4.2)
@@ -509,10 +501,10 @@ importers:
         version: 4.0.1(eslint@9.39.1(jiti@2.4.2))
       eslint-plugin-import:
         specifier: ^2.32.0
-        version: 2.32.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.1(jiti@2.4.2))
+        version: 2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.1(jiti@2.4.2))
       eslint-plugin-jest:
         specifier: ^29.2.1
-        version: 29.12.1(@typescript-eslint/eslint-plugin@8.53.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+        version: 29.12.1(@typescript-eslint/eslint-plugin@8.53.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
       eslint-plugin-jsonc:
         specifier: 2.13.0
         version: 2.13.0(eslint@9.39.1(jiti@2.4.2))
@@ -536,7 +528,7 @@ importers:
         version: 10.1.11(eslint@9.39.1(jiti@2.4.2))(storybook@10.1.11(@testing-library/dom@10.4.1)(prettier@3.4.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(typescript@5.9.3)
       eslint-plugin-unused-imports:
         specifier: ^4.3.0
-        version: 4.3.0(@typescript-eslint/eslint-plugin@8.53.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))
+        version: 4.3.0(@typescript-eslint/eslint-plugin@8.53.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))
       globals:
         specifier: 16.5.0
         version: 16.5.0
@@ -557,7 +549,7 @@ importers:
         version: 5.9.3
       typescript-eslint:
         specifier: ^8.48.0
-        version: 8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+        version: 8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
       webpack:
         specifier: 5.103.0
         version: 5.103.0(webpack-cli@6.0.1)
@@ -638,10 +630,10 @@ importers:
         version: 17.0.35
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.48.0
-        version: 8.53.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+        version: 8.53.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
       '@typescript-eslint/parser':
         specifier: ^8.48.0
-        version: 8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+        version: 8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
       babel-jest:
         specifier: ^29.6.2
         version: 29.7.0(@babel/core@7.28.6)
@@ -653,7 +645,7 @@ importers:
         version: 9.39.1(jiti@2.4.2)
       eslint-plugin-jest:
         specifier: 28.10.0
-        version: 28.10.0(@typescript-eslint/eslint-plugin@8.53.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+        version: 28.10.0(@typescript-eslint/eslint-plugin@8.53.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
       eslint-plugin-jest-formatting:
         specifier: ^3.1.0
         version: 3.1.0(eslint@9.39.1(jiti@2.4.2))
@@ -727,15 +719,27 @@ importers:
 
   packages/flex/copilotkit:
     dependencies:
+      '@ag-ui/client':
+        specifier: ^0.0.43
+        version: 0.0.43
+      '@ag-ui/core':
+        specifier: ^0.0.43
+        version: 0.0.43
+      '@ag-ui/encoder':
+        specifier: ^0.0.43
+        version: 0.0.43
+      '@ag-ui/proto':
+        specifier: ^0.0.43
+        version: 0.0.43
       '@copilotkit/react-core':
-        specifier: ^1.51.0
-        version: 1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@5.23.2(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)
+        specifier: ^1.51.2
+        version: 1.51.2(@ag-ui/core@0.0.43)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@6.16.0(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)
       '@copilotkit/react-ui':
-        specifier: ^1.51.0
-        version: 1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@5.23.2(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)
+        specifier: ^1.51.2
+        version: 1.51.2(@ag-ui/core@0.0.43)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@6.16.0(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)
       '@copilotkit/runtime':
-        specifier: ^1.51.0
-        version: 1.51.2(@copilotkit/shared@1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13))(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+        specifier: ^1.51.2
+        version: 1.51.2(@copilotkit/shared@1.51.2(@ag-ui/core@0.0.43)(encoding@0.1.13))(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       mobx:
         specifier: ^6.0.0
         version: 6.13.7
@@ -787,7 +791,7 @@ importers:
         version: 1.25.2(@cfworker/json-schema@4.1.1)(hono@4.11.4)(zod@4.3.5)
       '@typescript-eslint/typescript-estree':
         specifier: ^8.32.1
-        version: 8.53.0(typescript@5.9.3)
+        version: 8.53.1(typescript@5.9.3)
       glob:
         specifier: 10.3.12
         version: 10.3.12
@@ -1060,7 +1064,7 @@ importers:
         version: 5.15.2(webpack@5.103.0)
       '@rspack/cli':
         specifier: ^1.6.6
-        version: 1.7.2(@rspack/core@1.7.2(@swc/helpers@0.5.18))(@types/express@4.17.21)(webpack-cli@6.0.1)(webpack@5.103.0)
+        version: 1.7.2(@rspack/core@1.7.2(@swc/helpers@0.5.18))(@types/express@4.17.21)(tslib@2.8.1)(webpack-cli@6.0.1)(webpack@5.103.0)
       '@rspack/core':
         specifier: ^1.6.6
         version: 1.7.2(@swc/helpers@0.5.18)
@@ -1490,7 +1494,7 @@ packages:
   '@0no-co/graphql.web@1.2.0':
     resolution: {integrity: sha512-/1iHy9TTr63gE1YcR5idjx8UREz1s0kFhydf3bBLCXyqjhkIc6igAzTOx3zPifCwFR87tsh/4Pa9cNts6d2otw==}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql: ^16.12.0
     peerDependenciesMeta:
       graphql:
         optional: true
@@ -1510,11 +1514,20 @@ packages:
   '@ag-ui/client@0.0.42':
     resolution: {integrity: sha512-zAbP+sZJImR5bUpR2ni7RtuuNZMuesaxviynyIgzKlr1k2VCM49mFpbDUKU4TH4Cneu+Xe7OEnO8qCOCIzBAww==}
 
+  '@ag-ui/client@0.0.43':
+    resolution: {integrity: sha512-150Y3TX+k83qvtmp4bTxmPW0Xu7to2y5vlhD8s5gof5/fxMdxybM1ieZazN7OIWU0nCK/hvhA+bVC7mmyby3gw==}
+
   '@ag-ui/core@0.0.42':
     resolution: {integrity: sha512-C2hMg4Gs5oiUDgK9cA2RsTwSSmFZdIsqPklDrFw/Ue+quH6EU3vKp5YoOq7nuaQYO4pO8Em+Z+l5/M5PpcvP1g==}
 
+  '@ag-ui/core@0.0.43':
+    resolution: {integrity: sha512-/T7kKwPAhtriFFiv3YxZ0yAzMHoY8a8I5UKzhPzwW934h92c6RJ54N93yb9PAqdX3XjCPId0C5gIBHb6QbeR3Q==}
+
   '@ag-ui/encoder@0.0.42':
     resolution: {integrity: sha512-97B5MMCSs82t/y41uk2NrLBYFhbvn4kYsKQHMCfy8tjSWubyxh3zP7N9yHo8zJeSPe3WvzTvclyXNiGxSOsorg==}
+
+  '@ag-ui/encoder@0.0.43':
+    resolution: {integrity: sha512-0b7VXFW5KMctdWsGFQEkbIU2gY/tUv0eWBbMchIvjiIS1aHxdGTB6NXHXJzGvDcXEb3urkIvVIFGvpk0WOUhVw==}
 
   '@ag-ui/langgraph@0.0.20':
     resolution: {integrity: sha512-MQ35S8IUt5xwhA+NdinVJxBq3AHgpaeDrS92undC9Y3UX09HOUUojZcG46WGgZrxxqdFZNaZcupS4Opuf02DsA==}
@@ -1524,6 +1537,9 @@ packages:
 
   '@ag-ui/proto@0.0.42':
     resolution: {integrity: sha512-NDUwSgMnGEqxZGkWIJ1ge5t3Q7Kiddj360x2JAWaIfv9w+7tDJ0pmgyzf3/SXp605aY2wZiDLBtJ6jKZeg1lFg==}
+
+  '@ag-ui/proto@0.0.43':
+    resolution: {integrity: sha512-JcGjwMyxd5KiRTVi3158eByPXm9lKDRMIApYgSlzhXpBwyfpub8waGFnEWqjE3U+gA1LaZHiVMIfD5NCVYj4WQ==}
 
   '@ai-sdk/anthropic@2.0.57':
     resolution: {integrity: sha512-DREpYqW2pylgaj69gZ+K8u92bo9DaMgFdictYnY+IwYeY3bawQ4zI7l/o1VkDsBDljAx8iYz5lPURwVZNu+Xpg==}
@@ -1590,13 +1606,13 @@ packages:
     resolution: {integrity: sha512-9anThAaj1dQr6IGmzBMcfzOQKTa5artjuPmw8NYK/fiGEMjADbSguBY2FMDykt+QhilR3wc9VA/3yVju7JHg7Q==}
     hasBin: true
     peerDependencies:
-      graphql: '*'
+      graphql: ^16.12.0
 
   '@ardatan/relay-compiler@12.0.3':
     resolution: {integrity: sha512-mBDFOGvAoVlWaWqs3hm1AciGHSQE1rqFc/liZTyYz/Oek9yZdT5H26pH2zAFuEiTiBVPPyMuqf5VjOFPI2DGsQ==}
     hasBin: true
     peerDependencies:
-      graphql: '*'
+      graphql: ^16.12.0
 
   '@asamuzakjp/css-color@4.1.1':
     resolution: {integrity: sha512-B0Hv6G3gWGMn0xKJ0txEi/jM5iFpT3MfDxmhZFb4W047GvytCf1DHQ1D69W3zHI4yWe2aTZAA0JnbMZ7Xc8DuQ==}
@@ -1634,7 +1650,7 @@ packages:
   '@aws-amplify/appsync-modelgen-plugin@2.15.2':
     resolution: {integrity: sha512-ZUnp+g7a/RZJGRygquPhZWO4E9KjOPj5ARwhkiOHXp2XffYNy4VkjFYJjmufNnURp54awSYV09aHsjj2tW0Dhw==}
     peerDependencies:
-      graphql: ^15.5.0
+      graphql: ^16.12.0
 
   '@aws-amplify/auth-construct@1.11.0':
     resolution: {integrity: sha512-YuY1OBFhAHZRw383JEzwc/4NjjwZJiLoe60TzwPFcmzSD7NXK48x5LNBuBNh3Cld9Oo0hP/NMNx4JaJMURJ8cA==}
@@ -2151,8 +2167,8 @@ packages:
     peerDependencies:
       '@aws-sdk/client-cloudformation': ^3
 
-  '@aws-cdk/cx-api@2.235.0':
-    resolution: {integrity: sha512-VD/dxVZuOm1yLlTkH4IQ+SA0Vp1Il5oRR6pK8DHJlJpacR5iGb8oeRwme/jmq1YKAxf0BUaQE6lG1fEHEDLrpA==}
+  '@aws-cdk/cx-api@2.235.1':
+    resolution: {integrity: sha512-FloCIKWk+6Rxh7RsHriXEDkuKsZnP7BqzkIRJ6ytSSPeoEnfuI3e8K2KgOMi4kaDpKzC4goTXFP7CUt2+sMJ9A==}
     engines: {node: '>= 18.0.0'}
     peerDependencies:
       '@aws-cdk/cloud-assembly-schema': '>=45.0.0'
@@ -3751,7 +3767,7 @@ packages:
       '@langchain/openai': '>=0.4.2'
       groq-sdk: '>=0.3.0 <1.0.0'
       langchain: '>=0.3.3'
-      openai: 5.23.2
+      openai: ^6.16.0
     peerDependenciesMeta:
       '@anthropic-ai/sdk':
         optional: true
@@ -3796,7 +3812,7 @@ packages:
     resolution: {integrity: sha512-r6dmy7p/uCgBFcyRzw88MresXuD2Xuflj4hli/vPS79KJV2d0d4o6TYzb6NeQ2Jz/9jxyklJ/3Q37sr1NkeIOw==}
     engines: {node: '>=18'}
     peerDependencies:
-      openai: 5.23.2
+      openai: ^6.16.0
 
   '@copilotkitnext/shared@1.51.2':
     resolution: {integrity: sha512-fAYsRBNvVQkf1psixsl1a+wn/23thbFc8PAifxXQHmWfbU6Mr2XXCkKUnBbv3TtLa0MbvL1RZJ8+K+LJl8Roiw==}
@@ -4785,13 +4801,13 @@ packages:
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@exodus/bytes@1.8.0':
-    resolution: {integrity: sha512-8JPn18Bcp8Uo1T82gR8lh2guEOa5KKU/IEKvvdp0sgmi7coPBWf1Doi1EXsGZb2ehc8ym/StJCjffYV+ne7sXQ==}
+  '@exodus/bytes@1.9.0':
+    resolution: {integrity: sha512-lagqsvnk09NKogQaN/XrtlWeUF8SRhT12odMvbTIIaVObqzwAogL6jhR4DAp0gPuKoM1AOVrKUshJpRdpMFrww==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
     peerDependencies:
-      '@exodus/crypto': ^1.0.0-rc.4
+      '@noble/hashes': ^1.8.0 || ^2.0.0
     peerDependenciesMeta:
-      '@exodus/crypto':
+      '@noble/hashes':
         optional: true
 
   '@fastify/busboy@3.2.0':
@@ -4845,133 +4861,133 @@ packages:
   '@graphql-codegen/core@2.6.8':
     resolution: {integrity: sha512-JKllNIipPrheRgl+/Hm/xuWMw9++xNQ12XJR/OHHgFopOg4zmN3TdlRSyYcv/K90hCFkkIwhlHFUQTfKrm8rxQ==}
     peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql: ^16.12.0
 
   '@graphql-codegen/plugin-helpers@1.18.8':
     resolution: {integrity: sha512-mb4I9j9lMGqvGggYuZ0CV+Hme08nar68xkpPbAVotg/ZBmlhZIok/HqW2BcMQi7Rj+Il5HQMeQ1wQ1M7sv/TlQ==}
     peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
+      graphql: ^16.12.0
 
   '@graphql-codegen/plugin-helpers@3.1.2':
     resolution: {integrity: sha512-emOQiHyIliVOIjKVKdsI5MXj312zmRDwmHpyUTZMjfpvxq/UVAHUJIVdVf+lnjjrI+LXBTgMlTWTgHQfmICxjg==}
     peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql: ^16.12.0
 
   '@graphql-codegen/plugin-helpers@5.1.1':
     resolution: {integrity: sha512-28GHODK2HY1NhdyRcPP3sCz0Kqxyfiz7boIZ8qIxFYmpLYnlDgiYok5fhFLVSZihyOpCs4Fa37gVHf/Q4I2FEg==}
     engines: {node: '>=16'}
     peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql: ^16.12.0
 
   '@graphql-codegen/schema-ast@4.1.0':
     resolution: {integrity: sha512-kZVn0z+th9SvqxfKYgztA6PM7mhnSZaj4fiuBWvMTqA+QqQ9BBed6Pz41KuD/jr0gJtnlr2A4++/0VlpVbCTmQ==}
     peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql: ^16.12.0
 
   '@graphql-codegen/typescript@4.1.6':
     resolution: {integrity: sha512-vpw3sfwf9A7S+kIUjyFxuvrywGxd4lmwmyYnnDVjVE4kSQ6Td3DpqaPTy8aNQ6O96vFoi/bxbZS2BW49PwSUUA==}
     engines: {node: '>=16'}
     peerDependencies:
-      graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql: ^16.12.0
 
   '@graphql-codegen/visitor-plugin-common@1.22.0':
     resolution: {integrity: sha512-2afJGb6d8iuZl9KizYsexPwraEKO1lAvt5eVHNM5Xew4vwz/AUHeqDR2uOeQgVV+27EzjjzSDd47IEdH0dLC2w==}
     peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
+      graphql: ^16.12.0
 
   '@graphql-codegen/visitor-plugin-common@5.8.0':
     resolution: {integrity: sha512-lC1E1Kmuzi3WZUlYlqB4fP6+CvbKH9J+haU1iWmgsBx5/sO2ROeXJG4Dmt8gP03bI2BwjiwV5WxCEMlyeuzLnA==}
     engines: {node: '>=16'}
     peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/apollo-engine-loader@8.0.28':
     resolution: {integrity: sha512-MzgDrUuoxp6dZeo54zLBL3cEJKJtM3N/2RqK0rbPxPq5X2z6TUA7EGg8vIFTUkt5xelAsUrm8/4ai41ZDdxOng==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/executor@1.5.1':
     resolution: {integrity: sha512-n94Qcu875Mji9GQ52n5UbgOTxlgvFJicBPYD+FRks9HKIQpdNPjkkrKZUYNG51XKa+bf03rxNflm4+wXhoHHrA==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/merge@8.4.2':
     resolution: {integrity: sha512-XbrHAaj8yDuINph+sAfuq3QCZ/tKblrTLOpirK0+CAgNlZUCHs0Fa+xtMUURgwCVThLle1AF7svJCxFizygLsw==}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/merge@9.1.7':
     resolution: {integrity: sha512-Y5E1vTbTabvcXbkakdFUt4zUIzB1fyaEnVmIWN0l0GMed2gdD01TpZWLUm4RNAxpturvolrb24oGLQrBbPLSoQ==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/optimize@1.4.0':
     resolution: {integrity: sha512-dJs/2XvZp+wgHH8T5J2TqptT9/6uVzIYvA6uFACha+ufvdMBedkfR4b4GbT8jAKLRARiqRTxy3dctnwkTM2tdw==}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/optimize@2.0.0':
     resolution: {integrity: sha512-nhdT+CRGDZ+bk68ic+Jw1OZ99YCDIKYA5AlVAnBHJvMawSx9YQqQAIj4refNc1/LRieGiuWvhbG3jvPVYho0Dg==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/relay-operation-optimizer@6.5.18':
     resolution: {integrity: sha512-mc5VPyTeV+LwiM+DNvoDQfPqwQYhPV/cl5jOBjTgSniyaq8/86aODfMkrE2OduhQ5E00hqrkuL2Fdrgk0w1QJg==}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/relay-operation-optimizer@7.0.27':
     resolution: {integrity: sha512-rdkL1iDMFaGDiHWd7Bwv7hbhrhnljkJaD0MXeqdwQlZVgVdUDlMot2WuF7CEKVgijpH6eSC6AxXMDeqVgSBS2g==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/schema@10.0.31':
     resolution: {integrity: sha512-ZewRgWhXef6weZ0WiP7/MV47HXiuFbFpiDUVLQl6mgXsWSsGELKFxQsyUCBos60Qqy1JEFAIu3Ns6GGYjGkqkQ==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/schema@9.0.19':
     resolution: {integrity: sha512-oBRPoNBtCkk0zbUsyP4GaIzCt8C0aCI4ycIRUL67KK5pOHljKLBBtGT+Jr6hkzA74C8Gco8bpZPe7aWFjiaK2w==}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/utils@10.11.0':
     resolution: {integrity: sha512-iBFR9GXIs0gCD+yc3hoNswViL1O5josI33dUqiNStFI/MHLCEPduasceAcazRH77YONKNiviHBV8f7OgcT4o2Q==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/utils@11.0.0':
     resolution: {integrity: sha512-bM1HeZdXA2C3LSIeLOnH/bcqSgbQgKEDrjxODjqi3y58xai2TkNrtYcQSoWzGbt9VMN1dORGjR7Vem8SPnUFQA==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/utils@6.2.4':
     resolution: {integrity: sha512-ybgZ9EIJE3JMOtTrTd2VcIpTXtDrn2q6eiYkeYMKRVh3K41+LZa6YnR2zKERTXqTWqhobROwLt4BZbw2O3Aeeg==}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/utils@7.10.0':
     resolution: {integrity: sha512-d334r6bo9mxdSqZW6zWboEnnOOFRrAPVQJ7LkU8/6grglrbcu6WhwCLzHb90E94JI3TD3ricC3YGbUqIi9Xg0w==}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0
+      graphql: ^16.12.0
 
   '@graphql-tools/utils@9.2.1':
     resolution: {integrity: sha512-WUw506Ql6xzmOORlriNrD6Ugx+HjVgYxt9KCXD9mHAak+eaXSwuGGPyE60hy9xaDEoXKBsG7SkG69ybitaVl6A==}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      graphql: ^16.12.0
 
   '@graphql-typed-document-node/core@3.2.0':
     resolution: {integrity: sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==}
     peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      graphql: ^16.12.0
 
   '@graphql-yoga/logger@2.0.1':
     resolution: {integrity: sha512-Nv0BoDGLMg9QBKy9cIswQ3/6aKaKjlTh87x3GiBg2Z4RrjyrM48DvOOK0pJh1C1At+b0mUIM67cwZcFTDLN4sA==}
@@ -4981,7 +4997,7 @@ packages:
     resolution: {integrity: sha512-VbvQP6hzSNHXXtX+OlK0DrbzQxE4ifP/PQzXUiECCYFOI8manRz+lmEmI1cL+HS6YlppXbtO7Qeb41MNEWLegA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      graphql: ^15.2.0 || ^16.0.0
+      graphql: ^16.12.0
       graphql-yoga: ^5.18.0
 
   '@graphql-yoga/subscription@5.0.5':
@@ -5383,8 +5399,20 @@ packages:
     peerDependencies:
       tslib: ^2.8.1
 
+  '@jsonjoy.com/base64@17.65.0':
+    resolution: {integrity: sha512-Xrh7Fm/M0QAYpekSgmskdZYnFdSGnsxJ/tHaolA4bNwWdG9i65S8m83Meh7FOxyJyQAdo4d4J97NOomBLEfkDQ==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      tslib: ^2.8.1
+
   '@jsonjoy.com/buffers@1.2.1':
     resolution: {integrity: sha512-12cdlDwX4RUM3QxmUbVJWqZ/mrK6dFQH4Zxq6+r1YXKXYBNgZXndx2qbCJwh3+WWkCSn67IjnlG3XYTvmvYtgA==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      tslib: ^2.8.1
+
+  '@jsonjoy.com/buffers@17.65.0':
+    resolution: {integrity: sha512-eBrIXd0/Ld3p9lpDDlMaMn6IEfWqtHMD+z61u0JrIiPzsV1r7m6xDZFRxJyvIFTEO+SWdYF9EiQbXZGd8BzPfA==}
     engines: {node: '>=10.0'}
     peerDependencies:
       tslib: ^2.8.1
@@ -5395,8 +5423,68 @@ packages:
     peerDependencies:
       tslib: ^2.8.1
 
+  '@jsonjoy.com/codegen@17.65.0':
+    resolution: {integrity: sha512-7MXcRYe7n3BG+fo3jicvjB0+6ypl2Y/bQp79Sp7KeSiiCgLqw4Oled6chVv07/xLVTdo3qa1CD0VCCnPaw+RGA==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      tslib: ^2.8.1
+
+  '@jsonjoy.com/fs-core@4.56.2':
+    resolution: {integrity: sha512-5s3t0Lj/gDgPhhXEdSe9yNDB07iMrpIXN9OV9FTiwlLKP3EBFhsbOhhMMVoWuSJkPxaaiOFUpZcyZcKi7mOmUQ==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      tslib: ^2.8.1
+
+  '@jsonjoy.com/fs-fsa@4.56.2':
+    resolution: {integrity: sha512-2lN4rdhcjFBf2Oji0rHR1aS+fW+GA0l9o9gXCMWFoC+YXqRO4N4xkSeJwm6a10SMuqlhoseCWRWlhaDYiNiI2A==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      tslib: ^2.8.1
+
+  '@jsonjoy.com/fs-node-builtins@4.56.2':
+    resolution: {integrity: sha512-TB8rFES/4lygIudoTHSGp2fjHe7R229VRQ4IQCMds6uTKhBKuDLZAqOUBiS3hosfxTVrB/JpDrr46MvCSjPzog==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      tslib: ^2.8.1
+
+  '@jsonjoy.com/fs-node-to-fsa@4.56.2':
+    resolution: {integrity: sha512-Es62G93ychdl0VhQKVTIPq31QWabXveTEVJfi3gC/AIiehnXV3AMl38TWXLCS4fomBz5EaLqNhMkV7u/oW1p6g==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      tslib: ^2.8.1
+
+  '@jsonjoy.com/fs-node-utils@4.56.2':
+    resolution: {integrity: sha512-CIUSlhbnws7b9f3Z2r963/lSA+VLPJlJcy8fqjQ9lk1Z1y6Ca9qj2CWXlABkvDZE7sDX+6PEdEU1PsXlfkZVbg==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      tslib: ^2.8.1
+
+  '@jsonjoy.com/fs-node@4.56.2':
+    resolution: {integrity: sha512-Ws4cwm9UQY0noP/Ee2KpPf2zJJukJywjTIl3lBTH/AdH7r5n5CyGPLgySxpAa7/isV0WD02bYV+XKhslF/Dtbg==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      tslib: ^2.8.1
+
+  '@jsonjoy.com/fs-print@4.56.2':
+    resolution: {integrity: sha512-7e4hmCrfERuqdNu1shsj140F4uS4h8orBULhlXQJ0F3sT4lnCuWe32rwxAa8xPutb99jKpHcsxM76TaFzFgQTA==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      tslib: ^2.8.1
+
+  '@jsonjoy.com/fs-snapshot@4.56.2':
+    resolution: {integrity: sha512-Qh0lc8Ujnb2b1D4RQ7CD+BOzqzw2aUpJPIK9SDv+y9LTy3lZ/ydPU7m6qBIH2ePhBKZuBIyVwxOWSvHRaasETQ==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      tslib: ^2.8.1
+
   '@jsonjoy.com/json-pack@1.21.0':
     resolution: {integrity: sha512-+AKG+R2cfZMShzrF2uQw34v3zbeDYUqnQ+jg7ORic3BGtfw9p/+N6RJbq/kkV8JmYZaINknaEQ2m0/f693ZPpg==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      tslib: ^2.8.1
+
+  '@jsonjoy.com/json-pack@17.65.0':
+    resolution: {integrity: sha512-e0SG/6qUCnVhHa0rjDJHgnXnbsacooHVqQHxspjvlYQSkHm+66wkHw6Gql+3u/WxI/b1VsOdUi0M+fOtkgKGdQ==}
     engines: {node: '>=10.0'}
     peerDependencies:
       tslib: ^2.8.1
@@ -5407,8 +5495,20 @@ packages:
     peerDependencies:
       tslib: ^2.8.1
 
+  '@jsonjoy.com/json-pointer@17.65.0':
+    resolution: {integrity: sha512-uhTe+XhlIZpWOxgPcnO+iSCDgKKBpwkDVTyYiXX9VayGV8HSFVJM67M6pUE71zdnXF1W0Da21AvnhlmdwYPpow==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      tslib: ^2.8.1
+
   '@jsonjoy.com/util@1.9.0':
     resolution: {integrity: sha512-pLuQo+VPRnN8hfPqUTLTHk126wuYdXVxE6aDmjSeV4NCAgyxWbiOIeNJVtID3h1Vzpoi9m4jXezf73I6LgabgQ==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      tslib: ^2.8.1
+
+  '@jsonjoy.com/util@17.65.0':
+    resolution: {integrity: sha512-cWiEHZccQORf96q2y6zU3wDeIVPeidmGqd9cNKJRYoVHTV0S1eHPy5JTbHpMnGfDvtvujQwQozOqgO9ABu6h0w==}
     engines: {node: '>=10.0'}
     peerDependencies:
       tslib: ^2.8.1
@@ -6096,8 +6196,8 @@ packages:
   '@posthog/core@1.10.0':
     resolution: {integrity: sha512-Xk3JQ+cdychsvftrV3G9ZrN9W329lbyFW0pGJXFGKFQf8qr4upw2SgNg9BVorjSrfhoXZRnJGt/uNF4nGFBL5A==}
 
-  '@posthog/types@1.328.0':
-    resolution: {integrity: sha512-T8RPYpgPxwtAMqtfj8+3VSw3Xca2hIYb3BN3ohPAZhN8eQOtkC00jEKy+bOcniy1BJCbbhpmGtxqQCpzr4/EXQ==}
+  '@posthog/types@1.330.0':
+    resolution: {integrity: sha512-J4t35UA+1GxFf2qAYG9wqiJGpjU4hCvMfEUOd6s2SkaFgzAmbZ98GOEPtDfs/uXIxFE1Mj3pB+D6CWnLf4i9ug==}
 
   '@protobuf-ts/protoc@2.11.1':
     resolution: {integrity: sha512-mUZJaV0daGO6HUX90o/atzQ6A7bbN2RSuHtdwo8SSF2Qoe3zHwa4IHyCN1evftTeHfLmdz+45qo47sL+5P8nyg==}
@@ -6504,128 +6604,128 @@ packages:
   '@repeaterjs/repeater@3.0.6':
     resolution: {integrity: sha512-Javneu5lsuhwNCryN+pXH93VPQ8g0dBX7wItHFgYiwQmzE1sVdg5tWHiOgHywzL2W21XQopa7IwIEnNbmeUJYA==}
 
-  '@rollup/rollup-android-arm-eabi@4.55.1':
-    resolution: {integrity: sha512-9R0DM/ykwfGIlNu6+2U09ga0WXeZ9MRC2Ter8jnz8415VbuIykVuc6bhdrbORFZANDmTDvq26mJrEVTl8TdnDg==}
+  '@rollup/rollup-android-arm-eabi@4.55.2':
+    resolution: {integrity: sha512-21J6xzayjy3O6NdnlO6aXi/urvSRjm6nCI6+nF6ra2YofKruGixN9kfT+dt55HVNwfDmpDHJcaS3JuP/boNnlA==}
     cpu: [arm]
     os: [android]
 
-  '@rollup/rollup-android-arm64@4.55.1':
-    resolution: {integrity: sha512-eFZCb1YUqhTysgW3sj/55du5cG57S7UTNtdMjCW7LwVcj3dTTcowCsC8p7uBdzKsZYa8J7IDE8lhMI+HX1vQvg==}
+  '@rollup/rollup-android-arm64@4.55.2':
+    resolution: {integrity: sha512-eXBg7ibkNUZ+sTwbFiDKou0BAckeV6kIigK7y5Ko4mB/5A1KLhuzEKovsmfvsL8mQorkoincMFGnQuIT92SKqA==}
     cpu: [arm64]
     os: [android]
 
-  '@rollup/rollup-darwin-arm64@4.55.1':
-    resolution: {integrity: sha512-p3grE2PHcQm2e8PSGZdzIhCKbMCw/xi9XvMPErPhwO17vxtvCN5FEA2mSLgmKlCjHGMQTP6phuQTYWUnKewwGg==}
+  '@rollup/rollup-darwin-arm64@4.55.2':
+    resolution: {integrity: sha512-UCbaTklREjrc5U47ypLulAgg4njaqfOVLU18VrCrI+6E5MQjuG0lSWaqLlAJwsD7NpFV249XgB0Bi37Zh5Sz4g==}
     cpu: [arm64]
     os: [darwin]
 
-  '@rollup/rollup-darwin-x64@4.55.1':
-    resolution: {integrity: sha512-rDUjG25C9qoTm+e02Esi+aqTKSBYwVTaoS1wxcN47/Luqef57Vgp96xNANwt5npq9GDxsH7kXxNkJVEsWEOEaQ==}
+  '@rollup/rollup-darwin-x64@4.55.2':
+    resolution: {integrity: sha512-dP67MA0cCMHFT2g5XyjtpVOtp7y4UyUxN3dhLdt11at5cPKnSm4lY+EhwNvDXIMzAMIo2KU+mc9wxaAQJTn7sQ==}
     cpu: [x64]
     os: [darwin]
 
-  '@rollup/rollup-freebsd-arm64@4.55.1':
-    resolution: {integrity: sha512-+JiU7Jbp5cdxekIgdte0jfcu5oqw4GCKr6i3PJTlXTCU5H5Fvtkpbs4XJHRmWNXF+hKmn4v7ogI5OQPaupJgOg==}
+  '@rollup/rollup-freebsd-arm64@4.55.2':
+    resolution: {integrity: sha512-WDUPLUwfYV9G1yxNRJdXcvISW15mpvod1Wv3ok+Ws93w1HjIVmCIFxsG2DquO+3usMNCpJQ0wqO+3GhFdl6Fow==}
     cpu: [arm64]
     os: [freebsd]
 
-  '@rollup/rollup-freebsd-x64@4.55.1':
-    resolution: {integrity: sha512-V5xC1tOVWtLLmr3YUk2f6EJK4qksksOYiz/TCsFHu/R+woubcLWdC9nZQmwjOAbmExBIVKsm1/wKmEy4z4u4Bw==}
+  '@rollup/rollup-freebsd-x64@4.55.2':
+    resolution: {integrity: sha512-Ng95wtHVEulRwn7R0tMrlUuiLVL/HXA8Lt/MYVpy88+s5ikpntzZba1qEulTuPnPIZuOPcW9wNEiqvZxZmgmqQ==}
     cpu: [x64]
     os: [freebsd]
 
-  '@rollup/rollup-linux-arm-gnueabihf@4.55.1':
-    resolution: {integrity: sha512-Rn3n+FUk2J5VWx+ywrG/HGPTD9jXNbicRtTM11e/uorplArnXZYsVifnPPqNNP5BsO3roI4n8332ukpY/zN7rQ==}
+  '@rollup/rollup-linux-arm-gnueabihf@4.55.2':
+    resolution: {integrity: sha512-AEXMESUDWWGqD6LwO/HkqCZgUE1VCJ1OhbvYGsfqX2Y6w5quSXuyoy/Fg3nRqiwro+cJYFxiw5v4kB2ZDLhxrw==}
     cpu: [arm]
     os: [linux]
 
-  '@rollup/rollup-linux-arm-musleabihf@4.55.1':
-    resolution: {integrity: sha512-grPNWydeKtc1aEdrJDWk4opD7nFtQbMmV7769hiAaYyUKCT1faPRm2av8CX1YJsZ4TLAZcg9gTR1KvEzoLjXkg==}
+  '@rollup/rollup-linux-arm-musleabihf@4.55.2':
+    resolution: {integrity: sha512-ZV7EljjBDwBBBSv570VWj0hiNTdHt9uGznDtznBB4Caj3ch5rgD4I2K1GQrtbvJ/QiB+663lLgOdcADMNVC29Q==}
     cpu: [arm]
     os: [linux]
 
-  '@rollup/rollup-linux-arm64-gnu@4.55.1':
-    resolution: {integrity: sha512-a59mwd1k6x8tXKcUxSyISiquLwB5pX+fJW9TkWU46lCqD/GRDe9uDN31jrMmVP3feI3mhAdvcCClhV8V5MhJFQ==}
+  '@rollup/rollup-linux-arm64-gnu@4.55.2':
+    resolution: {integrity: sha512-uvjwc8NtQVPAJtq4Tt7Q49FOodjfbf6NpqXyW/rjXoV+iZ3EJAHLNAnKT5UJBc6ffQVgmXTUL2ifYiLABlGFqA==}
     cpu: [arm64]
     os: [linux]
 
-  '@rollup/rollup-linux-arm64-musl@4.55.1':
-    resolution: {integrity: sha512-puS1MEgWX5GsHSoiAsF0TYrpomdvkaXm0CofIMG5uVkP6IBV+ZO9xhC5YEN49nsgYo1DuuMquF9+7EDBVYu4uA==}
+  '@rollup/rollup-linux-arm64-musl@4.55.2':
+    resolution: {integrity: sha512-s3KoWVNnye9mm/2WpOZ3JeUiediUVw6AvY/H7jNA6qgKA2V2aM25lMkVarTDfiicn/DLq3O0a81jncXszoyCFA==}
     cpu: [arm64]
     os: [linux]
 
-  '@rollup/rollup-linux-loong64-gnu@4.55.1':
-    resolution: {integrity: sha512-r3Wv40in+lTsULSb6nnoudVbARdOwb2u5fpeoOAZjFLznp6tDU8kd+GTHmJoqZ9lt6/Sys33KdIHUaQihFcu7g==}
+  '@rollup/rollup-linux-loong64-gnu@4.55.2':
+    resolution: {integrity: sha512-gi21faacK+J8aVSyAUptML9VQN26JRxe484IbF+h3hpG+sNVoMXPduhREz2CcYr5my0NE3MjVvQ5bMKX71pfVA==}
     cpu: [loong64]
     os: [linux]
 
-  '@rollup/rollup-linux-loong64-musl@4.55.1':
-    resolution: {integrity: sha512-MR8c0+UxAlB22Fq4R+aQSPBayvYa3+9DrwG/i1TKQXFYEaoW3B5b/rkSRIypcZDdWjWnpcvxbNaAJDcSbJU3Lw==}
+  '@rollup/rollup-linux-loong64-musl@4.55.2':
+    resolution: {integrity: sha512-qSlWiXnVaS/ceqXNfnoFZh4IiCA0EwvCivivTGbEu1qv2o+WTHpn1zNmCTAoOG5QaVr2/yhCoLScQtc/7RxshA==}
     cpu: [loong64]
     os: [linux]
 
-  '@rollup/rollup-linux-ppc64-gnu@4.55.1':
-    resolution: {integrity: sha512-3KhoECe1BRlSYpMTeVrD4sh2Pw2xgt4jzNSZIIPLFEsnQn9gAnZagW9+VqDqAHgm1Xc77LzJOo2LdigS5qZ+gw==}
+  '@rollup/rollup-linux-ppc64-gnu@4.55.2':
+    resolution: {integrity: sha512-rPyuLFNoF1B0+wolH277E780NUKf+KoEDb3OyoLbAO18BbeKi++YN6gC/zuJoPPDlQRL3fIxHxCxVEWiem2yXw==}
     cpu: [ppc64]
     os: [linux]
 
-  '@rollup/rollup-linux-ppc64-musl@4.55.1':
-    resolution: {integrity: sha512-ziR1OuZx0vdYZZ30vueNZTg73alF59DicYrPViG0NEgDVN8/Jl87zkAPu4u6VjZST2llgEUjaiNl9JM6HH1Vdw==}
+  '@rollup/rollup-linux-ppc64-musl@4.55.2':
+    resolution: {integrity: sha512-g+0ZLMook31iWV4PvqKU0i9E78gaZgYpSrYPed/4Bu+nGTgfOPtfs1h11tSSRPXSjC5EzLTjV/1A7L2Vr8pJoQ==}
     cpu: [ppc64]
     os: [linux]
 
-  '@rollup/rollup-linux-riscv64-gnu@4.55.1':
-    resolution: {integrity: sha512-uW0Y12ih2XJRERZ4jAfKamTyIHVMPQnTZcQjme2HMVDAHY4amf5u414OqNYC+x+LzRdRcnIG1YodLrrtA8xsxw==}
+  '@rollup/rollup-linux-riscv64-gnu@4.55.2':
+    resolution: {integrity: sha512-i+sGeRGsjKZcQRh3BRfpLsM3LX3bi4AoEVqmGDyc50L6KfYsN45wVCSz70iQMwPWr3E5opSiLOwsC9WB4/1pqg==}
     cpu: [riscv64]
     os: [linux]
 
-  '@rollup/rollup-linux-riscv64-musl@4.55.1':
-    resolution: {integrity: sha512-u9yZ0jUkOED1BFrqu3BwMQoixvGHGZ+JhJNkNKY/hyoEgOwlqKb62qu+7UjbPSHYjiVy8kKJHvXKv5coH4wDeg==}
+  '@rollup/rollup-linux-riscv64-musl@4.55.2':
+    resolution: {integrity: sha512-C1vLcKc4MfFV6I0aWsC7B2Y9QcsiEcvKkfxprwkPfLaN8hQf0/fKHwSF2lcYzA9g4imqnhic729VB9Fo70HO3Q==}
     cpu: [riscv64]
     os: [linux]
 
-  '@rollup/rollup-linux-s390x-gnu@4.55.1':
-    resolution: {integrity: sha512-/0PenBCmqM4ZUd0190j7J0UsQ/1nsi735iPRakO8iPciE7BQ495Y6msPzaOmvx0/pn+eJVVlZrNrSh4WSYLxNg==}
+  '@rollup/rollup-linux-s390x-gnu@4.55.2':
+    resolution: {integrity: sha512-68gHUK/howpQjh7g7hlD9DvTTt4sNLp1Bb+Yzw2Ki0xvscm2cOdCLZNJNhd2jW8lsTPrHAHuF751BygifW4bkQ==}
     cpu: [s390x]
     os: [linux]
 
-  '@rollup/rollup-linux-x64-gnu@4.55.1':
-    resolution: {integrity: sha512-a8G4wiQxQG2BAvo+gU6XrReRRqj+pLS2NGXKm8io19goR+K8lw269eTrPkSdDTALwMmJp4th2Uh0D8J9bEV1vg==}
+  '@rollup/rollup-linux-x64-gnu@4.55.2':
+    resolution: {integrity: sha512-1e30XAuaBP1MAizaOBApsgeGZge2/Byd6wV4a8oa6jPdHELbRHBiw7wvo4dp7Ie2PE8TZT4pj9RLGZv9N4qwlw==}
     cpu: [x64]
     os: [linux]
 
-  '@rollup/rollup-linux-x64-musl@4.55.1':
-    resolution: {integrity: sha512-bD+zjpFrMpP/hqkfEcnjXWHMw5BIghGisOKPj+2NaNDuVT+8Ds4mPf3XcPHuat1tz89WRL+1wbcxKY3WSbiT7w==}
+  '@rollup/rollup-linux-x64-musl@4.55.2':
+    resolution: {integrity: sha512-4BJucJBGbuGnH6q7kpPqGJGzZnYrpAzRd60HQSt3OpX/6/YVgSsJnNzR8Ot74io50SeVT4CtCWe/RYIAymFPwA==}
     cpu: [x64]
     os: [linux]
 
-  '@rollup/rollup-openbsd-x64@4.55.1':
-    resolution: {integrity: sha512-eLXw0dOiqE4QmvikfQ6yjgkg/xDM+MdU9YJuP4ySTibXU0oAvnEWXt7UDJmD4UkYialMfOGFPJnIHSe/kdzPxg==}
+  '@rollup/rollup-openbsd-x64@4.55.2':
+    resolution: {integrity: sha512-cT2MmXySMo58ENv8p6/O6wI/h/gLnD3D6JoajwXFZH6X9jz4hARqUhWpGuQhOgLNXscfZYRQMJvZDtWNzMAIDw==}
     cpu: [x64]
     os: [openbsd]
 
-  '@rollup/rollup-openharmony-arm64@4.55.1':
-    resolution: {integrity: sha512-xzm44KgEP11te3S2HCSyYf5zIzWmx3n8HDCc7EE59+lTcswEWNpvMLfd9uJvVX8LCg9QWG67Xt75AuHn4vgsXw==}
+  '@rollup/rollup-openharmony-arm64@4.55.2':
+    resolution: {integrity: sha512-sZnyUgGkuzIXaK3jNMPmUIyJrxu/PjmATQrocpGA1WbCPX8H5tfGgRSuYtqBYAvLuIGp8SPRb1O4d1Fkb5fXaQ==}
     cpu: [arm64]
     os: [openharmony]
 
-  '@rollup/rollup-win32-arm64-msvc@4.55.1':
-    resolution: {integrity: sha512-yR6Bl3tMC/gBok5cz/Qi0xYnVbIxGx5Fcf/ca0eB6/6JwOY+SRUcJfI0OpeTpPls7f194as62thCt/2BjxYN8g==}
+  '@rollup/rollup-win32-arm64-msvc@4.55.2':
+    resolution: {integrity: sha512-sDpFbenhmWjNcEbBcoTV0PWvW5rPJFvu+P7XoTY0YLGRupgLbFY0XPfwIbJOObzO7QgkRDANh65RjhPmgSaAjQ==}
     cpu: [arm64]
     os: [win32]
 
-  '@rollup/rollup-win32-ia32-msvc@4.55.1':
-    resolution: {integrity: sha512-3fZBidchE0eY0oFZBnekYCfg+5wAB0mbpCBuofh5mZuzIU/4jIVkbESmd2dOsFNS78b53CYv3OAtwqkZZmU5nA==}
+  '@rollup/rollup-win32-ia32-msvc@4.55.2':
+    resolution: {integrity: sha512-GvJ03TqqaweWCigtKQVBErw2bEhu1tyfNQbarwr94wCGnczA9HF8wqEe3U/Lfu6EdeNP0p6R+APeHVwEqVxpUQ==}
     cpu: [ia32]
     os: [win32]
 
-  '@rollup/rollup-win32-x64-gnu@4.55.1':
-    resolution: {integrity: sha512-xGGY5pXj69IxKb4yv/POoocPy/qmEGhimy/FoTpTSVju3FYXUQQMFCaZZXJVidsmGxRioZAwpThl/4zX41gRKg==}
+  '@rollup/rollup-win32-x64-gnu@4.55.2':
+    resolution: {integrity: sha512-KvXsBvp13oZz9JGe5NYS7FNizLe99Ny+W8ETsuCyjXiKdiGrcz2/J/N8qxZ/RSwivqjQguug07NLHqrIHrqfYw==}
     cpu: [x64]
     os: [win32]
 
-  '@rollup/rollup-win32-x64-msvc@4.55.1':
-    resolution: {integrity: sha512-SPEpaL6DX4rmcXtnhdrQYgzQ5W2uW3SCJch88lB2zImhJRhIIK44fkUrgIV/Q8yUNfw5oyZ5vkeQsZLhCb06lw==}
+  '@rollup/rollup-win32-x64-msvc@4.55.2':
+    resolution: {integrity: sha512-xNO+fksQhsAckRtDSPWaMeT1uIM+JrDRXlerpnWNXhn1TdB3YZ6uKBMBTKP0eX9XtYEP978hHk1f8332i2AW8Q==}
     cpu: [x64]
     os: [win32]
 
@@ -7222,8 +7322,8 @@ packages:
       react: 19.2.1
       react-dom: 19.2.1
 
-  '@stripe/stripe-js@8.6.1':
-    resolution: {integrity: sha512-UJ05U2062XDgydbUcETH1AoRQLNhigQ2KmDn1BG8sC3xfzu6JKg95Qt6YozdzFpxl1Npii/02m2LEWFt1RYjVA==}
+  '@stripe/stripe-js@8.6.3':
+    resolution: {integrity: sha512-MQsPNsMMprOu+p+BWYvD69aPjD52yQNXZaENRQX7IkbWqu7lp9k04D+RPeHWJEsuyzmCCoHx3Kqqf3tcXPoNvQ==}
     engines: {node: '>=12.16'}
 
   '@svgr/babel-plugin-add-jsx-attribute@8.0.0':
@@ -7775,11 +7875,11 @@ packages:
   '@types/yauzl@2.10.3':
     resolution: {integrity: sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==}
 
-  '@typescript-eslint/eslint-plugin@8.53.0':
-    resolution: {integrity: sha512-eEXsVvLPu8Z4PkFibtuFJLJOTAV/nPdgtSjkGoPpddpFk3/ym2oy97jynY6ic2m6+nc5M8SE1e9v/mHKsulcJg==}
+  '@typescript-eslint/eslint-plugin@8.53.1':
+    resolution: {integrity: sha512-cFYYFZ+oQFi6hUnBTbLRXfTJiaQtYE3t4O692agbBl+2Zy+eqSKWtPjhPXJu1G7j4RLjKgeJPDdq3EqOwmX5Ag==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
-      '@typescript-eslint/parser': ^8.53.0
+      '@typescript-eslint/parser': ^8.53.1
       eslint: 9.39.1
       typescript: '>=4.8.4 <6.0.0'
 
@@ -7793,15 +7893,15 @@ packages:
       typescript:
         optional: true
 
-  '@typescript-eslint/parser@8.53.0':
-    resolution: {integrity: sha512-npiaib8XzbjtzS2N4HlqPvlpxpmZ14FjSJrteZpPxGUaYPlvhzlzUZ4mZyABo0EFrOWnvyd0Xxroq//hKhtAWg==}
+  '@typescript-eslint/parser@8.53.1':
+    resolution: {integrity: sha512-nm3cvFN9SqZGXjmw5bZ6cGmvJSyJPn0wU9gHAZZHDnZl2wF9PhHv78Xf06E0MaNk4zLVHL8hb2/c32XvyJOLQg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: 9.39.1
       typescript: '>=4.8.4 <6.0.0'
 
-  '@typescript-eslint/project-service@8.53.0':
-    resolution: {integrity: sha512-Bl6Gdr7NqkqIP5yP9z1JU///Nmes4Eose6L1HwpuVHwScgDPPuEWbUVhvlZmb8hy0vX9syLk5EGNL700WcBlbg==}
+  '@typescript-eslint/project-service@8.53.1':
+    resolution: {integrity: sha512-WYC4FB5Ra0xidsmlPb+1SsnaSKPmS3gsjIARwbEkHkoWloQmuzcfypljaJcR78uyLA1h8sHdWWPHSLDI+MtNog==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       typescript: '>=4.8.4 <6.0.0'
@@ -7810,18 +7910,18 @@ packages:
     resolution: {integrity: sha512-OwLUIWZJry80O99zvqXVEioyniJMa+d2GrqpUTqi5/v5D5rOrppJVBPa0yKCblcigC0/aYAzxxqQ1B+DS2RYsg==}
     engines: {node: ^16.0.0 || >=18.0.0}
 
-  '@typescript-eslint/scope-manager@8.53.0':
-    resolution: {integrity: sha512-kWNj3l01eOGSdVBnfAF2K1BTh06WS0Yet6JUgb9Cmkqaz3Jlu0fdVUjj9UI8gPidBWSMqDIglmEXifSgDT/D0g==}
+  '@typescript-eslint/scope-manager@8.53.1':
+    resolution: {integrity: sha512-Lu23yw1uJMFY8cUeq7JlrizAgeQvWugNQzJp8C3x8Eo5Jw5Q2ykMdiiTB9vBVOOUBysMzmRRmUfwFrZuI2C4SQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@typescript-eslint/tsconfig-utils@8.53.0':
-    resolution: {integrity: sha512-K6Sc0R5GIG6dNoPdOooQ+KtvT5KCKAvTcY8h2rIuul19vxH5OTQk7ArKkd4yTzkw66WnNY0kPPzzcmWA+XRmiA==}
+  '@typescript-eslint/tsconfig-utils@8.53.1':
+    resolution: {integrity: sha512-qfvLXS6F6b1y43pnf0pPbXJ+YoXIC7HKg0UGZ27uMIemKMKA6XH2DTxsEDdpdN29D+vHV07x/pnlPNVLhdhWiA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       typescript: '>=4.8.4 <6.0.0'
 
-  '@typescript-eslint/type-utils@8.53.0':
-    resolution: {integrity: sha512-BBAUhlx7g4SmcLhn8cnbxoxtmS7hcq39xKCgiutL3oNx1TaIp+cny51s8ewnKMpVUKQUGb41RAUWZ9kxYdovuw==}
+  '@typescript-eslint/type-utils@8.53.1':
+    resolution: {integrity: sha512-MOrdtNvyhy0rHyv0ENzub1d4wQYKb2NmIqG7qEqPWFW7Mpy2jzFC3pQ2yKDvirZB7jypm5uGjF2Qqs6OIqu47w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: 9.39.1
@@ -7831,8 +7931,8 @@ packages:
     resolution: {integrity: sha512-1kFmZ1rOm5epu9NZEZm1kckCDGj5UJEf7P1kliH4LKu/RkwpsfqqGmY2OOcUs18lSlQBKLDYBOGxRVtrMN5lpg==}
     engines: {node: ^16.0.0 || >=18.0.0}
 
-  '@typescript-eslint/types@8.53.0':
-    resolution: {integrity: sha512-Bmh9KX31Vlxa13+PqPvt4RzKRN1XORYSLlAE+sO1i28NkisGbTtSLFVB3l7PWdHtR3E0mVMuC7JilWJ99m2HxQ==}
+  '@typescript-eslint/types@8.53.1':
+    resolution: {integrity: sha512-jr/swrr2aRmUAUjW5/zQHbMaui//vQlsZcJKijZf3M26bnmLj8LyZUpj8/Rd6uzaek06OWsqdofN/Thenm5O8A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@typescript-eslint/typescript-estree@6.21.0':
@@ -7844,14 +7944,14 @@ packages:
       typescript:
         optional: true
 
-  '@typescript-eslint/typescript-estree@8.53.0':
-    resolution: {integrity: sha512-pw0c0Gdo7Z4xOG987u3nJ8akL9093yEEKv8QTJ+Bhkghj1xyj8cgPaavlr9rq8h7+s6plUJ4QJYw2gCZodqmGw==}
+  '@typescript-eslint/typescript-estree@8.53.1':
+    resolution: {integrity: sha512-RGlVipGhQAG4GxV1s34O91cxQ/vWiHJTDHbXRr0li2q/BGg3RR/7NM8QDWgkEgrwQYCvmJV9ichIwyoKCQ+DTg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       typescript: '>=4.8.4 <6.0.0'
 
-  '@typescript-eslint/utils@8.53.0':
-    resolution: {integrity: sha512-XDY4mXTez3Z1iRDI5mbRhH4DFSt46oaIFsLg+Zn97+sYrXACziXSQcSelMybnVZ5pa1P6xYkPr5cMJyunM1ZDA==}
+  '@typescript-eslint/utils@8.53.1':
+    resolution: {integrity: sha512-c4bMvGVWW4hv6JmDUEG7fSYlWOl3II2I4ylt0NM+seinYQlZMQIaKaXIIVJWt9Ofh6whrpM+EdDQXKXjNovvrg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: 9.39.1
@@ -7861,8 +7961,8 @@ packages:
     resolution: {integrity: sha512-JJtkDduxLi9bivAB+cYOVMtbkqdPOhZ+ZI5LC47MIRrDV4Yn2o+ZnW10Nkmr28xRpSpdJ6Sm42Hjf2+REYXm0A==}
     engines: {node: ^16.0.0 || >=18.0.0}
 
-  '@typescript-eslint/visitor-keys@8.53.0':
-    resolution: {integrity: sha512-LZ2NqIHFhvFwxG0qZeLL9DvdNAHPGCY5dIRwBhyYeU+LfLhcStE1ImjsuTG/WaVh3XysGaeLW8Rqq7cGkPCFvw==}
+  '@typescript-eslint/visitor-keys@8.53.1':
+    resolution: {integrity: sha512-oy+wV7xDKFPRyNggmXuZQSBzvoLnpmJs+GhzRhPjrxl2b/jIlyjVokzm47CZCDUdXKr2zd7ZLodPfOBpOPyPlg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@typescript/vfs@1.3.6':
@@ -7994,11 +8094,11 @@ packages:
   '@volar/typescript@2.4.15':
     resolution: {integrity: sha512-2aZ8i0cqPGjXb4BhkMsPYDkkuc2ZQ6yOpqwAuNwUoncELqoy5fRgOQtLR9gB0g902iS0NAkvpIzs27geVyVdPg==}
 
-  '@vue/compiler-core@3.5.26':
-    resolution: {integrity: sha512-vXyI5GMfuoBCnv5ucIT7jhHKl55Y477yxP6fc4eUswjP8FG3FFVFd41eNDArR+Uk3QKn2Z85NavjaxLxOC19/w==}
+  '@vue/compiler-core@3.5.27':
+    resolution: {integrity: sha512-gnSBQjZA+//qDZen+6a2EdHqJ68Z7uybrMf3SPjEGgG4dicklwDVmMC1AeIHxtLVPT7sn6sH1KOO+tS6gwOUeQ==}
 
-  '@vue/compiler-dom@3.5.26':
-    resolution: {integrity: sha512-y1Tcd3eXs834QjswshSilCBnKGeQjQXB6PqFn/1nxcQw4pmG42G8lwz+FZPAZAby6gZeHSt/8LMPfZ4Rb+Bd/A==}
+  '@vue/compiler-dom@3.5.27':
+    resolution: {integrity: sha512-oAFea8dZgCtVVVTEC7fv3T5CbZW9BxpFzGGxC79xakTr6ooeEqmRuvQydIiDAkglZEAd09LgVf1RoDnL54fu5w==}
 
   '@vue/compiler-vue2@2.7.16':
     resolution: {integrity: sha512-qYC3Psj9S/mfu9uVi5WvNZIzq+xnXMhOwbTFKKDD7b1lhpnn71jXSFdTQ+WsIEk0ONCd7VV2IMm7ONl6tbQ86A==}
@@ -8011,8 +8111,8 @@ packages:
       typescript:
         optional: true
 
-  '@vue/shared@3.5.26':
-    resolution: {integrity: sha512-7Z6/y3uFI5PRoKeorTOSXKcDj0MSasfNNltcslbFrPpcw6aXRUALq4IfJlaTRspiWIUOEZbrpM+iQGmCOiWe4A==}
+  '@vue/shared@3.5.27':
+    resolution: {integrity: sha512-dXr/3CgqXsJkZ0n9F3I4elY8wM9jMJpP3pvRG52r6m0tu/MsAFIe6JpXVGeNMd/D9F4hQynWT8Rfuj0bdm9kFQ==}
 
   '@vusion/webfonts-generator@0.8.0':
     resolution: {integrity: sha512-1q17CF6umBEjlAtO37TzRw3aOCCAyFX+T4HPG70BmM6qx8s6H4/LQOa8eHFZq/oiMuMyd0FehKgUt/pqYlIMWA==}
@@ -8509,8 +8609,8 @@ packages:
   aws-amplify@6.15.10:
     resolution: {integrity: sha512-OKph1YS3pRCCc2OC8O7VgCks08F2eJg87Es7z6rBVo4SyfunMNPthzLbIcOnnKilkEsJSsVBFbthmL7kEXLEDA==}
 
-  aws-cdk-lib@2.235.0:
-    resolution: {integrity: sha512-zoTa+fw4J0sjYrn4LJcWAKxQ8i9DMqWdLo7MkP6nNgtqEaypajF9t6Ucasx93/pAQ2bmGV61EM2oVEOtVnpenA==}
+  aws-cdk-lib@2.235.1:
+    resolution: {integrity: sha512-qKAsbunxtveIOIaeJSBgH2PZgdIiPkKtfsa+BxeNDOv2idw6Oa0dJW3Q0sdu8XBopY1KZI2Owrg8r56BOyyohA==}
     engines: {node: '>= 18.0.0'}
     peerDependencies:
       constructs: ^10.0.0
@@ -8909,8 +9009,8 @@ packages:
   caniuse-api@3.0.0:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
 
-  caniuse-lite@1.0.30001764:
-    resolution: {integrity: sha512-9JGuzl2M+vPL+pz70gtMF9sHdMFbY9FJaQBi186cHKH3pSzDvzoUJUPV6fqiKIMyXbud9ZLg4F3Yza1vJ1+93g==}
+  caniuse-lite@1.0.30001765:
+    resolution: {integrity: sha512-LWcNtSyZrakjECqmpP4qdg0MMGdN368D7X8XvvAqOcqMv0RxnlqVKZl2V6/mBR68oYMxOZPLw/gO7DuisMHUvQ==}
 
   capital-case@1.0.4:
     resolution: {integrity: sha512-ds37W8CytHgwnhGGTi88pcPyR15qoNkOpYwmMMfnWqqWgESapLqvDx6huFjQ5vqWSn2Z06173XNA7LtMOeUh1A==}
@@ -9921,8 +10021,8 @@ packages:
   decimal.js@10.6.0:
     resolution: {integrity: sha512-YpgQiITW3JXGntzdUmyUR1V812Hn8T1YVXhCu+wO3OpS4eU9l4YdD3qjyiKdV6mvV29zapkMeD390UVEf2lkUg==}
 
-  decode-named-character-reference@1.2.0:
-    resolution: {integrity: sha512-c6fcElNV6ShtZXmsgNgFFV5tVX2PaV4g+MOAkb8eXHvn6sryJBrZa9r0zV6+dtTyoCKxtDy5tyQ5ZwQuidtd+Q==}
+  decode-named-character-reference@1.3.0:
+    resolution: {integrity: sha512-GtpQYB283KrPp6nRw50q3U9/VfOutZOe103qlN7BPP6Ad27xYnOIWv4lPzo8HCAL+mMZofJ9KEy30fq6MfaK6Q==}
 
   deep-diff@1.0.2:
     resolution: {integrity: sha512-aWS3UIVH+NPGCD1kki+DCU9Dua032iSsO43LqQpcs4R3+dVv7tX0qBGjiVHJHjplsoUM2XRO/KB92glqc68awg==}
@@ -10683,8 +10783,8 @@ packages:
   eventemitter3@4.0.7:
     resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
 
-  eventemitter3@5.0.1:
-    resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
+  eventemitter3@5.0.4:
+    resolution: {integrity: sha512-mlsTRyGaPBjPedk6Bvw+aqbsXDtoAyAzm5MO7JgU+yVRyMQ5O8bD4Kcci7BS85f93veegeCPkL8R4GLClnjLFw==}
 
   events-universal@1.0.1:
     resolution: {integrity: sha512-LUd5euvbMLpwOF8m6ivPCbhQeSiYVNb8Vs0fQ8QjXo0JTkEHpz8pxdQf0gStltaPpw0Cca8b39KxvK9cfKRiAw==}
@@ -11295,19 +11395,19 @@ packages:
   graphql-query-complexity@0.12.0:
     resolution: {integrity: sha512-fWEyuSL6g/+nSiIRgIipfI6UXTI7bAxrpPlCY1c0+V3pAEUo1ybaKmSBgNr1ed2r+agm1plJww8Loig9y6s2dw==}
     peerDependencies:
-      graphql: ^14.6.0 || ^15.0.0 || ^16.0.0
+      graphql: ^16.12.0
 
   graphql-scalars@1.25.0:
     resolution: {integrity: sha512-b0xyXZeRFkne4Eq7NAnL400gStGqG/Sx9VqX0A05nHyEbv57UJnWKsjNnrpVqv5e/8N1MUxkt0wwcRXbiyKcFg==}
     engines: {node: '>=10'}
     peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql: ^16.12.0
 
   graphql-tag@2.12.6:
     resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==}
     engines: {node: '>=10'}
     peerDependencies:
-      graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql: ^16.12.0
 
   graphql-transformer-common@4.34.0:
     resolution: {integrity: sha512-rkR7N1wTZpV1rUHkaMrowp6zT2BNUmK5wvYOFKj1IIrYGX2B57Y/yYIFcu+TPIQqVV/xdre45anRl0fjPUixsg==}
@@ -11319,15 +11419,7 @@ packages:
     resolution: {integrity: sha512-xFt1DVXS1BZ3AvjnawAGc5OYieSe56WuQuyk3iEpBwJ3QDZJWQGLmU9z/L5NUZ+pUcyprsz/bOwkYIV96fXt/g==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      graphql: ^15.2.0 || ^16.0.0
-
-  graphql@15.10.1:
-    resolution: {integrity: sha512-BL/Xd/T9baO6NFzoMpiMD7YUZ62R6viR5tp/MULVEnbYJXZA//kRNW7J0j1w/wXArgL0sCxhDfK5dczSKn3+cg==}
-    engines: {node: '>= 10.x'}
-
-  graphql@15.8.0:
-    resolution: {integrity: sha512-5gghUc24tP9HRznNpV2+FIoq3xKkj5dTQqf4v0CpdPbFVwFkWoxOM+o+2OC9ZSvjEMTjfmG9QT+gcvggTwW1zw==}
-    engines: {node: '>= 10.x'}
+      graphql: ^16.12.0
 
   graphql@16.12.0:
     resolution: {integrity: sha512-DKKrynuQRne0PNpEbzuEdHlYOMksHSUI8Zc9Unei5gTsMNA2/vMpoMz/yKba50pejK56qj98qM0SjYxAKi13gQ==}
@@ -12473,7 +12565,7 @@ packages:
       '@opentelemetry/api': '*'
       '@opentelemetry/exporter-trace-otlp-proto': '*'
       '@opentelemetry/sdk-trace-base': '*'
-      openai: 5.23.2
+      openai: ^6.16.0
     peerDependenciesMeta:
       '@opentelemetry/api':
         optional: true
@@ -12957,8 +13049,10 @@ packages:
     resolution: {integrity: sha512-UERzLsxzllchadvbPs5aolHh65ISpKpM+ccLbOJ8/vvpBKmAWf+la7dXFy7Mr0ySHbdHrFv5kGFCUHHe6GFEmw==}
     engines: {node: '>= 4.0.0'}
 
-  memfs@4.54.0:
-    resolution: {integrity: sha512-wiJ9YYUj2bVcpdJgIv6y1KrStknSdNhfM4+4+ttt0cHHMxVLZ3aOBoER8krt9lGY5HkR2ustUXiihhNPeNxXaQ==}
+  memfs@4.56.2:
+    resolution: {integrity: sha512-AEbdVTy4TZiugbnfA7d1z9IvwpHlaGh9Vlb/iteHDtUU/WhOKAwgbhy1f8dnX1SMbeKLIXdXf3lVWb55PuBQQw==}
+    peerDependencies:
+      tslib: ^2.8.1
 
   meow@13.2.0:
     resolution: {integrity: sha512-pxQJQzB6djGPXh08dacEloMFopsOqGVRKFPYvPOt9XDZ1HasbgDZA74CJGreSU4G3Ak7EFJGoiH2auq+yXISgA==}
@@ -13358,8 +13452,8 @@ packages:
     resolution: {integrity: sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==}
     engines: {node: '>=0.10.0'}
 
-  motion-dom@12.26.2:
-    resolution: {integrity: sha512-KLMT1BroY8oKNeliA3JMNJ+nbCIsTKg6hJpDb4jtRAJ7nCKnnpg/LTq/NGqG90Limitz3kdAnAVXecdFVGlWTw==}
+  motion-dom@12.27.1:
+    resolution: {integrity: sha512-V/53DA2nBqKl9O2PMJleSUb/G0dsMMeZplZwgIQf5+X0bxIu7Q1cTv6DrjvTTGYRm3+7Y5wMlRZ1wT61boU/bQ==}
 
   motion-utils@12.24.10:
     resolution: {integrity: sha512-x5TFgkCIP4pPsRLpKoI86jv/q8t8FQOiM/0E8QKBzfMozWHfkKap2gA1hOki+B5g3IsBNpxbUnfOum1+dgvYww==}
@@ -13788,8 +13882,8 @@ packages:
     resolution: {integrity: sha512-YgBpdJHPyQ2UE5x+hlSXcnejzAvD0b22U2OuAP+8OnlJT+PjWPxtgmGqKKc+RgTM63U9gN0YzrYc71R2WT/hTA==}
     engines: {node: '>=18'}
 
-  openai@5.23.2:
-    resolution: {integrity: sha512-MQBzmTulj+MM5O8SKEk/gL8a7s5mktS9zUtAkU257WjvobGc9nKcBuVwjyEEcb9SI8a8Y2G/mzn3vm9n1Jlleg==}
+  openai@6.16.0:
+    resolution: {integrity: sha512-fZ1uBqjFUjXzbGc35fFtYKEOxd20kd9fDpFeqWtsOZWiubY8CZ1NAlXHW3iathaFvqmNtCWMIsosCuyeI7Joxg==}
     hasBin: true
     peerDependencies:
       ws: ^8.18.0
@@ -15114,8 +15208,8 @@ packages:
     resolution: {integrity: sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==}
     engines: {node: '>=0.10.0'}
 
-  posthog-js@1.328.0:
-    resolution: {integrity: sha512-1TzO1WOq53vnn+4W7Evda4QyBOcLI1svoMJy1x4CyiR1RgCHh2hhcmCcKeRJh8CAUV8H69qLo6dGvjMY8ENkrg==}
+  posthog-js@1.330.0:
+    resolution: {integrity: sha512-Sj3xPMtT7Xlfa55LUzzi5aA39BZjn8PcpyP7N4pdW7sqkcppACZYSxPpwUXquRDR3oLbE806/scDl3osOrwLbw==}
 
   posthog-node@4.17.2:
     resolution: {integrity: sha512-bFmwOTk4QdYavopeHVXtyFGQ9vyLMVaNWkWocwjix+0n6sQgv7Zq5nYjYulz7ThmK18zsvNJ337ahuMLv3ulow==}
@@ -15866,8 +15960,8 @@ packages:
     engines: {node: '>=10.0.0'}
     hasBin: true
 
-  rollup@4.55.1:
-    resolution: {integrity: sha512-wDv/Ht1BNHB4upNbK74s9usvl7hObDnvVzknxqY/E/O3X6rW1U1rV1aENEfJ54eFZDTNo7zv1f5N4edCluH7+A==}
+  rollup@4.55.2:
+    resolution: {integrity: sha512-PggGy4dhwx5qaW+CKBilA/98Ql9keyfnb7lh4SR6shQ91QQQi1ORJ1v4UinkdP2i87OBs9AQFooQylcrrRfIcg==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -15906,15 +16000,8 @@ packages:
   rw@1.3.3:
     resolution: {integrity: sha512-PdhdWy89SiZogBLaw42zdeqtRJ//zFd2PgQavcICDUgJT5oW10QCRKbJ6bg4r0/UY2M6BWd5tkxuGFRvCkgfHQ==}
 
-  rxjs@6.6.7:
-    resolution: {integrity: sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==}
-    engines: {npm: '>=2.0.0'}
-
   rxjs@7.8.1:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
-
-  rxjs@7.8.2:
-    resolution: {integrity: sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==}
 
   sade@1.8.1:
     resolution: {integrity: sha512-xal3CZX1Xlo/k4ApwCFrHVACi9fBqJ7V+mwhBsuf/1IOKbBy098Fex+Wa/5QMubw09pSZ/u8EY8PWgevJsXp1A==}
@@ -16864,6 +16951,7 @@ packages:
   tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting i@izs.me
 
   tarn@3.0.2:
     resolution: {integrity: sha512-51LAVKUSZSVfI05vjPESNc5vwqqZpbXCsU+/+wxlOrUjk2SnFTt97v9ZgQrD4YmxYW1Px6w2KjaDitCfkvgxMQ==}
@@ -17277,7 +17365,7 @@ packages:
     engines: {node: '>= 18.12.0'}
     peerDependencies:
       class-validator: '>=0.14.0'
-      graphql: ^16.8.1
+      graphql: ^16.12.0
       graphql-scalars: ^1.22.4
     peerDependenciesMeta:
       class-validator:
@@ -17310,8 +17398,8 @@ packages:
   typed-query-selector@2.12.0:
     resolution: {integrity: sha512-SbklCd1F0EiZOyPiW192rrHZzZ5sBijB6xM+cpmrwDqObvdtunOHHIk9fCGsoK5JVIYXoyEp4iEdE3upFH3PAg==}
 
-  typescript-eslint@8.53.0:
-    resolution: {integrity: sha512-xHURCQNxZ1dsWn0sdOaOfCSQG0HKeqSj9OexIxrz6ypU6wHYOdX2I3D2b8s8wFSsSOYJb+6q283cLiLlkEsBYw==}
+  typescript-eslint@8.53.1:
+    resolution: {integrity: sha512-gB+EVQfP5RDElh9ittfXlhZJdjSU4jUSTyE2+ia8CYyNvet4ElfaLlAIqDvQV9JPknKx0jQH1racTYe/4LaLSg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: 9.39.1
@@ -18104,7 +18192,25 @@ snapshots:
       uuid: 11.1.0
       zod: 4.3.5
 
+  '@ag-ui/client@0.0.43':
+    dependencies:
+      '@ag-ui/core': 0.0.43
+      '@ag-ui/encoder': 0.0.43
+      '@ag-ui/proto': 0.0.43
+      '@types/uuid': 10.0.0
+      compare-versions: 6.1.1
+      fast-json-patch: 3.1.1
+      rxjs: 7.8.1
+      untruncate-json: 0.0.1
+      uuid: 11.1.0
+      zod: 4.3.5
+
   '@ag-ui/core@0.0.42':
+    dependencies:
+      rxjs: 7.8.1
+      zod: 4.3.5
+
+  '@ag-ui/core@0.0.43':
     dependencies:
       rxjs: 7.8.1
       zod: 4.3.5
@@ -18114,28 +18220,17 @@ snapshots:
       '@ag-ui/core': 0.0.42
       '@ag-ui/proto': 0.0.42
 
-  '@ag-ui/langgraph@0.0.20(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@ag-ui/encoder@0.0.43':
     dependencies:
-      '@ag-ui/client': 0.0.42
-      '@ag-ui/core': 0.0.42
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))
-      '@langchain/langgraph-sdk': 0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      partial-json: 0.1.7
-      rxjs: 7.8.1
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - react
-      - react-dom
+      '@ag-ui/core': 0.0.43
+      '@ag-ui/proto': 0.0.43
 
-  '@ag-ui/langgraph@0.0.20(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@ag-ui/langgraph@0.0.20(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@ag-ui/client': 0.0.42
       '@ag-ui/core': 0.0.42
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5))
-      '@langchain/langgraph-sdk': 0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5))
+      '@langchain/langgraph-sdk': 0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       partial-json: 0.1.7
       rxjs: 7.8.1
     transitivePeerDependencies:
@@ -18149,6 +18244,12 @@ snapshots:
   '@ag-ui/proto@0.0.42':
     dependencies:
       '@ag-ui/core': 0.0.42
+      '@bufbuild/protobuf': 2.10.2
+      '@protobuf-ts/protoc': 2.11.1
+
+  '@ag-ui/proto@0.0.43':
+    dependencies:
+      '@ag-ui/core': 0.0.43
       '@bufbuild/protobuf': 2.10.2
       '@protobuf-ts/protoc': 2.11.1
 
@@ -18217,7 +18318,7 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@ardatan/relay-compiler@12.0.0(encoding@0.1.13)(graphql@15.10.1)':
+  '@ardatan/relay-compiler@12.0.0(encoding@0.1.13)(graphql@16.12.0)':
     dependencies:
       '@babel/core': 7.28.6
       '@babel/generator': 7.28.6
@@ -18230,7 +18331,7 @@ snapshots:
       fb-watchman: 2.0.2
       fbjs: 3.0.5(encoding@0.1.13)
       glob: 10.3.12
-      graphql: 15.10.1
+      graphql: 16.12.0
       immutable: 3.7.6
       invariant: 2.2.4
       nullthrows: 1.1.1
@@ -18241,14 +18342,14 @@ snapshots:
       - encoding
       - supports-color
 
-  '@ardatan/relay-compiler@12.0.3(encoding@0.1.13)(graphql@15.10.1)':
+  '@ardatan/relay-compiler@12.0.3(encoding@0.1.13)(graphql@16.12.0)':
     dependencies:
       '@babel/generator': 7.28.6
       '@babel/parser': 7.28.6
       '@babel/runtime': 7.28.6
       chalk: 4.1.2
       fb-watchman: 2.0.2
-      graphql: 15.10.1
+      graphql: 16.12.0
       immutable: 3.7.6
       invariant: 2.2.4
       nullthrows: 1.1.1
@@ -18298,8 +18399,8 @@ snapshots:
       '@aws-amplify/core': 6.15.1
       '@aws-amplify/data-schema': 1.22.2
       '@aws-sdk/types': 3.723.0
-      graphql: 15.8.0
-      rxjs: 7.8.2
+      graphql: 16.12.0
+      rxjs: 7.8.1
       tslib: 2.8.1
       uuid: 11.1.0
 
@@ -18314,17 +18415,17 @@ snapshots:
       '@aws-amplify/api-rest': 4.6.1(@aws-amplify/core@6.15.1)
       '@aws-amplify/core': 6.15.1
       '@aws-amplify/data-schema': 1.22.2
-      rxjs: 7.8.2
+      rxjs: 7.8.1
       tslib: 2.8.1
 
-  '@aws-amplify/appsync-modelgen-plugin@2.15.2(encoding@0.1.13)(graphql@15.10.1)':
+  '@aws-amplify/appsync-modelgen-plugin@2.15.2(encoding@0.1.13)(graphql@16.12.0)':
     dependencies:
-      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@15.10.1)
-      '@graphql-codegen/visitor-plugin-common': 1.22.0(encoding@0.1.13)(graphql@15.10.1)
-      '@graphql-tools/utils': 6.2.4(graphql@15.10.1)
+      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.12.0)
+      '@graphql-codegen/visitor-plugin-common': 1.22.0(encoding@0.1.13)(graphql@16.12.0)
+      '@graphql-tools/utils': 6.2.4(graphql@16.12.0)
       chalk: 3.0.0
       change-case: 4.1.2
-      graphql: 15.10.1
+      graphql: 16.12.0
       graphql-transformer-common: 4.34.0
       lower-case-first: 2.0.2
       pluralize: 8.0.0
@@ -18334,14 +18435,14 @@ snapshots:
       - encoding
       - supports-color
 
-  '@aws-amplify/auth-construct@1.11.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)':
+  '@aws-amplify/auth-construct@1.11.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)':
     dependencies:
       '@aws-amplify/backend-output-schemas': 1.8.0(zod@4.3.5)
-      '@aws-amplify/backend-output-storage': 1.3.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
-      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/backend-output-storage': 1.3.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
+      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-sdk/util-arn-parser': 3.968.0
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
       constructs: 10.4.5
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
@@ -18358,13 +18459,13 @@ snapshots:
       '@smithy/types': 3.7.2
       tslib: 2.8.1
 
-  '@aws-amplify/backend-auth@1.9.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)':
+  '@aws-amplify/backend-auth@1.9.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)':
     dependencies:
-      '@aws-amplify/auth-construct': 1.11.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
+      '@aws-amplify/auth-construct': 1.11.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
       '@aws-amplify/backend-output-schemas': 1.8.0(zod@4.3.5)
-      '@aws-amplify/backend-output-storage': 1.3.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      '@aws-amplify/backend-output-storage': 1.3.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
       constructs: 10.4.5
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
@@ -18374,20 +18475,20 @@ snapshots:
       - react-native-b4a
       - zod
 
-  '@aws-amplify/backend-cli@1.8.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(@types/node@22.10.1)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)':
+  '@aws-amplify/backend-cli@1.8.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(@types/node@22.10.1)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)':
     dependencies:
-      '@aws-amplify/backend-deployer': 2.1.5(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(typescript@5.9.3)
+      '@aws-amplify/backend-deployer': 2.1.5(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(typescript@5.9.3)
       '@aws-amplify/backend-output-schemas': 1.8.0(zod@4.3.5)
-      '@aws-amplify/backend-secret': 1.4.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/cli-core': 2.2.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(@types/node@22.10.1)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/client-config': 1.10.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)
-      '@aws-amplify/deployed-backend-client': 1.8.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/backend-secret': 1.4.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/cli-core': 2.2.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(@types/node@22.10.1)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/client-config': 1.10.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)
+      '@aws-amplify/deployed-backend-client': 1.8.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-amplify/form-generator': 1.2.6(encoding@0.1.13)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@aws-amplify/model-generator': 1.2.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(zod@4.3.5)
-      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/sandbox': 2.1.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@types/node@22.10.1)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(typescript@5.9.3)
-      '@aws-amplify/schema-generator': 1.4.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/model-generator': 1.2.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(zod@4.3.5)
+      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/sandbox': 2.1.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@types/node@22.10.1)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(typescript@5.9.3)
+      '@aws-amplify/schema-generator': 1.4.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-sdk/client-amplify': 3.971.0
       '@aws-sdk/client-cloudformation': 3.971.0
       '@aws-sdk/client-s3': 3.932.0
@@ -18401,7 +18502,7 @@ snapshots:
       '@opentelemetry/sdk-trace-base': 2.4.0(@opentelemetry/api@1.9.0)
       '@smithy/node-config-provider': 4.3.8
       '@smithy/shared-ini-file-loader': 4.4.3
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
       envinfo: 7.21.0
       execa: 9.6.1
       is-ci: 4.1.0
@@ -18427,17 +18528,17 @@ snapshots:
       - tedious
       - typescript
 
-  '@aws-amplify/backend-data@1.6.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(zod@4.3.5)':
+  '@aws-amplify/backend-data@1.6.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(zod@4.3.5)':
     dependencies:
       '@aws-amplify/backend-output-schemas': 1.8.0(zod@4.3.5)
-      '@aws-amplify/backend-output-storage': 1.3.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
-      '@aws-amplify/data-construct': 1.16.3(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/backend-output-storage': 1.3.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
+      '@aws-amplify/data-construct': 1.16.3(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-amplify/data-schema-types': 1.2.1
       '@aws-amplify/graphql-generator': 0.5.3(encoding@0.1.13)
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
       constructs: 10.4.5
-      graphql: 15.10.1
+      graphql: 16.12.0
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
       - '@aws-sdk/types'
@@ -18448,12 +18549,12 @@ snapshots:
       - supports-color
       - zod
 
-  '@aws-amplify/backend-deployer@2.1.5(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(typescript@5.9.3)':
+  '@aws-amplify/backend-deployer@2.1.5(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(typescript@5.9.3)':
     dependencies:
-      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-cdk/toolkit-lib': 1.6.1(@aws-cdk/cli-plugin-contract@2.182.0)
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
       execa: 9.6.1
       minimatch: 10.1.1
       strip-ansi: 7.1.2
@@ -18467,13 +18568,13 @@ snapshots:
       - constructs
       - react-native-b4a
 
-  '@aws-amplify/backend-function@1.16.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)':
+  '@aws-amplify/backend-function@1.16.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)':
     dependencies:
       '@aws-amplify/backend-output-schemas': 1.8.0(zod@4.3.5)
-      '@aws-amplify/backend-output-storage': 1.3.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/backend-output-storage': 1.3.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-sdk/client-s3': 3.932.0
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
       constructs: 10.4.5
       execa: 9.6.1
     transitivePeerDependencies:
@@ -18488,12 +18589,12 @@ snapshots:
     dependencies:
       zod: 4.3.5
 
-  '@aws-amplify/backend-output-storage@1.3.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)':
+  '@aws-amplify/backend-output-storage@1.3.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)':
     dependencies:
       '@aws-amplify/backend-output-schemas': 1.8.0(zod@4.3.5)
-      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
       - '@aws-sdk/types'
@@ -18503,10 +18604,10 @@ snapshots:
       - react-native-b4a
       - zod
 
-  '@aws-amplify/backend-secret@1.4.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)':
+  '@aws-amplify/backend-secret@1.4.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)':
     dependencies:
-      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-sdk/client-ssm': 3.971.0
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
@@ -18517,12 +18618,12 @@ snapshots:
       - constructs
       - react-native-b4a
 
-  '@aws-amplify/backend-storage@1.4.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)':
+  '@aws-amplify/backend-storage@1.4.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)':
     dependencies:
       '@aws-amplify/backend-output-schemas': 1.8.0(zod@4.3.5)
-      '@aws-amplify/backend-output-storage': 1.3.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      '@aws-amplify/backend-output-storage': 1.3.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
       constructs: 10.4.5
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
@@ -18532,21 +18633,21 @@ snapshots:
       - react-native-b4a
       - zod
 
-  '@aws-amplify/backend@1.20.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(zod@4.3.5)':
+  '@aws-amplify/backend@1.20.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(zod@4.3.5)':
     dependencies:
-      '@aws-amplify/backend-auth': 1.9.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
-      '@aws-amplify/backend-data': 1.6.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(zod@4.3.5)
-      '@aws-amplify/backend-function': 1.16.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
+      '@aws-amplify/backend-auth': 1.9.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
+      '@aws-amplify/backend-data': 1.6.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(zod@4.3.5)
+      '@aws-amplify/backend-function': 1.16.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
       '@aws-amplify/backend-output-schemas': 1.8.0(zod@4.3.5)
-      '@aws-amplify/backend-output-storage': 1.3.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
-      '@aws-amplify/backend-secret': 1.4.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/backend-storage': 1.4.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
-      '@aws-amplify/client-config': 1.10.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)
+      '@aws-amplify/backend-output-storage': 1.3.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
+      '@aws-amplify/backend-secret': 1.4.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/backend-storage': 1.4.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(zod@4.3.5)
+      '@aws-amplify/client-config': 1.10.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)
       '@aws-amplify/data-schema': 1.22.2
-      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-sdk/client-amplify': 3.971.0
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
       constructs: 10.4.5
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
@@ -18560,9 +18661,9 @@ snapshots:
       - supports-color
       - zod
 
-  '@aws-amplify/cli-core@2.2.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(@types/node@22.10.1)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)':
+  '@aws-amplify/cli-core@2.2.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(@types/node@22.10.1)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)':
     dependencies:
-      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-sdk/client-cloudformation': 3.971.0
       '@inquirer/prompts': 7.10.1(@types/node@22.10.1)
       '@opentelemetry/api': 1.9.0
@@ -18583,13 +18684,13 @@ snapshots:
       - constructs
       - react-native-b4a
 
-  '@aws-amplify/client-config@1.10.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)':
+  '@aws-amplify/client-config@1.10.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)':
     dependencies:
       '@aws-amplify/backend-output-schemas': 1.8.0(zod@4.3.5)
-      '@aws-amplify/deployed-backend-client': 1.8.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/model-generator': 1.2.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(zod@4.3.5)
-      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/deployed-backend-client': 1.8.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/model-generator': 1.2.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(zod@4.3.5)
+      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-sdk/client-amplify': 3.971.0
       '@aws-sdk/client-cloudformation': 3.971.0
       '@aws-sdk/client-s3': 3.932.0
@@ -18631,20 +18732,20 @@ snapshots:
       '@smithy/util-hex-encoding': 2.0.0
       '@types/uuid': 9.0.3
       js-cookie: 3.0.5
-      rxjs: 7.8.2
+      rxjs: 7.8.1
       tslib: 2.8.1
       uuid: 11.1.0
 
-  '@aws-amplify/data-construct@1.16.3(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)':
+  '@aws-amplify/data-construct@1.16.3(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)':
     dependencies:
-      '@aws-amplify/graphql-api-construct': 1.20.3(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      '@aws-amplify/graphql-api-construct': 1.20.3(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
       constructs: 10.4.5
 
   '@aws-amplify/data-schema-types@1.2.1':
     dependencies:
-      graphql: 15.8.0
-      rxjs: 7.8.2
+      graphql: 16.12.0
+      rxjs: 7.8.1
 
   '@aws-amplify/data-schema@1.22.2':
     dependencies:
@@ -18652,7 +18753,7 @@ snapshots:
       '@smithy/util-base64': 3.0.0
       '@types/aws-lambda': 8.10.159
       '@types/json-schema': 7.0.15
-      rxjs: 7.8.2
+      rxjs: 7.8.1
 
   '@aws-amplify/datastore@5.1.3(@aws-amplify/core@6.15.1)':
     dependencies:
@@ -18662,14 +18763,14 @@ snapshots:
       buffer: 4.9.2
       idb: 5.0.6
       immer: 9.0.6
-      rxjs: 7.8.2
+      rxjs: 7.8.1
       ulid: 2.4.0
 
-  '@aws-amplify/deployed-backend-client@1.8.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)':
+  '@aws-amplify/deployed-backend-client@1.8.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)':
     dependencies:
       '@aws-amplify/backend-output-schemas': 1.8.0(zod@4.3.5)
-      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-sdk/client-amplify': 3.971.0
       '@aws-sdk/client-cloudformation': 3.971.0
       '@aws-sdk/client-s3': 3.932.0
@@ -18685,7 +18786,7 @@ snapshots:
 
   '@aws-amplify/form-generator@1.2.6(encoding@0.1.13)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@aws-amplify/appsync-modelgen-plugin': 2.15.2(encoding@0.1.13)(graphql@15.10.1)
+      '@aws-amplify/appsync-modelgen-plugin': 2.15.2(encoding@0.1.13)(graphql@16.12.0)
       '@aws-amplify/codegen-ui': 2.20.3
       '@aws-amplify/codegen-ui-react': 2.20.3(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@aws-amplify/graphql-directives': 2.7.1
@@ -18693,8 +18794,8 @@ snapshots:
       '@aws-sdk/client-amplifyuibuilder': 3.971.0
       '@aws-sdk/client-appsync': 3.971.0
       '@aws-sdk/client-s3': 3.932.0
-      '@graphql-codegen/typescript': 4.1.6(encoding@0.1.13)(graphql@15.10.1)
-      graphql: 15.10.1
+      '@graphql-codegen/typescript': 4.1.6(encoding@0.1.13)(graphql@16.12.0)
+      graphql: 16.12.0
       node-fetch: 3.3.2
       prettier: 3.8.0
     transitivePeerDependencies:
@@ -18704,9 +18805,9 @@ snapshots:
       - react-dom
       - supports-color
 
-  '@aws-amplify/graphql-api-construct@1.20.3(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)':
+  '@aws-amplify/graphql-api-construct@1.20.3(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)':
     dependencies:
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
       constructs: 10.4.5
 
   '@aws-amplify/graphql-directives@1.1.1': {}
@@ -18715,38 +18816,38 @@ snapshots:
 
   '@aws-amplify/graphql-docs-generator@4.2.1':
     dependencies:
-      graphql: 15.10.1
+      graphql: 16.12.0
       handlebars: 4.7.7
       yargs: 15.4.1
 
   '@aws-amplify/graphql-generator@0.5.3(encoding@0.1.13)':
     dependencies:
-      '@aws-amplify/appsync-modelgen-plugin': 2.15.2(encoding@0.1.13)(graphql@15.10.1)
+      '@aws-amplify/appsync-modelgen-plugin': 2.15.2(encoding@0.1.13)(graphql@16.12.0)
       '@aws-amplify/graphql-directives': 1.1.1
       '@aws-amplify/graphql-docs-generator': 4.2.1
       '@aws-amplify/graphql-types-generator': 3.6.0
-      '@graphql-codegen/core': 2.6.8(graphql@15.10.1)
-      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@15.10.1)
-      '@graphql-tools/apollo-engine-loader': 8.0.28(graphql@15.10.1)
-      '@graphql-tools/schema': 9.0.19(graphql@15.10.1)
-      '@graphql-tools/utils': 9.2.1(graphql@15.10.1)
-      graphql: 15.10.1
+      '@graphql-codegen/core': 2.6.8(graphql@16.12.0)
+      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.12.0)
+      '@graphql-tools/apollo-engine-loader': 8.0.28(graphql@16.12.0)
+      '@graphql-tools/schema': 9.0.19(graphql@16.12.0)
+      '@graphql-tools/utils': 9.2.1(graphql@16.12.0)
+      graphql: 16.12.0
       prettier: 1.19.1
     transitivePeerDependencies:
       - encoding
       - supports-color
 
-  '@aws-amplify/graphql-schema-generator@0.11.12(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)':
+  '@aws-amplify/graphql-schema-generator@0.11.12(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)':
     dependencies:
-      '@aws-amplify/graphql-transformer-core': 3.4.4(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/graphql-transformer-interfaces': 4.2.6(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/graphql-transformer-core': 3.4.4(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/graphql-transformer-interfaces': 4.2.6(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-sdk/client-ec2': 3.624.0
       '@aws-sdk/client-iam': 3.624.0
       '@aws-sdk/client-lambda': 3.624.0
       '@aws-sdk/client-rds': 3.624.0
       csv-parse: 5.6.0
       fs-extra: 11.1.1
-      graphql: 15.10.1
+      graphql: 16.12.0
       graphql-transformer-common: 5.1.3
       knex: 2.4.2(mysql2@3.9.9)(pg@8.11.6)
       mysql2: 3.9.9
@@ -18765,14 +18866,14 @@ snapshots:
       - supports-color
       - tedious
 
-  '@aws-amplify/graphql-transformer-core@3.4.4(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)':
+  '@aws-amplify/graphql-transformer-core@3.4.4(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)':
     dependencies:
       '@aws-amplify/graphql-directives': 2.7.1
-      '@aws-amplify/graphql-transformer-interfaces': 4.2.6(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      '@aws-amplify/graphql-transformer-interfaces': 4.2.6(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
       constructs: 10.4.5
       fs-extra: 8.1.0
-      graphql: 15.10.1
+      graphql: 16.12.0
       graphql-mapping-template: 5.0.2
       graphql-transformer-common: 5.1.3
       hjson: 3.2.2
@@ -18781,11 +18882,11 @@ snapshots:
       object-hash: 3.0.0
       ts-dedent: 2.2.0
 
-  '@aws-amplify/graphql-transformer-interfaces@4.2.6(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)':
+  '@aws-amplify/graphql-transformer-interfaces@4.2.6(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)':
     dependencies:
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
       constructs: 10.4.5
-      graphql: 15.10.1
+      graphql: 16.12.0
 
   '@aws-amplify/graphql-types-generator@3.6.0':
     dependencies:
@@ -18798,28 +18899,28 @@ snapshots:
       core-js: 3.47.0
       fs-extra: 8.1.0
       globby: 11.1.0
-      graphql: 15.10.1
+      graphql: 16.12.0
       inflected: 2.1.0
       prettier: 1.19.1
       rimraf: 6.1.0
       source-map-support: 0.5.21
       yargs: 15.4.1
 
-  '@aws-amplify/model-generator@1.2.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(zod@4.3.5)':
+  '@aws-amplify/model-generator@1.2.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(zod@4.3.5)':
     dependencies:
       '@aws-amplify/backend-output-schemas': 1.8.0(zod@4.3.5)
-      '@aws-amplify/deployed-backend-client': 1.8.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/deployed-backend-client': 1.8.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-amplify/graphql-generator': 0.5.3(encoding@0.1.13)
       '@aws-amplify/graphql-types-generator': 3.6.0
-      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-sdk/client-amplify': 3.971.0
       '@aws-sdk/client-appsync': 3.971.0
       '@aws-sdk/client-cloudformation': 3.971.0
       '@aws-sdk/client-s3': 3.932.0
       '@aws-sdk/credential-providers': 3.971.0
       '@aws-sdk/types': 3.969.0
-      graphql: 15.10.1
+      graphql: 16.12.0
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
       - aws-cdk-lib
@@ -18838,14 +18939,14 @@ snapshots:
       lodash: 4.17.21
       tslib: 2.8.1
 
-  '@aws-amplify/platform-core@1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)':
+  '@aws-amplify/platform-core@1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)':
     dependencies:
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-sdk/client-sts': 3.699.0
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/core': 2.4.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-trace-base': 2.4.0(@opentelemetry/api@1.9.0)
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
       constructs: 10.4.5
       is-ci: 4.1.0
       lodash.mergewith: 4.6.2
@@ -18860,11 +18961,11 @@ snapshots:
       - bare-abort-controller
       - react-native-b4a
 
-  '@aws-amplify/plugin-types@1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)':
+  '@aws-amplify/plugin-types@1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)':
     dependencies:
       '@aws-cdk/toolkit-lib': 1.6.1(@aws-cdk/cli-plugin-contract@2.182.0)
       '@aws-sdk/types': 3.969.0
-      aws-cdk-lib: 2.235.0(constructs@10.4.5)
+      aws-cdk-lib: 2.235.1(constructs@10.4.5)
       constructs: 10.4.5
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
@@ -18872,15 +18973,15 @@ snapshots:
       - bare-abort-controller
       - react-native-b4a
 
-  '@aws-amplify/sandbox@2.1.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@types/node@22.10.1)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(typescript@5.9.3)':
+  '@aws-amplify/sandbox@2.1.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@types/node@22.10.1)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)(typescript@5.9.3)':
     dependencies:
-      '@aws-amplify/backend-deployer': 2.1.5(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(typescript@5.9.3)
-      '@aws-amplify/backend-secret': 1.4.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/cli-core': 2.2.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(@types/node@22.10.1)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/client-config': 1.10.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)
-      '@aws-amplify/deployed-backend-client': 1.8.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/backend-deployer': 2.1.5(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(typescript@5.9.3)
+      '@aws-amplify/backend-secret': 1.4.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/cli-core': 2.2.3(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(@types/node@22.10.1)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/client-config': 1.10.0(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)(encoding@0.1.13)
+      '@aws-amplify/deployed-backend-client': 1.8.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/client-amplify@3.971.0)(@aws-sdk/client-cloudformation@3.971.0)(@aws-sdk/client-s3@3.932.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/plugin-types': 1.11.2(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
       '@aws-sdk/client-cloudwatch-logs': 3.971.0
       '@aws-sdk/client-lambda': 3.971.0
       '@aws-sdk/client-ssm': 3.971.0
@@ -18907,10 +19008,10 @@ snapshots:
       - supports-color
       - typescript
 
-  '@aws-amplify/schema-generator@1.4.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)':
+  '@aws-amplify/schema-generator@1.4.1(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)':
     dependencies:
-      '@aws-amplify/graphql-schema-generator': 0.11.12(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
-      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.0(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/graphql-schema-generator': 0.11.12(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
+      '@aws-amplify/platform-core': 1.10.4(@aws-cdk/cli-plugin-contract@2.182.0)(@aws-sdk/types@3.969.0)(aws-cdk-lib@2.235.1(constructs@10.4.5))(constructs@10.4.5)
     transitivePeerDependencies:
       - '@aws-cdk/cli-plugin-contract'
       - '@aws-sdk/types'
@@ -18994,7 +19095,7 @@ snapshots:
   '@aws-cdk/cdk-assets-lib@1.1.1':
     dependencies:
       '@aws-cdk/cloud-assembly-schema': 50.0.0
-      '@aws-cdk/cx-api': 2.235.0(@aws-cdk/cloud-assembly-schema@50.0.0)
+      '@aws-cdk/cx-api': 2.235.1(@aws-cdk/cloud-assembly-schema@50.0.0)
       '@aws-sdk/client-ecr': 3.971.0
       '@aws-sdk/client-s3': 3.932.0
       '@aws-sdk/client-secrets-manager': 3.971.0
@@ -19029,7 +19130,7 @@ snapshots:
       string-width: 4.2.3
       table: 6.9.0
 
-  '@aws-cdk/cx-api@2.235.0(@aws-cdk/cloud-assembly-schema@50.0.0)':
+  '@aws-cdk/cx-api@2.235.1(@aws-cdk/cloud-assembly-schema@50.0.0)':
     dependencies:
       '@aws-cdk/cloud-assembly-schema': 50.0.0
 
@@ -19047,7 +19148,7 @@ snapshots:
       '@aws-cdk/cli-plugin-contract': 2.182.0
       '@aws-cdk/cloud-assembly-schema': 50.0.0
       '@aws-cdk/cloudformation-diff': 2.185.0(@aws-sdk/client-cloudformation@3.971.0)
-      '@aws-cdk/cx-api': 2.235.0(@aws-cdk/cloud-assembly-schema@50.0.0)
+      '@aws-cdk/cx-api': 2.235.1(@aws-cdk/cloud-assembly-schema@50.0.0)
       '@aws-sdk/client-appsync': 3.971.0
       '@aws-sdk/client-cloudcontrol': 3.971.0
       '@aws-sdk/client-cloudformation': 3.971.0
@@ -23257,11 +23358,11 @@ snapshots:
     dependencies:
       chalk: 4.1.2
 
-  '@copilotkit/react-core@1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)':
+  '@copilotkit/react-core@1.51.2(@ag-ui/core@0.0.43)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@6.16.0(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)':
     dependencies:
       '@ag-ui/client': 0.0.42
-      '@copilotkit/runtime-client-gql': 1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(encoding@0.1.13)(graphql@16.12.0)(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@copilotkit/shared': 1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13)
+      '@copilotkit/runtime-client-gql': 1.51.2(@ag-ui/core@0.0.43)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(encoding@0.1.13)(graphql@16.12.0)(openai@6.16.0(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@copilotkit/shared': 1.51.2(@ag-ui/core@0.0.43)(encoding@0.1.13)
       '@copilotkitnext/core': 1.51.2
       '@copilotkitnext/react': 1.51.2(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(micromark-util-types@2.0.2)(micromark@4.0.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@scarf/scarf': 1.4.0
@@ -23296,50 +23397,11 @@ snapshots:
       - openai
       - supports-color
 
-  '@copilotkit/react-core@1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@5.23.2(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)':
+  '@copilotkit/react-ui@1.51.2(@ag-ui/core@0.0.43)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@6.16.0(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)':
     dependencies:
-      '@ag-ui/client': 0.0.42
-      '@copilotkit/runtime-client-gql': 1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(encoding@0.1.13)(graphql@16.12.0)(openai@5.23.2(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@copilotkit/shared': 1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13)
-      '@copilotkitnext/core': 1.51.2
-      '@copilotkitnext/react': 1.51.2(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(micromark-util-types@2.0.2)(micromark@4.0.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@scarf/scarf': 1.4.0
-      react: 19.2.1
-      react-dom: 19.2.1(react@19.2.1)
-      react-markdown: 8.0.7(@types/react@19.2.7)(react@19.2.1)
-      untruncate-json: 0.0.1
-      zod: 4.3.5
-    transitivePeerDependencies:
-      - '@ag-ui/core'
-      - '@anthropic-ai/sdk'
-      - '@copilotkitnext/agent'
-      - '@copilotkitnext/runtime'
-      - '@langchain/aws'
-      - '@langchain/community'
-      - '@langchain/core'
-      - '@langchain/google-gauth'
-      - '@langchain/langgraph-sdk'
-      - '@langchain/openai'
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - '@types/mdast'
-      - '@types/react'
-      - '@types/react-dom'
-      - encoding
-      - graphql
-      - groq-sdk
-      - langchain
-      - micromark
-      - micromark-util-types
-      - openai
-      - supports-color
-
-  '@copilotkit/react-ui@1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)':
-    dependencies:
-      '@copilotkit/react-core': 1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)
-      '@copilotkit/runtime-client-gql': 1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(encoding@0.1.13)(graphql@16.12.0)(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@copilotkit/shared': 1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13)
+      '@copilotkit/react-core': 1.51.2(@ag-ui/core@0.0.43)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@6.16.0(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)
+      '@copilotkit/runtime-client-gql': 1.51.2(@ag-ui/core@0.0.43)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(encoding@0.1.13)(graphql@16.12.0)(openai@6.16.0(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@copilotkit/shared': 1.51.2(@ag-ui/core@0.0.43)(encoding@0.1.13)
       '@headlessui/react': 2.2.9(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       react: 19.2.1
       react-markdown: 10.1.0(@types/react@19.2.7)(react@19.2.1)
@@ -23375,50 +23437,10 @@ snapshots:
       - supports-color
       - zod
 
-  '@copilotkit/react-ui@1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@5.23.2(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)':
+  '@copilotkit/runtime-client-gql@1.51.2(@ag-ui/core@0.0.43)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(encoding@0.1.13)(graphql@16.12.0)(openai@6.16.0(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@copilotkit/react-core': 1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(@types/mdast@4.0.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(encoding@0.1.13)(graphql@16.12.0)(micromark-util-types@2.0.2)(micromark@4.0.2)(openai@5.23.2(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(zod@4.3.5)
-      '@copilotkit/runtime-client-gql': 1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(encoding@0.1.13)(graphql@16.12.0)(openai@5.23.2(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@copilotkit/shared': 1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13)
-      '@headlessui/react': 2.2.9(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      react: 19.2.1
-      react-markdown: 10.1.0(@types/react@19.2.7)(react@19.2.1)
-      react-syntax-highlighter: 15.6.6(react@19.2.1)
-      rehype-raw: 7.0.0
-      remark-gfm: 4.0.1
-      remark-math: 6.0.0
-    transitivePeerDependencies:
-      - '@ag-ui/core'
-      - '@anthropic-ai/sdk'
-      - '@copilotkitnext/agent'
-      - '@copilotkitnext/runtime'
-      - '@langchain/aws'
-      - '@langchain/community'
-      - '@langchain/core'
-      - '@langchain/google-gauth'
-      - '@langchain/langgraph-sdk'
-      - '@langchain/openai'
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - '@types/mdast'
-      - '@types/react'
-      - '@types/react-dom'
-      - encoding
-      - graphql
-      - groq-sdk
-      - langchain
-      - micromark
-      - micromark-util-types
-      - openai
-      - react-dom
-      - supports-color
-      - zod
-
-  '@copilotkit/runtime-client-gql@1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(encoding@0.1.13)(graphql@16.12.0)(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
-    dependencies:
-      '@copilotkit/runtime': 1.51.2(@copilotkit/shared@1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13))(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@copilotkit/shared': 1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13)
+      '@copilotkit/runtime': 1.51.2(@copilotkit/shared@1.51.2(@ag-ui/core@0.0.43)(encoding@0.1.13))(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@copilotkit/shared': 1.51.2(@ag-ui/core@0.0.43)(encoding@0.1.13)
       '@urql/core': 5.2.0(graphql@16.12.0)
       react: 19.2.1
       untruncate-json: 0.0.1
@@ -23444,46 +23466,17 @@ snapshots:
       - openai
       - react-dom
 
-  '@copilotkit/runtime-client-gql@1.51.2(@ag-ui/core@0.0.42)(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(encoding@0.1.13)(graphql@16.12.0)(openai@5.23.2(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
-    dependencies:
-      '@copilotkit/runtime': 1.51.2(@copilotkit/shared@1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13))(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@copilotkit/shared': 1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13)
-      '@urql/core': 5.2.0(graphql@16.12.0)
-      react: 19.2.1
-      untruncate-json: 0.0.1
-      urql: 4.2.2(@urql/core@5.2.0(graphql@16.12.0))(react@19.2.1)
-    transitivePeerDependencies:
-      - '@ag-ui/core'
-      - '@anthropic-ai/sdk'
-      - '@copilotkitnext/agent'
-      - '@copilotkitnext/runtime'
-      - '@langchain/aws'
-      - '@langchain/community'
-      - '@langchain/core'
-      - '@langchain/google-gauth'
-      - '@langchain/langgraph-sdk'
-      - '@langchain/openai'
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - encoding
-      - graphql
-      - groq-sdk
-      - langchain
-      - openai
-      - react-dom
-
-  '@copilotkit/runtime@1.51.2(@copilotkit/shared@1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13))(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@copilotkit/runtime@1.51.2(@copilotkit/shared@1.51.2(@ag-ui/core@0.0.43)(encoding@0.1.13))(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@ag-ui/client': 0.0.42
       '@ag-ui/core': 0.0.42
-      '@ag-ui/langgraph': 0.0.20(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@copilotkit/shared': 1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13)
+      '@ag-ui/langgraph': 0.0.20(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@copilotkit/shared': 1.51.2(@ag-ui/core@0.0.43)(encoding@0.1.13)
       '@copilotkitnext/agent': 1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4)
-      '@copilotkitnext/runtime': 1.51.2(openai@5.23.2(ws@8.18.0)(zod@4.3.5))
+      '@copilotkitnext/runtime': 1.51.2(openai@6.16.0(ws@8.19.0)(zod@4.3.5))
       '@graphql-yoga/plugin-defer-stream': 3.18.0(graphql-yoga@5.18.0(graphql@16.12.0))(graphql@16.12.0)
       '@hono/node-server': 1.19.9(hono@4.11.4)
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))
+      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5))
       '@scarf/scarf': 1.4.0
       class-transformer: 0.5.1
       class-validator: 0.14.3
@@ -23499,8 +23492,8 @@ snapshots:
       type-graphql: 2.0.0-rc.1(class-validator@0.14.3)(graphql-scalars@1.25.0(graphql@16.12.0))(graphql@16.12.0)
       zod: 4.3.5
     optionalDependencies:
-      '@langchain/langgraph-sdk': 0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      openai: 5.23.2(ws@8.18.0)(zod@4.3.5)
+      '@langchain/langgraph-sdk': 0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      openai: 6.16.0(ws@8.19.0)(zod@4.3.5)
     transitivePeerDependencies:
       - '@opentelemetry/api'
       - '@opentelemetry/exporter-trace-otlp-proto'
@@ -23508,44 +23501,9 @@ snapshots:
       - react
       - react-dom
 
-  '@copilotkit/runtime@1.51.2(@copilotkit/shared@1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13))(@copilotkitnext/agent@1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4))(@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@copilotkit/shared@1.51.2(@ag-ui/core@0.0.43)(encoding@0.1.13)':
     dependencies:
-      '@ag-ui/client': 0.0.42
-      '@ag-ui/core': 0.0.42
-      '@ag-ui/langgraph': 0.0.20(@ag-ui/client@0.0.42)(@ag-ui/core@0.0.42)(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      '@copilotkit/shared': 1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13)
-      '@copilotkitnext/agent': 1.51.2(@cfworker/json-schema@4.1.1)(hono@4.11.4)
-      '@copilotkitnext/runtime': 1.51.2(openai@5.23.2(ws@8.19.0)(zod@4.3.5))
-      '@graphql-yoga/plugin-defer-stream': 3.18.0(graphql-yoga@5.18.0(graphql@16.12.0))(graphql@16.12.0)
-      '@hono/node-server': 1.19.9(hono@4.11.4)
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5))
-      '@scarf/scarf': 1.4.0
-      class-transformer: 0.5.1
-      class-validator: 0.14.3
-      graphql: 16.12.0
-      graphql-scalars: 1.25.0(graphql@16.12.0)
-      graphql-yoga: 5.18.0(graphql@16.12.0)
-      hono: 4.11.4
-      partial-json: 0.1.7
-      pino: 9.14.0
-      pino-pretty: 11.3.0
-      reflect-metadata: 0.2.2
-      rxjs: 7.8.1
-      type-graphql: 2.0.0-rc.1(class-validator@0.14.3)(graphql-scalars@1.25.0(graphql@16.12.0))(graphql@16.12.0)
-      zod: 4.3.5
-    optionalDependencies:
-      '@langchain/langgraph-sdk': 0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      openai: 5.23.2(ws@8.19.0)(zod@4.3.5)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - react
-      - react-dom
-
-  '@copilotkit/shared@1.51.2(@ag-ui/core@0.0.42)(encoding@0.1.13)':
-    dependencies:
-      '@ag-ui/core': 0.0.42
+      '@ag-ui/core': 0.0.43
       '@segment/analytics-node': 2.3.0(encoding@0.1.13)
       chalk: 4.1.2
       graphql: 16.12.0
@@ -23609,7 +23567,7 @@ snapshots:
       - micromark-util-types
       - supports-color
 
-  '@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.18.0)(zod@4.3.5))':
+  '@copilotkitnext/runtime@1.51.2(openai@6.16.0(ws@8.19.0)(zod@4.3.5))':
     dependencies:
       '@ag-ui/client': 0.0.42
       '@ag-ui/core': 0.0.42
@@ -23618,21 +23576,7 @@ snapshots:
       cors: 2.8.5
       express: 4.22.1
       hono: 4.11.4
-      openai: 5.23.2(ws@8.18.0)(zod@4.3.5)
-      rxjs: 7.8.1
-    transitivePeerDependencies:
-      - supports-color
-
-  '@copilotkitnext/runtime@1.51.2(openai@5.23.2(ws@8.19.0)(zod@4.3.5))':
-    dependencies:
-      '@ag-ui/client': 0.0.42
-      '@ag-ui/core': 0.0.42
-      '@ag-ui/encoder': 0.0.42
-      '@copilotkitnext/shared': 1.51.2
-      cors: 2.8.5
-      express: 4.22.1
-      hono: 4.11.4
-      openai: 5.23.2(ws@8.19.0)(zod@4.3.5)
+      openai: 6.16.0(ws@8.19.0)(zod@4.3.5)
       rxjs: 7.8.1
     transitivePeerDependencies:
       - supports-color
@@ -24616,7 +24560,9 @@ snapshots:
       '@eslint/core': 0.17.0
       levn: 0.4.1
 
-  '@exodus/bytes@1.8.0': {}
+  '@exodus/bytes@1.9.0(@noble/hashes@1.8.0)':
+    optionalDependencies:
+      '@noble/hashes': 1.8.0
 
   '@fastify/busboy@3.2.0': {}
 
@@ -24681,99 +24627,99 @@ snapshots:
 
   '@gar/promisify@1.1.3': {}
 
-  '@graphql-codegen/core@2.6.8(graphql@15.10.1)':
+  '@graphql-codegen/core@2.6.8(graphql@16.12.0)':
     dependencies:
-      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@15.10.1)
-      '@graphql-tools/schema': 9.0.19(graphql@15.10.1)
-      '@graphql-tools/utils': 9.2.1(graphql@15.10.1)
-      graphql: 15.10.1
+      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.12.0)
+      '@graphql-tools/schema': 9.0.19(graphql@16.12.0)
+      '@graphql-tools/utils': 9.2.1(graphql@16.12.0)
+      graphql: 16.12.0
       tslib: 2.8.1
 
-  '@graphql-codegen/plugin-helpers@1.18.8(graphql@15.10.1)':
+  '@graphql-codegen/plugin-helpers@1.18.8(graphql@16.12.0)':
     dependencies:
-      '@graphql-tools/utils': 7.10.0(graphql@15.10.1)
+      '@graphql-tools/utils': 7.10.0(graphql@16.12.0)
       common-tags: 1.8.0
-      graphql: 15.10.1
+      graphql: 16.12.0
       import-from: 4.0.0
       lodash: 4.17.21
       tslib: 2.8.1
 
-  '@graphql-codegen/plugin-helpers@3.1.2(graphql@15.10.1)':
+  '@graphql-codegen/plugin-helpers@3.1.2(graphql@16.12.0)':
     dependencies:
-      '@graphql-tools/utils': 9.2.1(graphql@15.10.1)
+      '@graphql-tools/utils': 9.2.1(graphql@16.12.0)
       change-case-all: 1.0.15
       common-tags: 1.8.2
-      graphql: 15.10.1
+      graphql: 16.12.0
       import-from: 4.0.0
       lodash: 4.17.21
       tslib: 2.8.1
 
-  '@graphql-codegen/plugin-helpers@5.1.1(graphql@15.10.1)':
+  '@graphql-codegen/plugin-helpers@5.1.1(graphql@16.12.0)':
     dependencies:
-      '@graphql-tools/utils': 10.11.0(graphql@15.10.1)
+      '@graphql-tools/utils': 10.11.0(graphql@16.12.0)
       change-case-all: 1.0.15
       common-tags: 1.8.2
-      graphql: 15.10.1
+      graphql: 16.12.0
       import-from: 4.0.0
       lodash: 4.17.21
       tslib: 2.8.1
 
-  '@graphql-codegen/schema-ast@4.1.0(graphql@15.10.1)':
+  '@graphql-codegen/schema-ast@4.1.0(graphql@16.12.0)':
     dependencies:
-      '@graphql-codegen/plugin-helpers': 5.1.1(graphql@15.10.1)
-      '@graphql-tools/utils': 10.11.0(graphql@15.10.1)
-      graphql: 15.10.1
+      '@graphql-codegen/plugin-helpers': 5.1.1(graphql@16.12.0)
+      '@graphql-tools/utils': 10.11.0(graphql@16.12.0)
+      graphql: 16.12.0
       tslib: 2.8.1
 
-  '@graphql-codegen/typescript@4.1.6(encoding@0.1.13)(graphql@15.10.1)':
+  '@graphql-codegen/typescript@4.1.6(encoding@0.1.13)(graphql@16.12.0)':
     dependencies:
-      '@graphql-codegen/plugin-helpers': 5.1.1(graphql@15.10.1)
-      '@graphql-codegen/schema-ast': 4.1.0(graphql@15.10.1)
-      '@graphql-codegen/visitor-plugin-common': 5.8.0(encoding@0.1.13)(graphql@15.10.1)
+      '@graphql-codegen/plugin-helpers': 5.1.1(graphql@16.12.0)
+      '@graphql-codegen/schema-ast': 4.1.0(graphql@16.12.0)
+      '@graphql-codegen/visitor-plugin-common': 5.8.0(encoding@0.1.13)(graphql@16.12.0)
       auto-bind: 4.0.0
-      graphql: 15.10.1
+      graphql: 16.12.0
       tslib: 2.8.1
     transitivePeerDependencies:
       - encoding
 
-  '@graphql-codegen/visitor-plugin-common@1.22.0(encoding@0.1.13)(graphql@15.10.1)':
+  '@graphql-codegen/visitor-plugin-common@1.22.0(encoding@0.1.13)(graphql@16.12.0)':
     dependencies:
-      '@graphql-codegen/plugin-helpers': 1.18.8(graphql@15.10.1)
-      '@graphql-tools/optimize': 1.4.0(graphql@15.10.1)
-      '@graphql-tools/relay-operation-optimizer': 6.5.18(encoding@0.1.13)(graphql@15.10.1)
+      '@graphql-codegen/plugin-helpers': 1.18.8(graphql@16.12.0)
+      '@graphql-tools/optimize': 1.4.0(graphql@16.12.0)
+      '@graphql-tools/relay-operation-optimizer': 6.5.18(encoding@0.1.13)(graphql@16.12.0)
       array.prototype.flatmap: 1.3.3
       auto-bind: 4.0.0
       change-case-all: 1.0.14
       dependency-graph: 0.11.0
-      graphql: 15.10.1
-      graphql-tag: 2.12.6(graphql@15.10.1)
+      graphql: 16.12.0
+      graphql-tag: 2.12.6(graphql@16.12.0)
       parse-filepath: 1.0.2
       tslib: 2.8.1
     transitivePeerDependencies:
       - encoding
       - supports-color
 
-  '@graphql-codegen/visitor-plugin-common@5.8.0(encoding@0.1.13)(graphql@15.10.1)':
+  '@graphql-codegen/visitor-plugin-common@5.8.0(encoding@0.1.13)(graphql@16.12.0)':
     dependencies:
-      '@graphql-codegen/plugin-helpers': 5.1.1(graphql@15.10.1)
-      '@graphql-tools/optimize': 2.0.0(graphql@15.10.1)
-      '@graphql-tools/relay-operation-optimizer': 7.0.27(encoding@0.1.13)(graphql@15.10.1)
-      '@graphql-tools/utils': 10.11.0(graphql@15.10.1)
+      '@graphql-codegen/plugin-helpers': 5.1.1(graphql@16.12.0)
+      '@graphql-tools/optimize': 2.0.0(graphql@16.12.0)
+      '@graphql-tools/relay-operation-optimizer': 7.0.27(encoding@0.1.13)(graphql@16.12.0)
+      '@graphql-tools/utils': 10.11.0(graphql@16.12.0)
       auto-bind: 4.0.0
       change-case-all: 1.0.15
       dependency-graph: 0.11.0
-      graphql: 15.10.1
-      graphql-tag: 2.12.6(graphql@15.10.1)
+      graphql: 16.12.0
+      graphql-tag: 2.12.6(graphql@16.12.0)
       parse-filepath: 1.0.2
       tslib: 2.8.1
     transitivePeerDependencies:
       - encoding
 
-  '@graphql-tools/apollo-engine-loader@8.0.28(graphql@15.10.1)':
+  '@graphql-tools/apollo-engine-loader@8.0.28(graphql@16.12.0)':
     dependencies:
-      '@graphql-tools/utils': 11.0.0(graphql@15.10.1)
+      '@graphql-tools/utils': 11.0.0(graphql@16.12.0)
       '@whatwg-node/fetch': 0.10.13
-      graphql: 15.10.1
+      graphql: 16.12.0
       sync-fetch: 0.6.0
       tslib: 2.8.1
 
@@ -24787,10 +24733,10 @@ snapshots:
       graphql: 16.12.0
       tslib: 2.8.1
 
-  '@graphql-tools/merge@8.4.2(graphql@15.10.1)':
+  '@graphql-tools/merge@8.4.2(graphql@16.12.0)':
     dependencies:
-      '@graphql-tools/utils': 9.2.1(graphql@15.10.1)
-      graphql: 15.10.1
+      '@graphql-tools/utils': 9.2.1(graphql@16.12.0)
+      graphql: 16.12.0
       tslib: 2.8.1
 
   '@graphql-tools/merge@9.1.7(graphql@16.12.0)':
@@ -24799,31 +24745,31 @@ snapshots:
       graphql: 16.12.0
       tslib: 2.8.1
 
-  '@graphql-tools/optimize@1.4.0(graphql@15.10.1)':
+  '@graphql-tools/optimize@1.4.0(graphql@16.12.0)':
     dependencies:
-      graphql: 15.10.1
+      graphql: 16.12.0
       tslib: 2.8.1
 
-  '@graphql-tools/optimize@2.0.0(graphql@15.10.1)':
+  '@graphql-tools/optimize@2.0.0(graphql@16.12.0)':
     dependencies:
-      graphql: 15.10.1
+      graphql: 16.12.0
       tslib: 2.8.1
 
-  '@graphql-tools/relay-operation-optimizer@6.5.18(encoding@0.1.13)(graphql@15.10.1)':
+  '@graphql-tools/relay-operation-optimizer@6.5.18(encoding@0.1.13)(graphql@16.12.0)':
     dependencies:
-      '@ardatan/relay-compiler': 12.0.0(encoding@0.1.13)(graphql@15.10.1)
-      '@graphql-tools/utils': 9.2.1(graphql@15.10.1)
-      graphql: 15.10.1
+      '@ardatan/relay-compiler': 12.0.0(encoding@0.1.13)(graphql@16.12.0)
+      '@graphql-tools/utils': 9.2.1(graphql@16.12.0)
+      graphql: 16.12.0
       tslib: 2.8.1
     transitivePeerDependencies:
       - encoding
       - supports-color
 
-  '@graphql-tools/relay-operation-optimizer@7.0.27(encoding@0.1.13)(graphql@15.10.1)':
+  '@graphql-tools/relay-operation-optimizer@7.0.27(encoding@0.1.13)(graphql@16.12.0)':
     dependencies:
-      '@ardatan/relay-compiler': 12.0.3(encoding@0.1.13)(graphql@15.10.1)
-      '@graphql-tools/utils': 11.0.0(graphql@15.10.1)
-      graphql: 15.10.1
+      '@ardatan/relay-compiler': 12.0.3(encoding@0.1.13)(graphql@16.12.0)
+      '@graphql-tools/utils': 11.0.0(graphql@16.12.0)
+      graphql: 16.12.0
       tslib: 2.8.1
     transitivePeerDependencies:
       - encoding
@@ -24835,21 +24781,13 @@ snapshots:
       graphql: 16.12.0
       tslib: 2.8.1
 
-  '@graphql-tools/schema@9.0.19(graphql@15.10.1)':
+  '@graphql-tools/schema@9.0.19(graphql@16.12.0)':
     dependencies:
-      '@graphql-tools/merge': 8.4.2(graphql@15.10.1)
-      '@graphql-tools/utils': 9.2.1(graphql@15.10.1)
-      graphql: 15.10.1
+      '@graphql-tools/merge': 8.4.2(graphql@16.12.0)
+      '@graphql-tools/utils': 9.2.1(graphql@16.12.0)
+      graphql: 16.12.0
       tslib: 2.8.1
       value-or-promise: 1.0.12
-
-  '@graphql-tools/utils@10.11.0(graphql@15.10.1)':
-    dependencies:
-      '@graphql-typed-document-node/core': 3.2.0(graphql@15.10.1)
-      '@whatwg-node/promise-helpers': 1.3.2
-      cross-inspect: 1.0.1
-      graphql: 15.10.1
-      tslib: 2.8.1
 
   '@graphql-tools/utils@10.11.0(graphql@16.12.0)':
     dependencies:
@@ -24857,14 +24795,6 @@ snapshots:
       '@whatwg-node/promise-helpers': 1.3.2
       cross-inspect: 1.0.1
       graphql: 16.12.0
-      tslib: 2.8.1
-
-  '@graphql-tools/utils@11.0.0(graphql@15.10.1)':
-    dependencies:
-      '@graphql-typed-document-node/core': 3.2.0(graphql@15.10.1)
-      '@whatwg-node/promise-helpers': 1.3.2
-      cross-inspect: 1.0.1
-      graphql: 15.10.1
       tslib: 2.8.1
 
   '@graphql-tools/utils@11.0.0(graphql@16.12.0)':
@@ -24875,29 +24805,25 @@ snapshots:
       graphql: 16.12.0
       tslib: 2.8.1
 
-  '@graphql-tools/utils@6.2.4(graphql@15.10.1)':
+  '@graphql-tools/utils@6.2.4(graphql@16.12.0)':
     dependencies:
       '@ardatan/aggregate-error': 0.0.6
       camel-case: 4.1.1
-      graphql: 15.10.1
+      graphql: 16.12.0
       tslib: 2.8.1
 
-  '@graphql-tools/utils@7.10.0(graphql@15.10.1)':
+  '@graphql-tools/utils@7.10.0(graphql@16.12.0)':
     dependencies:
       '@ardatan/aggregate-error': 0.0.6
       camel-case: 4.1.2
-      graphql: 15.10.1
+      graphql: 16.12.0
       tslib: 2.8.1
 
-  '@graphql-tools/utils@9.2.1(graphql@15.10.1)':
+  '@graphql-tools/utils@9.2.1(graphql@16.12.0)':
     dependencies:
-      '@graphql-typed-document-node/core': 3.2.0(graphql@15.10.1)
-      graphql: 15.10.1
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.12.0)
+      graphql: 16.12.0
       tslib: 2.8.1
-
-  '@graphql-typed-document-node/core@3.2.0(graphql@15.10.1)':
-    dependencies:
-      graphql: 15.10.1
 
   '@graphql-typed-document-node/core@3.2.0(graphql@16.12.0)':
     dependencies:
@@ -25296,12 +25222,78 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
+  '@jsonjoy.com/base64@17.65.0(tslib@2.8.1)':
+    dependencies:
+      tslib: 2.8.1
+
   '@jsonjoy.com/buffers@1.2.1(tslib@2.8.1)':
+    dependencies:
+      tslib: 2.8.1
+
+  '@jsonjoy.com/buffers@17.65.0(tslib@2.8.1)':
     dependencies:
       tslib: 2.8.1
 
   '@jsonjoy.com/codegen@1.0.0(tslib@2.8.1)':
     dependencies:
+      tslib: 2.8.1
+
+  '@jsonjoy.com/codegen@17.65.0(tslib@2.8.1)':
+    dependencies:
+      tslib: 2.8.1
+
+  '@jsonjoy.com/fs-core@4.56.2(tslib@2.8.1)':
+    dependencies:
+      '@jsonjoy.com/fs-node-builtins': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-node-utils': 4.56.2(tslib@2.8.1)
+      thingies: 2.5.0(tslib@2.8.1)
+      tslib: 2.8.1
+
+  '@jsonjoy.com/fs-fsa@4.56.2(tslib@2.8.1)':
+    dependencies:
+      '@jsonjoy.com/fs-core': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-node-builtins': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-node-utils': 4.56.2(tslib@2.8.1)
+      thingies: 2.5.0(tslib@2.8.1)
+      tslib: 2.8.1
+
+  '@jsonjoy.com/fs-node-builtins@4.56.2(tslib@2.8.1)':
+    dependencies:
+      tslib: 2.8.1
+
+  '@jsonjoy.com/fs-node-to-fsa@4.56.2(tslib@2.8.1)':
+    dependencies:
+      '@jsonjoy.com/fs-fsa': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-node-builtins': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-node-utils': 4.56.2(tslib@2.8.1)
+      tslib: 2.8.1
+
+  '@jsonjoy.com/fs-node-utils@4.56.2(tslib@2.8.1)':
+    dependencies:
+      '@jsonjoy.com/fs-node-builtins': 4.56.2(tslib@2.8.1)
+      tslib: 2.8.1
+
+  '@jsonjoy.com/fs-node@4.56.2(tslib@2.8.1)':
+    dependencies:
+      '@jsonjoy.com/fs-core': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-node-builtins': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-node-utils': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-print': 4.56.2(tslib@2.8.1)
+      glob-to-regex.js: 1.2.0(tslib@2.8.1)
+      thingies: 2.5.0(tslib@2.8.1)
+      tslib: 2.8.1
+
+  '@jsonjoy.com/fs-print@4.56.2(tslib@2.8.1)':
+    dependencies:
+      '@jsonjoy.com/fs-node-utils': 4.56.2(tslib@2.8.1)
+      tree-dump: 1.1.0(tslib@2.8.1)
+      tslib: 2.8.1
+
+  '@jsonjoy.com/fs-snapshot@4.56.2(tslib@2.8.1)':
+    dependencies:
+      '@jsonjoy.com/fs-node-utils': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/json-pack': 17.65.0(tslib@2.8.1)
+      '@jsonjoy.com/util': 17.65.0(tslib@2.8.1)
       tslib: 2.8.1
 
   '@jsonjoy.com/json-pack@1.21.0(tslib@2.8.1)':
@@ -25316,16 +25308,39 @@ snapshots:
       tree-dump: 1.1.0(tslib@2.8.1)
       tslib: 2.8.1
 
+  '@jsonjoy.com/json-pack@17.65.0(tslib@2.8.1)':
+    dependencies:
+      '@jsonjoy.com/base64': 17.65.0(tslib@2.8.1)
+      '@jsonjoy.com/buffers': 17.65.0(tslib@2.8.1)
+      '@jsonjoy.com/codegen': 17.65.0(tslib@2.8.1)
+      '@jsonjoy.com/json-pointer': 17.65.0(tslib@2.8.1)
+      '@jsonjoy.com/util': 17.65.0(tslib@2.8.1)
+      hyperdyperid: 1.2.0
+      thingies: 2.5.0(tslib@2.8.1)
+      tree-dump: 1.1.0(tslib@2.8.1)
+      tslib: 2.8.1
+
   '@jsonjoy.com/json-pointer@1.0.2(tslib@2.8.1)':
     dependencies:
       '@jsonjoy.com/codegen': 1.0.0(tslib@2.8.1)
       '@jsonjoy.com/util': 1.9.0(tslib@2.8.1)
       tslib: 2.8.1
 
+  '@jsonjoy.com/json-pointer@17.65.0(tslib@2.8.1)':
+    dependencies:
+      '@jsonjoy.com/util': 17.65.0(tslib@2.8.1)
+      tslib: 2.8.1
+
   '@jsonjoy.com/util@1.9.0(tslib@2.8.1)':
     dependencies:
       '@jsonjoy.com/buffers': 1.2.1(tslib@2.8.1)
       '@jsonjoy.com/codegen': 1.0.0(tslib@2.8.1)
+      tslib: 2.8.1
+
+  '@jsonjoy.com/util@17.65.0(tslib@2.8.1)':
+    dependencies:
+      '@jsonjoy.com/buffers': 17.65.0(tslib@2.8.1)
+      '@jsonjoy.com/codegen': 17.65.0(tslib@2.8.1)
       tslib: 2.8.1
 
   '@keyv/bigmap@1.3.0(keyv@5.5.5)':
@@ -25336,14 +25351,14 @@ snapshots:
 
   '@keyv/serialize@1.1.1': {}
 
-  '@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))':
+  '@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5))':
     dependencies:
       '@cfworker/json-schema': 4.1.1
       ansi-styles: 5.2.0
       camelcase: 6.3.0
       decamelize: 1.2.0
       js-tiktoken: 1.0.21
-      langsmith: 0.3.87(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))
+      langsmith: 0.3.87(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5))
       mustache: 4.2.0
       p-queue: 6.6.2
       p-retry: 4.6.2
@@ -25356,45 +25371,14 @@ snapshots:
       - '@opentelemetry/sdk-trace-base'
       - openai
 
-  '@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5))':
-    dependencies:
-      '@cfworker/json-schema': 4.1.1
-      ansi-styles: 5.2.0
-      camelcase: 6.3.0
-      decamelize: 1.2.0
-      js-tiktoken: 1.0.21
-      langsmith: 0.3.87(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5))
-      mustache: 4.2.0
-      p-queue: 6.6.2
-      p-retry: 4.6.2
-      uuid: 10.0.0
-      zod: 4.3.5
-      zod-to-json-schema: 3.25.1(zod@4.3.5)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-
-  '@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@types/json-schema': 7.0.15
       p-queue: 6.6.2
       p-retry: 4.6.2
       uuid: 9.0.1
     optionalDependencies:
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5))
-      react: 19.2.1
-      react-dom: 19.2.1(react@19.2.1)
-
-  '@langchain/langgraph-sdk@0.1.10(@langchain/core@0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
-    dependencies:
-      '@types/json-schema': 7.0.15
-      p-queue: 6.6.2
-      p-retry: 4.6.2
-      uuid: 9.0.1
-    optionalDependencies:
-      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5))
+      '@langchain/core': 0.3.80(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5))
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
@@ -26205,7 +26189,7 @@ snapshots:
     dependencies:
       cross-spawn: 7.0.6
 
-  '@posthog/types@1.328.0': {}
+  '@posthog/types@1.330.0': {}
 
   '@protobuf-ts/protoc@2.11.1': {}
 
@@ -26601,79 +26585,79 @@ snapshots:
 
   '@repeaterjs/repeater@3.0.6': {}
 
-  '@rollup/rollup-android-arm-eabi@4.55.1':
+  '@rollup/rollup-android-arm-eabi@4.55.2':
     optional: true
 
-  '@rollup/rollup-android-arm64@4.55.1':
+  '@rollup/rollup-android-arm64@4.55.2':
     optional: true
 
-  '@rollup/rollup-darwin-arm64@4.55.1':
+  '@rollup/rollup-darwin-arm64@4.55.2':
     optional: true
 
-  '@rollup/rollup-darwin-x64@4.55.1':
+  '@rollup/rollup-darwin-x64@4.55.2':
     optional: true
 
-  '@rollup/rollup-freebsd-arm64@4.55.1':
+  '@rollup/rollup-freebsd-arm64@4.55.2':
     optional: true
 
-  '@rollup/rollup-freebsd-x64@4.55.1':
+  '@rollup/rollup-freebsd-x64@4.55.2':
     optional: true
 
-  '@rollup/rollup-linux-arm-gnueabihf@4.55.1':
+  '@rollup/rollup-linux-arm-gnueabihf@4.55.2':
     optional: true
 
-  '@rollup/rollup-linux-arm-musleabihf@4.55.1':
+  '@rollup/rollup-linux-arm-musleabihf@4.55.2':
     optional: true
 
-  '@rollup/rollup-linux-arm64-gnu@4.55.1':
+  '@rollup/rollup-linux-arm64-gnu@4.55.2':
     optional: true
 
-  '@rollup/rollup-linux-arm64-musl@4.55.1':
+  '@rollup/rollup-linux-arm64-musl@4.55.2':
     optional: true
 
-  '@rollup/rollup-linux-loong64-gnu@4.55.1':
+  '@rollup/rollup-linux-loong64-gnu@4.55.2':
     optional: true
 
-  '@rollup/rollup-linux-loong64-musl@4.55.1':
+  '@rollup/rollup-linux-loong64-musl@4.55.2':
     optional: true
 
-  '@rollup/rollup-linux-ppc64-gnu@4.55.1':
+  '@rollup/rollup-linux-ppc64-gnu@4.55.2':
     optional: true
 
-  '@rollup/rollup-linux-ppc64-musl@4.55.1':
+  '@rollup/rollup-linux-ppc64-musl@4.55.2':
     optional: true
 
-  '@rollup/rollup-linux-riscv64-gnu@4.55.1':
+  '@rollup/rollup-linux-riscv64-gnu@4.55.2':
     optional: true
 
-  '@rollup/rollup-linux-riscv64-musl@4.55.1':
+  '@rollup/rollup-linux-riscv64-musl@4.55.2':
     optional: true
 
-  '@rollup/rollup-linux-s390x-gnu@4.55.1':
+  '@rollup/rollup-linux-s390x-gnu@4.55.2':
     optional: true
 
-  '@rollup/rollup-linux-x64-gnu@4.55.1':
+  '@rollup/rollup-linux-x64-gnu@4.55.2':
     optional: true
 
-  '@rollup/rollup-linux-x64-musl@4.55.1':
+  '@rollup/rollup-linux-x64-musl@4.55.2':
     optional: true
 
-  '@rollup/rollup-openbsd-x64@4.55.1':
+  '@rollup/rollup-openbsd-x64@4.55.2':
     optional: true
 
-  '@rollup/rollup-openharmony-arm64@4.55.1':
+  '@rollup/rollup-openharmony-arm64@4.55.2':
     optional: true
 
-  '@rollup/rollup-win32-arm64-msvc@4.55.1':
+  '@rollup/rollup-win32-arm64-msvc@4.55.2':
     optional: true
 
-  '@rollup/rollup-win32-ia32-msvc@4.55.1':
+  '@rollup/rollup-win32-ia32-msvc@4.55.2':
     optional: true
 
-  '@rollup/rollup-win32-x64-gnu@4.55.1':
+  '@rollup/rollup-win32-x64-gnu@4.55.2':
     optional: true
 
-  '@rollup/rollup-win32-x64-msvc@4.55.1':
+  '@rollup/rollup-win32-x64-msvc@4.55.2':
     optional: true
 
   '@rspack/binding-darwin-arm64@1.7.2':
@@ -26721,11 +26705,11 @@ snapshots:
       '@rspack/binding-win32-ia32-msvc': 1.7.2
       '@rspack/binding-win32-x64-msvc': 1.7.2
 
-  '@rspack/cli@1.7.2(@rspack/core@1.7.2(@swc/helpers@0.5.18))(@types/express@4.17.21)(webpack-cli@6.0.1)(webpack@5.103.0)':
+  '@rspack/cli@1.7.2(@rspack/core@1.7.2(@swc/helpers@0.5.18))(@types/express@4.17.21)(tslib@2.8.1)(webpack-cli@6.0.1)(webpack@5.103.0)':
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
       '@rspack/core': 1.7.2(@swc/helpers@0.5.18)
-      '@rspack/dev-server': 1.1.5(@rspack/core@1.7.2(@swc/helpers@0.5.18))(@types/express@4.17.21)(webpack-cli@6.0.1)(webpack@5.103.0)
+      '@rspack/dev-server': 1.1.5(@rspack/core@1.7.2(@swc/helpers@0.5.18))(@types/express@4.17.21)(tslib@2.8.1)(webpack-cli@6.0.1)(webpack@5.103.0)
       exit-hook: 4.0.0
       webpack-bundle-analyzer: 4.10.2
     transitivePeerDependencies:
@@ -26733,6 +26717,7 @@ snapshots:
       - bufferutil
       - debug
       - supports-color
+      - tslib
       - utf-8-validate
       - webpack
       - webpack-cli
@@ -26745,19 +26730,20 @@ snapshots:
     optionalDependencies:
       '@swc/helpers': 0.5.18
 
-  '@rspack/dev-server@1.1.5(@rspack/core@1.7.2(@swc/helpers@0.5.18))(@types/express@4.17.21)(webpack-cli@6.0.1)(webpack@5.103.0)':
+  '@rspack/dev-server@1.1.5(@rspack/core@1.7.2(@swc/helpers@0.5.18))(@types/express@4.17.21)(tslib@2.8.1)(webpack-cli@6.0.1)(webpack@5.103.0)':
     dependencies:
       '@rspack/core': 1.7.2(@swc/helpers@0.5.18)
       chokidar: 3.6.0
       http-proxy-middleware: 2.0.9(@types/express@4.17.21)
       p-retry: 6.2.1
-      webpack-dev-server: 5.2.2(webpack-cli@6.0.1)(webpack@5.103.0)
+      webpack-dev-server: 5.2.2(tslib@2.8.1)(webpack-cli@6.0.1)(webpack@5.103.0)
       ws: 8.19.0
     transitivePeerDependencies:
       - '@types/express'
       - bufferutil
       - debug
       - supports-color
+      - tslib
       - utf-8-validate
       - webpack
       - webpack-cli
@@ -27574,14 +27560,14 @@ snapshots:
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
-  '@stripe/react-stripe-js@5.4.1(@stripe/stripe-js@8.6.1)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@stripe/react-stripe-js@5.4.1(@stripe/stripe-js@8.6.3)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@stripe/stripe-js': 8.6.1
+      '@stripe/stripe-js': 8.6.3
       prop-types: 15.8.1
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
 
-  '@stripe/stripe-js@8.6.1': {}
+  '@stripe/stripe-js@8.6.3': {}
 
   '@svgr/babel-plugin-add-jsx-attribute@8.0.0(@babel/core@7.28.6)':
     dependencies:
@@ -28213,14 +28199,14 @@ snapshots:
       '@types/node': 22.10.1
     optional: true
 
-  '@typescript-eslint/eslint-plugin@8.53.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)':
+  '@typescript-eslint/eslint-plugin@8.53.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.2
-      '@typescript-eslint/parser': 8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
-      '@typescript-eslint/scope-manager': 8.53.0
-      '@typescript-eslint/type-utils': 8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
-      '@typescript-eslint/utils': 8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
-      '@typescript-eslint/visitor-keys': 8.53.0
+      '@typescript-eslint/parser': 8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/scope-manager': 8.53.1
+      '@typescript-eslint/type-utils': 8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/visitor-keys': 8.53.1
       eslint: 9.39.1(jiti@2.4.2)
       ignore: 7.0.5
       natural-compare: 1.4.0
@@ -28242,22 +28228,22 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)':
+  '@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)':
     dependencies:
-      '@typescript-eslint/scope-manager': 8.53.0
-      '@typescript-eslint/types': 8.53.0
-      '@typescript-eslint/typescript-estree': 8.53.0(typescript@5.9.3)
-      '@typescript-eslint/visitor-keys': 8.53.0
+      '@typescript-eslint/scope-manager': 8.53.1
+      '@typescript-eslint/types': 8.53.1
+      '@typescript-eslint/typescript-estree': 8.53.1(typescript@5.9.3)
+      '@typescript-eslint/visitor-keys': 8.53.1
       debug: 4.4.3(supports-color@8.1.1)
       eslint: 9.39.1(jiti@2.4.2)
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/project-service@8.53.0(typescript@5.9.3)':
+  '@typescript-eslint/project-service@8.53.1(typescript@5.9.3)':
     dependencies:
-      '@typescript-eslint/tsconfig-utils': 8.53.0(typescript@5.9.3)
-      '@typescript-eslint/types': 8.53.0
+      '@typescript-eslint/tsconfig-utils': 8.53.1(typescript@5.9.3)
+      '@typescript-eslint/types': 8.53.1
       debug: 4.4.3(supports-color@8.1.1)
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -28268,20 +28254,20 @@ snapshots:
       '@typescript-eslint/types': 6.21.0
       '@typescript-eslint/visitor-keys': 6.21.0
 
-  '@typescript-eslint/scope-manager@8.53.0':
+  '@typescript-eslint/scope-manager@8.53.1':
     dependencies:
-      '@typescript-eslint/types': 8.53.0
-      '@typescript-eslint/visitor-keys': 8.53.0
+      '@typescript-eslint/types': 8.53.1
+      '@typescript-eslint/visitor-keys': 8.53.1
 
-  '@typescript-eslint/tsconfig-utils@8.53.0(typescript@5.9.3)':
+  '@typescript-eslint/tsconfig-utils@8.53.1(typescript@5.9.3)':
     dependencies:
       typescript: 5.9.3
 
-  '@typescript-eslint/type-utils@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)':
+  '@typescript-eslint/type-utils@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)':
     dependencies:
-      '@typescript-eslint/types': 8.53.0
-      '@typescript-eslint/typescript-estree': 8.53.0(typescript@5.9.3)
-      '@typescript-eslint/utils': 8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/types': 8.53.1
+      '@typescript-eslint/typescript-estree': 8.53.1(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
       debug: 4.4.3(supports-color@8.1.1)
       eslint: 9.39.1(jiti@2.4.2)
       ts-api-utils: 2.4.0(typescript@5.9.3)
@@ -28291,7 +28277,7 @@ snapshots:
 
   '@typescript-eslint/types@6.21.0': {}
 
-  '@typescript-eslint/types@8.53.0': {}
+  '@typescript-eslint/types@8.53.1': {}
 
   '@typescript-eslint/typescript-estree@6.21.0(typescript@5.9.3)':
     dependencies:
@@ -28308,12 +28294,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/typescript-estree@8.53.0(typescript@5.9.3)':
+  '@typescript-eslint/typescript-estree@8.53.1(typescript@5.9.3)':
     dependencies:
-      '@typescript-eslint/project-service': 8.53.0(typescript@5.9.3)
-      '@typescript-eslint/tsconfig-utils': 8.53.0(typescript@5.9.3)
-      '@typescript-eslint/types': 8.53.0
-      '@typescript-eslint/visitor-keys': 8.53.0
+      '@typescript-eslint/project-service': 8.53.1(typescript@5.9.3)
+      '@typescript-eslint/tsconfig-utils': 8.53.1(typescript@5.9.3)
+      '@typescript-eslint/types': 8.53.1
+      '@typescript-eslint/visitor-keys': 8.53.1
       debug: 4.4.3(supports-color@8.1.1)
       minimatch: 10.1.1
       semver: 7.7.3
@@ -28323,12 +28309,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)':
+  '@typescript-eslint/utils@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)':
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.39.1(jiti@2.4.2))
-      '@typescript-eslint/scope-manager': 8.53.0
-      '@typescript-eslint/types': 8.53.0
-      '@typescript-eslint/typescript-estree': 8.53.0(typescript@5.9.3)
+      '@typescript-eslint/scope-manager': 8.53.1
+      '@typescript-eslint/types': 8.53.1
+      '@typescript-eslint/typescript-estree': 8.53.1(typescript@5.9.3)
       eslint: 9.39.1(jiti@2.4.2)
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -28339,9 +28325,9 @@ snapshots:
       '@typescript-eslint/types': 6.21.0
       eslint-visitor-keys: 3.4.3
 
-  '@typescript-eslint/visitor-keys@8.53.0':
+  '@typescript-eslint/visitor-keys@8.53.1':
     dependencies:
-      '@typescript-eslint/types': 8.53.0
+      '@typescript-eslint/types': 8.53.1
       eslint-visitor-keys: 4.2.1
 
   '@typescript/vfs@1.3.6':
@@ -28454,18 +28440,18 @@ snapshots:
       path-browserify: 1.0.1
       vscode-uri: 3.1.0
 
-  '@vue/compiler-core@3.5.26':
+  '@vue/compiler-core@3.5.27':
     dependencies:
       '@babel/parser': 7.28.6
-      '@vue/shared': 3.5.26
+      '@vue/shared': 3.5.27
       entities: 7.0.0
       estree-walker: 2.0.2
       source-map-js: 1.2.1
 
-  '@vue/compiler-dom@3.5.26':
+  '@vue/compiler-dom@3.5.27':
     dependencies:
-      '@vue/compiler-core': 3.5.26
-      '@vue/shared': 3.5.26
+      '@vue/compiler-core': 3.5.27
+      '@vue/shared': 3.5.27
 
   '@vue/compiler-vue2@2.7.16':
     dependencies:
@@ -28475,9 +28461,9 @@ snapshots:
   '@vue/language-core@2.2.12(typescript@5.9.3)':
     dependencies:
       '@volar/language-core': 2.4.15
-      '@vue/compiler-dom': 3.5.26
+      '@vue/compiler-dom': 3.5.27
       '@vue/compiler-vue2': 2.7.16
-      '@vue/shared': 3.5.26
+      '@vue/shared': 3.5.27
       alien-signals: 1.0.13
       minimatch: 10.1.1
       muggle-string: 0.4.1
@@ -28485,7 +28471,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  '@vue/shared@3.5.26': {}
+  '@vue/shared@3.5.27': {}
 
   '@vusion/webfonts-generator@0.8.0':
     dependencies:
@@ -28998,7 +28984,7 @@ snapshots:
   autoprefixer@10.4.23(postcss@8.4.38):
     dependencies:
       browserslist: 4.27.0
-      caniuse-lite: 1.0.30001764
+      caniuse-lite: 1.0.30001765
       fraction.js: 5.3.4
       picocolors: 1.1.1
       postcss: 8.4.38
@@ -29007,7 +28993,7 @@ snapshots:
   autoprefixer@10.4.23(postcss@8.5.6):
     dependencies:
       browserslist: 4.27.0
-      caniuse-lite: 1.0.30001764
+      caniuse-lite: 1.0.30001765
       fraction.js: 5.3.4
       picocolors: 1.1.1
       postcss: 8.5.6
@@ -29031,7 +29017,7 @@ snapshots:
       - '@aws-amplify/react-native'
       - aws-crt
 
-  aws-cdk-lib@2.235.0(constructs@10.4.5):
+  aws-cdk-lib@2.235.1(constructs@10.4.5):
     dependencies:
       '@aws-cdk/asset-awscli-v1': 2.2.261
       '@aws-cdk/asset-node-proxy-agent-v6': 2.1.0
@@ -29407,7 +29393,7 @@ snapshots:
   browserslist@4.27.0:
     dependencies:
       baseline-browser-mapping: 2.9.15
-      caniuse-lite: 1.0.30001764
+      caniuse-lite: 1.0.30001765
       electron-to-chromium: 1.5.267
       node-releases: 2.0.27
       update-browserslist-db: 1.2.3(browserslist@4.27.0)
@@ -29552,11 +29538,11 @@ snapshots:
   caniuse-api@3.0.0:
     dependencies:
       browserslist: 4.27.0
-      caniuse-lite: 1.0.30001764
+      caniuse-lite: 1.0.30001765
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
 
-  caniuse-lite@1.0.30001764: {}
+  caniuse-lite@1.0.30001765: {}
 
   capital-case@1.0.4:
     dependencies:
@@ -29922,7 +29908,7 @@ snapshots:
     dependencies:
       chalk: 4.1.2
       lodash: 4.17.21
-      rxjs: 7.8.2
+      rxjs: 7.8.1
       shell-quote: 1.8.3
       supports-color: 8.1.1
       tree-kill: 1.2.2
@@ -30711,7 +30697,7 @@ snapshots:
 
   decimal.js@10.6.0: {}
 
-  decode-named-character-reference@1.2.0:
+  decode-named-character-reference@1.3.0:
     dependencies:
       character-entities: 2.0.2
 
@@ -31316,7 +31302,7 @@ snapshots:
       tinyglobby: 0.2.15
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.1(jiti@2.4.2))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.1(jiti@2.4.2))
     transitivePeerDependencies:
       - supports-color
 
@@ -31331,11 +31317,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.1(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.1(jiti@2.4.2)):
+  eslint-module-utils@2.12.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.1(jiti@2.4.2)):
     dependencies:
       debug: 3.2.7(supports-color@8.1.1)
     optionalDependencies:
-      '@typescript-eslint/parser': 8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/parser': 8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
       eslint: 9.39.1(jiti@2.4.2)
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 4.4.4(eslint-plugin-import@2.32.0)(eslint@9.39.1(jiti@2.4.2))
@@ -31389,7 +31375,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.1(jiti@2.4.2)):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.1(jiti@2.4.2)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -31400,7 +31386,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.39.1(jiti@2.4.2)
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.1(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.1(jiti@2.4.2))
+      eslint-module-utils: 2.12.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.1(jiti@2.4.2))
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3
@@ -31412,7 +31398,7 @@ snapshots:
       string.prototype.trimend: 1.0.9
       tsconfig-paths: 3.15.0
     optionalDependencies:
-      '@typescript-eslint/parser': 8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/parser': 8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
@@ -31422,22 +31408,22 @@ snapshots:
     dependencies:
       eslint: 9.39.1(jiti@2.4.2)
 
-  eslint-plugin-jest@28.10.0(@typescript-eslint/eslint-plugin@8.53.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3):
+  eslint-plugin-jest@28.10.0(@typescript-eslint/eslint-plugin@8.53.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3):
     dependencies:
-      '@typescript-eslint/utils': 8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
       eslint: 9.39.1(jiti@2.4.2)
     optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 8.53.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/eslint-plugin': 8.53.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  eslint-plugin-jest@29.12.1(@typescript-eslint/eslint-plugin@8.53.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3):
+  eslint-plugin-jest@29.12.1(@typescript-eslint/eslint-plugin@8.53.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3):
     dependencies:
-      '@typescript-eslint/utils': 8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
       eslint: 9.39.1(jiti@2.4.2)
     optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 8.53.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/eslint-plugin': 8.53.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -31530,18 +31516,18 @@ snapshots:
 
   eslint-plugin-storybook@10.1.11(eslint@9.39.1(jiti@2.4.2))(storybook@10.1.11(@testing-library/dom@10.4.1)(prettier@3.4.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(typescript@5.9.3):
     dependencies:
-      '@typescript-eslint/utils': 8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
       eslint: 9.39.1(jiti@2.4.2)
       storybook: 10.1.11(@testing-library/dom@10.4.1)(prettier@3.4.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  eslint-plugin-unused-imports@4.3.0(@typescript-eslint/eslint-plugin@8.53.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2)):
+  eslint-plugin-unused-imports@4.3.0(@typescript-eslint/eslint-plugin@8.53.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2)):
     dependencies:
       eslint: 9.39.1(jiti@2.4.2)
     optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 8.53.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/eslint-plugin': 8.53.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
 
   eslint-scope@5.1.1:
     dependencies:
@@ -31683,7 +31669,7 @@ snapshots:
 
   eventemitter3@4.0.7: {}
 
-  eventemitter3@5.0.1: {}
+  eventemitter3@5.0.4: {}
 
   events-universal@1.0.1:
     dependencies:
@@ -32068,7 +32054,7 @@ snapshots:
     dependencies:
       magic-string: 0.30.21
       mlly: 1.8.0
-      rollup: 4.55.1
+      rollup: 4.55.2
 
   flagged-respawn@2.0.0: {}
 
@@ -32148,7 +32134,7 @@ snapshots:
 
   framer-motion@12.23.12(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
     dependencies:
-      motion-dom: 12.26.2
+      motion-dom: 12.27.1
       motion-utils: 12.24.10
       tslib: 2.8.1
     optionalDependencies:
@@ -32465,21 +32451,21 @@ snapshots:
       graphql: 16.12.0
       tslib: 2.8.1
 
-  graphql-tag@2.12.6(graphql@15.10.1):
+  graphql-tag@2.12.6(graphql@16.12.0):
     dependencies:
-      graphql: 15.10.1
+      graphql: 16.12.0
       tslib: 2.8.1
 
   graphql-transformer-common@4.34.0:
     dependencies:
-      graphql: 15.10.1
+      graphql: 16.12.0
       graphql-mapping-template: 4.20.16
       md5: 2.3.0
       pluralize: 8.0.0
 
   graphql-transformer-common@5.1.3:
     dependencies:
-      graphql: 15.10.1
+      graphql: 16.12.0
       graphql-mapping-template: 5.0.2
       md5: 2.3.0
       pluralize: 8.0.0
@@ -32499,10 +32485,6 @@ snapshots:
       graphql: 16.12.0
       lru-cache: 10.4.3
       tslib: 2.8.1
-
-  graphql@15.10.1: {}
-
-  graphql@15.8.0: {}
 
   graphql@16.12.0: {}
 
@@ -32855,11 +32837,11 @@ snapshots:
       readable-stream: 2.3.8
       wbuf: 1.7.3
 
-  html-encoding-sniffer@6.0.0:
+  html-encoding-sniffer@6.0.0(@noble/hashes@1.8.0):
     dependencies:
-      '@exodus/bytes': 1.8.0
+      '@exodus/bytes': 1.9.0(@noble/hashes@1.8.0)
     transitivePeerDependencies:
-      - '@exodus/crypto'
+      - '@noble/hashes'
 
   html-entities@2.6.0: {}
 
@@ -33115,7 +33097,7 @@ snapshots:
       lodash: 4.17.21
       mute-stream: 0.0.7
       run-async: 2.4.1
-      rxjs: 6.6.7
+      rxjs: 7.8.1
       string-width: 2.1.1
       strip-ansi: 5.2.0
       through: 2.3.8
@@ -33425,12 +33407,12 @@ snapshots:
 
   isobject@3.0.1: {}
 
-  isomorphic-dompurify@2.35.0:
+  isomorphic-dompurify@2.35.0(@noble/hashes@1.8.0):
     dependencies:
       dompurify: 3.3.1
-      jsdom: 27.4.0
+      jsdom: 27.4.0(@noble/hashes@1.8.0)
     transitivePeerDependencies:
-      - '@exodus/crypto'
+      - '@noble/hashes'
       - bufferutil
       - canvas
       - supports-color
@@ -33598,15 +33580,15 @@ snapshots:
 
   jsbn@0.1.1: {}
 
-  jsdom@27.4.0:
+  jsdom@27.4.0(@noble/hashes@1.8.0):
     dependencies:
       '@acemir/cssom': 0.9.31
       '@asamuzakjp/dom-selector': 6.7.6
-      '@exodus/bytes': 1.8.0
+      '@exodus/bytes': 1.9.0(@noble/hashes@1.8.0)
       cssstyle: 5.3.7
       data-urls: 6.0.0
       decimal.js: 10.6.0
-      html-encoding-sniffer: 6.0.0
+      html-encoding-sniffer: 6.0.0(@noble/hashes@1.8.0)
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.6
       is-potential-custom-element-name: 1.0.1
@@ -33621,7 +33603,7 @@ snapshots:
       ws: 8.19.0
       xml-name-validator: 5.0.0
     transitivePeerDependencies:
-      - '@exodus/crypto'
+      - '@noble/hashes'
       - bufferutil
       - supports-color
       - utf-8-validate
@@ -33766,7 +33748,7 @@ snapshots:
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.0.8
 
-  langsmith@0.3.87(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.18.0)(zod@4.3.5)):
+  langsmith@0.3.87(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@6.16.0(ws@8.19.0)(zod@4.3.5)):
     dependencies:
       '@types/uuid': 10.0.0
       chalk: 4.1.2
@@ -33777,20 +33759,7 @@ snapshots:
     optionalDependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/sdk-trace-base': 2.4.0(@opentelemetry/api@1.9.0)
-      openai: 5.23.2(ws@8.18.0)(zod@4.3.5)
-
-  langsmith@0.3.87(@opentelemetry/api@1.9.0)(@opentelemetry/sdk-trace-base@2.4.0(@opentelemetry/api@1.9.0))(openai@5.23.2(ws@8.19.0)(zod@4.3.5)):
-    dependencies:
-      '@types/uuid': 10.0.0
-      chalk: 4.1.2
-      console-table-printer: 2.15.0
-      p-queue: 6.6.2
-      semver: 7.7.3
-      uuid: 10.0.0
-    optionalDependencies:
-      '@opentelemetry/api': 1.9.0
-      '@opentelemetry/sdk-trace-base': 2.4.0(@opentelemetry/api@1.9.0)
-      openai: 5.23.2(ws@8.19.0)(zod@4.3.5)
+      openai: 6.16.0(ws@8.19.0)(zod@4.3.5)
 
   language-subtag-registry@0.3.23: {}
 
@@ -33870,7 +33839,7 @@ snapshots:
       log-update: 4.0.0
       p-map: 4.0.0
       rfdc: 1.4.1
-      rxjs: 7.8.2
+      rxjs: 7.8.1
       through: 2.3.8
       wrap-ansi: 7.0.0
     optionalDependencies:
@@ -33880,7 +33849,7 @@ snapshots:
     dependencies:
       cli-truncate: 4.0.0
       colorette: 2.0.20
-      eventemitter3: 5.0.1
+      eventemitter3: 5.0.4
       log-update: 6.1.0
       rfdc: 1.4.1
       wrap-ansi: 9.0.2
@@ -34202,7 +34171,7 @@ snapshots:
     dependencies:
       '@types/mdast': 3.0.15
       '@types/unist': 2.0.11
-      decode-named-character-reference: 1.2.0
+      decode-named-character-reference: 1.3.0
       mdast-util-to-string: 3.2.0
       micromark: 3.2.0
       micromark-util-decode-numeric-character-reference: 1.1.0
@@ -34219,7 +34188,7 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
       '@types/unist': 3.0.3
-      decode-named-character-reference: 1.2.0
+      decode-named-character-reference: 1.3.0
       devlop: 1.1.0
       mdast-util-to-string: 4.0.0
       micromark: 4.0.2
@@ -34418,8 +34387,16 @@ snapshots:
     dependencies:
       fs-monkey: 1.1.0
 
-  memfs@4.54.0:
+  memfs@4.56.2(tslib@2.8.1):
     dependencies:
+      '@jsonjoy.com/fs-core': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-fsa': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-node': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-node-builtins': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-node-to-fsa': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-node-utils': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-print': 4.56.2(tslib@2.8.1)
+      '@jsonjoy.com/fs-snapshot': 4.56.2(tslib@2.8.1)
       '@jsonjoy.com/json-pack': 1.21.0(tslib@2.8.1)
       '@jsonjoy.com/util': 1.9.0(tslib@2.8.1)
       glob-to-regex.js: 1.2.0(tslib@2.8.1)
@@ -34482,7 +34459,7 @@ snapshots:
 
   micromark-core-commonmark@1.1.0:
     dependencies:
-      decode-named-character-reference: 1.2.0
+      decode-named-character-reference: 1.3.0
       micromark-factory-destination: 1.1.0
       micromark-factory-label: 1.1.0
       micromark-factory-space: 1.1.0
@@ -34501,7 +34478,7 @@ snapshots:
 
   micromark-core-commonmark@2.0.3:
     dependencies:
-      decode-named-character-reference: 1.2.0
+      decode-named-character-reference: 1.3.0
       devlop: 1.1.0
       micromark-factory-destination: 2.0.1
       micromark-factory-label: 2.0.1
@@ -34795,14 +34772,14 @@ snapshots:
 
   micromark-util-decode-string@1.1.0:
     dependencies:
-      decode-named-character-reference: 1.2.0
+      decode-named-character-reference: 1.3.0
       micromark-util-character: 1.2.0
       micromark-util-decode-numeric-character-reference: 1.1.0
       micromark-util-symbol: 1.1.0
 
   micromark-util-decode-string@2.0.1:
     dependencies:
-      decode-named-character-reference: 1.2.0
+      decode-named-character-reference: 1.3.0
       micromark-util-character: 2.1.1
       micromark-util-decode-numeric-character-reference: 2.0.2
       micromark-util-symbol: 2.0.1
@@ -34879,7 +34856,7 @@ snapshots:
     dependencies:
       '@types/debug': 4.1.12
       debug: 4.4.3(supports-color@8.1.1)
-      decode-named-character-reference: 1.2.0
+      decode-named-character-reference: 1.3.0
       micromark-core-commonmark: 1.1.0
       micromark-factory-space: 1.1.0
       micromark-util-character: 1.2.0
@@ -34901,7 +34878,7 @@ snapshots:
     dependencies:
       '@types/debug': 4.1.12
       debug: 4.4.3(supports-color@8.1.1)
-      decode-named-character-reference: 1.2.0
+      decode-named-character-reference: 1.3.0
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.3
       micromark-factory-space: 2.0.1
@@ -35052,7 +35029,7 @@ snapshots:
 
   modify-values@1.0.1: {}
 
-  motion-dom@12.26.2:
+  motion-dom@12.27.1:
     dependencies:
       motion-utils: 12.24.10
 
@@ -35164,7 +35141,7 @@ snapshots:
     dependencies:
       '@next/env': 15.5.7
       '@swc/helpers': 0.5.15
-      caniuse-lite: 1.0.30001764
+      caniuse-lite: 1.0.30001765
       postcss: 8.4.31
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
@@ -35461,12 +35438,7 @@ snapshots:
       is-inside-container: 1.0.0
       wsl-utils: 0.1.0
 
-  openai@5.23.2(ws@8.18.0)(zod@4.3.5):
-    optionalDependencies:
-      ws: 8.18.0
-      zod: 4.3.5
-
-  openai@5.23.2(ws@8.19.0)(zod@4.3.5):
+  openai@6.16.0(ws@8.19.0)(zod@4.3.5):
     optionalDependencies:
       ws: 8.19.0
       zod: 4.3.5
@@ -35638,7 +35610,7 @@ snapshots:
       '@types/unist': 2.0.11
       character-entities-legacy: 3.0.0
       character-reference-invalid: 2.0.1
-      decode-named-character-reference: 1.2.0
+      decode-named-character-reference: 1.3.0
       is-alphanumerical: 2.0.1
       is-decimal: 2.0.1
       is-hexadecimal: 2.0.1
@@ -36983,7 +36955,7 @@ snapshots:
     dependencies:
       xtend: 4.0.2
 
-  posthog-js@1.328.0:
+  posthog-js@1.330.0:
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/api-logs': 0.208.0
@@ -36991,7 +36963,7 @@ snapshots:
       '@opentelemetry/resources': 2.4.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-logs': 0.208.0(@opentelemetry/api@1.9.0)
       '@posthog/core': 1.10.0
-      '@posthog/types': 1.328.0
+      '@posthog/types': 1.330.0
       core-js: 3.47.0
       dompurify: 3.3.1
       fflate: 0.4.8
@@ -37851,35 +37823,35 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  rollup@4.55.1:
+  rollup@4.55.2:
     dependencies:
       '@types/estree': 1.0.8
     optionalDependencies:
-      '@rollup/rollup-android-arm-eabi': 4.55.1
-      '@rollup/rollup-android-arm64': 4.55.1
-      '@rollup/rollup-darwin-arm64': 4.55.1
-      '@rollup/rollup-darwin-x64': 4.55.1
-      '@rollup/rollup-freebsd-arm64': 4.55.1
-      '@rollup/rollup-freebsd-x64': 4.55.1
-      '@rollup/rollup-linux-arm-gnueabihf': 4.55.1
-      '@rollup/rollup-linux-arm-musleabihf': 4.55.1
-      '@rollup/rollup-linux-arm64-gnu': 4.55.1
-      '@rollup/rollup-linux-arm64-musl': 4.55.1
-      '@rollup/rollup-linux-loong64-gnu': 4.55.1
-      '@rollup/rollup-linux-loong64-musl': 4.55.1
-      '@rollup/rollup-linux-ppc64-gnu': 4.55.1
-      '@rollup/rollup-linux-ppc64-musl': 4.55.1
-      '@rollup/rollup-linux-riscv64-gnu': 4.55.1
-      '@rollup/rollup-linux-riscv64-musl': 4.55.1
-      '@rollup/rollup-linux-s390x-gnu': 4.55.1
-      '@rollup/rollup-linux-x64-gnu': 4.55.1
-      '@rollup/rollup-linux-x64-musl': 4.55.1
-      '@rollup/rollup-openbsd-x64': 4.55.1
-      '@rollup/rollup-openharmony-arm64': 4.55.1
-      '@rollup/rollup-win32-arm64-msvc': 4.55.1
-      '@rollup/rollup-win32-ia32-msvc': 4.55.1
-      '@rollup/rollup-win32-x64-gnu': 4.55.1
-      '@rollup/rollup-win32-x64-msvc': 4.55.1
+      '@rollup/rollup-android-arm-eabi': 4.55.2
+      '@rollup/rollup-android-arm64': 4.55.2
+      '@rollup/rollup-darwin-arm64': 4.55.2
+      '@rollup/rollup-darwin-x64': 4.55.2
+      '@rollup/rollup-freebsd-arm64': 4.55.2
+      '@rollup/rollup-freebsd-x64': 4.55.2
+      '@rollup/rollup-linux-arm-gnueabihf': 4.55.2
+      '@rollup/rollup-linux-arm-musleabihf': 4.55.2
+      '@rollup/rollup-linux-arm64-gnu': 4.55.2
+      '@rollup/rollup-linux-arm64-musl': 4.55.2
+      '@rollup/rollup-linux-loong64-gnu': 4.55.2
+      '@rollup/rollup-linux-loong64-musl': 4.55.2
+      '@rollup/rollup-linux-ppc64-gnu': 4.55.2
+      '@rollup/rollup-linux-ppc64-musl': 4.55.2
+      '@rollup/rollup-linux-riscv64-gnu': 4.55.2
+      '@rollup/rollup-linux-riscv64-musl': 4.55.2
+      '@rollup/rollup-linux-s390x-gnu': 4.55.2
+      '@rollup/rollup-linux-x64-gnu': 4.55.2
+      '@rollup/rollup-linux-x64-musl': 4.55.2
+      '@rollup/rollup-openbsd-x64': 4.55.2
+      '@rollup/rollup-openharmony-arm64': 4.55.2
+      '@rollup/rollup-win32-arm64-msvc': 4.55.2
+      '@rollup/rollup-win32-ia32-msvc': 4.55.2
+      '@rollup/rollup-win32-x64-gnu': 4.55.2
+      '@rollup/rollup-win32-x64-msvc': 4.55.2
       fsevents: 2.3.3
 
   roughjs@4.6.6:
@@ -37921,15 +37893,7 @@ snapshots:
 
   rw@1.3.3: {}
 
-  rxjs@6.6.7:
-    dependencies:
-      tslib: 2.8.1
-
   rxjs@7.8.1:
-    dependencies:
-      tslib: 2.8.1
-
-  rxjs@7.8.2:
     dependencies:
       tslib: 2.8.1
 
@@ -38030,7 +37994,7 @@ snapshots:
       buffer-builder: 0.2.0
       colorjs.io: 0.5.2
       immutable: 5.1.4
-      rxjs: 7.8.2
+      rxjs: 7.8.1
       supports-color: 8.1.1
       sync-child-process: 1.0.2
       varint: 6.0.0
@@ -39449,7 +39413,7 @@ snapshots:
       picocolors: 1.1.1
       postcss-load-config: 6.0.1(jiti@2.4.2)(postcss@8.4.38)(tsx@4.21.0)(yaml@2.8.2)
       resolve-from: 5.0.0
-      rollup: 4.55.1
+      rollup: 4.55.2
       source-map: 0.7.6
       sucrase: 3.35.1
       tinyexec: 0.3.2
@@ -39477,7 +39441,7 @@ snapshots:
       picocolors: 1.1.1
       postcss-load-config: 6.0.1(jiti@2.4.2)(postcss@8.5.6)(tsx@4.21.0)(yaml@2.8.2)
       resolve-from: 5.0.0
-      rollup: 4.55.1
+      rollup: 4.55.2
       source-map: 0.7.6
       sucrase: 3.35.1
       tinyexec: 0.3.2
@@ -39639,12 +39603,12 @@ snapshots:
 
   typed-query-selector@2.12.0: {}
 
-  typescript-eslint@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3):
+  typescript-eslint@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3):
     dependencies:
-      '@typescript-eslint/eslint-plugin': 8.53.0(@typescript-eslint/parser@8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
-      '@typescript-eslint/parser': 8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
-      '@typescript-eslint/typescript-estree': 8.53.0(typescript@5.9.3)
-      '@typescript-eslint/utils': 8.53.0(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/eslint-plugin': 8.53.1(@typescript-eslint/parser@8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3))(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/parser': 8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
+      '@typescript-eslint/typescript-estree': 8.53.1(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.53.1(eslint@9.39.1(jiti@2.4.2))(typescript@5.9.3)
       eslint: 9.39.1(jiti@2.4.2)
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -40169,18 +40133,20 @@ snapshots:
       webpack: 5.103.0(webpack-cli@6.0.1)
       webpack-merge: 6.0.1
 
-  webpack-dev-middleware@7.4.5(webpack@5.103.0):
+  webpack-dev-middleware@7.4.5(tslib@2.8.1)(webpack@5.103.0):
     dependencies:
       colorette: 2.0.20
-      memfs: 4.54.0
+      memfs: 4.56.2(tslib@2.8.1)
       mime-types: 3.0.2
       on-finished: 2.4.1
       range-parser: 1.2.1
       schema-utils: 4.3.3
     optionalDependencies:
       webpack: 5.103.0(webpack-cli@6.0.1)
+    transitivePeerDependencies:
+      - tslib
 
-  webpack-dev-server@5.2.2(webpack-cli@6.0.1)(webpack@5.103.0):
+  webpack-dev-server@5.2.2(tslib@2.8.1)(webpack-cli@6.0.1)(webpack@5.103.0):
     dependencies:
       '@types/bonjour': 3.5.13
       '@types/connect-history-api-fallback': 1.5.4
@@ -40208,7 +40174,7 @@ snapshots:
       serve-index: 1.9.1
       sockjs: 0.3.24
       spdy: 4.0.2
-      webpack-dev-middleware: 7.4.5(webpack@5.103.0)
+      webpack-dev-middleware: 7.4.5(tslib@2.8.1)(webpack@5.103.0)
       ws: 8.19.0
     optionalDependencies:
       webpack: 5.103.0(webpack-cli@6.0.1)
@@ -40217,6 +40183,7 @@ snapshots:
       - bufferutil
       - debug
       - supports-color
+      - tslib
       - utf-8-validate
 
   webpack-manifest-plugin@5.0.1(webpack@5.103.0):

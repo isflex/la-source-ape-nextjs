@@ -86,9 +86,7 @@ const mainConfig = new Config(async (phase, args) => {
 
     productionBrowserSourceMaps: false, // Disable to reduce build size
 
-    // https://nextjs.org/docs/pages/api-reference/config/next-config-js/rewrites
-    // https://www.giovannibenussi.com/blog/redirects-and-rewrites-on-nextjs
-    trailingSlash: true,
+    trailingSlash: false,
     async rewrites() {
       // Dynamically load active routes and exclude them from rewrite (except web-app)
       const activeRoutes = JSON.parse(fs.readFileSync('./routes.active.json', 'utf8'))
@@ -101,7 +99,7 @@ const mainConfig = new Config(async (phase, args) => {
         // Handle root route specifically - server-side rewrite to web-app
         {
           source: '/',
-          destination: '/web-app/',
+          destination: '/web-app',
         },
         // Handle all other non-excluded routes
         {

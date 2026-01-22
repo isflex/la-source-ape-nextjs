@@ -4,6 +4,13 @@ packages:
   - '!apps/gateway/amplify/**'
   - 'packages/**'
 
+hoistPattern:
+  - '*eslint*'
+  - '*prettier*'
+  - '@flexiness/*'
+  - '@flex-design-system/*'
+  - 'gateway'
+
 # ignoredBuiltDependencies:
   # - '@rspack/binding'
   #   - fsevents

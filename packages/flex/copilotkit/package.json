@@ -29,20 +29,15 @@
       "import": "./dist/provider/index.js",
       "require": "./dist/provider/index.cjs"
     },
-    "./runtime": {
-      "types": "./dist/runtime/index.d.ts",
-      "import": "./dist/runtime/index.js",
-      "require": "./dist/runtime/index.cjs"
+    "./bridges": {
+      "types": "./dist/bridges/index.d.ts",
+      "import": "./dist/bridges/index.js",
+      "require": "./dist/bridges/index.cjs"
     },
     "./actions": {
       "types": "./dist/actions/index.d.ts",
       "import": "./dist/actions/index.js",
       "require": "./dist/actions/index.cjs"
-    },
-    "./mcp": {
-      "types": "./dist/mcp/index.d.ts",
-      "import": "./dist/mcp/index.js",
-      "require": "./dist/mcp/index.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -61,9 +56,13 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@copilotkit/react-core": "^1.51.0",
-    "@copilotkit/react-ui": "^1.51.0",
-    "@copilotkit/runtime": "^1.51.0",
+    "@ag-ui/client": "^0.0.43",
+    "@ag-ui/core": "^0.0.43",
+    "@ag-ui/encoder": "^0.0.43",
+    "@ag-ui/proto": "^0.0.43",
+    "@copilotkit/react-core": "^1.51.2",
+    "@copilotkit/react-ui": "^1.51.2",
+    "@copilotkit/runtime": "^1.51.2",
     "tslib": "^2.8.1"
   },
   "devDependencies": {

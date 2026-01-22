@@ -9,6 +9,7 @@ This is a monorepo for "La Source | APE", a NextJS application with AWS Amplify 
 ## Environment Setup
 
 Before working with this codebase, you must set these environment variables:
+
 ```bash
 export FLEX_PROJ_ROOT=$(pwd)
 export FLEX_MODE=development
@@ -21,19 +22,23 @@ This project uses **pnpm** as the package manager. All commands should use pnpm,
 ## Common Commands
 
 ### Development
+
 - `pnpm dev` - Start development server (runs gateway app on port 3001)
 - `pnpm compile && pnpm dev` - Full development setup (compile packages then start dev)
 - `pnpm compile:watch` - Watch mode for package compilation
 
 ### Building
+
 - `pnpm build` - Build the entire monorepo for production
 - `pnpm compile` - Compile all packages (required before building)
 
 ### Testing & Quality
+
 - `pnpm lint` - Run ESLint across all packages
 - `pnpm test` - Currently returns placeholder message
 
 ### Compilation
+
 - `pnpm compile:clean:sh` - Clean compile all packages
 - `pnpm compile:tsc:project:references` - TypeScript project references compilation
 - `pnpm compile:tsc:project:references:watch` - Watch mode for TypeScript compilation
@@ -41,7 +46,8 @@ This project uses **pnpm** as the package manager. All commands should use pnpm,
 ## Architecture
 
 ### Monorepo Structure
-- `/apps/gateway/` - Main NextJS application (port 3001)
+
+- `/apps/gateway/` - Main NextJS application (port 3001). Uses forward slash in routes !
 - `/apps/express-app/` - Express.js application
 - `/packages/flex/` - Internal packages:
   - `design-system-framework/` - Core CSS/SCSS design system
@@ -52,6 +58,7 @@ This project uses **pnpm** as the package manager. All commands should use pnpm,
   - `types/` - TypeScript type definitions
 
 ### Tech Stack
+
 - **NextJS 15** with App Router
 - **React 19** with Server Components
 - **TypeScript** with project references
@@ -62,6 +69,7 @@ This project uses **pnpm** as the package manager. All commands should use pnpm,
 - **pnpm workspaces** for dependency management
 
 ### Build System
+
 - Uses **Turbo** for task orchestration
 - **dotenvx** for environment variable management
 - Custom shell scripts in `/bin/` directory for complex operations
@@ -69,6 +77,7 @@ This project uses **pnpm** as the package manager. All commands should use pnpm,
 - **Webpack/Rspack** for bundling
 
 ### Key Dependencies
+
 - Framer Motion for animations
 - PostHog for analytics
 - AWS SDK for cloud services
@@ -89,8 +98,9 @@ Packages have interdependencies managed through workspace references. Always com
 ## AWS Amplify Integration
 
 The gateway app includes AWS Amplify Gen 2 setup for backend services. Developers need AWS CLI configured and appropriate AWS credentials.
-- To deploy in dev mode, we are going to use amplify sandbox : 
-cd apps/gateway && pnpm ampx sandbox --once
+
+- To deploy in dev mode, we are going to use amplify sandbox :
+  cd apps/gateway && pnpm ampx sandbox --once
 - ampx commands must be run from app/gateway (amplify root folder)
 - Bash(pnpm compile) for monorepo wide compilation
 - pnpm lint -> runs pnpm compile (monorepo tsc), pnpm next:tsc (gateway nextjs specific tsc) and pnpm next lint
@@ -107,22 +117,23 @@ This project is optimized for VS Code with a comprehensive workspace configurati
 ### Workspace File
 
 Open the project using `flexi-gateway.code-workspace` for the full configured experience:
+
 - Pre-configured settings, tasks, and launch configurations
 - Recommended extensions
 - Portable paths using VS Code variables
 
 ### VS Code Tasks (Ctrl+Shift+P → "Tasks: Run Task")
 
-| Task | Description |
-|------|-------------|
-| Compile | TypeScript compilation |
-| Compile (Watch) | Watch mode compilation |
-| Dev Server | Start development server |
-| Lint | Run ESLint |
-| Build | Production build |
-| Claude AI | Launch Claude Code CLI |
-| Compile + Dev | Sequential compile then dev |
-| Amplify Sandbox | Deploy to Amplify sandbox |
+| Task            | Description                 |
+| --------------- | --------------------------- |
+| Compile         | TypeScript compilation      |
+| Compile (Watch) | Watch mode compilation      |
+| Dev Server      | Start development server    |
+| Lint            | Run ESLint                  |
+| Build           | Production build            |
+| Claude AI       | Launch Claude Code CLI      |
+| Compile + Dev   | Sequential compile then dev |
+| Amplify Sandbox | Deploy to Amplify sandbox   |
 
 ### Debug Configurations (F5)
 
@@ -134,6 +145,7 @@ Open the project using `flexi-gateway.code-workspace` for the full configured ex
 ### Claude Code Integration
 
 Custom slash commands available in `.claude/commands/`:
+
 - `/compile` - Compile with error analysis
 - `/lint-fix` - Lint and auto-fix issues
 - `/dev` - Start development environment
@@ -143,24 +155,26 @@ Custom slash commands available in `.claude/commands/`:
 
 ### Configuration Files
 
-| File | Purpose |
-|------|---------|
+| File                           | Purpose                                        |
+| ------------------------------ | ---------------------------------------------- |
 | `flexi-gateway.code-workspace` | Main workspace config (single source of truth) |
-| `.vscode/settings.json` | Minimal overrides only |
-| `.vscode/extensions.json` | Recommended extensions |
-| `.vscode/launch.json` | Debug configurations (fallback) |
-| `.claude/settings.json` | Claude Code settings + MCP servers |
-| `.claude/settings.local.json` | Machine-specific permissions |
-| `.claude/commands/*.md` | Custom slash commands |
+| `.vscode/settings.json`        | Minimal overrides only                         |
+| `.vscode/extensions.json`      | Recommended extensions                         |
+| `.vscode/launch.json`          | Debug configurations (fallback)                |
+| `.claude/settings.json`        | Claude Code settings + MCP servers             |
+| `.claude/settings.local.json`  | Machine-specific permissions                   |
+| `.claude/commands/*.md`        | Custom slash commands                          |
 
 ## CopilotKit Integration
 
 This project includes `@flexiness/copilotkit` package for AI-powered user interactions.
 
 ### Package Location
+
 `/packages/flex/copilotkit/`
 
 ### Key Features
+
 - **React Hooks**: `useReadableState`, `useReadableStore`, `useReadableUser`, `useReadableApi`
 - **Provider**: `FlexCopilotProvider` - Pre-configured CopilotKit wrapper
 - **Runtime**: AWS Bedrock adapter with LLM adapter factory pattern
@@ -188,21 +202,21 @@ function Dashboard({ user }) {
 
 ### CopilotKit Slash Commands
 
-| Command | Description |
-|---------|-------------|
+| Command                 | Description                                    |
+| ----------------------- | ---------------------------------------------- |
 | `/copilotkit-integrate` | Analyze component and suggest CopilotKit hooks |
-| `/copilotkit-report` | Generate integration coverage report |
-| `/copilotkit-action` | Create a new CopilotKit action |
+| `/copilotkit-report`    | Generate integration coverage report           |
+| `/copilotkit-action`    | Create a new CopilotKit action                 |
 
 ### API Route Setup
 
 Create `apps/gateway/src/app/api/copilotkit/route.ts`:
 
 ```typescript
-import { createCopilotRouteHandlers, NEXTJS_RUNTIME } from '@flexiness/copilotkit/runtime';
+import { createCopilotRouteHandlers, NEXTJS_RUNTIME } from "@flexiness/copilotkit/runtime";
 
 export const { GET, POST } = createCopilotRouteHandlers({
-  instructions: 'You are a helpful assistant.',
+  instructions: "You are a helpful assistant.",
 });
 
 export const runtime = NEXTJS_RUNTIME;
@@ -245,20 +259,22 @@ User (Browser)
 The project includes `@flexiness/copilotkit-mcp-server` - an MCP server for automated CopilotKit integration.
 
 ### Package Location
+
 `/packages/flex/copilotkit-mcp-server/`
 
 ### Purpose
+
 This MCP server allows Claude Code to automatically analyze React components and suggest CopilotKit integration patterns during development.
 
 ### MCP Tools Available
 
-| Tool | Description |
-|------|-------------|
-| `analyze_component` | Analyze a React component for CopilotKit integration opportunities |
-| `inject_readable` | Add useCopilotReadable hooks to a component (dry-run by default) |
-| `validate_integration` | Check if a component properly integrates CopilotKit |
-| `get_integration_report` | Generate a coverage report for a directory |
-| `suggest_actions` | Suggest CopilotKit actions for a component |
+| Tool                     | Description                                                        |
+| ------------------------ | ------------------------------------------------------------------ |
+| `analyze_component`      | Analyze a React component for CopilotKit integration opportunities |
+| `inject_readable`        | Add useCopilotReadable hooks to a component (dry-run by default)   |
+| `validate_integration`   | Check if a component properly integrates CopilotKit                |
+| `get_integration_report` | Generate a coverage report for a directory                         |
+| `suggest_actions`        | Suggest CopilotKit actions for a component                         |
 
 ### Configuration
 
@@ -278,12 +294,14 @@ The MCP server is configured in `.claude/settings.json`:
 ### Usage Examples
 
 **Analyze a component:**
+
 ```
 Use the copilotkit-integration MCP server to analyze
 apps/gateway/src/components/Dashboard.tsx
 ```
 
 **Generate integration report:**
+
 ```
 Use the copilotkit-integration MCP server to generate
 an integration report for apps/gateway/src/components/
@@ -292,12 +310,14 @@ an integration report for apps/gateway/src/components/
 ### Component Analyzer Features
 
 The analyzer detects:
+
 - `useState` hooks with AI-relevant state (data, lists, user info)
 - Props that represent user context
 - API calls (fetch, axios, etc.)
 - Existing CopilotKit hooks
 
 It generates recommendations for:
+
 - `useReadableState` - for component state
 - `useReadableUser` - for user context props
 - `useReadableApi` - for API response data

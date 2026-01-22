@@ -25,6 +25,8 @@ applications:
             - pnpm install --frozen-lockfile
             # Switch to Zod 3.x for Amplify CLI compatibility
             - node bin/switch-zod-version.mjs 3
+            # Switch to GraphQL 15.x for Amplify CLI compatibility
+            - node bin/switch-graphql-version.mjs 15
             - pnpm install --no-frozen-lockfile
             # - pnpm add -g react-router@7.6.0
             # - pnpm store path
@@ -68,6 +70,8 @@ applications:
             - pwd
             # Switch back to Zod 4.x for CopilotKit compatibility in frontend build
             - node bin/switch-zod-version.mjs 4
+            # Switch back to GraphQL 16.x for CopilotKit compatibility
+            - node bin/switch-graphql-version.mjs 16
             - pnpm install --no-frozen-lockfile
             # - npm install -g pnpm
             # - npm install --global corepack@latest

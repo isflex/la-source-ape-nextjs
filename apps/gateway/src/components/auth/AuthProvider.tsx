@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
-import { useReadableUser,  type UserContext } from '@flexiness/copilotkit';
+// import { useReadableUser, type UserContext } from '@flexiness/copilotkit';
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -12,26 +12,26 @@ interface AuthProviderProps {
  * Inner component that exposes user context to CopilotKit
  * Must be inside Authenticator.Provider to use useAuthenticator
  */
-function AuthContextBridge({ children }: { children: React.ReactNode }) {
-  const { user, authStatus } = useAuthenticator((context) => [context.user, context.authStatus]);
+// function AuthContextBridge({ children }: { children: React.ReactNode }) {
+//   const { user, authStatus } = useAuthenticator((context) => [context.user, context.authStatus]);
 
-  // Map Amplify user to CopilotKit UserContext
-  const userContext: UserContext | null = user && authStatus === 'authenticated'
-    ? {
-        id: user.userId,
-        email: user.signInDetails?.loginId,
-        name: user.username,
-        authStatus,
-      }
-    : null;
+//   // Map Amplify user to CopilotKit UserContext
+//   const userContext: UserContext | null = user && authStatus === 'authenticated'
+//     ? {
+//         id: user.userId,
+//         email: user.signInDetails?.loginId,
+//         name: user.username,
+//         authStatus,
+//       }
+//     : null;
 
-  useReadableUser(userContext, {
-    description: 'Current authenticated user from AWS Cognito',
-    categories: ['user', 'auth', 'cognito'],
-  });
+//   useReadableUser(userContext, {
+//     description: 'Current authenticated user from AWS Cognito',
+//     categories: ['user', 'auth', 'cognito'],
+//   });
 
-  return <>{children}</>;
-}
+//   return <>{children}</>;
+// }
 
 /**
  * Client-side Authentication Provider wrapper
@@ -41,9 +41,10 @@ function AuthContextBridge({ children }: { children: React.ReactNode }) {
 export default function AuthProvider({ children }: AuthProviderProps) {
   return (
     <Authenticator.Provider>
-      <AuthContextBridge>
+      {/* <AuthContextBridge>
         {children}
-      </AuthContextBridge>
+      </AuthContextBridge> */}
+      {children}
     </Authenticator.Provider>
   );
 }

@@ -1,0 +1,15 @@
+[project]
+name = "ape-strands-agent"
+version = "0.1.0"
+description = "APE Strands Agent with Bedrock"
+requires-python = ">=3.12"
+dependencies = [
+    "ag-ui-protocol>=0.1.5",
+    "fastapi>=0.115.12",
+    "uvicorn>=0.34.3",
+    "strands-agents>=1.15.0",
+    "strands-agents-tools>=0.2.14",
+    "ag-ui-strands>=0.1.0",
+    "python-dotenv>=1.0.0",
+    "boto3>=1.35.0",
+]

@@ -3,8 +3,8 @@
 import React, { Component, type ReactNode } from 'react';
 import { CopilotKit } from '@copilotkit/react-core';
 import { CopilotSidebar } from '@copilotkit/react-ui';
-import '@copilotkit/react-ui/styles.css';
-import { useCopilotStore } from '@src/hooks/useCopilotStore';
+import '@copilotkit/react-ui/v2/index.css';
+// import { useCopilotStore } from '@src/hooks/useCopilotStore';
 
 interface CopilotKitProviderProps {
   children: React.ReactNode;
@@ -48,11 +48,11 @@ class CopilotKitFallbackBoundary extends Component<FallbackBoundaryProps, Fallba
  * Inner component that exposes MobX store to CopilotKit
  * Must be inside CopilotKit provider to use CopilotKit hooks
  */
-function StoreContextBridge({ children }: { children: React.ReactNode }) {
-  // Expose MobX UIStore data to CopilotKit
-  useCopilotStore();
-  return <>{children}</>;
-}
+// function StoreContextBridge({ children }: { children: React.ReactNode }) {
+//   // Expose MobX UIStore data to CopilotKit
+//   useCopilotStore();
+//   return <>{children}</>;
+// }
 
 /**
  * Client-side CopilotKit Provider wrapper
@@ -76,11 +76,11 @@ export default function CopilotKitProvider({
   return (
     <CopilotKitFallbackBoundary fallback={<>{children}</>}>
       <CopilotKit
-        runtimeUrl="/api/copilotkit/"
+        runtimeUrl="/api/copilotkit"
         agent="ape_assistant"
-        showDevConsole={false}
+        showDevConsole={process.env.NODE_ENV === 'development'}
       >
-        <StoreContextBridge>
+        {/* <StoreContextBridge>
           {showSidebar ? (
             <CopilotSidebar
               defaultOpen={false}
@@ -95,7 +95,19 @@ export default function CopilotKitProvider({
           ) : (
             children
           )}
-        </StoreContextBridge>
+        </StoreContextBridge> */}
+
+        <CopilotSidebar
+          defaultOpen={false}
+          labels={{
+            title: 'Assistant APE',
+            initial: 'Bonjour! Je suis votre assistant. Comment puis-je vous aider?',
+          }}
+          instructions="Tu es un assistant pour le site La Source APE. Tu aides les utilisateurs à naviguer sur le site, créer des newsletters, gérer des cagnottes, et comprendre les fonctionnalités disponibles. Réponds toujours en français."
+        >
+          {children}
+        </CopilotSidebar>
+
       </CopilotKit>
     </CopilotKitFallbackBoundary>
   );

@@ -1,0 +1,12 @@
+# Python virtual environment
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# uv lock file (generated)
+uv.lock
+
+# Environment files with secrets
+.env.local
+.env.*.local
