@@ -59,10 +59,14 @@ strands_agent = Agent(
     tools=[navigate, search],
 )
 
+# Agent ID - centralized via environment variable
+# Must match: CopilotKitWrapper.tsx AGENT_ID, route.ts AGENT_ID
+AGENT_ID = os.getenv("COPILOTKIT_AGENT_ID", "ape_assistant")
+
 # Wrap with AG-UI integration using official package
 agui_agent = StrandsAgent(
     agent=strands_agent,
-    name="ape_assistant",
+    name=AGENT_ID,
     description="La Source APE Assistant - aide les utilisateurs a naviguer sur le site",
 )
 

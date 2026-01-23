@@ -267,22 +267,67 @@ FLEX_MCP_BRIDGE_PORT=3000
 FLEX_AI_COPILOTKIT_ENABLED=true
 ```
 
-### Architecture
+### Architecture (v2 AG-UI Protocol)
 
 ```
-User (Browser)
-    │
-    └──► CopilotKit Chat UI
-              │
-              ▼
-    FlexCopilotProvider
-              │
-              ▼
-    /api/copilotkit (Next.js API Route)
-              │
-              ├──► AWS Bedrock (LLM)
-              └──► MCP Bridge (Tools)
+┌─────────────────────────────────────────────────────────────────────────┐
+│  Browser / React App                                                     │
+│                                                                          │
+│  CopilotKitWrapper.tsx                                                   │
+│    ├─ AuthContextBridge (AWS Cognito user → agent)                      │
+│    └─ StoreContextBridge (MobX state → agent)                           │
+│           │                                                              │
+│           ▼                                                              │
+│  FlexCopilotProvider (agentId="$AGENT_ID", runtimeUrl="/api/copilotkit")│
+│    └─ CopilotSidebar (chat UI)                                          │
+│           │                                                              │
+└───────────│──────────────────────────────────────────────────────────────┘
+            │ HTTP POST (AG-UI Protocol)
+            ▼
+┌───────────────────────────────────────────────────────────────────────────┐
+│  /api/copilotkit/[[...path]]/route.ts                                    │
+│    ├─ CopilotRuntime (v2) with Hono router                               │
+│    ├─ HttpAgent → proxies to Python agent                                │
+│    └─ Routes: /info, /agent/{agentId}/run, /agent/{agentId}/connect      │
+└───────────│───────────────────────────────────────────────────────────────┘
+            │ HTTP/SSE (AG-UI Protocol)
+            ▼
+┌───────────────────────────────────────────────────────────────────────────┐
+│  Python Strands Agent (localhost:8000)                                   │
+│    ├─ StrandsAgent (name="$AGENT_ID")                                    │
+│    ├─ BedrockModel (Claude 3 Haiku)                                      │
+│    └─ Tools: navigate(), search()                                        │
+└───────────────────────────────────────────────────────────────────────────┘
 ```
+
+### CopilotKit Environment Variables
+
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `NEXT_PUBLIC_COPILOTKIT_ENABLED` | Yes | `false` | Enable CopilotKit sidebar |
+| `NEXT_PUBLIC_COPILOTKIT_AGENT_ID` | Yes | `ape_assistant` | Agent ID (must match Python) |
+| `NEXT_PUBLIC_AGENT_URL` | Yes | `http://localhost:8000` | Python agent URL |
+| `NEXT_PUBLIC_COPILOTKIT_API_KEY` | No | - | CopilotKit Cloud API key (optional) |
+| `FLEX_AI_LLM_PROVIDER` | Yes | `bedrock` | LLM provider for Python agent |
+| `FLEX_AI_LLM_MODEL` | Yes | `anthropic.claude-3-haiku-*` | Bedrock model ID |
+
+### CopilotKit Integration Checklist
+
+```markdown
+- [ ] `NEXT_PUBLIC_COPILOTKIT_ENABLED=true` in `.env.development`
+- [ ] `NEXT_PUBLIC_COPILOTKIT_AGENT_ID` set (same value in all 3 files)
+- [ ] `NEXT_PUBLIC_AGENT_URL=http://localhost:8000`
+- [ ] Python agent running: `cd agent && uvicorn main:app --reload`
+- [ ] API route responds: `curl http://localhost:3001/api/copilotkit/info`
+- [ ] AWS credentials: `AWS_PROFILE` set with Bedrock access
+```
+
+### CopilotKit Troubleshooting
+
+- **No chat sidebar**: Check `NEXT_PUBLIC_COPILOTKIT_ENABLED=true`
+- **Agent not responding**: Verify Python agent running at `AGENT_URL`
+- **Agent ID mismatch error**: Ensure same ID in CopilotKitWrapper.tsx, route.ts, and main.py
+- **Bedrock error**: Check `AWS_PROFILE` has `bedrock:InvokeModel` permission
 
 ## CopilotKit MCP Server (Dev-Time Integration)
 

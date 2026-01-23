@@ -31,9 +31,9 @@ import { debug } from "@flexiness/domain-utils";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-// Agent configuration
-const AGENT_URL = process.env.STRANDS_AGENT_URL || "http://localhost:8000";
-const AGENT_ID = "ape_assistant";
+// Agent configuration - centralized via environment variable
+const AGENT_URL = process.env.NEXT_PUBLIC_AGENT_URL || "http://localhost:8000";
+const AGENT_ID = process.env.NEXT_PUBLIC_COPILOTKIT_AGENT_ID || "ape_assistant";
 
 debug.copilotKit(`[v2] Agent "${AGENT_ID}" → ${AGENT_URL}`);
 

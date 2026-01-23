@@ -46,7 +46,7 @@ function FlexCopilotContent({
   const { agent } = useAgent({ agentId });
 
   // Log agent availability in development
-  if (process.env.NODE_ENV === 'development' && agent) {
+  if (process.env.FLEX_MODE === 'development' && agent) {
     console.log('[FlexCopilotProvider] Agent connected:', agentId);
   }
 

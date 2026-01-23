@@ -12,8 +12,9 @@ import { RootStore } from '@src/stores/root-store';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import type { UserInterfaceStore } from '@flexiness/domain-store';
 
-// Agent configuration - must match the agent ID in route.ts
-const AGENT_ID = 'ape_assistant';
+// Agent configuration - centralized via environment variable
+// Must match: route.ts AGENT_ID, Python agent name
+const AGENT_ID = process.env.NEXT_PUBLIC_COPILOTKIT_AGENT_ID || 'ape_assistant';
 
 interface CopilotKitWrapperProps {
   children: React.ReactNode;
@@ -88,6 +89,7 @@ function CopilotKitContent({ children }: { children: React.ReactNode }) {
  */
 export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) {
   const isEnabled = process.env.NEXT_PUBLIC_COPILOTKIT_ENABLED === 'true';
+  console.log(`[CopilotKitWrapper] isEnabled: ${isEnabled}`);
 
   if (!isEnabled) {
     return <>{children}</>;
