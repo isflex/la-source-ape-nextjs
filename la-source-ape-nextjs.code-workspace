@@ -86,13 +86,12 @@
     "eslint.enable": true,
     "eslint.format.enable": true,
     "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
-    "eslint.options": {
-      "overrideConfigFile": "${workspaceFolder}/eslint.config.mjs",
-    },
-    "eslint.workingDirectories": [
-      { "pattern": "./apps/**/src/*", "!cwd": true },
-      { "pattern": "./packages/**/src/*", "!cwd": true },
-    ],
+    // ESLint flat config auto-discovers eslint.config.mjs - no need for overrideConfigFile
+    "eslint.useFlatConfig": true,
+    "eslint.workingDirectories": [{ "mode": "auto" }],
+    // Run ESLint in WSL context to resolve workspace packages correctly
+    "eslint.runtime": "node",
+    "eslint.execArgv": [],
     "eslint.ignoreUntitled": true,
     "eslint.lintTask.enable": true,
     "eslint.codeActionsOnSave.mode": "problems",
@@ -143,7 +142,8 @@
     "scss.validate": false,
     "stylelint.snippet": ["css", "scss", "less", "postcss"],
     "stylelint.validate": ["css", "scss", "less", "postcss"],
-    "stylelint.configFile": "${workspaceFolder}/packages/flex/design-system-framework/.scss.stylelintrc.json",
+    // Stylelint will auto-discover config in the design-system-framework package
+    "stylelint.configFile": "./packages/flex/design-system-framework/.scss.stylelintrc.json",
 
     // ========================================
     // HTML/PRETTIER SETTINGS
@@ -174,10 +174,6 @@
     // ========================================
     // TAILWIND CSS
     // ========================================
-    "tailwindCSS.experimental.classRegex": [
-      ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-      ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
-    ],
     "tailwindCSS.includeLanguages": {
       "typescript": "javascript",
       "typescriptreact": "javascript",
@@ -188,6 +184,10 @@
     // ========================================
     "claude.projectPath": "${workspaceFolder}",
     "claude.enableMcp": true,
+    "claudeCode.preferredLocation": "panel",
+    "claudeCode.useTerminal": true,
+    // Prefer setting environment variables in Claude's settings.json.
+    // "claudeCode.environmentVariables": [],
   },
 
   // ========================================
@@ -198,6 +198,7 @@
       "anthropic.claude-code",
       "dbaeumer.vscode-eslint",
       "esbenp.prettier-vscode",
+      "ms-vscode-remote.remote-wsl",
       "bradlc.vscode-tailwindcss",
       "ms-vscode.vscode-typescript-next",
       "ms-azuretools.vscode-docker",

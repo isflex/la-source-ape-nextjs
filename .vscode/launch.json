@@ -2,7 +2,7 @@
   // ========================================
   // DEBUG CONFIGURATIONS
   // ========================================
-  // Note: Primary launch configs are in flexi-gateway.code-workspace
+  // Note: Primary launch configs are in la-source-ape-nextjs.code-workspace
   // This file provides fallback for non-workspace usage
 
   "version": "0.2.0",
