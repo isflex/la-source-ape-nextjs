@@ -110,6 +110,36 @@ The gateway app includes AWS Amplify Gen 2 setup for backend services. Developer
 - 'use server' directive has import from @flex-design-system/react-ts/server-async-styled-default-module-components and 'use client' directive has import from @flex-design-system/react-ts/client-sync-styled-default
 - In nextjs do not rely on window object for routing, use internal useRouter() API
 
+## Zod and GraphQL Version Compatibility
+
+AWS Amplify CLI has specific version requirements that differ from local development:
+
+| Phase | Zod | GraphQL | Reason |
+|-------|-----|---------|--------|
+| Amplify Backend Build | 3.x | 15.x | Amplify CLI compatibility |
+| Frontend Build / Local Dev | 4.x | 16.x | CopilotKit + modern features |
+
+### Version Switching Scripts
+
+- `bin/switch-zod-version.mjs [3|4]` - Switch Zod version
+- `bin/switch-graphql-version.mjs [15|16]` - Switch GraphQL version
+- `bin/ampx-sandbox.sh` - Auto-switches versions for sandbox deployment
+
+### Usage
+
+**Local sandbox deployment:**
+```bash
+pnpm ampx:sandbox
+```
+This script automatically:
+1. Switches to Zod 3.x and GraphQL 15.x
+2. Runs amplify sandbox
+3. Restores Zod 4.x and GraphQL 16.x
+
+**CI/CD (amplify.yml):**
+- Backend phase: Uses Zod 3.x + GraphQL 15.x
+- Frontend phase: Restores Zod 4.x + GraphQL 16.x
+
 ## VS Code Integration
 
 This project is optimized for VS Code with a comprehensive workspace configuration.

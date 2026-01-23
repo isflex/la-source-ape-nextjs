@@ -26,7 +26,7 @@ export const toolDefinitions = [
   {
     name: 'analyze_component',
     description:
-      'Analyze a React component file to identify state, props, and API data that should be exposed via useCopilotReadable hooks',
+      'Analyze a React component file to identify state, props, and API data that should be exposed via CopilotKit v2 patterns (useAgentContext or context bridges)',
     inputSchema: {
       type: 'object',
       properties: {
@@ -45,7 +45,7 @@ export const toolDefinitions = [
   },
   {
     name: 'inject_readable',
-    description: 'Inject useCopilotReadable or related hooks into a component for identified state/data',
+    description: 'Inject CopilotKit v2 patterns (useAgentContext, AuthContextBridge, StoreContextBridge) into a component',
     inputSchema: {
       type: 'object',
       properties: {
@@ -144,7 +144,7 @@ export async function handleAnalyzeComponent(input: AnalyzeComponentInput): Prom
 }
 
 /**
- * Handle inject_readable tool call
+ * Handle inject_readable tool call (v2 patterns)
  */
 export async function handleInjectReadable(
   input: InjectReadableInput
@@ -160,62 +160,89 @@ export async function handleInjectReadable(
     const hasUseClient =
       lines[0].includes("'use client'") || lines[0].includes('"use client"');
 
-    // Check if @flexiness/copilotkit import exists
-    const hasImport = sourceCode.includes('@flexiness/copilotkit');
+    // Check for existing imports
+    const hasCopilotkitNextImport = sourceCode.includes('@copilotkitnext/react');
+    const hasFlexinessImport = sourceCode.includes('@flexiness/copilotkit');
 
     // Build the changes
     const changes: string[] = [];
-    let modifiedCode = sourceCode;
 
-    // Add import if needed
-    if (!hasImport && readables.length > 0) {
-      const hookNames = new Set<string>();
-       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      for (const r of readables) {
-        hookNames.add('useReadableState'); // Default hook
+    // Determine what imports are needed based on pattern types
+    const needsUseAgentContext = readables.some(
+      r => !r.patternType || r.patternType === 'useAgentContext'
+    );
+    const needsBridges = readables.some(
+      r => r.patternType === 'AuthContextBridge' || r.patternType === 'StoreContextBridge'
+    );
+
+    // Find the last import line
+    let lastImportLine = 0;
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].startsWith('import ')) {
+        lastImportLine = i;
       }
-      const importStatement = `import { ${Array.from(hookNames).join(', ')} } from '@flexiness/copilotkit';\n`;
+    }
 
-      // Find the last import line
-      let lastImportLine = 0;
-      for (let i = 0; i < lines.length; i++) {
-        if (lines[i].startsWith('import ')) {
-          lastImportLine = i;
-        }
-      }
-
+    // Add @copilotkitnext/react import if needed for useAgentContext
+    if (needsUseAgentContext && !hasCopilotkitNextImport) {
+      const importStatement = `import { useAgentContext } from '@copilotkitnext/react';`;
       lines.splice(lastImportLine + 1, 0, importStatement);
-      changes.push(`Added import statement after line ${lastImportLine + 1}`);
+      lastImportLine++;
+      changes.push(`Added import for useAgentContext from @copilotkitnext/react`);
+    }
+
+    // Add @flexiness/copilotkit import if needed for bridge components
+    if (needsBridges && !hasFlexinessImport) {
+      const bridgeNames: string[] = [];
+      if (readables.some(r => r.patternType === 'AuthContextBridge')) {
+        bridgeNames.push('AuthContextBridge');
+      }
+      if (readables.some(r => r.patternType === 'StoreContextBridge')) {
+        bridgeNames.push('StoreContextBridge');
+      }
+      const importStatement = `import { ${bridgeNames.join(', ')} } from '@flexiness/copilotkit';`;
+      lines.splice(lastImportLine + 1, 0, importStatement);
+      lastImportLine++;
+      changes.push(`Added import for ${bridgeNames.join(', ')} from @flexiness/copilotkit`);
     }
 
     // Add use client if needed
     if (!hasUseClient && readables.length > 0) {
-      lines.unshift("'use client';\n");
+      lines.unshift("'use client';");
       changes.push("Added 'use client' directive");
     }
 
-    // Generate hook calls
+    // Generate hook calls (v2 pattern: useAgentContext)
     const hookCalls: string[] = [];
     for (const readable of readables) {
-      const categories = readable.categories?.length
-        ? `, categories: ${JSON.stringify(readable.categories)}`
-        : '';
-      const hookCall = `  useReadableState('${readable.name}', ${readable.valueExpression}, {
-    description: '${readable.description}'${categories},
+      // Only generate hook calls for useAgentContext pattern (not bridges)
+      if (!readable.patternType || readable.patternType === 'useAgentContext') {
+        const hookCall = `  useAgentContext({
+    description: '${readable.description}',
+    value: ${readable.valueExpression},
   });`;
-      hookCalls.push(hookCall);
-      changes.push(`Added useReadableState for '${readable.name}'`);
+        hookCalls.push(hookCall);
+        changes.push(`Added useAgentContext for '${readable.name}'`);
+      } else if (readable.patternType === 'AuthContextBridge') {
+        changes.push(`Note: AuthContextBridge for '${readable.name}' should wrap component children manually`);
+      } else if (readable.patternType === 'StoreContextBridge') {
+        changes.push(`Note: StoreContextBridge for '${readable.name}' should wrap component children manually`);
+      }
     }
+
+    let modifiedCode = lines.join('\n');
 
     // Find the component function body to insert hooks
     // This is simplified - a full implementation would use AST
-    const componentBodyRegex = /(?:function|const)\s+\w+\s*(?:<[^>]*>)?\s*\([^)]*\)\s*(?::\s*[^{]+)?\s*{/;
-    const match = lines.join('\n').match(componentBodyRegex);
-    if (match && match.index !== undefined) {
-      const insertPosition = match.index + match[0].length;
-      const beforeInsert = lines.join('\n').substring(0, insertPosition);
-      const afterInsert = lines.join('\n').substring(insertPosition);
-      modifiedCode = `${beforeInsert  }\n${  hookCalls.join('\n\n')  }${afterInsert}`;
+    if (hookCalls.length > 0) {
+      const componentBodyRegex = /(?:function|const)\s+\w+\s*(?:<[^>]*>)?\s*\([^)]*\)\s*(?::\s*[^{]+)?\s*{/;
+      const match = modifiedCode.match(componentBodyRegex);
+      if (match && match.index !== undefined) {
+        const insertPosition = match.index + match[0].length;
+        const beforeInsert = modifiedCode.substring(0, insertPosition);
+        const afterInsert = modifiedCode.substring(insertPosition);
+        modifiedCode = `${beforeInsert}\n${hookCalls.join('\n\n')}${afterInsert}`;
+      }
     }
 
     if (dryRun) {
@@ -245,37 +272,58 @@ export async function handleInjectReadable(
  */
 export async function handleValidateIntegration(
   input: ValidateIntegrationInput
-): Promise<{ valid: boolean; issues: string[]; suggestions: string[] }> {
+): Promise<{ valid: boolean; issues: string[]; suggestions: string[]; migrations: string[] }> {
   const { filePath } = input;
 
   try {
     const analysis = await analyzeComponent(filePath);
     const issues: string[] = [];
     const suggestions: string[] = [];
+    const migrations: string[] = [];
 
     // Check for 'use client' directive if hooks are used
     if (analysis.existingReadables.length > 0 && !analysis.isClientComponent) {
       issues.push("Component uses CopilotKit hooks but missing 'use client' directive");
     }
 
-    // Check for state without readables
+    // Check for v1 patterns that should be migrated to v2
+    const v1Hooks = analysis.existingReadables.filter((r) => !r.isV2);
+    if (v1Hooks.length > 0) {
+      for (const hook of v1Hooks) {
+        if (hook.hookType === 'useReadableState' || hook.hookType === 'useReadableApi') {
+          migrations.push(
+            `Migrate ${hook.hookType} (line ${hook.line}) to useAgentContext({ description: '...', value: ... })`
+          );
+        } else if (hook.hookType === 'useReadableUser') {
+          migrations.push(
+            `Migrate ${hook.hookType} (line ${hook.line}) to <AuthContextBridge user={...} description="...">{children}</AuthContextBridge>`
+          );
+        } else if (hook.hookType === 'useReadableStore') {
+          migrations.push(
+            `Migrate ${hook.hookType} (line ${hook.line}) to <StoreContextBridge store={...} selector={...} description="...">{children}</StoreContextBridge>`
+          );
+        }
+      }
+    }
+
+    // Check for state without readables (recommend v2 patterns)
     const unexsposedState = analysis.stateVariables.filter(
       (s) => s.isAIRelevant && !analysis.existingReadables.some((r) => r.value?.includes(s.name))
     );
     if (unexsposedState.length > 0) {
       suggestions.push(
-        `Consider exposing these state variables to CopilotKit: ${unexsposedState.map((s) => s.name).join(', ')}`
+        `Consider exposing these state variables with useAgentContext: ${unexsposedState.map((s) => s.name).join(', ')}`
       );
     }
 
-    // Check for user props without useReadableUser
+    // Check for user props without AuthContextBridge
     const userProps = analysis.props.filter((p) => p.isUserContext);
-    const hasUserReadable = analysis.existingReadables.some(
-      (r) => r.hookType === 'useReadableUser' || r.hookType.includes('User')
+    const hasUserBridge = analysis.existingReadables.some(
+      (r) => r.componentType === 'AuthContextBridge' || r.hookType === 'useReadableUser'
     );
-    if (userProps.length > 0 && !hasUserReadable) {
+    if (userProps.length > 0 && !hasUserBridge) {
       suggestions.push(
-        `Consider using useReadableUser for user context props: ${userProps.map((p) => p.name).join(', ')}`
+        `Consider wrapping with AuthContextBridge for user context props: ${userProps.map((p) => p.name).join(', ')}`
       );
     }
 
@@ -283,6 +331,7 @@ export async function handleValidateIntegration(
       valid: issues.length === 0,
       issues,
       suggestions,
+      migrations,
     };
   } catch (error) {
     throw new Error(

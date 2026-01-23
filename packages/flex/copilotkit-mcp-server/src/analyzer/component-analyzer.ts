@@ -118,9 +118,13 @@ function hasUseClientDirective(sourceCode: string): boolean {
 function hasCopilotKitImports(sourceCode: string): boolean {
   return (
     sourceCode.includes('@copilotkit/react-core') ||
+    sourceCode.includes('@copilotkitnext/react') ||
     sourceCode.includes('@flexiness/copilotkit') ||
     sourceCode.includes('useCopilotReadable') ||
-    sourceCode.includes('useReadableState')
+    sourceCode.includes('useReadableState') ||
+    sourceCode.includes('useAgentContext') ||
+    sourceCode.includes('AuthContextBridge') ||
+    sourceCode.includes('StoreContextBridge')
   );
 }
 
@@ -167,6 +171,14 @@ function walkAST(ast: TSESTree.Program, handlers: ASTWalkerHandlers): void {
       const readable = extractCopilotHookInfo(node);
       if (readable) {
         handlers.onCopilotHook(readable);
+      }
+    }
+
+    // Check for v2 bridge components
+    if (isCopilotBridgeComponent(node)) {
+      const bridgeReadable = extractBridgeComponentInfo(node);
+      if (bridgeReadable) {
+        handlers.onCopilotHook(bridgeReadable);
       }
     }
 
@@ -355,6 +367,10 @@ function isCopilotHook(node: ASTNode): node is TSESTree.CallExpression {
   if (callee.type !== AST_NODE_TYPES.Identifier) return false;
 
   const copilotHooks = [
+    // v2 hooks
+    'useAgentContext',
+    'useAgent',
+    // v1 hooks (legacy detection)
     'useCopilotReadable',
     'useCopilotAction',
     'useReadableState',
@@ -367,15 +383,46 @@ function isCopilotHook(node: ASTNode): node is TSESTree.CallExpression {
 }
 
 /**
+ * Check if node is a CopilotKit bridge component (v2)
+ */
+function isCopilotBridgeComponent(node: ASTNode): node is TSESTree.JSXElement {
+  if (node.type !== AST_NODE_TYPES.JSXElement) return false;
+  const {openingElement} = node;
+  if (openingElement.name.type !== AST_NODE_TYPES.JSXIdentifier) return false;
+  return ['StoreContextBridge', 'AuthContextBridge'].includes(openingElement.name.name);
+}
+
+/**
+ * Extract bridge component information (v2)
+ */
+function extractBridgeComponentInfo(node: TSESTree.JSXElement): ExistingReadable | null {
+  const {openingElement} = node;
+  if (openingElement.name.type !== AST_NODE_TYPES.JSXIdentifier) return null;
+
+  const componentName = openingElement.name.name as 'StoreContextBridge' | 'AuthContextBridge';
+
+  return {
+    hookType: componentName,
+    componentType: componentName,
+    line: node.loc?.start.line ?? 0,
+    isV2: true,
+  };
+}
+
+/**
  * Extract CopilotKit hook information
  */
 function extractCopilotHookInfo(node: TSESTree.CallExpression): ExistingReadable | null {
   const {callee} = node;
   if (callee.type !== AST_NODE_TYPES.Identifier) return null;
 
+  const v2Hooks = ['useAgentContext', 'useAgent'];
+  const isV2 = v2Hooks.includes(callee.name);
+
   return {
     hookType: callee.name,
     line: node.loc?.start.line ?? 0,
+    isV2,
   };
 }
 
@@ -409,7 +456,7 @@ function generateStateDescription(name: string): string {
 }
 
 /**
- * Generate integration recommendations
+ * Generate integration recommendations (v2 patterns)
  */
 function generateRecommendations(analysis: ComponentAnalysis): IntegrationRecommendation[] {
   const recommendations: IntegrationRecommendation[] = [];
@@ -419,46 +466,46 @@ function generateRecommendations(analysis: ComponentAnalysis): IntegrationRecomm
     return recommendations;
   }
 
-  // Recommend useReadableState for AI-relevant state
+  // Recommend useAgentContext for AI-relevant state (v2 pattern)
   for (const state of analysis.stateVariables) {
     if (state.isAIRelevant && !hasExistingReadable(analysis, state.name)) {
       recommendations.push({
-        type: 'useReadableState',
+        type: 'useAgentContext',
         target: state.name,
         description: state.suggestedDescription || `Current ${state.name}`,
         priority: 2,
         reason: `State variable '${state.name}' contains data that could provide useful context to the AI assistant`,
-        codeSnippet: `useReadableState('${state.name}', ${state.name}, {\n  description: '${state.suggestedDescription || `Current ${state.name}`}',\n});`,
+        codeSnippet: `useAgentContext({\n  description: '${state.suggestedDescription || `Current ${state.name}`}',\n  value: ${state.name},\n});`,
         insertAfterLine: state.line,
       });
     }
   }
 
-  // Recommend useReadableUser for user-related props
+  // Recommend AuthContextBridge for user-related props (v2 pattern)
   for (const prop of analysis.props) {
     if (prop.isUserContext && !hasExistingReadable(analysis, prop.name)) {
       recommendations.push({
-        type: 'useReadableUser',
+        type: 'AuthContextBridge',
         target: prop.name,
         description: `User context from ${prop.name} prop`,
         priority: 1,
-        reason: `Prop '${prop.name}' appears to contain user context that would help personalize AI responses`,
-        codeSnippet: `useReadableUser(${prop.name});`,
+        reason: `Prop '${prop.name}' appears to contain user context. Use AuthContextBridge component wrapper.`,
+        codeSnippet: `<AuthContextBridge\n  user={${prop.name}}\n  description="Current authenticated user"\n>\n  {/* children */}\n</AuthContextBridge>`,
         insertAfterLine: prop.line + 1,
       });
     }
   }
 
-  // Recommend useReadableApi for API responses
+  // Recommend useAgentContext for API responses (v2 pattern)
   for (const api of analysis.apiCalls) {
     if (api.resultVariable && !hasExistingReadable(analysis, api.resultVariable)) {
       recommendations.push({
-        type: 'useReadableApi',
+        type: 'useAgentContext',
         target: api.resultVariable,
         description: `API response from ${api.endpoint || api.method}`,
         priority: 2,
         reason: `API call result '${api.resultVariable}' could provide real-time data context to the AI`,
-        codeSnippet: `useReadableApi('${api.resultVariable}', ${api.resultVariable}, {\n  description: 'Data from ${api.endpoint || 'API call'}',\n  loading: isLoading,\n});`,
+        codeSnippet: `useAgentContext({\n  description: 'Data from ${api.endpoint || 'API call'}',\n  value: ${api.resultVariable},\n});`,
         insertAfterLine: api.line + 1,
       });
     }
