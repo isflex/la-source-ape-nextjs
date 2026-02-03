@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, Component, type ErrorInfo } from 'react';
 import {
   FlexCopilotProvider,
   StoreContextBridge,
@@ -11,6 +11,7 @@ import { toJS } from 'mobx';
 import { RootStore } from '@src/stores/root-store';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import type { UserInterfaceStore } from '@flexiness/domain-store';
+import { debug } from '@flexiness/domain-utils';
 
 // Agent configuration - centralized via environment variable
 // Must match: route.ts AGENT_ID, Python agent name
@@ -18,6 +19,55 @@ const AGENT_ID = process.env.NEXT_PUBLIC_COPILOTKIT_AGENT_ID || 'ape_assistant';
 
 interface CopilotKitWrapperProps {
   children: React.ReactNode;
+}
+
+interface CopilotKitErrorBoundaryProps {
+  children: React.ReactNode;
+  fallback: React.ReactNode;
+}
+
+interface CopilotKitErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+/**
+ * Error boundary that catches CopilotKit initialization errors
+ * and gracefully falls back to rendering children without CopilotKit
+ */
+class CopilotKitErrorBoundary extends Component<CopilotKitErrorBoundaryProps, CopilotKitErrorBoundaryState> {
+  constructor(props: CopilotKitErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): CopilotKitErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    const isCopilotKitError = error.message?.includes('CopilotKit') || error.message?.includes('useCopilotKit');
+
+    debug.error('[CopilotKitErrorBoundary] Caught error:', {
+      name: error.name,
+      message: error.message,
+      isCopilotKitError,
+      componentStack: errorInfo.componentStack,
+    });
+
+    // Log to console for production debugging
+    console.error('[CopilotKitErrorBoundary] CopilotKit failed to initialize:', error);
+    console.warn('[CopilotKitErrorBoundary] Falling back to rendering without CopilotKit');
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // Render children without CopilotKit
+      return this.props.fallback;
+    }
+
+    return this.props.children;
+  }
 }
 
 /**
@@ -95,19 +145,23 @@ export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) 
     return <>{children}</>;
   }
 
+  // Wrap CopilotKit in error boundary to prevent crashes when CopilotKit fails
+  // If CopilotKit fails, children will render without it
   return (
-    <FlexCopilotProvider
-      agentId={AGENT_ID}
-      sidebarConfig={{
-        defaultOpen: false,
-        header: 'Assistant APE',
-        labels: {
-          modalHeaderTitle: 'Assistant APE',
-          chatInputPlaceholder: 'Comment puis-je vous aider?',
-        },
-      }}
-    >
-      <CopilotKitContent>{children}</CopilotKitContent>
-    </FlexCopilotProvider>
+    <CopilotKitErrorBoundary fallback={<>{children}</>}>
+      <FlexCopilotProvider
+        agentId={AGENT_ID}
+        sidebarConfig={{
+          defaultOpen: false,
+          header: 'Assistant APE',
+          labels: {
+            modalHeaderTitle: 'Assistant APE',
+            chatInputPlaceholder: 'Comment puis-je vous aider?',
+          },
+        }}
+      >
+        <CopilotKitContent>{children}</CopilotKitContent>
+      </FlexCopilotProvider>
+    </CopilotKitErrorBoundary>
   );
 }
