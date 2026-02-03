@@ -7,7 +7,7 @@
 
 import { glob } from 'glob';
 import { readFile, writeFile } from 'fs/promises';
-import { analyzeComponent } from '../analyzer';
+import { analyzeComponent } from '../analyzer/index.js';
 import type {
   AnalyzeComponentInput,
   InjectReadableInput,
