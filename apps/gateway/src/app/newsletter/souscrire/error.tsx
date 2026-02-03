@@ -143,7 +143,7 @@ export default function NewsletterSouscrireError({ error, reset }: ErrorProps) {
             flexStyles.isFlex,
             flexStyles.isAlignItemsCenter,
             flexStyles.isJustifyContentCenter,
-            flexStyles.isFlexWrap
+            flexStyles.isFlexWrapWrap
           )} style={{ gap: '1rem' }}>
             <Button small variant={VariantState.FLEX_PINK} onClick={reset}>
               Réessayer
