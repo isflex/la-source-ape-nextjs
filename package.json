@@ -8,8 +8,8 @@
   "author": "ischerer <hello@flexiness.com>",
   "type": "module",
   "scripts": {
-    "agent:dev": "cd agent && uv run uvicorn main:app --reload --host 0.0.0.0 --port 8000",
-    "agent:install": "cd agent && uv sync",
+    "agent:dev": "cd agent && dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- ./run.sh",
+    "agent:install": "cd agent && dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- uv sync",
     "ai:claude": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- claude --mcp-debug --settings .claude/settings.json",
     "ai:claude:debug": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- claude --debug --mcp-debug --settings .claude/settings.json",
     "ampx:sandbox": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- ./bin/ampx-sandbox.sh",

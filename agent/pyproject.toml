@@ -1,15 +1,38 @@
 [project]
 name = "ape-strands-agent"
 version = "0.1.0"
-description = "APE Strands Agent with Bedrock"
-requires-python = ">=3.12"
+description = "APE Strands Agent with AG-UI Protocol for CopilotKit"
+requires-python = ">=3.12,<3.14"
 dependencies = [
+    # AG-UI Protocol for CopilotKit integration
     "ag-ui-protocol>=0.1.5",
-    "fastapi>=0.115.12",
-    "uvicorn>=0.34.3",
+    "ag-ui-strands>=0.1.0",
+    # Strands Agent SDK
     "strands-agents>=1.15.0",
     "strands-agents-tools>=0.2.14",
-    "ag-ui-strands>=0.1.0",
-    "python-dotenv>=1.0.0",
+    # FastAPI and ASGI server
+    "fastapi>=0.115.12",
+    "uvicorn[standard]>=0.34.3",
+    # AWS SDK for Bedrock
     "boto3>=1.35.0",
+    # Note: Environment is injected via dotenvx CLI, not Python package
+    # Pydantic for data validation
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+# AgentCore deployment dependencies
+agentcore = [
+    "bedrock-agentcore>=0.1.0",
+    "bedrock-agentcore-starter-toolkit>=0.1.0",
+]
+# Observability for production
+observability = [
+    "aws-opentelemetry-distro>=0.10.1",
+]
+# Development dependencies
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "httpx>=0.27.0",
 ]

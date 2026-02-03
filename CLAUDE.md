@@ -129,7 +129,7 @@ AWS Amplify CLI has specific version requirements that differ from local develop
 
 **Local sandbox deployment:**
 ```bash
-pnpm ampx:sandbox
+pnpm ampx:sandbox --once --profile isflex-amplify --identifier ape-la-source
 ```
 This script automatically:
 1. Switches to Zod 3.x and GraphQL 15.x
@@ -293,7 +293,7 @@ FLEX_AI_COPILOTKIT_ENABLED=true
             │ HTTP/SSE (AG-UI Protocol)
             ▼
 ┌───────────────────────────────────────────────────────────────────────────┐
-│  Python Strands Agent (localhost:8000)                                   │
+│  Python Strands Agent (localhost:8080)                                   │
 │    ├─ StrandsAgent (name="$AGENT_ID")                                    │
 │    ├─ BedrockModel (Claude 3 Haiku)                                      │
 │    └─ Tools: navigate(), search()                                        │
@@ -306,7 +306,7 @@ FLEX_AI_COPILOTKIT_ENABLED=true
 |----------|----------|---------|-------------|
 | `NEXT_PUBLIC_COPILOTKIT_ENABLED` | Yes | `false` | Enable CopilotKit sidebar |
 | `NEXT_PUBLIC_COPILOTKIT_AGENT_ID` | Yes | `ape_assistant` | Agent ID (must match Python) |
-| `NEXT_PUBLIC_AGENT_URL` | Yes | `http://localhost:8000` | Python agent URL |
+| `NEXT_PUBLIC_AGENT_URL` | Yes | `http://localhost:8080` | Python agent URL |
 | `NEXT_PUBLIC_COPILOTKIT_API_KEY` | No | - | CopilotKit Cloud API key (optional) |
 | `FLEX_AI_LLM_PROVIDER` | Yes | `bedrock` | LLM provider for Python agent |
 | `FLEX_AI_LLM_MODEL` | Yes | `anthropic.claude-3-haiku-*` | Bedrock model ID |
@@ -316,8 +316,9 @@ FLEX_AI_COPILOTKIT_ENABLED=true
 ```markdown
 - [ ] `NEXT_PUBLIC_COPILOTKIT_ENABLED=true` in `.env.development`
 - [ ] `NEXT_PUBLIC_COPILOTKIT_AGENT_ID` set (same value in all 3 files)
-- [ ] `NEXT_PUBLIC_AGENT_URL=http://localhost:8000`
-- [ ] Python agent running: `cd agent && uvicorn main:app --reload`
+- [ ] `NEXT_PUBLIC_AGENT_URL=http://localhost:8080`
+- [ ] Python agent running: `cd agent && ./run.sh`
+- [ ] Agent docs available: `curl http://localhost:8080/docs`
 - [ ] API route responds: `curl http://localhost:3001/api/copilotkit/info`
 - [ ] AWS credentials: `AWS_PROFILE` set with Bedrock access
 ```
@@ -397,3 +398,35 @@ It generates recommendations for:
 - `useReadableUser` - for user context props
 - `useReadableApi` - for API response data
 - `useCopilotAction` - for actionable functions
+
+## Strands Agent Deployment
+
+Key Configuration:
+- Port: 8080 (consistent for local and AgentCore)
+- AG-UI Protocol: Fully compatible with CopilotKit
+- AgentCore: Set FLEX_AGENT_PATH=/invocations when deploying
+
+### Running Locally
+
+```bash
+cd agent
+uv sync                  # Install dependencies
+./run.sh                 # Uses dotenvx to load env/public/.env.development
+```
+
+### AgentCore Deployment
+
+#### Using starter toolkit (no Docker needed)
+
+```bash
+pip install bedrock-agentcore-starter-toolkit
+agentcore configure --entrypoint main.py
+agentcore launch --env FLEX_AGENT_PORT=8080 --env FLEX_AGENT_PATH=/invocations
+```
+
+#### Using Docker + deploy_agent.py
+
+```bash
+docker buildx build --platform linux/arm64 -t ape-agent:latest .
+python deploy_agent.py
+```

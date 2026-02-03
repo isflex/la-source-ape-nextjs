@@ -1,22 +1,30 @@
 """
-APE Strands Agent with Bedrock - Using official ag_ui_strands package
+APE Strands Agent with Bedrock - AG-UI Protocol for CopilotKit
 
-This implementation uses the official ag_ui_strands package for proper
-AG-UI protocol support with CopilotKit.
+This implementation uses the ag_ui_strands package for proper AG-UI protocol
+support with CopilotKit. Works for both local development and AgentCore deployment.
+
+AG-UI endpoints are automatically created by ag_ui_strands:
+- GET  /docs - Swagger UI documentation
+- GET  /openapi.json - OpenAPI specification
+- POST / - Main AG-UI agent endpoint
+
+Run with dotenvx to inject environment variables:
+  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- uv run uvicorn main:app --port 8080
+
+See: https://strandsagents.com/latest/documentation/docs/community/integrations/ag-ui/
 """
 
 import os
 
 import boto3
-from dotenv import load_dotenv
 from strands import Agent, tool
 from strands.models.bedrock import BedrockModel
 from ag_ui_strands import StrandsAgent, create_strands_app
 
-load_dotenv()
-
 # Create boto3 session with explicit profile support
-# This ensures AWS credentials are properly loaded from the AWS profile
+# For local dev: uses AWS_PROFILE from .env
+# For AgentCore: uses IAM role (no profile needed)
 aws_profile = os.getenv("AWS_PROFILE")
 aws_region = os.getenv("AWS_REGION", "eu-west-3")
 
@@ -70,10 +78,14 @@ agui_agent = StrandsAgent(
     description="La Source APE Assistant - aide les utilisateurs a naviguer sur le site",
 )
 
-# Create FastAPI app using the official helper
-app = create_strands_app(agui_agent)
+# FLEX_AGENT_PATH controls the base path for AG-UI endpoints
+# - Local dev: "/" (endpoints at /agent/{agent_id}/run)
+# - AgentCore: "/invocations" (endpoints at /invocations/agent/{agent_id}/run)
+agent_path = os.getenv("FLEX_AGENT_PATH", "/")
+app = create_strands_app(agui_agent, path=agent_path)
 
 if __name__ == "__main__":
     import uvicorn
-    port = int(os.getenv("AGENT_PORT", "8000"))
+
+    port = int(os.getenv("FLEX_AGENT_PORT", "8080"))
     uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
