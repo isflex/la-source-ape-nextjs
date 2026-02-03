@@ -7,6 +7,15 @@ import dynamic from 'next/dynamic'
 import posthog from 'posthog-js'
 import classNames from 'classnames'
 import { View as FlexRootView } from '@flex-design-system/react-ts/client-sync-styled-direct/view'
+import { Button } from '@flex-design-system/react-ts/client-sync-styled-direct/button'
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title'
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects'
+import {
+  InfoBlock,
+  InfoBlockAction,
+  InfoBlockContent,
+  InfoBlockHeader
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block'
 import { default as flexStyles } from '@flex-design-system/framework'
 import { default as stylesLayout } from '@src/styles/scss/pages/layout.module.scss'
 import { inlineStyles } from '@src/styles/inlineStyles'
@@ -15,7 +24,6 @@ import '@src/styles/globals.css'
 
 const LogoLaSource = dynamic(() => import('@src/components/logo-la-source'), { ssr: true })
 const Header = dynamic(() => import('@src/components/sticky-header/app'), { ssr: true })
-const FallBackEC2InstanceUnavailable = dynamic(() => import('@src/components/error/EC2InstanceUnavailable'), { ssr: true })
 
 const NavigationLayout = ({ isMobile }: { isMobile: boolean }) => {
   return (
@@ -23,6 +31,34 @@ const NavigationLayout = ({ isMobile }: { isMobile: boolean }) => {
       <LogoLaSource className={stylesLayout.navLogo} />
       <Header mobileCheck={isMobile} />
     </div>
+  )
+}
+
+const GenericErrorFallback = ({ reset }: { reset: () => void }) => {
+  return (
+    <section className={classNames(flexStyles.isFullwidth)}>
+      <InfoBlock>
+        <InfoBlockHeader>
+          <Title level={TitleLevel.LEVEL3}>
+            {`Une erreur s'est produite`}
+          </Title>
+        </InfoBlockHeader>
+        <InfoBlockContent>
+          <Title level={TitleLevel.LEVEL4}>
+            {`Nous sommes désolés, une erreur inattendue est survenue.`}
+            <br />
+            {`Veuillez réessayer.`}
+          </Title>
+        </InfoBlockContent>
+        <InfoBlockAction>
+          <div className={classNames(flexStyles.isFullwidth, flexStyles.isFlex, flexStyles.isAlignItemsCenter, flexStyles.isJustifyContentCenter)}>
+            <Button small variant={VariantState.FLEX_PINK} onClick={reset}>
+              Réessayer
+            </Button>
+          </div>
+        </InfoBlockAction>
+      </InfoBlock>
+    </section>
   )
 }
 
@@ -68,7 +104,7 @@ export default function GlobalError({
         <FlexRootView className={classNames(flexStyles.flexinessRoot, flexStyles.isClipped )} theme='light'>
           <div id='gatewayLayout' className={classNames(stylesLayout.gatewayLayout)}>
             <NavigationLayout isMobile={isMobile} />
-            <FallBackEC2InstanceUnavailable reset={() => reset()} mobileCheck={isMobile} />
+            <GenericErrorFallback reset={reset} />
           </div>
         </FlexRootView>
       </body>
