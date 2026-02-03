@@ -22,13 +22,15 @@ import { inlineStyles } from '@src/styles/inlineStyles'
 import { logClientError } from '@src/app/actions/log-error'
 import '@src/styles/globals.css'
 
-const LogoLaSource = dynamic(() => import('@src/components/logo-la-source'), { ssr: true })
+// const LogoLaSource = dynamic(() => import('@src/components/logo-la-source'), { ssr: true })
+const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 const Header = dynamic(() => import('@src/components/sticky-header/app'), { ssr: true })
 
 const NavigationLayout = ({ isMobile }: { isMobile: boolean }) => {
   return (
     <div className={classNames(stylesLayout.navLayout)}>
-      <LogoLaSource className={stylesLayout.navLogo} />
+      {/* <LogoLaSource className={stylesLayout.navLogo} /> */}
+      <LogoAPE isNavLogo={true} className={classNames(stylesLayout.navLogo, stylesLayout.navLogoApe)} />
       <Header mobileCheck={isMobile} />
     </div>
   )

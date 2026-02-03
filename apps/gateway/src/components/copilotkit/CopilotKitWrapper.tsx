@@ -5,6 +5,7 @@ import {
   FlexCopilotProvider,
   StoreContextBridge,
   AuthContextBridge,
+  CopilotKitProvider, // Fallback provider for error recovery
   type AuthUserContext,
 } from '@flexiness/copilotkit';
 import { toJS } from 'mobx';
@@ -62,12 +63,29 @@ class CopilotKitErrorBoundary extends Component<CopilotKitErrorBoundaryProps, Co
 
   render() {
     if (this.state.hasError) {
-      // Render children without CopilotKit
+      // Render children with a minimal CopilotKitProvider to prevent hook errors
+      // This provider won't have working agent functionality but will prevent crashes
       return this.props.fallback;
     }
 
     return this.props.children;
   }
+}
+
+/**
+ * Fallback provider that wraps children with minimal CopilotKitProvider
+ * to prevent useAgentContext and other hooks from throwing errors.
+ * The agent won't work, but the app will render correctly.
+ */
+function CopilotKitFallbackProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <CopilotKitProvider
+      runtimeUrl="/api/copilotkit" // Won't be called
+      showDevConsole={false}
+    >
+      {children}
+    </CopilotKitProvider>
+  );
 }
 
 /**
@@ -146,9 +164,12 @@ export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) 
   }
 
   // Wrap CopilotKit in error boundary to prevent crashes when CopilotKit fails
-  // If CopilotKit fails, children will render without it
+  // If CopilotKit fails, children will render with a fallback provider
+  // that prevents useAgentContext from throwing errors
   return (
-    <CopilotKitErrorBoundary fallback={<>{children}</>}>
+    <CopilotKitErrorBoundary
+      fallback={<CopilotKitFallbackProvider>{children}</CopilotKitFallbackProvider>}
+    >
       <FlexCopilotProvider
         agentId={AGENT_ID}
         sidebarConfig={{

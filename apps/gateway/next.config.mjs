@@ -84,7 +84,9 @@ const mainConfig = new Config(async (phase, args) => {
   const nextConfig = {
     // output: 'standalone', // Disabled - not supported by Amplify Hosting for SSR
 
-    productionBrowserSourceMaps: false, // Disable to reduce build size
+    // Enable source maps in production for debugging
+    // Set back to false after debugging to reduce build size
+    productionBrowserSourceMaps: false,
 
     trailingSlash: false,
     async rewrites() {
