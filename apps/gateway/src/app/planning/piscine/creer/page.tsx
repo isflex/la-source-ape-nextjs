@@ -50,7 +50,7 @@ import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/tex
 import { default as flexStyles } from '@flex-design-system/framework';
 import PiscineForm from '@src/components/piscine/PiscineForm';
 import AuthBanner from '@src/components/auth/AuthBanner';
-import { useAgentContext } from '@copilotkitnext/react';
+import { useSafeAgentContext } from '@flexiness/copilotkit';
 
 type PiscineFormData = {
   id: string;
@@ -86,7 +86,7 @@ export default function PiscineCreerPage() {
   const formRef = React.useRef<HTMLDivElement>(null);
 
   // CopilotKit v2: Expose page context to AI agent
-  useAgentContext({
+  useSafeAgentContext({
     description: 'Current page context - Pool (Piscine) planning management page for organizing parent volunteer schedules',
     value: {
       page: 'planning/piscine/creer',
@@ -98,7 +98,7 @@ export default function PiscineCreerPage() {
     },
   });
 
-  useAgentContext({
+  useSafeAgentContext({
     description: 'List of pool planning forms with time slots',
     value: forms.map(form => ({
       id: form.id,

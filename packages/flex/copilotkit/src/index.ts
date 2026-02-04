@@ -72,6 +72,8 @@ export {
 
 // Hooks (client-side)
 // Note: useAgentContext and useAgent are exported above from @copilotkitnext/react
+// Safe wrapper that only calls useAgentContext when CopilotKit is enabled
+export { useSafeAgentContext } from './hooks';
 // Legacy v1 hooks - DEPRECATED, kept for backwards compatibility
 export {
   useReadableState,

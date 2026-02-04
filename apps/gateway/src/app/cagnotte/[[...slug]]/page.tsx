@@ -43,7 +43,7 @@ import JackpotContributionTable from '@src/components/cagnotte/JackpotContributi
 import StripeCheckoutButton from '@src/components/cagnotte/StripeCheckoutButton';
 import AuthBanner from '@src/components/auth/AuthBanner';
 import { debug } from '@flexiness/domain-utils';
-import { useAgentContext } from '@copilotkitnext/react';
+import { useSafeAgentContext } from '@flexiness/copilotkit';
 
 const client = generateClient<Schema>();
 
@@ -88,7 +88,7 @@ export default function CagnotteSlugPage() {
   const isClosed = status === 'CLOSED' || status === 'PAID_OUT';
 
   // CopilotKit v2: Expose jackpot context to AI agent
-  useAgentContext({
+  useSafeAgentContext({
     description: 'Current jackpot/cagnotte page context and details',
     value: {
       page: slug ? `cagnotte/${slug}` : 'cagnotte',
@@ -102,7 +102,7 @@ export default function CagnotteSlugPage() {
     },
   });
 
-  useAgentContext({
+  useSafeAgentContext({
     description: 'Current jackpot details including contributions and progress',
     value: jackpotForm ? {
       id: jackpotForm.id,

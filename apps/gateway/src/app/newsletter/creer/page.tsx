@@ -53,7 +53,7 @@ import {
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { default as flexStyles } from '@flex-design-system/framework';
 import { debug } from '@flexiness/domain-utils';
-import { useAgentContext } from '@copilotkitnext/react';
+import { useSafeAgentContext } from '@flexiness/copilotkit';
 
 type Newsletter = {
   id: string;
@@ -84,7 +84,7 @@ export default function NewsletterCreationPage() {
   const [reusedNewsletterData, setReusedNewsletterData] = useState<Partial<NewsletterFormData> | null>(null);
 
   // CopilotKit v2: Expose page context to AI agent
-  useAgentContext({
+  useSafeAgentContext({
     description: 'Current page context - Newsletter management page for creating and managing school newsletters',
     value: {
       page: 'newsletter/creer',
@@ -96,7 +96,7 @@ export default function NewsletterCreationPage() {
     },
   });
 
-  useAgentContext({
+  useSafeAgentContext({
     description: 'List of existing newsletters with their details',
     value: newsletters.map(newsletter => ({
       id: newsletter.id,

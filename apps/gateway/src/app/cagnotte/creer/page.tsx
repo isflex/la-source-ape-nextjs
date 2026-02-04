@@ -65,7 +65,7 @@ import { default as flexStyles } from '@flex-design-system/framework';
 import JackpotForm from '@src/components/cagnotte/JackpotForm';
 import AuthBanner from '@src/components/auth/AuthBanner';
 import { debug } from '@flexiness/domain-utils';
-import { useAgentContext } from '@copilotkitnext/react';
+import { useSafeAgentContext } from '@flexiness/copilotkit';
 
 type JackpotFormData = {
   id: string;
@@ -105,7 +105,7 @@ export default function CagnotteCreerPage() {
   const formRef = React.useRef<HTMLDivElement>(null);
 
   // CopilotKit v2: Expose page context to AI agent
-  useAgentContext({
+  useSafeAgentContext({
     description: 'Current page context - Jackpot/Cagnotte management page for creating and managing fundraising campaigns',
     value: {
       page: 'cagnotte/creer',
@@ -117,7 +117,7 @@ export default function CagnotteCreerPage() {
     },
   });
 
-  useAgentContext({
+  useSafeAgentContext({
     description: 'List of user jackpots/cagnottes with their statistics',
     value: forms.map(form => ({
       id: form.id,

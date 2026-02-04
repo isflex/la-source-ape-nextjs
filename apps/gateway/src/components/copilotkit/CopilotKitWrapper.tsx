@@ -5,7 +5,6 @@ import {
   FlexCopilotProvider,
   StoreContextBridge,
   AuthContextBridge,
-  CopilotKitProvider, // Fallback provider for error recovery
   type AuthUserContext,
 } from '@flexiness/copilotkit';
 import { toJS } from 'mobx';
@@ -63,29 +62,11 @@ class CopilotKitErrorBoundary extends Component<CopilotKitErrorBoundaryProps, Co
 
   render() {
     if (this.state.hasError) {
-      // Render children with a minimal CopilotKitProvider to prevent hook errors
-      // This provider won't have working agent functionality but will prevent crashes
       return this.props.fallback;
     }
 
     return this.props.children;
   }
-}
-
-/**
- * Fallback provider that wraps children with minimal CopilotKitProvider
- * to prevent useAgentContext and other hooks from throwing errors.
- * The agent won't work, but the app will render correctly.
- */
-function CopilotKitFallbackProvider({ children }: { children: React.ReactNode }) {
-  return (
-    <CopilotKitProvider
-      runtimeUrl="/api/copilotkit" // Won't be called
-      showDevConsole={false}
-    >
-      {children}
-    </CopilotKitProvider>
-  );
 }
 
 /**
@@ -153,6 +134,10 @@ function CopilotKitContent({ children }: { children: React.ReactNode }) {
  * - StoreContextBridge: syncs MobX state to agent
  * - AuthContextBridge: exposes authenticated user to agent
  *
+ * When NEXT_PUBLIC_COPILOTKIT_ENABLED is false or CopilotKit fails to initialize,
+ * children are rendered without CopilotKit. Pages should use useSafeAgentContext
+ * from @flexiness/copilotkit to conditionally call useAgentContext.
+ *
  * @see https://docs.copilotkit.ai/whats-new/v1-50#v2-interfaces
  */
 export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) {
@@ -160,16 +145,15 @@ export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) 
   console.log(`[CopilotKitWrapper] isEnabled: ${isEnabled}`);
 
   if (!isEnabled) {
+    // CopilotKit disabled - render children without CopilotKit
+    // Pages using useSafeAgentContext will no-op based on the same env var
     return <>{children}</>;
   }
 
   // Wrap CopilotKit in error boundary to prevent crashes when CopilotKit fails
-  // If CopilotKit fails, children will render with a fallback provider
-  // that prevents useAgentContext from throwing errors
+  // If CopilotKit fails, children render without it
   return (
-    <CopilotKitErrorBoundary
-      fallback={<CopilotKitFallbackProvider>{children}</CopilotKitFallbackProvider>}
-    >
+    <CopilotKitErrorBoundary fallback={<>{children}</>}>
       <FlexCopilotProvider
         agentId={AGENT_ID}
         sidebarConfig={{
