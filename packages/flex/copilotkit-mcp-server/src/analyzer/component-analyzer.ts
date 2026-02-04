@@ -122,7 +122,7 @@ function hasCopilotKitImports(sourceCode: string): boolean {
     sourceCode.includes('@flexiness/copilotkit') ||
     sourceCode.includes('useCopilotReadable') ||
     sourceCode.includes('useReadableState') ||
-    sourceCode.includes('useAgentContext') ||
+    sourceCode.includes('useSafeAgentContext') ||
     sourceCode.includes('AuthContextBridge') ||
     sourceCode.includes('StoreContextBridge')
   );
@@ -368,7 +368,7 @@ function isCopilotHook(node: ASTNode): node is TSESTree.CallExpression {
 
   const copilotHooks = [
     // v2 hooks
-    'useAgentContext',
+    'useSafeAgentContext',
     'useAgent',
     // v1 hooks (legacy detection)
     'useCopilotReadable',
@@ -416,7 +416,7 @@ function extractCopilotHookInfo(node: TSESTree.CallExpression): ExistingReadable
   const {callee} = node;
   if (callee.type !== AST_NODE_TYPES.Identifier) return null;
 
-  const v2Hooks = ['useAgentContext', 'useAgent'];
+  const v2Hooks = ['useSafeAgentContext', 'useAgent'];
   const isV2 = v2Hooks.includes(callee.name);
 
   return {
@@ -466,16 +466,16 @@ function generateRecommendations(analysis: ComponentAnalysis): IntegrationRecomm
     return recommendations;
   }
 
-  // Recommend useAgentContext for AI-relevant state (v2 pattern)
+  // Recommend useSafeAgentContext for AI-relevant state (v2 pattern)
   for (const state of analysis.stateVariables) {
     if (state.isAIRelevant && !hasExistingReadable(analysis, state.name)) {
       recommendations.push({
-        type: 'useAgentContext',
+        type: 'useSafeAgentContext',
         target: state.name,
         description: state.suggestedDescription || `Current ${state.name}`,
         priority: 2,
         reason: `State variable '${state.name}' contains data that could provide useful context to the AI assistant`,
-        codeSnippet: `useAgentContext({\n  description: '${state.suggestedDescription || `Current ${state.name}`}',\n  value: ${state.name},\n});`,
+        codeSnippet: `useSafeAgentContext({\n  description: '${state.suggestedDescription || `Current ${state.name}`}',\n  value: ${state.name},\n});`,
         insertAfterLine: state.line,
       });
     }
@@ -496,16 +496,16 @@ function generateRecommendations(analysis: ComponentAnalysis): IntegrationRecomm
     }
   }
 
-  // Recommend useAgentContext for API responses (v2 pattern)
+  // Recommend useSafeAgentContext for API responses (v2 pattern)
   for (const api of analysis.apiCalls) {
     if (api.resultVariable && !hasExistingReadable(analysis, api.resultVariable)) {
       recommendations.push({
-        type: 'useAgentContext',
+        type: 'useSafeAgentContext',
         target: api.resultVariable,
         description: `API response from ${api.endpoint || api.method}`,
         priority: 2,
         reason: `API call result '${api.resultVariable}' could provide real-time data context to the AI`,
-        codeSnippet: `useAgentContext({\n  description: 'Data from ${api.endpoint || 'API call'}',\n  value: ${api.resultVariable},\n});`,
+        codeSnippet: `useSafeAgentContext({\n  description: 'Data from ${api.endpoint || 'API call'}',\n  value: ${api.resultVariable},\n});`,
         insertAfterLine: api.line + 1,
       });
     }

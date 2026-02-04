@@ -26,7 +26,7 @@ export const toolDefinitions = [
   {
     name: 'analyze_component',
     description:
-      'Analyze a React component file to identify state, props, and API data that should be exposed via CopilotKit v2 patterns (useAgentContext or context bridges)',
+      'Analyze a React component file to identify state, props, and API data that should be exposed via CopilotKit v2 patterns (useSafeAgentContext or context bridges)',
     inputSchema: {
       type: 'object',
       properties: {
@@ -45,7 +45,7 @@ export const toolDefinitions = [
   },
   {
     name: 'inject_readable',
-    description: 'Inject CopilotKit v2 patterns (useAgentContext, AuthContextBridge, StoreContextBridge) into a component',
+    description: 'Inject CopilotKit v2 patterns (useSafeAgentContext, AuthContextBridge, StoreContextBridge) into a component',
     inputSchema: {
       type: 'object',
       properties: {
@@ -160,8 +160,7 @@ export async function handleInjectReadable(
     const hasUseClient =
       lines[0].includes("'use client'") || lines[0].includes('"use client"');
 
-    // Check for existing imports
-    const hasCopilotkitNextImport = sourceCode.includes('@copilotkitnext/react');
+    // Check for existing @flexiness/copilotkit import
     const hasFlexinessImport = sourceCode.includes('@flexiness/copilotkit');
 
     // Build the changes
@@ -169,7 +168,7 @@ export async function handleInjectReadable(
 
     // Determine what imports are needed based on pattern types
     const needsUseAgentContext = readables.some(
-      r => !r.patternType || r.patternType === 'useAgentContext'
+      r => !r.patternType || r.patternType === 'useSafeAgentContext'
     );
     const needsBridges = readables.some(
       r => r.patternType === 'AuthContextBridge' || r.patternType === 'StoreContextBridge'
@@ -183,27 +182,22 @@ export async function handleInjectReadable(
       }
     }
 
-    // Add @copilotkitnext/react import if needed for useAgentContext
-    if (needsUseAgentContext && !hasCopilotkitNextImport) {
-      const importStatement = `import { useAgentContext } from '@copilotkitnext/react';`;
-      lines.splice(lastImportLine + 1, 0, importStatement);
-      lastImportLine++;
-      changes.push(`Added import for useAgentContext from @copilotkitnext/react`);
-    }
-
-    // Add @flexiness/copilotkit import if needed for bridge components
-    if (needsBridges && !hasFlexinessImport) {
-      const bridgeNames: string[] = [];
+    // Add @flexiness/copilotkit import if needed for useSafeAgentContext and/or bridges
+    if ((needsUseAgentContext || needsBridges) && !hasFlexinessImport) {
+      const importNames: string[] = [];
+      if (needsUseAgentContext) {
+        importNames.push('useSafeAgentContext');
+      }
       if (readables.some(r => r.patternType === 'AuthContextBridge')) {
-        bridgeNames.push('AuthContextBridge');
+        importNames.push('AuthContextBridge');
       }
       if (readables.some(r => r.patternType === 'StoreContextBridge')) {
-        bridgeNames.push('StoreContextBridge');
+        importNames.push('StoreContextBridge');
       }
-      const importStatement = `import { ${bridgeNames.join(', ')} } from '@flexiness/copilotkit';`;
+      const importStatement = `import { ${importNames.join(', ')} } from '@flexiness/copilotkit';`;
       lines.splice(lastImportLine + 1, 0, importStatement);
       lastImportLine++;
-      changes.push(`Added import for ${bridgeNames.join(', ')} from @flexiness/copilotkit`);
+      changes.push(`Added import for ${importNames.join(', ')} from @flexiness/copilotkit`);
     }
 
     // Add use client if needed
@@ -212,17 +206,17 @@ export async function handleInjectReadable(
       changes.push("Added 'use client' directive");
     }
 
-    // Generate hook calls (v2 pattern: useAgentContext)
+    // Generate hook calls (v2 pattern: useSafeAgentContext)
     const hookCalls: string[] = [];
     for (const readable of readables) {
-      // Only generate hook calls for useAgentContext pattern (not bridges)
-      if (!readable.patternType || readable.patternType === 'useAgentContext') {
-        const hookCall = `  useAgentContext({
+      // Only generate hook calls for useSafeAgentContext pattern (not bridges)
+      if (!readable.patternType || readable.patternType === 'useSafeAgentContext') {
+        const hookCall = `  useSafeAgentContext({
     description: '${readable.description}',
     value: ${readable.valueExpression},
   });`;
         hookCalls.push(hookCall);
-        changes.push(`Added useAgentContext for '${readable.name}'`);
+        changes.push(`Added useSafeAgentContext for '${readable.name}'`);
       } else if (readable.patternType === 'AuthContextBridge') {
         changes.push(`Note: AuthContextBridge for '${readable.name}' should wrap component children manually`);
       } else if (readable.patternType === 'StoreContextBridge') {
@@ -292,7 +286,7 @@ export async function handleValidateIntegration(
       for (const hook of v1Hooks) {
         if (hook.hookType === 'useReadableState' || hook.hookType === 'useReadableApi') {
           migrations.push(
-            `Migrate ${hook.hookType} (line ${hook.line}) to useAgentContext({ description: '...', value: ... })`
+            `Migrate ${hook.hookType} (line ${hook.line}) to useSafeAgentContext({ description: '...', value: ... })`
           );
         } else if (hook.hookType === 'useReadableUser') {
           migrations.push(
@@ -312,7 +306,7 @@ export async function handleValidateIntegration(
     );
     if (unexsposedState.length > 0) {
       suggestions.push(
-        `Consider exposing these state variables with useAgentContext: ${unexsposedState.map((s) => s.name).join(', ')}`
+        `Consider exposing these state variables with useSafeAgentContext: ${unexsposedState.map((s) => s.name).join(', ')}`
       );
     }
 

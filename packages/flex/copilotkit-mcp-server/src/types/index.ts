@@ -76,7 +76,7 @@ export interface ApiCall {
  * Existing CopilotKit readable hook
  */
 export interface ExistingReadable {
-  /** Hook type (useCopilotReadable, useReadableState, useAgentContext, etc.) */
+  /** Hook type (useCopilotReadable, useReadableState, useSafeAgentContext, etc.) */
   hookType: string;
   /** Component type for v2 bridge components */
   componentType?: 'StoreContextBridge' | 'AuthContextBridge';
@@ -96,7 +96,7 @@ export interface ExistingReadable {
 export interface IntegrationRecommendation {
   /** Type of integration recommended (v2 patterns) */
   type:
-    | 'useAgentContext'      // v2: for state and API data
+    | 'useSafeAgentContext'      // v2: for state and API data
     | 'AuthContextBridge'    // v2: for user auth context
     | 'StoreContextBridge'   // v2: for MobX store sync
     | 'useCopilotAction';    // unchanged
@@ -125,7 +125,7 @@ export interface ReadableDefinition {
   /** Value expression (e.g., 'userData', 'items.length') */
   valueExpression: string;
   /** Pattern type for v2 patterns */
-  patternType?: 'useAgentContext' | 'AuthContextBridge' | 'StoreContextBridge';
+  patternType?: 'useSafeAgentContext' | 'AuthContextBridge' | 'StoreContextBridge';
   /** Categories for organization */
   categories?: string[];
 }
