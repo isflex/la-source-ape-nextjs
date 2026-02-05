@@ -14,6 +14,9 @@ export { useAgentContext, useAgent } from '@copilotkitnext/react';
 // Safe wrapper that only calls useAgentContext when CopilotKit is enabled
 export { useSafeAgentContext } from './useSafeAgentContext';
 
+// Safe wrapper that only calls useFrontendTool when CopilotKit is enabled
+export { useSafeFrontendTool } from './useSafeFrontendTool';
+
 // Legacy v1 hooks - DEPRECATED, use context bridges or useAgentContext instead
 // Keeping exports for backwards compatibility but they require v1 provider
 export { useReadableState } from './useReadableState';

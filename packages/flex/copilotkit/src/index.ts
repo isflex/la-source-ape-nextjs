@@ -40,7 +40,7 @@
  */
 
 // v2 Re-exports from copilotkitnext
-export { CopilotKitProvider, useAgent, useAgentContext } from '@copilotkitnext/react';
+export { CopilotKitProvider, useAgent, useAgentContext, useFrontendTool } from '@copilotkitnext/react';
 export { CopilotSidebar, CopilotPopup } from '@copilotkitnext/react';
 
 // Types (client-safe)
@@ -72,8 +72,8 @@ export {
 
 // Hooks (client-side)
 // Note: useAgentContext and useAgent are exported above from @copilotkitnext/react
-// Safe wrapper that only calls useAgentContext when CopilotKit is enabled
-export { useSafeAgentContext } from './hooks';
+// Safe wrappers that only call hooks when CopilotKit is enabled
+export { useSafeAgentContext, useSafeFrontendTool } from './hooks';
 // Legacy v1 hooks - DEPRECATED, kept for backwards compatibility
 export {
   useReadableState,

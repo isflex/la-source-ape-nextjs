@@ -14,6 +14,8 @@ export interface ComponentAnalysis {
   isClientComponent: boolean;
   /** Whether the component already has CopilotKit integration */
   hasCopilotKitIntegration: boolean;
+  /** Whether the component uses deprecated v1 patterns that need migration */
+  needsV2Migration: boolean;
   /** State variables found in the component */
   stateVariables: StateVariable[];
   /** Props found in the component */
@@ -24,6 +26,8 @@ export interface ComponentAnalysis {
   existingReadables: ExistingReadable[];
   /** Recommendations for CopilotKit integration */
   recommendations: IntegrationRecommendation[];
+  /** Migration recommendations for v1 to v2 patterns */
+  migrations: MigrationRecommendation[];
 }
 
 /**
@@ -97,9 +101,9 @@ export interface IntegrationRecommendation {
   /** Type of integration recommended (v2 patterns) */
   type:
     | 'useSafeAgentContext'      // v2: for state and API data
-    | 'AuthContextBridge'    // v2: for user auth context
-    | 'StoreContextBridge'   // v2: for MobX store sync
-    | 'useCopilotAction';    // unchanged
+    | 'useSafeFrontendTool'     // v2: for actions/tools
+    | 'AuthContextBridge'       // v2: for user auth context
+    | 'StoreContextBridge';     // v2: for MobX store sync
   /** Target variable/prop name */
   target: string;
   /** Suggested description */
@@ -115,6 +119,27 @@ export interface IntegrationRecommendation {
 }
 
 /**
+ * Migration recommendation for v1 to v2 patterns
+ */
+export interface MigrationRecommendation {
+  /** The deprecated v1 hook/pattern being used */
+  fromPattern: 'useCopilotReadable' | 'useCopilotAction' | 'useReadableState' | 'useReadableUser' | 'useReadableApi' | 'useReadableStore';
+  /** The v2 pattern to migrate to */
+  toPattern: 'useSafeAgentContext' | 'useSafeFrontendTool' | 'AuthContextBridge' | 'StoreContextBridge';
+  /** Line number of the deprecated usage */
+  line: number;
+  /** Migration description */
+  description: string;
+  /** Code snippet showing the migration */
+  codeSnippet: string;
+  /** Import changes needed */
+  importChanges: {
+    remove: string[];
+    add: string[];
+  };
+}
+
+/**
  * Readable definition for injection
  */
 export interface ReadableDefinition {
@@ -125,7 +150,7 @@ export interface ReadableDefinition {
   /** Value expression (e.g., 'userData', 'items.length') */
   valueExpression: string;
   /** Pattern type for v2 patterns */
-  patternType?: 'useSafeAgentContext' | 'AuthContextBridge' | 'StoreContextBridge';
+  patternType?: 'useSafeAgentContext' | 'useSafeFrontendTool' | 'AuthContextBridge' | 'StoreContextBridge';
   /** Categories for organization */
   categories?: string[];
 }
@@ -136,15 +161,17 @@ export interface ReadableDefinition {
 export interface IntegrationReport {
   /** Total components analyzed */
   totalComponents: number;
-  /** Components with full integration */
+  /** Components with full v2 integration */
   fullyIntegrated: ComponentSummary[];
   /** Components with partial integration */
   partiallyIntegrated: ComponentSummary[];
+  /** Components using deprecated v1 patterns that need migration */
+  needsMigration: ComponentSummary[];
   /** Components without integration */
   notIntegrated: ComponentSummary[];
   /** Components not applicable (presentational only) */
   notApplicable: ComponentSummary[];
-  /** Overall coverage percentage */
+  /** Overall coverage percentage (v2 only) */
   coveragePercentage: number;
   /** Quick wins (easy integrations) */
   quickWins: QuickWin[];
@@ -164,6 +191,10 @@ export interface ComponentSummary {
   readableCount: number;
   /** Integration score (0-100) */
   score: number;
+  /** Whether this component needs v1 to v2 migration */
+  needsMigration?: boolean;
+  /** Number of v1 patterns to migrate */
+  migrationCount?: number;
 }
 
 /**

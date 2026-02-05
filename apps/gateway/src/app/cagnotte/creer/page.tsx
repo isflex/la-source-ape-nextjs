@@ -65,7 +65,8 @@ import { default as flexStyles } from '@flex-design-system/framework';
 import JackpotForm from '@src/components/cagnotte/JackpotForm';
 import AuthBanner from '@src/components/auth/AuthBanner';
 import { debug } from '@flexiness/domain-utils';
-import { useSafeAgentContext } from '@flexiness/copilotkit';
+import { useSafeAgentContext, useSafeFrontendTool } from '@flexiness/copilotkit';
+import { z } from 'zod';
 
 type JackpotFormData = {
   id: string;
@@ -132,6 +133,116 @@ export default function CagnotteCreerPage() {
       contributorCount: formStats[form.id]?.contributorCount ?? 0,
     })),
   });
+
+  // CopilotKit v2: Frontend tools — let the AI agent trigger actions on behalf of the user
+  useSafeFrontendTool({
+    name: 'publish_jackpot',
+    description: 'Publish a DRAFT jackpot so participants can contribute. The jackpot must be in DRAFT status with a future deadline.',
+    parameters: z.object({ jackpotId: z.string().describe('The ID of the jackpot to publish') }),
+    handler: async ({ jackpotId }) => {
+      const form = forms.find(f => f.id === jackpotId);
+      if (!form) return { success: false, error: `Jackpot "${jackpotId}" not found` };
+
+      const status = form.status || 'DRAFT';
+      if (status !== 'DRAFT') return { success: false, error: `Jackpot is not in DRAFT status (current: ${status})` };
+
+      const deadline = new Date(form.deadline);
+      if (deadline <= new Date()) return { success: false, error: 'Cannot publish: deadline has passed' };
+
+      try {
+        const response = await client.models.JackpotForm.update({ id: form.id, status: 'ACTIVE' });
+        if (response.errors) return { success: false, error: 'Error publishing jackpot' };
+
+        setCreateSuccess('Cagnotte publiée avec succès ! Les participants peuvent maintenant contribuer.');
+        setTimeout(() => setCreateSuccess(null), 5000);
+        return { success: true, message: `Jackpot "${form.title}" published successfully` };
+      } catch (err) {
+        debug.error('Error publishing jackpot:', err);
+        return { success: false, error: 'Error publishing jackpot' };
+      }
+    },
+  }, [forms]);
+
+  useSafeFrontendTool({
+    name: 'delete_jackpot',
+    description: 'Delete a jackpot by its ID. This action is irreversible.',
+    parameters: z.object({ jackpotId: z.string().describe('The ID of the jackpot to delete') }),
+    handler: async ({ jackpotId }) => {
+      const form = forms.find(f => f.id === jackpotId);
+      if (!form) return { success: false, error: `Jackpot "${jackpotId}" not found` };
+
+      try {
+        const response = await client.models.JackpotForm.delete({ id: jackpotId });
+        if (response.errors) return { success: false, error: 'Error deleting jackpot' };
+        return { success: true, message: `Jackpot "${form.title}" deleted successfully` };
+      } catch (err) {
+        debug.error('Error deleting jackpot:', err);
+        return { success: false, error: 'Error deleting jackpot' };
+      }
+    },
+  }, [forms]);
+
+  useSafeFrontendTool({
+    name: 'request_payout',
+    description: 'Request a payout for a CLOSED jackpot that has contributions and no pending payout request.',
+    parameters: z.object({ jackpotId: z.string().describe('The ID of the jackpot to request payout for') }),
+    handler: async ({ jackpotId }) => {
+      const form = forms.find(f => f.id === jackpotId);
+      if (!form) return { success: false, error: `Jackpot "${jackpotId}" not found` };
+
+      const status = form.status || 'DRAFT';
+      if (status !== 'CLOSED') return { success: false, error: `Jackpot must be CLOSED to request payout (current: ${status})` };
+      if (form.payoutRequested) return { success: false, error: 'Payout has already been requested for this jackpot' };
+
+      const stats = formStats[form.id] || { totalAmount: 0, contributorCount: 0 };
+      if (stats.totalAmount <= 0) return { success: false, error: 'No contributions to pay out' };
+
+      try {
+        const response = await client.models.JackpotForm.update({
+          id: form.id,
+          payoutRequested: true,
+          payoutRequestedAt: new Date().toISOString(),
+        });
+        if (response.errors) return { success: false, error: 'Error requesting payout' };
+        return { success: true, message: `Payout of ${formatCurrency(stats.totalAmount)} requested for "${form.title}"` };
+      } catch (err) {
+        debug.error('Error requesting payout:', err);
+        return { success: false, error: 'Error requesting payout' };
+      }
+    },
+  }, [forms, formStats]);
+
+  useSafeFrontendTool({
+    name: 'view_jackpot_online',
+    description: 'Navigate to the public page of a jackpot by its slug.',
+    parameters: z.object({ jackpotSlug: z.string().describe('The slug of the jackpot to view') }),
+    handler: async ({ jackpotSlug }) => {
+      router.push(`/cagnotte/${jackpotSlug}/`);
+      return { success: true, message: `Navigating to /cagnotte/${jackpotSlug}/` };
+    },
+  }, [router]);
+
+  useSafeFrontendTool({
+    name: 'open_jackpot_form',
+    description: 'Open the jackpot creation/editing form. If a jackpotId is provided, opens in edit mode for that jackpot.',
+    parameters: z.object({ jackpotId: z.string().optional().describe('Optional jackpot ID to edit an existing jackpot') }),
+    handler: async ({ jackpotId }) => {
+      if (jackpotId) {
+        const form = forms.find(f => f.id === jackpotId);
+        if (!form) return { success: false, error: `Jackpot "${jackpotId}" not found` };
+        setEditingFormId(jackpotId);
+      } else {
+        setEditingFormId(null);
+      }
+      setShowForm(true);
+      setCreateSuccess(null);
+      setCreateError(null);
+      setTimeout(() => {
+        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+      return { success: true, message: jackpotId ? `Opening edit form for jackpot "${jackpotId}"` : 'Opening new jackpot form' };
+    },
+  }, [forms]);
 
   const loadContributionStats = async (formId: string) => {
     try {

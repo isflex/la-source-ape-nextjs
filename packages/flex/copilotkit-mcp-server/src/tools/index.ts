@@ -26,7 +26,7 @@ export const toolDefinitions = [
   {
     name: 'analyze_component',
     description:
-      'Analyze a React component file to identify state, props, and API data that should be exposed via CopilotKit v2 patterns (useSafeAgentContext or context bridges)',
+      'Analyze a React component file to identify state, props, and API data that should be exposed via CopilotKit v2 patterns (useSafeAgentContext, useSafeFrontendTool, or context bridges). Also detects deprecated v1 hooks (useCopilotReadable, useCopilotAction) and generates migration recommendations.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -81,7 +81,7 @@ export const toolDefinitions = [
   },
   {
     name: 'validate_integration',
-    description: 'Validate that a component properly integrates CopilotKit and follows best practices',
+    description: 'Validate that a component properly integrates CopilotKit v2 patterns. Detects deprecated v1 hooks and generates specific migration instructions with code snippets.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -95,7 +95,7 @@ export const toolDefinitions = [
   },
   {
     name: 'get_integration_report',
-    description: 'Generate a report of CopilotKit integration coverage across a directory',
+    description: 'Generate a report of CopilotKit v2 integration coverage across a directory. Identifies components using deprecated v1 patterns that need migration, components with full v2 integration, and components not yet integrated.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -113,7 +113,7 @@ export const toolDefinitions = [
   },
   {
     name: 'suggest_actions',
-    description: 'Suggest CopilotKit actions that could be added based on component functionality',
+    description: 'Suggest CopilotKit v2 frontend tools (useSafeFrontendTool) based on component functionality. Also detects v1 useCopilotAction hooks that should be migrated to useSafeFrontendTool.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -266,54 +266,63 @@ export async function handleInjectReadable(
  */
 export async function handleValidateIntegration(
   input: ValidateIntegrationInput
-): Promise<{ valid: boolean; issues: string[]; suggestions: string[]; migrations: string[] }> {
+): Promise<{
+  valid: boolean;
+  isV2Compliant: boolean;
+  issues: string[];
+  suggestions: string[];
+  migrations: Array<{
+    fromPattern: string;
+    toPattern: string;
+    line: number;
+    description: string;
+    codeSnippet: string;
+    importChanges: { remove: string[]; add: string[] };
+  }>;
+}> {
   const { filePath } = input;
 
   try {
     const analysis = await analyzeComponent(filePath);
     const issues: string[] = [];
     const suggestions: string[] = [];
-    const migrations: string[] = [];
 
     // Check for 'use client' directive if hooks are used
     if (analysis.existingReadables.length > 0 && !analysis.isClientComponent) {
       issues.push("Component uses CopilotKit hooks but missing 'use client' directive");
     }
 
-    // Check for v1 patterns that should be migrated to v2
+    // Check for deprecated v1 import sources
     const v1Hooks = analysis.existingReadables.filter((r) => !r.isV2);
     if (v1Hooks.length > 0) {
-      for (const hook of v1Hooks) {
-        if (hook.hookType === 'useReadableState' || hook.hookType === 'useReadableApi') {
-          migrations.push(
-            `Migrate ${hook.hookType} (line ${hook.line}) to useSafeAgentContext({ description: '...', value: ... })`
-          );
-        } else if (hook.hookType === 'useReadableUser') {
-          migrations.push(
-            `Migrate ${hook.hookType} (line ${hook.line}) to <AuthContextBridge user={...} description="...">{children}</AuthContextBridge>`
-          );
-        } else if (hook.hookType === 'useReadableStore') {
-          migrations.push(
-            `Migrate ${hook.hookType} (line ${hook.line}) to <StoreContextBridge store={...} selector={...} description="...">{children}</StoreContextBridge>`
-          );
-        }
-      }
-    }
-
-    // Check for state without readables (recommend v2 patterns)
-    const unexsposedState = analysis.stateVariables.filter(
-      (s) => s.isAIRelevant && !analysis.existingReadables.some((r) => r.value?.includes(s.name))
-    );
-    if (unexsposedState.length > 0) {
-      suggestions.push(
-        `Consider exposing these state variables with useSafeAgentContext: ${unexsposedState.map((s) => s.name).join(', ')}`
+      issues.push(
+        `Component uses ${v1Hooks.length} deprecated v1 hook(s): ${v1Hooks.map((h) => h.hookType).join(', ')}. ` +
+        `These must be migrated to v2 patterns.`
       );
     }
 
-    // Check for user props without AuthContextBridge
+    // Check for direct @copilotkit/react-core imports (deprecated)
+    if (analysis.hasCopilotKitIntegration && !analysis.existingReadables.some((r) => r.isV2)) {
+      issues.push(
+        'Component imports from @copilotkit/react-core which is deprecated. ' +
+        'Use @flexiness/copilotkit (useSafeAgentContext, useSafeFrontendTool) or @copilotkitnext/react (useAgent) instead.'
+      );
+    }
+
+    // Check for state without v2 readables
+    const unexposedState = analysis.stateVariables.filter(
+      (s) => s.isAIRelevant && !analysis.existingReadables.some((r) => r.isV2 && (r.value?.includes(s.name) || r.description?.includes(s.name)))
+    );
+    if (unexposedState.length > 0) {
+      suggestions.push(
+        `Consider exposing these state variables with useSafeAgentContext: ${unexposedState.map((s) => s.name).join(', ')}`
+      );
+    }
+
+    // Check for user props without AuthContextBridge (v2 bridge only)
     const userProps = analysis.props.filter((p) => p.isUserContext);
     const hasUserBridge = analysis.existingReadables.some(
-      (r) => r.componentType === 'AuthContextBridge' || r.hookType === 'useReadableUser'
+      (r) => r.isV2 && r.componentType === 'AuthContextBridge'
     );
     if (userProps.length > 0 && !hasUserBridge) {
       suggestions.push(
@@ -321,11 +330,14 @@ export async function handleValidateIntegration(
       );
     }
 
+    const isV2Compliant = v1Hooks.length === 0 && issues.length === 0;
+
     return {
       valid: issues.length === 0,
+      isV2Compliant,
       issues,
       suggestions,
-      migrations,
+      migrations: analysis.migrations,
     };
   } catch (error) {
     throw new Error(
@@ -354,6 +366,7 @@ export async function handleGetIntegrationReport(
       totalComponents: 0,
       fullyIntegrated: [],
       partiallyIntegrated: [],
+      needsMigration: [],
       notIntegrated: [],
       notApplicable: [],
       coveragePercentage: 0,
@@ -379,31 +392,50 @@ export async function handleGetIntegrationReport(
 
         report.totalComponents++;
 
+        const v2Readables = analysis.existingReadables.filter((r) => r.isV2);
+        const v1Readables = analysis.existingReadables.filter((r) => !r.isV2);
+        const v2Score = calculateIntegrationScore(analysis);
+
         const summary: ComponentSummary = {
           name: analysis.componentName,
           filePath,
           stateCount: analysis.stateVariables.length,
-          readableCount: analysis.existingReadables.length,
-          score: calculateIntegrationScore(analysis),
+          readableCount: v2Readables.length,
+          score: v2Score,
+          needsMigration: v1Readables.length > 0,
+          migrationCount: v1Readables.length,
         };
 
-        // Categorize
-        if (summary.score >= 80) {
+        // Categorize: prioritize migration detection over integration score
+        if (v1Readables.length > 0) {
+          // Component uses deprecated v1 hooks - needs migration regardless of score
+          report.needsMigration.push(summary);
+
+          // Also add as quick win for migration
+          report.quickWins.push({
+            filePath,
+            componentName: analysis.componentName,
+            target: v1Readables.map((r) => r.hookType).join(', '),
+            effort: v1Readables.length <= 3 ? 'low' : 'medium',
+            impact: 'high',
+            description: `Migrate ${v1Readables.length} v1 hook(s) to v2: ${v1Readables.map((r) => `${r.hookType} → ${analysis.migrations.find((m) => m.line === r.line)?.toPattern || 'v2'}`).join(', ')}`,
+          });
+        } else if (v2Score >= 80) {
           report.fullyIntegrated.push(summary);
-        } else if (summary.score > 0) {
+        } else if (v2Score > 0) {
           report.partiallyIntegrated.push(summary);
         } else if (analysis.stateVariables.some((s) => s.isAIRelevant)) {
           report.notIntegrated.push(summary);
 
           // Add to quick wins if low effort
-          if (analysis.recommendations.length <= 3) {
+          if (analysis.recommendations.length <= 3 && analysis.recommendations.length > 0) {
             report.quickWins.push({
               filePath,
               componentName: analysis.componentName,
               target: analysis.recommendations[0]?.target || 'state',
               effort: analysis.recommendations.length === 1 ? 'low' : 'medium',
               impact: analysis.stateVariables.filter((s) => s.isAIRelevant).length > 2 ? 'high' : 'medium',
-              description: `Add ${analysis.recommendations.length} readable hook(s) to expose component state`,
+              description: `Add ${analysis.recommendations.length} useSafeAgentContext hook(s) to expose component state`,
             });
           }
         } else {
@@ -415,7 +447,7 @@ export async function handleGetIntegrationReport(
       }
     }
 
-    // Calculate coverage
+    // Calculate coverage (only v2 patterns count as integrated)
     if (report.totalComponents > 0) {
       const integrated = report.fullyIntegrated.length + report.partiallyIntegrated.length * 0.5;
       report.coveragePercentage = Math.round((integrated / report.totalComponents) * 100);
@@ -436,38 +468,67 @@ export async function handleGetIntegrationReport(
 }
 
 /**
- * Handle suggest_actions tool call
+ * Handle suggest_actions tool call (v2: useFrontendTool patterns)
  */
 export async function handleSuggestActions(
   input: { filePath: string }
-): Promise<{ suggestions: Array<{ name: string; description: string; reason: string }> }> {
+): Promise<{
+  suggestions: Array<{
+    name: string;
+    description: string;
+    reason: string;
+    v2Pattern: string;
+    codeSnippet: string;
+  }>;
+  migrations: Array<{
+    fromPattern: string;
+    toPattern: string;
+    line: number;
+    description: string;
+    codeSnippet: string;
+  }>;
+}> {
   const { filePath } = input;
 
   try {
     const analysis = await analyzeComponent(filePath);
-    const suggestions: Array<{ name: string; description: string; reason: string }> = [];
+    const suggestions: Array<{
+      name: string;
+      description: string;
+      reason: string;
+      v2Pattern: string;
+      codeSnippet: string;
+    }> = [];
 
-    // Suggest actions based on API calls
+    // Check for v1 useCopilotAction that should be migrated to useFrontendTool
+    const actionMigrations = analysis.migrations.filter((m) => m.fromPattern === 'useCopilotAction');
+
+    // Suggest useSafeFrontendTool for API calls
     for (const api of analysis.apiCalls) {
       if (api.method.toLowerCase() === 'post' || api.method.toLowerCase() === 'put') {
+        const toolName = `submit_${api.endpoint?.replace(/[^a-z0-9]/gi, '_') || 'form'}`;
         suggestions.push({
-          name: `submit_${api.endpoint?.replace(/[^a-z0-9]/gi, '_') || 'form'}`,
+          name: toolName,
           description: `Submit data to ${api.endpoint || 'API'}`,
-          reason: `Found ${api.method.toUpperCase()} call that could be triggered by AI`,
+          reason: `Found ${api.method.toUpperCase()} call that could be triggered by AI agent`,
+          v2Pattern: 'useSafeFrontendTool',
+          codeSnippet: `useSafeFrontendTool({\n  name: '${toolName}',\n  description: 'Submit data to ${api.endpoint || 'API'}',\n  parameters: z.object({\n    // define parameters\n  }),\n  handler: async (args) => {\n    // call ${api.endpoint || 'API'}\n  },\n});`,
         });
       }
     }
 
-    // Suggest navigation actions for router usage
+    // Suggest navigation tools for pages
     if (analysis.filePath.includes('page') || analysis.filePath.includes('layout')) {
       suggestions.push({
         name: 'navigate_to_page',
         description: 'Navigate to a different page in the application',
         reason: 'Component appears to be a page that could benefit from AI-driven navigation',
+        v2Pattern: 'useSafeFrontendTool',
+        codeSnippet: `useSafeFrontendTool({\n  name: 'navigate_to_page',\n  description: 'Navigate to a different page',\n  parameters: z.object({\n    path: z.string().describe('The path to navigate to'),\n  }),\n  handler: async ({ path }) => {\n    router.push(path);\n  },\n});`,
       });
     }
 
-    // Suggest search actions for list/data components
+    // Suggest search tools for list/data components
     const hasListState = analysis.stateVariables.some(
       (s) => s.name.includes('list') || s.name.includes('items') || s.name.includes('data')
     );
@@ -475,11 +536,16 @@ export async function handleSuggestActions(
       suggestions.push({
         name: 'search_items',
         description: 'Search through the items/data in this component',
-        reason: 'Component contains list data that could be searched via AI',
+        reason: 'Component contains list data that could be searched via AI agent',
+        v2Pattern: 'useSafeFrontendTool',
+        codeSnippet: `useSafeFrontendTool({\n  name: 'search_items',\n  description: 'Search items by query',\n  parameters: z.object({\n    query: z.string().describe('Search query'),\n  }),\n  handler: async ({ query }) => {\n    // filter items by query\n  },\n});`,
       });
     }
 
-    return { suggestions };
+    return {
+      suggestions,
+      migrations: actionMigrations,
+    };
   } catch (error) {
     throw new Error(
       `Failed to suggest actions: ${error instanceof Error ? error.message : String(error)}`
@@ -488,7 +554,8 @@ export async function handleSuggestActions(
 }
 
 /**
- * Calculate integration score for a component
+ * Calculate integration score for a component.
+ * Only v2 patterns count towards the score - v1 hooks score 0.
  */
 function calculateIntegrationScore(analysis: ComponentAnalysis): number {
   if (!analysis.isClientComponent) return 0;
@@ -499,8 +566,9 @@ function calculateIntegrationScore(analysis: ComponentAnalysis): number {
 
   if (totalTargets === 0) return 0;
 
-  const coveredTargets = analysis.existingReadables.length;
-  return Math.min(100, Math.round((coveredTargets / totalTargets) * 100));
+  // Only count v2 patterns as covered
+  const v2CoveredTargets = analysis.existingReadables.filter((r) => r.isV2).length;
+  return Math.min(100, Math.round((v2CoveredTargets / totalTargets) * 100));
 }
 
 /**

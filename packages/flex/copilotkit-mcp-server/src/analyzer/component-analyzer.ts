@@ -14,6 +14,7 @@ import type {
   ApiCall,
   ExistingReadable,
   IntegrationRecommendation,
+  MigrationRecommendation,
 } from '../types';
 
 type ASTNode = TSESTree.Node;
@@ -42,11 +43,13 @@ export async function analyzeComponent(
     filePath,
     isClientComponent: hasUseClientDirective(sourceCode),
     hasCopilotKitIntegration: hasCopilotKitImports(sourceCode),
+    needsV2Migration: hasV1Patterns(sourceCode),
     stateVariables: [],
     props: [],
     apiCalls: [],
     existingReadables: [],
     recommendations: [],
+    migrations: [],
   };
 
   // Walk the AST to find relevant patterns
@@ -72,7 +75,10 @@ export async function analyzeComponent(
     },
   });
 
-  // Generate recommendations
+  // Generate migration recommendations for v1 patterns
+  analysis.migrations = generateMigrations(analysis);
+
+  // Generate recommendations (only for components not already using v2 patterns)
   analysis.recommendations = generateRecommendations(analysis);
 
   return analysis;
@@ -121,11 +127,40 @@ function hasCopilotKitImports(sourceCode: string): boolean {
     sourceCode.includes('@copilotkitnext/react') ||
     sourceCode.includes('@flexiness/copilotkit') ||
     sourceCode.includes('useCopilotReadable') ||
+    sourceCode.includes('useCopilotAction') ||
     sourceCode.includes('useReadableState') ||
     sourceCode.includes('useSafeAgentContext') ||
+    sourceCode.includes('useSafeFrontendTool') ||
+    sourceCode.includes('useFrontendTool') ||
     sourceCode.includes('AuthContextBridge') ||
     sourceCode.includes('StoreContextBridge')
   );
+}
+
+/**
+ * Deprecated v1 hooks that should be migrated to v2
+ */
+const V1_DEPRECATED_HOOKS = [
+  'useCopilotReadable',
+  'useCopilotAction',
+  'useReadableState',
+  'useReadableUser',
+  'useReadableApi',
+  'useReadableStore',
+] as const;
+
+/**
+ * V1 import sources that indicate deprecated patterns
+ */
+const V1_IMPORT_SOURCES = [
+  '@copilotkit/react-core',
+] as const;
+
+/**
+ * Check if file uses deprecated v1 patterns
+ */
+function hasV1Patterns(sourceCode: string): boolean {
+  return V1_DEPRECATED_HOOKS.some((hook) => sourceCode.includes(hook));
 }
 
 /**
@@ -369,8 +404,11 @@ function isCopilotHook(node: ASTNode): node is TSESTree.CallExpression {
   const copilotHooks = [
     // v2 hooks
     'useSafeAgentContext',
+    'useSafeFrontendTool',
+    'useAgentContext',
     'useAgent',
-    // v1 hooks (legacy detection)
+    'useFrontendTool',
+    // v1 hooks (deprecated - detected for migration)
     'useCopilotReadable',
     'useCopilotAction',
     'useReadableState',
@@ -416,11 +454,29 @@ function extractCopilotHookInfo(node: TSESTree.CallExpression): ExistingReadable
   const {callee} = node;
   if (callee.type !== AST_NODE_TYPES.Identifier) return null;
 
-  const v2Hooks = ['useSafeAgentContext', 'useAgent'];
+  const v2Hooks = ['useSafeAgentContext', 'useSafeFrontendTool', 'useAgentContext', 'useAgent', 'useFrontendTool'];
   const isV2 = v2Hooks.includes(callee.name);
+
+  // Try to extract description from first argument (object with description property)
+  let description: string | undefined;
+  let value: string | undefined;
+  if (node.arguments[0]?.type === AST_NODE_TYPES.ObjectExpression) {
+    for (const prop of node.arguments[0].properties) {
+      if (prop.type === AST_NODE_TYPES.Property && prop.key.type === AST_NODE_TYPES.Identifier) {
+        if (prop.key.name === 'description' && prop.value.type === AST_NODE_TYPES.Literal) {
+          description = String(prop.value.value);
+        }
+        if (prop.key.name === 'name' && prop.value.type === AST_NODE_TYPES.Literal) {
+          value = String(prop.value.value);
+        }
+      }
+    }
+  }
 
   return {
     hookType: callee.name,
+    description,
+    value,
     line: node.loc?.start.line ?? 0,
     isV2,
   };
@@ -453,6 +509,95 @@ function generateStateDescription(name: string): string {
   // Convert camelCase to words
   const words = name.replace(/([A-Z])/g, ' $1').toLowerCase().trim();
   return `Current ${words} in the component`;
+}
+
+/**
+ * Mapping from v1 hooks to their v2 replacements
+ */
+const V1_TO_V2_MIGRATION_MAP: Record<string, {
+  toPattern: MigrationRecommendation['toPattern'];
+  importAdd: string[];
+  importRemove: string[];
+  snippetTemplate: (description?: string, value?: string) => string;
+  migrationDescription: string;
+}> = {
+  useCopilotReadable: {
+    toPattern: 'useSafeAgentContext',
+    importAdd: ["import { useSafeAgentContext } from '@flexiness/copilotkit';"],
+    importRemove: ["import { useCopilotReadable } from '@copilotkit/react-core';"],
+    snippetTemplate: (description, value) =>
+      `useSafeAgentContext({\n  description: '${description || 'Component context'}',\n  value: ${value || '{ /* state */ }'},\n});`,
+    migrationDescription: 'Replace useCopilotReadable with useSafeAgentContext from @flexiness/copilotkit',
+  },
+  useCopilotAction: {
+    toPattern: 'useSafeFrontendTool',
+    importAdd: ["import { useSafeFrontendTool } from '@flexiness/copilotkit';"],
+    importRemove: ["import { useCopilotAction } from '@copilotkit/react-core';"],
+    snippetTemplate: (description, value) =>
+      `useSafeFrontendTool({\n  name: '${value || 'action_name'}',\n  description: '${description || 'Tool description'}',\n  parameters: z.object({\n    // define parameters with zod\n  }),\n  handler: async (args) => {\n    // implementation\n  },\n});`,
+    migrationDescription: 'Replace useCopilotAction with useSafeFrontendTool from @flexiness/copilotkit',
+  },
+  useReadableState: {
+    toPattern: 'useSafeAgentContext',
+    importAdd: ["import { useSafeAgentContext } from '@flexiness/copilotkit';"],
+    importRemove: ["import { useReadableState } from '@flexiness/copilotkit';"],
+    snippetTemplate: (description, value) =>
+      `useSafeAgentContext({\n  description: '${description || 'Component state'}',\n  value: ${value || 'stateValue'},\n});`,
+    migrationDescription: 'Replace useReadableState with useSafeAgentContext from @flexiness/copilotkit',
+  },
+  useReadableUser: {
+    toPattern: 'AuthContextBridge',
+    importAdd: ["import { AuthContextBridge } from '@flexiness/copilotkit';"],
+    importRemove: ["import { useReadableUser } from '@flexiness/copilotkit';"],
+    snippetTemplate: () =>
+      `<AuthContextBridge user={user} description="Current authenticated user">\n  {children}\n</AuthContextBridge>`,
+    migrationDescription: 'Replace useReadableUser hook with AuthContextBridge component wrapper',
+  },
+  useReadableApi: {
+    toPattern: 'useSafeAgentContext',
+    importAdd: ["import { useSafeAgentContext } from '@flexiness/copilotkit';"],
+    importRemove: ["import { useReadableApi } from '@flexiness/copilotkit';"],
+    snippetTemplate: (description, value) =>
+      `useSafeAgentContext({\n  description: '${description || 'API response data'}',\n  value: ${value || 'apiData'},\n});`,
+    migrationDescription: 'Replace useReadableApi with useSafeAgentContext from @flexiness/copilotkit',
+  },
+  useReadableStore: {
+    toPattern: 'StoreContextBridge',
+    importAdd: ["import { StoreContextBridge } from '@flexiness/copilotkit';"],
+    importRemove: ["import { useReadableStore } from '@flexiness/copilotkit';"],
+    snippetTemplate: () =>
+      `<StoreContextBridge\n  store={store}\n  selector={(s) => ({ /* select store slices */ })}\n  description="Application state"\n>\n  {children}\n</StoreContextBridge>`,
+    migrationDescription: 'Replace useReadableStore hook with StoreContextBridge component wrapper',
+  },
+};
+
+/**
+ * Generate migration recommendations for v1 patterns
+ */
+function generateMigrations(analysis: ComponentAnalysis): MigrationRecommendation[] {
+  const migrations: MigrationRecommendation[] = [];
+
+  // Find all v1 hooks and generate migration recommendations
+  for (const readable of analysis.existingReadables) {
+    if (readable.isV2) continue;
+
+    const mapping = V1_TO_V2_MIGRATION_MAP[readable.hookType];
+    if (!mapping) continue;
+
+    migrations.push({
+      fromPattern: readable.hookType as MigrationRecommendation['fromPattern'],
+      toPattern: mapping.toPattern,
+      line: readable.line,
+      description: mapping.migrationDescription,
+      codeSnippet: mapping.snippetTemplate(readable.description, readable.value),
+      importChanges: {
+        remove: mapping.importRemove,
+        add: mapping.importAdd,
+      },
+    });
+  }
+
+  return migrations;
 }
 
 /**
@@ -518,11 +663,12 @@ function generateRecommendations(analysis: ComponentAnalysis): IntegrationRecomm
 }
 
 /**
- * Check if a readable already exists for a variable
+ * Check if a v2 readable already exists for a variable.
+ * Only counts v2 patterns as "existing" - v1 hooks are treated as needing migration.
  */
 function hasExistingReadable(analysis: ComponentAnalysis, variableName: string): boolean {
   return analysis.existingReadables.some(
-    (r) => r.value?.includes(variableName) || r.description?.includes(variableName)
+    (r) => r.isV2 && (r.value?.includes(variableName) || r.description?.includes(variableName))
   );
 }
 

@@ -197,207 +197,23 @@ Custom slash commands available in `.claude/commands/`:
 
 ## CopilotKit Integration
 
-This project includes `@flexiness/copilotkit` package for AI-powered user interactions.
+See [packages/flex/copilotkit/COPILOTKIT.md](packages/flex/copilotkit/COPILOTKIT.md) for full documentation.
 
-### Package Location
-
-`/packages/flex/copilotkit/`
-
-### Key Features
-
-- **React Hooks**: `useReadableState`, `useReadableStore`, `useReadableUser`, `useReadableApi`
-- **Provider**: `FlexCopilotProvider` - Pre-configured CopilotKit wrapper
-- **Runtime**: AWS Bedrock adapter with LLM adapter factory pattern
-- **Actions**: Action creation utilities with type safety
-
-### Usage in Components
-
-```typescript
-// Import hooks
-import { useReadableState, useReadableUser } from '@flexiness/copilotkit';
-
-function Dashboard({ user }) {
-  const [events, setEvents] = useState([]);
-
-  // Expose state to AI assistant
-  useReadableUser(user);
-  useReadableState('dashboardEvents', events, {
-    description: 'List of upcoming events',
-    categories: ['events', 'dashboard']
-  });
-
-  return <DashboardView events={events} />;
-}
-```
-
-### CopilotKit Slash Commands
-
-| Command                 | Description                                    |
-| ----------------------- | ---------------------------------------------- |
-| `/copilotkit-integrate` | Analyze component and suggest CopilotKit hooks |
-| `/copilotkit-report`    | Generate integration coverage report           |
-| `/copilotkit-action`    | Create a new CopilotKit action                 |
-
-### API Route Setup
-
-Create `apps/gateway/src/app/api/copilotkit/route.ts`:
-
-```typescript
-import { createCopilotRouteHandlers, NEXTJS_RUNTIME } from "@flexiness/copilotkit/runtime";
-
-export const { GET, POST } = createCopilotRouteHandlers({
-  instructions: "You are a helpful assistant.",
-});
-
-export const runtime = NEXTJS_RUNTIME;
-```
-
-### Environment Variables
-
-```bash
-# LLM Provider (bedrock | copilotkit-cloud | openai)
-FLEX_AI_LLM_PROVIDER=bedrock
-FLEX_AI_LLM_MODEL=anthropic.claude-3-haiku-20240307-v1:0
-
-# MCP Bridge (for tool execution)
-FLEX_MCP_BRIDGE_HOST=http://localhost
-FLEX_MCP_BRIDGE_PORT=3000
-
-# Feature flags
-FLEX_AI_COPILOTKIT_ENABLED=true
-```
-
-### Architecture (v2 AG-UI Protocol)
-
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│  Browser / React App                                                     │
-│                                                                          │
-│  CopilotKitWrapper.tsx                                                   │
-│    ├─ AuthContextBridge (AWS Cognito user → agent)                      │
-│    └─ StoreContextBridge (MobX state → agent)                           │
-│           │                                                              │
-│           ▼                                                              │
-│  FlexCopilotProvider (agentId="$AGENT_ID", runtimeUrl="/api/copilotkit")│
-│    └─ CopilotSidebar (chat UI)                                          │
-│           │                                                              │
-└───────────│──────────────────────────────────────────────────────────────┘
-            │ HTTP POST (AG-UI Protocol)
-            ▼
-┌───────────────────────────────────────────────────────────────────────────┐
-│  /api/copilotkit/[[...path]]/route.ts                                    │
-│    ├─ CopilotRuntime (v2) with Hono router                               │
-│    ├─ HttpAgent → proxies to Python agent                                │
-│    └─ Routes: /info, /agent/{agentId}/run, /agent/{agentId}/connect      │
-└───────────│───────────────────────────────────────────────────────────────┘
-            │ HTTP/SSE (AG-UI Protocol)
-            ▼
-┌───────────────────────────────────────────────────────────────────────────┐
-│  Python Strands Agent (localhost:8080)                                   │
-│    ├─ StrandsAgent (name="$AGENT_ID")                                    │
-│    ├─ BedrockModel (Claude 3 Haiku)                                      │
-│    └─ Tools: navigate(), search()                                        │
-└───────────────────────────────────────────────────────────────────────────┘
-```
-
-### CopilotKit Environment Variables
-
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `NEXT_PUBLIC_COPILOTKIT_ENABLED` | Yes | `false` | Enable CopilotKit sidebar |
-| `NEXT_PUBLIC_COPILOTKIT_AGENT_ID` | Yes | `ape_assistant` | Agent ID (must match Python) |
-| `NEXT_PUBLIC_AGENT_URL` | Yes | `http://localhost:8080` | Python agent URL |
-| `NEXT_PUBLIC_COPILOTKIT_API_KEY` | No | - | CopilotKit Cloud API key (optional) |
-| `FLEX_AI_LLM_PROVIDER` | Yes | `bedrock` | LLM provider for Python agent |
-| `FLEX_AI_LLM_MODEL` | Yes | `anthropic.claude-3-haiku-*` | Bedrock model ID |
-
-### CopilotKit Integration Checklist
-
-```markdown
-- [ ] `NEXT_PUBLIC_COPILOTKIT_ENABLED=true` in `.env.development`
-- [ ] `NEXT_PUBLIC_COPILOTKIT_AGENT_ID` set (same value in all 3 files)
-- [ ] `NEXT_PUBLIC_AGENT_URL=http://localhost:8080`
-- [ ] Python agent running: `cd agent && ./run.sh`
-- [ ] Agent docs available: `curl http://localhost:8080/docs`
-- [ ] API route responds: `curl http://localhost:3001/api/copilotkit/info`
-- [ ] AWS credentials: `AWS_PROFILE` set with Bedrock access
-```
-
-### CopilotKit Troubleshooting
-
-- **No chat sidebar**: Check `NEXT_PUBLIC_COPILOTKIT_ENABLED=true`
-- **Agent not responding**: Verify Python agent running at `AGENT_URL`
-- **Agent ID mismatch error**: Ensure same ID in CopilotKitWrapper.tsx, route.ts, and main.py
-- **Bedrock error**: Check `AWS_PROFILE` has `bedrock:InvokeModel` permission
+**Key points:**
+- Package: `@flexiness/copilotkit` at `packages/flex/copilotkit/`
+- v2 AG-UI protocol, connecting to a Python Strands Agent
+- Use `useSafe*` wrappers (`useSafeAgentContext`, `useSafeFrontendTool`) so the app works when CopilotKit is disabled
+- Context bridges (`AuthContextBridge`, `StoreContextBridge`) for user and store state
+- Enable with `NEXT_PUBLIC_COPILOTKIT_ENABLED=true`
 
 ## CopilotKit MCP Server (Dev-Time Integration)
 
-The project includes `@flexiness/copilotkit-mcp-server` - an MCP server for automated CopilotKit integration.
+See [packages/flex/copilotkit-mcp-server/COPILOTKIT-MCP-SERVER.md](packages/flex/copilotkit-mcp-server/COPILOTKIT-MCP-SERVER.md) for full documentation.
 
-### Package Location
-
-`/packages/flex/copilotkit-mcp-server/`
-
-### Purpose
-
-This MCP server allows Claude Code to automatically analyze React components and suggest CopilotKit integration patterns during development.
-
-### MCP Tools Available
-
-| Tool                     | Description                                                        |
-| ------------------------ | ------------------------------------------------------------------ |
-| `analyze_component`      | Analyze a React component for CopilotKit integration opportunities |
-| `inject_readable`        | Add useCopilotReadable hooks to a component (dry-run by default)   |
-| `validate_integration`   | Check if a component properly integrates CopilotKit                |
-| `get_integration_report` | Generate a coverage report for a directory                         |
-| `suggest_actions`        | Suggest CopilotKit actions for a component                         |
-
-### Configuration
-
-The MCP server is configured in `.claude/settings.json`:
-
-```json
-{
-  "mcpServers": {
-    "copilotkit-integration": {
-      "command": "node",
-      "args": ["./packages/flex/copilotkit-mcp-server/dist/cli.js"]
-    }
-  }
-}
-```
-
-### Usage Examples
-
-**Analyze a component:**
-
-```
-Use the copilotkit-integration MCP server to analyze
-apps/gateway/src/components/Dashboard.tsx
-```
-
-**Generate integration report:**
-
-```
-Use the copilotkit-integration MCP server to generate
-an integration report for apps/gateway/src/components/
-```
-
-### Component Analyzer Features
-
-The analyzer detects:
-
-- `useState` hooks with AI-relevant state (data, lists, user info)
-- Props that represent user context
-- API calls (fetch, axios, etc.)
-- Existing CopilotKit hooks
-
-It generates recommendations for:
-
-- `useReadableState` - for component state
-- `useReadableUser` - for user context props
-- `useReadableApi` - for API response data
-- `useCopilotAction` - for actionable functions
+**Key points:**
+- Package: `@flexiness/copilotkit-mcp-server` at `packages/flex/copilotkit-mcp-server/`
+- 5 MCP tools: `analyze_component`, `inject_readable`, `validate_integration`, `get_integration_report`, `suggest_actions`
+- Always recommends `useSafe*` wrappers from `@flexiness/copilotkit`
 
 ## Strands Agent Deployment
 
