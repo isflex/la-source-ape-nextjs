@@ -3,7 +3,7 @@
 import React, { ReactNode } from 'react';
 // v2 components from copilotkitnext for AG-UI protocol support
 import { CopilotKitProvider, CopilotSidebar, useAgent } from '@copilotkitnext/react';
-import type { FlexCopilotProviderConfig } from '../types';
+import type { FlexCopilotProviderConfig, FlexCopilotSidebarConfig } from '../types';
 import { mergeConfig } from './config';
 
 export interface FlexCopilotProviderProps {
@@ -12,22 +12,7 @@ export interface FlexCopilotProviderProps {
   /** Agent ID to connect to */
   agentId: string;
   /** Sidebar configuration */
-  sidebarConfig?: {
-    defaultOpen?: boolean;
-    /** Custom header component for the sidebar (React node) */
-    header?: React.ReactNode;
-    /** Custom labels for the sidebar - uses v2 CopilotChatLabels keys */
-    labels?: {
-      /** Title displayed in modal header */
-      modalHeaderTitle?: string;
-      /** Placeholder text for the input field */
-      chatInputPlaceholder?: string;
-      /** Disclaimer text at bottom */
-      chatDisclaimerText?: string;
-      /** Other v2 label keys */
-      [key: string]: string | undefined;
-    };
-  };
+  sidebarConfig?: FlexCopilotSidebarConfig;
 }
 
 /**
@@ -56,6 +41,7 @@ function FlexCopilotContent({
       {sidebarConfig && (
         <CopilotSidebar
           agentId={agentId}
+          threadId={sidebarConfig.threadId}
           defaultOpen={sidebarConfig.defaultOpen ?? false}
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           header={sidebarConfig.header as any}

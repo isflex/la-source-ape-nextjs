@@ -52,7 +52,7 @@ fi
 if [ -n "$NEXT_PUBLIC_AGENT_URL" ]; then
     echo -e "   NEXT_PUBLIC_AGENT_URL: $PASS ($NEXT_PUBLIC_AGENT_URL)"
 else
-    echo -e "   NEXT_PUBLIC_AGENT_URL: $WARN (not set, will use default 'http://localhost:8000')"
+    echo -e "   NEXT_PUBLIC_AGENT_URL: $WARN (not set, will use default 'http://localhost:8080')"
 fi
 
 # Check AWS_PROFILE
@@ -120,7 +120,7 @@ echo "3. Service Connectivity"
 echo "-----------------------"
 
 # Check Python agent
-AGENT_URL="${NEXT_PUBLIC_AGENT_URL:-http://localhost:8000}"
+AGENT_URL="${NEXT_PUBLIC_AGENT_URL:-http://localhost:8080}"
 echo "   Testing Python agent at $AGENT_URL..."
 
 if curl -s --connect-timeout 2 "$AGENT_URL" >/dev/null 2>&1; then

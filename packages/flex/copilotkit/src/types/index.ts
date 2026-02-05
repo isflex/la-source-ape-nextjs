@@ -2,6 +2,8 @@
  * @flexiness/copilotkit - Type definitions
  */
 
+import type { ReactNode } from 'react';
+
 // Readable options for useCopilotReadable wrappers
 export interface ReadableOptions {
   description?: string;
@@ -54,6 +56,22 @@ export interface ActionRenderProps {
   args: Record<string, unknown>;
   result?: unknown;
   error?: Error;
+}
+
+// Sidebar configuration
+export interface FlexCopilotSidebarConfig {
+  /** Stable thread ID for chat persistence across page reloads */
+  threadId?: string;
+  defaultOpen?: boolean;
+  /** Custom header component for the sidebar */
+  header?: ReactNode;
+  /** Custom labels for the sidebar - uses v2 CopilotChatLabels keys */
+  labels?: {
+    modalHeaderTitle?: string;
+    chatInputPlaceholder?: string;
+    chatDisclaimerText?: string;
+    [key: string]: string | undefined;
+  };
 }
 
 // Provider configuration

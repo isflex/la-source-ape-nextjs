@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, Component, type ErrorInfo } from 'react';
+import React, { useMemo, useState, Component, type ErrorInfo } from 'react';
 import {
   FlexCopilotProvider,
   StoreContextBridge,
@@ -126,6 +126,25 @@ function CopilotKitContent({ children }: { children: React.ReactNode }) {
   );
 }
 
+const THREAD_STORAGE_KEY = 'copilotkit_thread_id';
+
+/**
+ * Generate or restore a stable threadId from sessionStorage.
+ * Survives same-tab navigations (e.g. Google auth redirect) but
+ * resets on new tab / browser close (sessionStorage is tab-scoped).
+ */
+function useStableThreadId(): string {
+  const [threadId] = useState(() => {
+    if (typeof window === 'undefined') return '';
+    const stored = sessionStorage.getItem(THREAD_STORAGE_KEY);
+    if (stored) return stored;
+    const newId = crypto.randomUUID();
+    sessionStorage.setItem(THREAD_STORAGE_KEY, newId);
+    return newId;
+  });
+  return threadId;
+}
+
 /**
  * CopilotKit wrapper component using v2 AG-UI protocol
  *
@@ -142,6 +161,7 @@ function CopilotKitContent({ children }: { children: React.ReactNode }) {
  */
 export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) {
   const isEnabled = process.env.NEXT_PUBLIC_COPILOTKIT_ENABLED === 'true';
+  const threadId = useStableThreadId();
   console.log(`[CopilotKitWrapper] isEnabled: ${isEnabled}`);
 
   if (!isEnabled) {
@@ -157,6 +177,7 @@ export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) 
       <FlexCopilotProvider
         agentId={AGENT_ID}
         sidebarConfig={{
+          threadId,
           defaultOpen: false,
           header: 'Assistant APE',
           labels: {

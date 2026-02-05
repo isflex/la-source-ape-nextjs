@@ -53,6 +53,7 @@ export type {
   ActionDefinition,
   ActionRenderProps,
   FlexCopilotProviderConfig,
+  FlexCopilotSidebarConfig,
   MCPBridgeOptions,
   MCPToolResult,
 } from './types';

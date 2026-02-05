@@ -60,9 +60,9 @@
     "@ag-ui/core": "^0.0.43",
     "@ag-ui/encoder": "^0.0.43",
     "@ag-ui/proto": "^0.0.43",
-    "@copilotkit/react-core": "^1.51.2",
-    "@copilotkit/react-ui": "^1.51.2",
-    "@copilotkit/runtime": "^1.51.2",
+    "@copilotkit/react-core": "^1.51.3",
+    "@copilotkit/react-ui": "^1.51.3",
+    "@copilotkit/runtime": "^1.51.3",
     "tslib": "^2.8.1"
   },
   "devDependencies": {
