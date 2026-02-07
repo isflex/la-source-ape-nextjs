@@ -13,11 +13,11 @@
       "require": "./dist/js/tailwind.js",
       "types": "./dist/js/tailwind.d.ts"
     },
-    "./globals.css": "./dist/styles/tailwind.css",
+    "./tailwind.css": "./dist/styles/tailwind.css",
     "./postcss.config.mjs": "./postcss.config.mjs"
   },
   "browser": {
-    "./globals.css": "./dist/styles/tailwind.css"
+    "./tailwind.css": "./dist/styles/tailwind.css"
   },
   "files": [
     "dist",
