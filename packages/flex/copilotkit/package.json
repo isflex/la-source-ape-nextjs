@@ -63,6 +63,8 @@
     "@copilotkit/react-core": "^1.51.3",
     "@copilotkit/react-ui": "^1.51.3",
     "@copilotkit/runtime": "^1.51.3",
+    "@copilotkit/sdk-js": "^1.51.3",
+    "@copilotkitnext/react": "^1.51.3",
     "tslib": "^2.8.1"
   },
   "devDependencies": {

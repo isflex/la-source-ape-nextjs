@@ -5,7 +5,7 @@
 #   docker buildx build --platform linux/arm64 -t ape-agent:latest .
 #
 # Run locally (with AWS credentials):
-#   docker run --platform linux/arm64 -p 8080:8080 \
+#   docker run --platform linux/arm64 -p 8061:8061 \
 #     -e AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
 #     -e AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
 #     -e AWS_SESSION_TOKEN="$AWS_SESSION_TOKEN" \
@@ -27,14 +27,14 @@ RUN uv sync --frozen --no-cache || uv sync --no-cache
 # Copy application code
 COPY main.py ./
 
-# AgentCore requires port 8080
-EXPOSE 8080
+# AgentCore requires port 8061
+EXPOSE 8061
 
 # Environment variables for AgentCore deployment
 # FLEX_AGENT_PATH=/invocations makes AG-UI endpoints available at /invocations/*
-ENV FLEX_AGENT_PORT=8080
+ENV FLEX_AGENT_PORT=8061
 ENV FLEX_AGENT_PATH=/invocations
 
 # Run the application
 # Use uvicorn directly for production (no reload)
-CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8061"]

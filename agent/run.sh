@@ -27,9 +27,9 @@ fi
 echo "Starting Strands agent..."
 echo "  Mode: $FLEX_MODE"
 echo "  Env file: $ENV_FILE"
-echo "  Port: 8080"
+echo "  Port: $FLEX_AGENT_PORT"
 
 cd "$SCRIPT_DIR"
 
 # Run with dotenvx to inject environment variables
-exec dotenvx run -f "$ENV_FILE" -- uv run uvicorn main:app --host 0.0.0.0 --port 8080 --reload
+exec dotenvx run -f "$ENV_FILE" -- uv run uvicorn main:app --host 0.0.0.0 --port $FLEX_AGENT_PORT --reload

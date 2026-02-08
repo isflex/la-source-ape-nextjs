@@ -10,7 +10,7 @@ AG-UI endpoints are automatically created by ag_ui_strands:
 - POST / - Main AG-UI agent endpoint
 
 Run with dotenvx to inject environment variables:
-  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- uv run uvicorn main:app --port 8080
+  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- uv run uvicorn main:app --port 8061
 
 See: https://strandsagents.com/latest/documentation/docs/community/integrations/ag-ui/
 """
@@ -139,5 +139,5 @@ if __name__ == "__main__":
     import uvicorn
 
     logging.basicConfig(level=logging.INFO)
-    port = int(os.getenv("FLEX_AGENT_PORT", "8080"))
+    port = int(os.getenv("FLEX_AGENT_PORT", "8061"))
     uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
