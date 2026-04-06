@@ -4,6 +4,11 @@ import React from 'react'
 import * as mobx from 'mobx'
 import * as mobxReactLite from 'mobx-react-lite'
 import * as framerMotion from 'framer-motion'
+import * as copilotkitNextReact from '@copilotkitnext/react'
+import * as agUiClient from '@ag-ui/client'
+import * as agUiCore from '@ag-ui/core'
+import * as agUiEncoder from '@ag-ui/encoder'
+import * as agUiProto from '@ag-ui/proto'
 // import dynamic from 'next/dynamic'
 import loadable from '@loadable/component'
 import { createInstance } from '@module-federation/enhanced/runtime'
@@ -91,6 +96,51 @@ const WebAppMF: React.FC<{mobileCheck: boolean}> = observer(() => {
           shareConfig: {
             singleton: true,
             requiredVersion: '12.23.12',
+          },
+        },
+        '@copilotkitnext/react': {
+          version: '1.54.1',
+          scope: 'default',
+          lib: () => copilotkitNextReact,
+          shareConfig: {
+            singleton: true,
+            requiredVersion: '^1.54.1',
+          },
+        },
+        '@ag-ui/client': {
+          version: '0.0.48',
+          scope: 'default',
+          lib: () => agUiClient,
+          shareConfig: {
+            singleton: true,
+            requiredVersion: '0.0.48',
+          },
+        },
+        '@ag-ui/core': {
+          version: '0.0.48',
+          scope: 'default',
+          lib: () => agUiCore,
+          shareConfig: {
+            singleton: true,
+            requiredVersion: '0.0.48',
+          },
+        },
+        '@ag-ui/encoder': {
+          version: '0.0.48',
+          scope: 'default',
+          lib: () => agUiEncoder,
+          shareConfig: {
+            singleton: true,
+            requiredVersion: '0.0.48',
+          },
+        },
+        '@ag-ui/proto': {
+          version: '0.0.48',
+          scope: 'default',
+          lib: () => agUiProto,
+          shareConfig: {
+            singleton: true,
+            requiredVersion: '0.0.48',
           },
         },
 
