@@ -79,9 +79,9 @@
     },
     "dev:turbo": {
       "dependsOn": [
-        "^dev:packages:transit",
-        "next:dev:turbo"
+        "^dev:packages:transit"
       ],
+      "with": ["next:dev:turbo"],
       "cache": false,
       "persistent": true
     },

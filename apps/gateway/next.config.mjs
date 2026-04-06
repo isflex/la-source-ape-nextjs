@@ -188,6 +188,29 @@ const mainConfig = new Config(async (phase, args) => {
     webpack: (config, options) => {
       const { isServer, webpack, dev } = options
 
+      // Fix: node:* protocol imports in client bundle
+      // CopilotKit's telemetry chain pulls @segment/analytics-node → node-fetch v3
+      // which uses node: protocol imports. Strip the prefix so webpack's
+      // resolve.fallback (incl. Next.js built-in polyfills) can handle them.
+      if (!isServer) {
+        config.plugins.push(
+          new webpack.NormalModuleReplacementPlugin(
+            /^node:/,
+            (resource) => {
+              resource.request = resource.request.replace(/^node:/, '');
+            }
+          )
+        );
+
+        config.resolve.fallback = {
+          ...config.resolve.fallback,
+          fs: false,
+          net: false,
+          worker_threads: false,
+          'stream/web': false,
+        };
+      }
+
       // config.plugins.push(
       //   new webpack.DefinePlugin({
       //     __SENTRY_DEBUG__: false,
