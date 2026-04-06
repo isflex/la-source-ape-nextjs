@@ -96,6 +96,9 @@ yarn-error.log*
 # nx
 .nx/cache
 
+# module federation
+**/.mf
+
 # linting
 **/.eslintcache
 

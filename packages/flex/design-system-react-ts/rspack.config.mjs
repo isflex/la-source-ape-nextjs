@@ -319,6 +319,12 @@ const getConfig = async (env, argv) => {
             process: [require.resolve('process/browser')],
           }),
 
+          // Explicitly set NODE_ENV to match mode to prevent DefinePlugin conflicts
+          // between rspack's auto-defined NODE_ENV and values from DotenvPlugin
+          new rspack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(env),
+          }),
+
         ] : []
       ),
 

@@ -72,12 +72,12 @@ const App: React.FC = () => {
                 <path d="M385 291H106V300H385V291Z" fill="white"/>
                 <path d="M126.73 282H113.505L163.772 143.818H177.266L227.532 282H214.308L170.991 160.214H170.046L126.73 282ZM136.243 229.035H204.794V240.37H136.243V229.035ZM218.915 282V143.818H263.513C273.319 143.818 281.506 145.707 288.073 149.486C294.685 153.219 299.656 158.302 302.984 164.734C306.358 171.167 308.045 178.409 308.045 186.46C308.045 194.512 306.38 201.776 303.052 208.254C299.723 214.686 294.775 219.791 288.208 223.57C281.641 227.303 273.477 229.17 263.716 229.17H228.631V217.835H263.379C270.621 217.835 276.625 216.485 281.393 213.786C286.161 211.042 289.715 207.309 292.054 202.586C294.438 197.863 295.63 192.488 295.63 186.46C295.63 180.433 294.438 175.058 292.054 170.335C289.715 165.612 286.139 161.901 281.326 159.202C276.558 156.503 270.508 155.153 263.176 155.153H231.532V282H218.915ZM305.365 282V143.818H385.521V155.153H317.982V207.174H381.27V218.509H317.982V270.665H386.87V282H305.365Z" fill="white"/>
               </svg>
-              <Text className={flexStyles.isMarginless}>{`${process.env.FLEX_APP_TITLE}`}</Text>
+              <Text className={flexStyles.isMarginless}>{`${process.env.NEXT_PUBLIC_APP_TITLE}`}</Text>
             </div>
             <Text>Date d&apos;entrée en vigueur : 04 juin 2025</Text>
             <Divider />
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>1. Introduction</Title>
-            <Text>Bienvenue sur <strong>{`${process.env.FLEX_APP_TITLE} | APE | LA SOURCE`}</strong>. Votre confidentialité est essentielle pour nous. Cette politique explique comment nous collectons, traitons et protégeons vos données conformément au Règlement Général sur la Protection des Données (RGPD).</Text>
+            <Text>Bienvenue sur <strong>{`${process.env.NEXT_PUBLIC_APP_TITLE} | APE | LA SOURCE`}</strong>. Votre confidentialité est essentielle pour nous. Cette politique explique comment nous collectons, traitons et protégeons vos données conformément au Règlement Général sur la Protection des Données (RGPD).</Text>
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>2. Collecte et traitement des données</Title>
             <Text>Si l&apos;utilisateur s&apos;authentifie à notre application à travers Google, nous sollicitons les autorisations suivantes pour accéder à d&apos;autres services de Google API :</Text>
             <Table bordered>
@@ -280,10 +280,427 @@ const App: React.FC = () => {
             <Text>Pour exercer ces droits, contactez-nous à <Link href="mailto:system_admin@flexiness.com">system_admin@flexiness.com</Link>.</Text>
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>5. Mesures de sécurité</Title>
             <Text>Nous mettons en œuvre des protocoles de sécurité robustes pour protéger vos données, incluant chiffrement et contrôle d&apos;accès restreint.</Text>
-            <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>6. Mises à jour de la politique</Title>
-            <Text>Nous pouvons mettre à jour cette politique périodiquement. Les utilisateurs seront informés des changements via une annonce sur l&apos;application.</Text>
-            <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>7. Contact</Title>
-            <Text>Pour toute question relative à la confidentialité, contactez-nous à <Link href="mailto:hello@flexiness.com">hello@flexiness.com</Link>.</Text>
+
+            <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
+              6. Communication par Agent IA via WhatsApp
+            </Title>
+            <Text>
+              <strong>Version :</strong> 1.0 — Avril 2026
+            </Text>
+            <Text>
+              <strong>Réglementations applicables :</strong> RGPD (UE) 2016/679 • Règlement européen sur l&apos;IA (UE) 2024/1689 • Directive ePrivacy 2002/58/CE
+            </Text>
+            <Divider />
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              6.1 Responsable du traitement
+            </Title>
+            <Text>
+              Le responsable du traitement de vos données personnelles dans le cadre de notre service de communication WhatsApp est :
+            </Text>
+            <ul>
+              <li><strong>Organisation :</strong> Flexiness</li>
+              <li><strong>Adresse :</strong> 46 rue Vital, 75116 Paris, France</li>
+              <li><strong>Email :</strong> <Link href='mailto:hello@flexiness.com'>hello@flexiness.com</Link></li>
+              <li><strong>Délégué à la Protection des Données (DPO) :</strong> <Link href='mailto:system_admin@flexiness.com'>system_admin@flexiness.com</Link></li>
+            </ul>
+            <Divider />
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              6.2 Communication via WhatsApp Business
+            </Title>
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
+              6.2.1 Description du service
+            </Title>
+            <Text>
+              Nous exploitons un groupe de discussion WhatsApp à travers lequel les utilisateurs peuvent interagir avec nos services. Ce canal de communication est alimenté par un assistant (agent) basé sur l&apos;intelligence artificielle, capable de répondre à vos messages, de fournir des informations et de vous assister dans vos demandes.
+            </Text>
+            <Box className={classNames(flexStyles.isPaddingless, flexStyles.isFlat, flexStyles.isFlatFlexPurple, flexStyles.isGreyDark)}>
+              <Section>
+                <Icon
+                  content={
+                    <Text>
+                      <strong>Divulgation au titre du Règlement européen sur l&apos;IA (Article 50) :</strong> Vous interagissez avec un système d&apos;intelligence artificielle et non avec un être humain. L&apos;agent IA est conçu pour vous assister, mais il s&apos;agit d&apos;un système automatisé. Vous pouvez à tout moment demander à être mis en relation avec un humain.
+                    </Text>
+                  }
+                  size={IconSize.SMALL}
+                  position={IconPosition.LEFT}
+                  name={IconName.UI_EXCLAMATION_CIRCLE}
+                  className={classNames(flexStyles.hasTextFlexPurple, flexStyles.hasTextWeightBold)}
+                />
+              </Section>
+            </Box>
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
+              6.2.2 Fournisseur de la plateforme WhatsApp
+            </Title>
+            <Text>
+              Notre communication WhatsApp est assurée via l&apos;<strong>API Cloud WhatsApp Business de Meta</strong>, exploitée par :
+            </Text>
+            <Text>
+              <strong>Meta Platforms Ireland Limited</strong><br />
+              Merrion Road, Dublin 4, D04 X2K5, Irlande
+            </Text>
+            <Text>
+              Meta agit en tant que sous-traitant pour la livraison des messages WhatsApp en notre nom. Meta est certifié dans le cadre du Cadre de Protection des Données UE-États-Unis (DPF), qui constitue la base juridique pour tout transfert de données vers les États-Unis pouvant intervenir dans le cadre de l&apos;infrastructure de messagerie.
+            </Text>
+            <Text>
+              Pour plus de détails sur le traitement des données par Meta, veuillez consulter :<br />
+              <Link href='https://www.whatsapp.com/legal/business-data-processing-terms'>https://www.whatsapp.com/legal/business-data-processing-terms</Link>
+            </Text>
+
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
+              6.2.3 Données collectées via WhatsApp
+            </Title>
+            <Text>
+              Lorsque vous interagissez avec nous via WhatsApp, les données personnelles suivantes peuvent être traitées :
+            </Text>
+            <Table bordered>
+              <TableHead>
+                <TableTr>
+                  <TableTh><Text className={flexStyles.hasTextWeightBold}>Catégorie de données</Text></TableTh>
+                  <TableTh><Text className={flexStyles.hasTextWeightBold}>Exemples</Text></TableTh>
+                  <TableTh className={flexStyles.isHiddenMobile}><Text className={flexStyles.hasTextWeightBold}>Source</Text></TableTh>
+                </TableTr>
+              </TableHead>
+              <TableBody>
+                <TableTr>
+                  <TableTd><Text>Données de contact</Text></TableTd>
+                  <TableTd><Text>Numéro de téléphone, nom d&apos;affichage WhatsApp, photo de profil</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Plateforme WhatsApp</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text>Contenu des messages</Text></TableTd>
+                  <TableTd><Text>Messages textuels, fichiers multimédias que vous envoyez</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Vous (l&apos;utilisateur)</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text>Métadonnées</Text></TableTd>
+                  <TableTd><Text>Horodatages, statut de livraison des messages, informations sur l&apos;appareil</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Plateforme WhatsApp</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text>Données d&apos;interaction</Text></TableTd>
+                  <TableTd><Text>Questions posées, sujets abordés, préférences exprimées</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Vos interactions avec l&apos;agent IA</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text>Identifiants techniques</Text></TableTd>
+                  <TableTd><Text>Identifiant utilisateur WhatsApp, identifiant de fil de conversation</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Plateforme WhatsApp</Text></TableTd>
+                </TableTr>
+              </TableBody>
+            </Table>
+            <Text>
+              <strong>Important :</strong> Les messages WhatsApp sont chiffrés de bout en bout entre votre appareil et le point d&apos;accès de l&apos;API Cloud WhatsApp Business. Cependant, une fois que les messages atteignent notre infrastructure serveur pour le traitement par l&apos;IA, ils sont déchiffrés et traités conformément à la présente politique.
+            </Text>
+            <Divider />
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              6.3 Agent IA — Traitement automatisé
+            </Title>
+
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
+              6.3.1 Technologie IA utilisée
+            </Title>
+            <Text>
+              Vos messages sont traités par un assistant IA afin de générer des réponses. Le système IA fonctionne de la manière suivante :
+            </Text>
+            <Table bordered>
+              <TableHead>
+                <TableTr>
+                  <TableTh><Text className={flexStyles.hasTextWeightBold}>Élément</Text></TableTh>
+                  <TableTh><Text className={flexStyles.hasTextWeightBold}>Détail</Text></TableTh>
+                </TableTr>
+              </TableHead>
+              <TableBody>
+                <TableTr>
+                  <TableTd><Text><strong>Modèle IA</strong></Text></TableTd>
+                  <TableTd><Text>Claude (développé par Anthropic)</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text><strong>Infrastructure d&apos;hébergement</strong></Text></TableTd>
+                  <TableTd><Text>Amazon Web Services (AWS) — service Bedrock</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text><strong>Orchestration</strong></Text></TableTd>
+                  <TableTd><Text>AWS Strands Agents</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text><strong>Région de traitement des données</strong></Text></TableTd>
+                  <TableTd><Text>eu-west-3 (Paris, France)</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text><strong>Entraînement du modèle</strong></Text></TableTd>
+                  <TableTd><Text>Vos messages et conversations ne sont PAS utilisés pour entraîner ou améliorer les modèles d&apos;IA</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text><strong>Accès direct par le fournisseur d&apos;IA</strong></Text></TableTd>
+                  <TableTd><Text>Anthropic n&apos;a PAS d&apos;accès direct à vos données. Le traitement s&apos;effectue entièrement au sein de l&apos;infrastructure AWS</Text></TableTd>
+                </TableTr>
+              </TableBody>
+            </Table>
+
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
+              6.3.2 Finalités du traitement par l&apos;IA
+            </Title>
+            <Text>
+              L&apos;agent IA traite vos messages aux fins suivantes :
+            </Text>
+            <ul>
+              <li>Répondre à vos questions et fournir des informations</li>
+              <li>Vous assister dans vos demandes relatives à nos services</li>
+            </ul>
+
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
+              6.3.3 Divulgation de transparence IA (Règlement européen sur l&apos;IA, Article 50)
+            </Title>
+            <Text>
+              Conformément au Règlement européen sur l&apos;Intelligence Artificielle (Règlement (UE) 2024/1689), nous vous informons que :
+            </Text>
+            <ul>
+              <li><strong>L&apos;agent avec lequel vous interagissez dans notre groupe WhatsApp est un système d&apos;IA</strong>, et non un être humain.</li>
+              <li><strong>Les réponses sont générées automatiquement</strong> par un grand modèle de langage et peuvent contenir des inexactitudes.</li>
+              <li><strong>Le contenu généré par l&apos;IA n&apos;est pas examiné par un humain avant sa livraison</strong>, sauf indication contraire.</li>
+            </ul>
+
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
+              6.3.4 Prise de décision automatisée (RGPD, Article 22)
+            </Title>
+            <Text>
+              Notre agent IA fournit uniquement des réponses informatives et une assistance. Il ne prend pas de décisions automatisées produisant des effets juridiques ou vous affectant de manière significative de façon similaire. En cas de modification de cette pratique, nous mettrons à jour la présente politique et obtiendrons votre consentement explicite lorsque cela est requis.
+            </Text>
+            <Divider />
+
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              6.4 Base juridique du traitement
+            </Title>
+            <Text>
+              Nous traitons vos données personnelles sur les bases juridiques suivantes au titre de l&apos;Article 6(1) du RGPD :
+            </Text>
+            <Table bordered>
+              <TableHead>
+                <TableTr>
+                  <TableTh><Text className={flexStyles.hasTextWeightBold}>Activité de traitement</Text></TableTh>
+                  <TableTh><Text className={flexStyles.hasTextWeightBold}>Base juridique</Text></TableTh>
+                  <TableTh className={flexStyles.isHiddenMobile}><Text className={flexStyles.hasTextWeightBold}>Détails</Text></TableTh>
+                </TableTr>
+              </TableHead>
+              <TableBody>
+                <TableTr>
+                  <TableTd><Text>Communication WhatsApp</Text></TableTd>
+                  <TableTd><Text>Art. 6(1)(a) — Consentement</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Vous initiez le contact et consentez à la communication via WhatsApp</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text>Traitement IA des messages</Text></TableTd>
+                  <TableTd><Text>Art. 6(1)(a) — Consentement / Art. 6(1)(b) — Contrat</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Le traitement est nécessaire pour répondre à votre demande ou fournir notre service</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text>Fonctionnement technique et sécurité</Text></TableTd>
+                  <TableTd><Text>Art. 6(1)(f) — Intérêt légitime</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Assurer la sécurité et le bon fonctionnement de nos systèmes</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text>Conformité légale</Text></TableTd>
+                  <TableTd><Text>Art. 6(1)(c) — Obligation légale</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Respect des lois et réglementations applicables</Text></TableTd>
+                </TableTr>
+              </TableBody>
+            </Table>
+            <Divider />
+
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              6.5 Sous-traitants et transferts internationaux
+            </Title>
+
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
+              6.5.1 Sous-traitants
+            </Title>
+            <Text>
+              Les sous-traitants tiers suivants interviennent dans le traitement de vos données personnelles :
+            </Text>
+            <Table bordered>
+              <TableHead>
+                <TableTr>
+                  <TableTh><Text className={flexStyles.hasTextWeightBold}>Sous-traitant</Text></TableTh>
+                  <TableTh><Text className={flexStyles.hasTextWeightBold}>Rôle</Text></TableTh>
+                  <TableTh className={flexStyles.isHiddenMobile}><Text className={flexStyles.hasTextWeightBold}>Localisation</Text></TableTh>
+                  <TableTh className={flexStyles.isHiddenMobile}><Text className={flexStyles.hasTextWeightBold}>Garantie de transfert</Text></TableTh>
+                </TableTr>
+              </TableHead>
+              <TableBody>
+                <TableTr>
+                  <TableTd><Text>Meta Platforms Ireland Ltd</Text></TableTd>
+                  <TableTd><Text>Livraison des messages WhatsApp (API Cloud)</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Irlande (UE) / États-Unis</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Cadre de Protection des Données UE-États-Unis (DPF)</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text>Amazon Web Services EMEA SARL</Text></TableTd>
+                  <TableTd><Text>Hébergement cloud, hébergement du modèle IA (Bedrock), orchestration des agents (Strands)</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>UE — Paris (eu-west-3)</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Données traitées dans la région UE ; DPA RGPD AWS</Text></TableTd>
+                </TableTr>
+              </TableBody>
+            </Table>
+            <Text>
+              <strong>Note :</strong> Anthropic (le développeur du modèle d&apos;IA Claude) <strong>n&apos;agit pas</strong> en tant que sous-traitant dans notre architecture. Le modèle Claude est accessible exclusivement via AWS Bedrock, et Anthropic n&apos;a aucun accès à vos données.
+            </Text>
+
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
+              6.5.2 Accords de traitement des données
+            </Title>
+            <Text>
+              Nous avons conclu des Accords de Traitement des Données (DPA) conformément à l&apos;Article 28 du RGPD avec chacun des sous-traitants mentionnés ci-dessus. Ces accords garantissent la mise en place de mesures techniques et organisationnelles appropriées pour protéger vos données personnelles.
+            </Text>
+            <Divider />
+
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              6.6 Conservation des données
+            </Title>
+            <Table bordered>
+              <TableHead>
+                <TableTr>
+                  <TableTh><Text className={flexStyles.hasTextWeightBold}>Type de données</Text></TableTh>
+                  <TableTh><Text className={flexStyles.hasTextWeightBold}>Durée de conservation</Text></TableTh>
+                  <TableTh className={flexStyles.isHiddenMobile}><Text className={flexStyles.hasTextWeightBold}>Justification</Text></TableTh>
+                </TableTr>
+              </TableHead>
+              <TableBody>
+                <TableTr>
+                  <TableTd><Text>Journaux de conversation</Text></TableTd>
+                  <TableTd><Text>90 jours</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Fourniture du service et assurance qualité</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text>Données de contact (numéro de téléphone)</Text></TableTd>
+                  <TableTd><Text>Jusqu&apos;au retrait du consentement</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Communication continue</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text>Journaux de traitement IA</Text></TableTd>
+                  <TableTd><Text>30 jours</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Débogage et surveillance des systèmes</Text></TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd><Text>Registres de consentement</Text></TableTd>
+                  <TableTd><Text>3 ans après le retrait</Text></TableTd>
+                  <TableTd className={flexStyles.isHiddenMobile}><Text>Obligation légale de démontrer la conformité</Text></TableTd>
+                </TableTr>
+              </TableBody>
+            </Table>
+            <Divider />
+
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              6.7 Vos droits
+            </Title>
+            <Text>
+              En vertu du RGPD, vous disposez des droits suivants concernant vos données personnelles :
+            </Text>
+            <ul>
+              <li><strong>Droit d&apos;accès (Art. 15) :</strong> Obtenir une copie des données personnelles que nous détenons à votre sujet.</li>
+              <li><strong>Droit de rectification (Art. 16) :</strong> Demander la correction de données personnelles inexactes.</li>
+              <li><strong>Droit à l&apos;effacement (Art. 17) :</strong> Demander la suppression de vos données personnelles (« droit à l&apos;oubli »).</li>
+              <li><strong>Droit à la limitation du traitement (Art. 18) :</strong> Demander la limitation du traitement dans certaines circonstances.</li>
+              <li><strong>Droit à la portabilité des données (Art. 20) :</strong> Recevoir vos données dans un format structuré, couramment utilisé et lisible par machine.</li>
+              <li><strong>Droit d&apos;opposition (Art. 21) :</strong> Vous opposer au traitement fondé sur l&apos;intérêt légitime.</li>
+              <li><strong>Droit de retirer votre consentement (Art. 7(3)) :</strong> Retirer votre consentement à tout moment. Ce retrait ne compromet pas la licéité du traitement fondé sur le consentement effectué avant ce retrait.</li>
+              <li><strong>Droit de ne pas faire l&apos;objet d&apos;une décision automatisée (Art. 22) :</strong> Ne pas être soumis à une décision fondée exclusivement sur un traitement automatisé produisant des effets juridiques ou vous affectant de manière significative de façon similaire.</li>
+            </ul>
+            <Text>
+              Pour exercer l&apos;un de ces droits, contactez-nous à : <Link href='mailto:hello@flexiness.com'>hello@flexiness.com</Link>
+            </Text>
+            <Text>
+              Nous répondrons à votre demande dans un délai de 30 jours.
+            </Text>
+            <Divider />
+
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              6.8 Consentement et désinscription
+            </Title>
+
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
+              6.8.1 Comment nous recueillons le consentement
+            </Title>
+            <Text>
+              En rejoignant notre groupe WhatsApp et en interagissant avec l&apos;agent IA, vous consentez au traitement de vos données personnelles tel que décrit dans la présente politique. Avant votre première interaction, vous recevrez un message d&apos;accueil identifiant clairement la nature artificielle de l&apos;agent et contenant un lien vers la présente politique de confidentialité.
+            </Text>
+
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
+              6.8.2 Comment retirer votre consentement / vous désinscrire
+            </Title>
+            <Text>
+              Vous pouvez retirer votre consentement et vous désinscrire à tout moment en :
+            </Text>
+            <ul>
+              <li>Quittant le groupe WhatsApp</li>
+              <li>Nous contactant à <Link href='mailto:hello@flexiness.com'>hello@flexiness.com</Link></li>
+            </ul>
+            <Text>
+              Après le retrait de votre consentement, nous cesserons de traiter vos données à des fins de communication et supprimerons vos données conformément à notre politique de conservation, sauf si la conservation est requise par la loi.
+            </Text>
+            <Divider />
+
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              6.9 Sécurité des données
+            </Title>
+            <Text>
+              Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données personnelles, notamment :
+            </Text>
+            <ul>
+              <li>Chiffrement de bout en bout des messages WhatsApp (fourni par la plateforme WhatsApp)</li>
+              <li>Chiffrement des données au repos et en transit au sein de l&apos;infrastructure AWS</li>
+              <li>Contrôles d&apos;accès et authentification pour tous les systèmes traitant des données personnelles</li>
+              <li>Évaluations de sécurité et surveillance régulières</li>
+            </ul>
+            <Divider />
+
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              6.10 Mesures de protection spécifiques à l&apos;IA
+            </Title>
+            <Text>
+              Conformément aux principes de minimisation des données (Art. 5 RGPD) et au Règlement européen sur l&apos;IA, nous avons mis en place les mesures de protection suivantes pour le traitement par l&apos;IA :
+            </Text>
+            <ul>
+              <li><strong>Minimisation des données :</strong> L&apos;agent IA est configuré pour ne demander que les informations nécessaires au traitement de votre demande.</li>
+              <li><strong>Protection des données sensibles :</strong> L&apos;agent IA est configuré pour ne jamais demander et pour décourager activement le partage de données personnelles sensibles telles que les coordonnées bancaires, les mots de passe, les informations de santé ou les numéros d&apos;identification délivrés par l&apos;État.</li>
+              <li><strong>Pas d&apos;entraînement du modèle :</strong> Vos conversations ne sont pas utilisées pour entraîner ou améliorer les modèles d&apos;IA.</li>
+              <li><strong>Escalade humaine :</strong> Vous pouvez demander une intervention humaine à tout moment.</li>
+              <li><strong>Transparence :</strong> L&apos;IA s&apos;identifie clairement comme un système automatisé au début de chaque interaction.</li>
+            </ul>
+            <Divider />
+
+            <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
+              7. Autorité de contrôle
+            </Title>
+            <Text>
+              Vous avez le droit d&apos;introduire une réclamation auprès d&apos;une autorité de contrôle si vous estimez que le traitement de vos données personnelles constitue une violation du RGPD.
+            </Text>
+            <Text>
+              L&apos;autorité de contrôle compétente pour notre organisation est :
+            </Text>
+            <Text>
+              <strong>Commission Nationale de l&apos;Informatique et des Libertés (CNIL)</strong><br />
+              3 Place de Fontenoy, TSA 80715, 75334 Paris Cedex 07, France<br />
+              <Link href='https://www.cnil.fr'>https://www.cnil.fr</Link>
+            </Text>
+            <Divider />
+
+            <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
+              8. Contact
+            </Title>
+            <Text>
+              Pour toute question relative à la confidentialité, contactez-nous à <Link href='mailto:hello@flexiness.com'>hello@flexiness.com</Link>.
+            </Text>
+            <Divider />
+
+            <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
+              9. Modifications de la présente politique
+            </Title>
+            <Text>
+              Nous pouvons mettre à jour cette politique de confidentialité de temps à autre. En cas de modifications substantielles, nous vous en informerons via le groupe de discussion WhatsApp et/ou sur notre site internet. La date de la dernière révision est indiquée ci-dessous.
+            </Text>
+            <Text>
+              <strong>Dernière mise à jour :</strong> Avril 2026
+            </Text>
           </BoxContent>
         </Box>
       </Section>

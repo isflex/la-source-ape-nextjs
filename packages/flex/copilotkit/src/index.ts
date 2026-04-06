@@ -43,6 +43,14 @@
 export { CopilotKitProvider, useAgent, useAgentContext, useFrontendTool } from '@copilotkitnext/react';
 export { CopilotSidebar, CopilotPopup } from '@copilotkitnext/react';
 
+// Human-in-the-Loop hook from @copilotkitnext/react
+// Use for flows where agent should PAUSE until user responds
+export { useHumanInTheLoop, type ReactHumanInTheLoop } from '@copilotkitnext/react';
+
+// Suggestions hook from @copilotkitnext/react
+// Use for registering static or dynamic chat suggestions
+export { useConfigureSuggestions } from '@copilotkitnext/react';
+
 // Types (client-safe)
 export type {
   ReadableOptions,
@@ -56,10 +64,10 @@ export type {
   FlexCopilotSidebarConfig,
   MCPBridgeOptions,
   MCPToolResult,
-} from './types';
+} from './types/index.js';
 
 // Provider (client-side) - v2 enhanced
-export { FlexCopilotProvider, type FlexCopilotProviderProps } from './provider';
+export { FlexCopilotProvider, type FlexCopilotProviderProps } from './provider/index.js';
 
 // Context Bridges (client-side) - v2 useAgentContext based
 export {
@@ -69,19 +77,19 @@ export {
   type AuthContextBridgeProps,
   type AuthUserContext,
   type JsonValue,
-} from './bridges';
+} from './bridges/index.js';
 
 // Hooks (client-side)
 // Note: useAgentContext and useAgent are exported above from @copilotkitnext/react
 // Safe wrappers that only call hooks when CopilotKit is enabled
-export { useSafeAgentContext, useSafeFrontendTool } from './hooks';
+export { useSafeAgentContext, useSafeAgent, useSafeFrontendTool, useSafeHumanInTheLoop, useSafeConfigureSuggestions } from './hooks/index.js';
 // Legacy v1 hooks - DEPRECATED, kept for backwards compatibility
 export {
   useReadableState,
   useReadableStore,
   useReadableUser,
   useReadableApi,
-} from './hooks';
+} from './hooks/index.js';
 
 // Actions (client-safe)
 export {
@@ -89,4 +97,4 @@ export {
   createActions,
   param,
   ActionTemplates,
-} from './actions';
+} from './actions/index.js';

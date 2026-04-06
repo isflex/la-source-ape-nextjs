@@ -46,7 +46,7 @@ module.exports = (target, _gitCommitSHA) => {
             {
               loader: require.resolve('sass-loader'),
               options: {
-                implementation: require.resolve('sass'),
+                implementation: require.resolve('sass-embedded'),
                 sourceMap: mode === 'development',
                 api: 'modern-compiler',
                 sassOptions: {
@@ -76,7 +76,7 @@ module.exports = (target, _gitCommitSHA) => {
             {
               loader: require.resolve('sass-loader'),
               options: {
-                implementation: require.resolve('sass'),
+                implementation: require.resolve('sass-embedded'),
                 sourceMap: mode === 'development',
                 api: 'modern-compiler',
                 sassOptions: {

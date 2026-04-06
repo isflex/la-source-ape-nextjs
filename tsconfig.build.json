@@ -23,7 +23,7 @@
 
     { "path": "./packages/flex/domain-store/tsconfig.build.json" },
 
-    { "path": "./packages/flex/copilotkit/tsconfig.build.json" },
+    // { "path": "./packages/flex/copilotkit/tsconfig.build.json" }, // Replaced by tsup
     { "path": "./packages/flex/copilotkit-mcp-server/tsconfig.build.json" },
 
     // { "path": "./packages/flex/domain-app/tsconfig.build.json" },

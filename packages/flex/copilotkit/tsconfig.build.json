@@ -9,13 +9,15 @@
     "baseUrl": ".",
     "outDir": "./dist",
     "rootDir": "src",
+    "resolveJsonModule": true,
     "paths": {
       "flexiness": ["../types"]
     },
     "types": ["node"]
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "src/**/*.json"
   ],
   "exclude": [
     "node_modules",

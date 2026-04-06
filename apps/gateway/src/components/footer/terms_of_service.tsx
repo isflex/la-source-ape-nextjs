@@ -2,6 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import { Box, BoxHeader, BoxContent } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
 import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
+import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link';
 import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { Title, TitleLevel, TitleMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
@@ -114,6 +115,22 @@ const App: React.FC = () => {
               le contenu et la disponibilité.</Text>
             <Text>Les conditions applicables aux ressources fournies par des tiers, y compris ceux applicables à tout octroi de droits dans le contenu
               résulte des Conditions générales de tous tiers ou, en leur absence du droit statutaire applicable.</Text>
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              Utilisation de l&apos;Agent IA via WhatsApp
+            </Title>
+            <Text>
+              Notre service inclut un groupe de discussion WhatsApp alimenté par un assistant basé sur l&apos;intelligence artificielle (« Agent IA »). En utilisant ce service, les Utilisateurs acceptent les conditions suivantes :
+            </Text>
+            <ul>
+              <li><strong>Nature du service :</strong> L&apos;Agent IA est un système automatisé utilisant le modèle Claude (Anthropic) via AWS Bedrock. Il ne s&apos;agit pas d&apos;un être humain.</li>
+              <li><strong>Limitations :</strong> Les réponses sont générées automatiquement et peuvent contenir des inexactitudes. Le contenu n&apos;est pas examiné par un humain avant sa livraison.</li>
+              <li><strong>Données sensibles :</strong> Les Utilisateurs ne doivent jamais partager de données personnelles sensibles (coordonnées bancaires, mots de passe, informations de santé, numéros d&apos;identification) avec l&apos;Agent IA.</li>
+              <li><strong>Escalade humaine :</strong> Les Utilisateurs peuvent à tout moment demander à être mis en relation avec un humain.</li>
+              <li><strong>Retrait du consentement :</strong> Les Utilisateurs peuvent se désinscrire à tout moment en quittant le groupe et en nous contactant à <Link href='mailto:hello@flexiness.com'>hello@flexiness.com</Link>.</li>
+            </ul>
+            <Text>
+              L&apos;Agent IA fournit uniquement des réponses informatives et une assistance. Il ne prend pas de décisions automatisées produisant des effets juridiques ou affectant de manière significative les Utilisateurs.
+            </Text>
             <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>Utilisation acceptable</Title>
             <Text>Cette Application et le Service ne peuvent être utilisés que dans le cadre de ce pour lequel ils ont été fournis, sous ces Conditions
               générales et le Droit applicable.</Text>
@@ -231,6 +248,9 @@ const App: React.FC = () => {
             <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>Politique de confidentialité</Title>
             <Text>Pour plus d&apos;information sur l&apos;utilisation de leur Données Personnelles, les utilisateurs peuvent se référer à la politique de
               confidentialité de cette Application.</Text>
+            <Text>
+              <strong>Communication via WhatsApp et Agent IA :</strong> Notre service inclut un canal de communication via WhatsApp alimenté par un assistant basé sur l&apos;intelligence artificielle. En interagissant avec ce service, vous consentez au traitement de vos données conformément à notre politique de confidentialité spécifique à la communication WhatsApp et au traitement par IA, disponible dans notre politique de confidentialité. Conformément au Règlement européen sur l&apos;IA (Article 50), nous vous informons que l&apos;agent WhatsApp est un système d&apos;IA automatisé et non un être humain.
+            </Text>  
             <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>Droits de propriété intellectuelle</Title>
             <Text>Sans préjudice à toute disposition particulière de ces Conditions générales, tous droits d&apos;auteur, tels que les marques, les brevets
               et les droits de design associés à cette Application sont la propriété exclusive du Propriétaire ou de ces concédants de licence sont

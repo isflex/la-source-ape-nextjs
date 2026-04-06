@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /**
  * Component Analyzer
  *
@@ -24,7 +26,7 @@ type ASTNode = TSESTree.Node;
  */
 export async function analyzeComponent(
   filePath: string,
-  _analysisDepth: 'shallow' | 'deep' = 'shallow' // eslint-disable-line @typescript-eslint/no-unused-vars
+  _analysisDepth: 'shallow' | 'deep' = 'shallow'
 ): Promise<ComponentAnalysis> {
   // Read the file
   const sourceCode = await readFile(filePath, 'utf-8');

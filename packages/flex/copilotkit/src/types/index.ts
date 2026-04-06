@@ -83,6 +83,7 @@ export interface FlexCopilotProviderConfig {
   defaultOpen?: boolean;
   clickOutsideToClose?: boolean;
   instructions?: string;
+  headers?: Record<string, string>;
 }
 
 // MCP Bridge client options

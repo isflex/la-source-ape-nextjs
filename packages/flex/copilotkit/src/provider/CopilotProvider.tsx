@@ -1,10 +1,13 @@
 'use client';
 
 import React, { ReactNode } from 'react';
+// import type { FlexGlobalThis } from 'flexiness';
 // v2 components from copilotkitnext for AG-UI protocol support
 import { CopilotKitProvider, CopilotSidebar, useAgent } from '@copilotkitnext/react';
 import type { FlexCopilotProviderConfig, FlexCopilotSidebarConfig } from '../types';
 import { mergeConfig } from './config';
+
+// declare let globalThis: FlexGlobalThis
 
 export interface FlexCopilotProviderProps {
   children: ReactNode;
@@ -99,6 +102,10 @@ export function FlexCopilotProvider({
     <CopilotKitProvider
       runtimeUrl={config.runtimeUrl}
       showDevConsole={config.showDevConsole}
+      headers={config.headers}
+      // properties={{
+      //   nonce: globalThis.__webpack_nonce__,
+      // }}
     >
       <FlexCopilotContent agentId={agentId} sidebarConfig={sidebarConfig}>
         {children}

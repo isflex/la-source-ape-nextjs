@@ -47,8 +47,8 @@
     "uuid": "8.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.5",
-    "@babel/plugin-transform-runtime": "7.24.3",
+    "@babel/core": "^7.29.0",
+    "@babel/plugin-transform-runtime": "^7.29.0",
     "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
     "@types/cors": "2.8.17",
     "@types/express": "4.17.21",
