@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState, Component, type ErrorInfo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState, Component, type ErrorInfo } from 'react';
 import {
   FlexCopilotProvider,
   StoreContextBridge,
@@ -67,6 +67,88 @@ class CopilotKitErrorBoundary extends Component<CopilotKitErrorBoundaryProps, Co
 
     return this.props.children;
   }
+}
+
+/**
+ * Inner error boundary that wraps children INSIDE the CopilotKit provider.
+ * When children throw (e.g. a component missing an import), this boundary:
+ * 1. Renders the children fallback immediately
+ * 2. Signals the parent to unmount the entire CopilotKit provider tree,
+ *    which stops all SDK polling (GET /info, etc.)
+ */
+interface ChildrenErrorBoundaryProps {
+  children: React.ReactNode;
+  onError: () => void;
+}
+
+interface ChildrenErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+class ChildrenErrorBoundary extends Component<ChildrenErrorBoundaryProps, ChildrenErrorBoundaryState> {
+  constructor(props: ChildrenErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): ChildrenErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    debug.error('[ChildrenErrorBoundary] Child component error — disabling CopilotKit polling:', {
+      name: error.name,
+      message: error.message,
+      componentStack: errorInfo.componentStack,
+    });
+    // Signal parent to unmount the CopilotKit provider
+    this.props.onError();
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // Re-throw to let Next.js error overlay handle display.
+      // The parent CopilotKitWrapper will re-render without the provider
+      // once onError fires, so this tree is short-lived.
+      throw this.state.error;
+    }
+    return this.props.children;
+  }
+}
+
+/**
+ * Detect unhandled window errors (covers async errors, event handlers, etc.)
+ * that React error boundaries don't catch. In dev mode these often indicate
+ * a broken page where CopilotKit polling should stop.
+ */
+function useWindowErrorDetection(onError: () => void, enabled: boolean) {
+  const firedRef = useRef(false);
+
+  useEffect(() => {
+    if (!enabled || typeof window === 'undefined') return;
+
+    const handler = (event: ErrorEvent) => {
+      if (firedRef.current) return;
+      firedRef.current = true;
+      debug.error('[CopilotKitWrapper] Window error detected — disabling CopilotKit:', event.message);
+      onError();
+    };
+
+    const rejectionHandler = (event: PromiseRejectionEvent) => {
+      if (firedRef.current) return;
+      firedRef.current = true;
+      debug.error('[CopilotKitWrapper] Unhandled rejection detected — disabling CopilotKit:', event.reason);
+      onError();
+    };
+
+    window.addEventListener('error', handler);
+    window.addEventListener('unhandledrejection', rejectionHandler);
+    return () => {
+      window.removeEventListener('error', handler);
+      window.removeEventListener('unhandledrejection', rejectionHandler);
+    };
+  }, [onError, enabled]);
 }
 
 /**
@@ -162,16 +244,28 @@ function useStableThreadId(): string {
 export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) {
   const isEnabled = process.env.NEXT_PUBLIC_COPILOTKIT_ENABLED === 'true';
   const threadId = useStableThreadId();
-  console.log(`[CopilotKitWrapper] isEnabled: ${isEnabled}`);
+  const [disabledByError, setDisabledByError] = useState(false);
 
-  if (!isEnabled) {
-    // CopilotKit disabled - render children without CopilotKit
+  const handleChildError = useCallback(() => {
+    debug.error('[CopilotKitWrapper] Disabling CopilotKit due to child/window error');
+    setDisabledByError(true);
+  }, []);
+
+  // Listen for window-level errors (async, event handlers) that React boundaries miss
+  useWindowErrorDetection(handleChildError, isEnabled && !disabledByError);
+
+  console.log(`[CopilotKitWrapper] isEnabled: ${isEnabled}, disabledByError: ${disabledByError}`);
+
+  if (!isEnabled || disabledByError) {
+    // CopilotKit disabled or killed by error - render children without CopilotKit
     // Pages using useSafeAgentContext will no-op based on the same env var
     return <>{children}</>;
   }
 
   // Wrap CopilotKit in error boundary to prevent crashes when CopilotKit fails
   // If CopilotKit fails, children render without it
+  // ChildrenErrorBoundary inside the provider catches child errors and
+  // signals us to unmount the provider (stopping SDK polling)
   return (
     <CopilotKitErrorBoundary fallback={<>{children}</>}>
       <FlexCopilotProvider
@@ -186,7 +280,11 @@ export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) 
           },
         }}
       >
-        <CopilotKitContent>{children}</CopilotKitContent>
+        <CopilotKitContent>
+          <ChildrenErrorBoundary onError={handleChildError}>
+            {children}
+          </ChildrenErrorBoundary>
+        </CopilotKitContent>
       </FlexCopilotProvider>
     </CopilotKitErrorBoundary>
   );

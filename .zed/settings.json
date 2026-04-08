@@ -1,0 +1,14 @@
+{
+  // Migrated from .vscode/settings.json
+  // Reference: https://zed.dev/docs/migrate/vs-code
+  // Note: Source .vscode/settings.json is minimal (settings are in workspace file).
+  // Basic defaults derived from project extensions.json.
+
+  "tab_size": 2,
+
+  "git": {
+    "inline_blame": {
+      "enabled": true
+    }
+  }
+}

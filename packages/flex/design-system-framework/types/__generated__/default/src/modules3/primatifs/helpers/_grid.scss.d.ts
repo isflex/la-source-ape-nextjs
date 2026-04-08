@@ -1,6 +1,8 @@
 export type Styles = {
+  button: string;
   control: string;
   field: string;
+  icon: string;
   input: string;
   isGrid: string;
   isGridAutoColsAuto: string;
@@ -1359,8 +1361,18 @@ export type Styles = {
   isGridSelfEnd: string;
   isGridSelfStart: string;
   isGridSelfStretch: string;
+  isHiddenMenuIconMobile: string;
+  isHiddenMenuIconTablet: string;
+  isHiddenMenuIconTabletToDesktop: string;
+  navBarHolder: string;
+  navBarLogo: string;
+  navBarMenuButton: string;
+  navBarMenuIcon: string;
+  navBarOptions: string;
   select: string;
+  stickyWrapper: string;
   textarea: string;
+  title: string;
 };
 
 export type ClassNames = keyof Styles;

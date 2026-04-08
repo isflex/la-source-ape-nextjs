@@ -152,22 +152,110 @@ app.post("/", async (c) => {
 // Export handlers using Hono's Vercel adapter with debug logging
 const honoHandler = handle(app);
 
+// ---------------------------------------------------------------------------
+// Request throttle — prevents CopilotKit SDK polling from flooding the logs
+// when the frontend is stuck in an error state (e.g. compile / runtime error).
+// Requests to the same path within MIN_INTERVAL_MS receive a cached response.
+// ---------------------------------------------------------------------------
+const MIN_INTERVAL_MS = 5_000; // minimum interval between identical requests
+const MAX_CACHE_AGE_MS = 30_000; // evict stale entries after 30 s
+
+interface CachedResponse {
+  body: string;
+  status: number;
+  contentType: string;
+  timestamp: number;
+}
+
+const responseCache = new Map<string, CachedResponse>();
+
+function getCacheKey(method: string, pathname: string): string {
+  return `${method}:${pathname}`;
+}
+
+/** Return a cached Response if the same (method, path) was served recently. */
+function getThrottledResponse(method: string, pathname: string): Response | null {
+  const key = getCacheKey(method, pathname);
+  const cached = responseCache.get(key);
+  if (!cached) return null;
+
+  const age = Date.now() - cached.timestamp;
+
+  // Evict stale entries
+  if (age > MAX_CACHE_AGE_MS) {
+    responseCache.delete(key);
+    return null;
+  }
+
+  // Within throttle window → return cached response
+  if (age < MIN_INTERVAL_MS) {
+    debug.copilotKit(`[Throttle] Returning cached response for ${method} ${pathname} (age: ${age}ms)`);
+    return new Response(cached.body, {
+      status: cached.status,
+      headers: { "Content-Type": cached.contentType },
+    });
+  }
+
+  return null;
+}
+
+/** Store a cloned response in the cache. */
+async function cacheResponse(method: string, pathname: string, response: Response): Promise<Response> {
+  const key = getCacheKey(method, pathname);
+  const body = await response.text();
+  responseCache.set(key, {
+    body,
+    status: response.status,
+    contentType: response.headers.get("Content-Type") || "application/json",
+    timestamp: Date.now(),
+  });
+  // Return a new Response since the original body was consumed
+  return new Response(body, {
+    status: response.status,
+    headers: { "Content-Type": response.headers.get("Content-Type") || "application/json" },
+  });
+}
+
 export const GET = async (req: Request, ctx: { params: Promise<{ path?: string[] }> }) => {
   const params = await ctx.params;
+  const pathname = new URL(req.url).pathname;
+
+  // Check throttle cache first
+  const throttled = getThrottledResponse("GET", pathname);
+  if (throttled) return throttled;
+
   debug.copilotKit("GET request:", {
     path: params.path,
     url: req.url,
-    pathname: new URL(req.url).pathname,
+    pathname,
   });
-  return honoHandler(req);
+
+  const response = await honoHandler(req);
+  return cacheResponse("GET", pathname, response);
 };
 
 export const POST = async (req: Request, ctx: { params: Promise<{ path?: string[] }> }) => {
   const params = await ctx.params;
+  const pathname = new URL(req.url).pathname;
+
+  // Only throttle non-streaming POST requests (e.g. /info via POST)
+  // Don't throttle agent/run or agent/connect as those are intentional user actions
+  const isPollingRequest = !pathname.includes("/agent/");
+  if (isPollingRequest) {
+    const throttled = getThrottledResponse("POST", pathname);
+    if (throttled) return throttled;
+  }
+
   debug.copilotKit("POST request:", {
     path: params.path,
     url: req.url,
-    pathname: new URL(req.url).pathname,
+    pathname,
   });
-  return honoHandler(req);
+
+  const response = await honoHandler(req);
+
+  if (isPollingRequest) {
+    return cacheResponse("POST", pathname, response);
+  }
+  return response;
 };

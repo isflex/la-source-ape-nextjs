@@ -64,16 +64,26 @@ $min-width-mob: 350px !default;
   }
 
   .nav-logo {
-    order: 2;
+    &.nav-logo-left {
+      &.nav-logo-ape {
+        display: block;
+        zoom: 0.25;
+        align-self: center;
+      }
+    }
 
-    &.nav-logo-ape {
-      display: block;
-      zoom: 0.25;
-      align-self: center;
-      margin-right: 5rem;
+    &.nav-logo-right {
+      order: 2;
 
-      @media screen and (max-width: '760px') {
-        display: none;
+      &.nav-logo-ape {
+        display: block;
+        zoom: 0.25;
+        align-self: center;
+        margin-right: 5rem;
+
+        @media screen and (max-width: '760px') {
+          display: none;
+        }
       }
     }
   }

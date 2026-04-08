@@ -1586,6 +1586,9 @@ export type Styles = {
   isHiddenDesktop: string;
   isHiddenDesktopOnly: string;
   isHiddenFullhd: string;
+  isHiddenMenuIconMobile: string;
+  isHiddenMenuIconTablet: string;
+  isHiddenMenuIconTabletToDesktop: string;
   isHiddenMobile: string;
   isHiddenTablet: string;
   isHiddenTabletOnly: string;
@@ -1770,11 +1773,17 @@ export type Styles = {
   isWireframe: string;
   loadingPulse: string;
   mainContent: string;
+  navBarHolder: string;
+  navBarLogo: string;
+  navBarMenuButton: string;
+  navBarMenuIcon: string;
+  navBarOptions: string;
   paragraph: string;
   placeHolderShimmer: string;
   section: string;
   select: string;
   spinAround: string;
+  stickyWrapper: string;
   suptitle: string;
   text: string;
   textarea: string;

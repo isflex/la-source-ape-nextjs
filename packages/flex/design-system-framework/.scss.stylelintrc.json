@@ -12,6 +12,7 @@
     "no-descending-specificity": null,
     "no-empty-source": null,
     "font-family-no-missing-generic-family-keyword": null,
-    "comment-whitespace-inside": null
+    "comment-whitespace-inside": null,
+    "media-feature-range-notation": "prefix"
   }
 }

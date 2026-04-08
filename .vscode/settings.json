@@ -1,8 +1,9 @@
 {
+  "js/ts.tsdk.path": "node_modules/typescript/lib"
   // ========================================
   // MINIMAL .vscode/settings.json
   // ========================================
-  // Most settings are in flexi-gateway.code-workspace
+  // Most settings are in la-source-ape-nextjs.code-workspace
   // This file contains only machine-specific overrides
   // or settings that must be in .vscode folder
 

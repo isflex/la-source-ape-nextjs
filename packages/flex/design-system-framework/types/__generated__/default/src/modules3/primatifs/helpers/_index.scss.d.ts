@@ -1,6 +1,7 @@
 export type Styles = {
   animateFromRight: string;
   animateFromTop: string;
+  button: string;
   control: string;
   field: string;
   flexinessRoot: string;
@@ -119,6 +120,7 @@ export type Styles = {
   hasTextWhite: string;
   hasTextWhiteInvert: string;
   hasVariant: string;
+  icon: string;
   input: string;
   isAdmin: string;
   isAlignContentBaseline: string;
@@ -1573,6 +1575,9 @@ export type Styles = {
   isHiddenDesktop: string;
   isHiddenDesktopOnly: string;
   isHiddenFullhd: string;
+  isHiddenMenuIconMobile: string;
+  isHiddenMenuIconTablet: string;
+  isHiddenMenuIconTabletToDesktop: string;
   isHiddenMobile: string;
   isHiddenTablet: string;
   isHiddenTabletOnly: string;
@@ -1752,10 +1757,16 @@ export type Styles = {
   isVcenteredDesktop: string;
   isVcenteredMobile: string;
   isVcenteredTablet: string;
+  navBarHolder: string;
+  navBarLogo: string;
+  navBarMenuButton: string;
+  navBarMenuIcon: string;
+  navBarOptions: string;
   paragraph: string;
   placeHolderShimmer: string;
   select: string;
   spinAround: string;
+  stickyWrapper: string;
   suptitle: string;
   text: string;
   textarea: string;

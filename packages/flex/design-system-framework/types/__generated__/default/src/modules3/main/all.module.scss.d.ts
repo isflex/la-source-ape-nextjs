@@ -2422,6 +2422,9 @@ export type Styles = {
   isHiddenDesktop: string;
   isHiddenDesktopOnly: string;
   isHiddenFullhd: string;
+  isHiddenMenuIconMobile: string;
+  isHiddenMenuIconTablet: string;
+  isHiddenMenuIconTabletToDesktop: string;
   isHiddenMobile: string;
   isHiddenTablet: string;
   isHiddenTabletOnly: string;
@@ -2946,6 +2949,7 @@ export type Styles = {
   navbarEnd: string;
   navbarExtras: string;
   navbarHeader: string;
+  navBarHolder: string;
   navbarIcons: string;
   navbarItem: string;
   navbarItemAccordion: string;
@@ -2955,7 +2959,11 @@ export type Styles = {
   navbarItemAccordionTitle: string;
   navbarLink: string;
   navbarLinks: string;
+  navBarLogo: string;
   navbarMenu: string;
+  navBarMenuButton: string;
+  navBarMenuIcon: string;
+  navBarOptions: string;
   navbarStart: string;
   navbarTitle: string;
   notification: string;
@@ -3141,6 +3149,7 @@ export type Styles = {
   step: string;
   stepper: string;
   sticker: string;
+  stickyWrapper: string;
   subFooter: string;
   subfooterLink: string;
   subfooterTitle: string;
