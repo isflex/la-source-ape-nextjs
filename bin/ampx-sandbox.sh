@@ -1,5 +1,6 @@
 #!/bin/bash
 # Run ampx sandbox with Zod 3.x and GraphQL 15.x compatibility
+# ⚠️ sandbox secrets must be set in apps/gateway and not monorepo root -> ampx sandbox secret set <secret-name> --identifier apelasource
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
