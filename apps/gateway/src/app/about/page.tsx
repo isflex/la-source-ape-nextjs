@@ -3,7 +3,7 @@
 import React from 'react'
 import { headers } from 'next/headers'
 import { isMobile } from '@src/utils'
-import About from './client-component'
+import About from './client-component-2'
 
 async function actionPageInfo() {
   'use server'

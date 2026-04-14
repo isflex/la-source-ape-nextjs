@@ -40,7 +40,7 @@ const jsonLd = {
       '@type': 'Person',
       image: `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_BASE_URL}/logo/filled/rectangle/logo_flexiness_2.svg`,
       name: 'Flexiness',
-      sameAs: 'https://ci.flexiness.com/portfolio'
+      sameAs: 'https://flexiness.com'
     },
     sourceOrganization: {
       ...subOrg
