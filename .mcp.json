@@ -7,9 +7,6 @@
     "chrome-devtools": {
       "command": "npx",
       "args": ["chrome-devtools-mcp@latest", "--browserUrl", "http://localhost:9222"]
-    },
-    "helloasso": {
-      "url": "https://dev.helloasso.com/mcp"
     }
   }
 }

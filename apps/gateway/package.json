@@ -32,6 +32,8 @@
     "test:e2e": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress run --e2e",
     "test:open": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress open",
     "test:unit": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- cypress run --spec 'cypress/unit/**/*.cy.{js,ts}'",
+    "test:vitest": "vitest run",
+    "test:vitest:watch": "vitest",
     "warm:api": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- $FLEX_PROJ_ROOT/bin/warm-api-routes.sh"
   },
   "dependencies": {
@@ -108,6 +110,7 @@
     "sass-embedded": "^1.93.3",
     "tsconfig-paths-webpack-plugin": "4.2.0",
     "typescript": "5.9.3",
+    "vitest": "^4.1.4",
     "webpack": "5.103.0"
   },
   "peerDependencies": {
