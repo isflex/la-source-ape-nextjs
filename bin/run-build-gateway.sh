@@ -4,12 +4,12 @@ run_local () {
   if [[ ${FLEX_GATEWAY_BUILD_STANDALONE} = 'false' ]]; then
 
   echo "//////////////////////// Running local gateway build ////////////////////////";
-  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build;
+  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build --webpack;
 
   else
 
   echo "//////////////////////// Running local gateway build standalone ////////////////////////";
-  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build && node ./copy-assets.mjs;
+  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build --webpack && node ./copy-assets.mjs;
 
   fi
 }
@@ -18,12 +18,12 @@ run_ci () {
   if [[ ${FLEX_GATEWAY_BUILD_STANDALONE} = 'false' ]]; then
 
   echo "//////////////////////// Running CI gateway build ////////////////////////";
-  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build;
+  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build --webpack;
 
   else
 
   echo "//////////////////////// Running CI gateway build standalone ////////////////////////";
-  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build && node ./copy-assets.mjs;
+  dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next build --webpack && node ./copy-assets.mjs;
 
   fi
 }

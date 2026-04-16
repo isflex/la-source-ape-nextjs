@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import type { HelloAssoClient } from './client';
 import { checkSubscriberByEmail } from './subscribers';
