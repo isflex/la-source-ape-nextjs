@@ -1,5 +1,17 @@
 'use client';
 
+// @a2ui/web_core (via @copilotkit/a2ui-renderer) registers custom elements globally.
+// During HMR, modules re-execute and `customElements.define()` is called again for
+// elements that are already registered, flooding the console with warnings.
+// This patch makes duplicate registrations a silent no-op in dev only.
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+  const origDefine = customElements.define.bind(customElements);
+  customElements.define = function (name: string, ...args: Parameters<typeof origDefine> extends [string, ...infer R] ? R : never) {
+    if (customElements.get(name)) return;
+    origDefine(name, ...args);
+  } as typeof customElements.define;
+}
+
 import React, { useCallback, useEffect, useMemo, useRef, useState, Component, type ErrorInfo } from 'react';
 import {
   FlexCopilotProvider,

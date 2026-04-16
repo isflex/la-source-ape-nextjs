@@ -257,7 +257,6 @@ _paginate: false
 
 # Pourquoi ce site ?
 
-<p>-`<svg style="width:28px;height:28px" viewBox="0 0 31 42" aria-hidden="true"><path d="M6.645 5.69694C7.3455 8.35432 8.98766 10.2743 11.0008 12.4524C13.1904 14.8214 15.3279 17.2156 15.1716 20.6386C15.1824 20.8745 15.1819 21.1048 15.1716 21.3312V27.7798C15.4195 29.3643 13.7832 28.0964 12.4478 29.7634C11.7433 30.6426 10.4182 30.5351 9.08434 31.0138C7.97244 32.4059 7.10513 33.834 6.645 35.5805H24.0084C23.4834 33.5894 22.4302 32.0122 21.088 30.4303C19.9544 30.5746 18.9004 31.3067 18.2843 30.5375C16.9484 28.8705 15.2352 29.3643 15.4826 27.7798V21.3555C15.4715 21.1216 15.4707 20.8829 15.4818 20.6386C15.3254 17.2156 17.463 14.8214 19.6526 12.4524C20.359 11.6881 21.0196 10.9556 21.6098 10.212C15.5054 10.3187 16.4822 5.02768 6.645 5.69694Z" /><path d="M4.13241 3.52906C4.392 8.49473 7.11684 11.4439 9.40905 13.9236C11.439 16.1196 13.1675 17.9909 13.0009 20.6386C13.1675 23.2863 11.439 25.1576 9.40905 27.3536C7.11684 29.8334 4.39184 32.7824 4.13241 37.748H26.521C26.2615 32.7824 23.5367 29.8334 21.2443 27.3536C19.2143 25.1576 17.4858 23.2863 17.6526 20.6386C17.4858 17.9909 19.2143 16.1196 21.2443 13.9236C23.5367 11.4439 26.2615 8.49473 26.521 3.52906H4.13241ZM8.05163 15.1792C5.40628 12.3171 2.23317 8.8841 2.26129 2.67627V2.59303L2.2691 1.67105H28.3843L28.3919 2.59303V2.67627C28.4202 8.8841 25.2471 12.3171 22.6014 15.1792C20.8529 17.0708 19.3659 18.6802 19.5078 20.5699V20.7073C19.3659 22.5971 20.8529 24.2064 22.6014 26.098C25.2471 28.9601 28.4202 32.393 28.3919 38.6011V38.6844L28.3843 39.606H2.2691L2.26129 38.6844V38.6011C2.23317 32.393 5.40628 28.9601 8.05163 26.098C9.80046 24.2064 11.2875 22.5971 11.1455 20.7073V20.5699C11.2875 18.6802 9.80046 17.0708 8.05163 15.1792Z" /><path fill-rule="evenodd" clip-rule="evenodd" d="M1.76461 0H28.8889C29.8593 0 30.6534 0.794214 30.6534 1.76461C30.6534 2.735 29.8593 3.52906 28.8889 3.52906H1.76461C0.794214 3.52906 0 2.735 0 1.76461C0 0.794214 0.794214 0 1.76461 0Z" /><path fill-rule="evenodd" clip-rule="evenodd" d="M1.76461 37.748H28.8889C29.8593 37.748 30.6534 38.5422 30.6534 39.5128C30.6534 40.4833 29.8593 41.2774 28.8889 41.2774H1.76461C0.794214 41.2774 0 40.4833 0 39.5128C0 38.5422 0.794214 37.748 1.76461 37.748Z" /></svg>´-</p>
 <p>
   L'idée derrière ce site découle du problèmatique du
 </p>
@@ -296,8 +295,7 @@ _paginate: false
   Ce site vise à ouvrir la voie à la participation numérique grâce à une plateforme collaborative axée sur le partage, l'apprentissage et l'entraide.
 </p>
 <p>
-  L'un des objectifs est de faire évoluer et maintenir le <a class='link' href='/web-app' target='_blank'>web app</a><br/>
-  C'est une plateforme de gestion d'evenements communautaires scolaires. Il permet aux parents d'eleves d'organiser et de participer a des activites d'entraide autour de leur école : covoiturage, pedibus (accompagnement a pied), babysitting, soutien aux devoirs, et autres activites si besoin.
+  L'un des éléments est le <a class='link' href='/web-app' target='_blank'>web app</a> qui permet aux parents d'élèves d'organiser et de participer a des activites d'entraide autour de leur école :<br/>covoiturage, pedibus (accompagnement a pied), babysitting, soutien aux devoirs, et d'autres activités si besoin.
 </p>
 <p>
   Les élèves de l'école peuvent participer avec l'accord de leur parents. L'idée étant qu'on promeut le rôle des parenrs à guider dans leurs choix L'utilisation requière les parents ont aussi la responsabilité d'accompagner leur enfant(s) dans l'utilisation et 

@@ -6,6 +6,7 @@ const BASE_URLS: Record<HelloAssoEnv, string> = {
 };
 
 const DEFAULT_TOKEN_REFRESH_BUFFER_MS = 60_000;
+const DEFAULT_TIMEOUT_MS = 10_000;
 
 export interface HelloAssoClientConfig {
   env: HelloAssoEnv;
@@ -15,6 +16,7 @@ export interface HelloAssoClientConfig {
   fetchImpl?: typeof fetch;
   now?: () => number;
   tokenRefreshBufferMs?: number;
+  timeoutMs?: number;
 }
 
 export interface HelloAssoRequestInit extends Omit<RequestInit, 'body' | 'headers'> {
@@ -70,6 +72,7 @@ export function createHelloAssoClient(config: HelloAssoClientConfig): HelloAssoC
     fetchImpl = fetch,
     now = () => Date.now(),
     tokenRefreshBufferMs = DEFAULT_TOKEN_REFRESH_BUFFER_MS,
+    timeoutMs = DEFAULT_TIMEOUT_MS,
   } = config;
 
   const baseUrl = BASE_URLS[env];
@@ -91,6 +94,7 @@ export function createHelloAssoClient(config: HelloAssoClientConfig): HelloAssoC
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body,
+      signal: AbortSignal.timeout(timeoutMs),
     });
 
     if (!res.ok) {
@@ -137,6 +141,7 @@ export function createHelloAssoClient(config: HelloAssoClientConfig): HelloAssoC
 
     const url = path.startsWith('http') ? path : `${baseUrl}${path}`;
     const res = await fetchImpl(url, {
+      signal: AbortSignal.timeout(timeoutMs),
       ...rest,
       headers,
       body: body === undefined ? undefined : JSON.stringify(body),

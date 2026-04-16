@@ -55,6 +55,7 @@ const NavbarApp = ({mobileCheck} : {mobileCheck: boolean} ) => {
           flexStyles.isHiddenMenuIconTablet
         )}>
           <Button
+            id="nav-bar-menu-btn"
             small
             className={classNames(flexStyles.isOutlined)}
             markup={ButtonMarkup.BUTTON}
