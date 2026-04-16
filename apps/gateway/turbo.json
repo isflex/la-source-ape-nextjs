@@ -2,169 +2,94 @@
   "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "tasks": {
-    "marp:dev": {
-      "outputs": [
-        "apps/gateway/public/slides/**"
-      ],
-      "cache": false,
-      "env": [
-        "DOTENV_*",
-        "FLEX_*"
-      ]
-    },
-    "warm:api": {
-      "cache": false,
-      "env": [
-        "FLEX_*"
-      ]
-    },
-    "dev:all:transit": {
-      "cache": false,
-      "env": [
-        "DOTENV_*",
-        "FLEX_*"
-      ],
-      "with": ["marp:dev", "warm:api"]
-    },
     "next:dev": {
       "cache": false,
       "persistent": true,
-      "env": [
-        "FLEX_*",
-        "NEXT_PUBLIC_*",
-        "SENTRY_*"
-      ]
+      "env": ["FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"]
+    },
+    "next:tsc": {
+      "cache": false,
+      "env": ["FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"]
+    },
+    "marp:dev": {
+      "outputs": ["apps/gateway/public/slides/**"],
+      "cache": false,
+      "env": ["DOTENV_*", "FLEX_*"]
+    },
+    "warm:api": {
+      "cache": false,
+      "env": ["FLEX_*"]
+    },
+    "dev:all:transit": {
+      "cache": false,
+      "env": ["DOTENV_*", "FLEX_*"],
+      "with": ["marp:dev", "warm:api"]
     },
     "next:dev:all": {
       "cache": false,
-      "env": [
-        "FLEX_*",
-        "NEXT_PUBLIC_*",
-        "SENTRY_*"
-      ],
+      "env": ["FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"],
       "with": ["dev:all:transit"]
     },
     "next:dev:turbo": {
       "cache": false,
-      "env": [
-        "FLEX_*",
-        "NEXT_PUBLIC_*",
-        "SENTRY_*"
-      ],
+      "env": ["FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"],
       "with": ["dev:all:transit"]
     },
-    "next:tsc": {
-      "cache": false,
-      "env": [
-        "FLEX_*",
-        "NEXT_PUBLIC_*",
-        "SENTRY_*"
-      ]
-    },
     "dev": {
-      "dependsOn": [
-        "^dev:packages:transit"
-      ],
+      "dependsOn": ["^dev:packages:transit"],
       "with": ["next:dev"],
       "cache": false,
       "persistent": true
     },
     "dev:all": {
-      "dependsOn": [
-        "^dev:packages:transit"
-      ],
-      "with": ["next:dev:all"],
+      "dependsOn": ["^dev:packages:transit"],
+      "with": ["//#agent:dev", "//#listen:stripe", "next:dev:all"],
       "cache": false,
       "persistent": true
     },
     "dev:turbo": {
-      "dependsOn": [
-        "^dev:packages:transit"
-      ],
-      "with": ["next:dev:turbo"],
+      "dependsOn": ["^dev:packages:transit"],
+      "with": ["//#agent:dev", "//#listen:stripe", "next:dev:turbo"],
       "cache": false,
       "persistent": true
     },
     "marp:build": {
-      "outputs": [
-        "apps/gateway/public/slides/**"
-      ],
+      "outputs": ["apps/gateway/public/slides/**"],
       "cache": false,
       "persistent": false,
-      "env": [
-        "DOTENV_*",
-        "FLEX_*"
-      ]
+      "env": ["DOTENV_*", "FLEX_*"]
     },
-     "amplify:sandbox:create": {
-      "outputs": [
-        "apps/gateway/amplify_outputs.json"
-      ],
+    "amplify:sandbox:create": {
+      "outputs": ["apps/gateway/amplify_outputs.json"],
       "inputs": ["$TURBO_DEFAULT$", "apps/gateway/amplify/**/*"],
       "cache": false,
       "persistent": false,
-      "env": [
-        "AWS_*",
-        "DOTENV_*",
-        "FLEX_*"
-      ]
+      "env": ["AWS_*", "DOTENV_*", "FLEX_*"]
     },
-     "amplify:sandbox:delete": {
+    "amplify:sandbox:delete": {
       "cache": false,
       "persistent": false,
-      "env": [
-        "AWS_*",
-        "DOTENV_*",
-        "FLEX_*"
-      ]
+      "env": ["AWS_*", "DOTENV_*", "FLEX_*"]
     },
     "build": {
-      "dependsOn": [
-        "//#compile:clean:sh",
-        "@flex-design-system/react-ts#build",
-        "marp:build"
-      ],
+      "dependsOn": ["//#compile:clean:sh", "@flex-design-system/react-ts#build", "marp:build"],
       "outputs": [".next/**/*"],
       "inputs": ["$TURBO_DEFAULT$", "amplify_outputs.json", "!README.md"],
       "cache": true,
       "persistent": false,
-      "env": [
-        "AWS_*",
-        "DOTENV_*",
-        "FLEX_*",
-        "GIT_*",
-        "NEXT_PUBLIC_*",
-        "SENTRY_*"
-      ]
+      "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*", "NEXT_PUBLIC_*", "SENTRY_*"]
     },
     "analyze": {
-      "dependsOn": [
-        "//#compile:clean:sh",
-        "@flex-design-system/react-ts#build",
-        "marp:build"
-      ],
+      "dependsOn": ["//#compile:clean:sh", "@flex-design-system/react-ts#build", "marp:build"],
       "outputs": [".next/**/*"],
       "inputs": ["$TURBO_DEFAULT$", "amplify_outputs.json", "!README.md"],
       "cache": true,
       "persistent": false,
-      "env": [
-        "AWS_*",
-        "DOTENV_*",
-        "FLEX_*",
-        "GIT_*",
-        "NEXT_PUBLIC_*",
-        "SENTRY_*"
-      ]
+      "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*", "NEXT_PUBLIC_*", "SENTRY_*"]
     },
     "start": {
       "cache": false,
-      "env": [
-        "AWS_*",
-        "DOTENV_*",
-        "FLEX_*",
-        "NEXT_PUBLIC_*",
-        "SENTRY_*"
-      ]
+      "env": ["AWS_*", "DOTENV_*", "FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"]
     }
   }
 }

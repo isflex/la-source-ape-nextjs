@@ -24,6 +24,17 @@
       "cache": false,
       "persistent": true
     },
+    "//#agent:dev": {
+      "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*", "NEXT_PUBLIC_*"],
+      "cache": false,
+      "persistent": true
+    },
+
+    "//#listen:stripe": {
+      "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*", "NEXT_PUBLIC_*"],
+      "cache": false,
+      "persistent": true
+    },
     "//#compile:clean:sh": {
       "dependsOn": ["@flexiness/domain-utils#compile:tsup", "@flexiness/copilotkit#compile:tsup"],
       "outputs": [
