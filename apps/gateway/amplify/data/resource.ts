@@ -133,6 +133,7 @@ const schema = a.schema({
   EMembershipStatus: a.enum([
     'ACTIVE',          // Payment confirmed via webhook
     'EXPIRED',         // Validity period has passed
+    'DELETED',         // Order removed in HelloAsso back-office; row kept for audit
   ]),
 
   // Stripe Connect Account Status
@@ -421,7 +422,8 @@ const schema = a.schema({
   // HelloAsso Membership (Adhésion)
   Membership: a
     .model({
-      email: a.string().required(),
+      emailCognito: a.string().required(),        // The user's Cognito login email (our side of truth)
+      emailPayerHelloAsso: a.string().required(), // The email used on HelloAsso checkout (may diverge)
       firstName: a.string().required(),
       lastName: a.string().required(),
       status: a.ref('EMembershipStatus'),
@@ -434,6 +436,10 @@ const schema = a.schema({
       createdAt: a.datetime(),
       updatedAt: a.datetime(),
     })
+    .secondaryIndexes((index) => [
+      index('emailCognito'),
+      index('emailPayerHelloAsso'),
+    ])
     .authorization((allow) => [allow.publicApiKey()]),
 
   JackpotContribution: a

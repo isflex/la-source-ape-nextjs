@@ -136,9 +136,12 @@ async function handleMembershipOrder(order: HelloAssoOrderData) {
       return;
     }
 
-    // Create the membership record
+    // Webhook cannot know the Cognito email — optimistically assume the payer
+    // used the same email as their Cognito account. The page-load orchestrator
+    // reconciles divergence when the authenticated user visits /adhesion.
     await client.models.Membership.create({
-      email: payer.email,
+      emailCognito: payer.email,
+      emailPayerHelloAsso: payer.email,
       firstName: payer.firstName,
       lastName: payer.lastName,
       status: "ACTIVE",

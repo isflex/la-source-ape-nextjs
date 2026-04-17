@@ -10,6 +10,7 @@ import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box'
 import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
 import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import {
   InfoBlock,
@@ -18,9 +19,9 @@ import {
   InfoBlockStatus,
 } from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
 import {
-  // Icon,
-  // IconSize,
-  // IconPosition,
+  Icon,
+  IconSize,
+  IconPosition,
   IconName,
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
@@ -47,6 +48,8 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
   const router = useRouter();
   const [pageState, setPageState] = useState<PageState>('loading');
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [userFirstName, setUserFirstName] = useState<string | null>(null);
+  const [userLastName, setUserLastName] = useState<string | null>(null);
   const [subscriberInfo, setSubscriberInfo] = useState<SubscriberCheckResponse['order']>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -72,6 +75,8 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
         if (cancelled) return;
 
         setUserEmail(email);
+        if (attributes.given_name) setUserFirstName(attributes.given_name);
+        if (attributes.family_name) setUserLastName(attributes.family_name);
 
         const res = await fetch(`/api/helloasso/check-subscriber?email=${encodeURIComponent(email)}`);
         if (!res.ok) {
@@ -107,7 +112,14 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
   const helloassoFormSlug = process.env.NEXT_PUBLIC_FLEX_HELLOASSO_FORM_SLUG || 'test-subscribe';
   const websiteBase = HELLOASSO_WEBSITE_URLS[helloassoEnv] || HELLOASSO_WEBSITE_URLS.sandbox;
 
-  const formWidgetUrl = `${websiteBase}/associations/${helloassoOrgSlug}/adhesions/${helloassoFormSlug}/widget`;
+  const formWidgetBase = `${websiteBase}/associations/${helloassoOrgSlug}/adhesions/${helloassoFormSlug}/widget`;
+  const prefillParams = new URLSearchParams();
+  if (userEmail) prefillParams.set('email', userEmail);
+  if (userFirstName) prefillParams.set('firstName', userFirstName);
+  if (userLastName) prefillParams.set('lastName', userLastName);
+  const formWidgetUrl = prefillParams.toString()
+    ? `${formWidgetBase}?${prefillParams.toString()}`
+    : formWidgetBase;
   const formDirectUrl = `${websiteBase}/associations/${helloassoOrgSlug}/adhesions/${helloassoFormSlug}`;
 
   const iframeMinHeight = mobileCheck ? IFRAME_MIN_HEIGHT_MOBILE : IFRAME_MIN_HEIGHT_DESKTOP;
@@ -297,9 +309,31 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
               <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
             </InfoBlockHeader>
             <InfoBlockContent>
-              Bienvenue <strong>{userEmail}</strong><br/>Complétez le formulaire ci-dessous pour finaliser votre adhésion.
+              <Title level={TitleLevel.LEVEL5}>
+                Bienvenue <strong>{userEmail}</strong><br/>Complétez le formulaire ci-dessous pour finaliser votre adhésion.
+              </Title>
+              <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <Icon size={IconSize.SMALL} name={IconName.EXCLAMATION_CIRCLE} />
+                <Text>
+                  Veuillez utiliser l'adresse <strong>{userEmail}</strong> lors du paiement
+                  pour que votre adhésion soit automatiquement reliée à votre compte.
+                </Text>
+              </div>
             </InfoBlockContent>
           </InfoBlock>
+          {/* <div style={{ marginTop: '1rem' }}>
+            <InfoBlock>
+              <InfoBlockHeader status={InfoBlockStatus.WARNING} customIcon={IconName.UI_EXCLAMATION_CIRCLE}>
+                <Title level={TitleLevel.LEVEL4}>À noter</Title>
+              </InfoBlockHeader>
+              <InfoBlockContent>
+                <Title level={TitleLevel.LEVEL5}>
+                  Veuillez utiliser l&apos;adresse <strong>{userEmail}</strong> lors du paiement
+                  pour que votre adhésion soit automatiquement reliée à votre compte.
+                </Title>
+              </InfoBlockContent>
+            </InfoBlock>
+          </div> */}
           <div style={{ width: '100%' }}>
             <iframe
               ref={iframeRef}
