@@ -11,5 +11,5 @@ cd $FLEX_PROJ_ROOT
 # pnpm exec rimraf -g '**/*.tsbuildinfo'
 # pnpm exec rimraf -g '**/build' -g '**/server-build'
 pnpm exec rimraf -g '**/node_modules'
-pnpm exec rimraf -g 'pnpm-lock.yaml' 
+# pnpm exec rimraf -g 'pnpm-lock.yaml'
 pnpm exec rimraf -g 'apps/gateway/.next'

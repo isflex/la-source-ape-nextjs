@@ -15,7 +15,6 @@ const execPromise = promisify(subprocess.exec)
 
 // import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 // import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
-import { Config } from 'next-recompose-plugins'
 // import { withSentryConfig } from '@sentry/nextjs'
 import createMDX from '@next/mdx'
 import bundleAnalyzer from '@next/bundle-analyzer'
@@ -78,9 +77,8 @@ async function getActiveRoutes() {
 }
 getActiveRoutes()
 
-const mainConfig = new Config(async (phase, args) => {
-
-  /** @type {import('next').NextConfig} */
+/** @type {import('next').NextConfig} */
+const nextConfig = (() => {
   const nextConfig = {
     // output: 'standalone', // Disabled - not supported by Amplify Hosting for SSR
 
@@ -157,11 +155,6 @@ const mainConfig = new Config(async (phase, args) => {
     typescript: {
       ignoreBuildErrors: false,
       tsconfigPath: './tsconfig.json'
-    },
-
-    eslint: {
-      ignoreDuringBuilds: true,
-      dirs: ['src'],
     },
 
     reactStrictMode: false,
@@ -366,28 +359,16 @@ const mainConfig = new Config(async (phase, args) => {
   }
 
   return nextConfig
+})()
+
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+  options: {
+    /* otherOptions… */
+  },
 })
-.applyPlugin((phase, args, config) => {
-  // Uhh.. what's going on here!?
-  // throw new Error('Test');
 
-  // enhance the config with the desired plugin and return it back
-  return createMDX({
-    // Add markdown plugins here, as desired
-    // By default only the `.mdx` extension is supported.
-    extension: /\.mdx?$/,
-    options: {
-      /* otherOptions… */
-    },
-  })(config);
-}, '@next/mdx') // Pass an annotation as a last argument
-.applyPlugin((phase, args, config) => {
-  // Apply bundle analyzer when ANALYZE=true
-  return withBundleAnalyzer(config);
-}, '@next/bundle-analyzer')
-.build()
-
-export default mainConfig
+export default withBundleAnalyzer(withMDX(nextConfig))
 
 // export default withSentryConfig(mainConfig, {
 //   org: 'flexiness',
