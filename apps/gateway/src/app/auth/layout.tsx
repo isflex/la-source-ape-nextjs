@@ -8,7 +8,7 @@ export default async function AuthLayout() {
 
   if (!_nonce) return (
     <section style={{ minHeight: '100vh' }}>
-      <LoadingBackdrop />
+      <LoadingBackdrop loadingText={'Chargement...'} />
     </section>
   )
 

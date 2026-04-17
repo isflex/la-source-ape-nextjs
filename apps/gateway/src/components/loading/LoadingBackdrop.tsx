@@ -5,7 +5,11 @@ import classNames from 'classnames'
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { default as flexStyles } from '@flex-design-system/framework';
 
-const LoadingBackdrop = () => {
+interface LoadingBackdropProps {
+  loadingText?: string
+}
+
+const LoadingBackdrop: React.FC<LoadingBackdropProps> = ({loadingText}) => {
   return (
     <Backdrop
       sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
@@ -15,7 +19,9 @@ const LoadingBackdrop = () => {
         flexStyles.isFlex, flexStyles.isFlexDirectionColumn, flexStyles.isAlignItemsCenter, flexStyles.isFullwidth
       )}>
         <CircularProgress color='inherit' />
-        <Text style={{ marginTop: '1rem' }}>Chargement...</Text>
+        {loadingText && (
+          <Text style={{ marginTop: '1rem' }}>{loadingText}</Text>
+        )}
       </div>
     </Backdrop>
   )

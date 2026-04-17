@@ -197,7 +197,7 @@ export default function PiscineCreerPage() {
           <Title level={TitleLevel.LEVEL1}>
             Gestion des Plannings Piscine
           </Title>
-          <LoadingBackdrop />
+          <LoadingBackdrop loadingText={'Chargement...'} />
         </Section>
       </Container>
     );

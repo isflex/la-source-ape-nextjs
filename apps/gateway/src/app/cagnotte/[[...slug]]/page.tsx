@@ -282,7 +282,7 @@ export default function CagnotteSlugPage() {
             Cagnottes APE La Source
           </Title>
         </Section>
-        <LoadingBackdrop />
+        <LoadingBackdrop loadingText={'Chargement...'} />
       </Container>
     );
   }

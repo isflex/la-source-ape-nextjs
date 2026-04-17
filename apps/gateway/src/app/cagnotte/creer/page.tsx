@@ -371,7 +371,7 @@ export default function CagnotteCreerPage() {
           <Title level={TitleLevel.LEVEL1}>
             Gestion des Cagnottes
           </Title>
-          <LoadingBackdrop />
+          <LoadingBackdrop loadingText={'Chargement...'} />
         </Section>
       </Container>
     );

@@ -169,7 +169,7 @@ export default function NewsletterCreationPage() {
           <Title level={TitleLevel.LEVEL1}>
             Gestion des Newsletters
           </Title>
-          <LoadingBackdrop />
+          <LoadingBackdrop loadingText={'Chargement...'} />
         </Section>
       </Container>
     );

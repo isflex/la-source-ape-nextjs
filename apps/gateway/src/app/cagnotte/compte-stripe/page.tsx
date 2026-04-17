@@ -362,7 +362,7 @@ export default function StripeAccountPage() {
           <Title level={TitleLevel.LEVEL1} className={classNames(flexStyles.hasTextCentered)}>
             Compte Stripe Connect
           </Title>
-          <LoadingBackdrop />
+          <LoadingBackdrop loadingText={'Chargement...'} />
         </Container>
       </div>
     );

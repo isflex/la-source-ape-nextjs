@@ -25,6 +25,7 @@ import {
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
 import { default as flexStyles } from '@flex-design-system/framework';
+import { LoadingBackdrop } from '@src/components/loading/LoadingBackdrop'
 
 const HELLOASSO_WEBSITE_URLS: Record<string, string> = {
   sandbox: 'https://www.helloasso-sandbox.com',
@@ -150,12 +151,6 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
           <Box className={classNames(flexStyles.hasTextTertiary)}>
             <Section>
-              {/* <div className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>
-                <Icon size={IconSize.LARGE} position={IconPosition.UP} name={IconName.UI_CHECK_CIRCLE} />
-              </div>
-              <Title level={TitleLevel.LEVEL3} className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>
-                Vérification de votre adhésion en cours...
-              </Title> */}
               <InfoBlock>
                 <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SMILE}>
                 </InfoBlockHeader>
@@ -165,6 +160,7 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
                   </Title>
                 </InfoBlockContent>
               </InfoBlock>
+              <LoadingBackdrop />
             </Section>
           </Box>
         </div>
@@ -211,9 +207,6 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
           <Box className={classNames(flexStyles.hasTextTertiary)}>
             <Section>
-              {/* <div className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)} style={{ marginBottom: '1.5rem' }}>
-                <Icon size={IconSize.LARGE} position={IconPosition.UP} name={IconName.UI_CHECK_CIRCLE} />
-              </div> */}
               <InfoBlock>
                 <InfoBlockHeader status={InfoBlockStatus.SUCCESS} customIcon={IconName.UI_CHECK_CIRCLE}>
                   <Title level={TitleLevel.LEVEL3}>Vous êtes déjà adhérent(e)</Title>
@@ -247,15 +240,6 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
     <View>
       <div style={{ margin: '2rem auto' }} className={classNames(flexStyles.hasTextTertiary)}>
         <Section>
-          {/* <div className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)} style={{ marginBottom: '2rem' }}>
-            <Icon size={IconSize.LARGE} position={IconPosition.UP} name={IconName.UI_CHECK_CIRCLE} />
-            <Title level={TitleLevel.LEVEL3}>
-              Adhésion APE La Source
-            </Title>
-            <Title level={TitleLevel.LEVEL5}>
-              Bienvenue <strong>{userEmail}</strong>. Complétez le formulaire ci-dessous pour finaliser votre adhésion.
-            </Title>
-          </div> */}
           <InfoBlock>
             <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
               <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
