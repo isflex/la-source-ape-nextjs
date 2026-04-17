@@ -106,11 +106,16 @@ export default function AdhesionContent() {
     return (
       <View>
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
+          <InfoBlock>
+            <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
+              <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
+            </InfoBlockHeader>
+          </InfoBlock>
           <Box>
             <Section>
               <InfoBlock>
                 <InfoBlockHeader status={InfoBlockStatus.WARNING}>
-                  <Title level={TitleLevel.LEVEL3}>Connexion requise</Title>
+                  <Title level={TitleLevel.LEVEL4}>Connexion requise</Title>
                 </InfoBlockHeader>
                 <InfoBlockContent>
                   <Title level={TitleLevel.LEVEL5}>
@@ -139,6 +144,11 @@ export default function AdhesionContent() {
     return (
       <View>
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
+          <InfoBlock>
+            <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
+              <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
+            </InfoBlockHeader>
+          </InfoBlock>
           <Box className={classNames(flexStyles.hasTextTertiary)}>
             <Section>
               <InfoBlock>
@@ -162,11 +172,16 @@ export default function AdhesionContent() {
     return (
       <View>
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
+          <InfoBlock>
+            <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
+              <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
+            </InfoBlockHeader>
+          </InfoBlock>
           <Box>
             <Section>
               <InfoBlock>
                 <InfoBlockHeader status={InfoBlockStatus.WARNING} customIcon={IconName.UI_EXCLAMATION_CIRCLE}>
-                  <Title level={TitleLevel.LEVEL3}>Erreur</Title>
+                  <Title level={TitleLevel.LEVEL4}>Erreur</Title>
                 </InfoBlockHeader>
                 <InfoBlockContent>
                   <Title level={TitleLevel.LEVEL5}>
@@ -195,11 +210,16 @@ export default function AdhesionContent() {
     return (
       <View>
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
+          <InfoBlock>
+            <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
+              <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
+            </InfoBlockHeader>
+          </InfoBlock>
           <Box className={classNames(flexStyles.hasTextTertiary)}>
             <Section>
               <InfoBlock>
                 <InfoBlockHeader status={InfoBlockStatus.SUCCESS} customIcon={IconName.UI_CHECK_CIRCLE}>
-                  <Title level={TitleLevel.LEVEL3}>Vous êtes déjà adhérent(e)</Title>
+                  <Title level={TitleLevel.LEVEL4}>Vous êtes déjà adhérent(e)</Title>
                 </InfoBlockHeader>
                 <InfoBlockContent>
                   <Title level={TitleLevel.LEVEL5}>
