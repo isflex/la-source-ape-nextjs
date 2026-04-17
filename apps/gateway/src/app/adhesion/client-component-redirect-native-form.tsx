@@ -22,6 +22,9 @@ import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/vie
 import { default as flexStyles } from '@flex-design-system/framework';
 import { HelloAssoBtn } from '@src/components/helloasso'
 import { LoadingBackdrop } from '@src/components/loading/LoadingBackdrop'
+import AuthBanner from '@src/components/auth/AuthBanner';
+
+const ADHESION_RETURN_URL = encodeURIComponent('/adhesion/');
 
 const HELLOASSO_WEBSITE_URLS: Record<string, string> = {
   sandbox: 'https://www.helloasso-sandbox.com',
@@ -126,7 +129,7 @@ export default function AdhesionContent() {
                       id="adhesion-login-btn"
                       markup={ButtonMarkup.BUTTON}
                       variant={VariantState.PRIMARY}
-                      onClick={() => router.push('/auth/?mode=user')}
+                      onClick={() => router.push(`/auth/?mode=user&returnUrl=${ADHESION_RETURN_URL}`)}
                     >
                       Se connecter
                     </Button>
@@ -144,6 +147,7 @@ export default function AdhesionContent() {
     return (
       <View>
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
+          {user && <AuthBanner />}
           <InfoBlock>
             <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
               <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
@@ -172,6 +176,7 @@ export default function AdhesionContent() {
     return (
       <View>
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
+          {user && <AuthBanner />}
           <InfoBlock>
             <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
               <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
@@ -210,6 +215,7 @@ export default function AdhesionContent() {
     return (
       <View>
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
+          {user && <AuthBanner />}
           <InfoBlock>
             <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
               <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
@@ -249,6 +255,7 @@ export default function AdhesionContent() {
   return (
     <View>
       <div style={{ maxWidth: '920px', margin: '2rem auto' }} className={classNames(flexStyles.hasTextTertiary)}>
+        {user && <AuthBanner />}
         <Section>
           <InfoBlock>
             <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>

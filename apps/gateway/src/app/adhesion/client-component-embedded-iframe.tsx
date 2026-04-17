@@ -23,10 +23,14 @@ import {
   IconSize,
   IconPosition,
   IconName,
+  IconStatus,
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
 import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
 import { default as flexStyles } from '@flex-design-system/framework';
 import { LoadingBackdrop } from '@src/components/loading/LoadingBackdrop'
+import AuthBanner from '@src/components/auth/AuthBanner';
+
+const ADHESION_RETURN_URL = encodeURIComponent('/adhesion/');
 
 const HELLOASSO_WEBSITE_URLS: Record<string, string> = {
   sandbox: 'https://www.helloasso-sandbox.com',
@@ -180,7 +184,7 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
                       id="adhesion-login-btn"
                       markup={ButtonMarkup.BUTTON}
                       variant={VariantState.PRIMARY}
-                      onClick={() => router.push('/auth/?mode=user')}
+                      onClick={() => router.push(`/auth/?mode=user&returnUrl=${ADHESION_RETURN_URL}`)}
                     >
                       Se connecter
                     </Button>
@@ -198,6 +202,7 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
     return (
       <View>
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
+          {user && <AuthBanner />}
           <InfoBlock>
             <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
               <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
@@ -226,6 +231,7 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
     return (
       <View>
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
+          {user && <AuthBanner />}
           <InfoBlock>
             <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
               <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
@@ -264,6 +270,7 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
     return (
       <View>
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
+          {user && <AuthBanner />}
           <InfoBlock>
             <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
               <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
@@ -303,6 +310,7 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
   return (
     <View>
       <div style={{ margin: '2rem auto' }} className={classNames(flexStyles.hasTextTertiary)}>
+        {user && <AuthBanner />}
         <Section>
           <InfoBlock>
             <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
@@ -310,10 +318,13 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
             </InfoBlockHeader>
             <InfoBlockContent>
               <Title level={TitleLevel.LEVEL5}>
-                Bienvenue <strong>{userEmail}</strong><br/>Complétez le formulaire ci-dessous pour finaliser votre adhésion.
+                Bienvenue <strong>{userEmail}</strong>
+              </Title>
+              <Title level={TitleLevel.LEVEL5} className={classNames(flexStyles.hasTextInfo)}>
+                  Complétez le formulaire ci-dessous pour finaliser votre adhésion.
               </Title>
               <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <Icon size={IconSize.SMALL} name={IconName.EXCLAMATION_CIRCLE} />
+                <Icon size={IconSize.SMALL} name={IconName.EXCLAMATION_CIRCLE} status={IconStatus.TERTIARY}/>
                 <Text>
                   Veuillez utiliser l'adresse <strong>{userEmail}</strong> lors du paiement
                   pour que votre adhésion soit automatiquement reliée à votre compte.
