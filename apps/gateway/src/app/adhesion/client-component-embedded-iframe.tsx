@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { fetchUserAttributes } from 'aws-amplify/auth';
@@ -111,6 +111,36 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
   const formDirectUrl = `${websiteBase}/associations/${helloassoOrgSlug}/adhesions/${helloassoFormSlug}`;
 
   const iframeMinHeight = mobileCheck ? IFRAME_MIN_HEIGHT_MOBILE : IFRAME_MIN_HEIGHT_DESKTOP;
+
+  const iframeRef = useCallback((node: HTMLIFrameElement | null) => {
+    if (!node) return;
+    iframeNodeRef.current = node;
+  }, []);
+  const iframeNodeRef = React.useRef<HTMLIFrameElement | null>(null);
+
+  // Listen for postMessage height updates from the HelloAsso widget
+  useEffect(() => {
+    if (pageState !== 'ready') return;
+
+    const expectedOrigin = websiteBase;
+
+    function handleMessage(e: MessageEvent) {
+      if (e.origin !== expectedOrigin) return;
+      const dataHeight = e.data?.height;
+      if (typeof dataHeight !== 'number' || dataHeight <= 0) return;
+
+      const iframe = iframeNodeRef.current;
+      if (!iframe) return;
+
+      const currentHeight = parseFloat(iframe.style.minHeight) || 0;
+      if (dataHeight > currentHeight) {
+        iframe.style.minHeight = `${dataHeight}px`;
+      }
+    }
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [pageState, websiteBase]);
 
   if (pageState === 'unauthenticated') {
     return (
@@ -250,6 +280,7 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
           </InfoBlock>
           <div style={{ width: '100%' }}>
             <iframe
+              ref={iframeRef}
               src={formWidgetUrl}
               style={{
                 width: '100%',
