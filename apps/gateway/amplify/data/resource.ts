@@ -129,6 +129,12 @@ const schema = a.schema({
     'CANCELED'         // Checkout session expired/canceled
   ]),
 
+  // HelloAsso Membership Status
+  EMembershipStatus: a.enum([
+    'ACTIVE',          // Payment confirmed via webhook
+    'EXPIRED',         // Validity period has passed
+  ]),
+
   // Stripe Connect Account Status
   EStripeAccountStatus: a.enum([
     'NOT_STARTED',        // User has not begun onboarding
@@ -407,6 +413,24 @@ const schema = a.schema({
       isPubliclyVisible: a.boolean().default(false),
 
       contributions: a.hasMany('JackpotContribution', 'jackpotFormId'),
+      createdAt: a.datetime(),
+      updatedAt: a.datetime(),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
+  // HelloAsso Membership (Adhésion)
+  Membership: a
+    .model({
+      email: a.string().required(),
+      firstName: a.string().required(),
+      lastName: a.string().required(),
+      status: a.ref('EMembershipStatus'),
+      helloassoOrderId: a.integer().required(),
+      helloassoPaymentId: a.integer(),
+      amountCents: a.integer().required(),
+      paidAt: a.datetime().required(),
+      validUntil: a.datetime().required(),
+      helloassoFormSlug: a.string().required(),
       createdAt: a.datetime(),
       updatedAt: a.datetime(),
     })

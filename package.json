@@ -10,7 +10,7 @@
   "scripts": {
     "agent:dev": "cd agent && dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- ./run.sh",
     "agent:install": "cd agent && dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- uv sync",
-    "ai:claude": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- claude --chrome --settings .claude/settings.json",
+    "ai:claude": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- claude --permission-mode auto --chrome --settings .claude/settings.json",
     "ai:claude:debug": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- claude --debug --chrome --settings .claude/settings.json",
     "ampx:sandbox": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- ./bin/ampx-sandbox.sh",
     "build": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- ./bin/run-build-client.sh",

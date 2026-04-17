@@ -37,6 +37,7 @@ import { default as flexStyles } from '@flex-design-system/framework'
 import { inlineStyles } from '@src/styles/inlineStyles'
 import '@src/styles/globals.css'
 import '@aws-amplify/ui-react/styles.css'
+import '@src/styles/helloasso.css'
 import '@src/styles/tailwind.css'
 
 // Import CopilotKit styles
