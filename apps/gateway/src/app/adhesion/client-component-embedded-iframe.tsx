@@ -21,7 +21,7 @@ import {
 import {
   Icon,
   IconSize,
-  IconPosition,
+  // IconPosition,
   IconName,
   IconStatus,
 } from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
@@ -201,8 +201,8 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
   if (pageState === 'loading' || pageState === 'checking') {
     return (
       <View>
+        {user && <AuthBanner />}
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
-          {user && <AuthBanner />}
           <InfoBlock>
             <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
               <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
@@ -230,8 +230,8 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
   if (pageState === 'error') {
     return (
       <View>
+        {user && <AuthBanner />}
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
-          {user && <AuthBanner />}
           <InfoBlock>
             <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
               <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
@@ -269,8 +269,8 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
   if (pageState === 'already-subscribed') {
     return (
       <View>
+        {user && <AuthBanner />}
         <div style={{ maxWidth: '920px', margin: '2rem auto' }}>
-          {user && <AuthBanner />}
           <InfoBlock>
             <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
               <Title level={TitleLevel.LEVEL3}>Adhésion APE La Source</Title>
@@ -309,8 +309,8 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
   // pageState === 'ready'
   return (
     <View>
+      {user && <AuthBanner />}
       <div style={{ margin: '2rem auto' }} className={classNames(flexStyles.hasTextTertiary)}>
-        {user && <AuthBanner />}
         <Section>
           <InfoBlock>
             <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.SHOOTING_STAR}>
@@ -323,8 +323,9 @@ export default function AdhesionContent({ mobileCheck }: { mobileCheck: boolean 
               <Title level={TitleLevel.LEVEL5} className={classNames(flexStyles.hasTextInfo)}>
                   Complétez le formulaire ci-dessous pour finaliser votre adhésion.
               </Title>
-              <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <Icon size={IconSize.SMALL} name={IconName.EXCLAMATION_CIRCLE} status={IconStatus.TERTIARY}/>
+              <br/>
+              <div style={{ maxWidth: '680px', display: 'flex', flexDirection: 'row', margin: '0 auto'}}>
+                <Icon size={IconSize.SMALL} name={IconName.UI_EXCLAMATION_CIRCLE} status={IconStatus.INFO}/>
                 <Text>
                   Veuillez utiliser l'adresse <strong>{userEmail}</strong> lors du paiement
                   pour que votre adhésion soit automatiquement reliée à votre compte.

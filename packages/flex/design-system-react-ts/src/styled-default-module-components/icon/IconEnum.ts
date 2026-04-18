@@ -15,6 +15,7 @@ export enum IconStatus {
   SUCCESS = 'success',
   WARNING = 'warning',
   TERTIARY = 'tertiary',
+  INFO = 'info',
 }
 
 /**

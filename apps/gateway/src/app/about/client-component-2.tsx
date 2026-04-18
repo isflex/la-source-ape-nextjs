@@ -39,7 +39,7 @@ const About: NextPage<ServerPageInfo> = observer(() => {
   const handleCloseSlide = () => {
     setOverlay(false)
     document.querySelector('html')?.classList.remove(`domOverlayMode__${process.env.NEXT_PUBLIC_BUILD_ID}`)
-    router.push('/')
+    router.push('/newsletter')
   }
 
   const ToggleSlideBtn = () => {
@@ -47,7 +47,7 @@ const About: NextPage<ServerPageInfo> = observer(() => {
     const target = document.querySelector('body #gatewayLayout') as HTMLDivElement | null
     if (!target) return null
     return createPortal(
-      <div className={classNames(stylesPage.slidesMenuOpen)}
+      <div className={classNames(stylesPage.slidesMenuOpen, stylesPage.slidesVersion2)}
         onClick={(e) => {
           ;(e as React.MouseEvent<HTMLDivElement, MouseEvent>).stopPropagation()
         }}>

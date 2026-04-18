@@ -33,21 +33,21 @@ _paginate: false
   }
   h1 {
     color: #25465f;
-    font-size: 1.4em;
+    font-size: 1.1em;
     letter-spacing: 3px;
   }
   h2 {
     color: #25465f;
-    font-size: 1.2em;
+    font-size: 0.8em;
     letter-spacing: 2px;
   }
   p {
     max-width: 100%;
-    font-size: 0.8em;
+    font-size: 0.6em;
     letter-spacing: 0.03em;
     margin: 0 auto;
   }
-  p:not(first-of-type) {
+  p:not(first-of-type):not(.paddingless) {
     margin: 0.5rem auto 0;
   }
   p.align-left {
@@ -134,25 +134,37 @@ _paginate: false
   }
   .logo-ape {
     width: 100%;
-    height: 100%;
+    height: 35%;
     background-image: url('/logo/ape/ape_la_source_logo_1.svg');
     background-repeat: no-repeat;
-    background-size: 25%;
+    background-size: 18%;
+    background-position: center center, 50%, 50%;
+  }
+  .logo-flexiness {
+    width: 100%;
+    height: 25%;
+    background-image: url('/logo/filled/rectangle/logo_flexiness_2.svg');
+    background-repeat: no-repeat;
+    background-size: 20.5%;
     background-position: center center, 50%, 50%;
   }
 
   .infoBox {
     position: relative;
-    font-size: 0.3rem;
+    font-size: 0.6em;
     letter-spacing: 0.05em;
     background-color: #402d6c;
     border-radius: 5px;
     color: #fff;
     text-align: left;
-    padding: 0.3rem 0.25rem 0.25rem 1.25rem;
+    padding: 0.25rem 0.5rem;
     width: 100%;
-    max-width: 50vw;
     margin: 0.25rem auto;
+  }
+
+  .infoBox.boxed {
+    padding: 0.3rem 0.25rem 0.25rem 1.25rem;
+    max-width: 50vw;
   }
 
   li .infoBox {
@@ -255,50 +267,15 @@ _paginate: false
   }
 </style>
 
-# Pourquoi ce site ?
+# Qu'est-ce que c'est ?
 
+## C'est une boîte à outils numérique dédier aux parents d'élèves.
+
+<div class="infoBox info">
+  🏆 Nous proposons des applications pour faciliter la vie communautaire autour de votre école.
+</div>
 <p>
-  L'idée derrière ce site découle du problèmatique du
-</p>
-<p>
-  <strong>&laquo; temps passé devant un écran &raquo;</strong>
-</p>
-<p>
-  auquel tout le monde est confronté aujourd'hui.
-</p>
-
-<!-- Ceci est une note pour le présentateur. Vous pouvez écrire des notes via cette balise de commentaire HTML -->
-
----
-
-![bg opacity](/assets/img/gradient.jpg)
-
-## Interdire ou mieux introduire<br/>le numérique
-
-<p>
-  Si on est tous conscients de la nécessité de mieux modérer, voir réduire, notre consommation d'écrans.
-</p>
-<p>
-  On peut aussi se poser la question :
-</p>
-<p>
-  <strong>&laquo; Quel type d'utilisation on en fait ? &raquo;</strong>
-</p>
-
-<!-- Ceci est une note pour le présentateur. Vous pouvez écrire des notes via cette balise de commentaire HTML -->
-
----
-
-## Développons une meilleure approche au monde numérique
-
-<p>
-  Ce site vise à ouvrir la voie à la participation numérique grâce à une plateforme collaborative axée sur le partage, l'apprentissage et l'entraide.
-</p>
-<p>
-  L'un des éléments est le <a class='link' href='/web-app' target='_blank'>web app</a> qui permet aux parents d'élèves d'organiser et de participer a des activites d'entraide autour de leur école :<br/>covoiturage, pedibus (accompagnement a pied), babysitting, soutien aux devoirs, et d'autres activités si besoin.
-</p>
-<p>
-  Les élèves de l'école peuvent participer avec l'accord de leur parents. L'idée étant qu'on promeut le rôle des parenrs à guider dans leurs choix L'utilisation requière les parents ont aussi la responsabilité d'accompagner leur enfant(s) dans l'utilisation et 
+  Par exemple, l'application <a class='link' href='/web-app' target='_blank'>Chaperons&Co</a> permet aux parents d'organiser et de participer à des activités d'entraide autour de leur école : covoiturage, pédibus (accompagnement a pied), garde d'enfants, aide aux devoirs et autres activités selon les besoins.
 </p>
 
 <!-- Ceci est une note pour le présentateur. Vous pouvez écrire des notes via cette balise de commentaire HTML -->
@@ -307,27 +284,70 @@ _paginate: false
 
 ![bg opacity](/assets/img/gradient.jpg)
 
-## Développons une meilleure approche au monde numérique
+# Pourquoi ce site ?
 
-<p>
-  Les participants sont encouragés à créer du contenu, à produire du code et à expérimenter avec les technologies.
-  Nous souhaitons une approche plus critique au numérique qui dissuade d'une consommation compulsive des écrans tactiles dictée par des algorithmes.
-</p>
+## Nous souhaitons proposer une approche différente du monde numérique, axée sur le partage, l'apprentissage et l'entraide.
+
+Pour encourager la bienveillance et les échanges entre niveaux scolaires, les parents peuvent autoriser leur enfant scolarisé à s'occuper d'autres enfants de l'école grace à l'application <a class='link' href='/web-app' target='_blank'>Chaperons&Co</a>.
+
+Un système d'autorisation détermine qui est autorisé à utiliser l'application web et dans quel contexte, afin de garantir la sécurité de la communauté.
+
+Avec le consentement des parents, l'objectif est de promouvoir leur rôle dans l'accompagnement de leurs enfants vers une utilisation appropriée des technologies numériques et d'encourager un dialogue ouvert sur ce sujet.
 
 <!-- Ceci est une note pour le présentateur. Vous pouvez écrire des notes via cette balise de commentaire HTML -->
 
 ---
 
-## Soyons proactifs avec quelque chose de concret... le code
+# Anticiper l'avenir numérique 
 
-<p>
-  En valorisant l'<a class='link' href='https://www.lemonde.fr/economie/article/2025/01/05/l-open-source-l-armee-de-l-ombre-du-logiciel-et-de-l-intelligence-artificielle_6482931_3234.html' target='_blank'>open source</a>, la transparence et un droit d'accès au <a class='link' href='https://www.lemonde.fr/blog/binaire/2023/06/09/le-logiciel-libre-lopen-source-et-letat-echange-avec-stefano-zacchiroli/' target='_blank'>code source</a>,
-  ce site cherchera à remédier au problème de la surconsommation du numérique en questionnant son fonctionnement,
-  en appréciant sa complexité et les compétences analytiques nécessaires pour le digérer véritablement.
-</p>
+## La programmation ne sera bientôt plus une compétence rare réservée à une élite. 
+
+L'avènement de l'intelligence artificielle la rendra omniprésente et accessible à un large public. C'est pourquoi ce projet met en place le cadre nécessaire pour permettre à chacun de contribuer.
+
+En adoptant une architecture technique et des pratiques courantes dans le secteur, nous établissons les normes et les mesures de sécurité indispensables au développement de nouveaux outils d'IA, guidés par l'intervention <s>l'humain</s> des parents.
+
+
+Si vous souhaitez participer ou si vous pensez que ce logiciel pourrait être utile à votre établissement scolaire, nous vous expliquerons la marche à suivre. Il vous suffit de <a class='link' href='/web-app' target='_blank'>réserver un créneau horaire</a> avec un développeur dédié.
+
+<!-- Ceci est une note pour le présentateur. Vous pouvez écrire des notes via cette balise de commentaire HTML -->
+
+---
+
+![bg opacity](/assets/img/gradient.jpg)
+
+# Interdire ou mieux introduire<br/>le numérique
+
+Si on est tous conscients de la nécessité de mieux modérer, voir réduire, notre consommation d'écrans.
+
+On peut aussi se poser la question :
+
+<strong>&laquo; Quel type d'utilisation on en fait ? &raquo;</strong>
+
+<!-- Ceci est une note pour le présentateur. Vous pouvez écrire des notes via cette balise de commentaire HTML -->
+
+---
+
+# Développons une meilleure approche au monde numérique
+
+## Soyons proactifs avec quelque chose de concret...<br/>le code source
+
+En promouvant l'<a class='link' href='https://www.library.hbs.edu/working-knowledge/open-source-software-the-nine-trillion-resource-companies-take-for-granted' target='_blank'>open source</a>, la transparence et le droit d'accès au <a class='link' href='https://www.sonarsource.com/resources/library/source-code/' target='_blank'>code source</a>, ce site cherchera à lutter contre le problème de la surconsommation de technologies numériques en questionnant leur fonctionnement, en appréciant leur complexité et les compétences analytiques nécessaires pour les maîtriser pleinement.
 
 <!-- Ceci est une note pour le présentateur. Vous pouvez écrire des notes via cette balise de commentaire HTML -->
 
 ---
 
 <div class='logo-ape'></div>
+
+<p class="tiny">
+  Plateforme développée en partenariat avec l'agence web
+</p>
+
+<a href='https://flexiness.com' target='_blank'>
+  <div class='logo-flexiness'></div>
+</a>
+
+<p class="tiny paddingless">
+  Flexiness - 46 rue Vital, 75116 Paris<br/>
+  <a class='link' href='mailto:hello@flexiness.com'>hello@flexiness.com</a>
+</p>

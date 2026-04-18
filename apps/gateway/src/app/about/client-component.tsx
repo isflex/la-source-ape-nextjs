@@ -220,7 +220,7 @@ const About: NextPage<ServerPageInfo> = observer(({ mobileCheck }) => {
   const ToggleSlideBtn = () => {
     if (!showSlide) return null
     return createPortal(
-      <div className={classNames(stylesPage.slidesMenuOpen)}
+      <div className={classNames(stylesPage.slidesMenuOpen, stylesPage.slidesVersion1)}
         onClick={(e) => {
           ;(e as React.MouseEvent<HTMLDivElement, MouseEvent>).stopPropagation()
         }}>

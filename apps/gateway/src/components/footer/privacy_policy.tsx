@@ -298,7 +298,7 @@ const App: React.FC = () => {
               Le responsable du traitement de vos données personnelles dans le cadre de notre service de communication WhatsApp est :
             </Text>
             <ul>
-              <li><strong>Organisation :</strong> Flexiness</li>
+              <li><strong>Organisation :</strong> <Link href='https://flexiness.com' target='_blank'>Flexiness</Link></li>
               <li><strong>Adresse :</strong> 46 rue Vital, 75116 Paris, France</li>
               <li><strong>Email :</strong> <Link href='mailto:hello@flexiness.com'>hello@flexiness.com</Link></li>
               <li><strong>Délégué à la Protection des Données (DPO) :</strong> <Link href='mailto:system_admin@flexiness.com'>system_admin@flexiness.com</Link></li>

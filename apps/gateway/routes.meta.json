@@ -1,7 +1,7 @@
 {
-  "home": {
+  "adhesion": {
     "emoji": "🛩️",
-    "navTitle": "Accueil",
+    "navTitle": "Adhésion",
     "active": true
   },
   "decouverte-des-metiers": {
@@ -32,7 +32,7 @@
   },
   "web-app": {
     "emoji": "🚀",
-    "navTitle": "Web app",
+    "navTitle": "Chaperons&Co",
     "active": true
   }
 }

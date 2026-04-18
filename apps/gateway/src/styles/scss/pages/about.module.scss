@@ -1051,7 +1051,15 @@ $spaghetti-min-height-desk: 864px !default;
   position: fixed;
   top: 1.15rem;
   right: 1.15rem;
-  z-index: 3;
+  z-index: 101;
+
+  &.slides-version-1 {
+    top: 1.15rem;
+  }
+
+  &.slides-version-2 {
+    top: 7.15rem;
+  }
 }
 
 .slides-menu-open .show-slide-btn {
