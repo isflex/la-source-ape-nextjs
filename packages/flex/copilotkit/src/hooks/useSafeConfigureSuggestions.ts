@@ -1,6 +1,6 @@
 'use client';
 
-import { useConfigureSuggestions } from '@copilotkitnext/react';
+import { useConfigureSuggestions } from '@copilotkit/react-core/v2';
 
 /**
  * Safe wrapper around useConfigureSuggestions that only calls the hook when CopilotKit is enabled.

@@ -1,0 +1,33 @@
+{
+  "extends": "@flexiness/tsconfig/base.cjs.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es6",
+    "lib": ["ES2022","dom","dom.iterable"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "isolatedModules": false,
+    "baseUrl": ".",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "rootDir": "./lib",
+  },
+  "include": [
+    "lib/**/*",
+  ],
+  "exclude": [
+    "node_modules",
+    "dist/**/*",
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "nodenext"
+    }
+  },
+}

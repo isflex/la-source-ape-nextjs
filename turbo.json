@@ -36,7 +36,11 @@
       "persistent": true
     },
     "//#compile:clean:sh": {
-      "dependsOn": ["@flexiness/domain-utils#compile:tsup", "@flexiness/copilotkit#compile:tsup"],
+      "dependsOn": [
+        "@flexiness/domain-utils#compile:tsup",
+        "@flexiness/copilotkit#compile:tsup",
+        "@flexiness/typed-scss-modules#compile:proj:ref:cjs:phase1"
+      ],
       "outputs": [
         "packages/flex/design-system-react-ts/dist/**",
         "packages/flex/domain-store/dist/**",

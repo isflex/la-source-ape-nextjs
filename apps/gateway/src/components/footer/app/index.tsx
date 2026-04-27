@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
         <small>
           <Link href={`/privacy_policy`} target='_blank' rel='privacy-policy'>politique de confidentialité</Link>
         </small>
-        <button className={stylesGeneric.btnStd} onClick={() => window.open('https://flexiness.com', '_blank')}>
+        <button className={stylesGeneric.btnStd} onClick={() => window.open('https://www.flexiness.com', '_blank')}>
           <LogoFlex
             ref={ref}
             className={stylesLogo.logoFooter}

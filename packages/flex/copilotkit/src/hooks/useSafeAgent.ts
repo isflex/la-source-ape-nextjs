@@ -1,6 +1,6 @@
 'use client';
 
-import { useAgent } from '@copilotkitnext/react';
+import { useAgent } from '@copilotkit/react-core/v2';
 
 type UseAgentReturn = ReturnType<typeof useAgent>;
 

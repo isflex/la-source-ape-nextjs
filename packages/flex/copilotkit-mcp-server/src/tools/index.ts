@@ -305,7 +305,7 @@ export async function handleValidateIntegration(
     if (analysis.hasCopilotKitIntegration && !analysis.existingReadables.some((r) => r.isV2)) {
       issues.push(
         'Component imports from @copilotkit/react-core which is deprecated. ' +
-        'Use @flexiness/copilotkit (useSafeAgentContext, useSafeFrontendTool) or @copilotkitnext/react (useAgent) instead.'
+        'Use @flexiness/copilotkit (useSafeAgentContext, useSafeFrontendTool) or @copilotkit/react-core/v2 (useAgent) instead.'
       );
     }
 

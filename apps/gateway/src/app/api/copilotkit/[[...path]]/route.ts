@@ -21,11 +21,18 @@
  *
  * @see https://docs.copilotkit.ai/whats-new/v1-50#v2-interfaces
  */
+import { AsyncLocalStorage } from "node:async_hooks";
+
 import { CopilotRuntime, InMemoryAgentRunner, createCopilotEndpoint } from "@copilotkit/runtime/v2";
 import { HttpAgent } from "@ag-ui/client";
+import type { RunAgentInput } from "@ag-ui/client";
 import { handle } from "hono/vercel";
+import { NextResponse, type NextRequest } from "next/server";
+import { fetchAuthSession } from "aws-amplify/auth/server";
 
 import { debug } from "@flexiness/domain-utils";
+
+import { runWithAmplifyServerContext } from "@src/utils/amplify/server/app.router";
 
 // Next.js runtime configuration
 export const runtime = "nodejs";
@@ -37,8 +44,28 @@ const AGENT_ID = process.env.NEXT_PUBLIC_COPILOTKIT_AGENT_ID || "ape_assistant";
 
 debug.copilotKit(`[v2] Agent "${AGENT_ID}" → ${AGENT_URL}`);
 
+// Per-request Cognito access token, read inside HttpAgent.requestInit().
+// HttpAgent is constructed once at module scope; ALS gives us a safe way to
+// scope request-specific values without mutating the shared instance.
+const authTokenStore = new AsyncLocalStorage<string | undefined>();
+
+class AuthForwardingHttpAgent extends HttpAgent {
+  protected requestInit(input: RunAgentInput): RequestInit {
+    const base = super.requestInit(input);
+    const token = authTokenStore.getStore();
+    if (!token) return base;
+    return {
+      ...base,
+      headers: {
+        ...(base.headers as Record<string, string> | undefined),
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  }
+}
+
 // Create the HttpAgent instance (shared between aliases)
-const strandsAgent = new HttpAgent({ url: AGENT_URL });
+const strandsAgent = new AuthForwardingHttpAgent({ url: AGENT_URL });
 
 // Create v2 runtime with HttpAgent proxying to Python Strands agent
 // Include both the named agent and 'default' alias for compatibility
@@ -111,11 +138,16 @@ app.post("/", async (c) => {
       // We need to make an internal fetch to the agent endpoint
       const agentUrl = new URL(`/api/copilotkit/agent/${resolvedAgentId}/${action}`, c.req.url);
 
+      // The inner fetch re-enters this Next route in a fresh request scope
+      // (no cookies) so we forward the caller's bearer token so the nested
+      // getCognitoAccessToken() call still yields the right ALS value.
+      const innerHeaders: Record<string, string> = { "Content-Type": "application/json" };
+      const forwardedToken = authTokenStore.getStore();
+      if (forwardedToken) innerHeaders.Authorization = `Bearer ${forwardedToken}`;
+
       const response = await fetch(agentUrl.toString(), {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: innerHeaders,
         body: JSON.stringify(requestBody || {}),
       });
 
@@ -151,6 +183,29 @@ app.post("/", async (c) => {
 
 // Export handlers using Hono's Vercel adapter with debug logging
 const honoHandler = handle(app);
+
+async function getCognitoAccessToken(req: NextRequest): Promise<string | undefined> {
+  // Fast path: if the caller already carries a bearer token (internal re-entry
+  // from the root JSON-RPC handler), reuse it instead of re-reading cookies.
+  const authHeader = req.headers.get("authorization");
+  if (authHeader?.toLowerCase().startsWith("bearer ")) {
+    return authHeader.slice("bearer ".length).trim();
+  }
+
+  const response = new NextResponse();
+  try {
+    return await runWithAmplifyServerContext({
+      nextServerContext: { request: req, response },
+      operation: async (contextSpec) => {
+        const session = await fetchAuthSession(contextSpec);
+        return session.tokens?.accessToken?.toString();
+      },
+    });
+  } catch (error) {
+    debug.copilotKit("Failed to read Cognito session:", error);
+    return undefined;
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Request throttle — prevents CopilotKit SDK polling from flooding the logs
@@ -216,7 +271,7 @@ async function cacheResponse(method: string, pathname: string, response: Respons
   });
 }
 
-export const GET = async (req: Request, ctx: { params: Promise<{ path?: string[] }> }) => {
+export const GET = async (req: NextRequest, ctx: { params: Promise<{ path?: string[] }> }) => {
   const params = await ctx.params;
   const pathname = new URL(req.url).pathname;
 
@@ -230,11 +285,12 @@ export const GET = async (req: Request, ctx: { params: Promise<{ path?: string[]
     pathname,
   });
 
-  const response = await honoHandler(req);
+  const token = await getCognitoAccessToken(req);
+  const response = await authTokenStore.run(token, () => honoHandler(req));
   return cacheResponse("GET", pathname, response);
 };
 
-export const POST = async (req: Request, ctx: { params: Promise<{ path?: string[] }> }) => {
+export const POST = async (req: NextRequest, ctx: { params: Promise<{ path?: string[] }> }) => {
   const params = await ctx.params;
   const pathname = new URL(req.url).pathname;
 
@@ -250,9 +306,11 @@ export const POST = async (req: Request, ctx: { params: Promise<{ path?: string[
     path: params.path,
     url: req.url,
     pathname,
+    hasAuth: req.headers.has("authorization") || req.headers.has("cookie"),
   });
 
-  const response = await honoHandler(req);
+  const token = await getCognitoAccessToken(req);
+  const response = await authTokenStore.run(token, () => honoHandler(req));
 
   if (isPollingRequest) {
     return cacheResponse("POST", pathname, response);

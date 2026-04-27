@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, ReactNode } from 'react';
-import { useAgentContext } from '@copilotkitnext/react';
+import { useAgentContext } from '@copilotkit/react-core/v2';
 import { reaction, toJS } from 'mobx';
 
 /**

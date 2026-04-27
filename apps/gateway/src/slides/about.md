@@ -298,14 +298,13 @@ Avec le consentement des parents, l'objectif est de promouvoir leur rôle dans l
 
 ---
 
-# Anticiper l'avenir numérique 
+# Anticiper l'avenir numérique
 
-## La programmation ne sera bientôt plus une compétence rare réservée à une élite. 
+## La programmation ne sera bientôt plus une compétence rare réservée à une élite.
 
 L'avènement de l'intelligence artificielle la rendra omniprésente et accessible à un large public. C'est pourquoi ce projet met en place le cadre nécessaire pour permettre à chacun de contribuer.
 
 En adoptant une architecture technique et des pratiques courantes dans le secteur, nous établissons les normes et les mesures de sécurité indispensables au développement de nouveaux outils d'IA, guidés par l'intervention <s>l'humain</s> des parents.
-
 
 Si vous souhaitez participer ou si vous pensez que ce logiciel pourrait être utile à votre établissement scolaire, nous vous expliquerons la marche à suivre. Il vous suffit de <a class='link' href='/web-app' target='_blank'>réserver un créneau horaire</a> avec un développeur dédié.
 
@@ -336,6 +335,8 @@ En promouvant l'<a class='link' href='https://www.library.hbs.edu/working-knowle
 <!-- Ceci est une note pour le présentateur. Vous pouvez écrire des notes via cette balise de commentaire HTML -->
 
 ---
+
+![bg opacity](/assets/img/gradient.jpg)
 
 <div class='logo-ape'></div>
 

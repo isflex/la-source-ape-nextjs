@@ -37,6 +37,17 @@ applications:
           commands:
             # Create symlink to root pnpm-lock.yaml for monorepo support
             - ln -sf ../../pnpm-lock.yaml apps/gateway/pnpm-lock.yaml
+            # CDK Lambda bundling enforces that the lambda source is under
+            # the projectRoot (apps/gateway). pnpm's hoisted node-linker
+            # places @aws-amplify/backend at the repo root, triggering
+            # [PathNotUnderRoot] during ampx pipeline-deploy. Hardlink-copy
+            # (cp -al) the package into apps/gateway/node_modules so its
+            # realpath sits under projectRoot. Hardlinks share inodes, so
+            # this adds zero disk usage. Node's module resolution walks up
+            # for transitive deps and finds them in the repo-root tree.
+            - mkdir -p apps/gateway/node_modules/@aws-amplify
+            - cp -al node_modules/@aws-amplify/backend apps/gateway/node_modules/@aws-amplify/backend
+            - cp -al node_modules/@aws-amplify/backend-cli apps/gateway/node_modules/@aws-amplify/backend-cli
             - cd apps/gateway
             # # Check current AWS identity
             # - aws sts get-caller-identity

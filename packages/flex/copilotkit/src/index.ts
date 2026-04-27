@@ -39,17 +39,22 @@
  * @see https://docs.copilotkit.ai/whats-new/v1-50#v2-interfaces
  */
 
-// v2 Re-exports from copilotkitnext
-export { CopilotKitProvider, useAgent, useAgentContext, useFrontendTool } from '@copilotkitnext/react';
-export { CopilotSidebar, CopilotPopup } from '@copilotkitnext/react';
+// v2 Re-exports from @copilotkit/react-core/v2
+export { CopilotKitProvider, useAgent, useAgentContext, useFrontendTool } from '@copilotkit/react-core/v2';
+export { CopilotSidebar, CopilotPopup } from '@copilotkit/react-core/v2';
 
-// Human-in-the-Loop hook from @copilotkitnext/react
+// Human-in-the-Loop hook from @copilotkit/react-core/v2
 // Use for flows where agent should PAUSE until user responds
-export { useHumanInTheLoop, type ReactHumanInTheLoop } from '@copilotkitnext/react';
+export { useHumanInTheLoop, type ReactHumanInTheLoop } from '@copilotkit/react-core/v2';
 
-// Suggestions hook from @copilotkitnext/react
+// Suggestions hook from @copilotkit/react-core/v2
 // Use for registering static or dynamic chat suggestions
-export { useConfigureSuggestions } from '@copilotkitnext/react';
+export { useConfigureSuggestions } from '@copilotkit/react-core/v2';
+
+// Chat configuration hook from @copilotkit/react-core/v2
+// Exposes the resolved threadId (auto-generated when not explicit) so callers
+// can capture it and persist for cross-reload session continuity.
+export { useCopilotChatConfiguration } from '@copilotkit/react-core/v2';
 
 // Types (client-safe)
 export type {
@@ -80,7 +85,7 @@ export {
 } from './bridges/index.js';
 
 // Hooks (client-side)
-// Note: useAgentContext and useAgent are exported above from @copilotkitnext/react
+// Note: useAgentContext and useAgent are exported above from @copilotkit/react-core/v2
 // Safe wrappers that only call hooks when CopilotKit is enabled
 export { useSafeAgentContext, useSafeAgent, useSafeFrontendTool, useSafeHumanInTheLoop, useSafeConfigureSuggestions } from './hooks/index.js';
 // Legacy v1 hooks - DEPRECATED, kept for backwards compatibility

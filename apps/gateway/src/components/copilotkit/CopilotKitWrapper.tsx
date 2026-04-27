@@ -17,6 +17,8 @@ import {
   FlexCopilotProvider,
   StoreContextBridge,
   AuthContextBridge,
+  useAgent,
+  useCopilotChatConfiguration,
   type AuthUserContext,
 } from '@flexiness/copilotkit';
 import { toJS } from 'mobx';
@@ -24,6 +26,10 @@ import { RootStore } from '@src/stores/root-store';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import type { UserInterfaceStore } from '@flexiness/domain-store';
 import { debug } from '@flexiness/domain-utils';
+import {
+  AuthRequiredWelcomeScreen,
+  AuthenticatedWelcomeMessage,
+} from './AuthRequiredWelcomeScreen';
 
 // Agent configuration - centralized via environment variable
 // Must match: route.ts AGENT_ID, Python agent name
@@ -223,20 +229,119 @@ function CopilotKitContent({ children }: { children: React.ReactNode }) {
 const THREAD_STORAGE_KEY = 'copilotkit_thread_id';
 
 /**
- * Generate or restore a stable threadId from sessionStorage.
- * Survives same-tab navigations (e.g. Google auth redirect) but
- * resets on new tab / browser close (sessionStorage is tab-scoped).
+ * sessionStorage envelope. Tagging with userId lets us drop a stored
+ * thread that belongs to a different identity (or to no current session
+ * at all) so a stale value from a prior dev session — or from a
+ * different Cognito user signing in later in the same tab — can't make
+ * CopilotKit treat us as a returning conversation.
  */
-function useStableThreadId(): string {
-  const [threadId] = useState(() => {
-    if (typeof window === 'undefined') return '';
-    const stored = sessionStorage.getItem(THREAD_STORAGE_KEY);
-    if (stored) return stored;
-    const newId = crypto.randomUUID();
-    sessionStorage.setItem(THREAD_STORAGE_KEY, newId);
-    return newId;
+type StoredThread = { threadId: string; userId: string };
+
+function readStoredThread(): StoredThread | null {
+  if (typeof sessionStorage === 'undefined') return null;
+  const raw = sessionStorage.getItem(THREAD_STORAGE_KEY);
+  if (!raw) return null;
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (
+      parsed !== null &&
+      typeof parsed === 'object' &&
+      typeof (parsed as { threadId?: unknown }).threadId === 'string' &&
+      typeof (parsed as { userId?: unknown }).userId === 'string'
+    ) {
+      return parsed as StoredThread;
+    }
+  } catch {
+    // legacy plain-string format / corrupt JSON — fall through, caller treats as stale
+  }
+  return null;
+}
+
+/**
+ * Restore (but never generate) a stable threadId from sessionStorage,
+ * gated on the current Cognito identity.
+ *
+ * Generation is deferred to CopilotKit itself: when no threadId is passed,
+ * its CopilotChatConfigurationProvider auto-generates one and keeps
+ * `hasExplicitThreadId=false`, which is the condition that lets the
+ * welcome-screen branch fire for fresh sessions. We capture that
+ * auto-generated id and persist it after the user's first message, so a
+ * later same-tab reload can resume by passing it back as an explicit
+ * threadId (which triggers connect/resume).
+ *
+ * `currentUserId` is the source of truth for "whose thread is this" —
+ * stored values that don't match (or any legacy plain-UUID format) are
+ * cleared. Sign-out (currentUserId → null) also clears, so a different
+ * user signing in next can't inherit the prior conversation.
+ *
+ * `isReady` distinguishes "still loading" (server / first client render)
+ * from "loaded but empty" (fresh session) so the SSR/hydration gate stays
+ * correct without coupling to whether a value was found.
+ */
+function useStableThreadId(currentUserId: string | null): {
+  threadId: string | null;
+  isReady: boolean;
+} {
+  const [state, setState] = useState<{ threadId: string | null; isReady: boolean }>({
+    threadId: null,
+    isReady: false,
   });
-  return threadId;
+  useEffect(() => {
+    const stored = readStoredThread();
+    if (!currentUserId) {
+      // Signed out / not yet signed in: drop any leftover.
+      if (stored || sessionStorage.getItem(THREAD_STORAGE_KEY)) {
+        sessionStorage.removeItem(THREAD_STORAGE_KEY);
+      }
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setState({ threadId: null, isReady: true });
+      return;
+    }
+    if (stored && stored.userId === currentUserId) {
+      setState({ threadId: stored.threadId, isReady: true });
+      return;
+    }
+    // Wrong-user / malformed / legacy format → clear and start fresh.
+    if (sessionStorage.getItem(THREAD_STORAGE_KEY)) {
+      sessionStorage.removeItem(THREAD_STORAGE_KEY);
+    }
+    setState({ threadId: null, isReady: true });
+  }, [currentUserId]);
+  return state;
+}
+
+/**
+ * Headless component placed inside FlexCopilotProvider that captures
+ * CopilotKit's resolved threadId (auto-generated for fresh sessions) and
+ * persists it to sessionStorage on the first user message — stamped with
+ * the current Cognito userId so useStableThreadId can verify ownership
+ * on a later reload. Subsequent same-tab reloads pick it up and pass it
+ * back as an explicit threadId so the v2 runtime resumes the conversation.
+ */
+function ThreadIdPersistence({
+  agentId,
+  userId,
+}: {
+  agentId: string;
+  userId: string | null;
+}) {
+  const config = useCopilotChatConfiguration();
+  const { agent } = useAgent({ agentId });
+
+  useEffect(() => {
+    if (!config?.threadId || !agent || !userId) return;
+    const subscription = agent.subscribe({
+      onMessagesChanged: ({ messages }) => {
+        if (messages.length > 0) {
+          const envelope: StoredThread = { threadId: config.threadId, userId };
+          sessionStorage.setItem(THREAD_STORAGE_KEY, JSON.stringify(envelope));
+        }
+      },
+    });
+    return () => subscription.unsubscribe();
+  }, [agent, config?.threadId, userId]);
+
+  return null;
 }
 
 /**
@@ -255,7 +360,10 @@ function useStableThreadId(): string {
  */
 export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) {
   const isEnabled = process.env.NEXT_PUBLIC_COPILOTKIT_ENABLED === 'true';
-  const threadId = useStableThreadId();
+  const { user, authStatus } = useAuthenticator((ctx) => [ctx.user, ctx.authStatus]);
+  const currentUserId =
+    authStatus === 'authenticated' ? user?.userId ?? null : null;
+  const { threadId: storedThreadId, isReady } = useStableThreadId(currentUserId);
   const [disabledByError, setDisabledByError] = useState(false);
 
   const handleChildError = useCallback(() => {
@@ -266,13 +374,39 @@ export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) 
   // Listen for window-level errors (async, event handlers) that React boundaries miss
   useWindowErrorDetection(handleChildError, isEnabled && !disabledByError);
 
-  console.log(`[CopilotKitWrapper] isEnabled: ${isEnabled}, disabledByError: ${disabledByError}`);
+  // Authenticated users get CopilotKit's default sidebar welcome layout
+  // with our title/body swapped into the welcomeMessage subslot — the
+  // default's `cpk:` classes own visibility/centering. Unauthenticated
+  // users get the full-screen sign-in CTA in place of the default. Memo
+  // keeps object identity stable so MemoizedSlotWrapper doesn't churn.
+  const welcomeScreenSlot = useMemo(
+    () =>
+      authStatus === 'authenticated'
+        ? { welcomeMessage: AuthenticatedWelcomeMessage }
+        : AuthRequiredWelcomeScreen,
+    [authStatus],
+  );
 
-  if (!isEnabled || disabledByError) {
-    // CopilotKit disabled or killed by error - render children without CopilotKit
+  console.log(`[CopilotKitWrapper] isEnabled: ${isEnabled}, disabledByError: ${disabledByError}, isReady: ${isReady}, authStatus: ${authStatus}`);
+
+  // Hold off rendering the provider until sessionStorage has been read on
+  // the client. SSR and the first client render both produce just
+  // `{children}`, so hydration agrees regardless of stored value.
+  if (!isEnabled || disabledByError || !isReady) {
+    // CopilotKit disabled, killed by error, or sessionStorage not yet resolved
     // Pages using useSafeAgentContext will no-op based on the same env var
     return <>{children}</>;
   }
+
+  // Pass threadId only when authenticated AND a stored value already
+  // exists (i.e. user has engaged before in this tab). Otherwise let
+  // CopilotKit auto-generate an implicit threadId so hasExplicitThreadId
+  // stays false and the welcome-screen branch fires — that's how the
+  // unauthenticated CTA and the authenticated greeting both reach the
+  // user. ThreadIdPersistence captures the implicit threadId after the
+  // first user message so the next reload resumes via the explicit path.
+  const sidebarThreadId =
+    authStatus === 'authenticated' && storedThreadId ? storedThreadId : undefined;
 
   // Wrap CopilotKit in error boundary to prevent crashes when CopilotKit fails
   // If CopilotKit fails, children render without it
@@ -283,15 +417,17 @@ export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) 
       <FlexCopilotProvider
         agentId={AGENT_ID}
         sidebarConfig={{
-          threadId,
+          threadId: sidebarThreadId,
           defaultOpen: false,
           header: 'Assistant APE',
           labels: {
             modalHeaderTitle: 'Assistant APE',
             chatInputPlaceholder: 'Comment puis-je vous aider?',
           },
+          welcomeScreen: welcomeScreenSlot,
         }}
       >
+        <ThreadIdPersistence agentId={AGENT_ID} userId={currentUserId} />
         <CopilotKitContent>
           <ChildrenErrorBoundary onError={handleChildError}>
             {children}

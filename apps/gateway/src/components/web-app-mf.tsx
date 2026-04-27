@@ -4,7 +4,7 @@ import React from 'react'
 import * as mobx from 'mobx'
 import * as mobxReactLite from 'mobx-react-lite'
 import * as framerMotion from 'framer-motion'
-import * as copilotkitNextReact from '@copilotkitnext/react'
+import * as copilotkitReactCoreV2 from '@copilotkit/react-core/v2'
 import * as agUiClient from '@ag-ui/client'
 import * as agUiCore from '@ag-ui/core'
 import * as agUiEncoder from '@ag-ui/encoder'
@@ -98,13 +98,13 @@ const WebAppMF: React.FC<{mobileCheck: boolean}> = observer(() => {
             requiredVersion: '12.23.12',
           },
         },
-        '@copilotkitnext/react': {
-          version: '1.54.1',
+        '@copilotkit/react-core/v2': {
+          version: '1.56.3',
           scope: 'default',
-          lib: () => copilotkitNextReact,
+          lib: () => copilotkitReactCoreV2,
           shareConfig: {
             singleton: true,
-            requiredVersion: '^1.54.1',
+            requiredVersion: '^1.56.3',
           },
         },
         '@ag-ui/client': {

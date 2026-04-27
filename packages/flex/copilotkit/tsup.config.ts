@@ -21,7 +21,7 @@ export default defineConfig((options: Options) => ({
     'mobx',
     '@copilotkit/react-core',
     '@copilotkit/react-ui',
-    '@copilotkitnext/react',
+    '@copilotkit/react-core/v2',
   ],
   ...options,
 }));

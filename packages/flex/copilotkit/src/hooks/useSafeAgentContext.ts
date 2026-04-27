@@ -1,6 +1,6 @@
 'use client';
 
-import { useAgentContext } from '@copilotkitnext/react';
+import { useAgentContext } from '@copilotkit/react-core/v2';
 
 type AgentContextParams = Parameters<typeof useAgentContext>[0];
 

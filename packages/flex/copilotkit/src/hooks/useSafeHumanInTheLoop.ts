@@ -1,6 +1,6 @@
 'use client';
 
-import { useHumanInTheLoop, type ReactHumanInTheLoop } from '@copilotkitnext/react';
+import { useHumanInTheLoop, type ReactHumanInTheLoop } from '@copilotkit/react-core/v2';
 
 /**
  * Safe wrapper around useHumanInTheLoop that only calls the hook when CopilotKit is enabled.

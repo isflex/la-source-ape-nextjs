@@ -126,7 +126,7 @@ function hasUseClientDirective(sourceCode: string): boolean {
 function hasCopilotKitImports(sourceCode: string): boolean {
   return (
     sourceCode.includes('@copilotkit/react-core') ||
-    sourceCode.includes('@copilotkitnext/react') ||
+    sourceCode.includes('@copilotkit/react-core/v2') ||
     sourceCode.includes('@flexiness/copilotkit') ||
     sourceCode.includes('useCopilotReadable') ||
     sourceCode.includes('useCopilotAction') ||

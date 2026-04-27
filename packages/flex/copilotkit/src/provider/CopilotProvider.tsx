@@ -2,8 +2,8 @@
 
 import React, { ReactNode } from 'react';
 // import type { FlexGlobalThis } from 'flexiness';
-// v2 components from copilotkitnext for AG-UI protocol support
-import { CopilotKitProvider, CopilotSidebar, useAgent } from '@copilotkitnext/react';
+// v2 components from @copilotkit/react-core/v2 for AG-UI protocol support
+import { CopilotKitProvider, CopilotSidebar, useAgent } from '@copilotkit/react-core/v2';
 import type { FlexCopilotProviderConfig, FlexCopilotSidebarConfig } from '../types';
 import { mergeConfig } from './config';
 
@@ -49,6 +49,8 @@ function FlexCopilotContent({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           header={sidebarConfig.header as any}
           labels={sidebarConfig.labels}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          welcomeScreen={sidebarConfig.welcomeScreen as any}
         />
       )}
     </>

@@ -9,7 +9,7 @@ CopilotKit v2 integration package for the Flexiness monorepo. Provides React hoo
 ## Key Features
 
 - **Safe Hook Wrappers**: `useSafeAgentContext`, `useSafeFrontendTool` — only call hooks when CopilotKit is enabled
-- **Raw v2 Hooks**: `useAgentContext`, `useFrontendTool` (re-exported from `@copilotkitnext/react`)
+- **Raw v2 Hooks**: `useAgentContext`, `useFrontendTool` (re-exported from `@copilotkit/react-core/v2`)
 - **Context Bridges**: `AuthContextBridge` (Cognito user), `StoreContextBridge` (MobX state)
 - **Provider**: `FlexCopilotProvider` — pre-configured CopilotKit wrapper
 - **Actions**: Action creation utilities with type safety
@@ -49,9 +49,9 @@ CopilotKit v2 integration package for the Flexiness monorepo. Provides React hoo
 
 ## Safe Hook Wrappers (`useSafe*` Pattern)
 
-Application code must use `useSafe*` wrappers from `@flexiness/copilotkit` instead of raw hooks from `@copilotkitnext/react`. This ensures the app works when `NEXT_PUBLIC_COPILOTKIT_ENABLED=false`.
+Application code must use `useSafe*` wrappers from `@flexiness/copilotkit` instead of raw hooks from `@copilotkit/react-core/v2`. This ensures the app works when `NEXT_PUBLIC_COPILOTKIT_ENABLED=false`.
 
-| Raw Hook (`@copilotkitnext/react`) | Safe Wrapper (`@flexiness/copilotkit`) | Purpose                        |
+| Raw Hook (`@copilotkit/react-core/v2`) | Safe Wrapper (`@flexiness/copilotkit`) | Purpose                        |
 | ---------------------------------- | -------------------------------------- | ------------------------------ |
 | `useAgentContext`                  | `useSafeAgentContext`                  | Expose state data to agent     |
 | `useFrontendTool`                  | `useSafeFrontendTool`                  | Register agent-callable tools  |

@@ -1,6 +1,6 @@
 'use client';
 
-import { useAgent } from '@copilotkitnext/react';
+import { useAgent } from '@copilotkit/react-core/v2';
 import type { Message } from '@ag-ui/core';
 import { v4 as uuidv4 } from 'uuid';
 

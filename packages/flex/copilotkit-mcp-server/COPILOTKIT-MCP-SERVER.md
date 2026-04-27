@@ -28,4 +28,4 @@ pnpm --filter @flexiness/copilotkit-mcp-server compile:tsup
 
 ## Convention
 
-The MCP server always recommends `useSafe*` wrappers from `@flexiness/copilotkit` instead of raw hooks from `@copilotkitnext/react`. This ensures the app works when `NEXT_PUBLIC_COPILOTKIT_ENABLED=false`.
+The MCP server always recommends `useSafe*` wrappers from `@flexiness/copilotkit` instead of raw hooks from `@copilotkit/react-core/v2`. This ensures the app works when `NEXT_PUBLIC_COPILOTKIT_ENABLED=false`.

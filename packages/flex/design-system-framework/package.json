@@ -86,7 +86,7 @@
     "event-stream": "4.0.1",
     "fancy-log": "2.0.0",
     "fontsubset": "0.2.0",
-    "glob": "10.3.12",
+    "glob": "13.0.6",
     "gulp": "5.0.0",
     "gulp-concat": "2.6.1",
     "gulp-rename": "2.0.0",

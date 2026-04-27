@@ -1,0 +1,11 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "compile:proj:ref:cjs:phase1": {
+      "outputs": ["dist/**"],
+      "cache": true,
+      "persistent": false
+    }
+  }
+}

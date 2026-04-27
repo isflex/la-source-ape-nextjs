@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
-    "@types/node": "22.10.1",
+    "@types/node": "25.6.0",
     "cross-env": "7.0.3",
     "rimraf": "6.1.0",
     "tsup": "^8.5.1",

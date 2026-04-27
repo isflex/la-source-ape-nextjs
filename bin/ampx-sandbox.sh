@@ -12,7 +12,7 @@ echo "Switching to Zod 3.x for Amplify compatibility..."
 node bin/switch-zod-version.mjs 3
 echo "Switching to GraphQL 15.x for Amplify compatibility..."
 node bin/switch-graphql-version.mjs 15
-pnpm install
+./bin/pnpm-install.sh
 
 echo "Running ampx sandbox..."
 cd apps/gateway
@@ -24,6 +24,6 @@ cd "$PROJECT_ROOT"
 node bin/switch-zod-version.mjs 4
 echo "Restoring GraphQL 16.x for local development..."
 node bin/switch-graphql-version.mjs 16
-pnpm install
+./bin/pnpm-install.sh
 
 exit $EXIT_CODE

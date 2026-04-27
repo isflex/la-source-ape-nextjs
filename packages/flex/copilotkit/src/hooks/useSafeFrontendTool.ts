@@ -1,6 +1,6 @@
 'use client';
 
-import { useFrontendTool, type ReactFrontendTool } from '@copilotkitnext/react';
+import { useFrontendTool, type ReactFrontendTool } from '@copilotkit/react-core/v2';
 
 /**
  * Safe wrapper around useFrontendTool that only calls the hook when CopilotKit is enabled.

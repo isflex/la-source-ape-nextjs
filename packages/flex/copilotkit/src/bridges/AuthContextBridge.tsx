@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, ReactNode } from 'react';
-import { useAgentContext } from '@copilotkitnext/react';
+import { useAgentContext } from '@copilotkit/react-core/v2';
 
 /**
  * User context for the agent

@@ -2,7 +2,7 @@
  * @flexiness/copilotkit - Type definitions
  */
 
-import type { ReactNode } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 
 // Readable options for useCopilotReadable wrappers
 export interface ReadableOptions {
@@ -72,6 +72,22 @@ export interface FlexCopilotSidebarConfig {
     chatDisclaimerText?: string;
     [key: string]: string | undefined;
   };
+  /**
+   * Optional replacement for the built-in empty-thread welcome screen.
+   * Accepts the same slot shapes as CopilotKit's `welcomeScreen` slot:
+   *  - a component → replaces the entire welcome screen
+   *  - a boolean → `false` disables, `true` keeps the default
+   *  - a partial-props object → keeps the default screen but overrides
+   *    individual subslots (e.g. `{ welcomeMessage: MyTitleAndBody }`)
+   * Typed loosely because the upstream slot/WelcomeScreenProps types aren't
+   * re-exported from `@copilotkit/react-core/v2`.
+   */
+  welcomeScreen?:
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    | ComponentType<any>
+    | boolean
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    | { welcomeMessage?: ComponentType<any>;[key: string]: unknown };
 }
 
 // Provider configuration

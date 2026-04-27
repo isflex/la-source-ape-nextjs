@@ -87,6 +87,7 @@ const nextConfig = (() => {
     productionBrowserSourceMaps: false,
 
     trailingSlash: false,
+
     async rewrites() {
       // Dynamically load active routes and exclude them from rewrite (except web-app)
       const activeRoutes = JSON.parse(fs.readFileSync('./routes.active.json', 'utf8'))
@@ -127,14 +128,6 @@ const nextConfig = (() => {
         },
       ]
     },
-
-    // `serverRuntimeConfig` configuration option will be removed in Next.js 16
-    // serverRuntimeConfig: {
-    //   PROJECT_ROOT: __dirname,
-    //   FLEX_GATEWAY_NAME: process.env.FLEX_GATEWAY_NAME,
-    //   FLEX_POKER_CLIENT_NAME: process.env.FLEX_POKER_CLIENT_NAME,
-    //   FLEX_POKER_CLIENT_DEPLOYED_REMOTE_HOST: process.env.FLEX_POKER_CLIENT_DEPLOYED_REMOTE_HOST,
-    // },
 
     transpilePackages: [
       '@types/flexiness',
