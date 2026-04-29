@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 import '@flex-design-system/framework/flexslider.scss'
 // import 'flex-design-system-framework/standalone/flexslider.module.scss'
@@ -31,7 +30,7 @@ const showActivePage = function (candidatePages: HTMLDivElement[], activePageNum
   })
 
   if (activePage) {
-    // @ts-expect-error
+    // @ts-expect-error -- parentNode is typed as Node | null; at runtime it's the slider container HTMLElement which has offsetLeft
     const left = -(activePage.offsetLeft - activePage.parentNode.offsetLeft)
     animateAllNodesToLeftDelta(candidatePages, left, doneCallback)
   }
@@ -103,7 +102,7 @@ const enableDragBehavior = function (
 
   const onUp = function () {
     if (dragging) {
-      // @ts-expect-error
+      // @ts-expect-error -- guarded by `dragging` flag: start_x and lastEvent are always set in onDown before onUp can fire
       const delta_x = start_x - getClientX(lastEvent)
 
       if (callbackWhenActivePageIsFound) {
@@ -124,7 +123,7 @@ const enableDragBehavior = function (
 
   const onMove = function (event: SliderEvent) {
     if (dragging) {
-      // @ts-expect-error
+      // @ts-expect-error -- guarded by `dragging` flag: initialLeft and start_x are always set in onDown before onMove can fire
       moveAllNodesToLeft(sliderPagesContainer.children, initialLeft - (start_x - getClientX(event)))
 
       lastEvent = event

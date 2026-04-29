@@ -3,6 +3,10 @@ const rulesBase = {
   'block-spacing': 1,
   'brace-style': 1,
   camelcase: ['warn', { properties: 'always', allow: [
+    // Stripe
+    'payment_method_types', 'line_items', 'price_data', 'product_data', 'unit_amount', 'success_url', 'cancel_url', 'customer_email',
+    // Google calendar
+    'calendar_v3', 'access_token', 'refresh_token', 'access_type',
     // Standard zod schema validation
     'required_error', 'invalid_type_error',
     // Standard amplify auth attributes
@@ -75,6 +79,15 @@ const rulesReact = {
 
 const rulesTS = {
   '@typescript-eslint/no-explicit-any': 1,
+  '@typescript-eslint/no-unused-vars': ['error', {
+    args: 'all',
+    argsIgnorePattern: '^_',
+    caughtErrors: 'all',
+    caughtErrorsIgnorePattern: '^_',
+    destructuredArrayIgnorePattern: '^_',
+    varsIgnorePattern: '^_',
+    ignoreRestSiblings: true,
+  }],
 }
 
 export { rulesBase, rulesReact, rulesTS }

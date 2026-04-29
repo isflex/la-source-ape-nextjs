@@ -13,14 +13,14 @@ root.render(
 )
 
 // // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-// const ModulesDefault = lazy(() => import('./ModulesDefault'))
+// const ModulesDefault = React.lazy(() => import('./ModulesDefault'))
 
 // root.render(
 //   <React.StrictMode>
-//     <Suspense fallback={<div>Loading...</div>}>
+//     <React.Suspense fallback={<div>Loading...</div>}>
 //       <ModulesDefault isStandalone />
-//     </Suspense>
-//   </React.StrictMode>,
+//     </React.Suspense>
+//   </React.StrictMode>
 // )
 
 // If you want your app to work offline and load faster, you can change

@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 'use client'
 
@@ -80,7 +79,7 @@ const ImageListItemRoot = (props: ImageListItemRootProps): React.JSX.Element => 
 const ImageListItem = React.forwardRef<unknown, ImageListItemProps>((props, ref) => {
   const { children, className, cols = 1, rows = 1, style, ...other } = props
 
-  // @ts-expect-error
+  // @ts-expect-error -- ImageListContext is loosely typed (default value is null); destructuring assumes consumers render inside an <ImageList> Provider
   const { rowHeight = 'auto', gap, variant } = React.useContext(ImageListContext)
 
   let height: string | number | undefined = 'auto'
@@ -136,7 +135,7 @@ const ImageListItem = React.forwardRef<unknown, ImageListItemProps>((props, ref)
         if (child.type === 'img') {
           return React.cloneElement(child, {
             key: `${variant}-img-${index}`,
-            // @ts-expect-error
+            // @ts-expect-error -- React 19 types child.props as unknown after isValidElement; we know img children carry className but TS can't narrow it
             className: classNames (classes.img, styles[camelCase(`${classes.img}`) as keyof Styles], child.props.className),
           })
         }
