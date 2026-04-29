@@ -39,6 +39,7 @@
     "lint:flat": "cross-env NODE_OPTIONS='--max-old-space-size=8192' ESLINT_USE_FLAT_CONFIG=true pnpm eslint \"./src/**/*.{ts,tsx}\""
   },
   "dependencies": {
+    "@copilotkit/react-core": "^1.56.3",
     "@dotenvx/dotenvx": "1.44.0",
     "react": "19.2.1",
     "react-dom": "19.2.1",

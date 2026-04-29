@@ -79,21 +79,12 @@ const Input = ({
   id,
   ...others
 }: InputProp): React.JSX.Element => {
-  const [_value, setValue] = React.useState<string>(defaultValue ?? '')
-  const [isHovered, setIsHovered] = React.useState<boolean>(hovered ?? false)
-  const [isFocused, setIsFocused] = React.useState<boolean>(focused ?? false)
-
-  React.useEffect(() => {
-    setValue(value ?? defaultValue ?? '')
-  }, [value, defaultValue])
-
-  React.useEffect(() => {
-    setIsHovered(hovered ?? false)
-  }, [hovered])
-
-  React.useEffect(() => {
-    setIsFocused(focused ?? false)
-  }, [focused])
+  const [internalValue, setInternalValue] = React.useState<string>(defaultValue ?? '')
+  const _value = value !== undefined ? value : internalValue
+  const [internalHovered, setInternalHovered] = React.useState<boolean>(false)
+  const isHovered = hovered !== undefined ? hovered : internalHovered
+  const [internalFocused, setInternalFocused] = React.useState<boolean>(false)
+  const isFocused = focused !== undefined ? focused : internalFocused
 
   const inputIcon = new Map()
   inputIcon.set(InputStatus.SUCCESS, IconName.UI_CHECK_CIRCLE)
@@ -166,7 +157,7 @@ const Input = ({
             }
           }}
           onChange={(e) => {
-            if (!forceControl) setValue(e.target.value)
+            if (!forceControl) setInternalValue(e.target.value)
             if (onChange) {
               onChange({
                 inputName: e.target.name,
@@ -175,11 +166,11 @@ const Input = ({
             }
           }}
           onFocus={() => {
-            setIsFocused(true)
+            setInternalFocused(true)
           }}
-          onBlur={() => setIsFocused(false)}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onBlur={() => setInternalFocused(false)}
+          onMouseEnter={() => setInternalHovered(true)}
+          onMouseLeave={() => setInternalHovered(false)}
           placeholder={placeholder}
         />
         {!search && <label htmlFor={id || idGenerated}>{placeholder}</label>}

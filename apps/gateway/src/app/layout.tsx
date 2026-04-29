@@ -40,12 +40,6 @@ import '@aws-amplify/ui-react/styles.css'
 import '@src/styles/helloasso.css'
 import '@src/styles/tailwind.css'
 
-// Import CopilotKit styles
-// v2 styles (Tailwind v4 based) - provides structure
-import '@copilotkit/react-core/v2/styles.css';
-// v1 styles - provides refined look (complementary to v2)
-// import '@copilotkit/react-ui/styles.css';
-
 const remoteWebAppClient = process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST
 
 // import localFont from 'next/font/local'

@@ -50,11 +50,7 @@ const Button = ({
   onClick,
   ...others
 }: ButtonProps): React.JSX.Element => {
-  const [isDisabled, setDisabled] = React.useState<boolean>(others.disabled || false)
-
-  React.useEffect(() => {
-    setDisabled(others.disabled || false)
-  }, [others.disabled])
+  const isDisabled = others.disabled ?? false
 
   const classes = classNames(
     styles.button,

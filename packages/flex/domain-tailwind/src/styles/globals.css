@@ -1,12 +1,18 @@
 /* Tailwind v4 - CSS-first configuration */
 @import "tailwindcss";
 
+/* Pre-built CopilotKit v2 styles (own preflight + utility set) */
+@import "@copilotkit/react-core/v2/styles.css";
+
 /* Content paths - v4 uses @source instead of config.content */
 @source "../../../../../apps/gateway/src/**/*.{js,ts,jsx,tsx}";
 @source "../../../copilotkit/src/**/*.{js,ts,jsx,tsx}";
 
-/* Load @tailwindcss/forms plugin */
-@plugin "@tailwindcss/forms";
+/* Load @tailwindcss/forms plugin (class strategy: opt-in via .form-* classes only,
+   no global bare-element styling that would override @flex-design-system/framework) */
+@plugin "@tailwindcss/forms" {
+  strategy: "class";
+}
 
 /* Custom theme - replaces tailwind.config.cjs */
 @theme {

@@ -21,12 +21,14 @@ import { default as styles } from '@flex-design-system/framework'
  */
 const Dropdown = ({ className, classList, children, active, ...others }: DropdownWebProps): React.JSX.Element => {
   const [displayDropdown, setDisplayDropdown] = React.useState<boolean>(active || false)
+  const [prevActive, setPrevActive] = React.useState(active)
+
+  if (active !== prevActive) {
+    setPrevActive(active)
+    setDisplayDropdown(active || false)
+  }
 
   const classes = classNames(styles.dropdown, styles.tile, displayDropdown && styles.isActive, className, validate(classList))
-
-  React.useEffect(() => {
-    setDisplayDropdown(active || false)
-  }, [active])
 
   return (
     <div className={styles.field}>

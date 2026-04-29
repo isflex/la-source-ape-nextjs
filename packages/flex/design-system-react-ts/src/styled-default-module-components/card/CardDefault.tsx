@@ -22,11 +22,7 @@ import { default as styles } from '@flex-design-system/framework'
  * @param skeleton Loading card
  */
 const Card = ({ className, classList, flat, horizontal, floating, skeleton, ...others }: CardProps): React.JSX.Element => {
-  const [isLoading, setIsLoading] = React.useState<boolean>(skeleton || false)
-
-  React.useEffect(() => {
-    setIsLoading(skeleton || false)
-  }, [skeleton])
+  const isLoading = skeleton ?? false
 
   const classes = classNames(
     styles.card,

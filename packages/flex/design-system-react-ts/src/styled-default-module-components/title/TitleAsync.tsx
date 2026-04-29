@@ -1,4 +1,4 @@
-'use client'
+'use server'
 
 import React from 'react'
 import classNames from 'classnames'
@@ -14,11 +14,10 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
 // ///////////////////////////////////////////////////////////////////////////
 
 /**
- * Title component
+ * Title component (Server)
  * @param children {ReactNode} Title child
  * @param level {TitleLevel|number} Title size : 1-7
  * @param inverted {Boolean} Title white color
- * - --------------- WEB PROPERTIES ----------------------------------
  * @param markup {string} h1 | h2 | h3 | h4 | h5 | h6 | p | span | div
  * @param className {string} Additionnal css classes
  * @param classList {array} Additionnal css classes
@@ -26,7 +25,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param skeleton
  * @param others
  */
-const Title = ({
+const Title = async ({
   level = TitleLevel.LEVEL1, // defaultProps
   markup,
   children,
@@ -36,7 +35,7 @@ const Title = ({
   skeleton,
   inverted,
   ...others
-}: TitleProps): React.JSX.Element => {
+}: TitleProps): Promise<React.ReactNode> => {
   const isLoading = skeleton ?? false
   const classes = classNames(
     {
@@ -61,7 +60,6 @@ const Title = ({
   return (
     <Tag className={classes} {...others}>
       {children}
-      {/* {encodeString(children)} */}
     </Tag>
   )
 }

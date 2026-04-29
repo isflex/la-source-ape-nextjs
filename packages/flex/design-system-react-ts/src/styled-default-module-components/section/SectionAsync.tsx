@@ -1,4 +1,4 @@
-'use client'
+'use server'
 
 import React from 'react'
 import classNames from 'classnames'
@@ -19,7 +19,7 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  * @param skeleton
  * @param others
  */
-const Section = ({ className, classList, skeleton, ...others }: SectionWebProps): React.JSX.Element => {
+const Section = async ({ className, classList, skeleton, ...others }: SectionWebProps): Promise<React.ReactNode> => {
   const isLoading = skeleton ?? false
 
   return (

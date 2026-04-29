@@ -51,10 +51,6 @@ const Textarea = ({
 }: TextareaProps): React.JSX.Element => {
   const [value, setValue] = React.useState(defaultValue || '')
 
-  React.useEffect(() => {
-    setValue(defaultValue || '')
-  }, [defaultValue])
-
   const wrapperClasses = classNames(styles.field, className, validate(classList))
 
   const controlClasses = classNames(styles.control, styles.hasDynamicPlaceholder, {

@@ -42,14 +42,16 @@ const DropdownItem = ({
   ...others
 }: DropdownItemWebProps): React.JSX.Element => {
   const [_checked, setChecked] = React.useState<boolean>(checked || false)
+  const [prevChecked, setPrevChecked] = React.useState(checked)
 
-  const classes = classNames(styles.dropdownItem, className, validate(classList))
-
-  React.useEffect(() => {
+  if (checked !== prevChecked) {
+    setPrevChecked(checked)
     if (!readonly) {
       setChecked(checked || false)
     }
-  }, [checked, readonly])
+  }
+
+  const classes = classNames(styles.dropdownItem, className, validate(classList))
 
   const idGenerated = nanoid()
 

@@ -20,20 +20,20 @@
       "import": "./dist/styled-default-module-components/index.js",
       "types": "./dist/styled-default-module-components/index.d.ts"
     },
+    "./server-async-styled-default": {
+      "@flexiness/source": "./src/styled-default-module-components/server-async.ts",
+      "import": "./dist/styled-default-module-components/server-async.js",
+      "types": "./dist/styled-default-module-components/server-async.d.ts"
+    },
     "./client-sync-styled-direct/*": {
       "@flexiness/source": "./src/styled-default-module-components/*/index.ts",
       "import": "./dist/styled-default-module-components/*/index.js",
       "types": "./dist/styled-default-module-components/*/index.d.ts"
     },
-    "./server-async-styled-default/*": {
-      "@flexiness/source": "./src/server-async-styled-default-module-components/*/index.ts",
-      "import": "./dist/server-async-styled-default-module-components/*/index.js",
-      "types": "./dist/server-async-styled-default-module-components/*/index.d.ts"
-    },
-    "./temp-server-async-styled-default/*": {
-      "@flexiness/source": "./src/temp-server-async-styled-default-module-components/*/index.ts",
-      "import": "./dist/temp-server-async-styled-default-module-components/*/index.js",
-      "types": "./dist/temp-server-async-styled-default-module-components/*/index.d.ts"
+    "./facets": {
+      "@flexiness/source": "./src/objects/facets/index.ts",
+      "import": "./dist/objects/facets/index.js",
+      "types": "./dist/objects/facets/index.d.ts"
     },
     "./assets/*": {
       "asset": "./build/webpack/web/"

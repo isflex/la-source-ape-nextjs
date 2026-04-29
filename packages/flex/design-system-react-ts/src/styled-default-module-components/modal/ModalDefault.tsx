@@ -47,10 +47,12 @@ const Modal = ({
   ...others
 }: ModalProps): React.JSX.Element => {
   const [display, setDisplay] = React.useState<boolean>(active || false)
+  const [prevActive, setPrevActive] = React.useState(active)
 
-  React.useEffect(() => {
+  if (active !== prevActive) {
+    setPrevActive(active)
     setDisplay(active || false)
-  }, [active])
+  }
 
   const classes = classNames(styles.modal, (display || active) && styles[camelCase(is('active')) as keyof Styles], className, validate(classList))
 

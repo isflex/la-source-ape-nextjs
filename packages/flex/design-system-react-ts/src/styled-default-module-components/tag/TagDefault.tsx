@@ -36,7 +36,15 @@ const Tag = ({
   ...others
 }: TagProps): React.JSX.Element => {
   const [display, setDisplay] = React.useState<boolean>(deletable || false)
-  const [isHovered, setIsHovered] = React.useState<boolean>(hovered ?? false)
+  const [prevDeletable, setPrevDeletable] = React.useState(deletable)
+  const [internalHovered, setInternalHovered] = React.useState<boolean>(false)
+  const isHovered = hovered !== undefined ? hovered : internalHovered
+
+  if (deletable !== prevDeletable) {
+    setPrevDeletable(deletable)
+    setDisplay(deletable || false)
+  }
+
   const classes = classNames(
     styles.tag,
     deletable && styles.isHidden,
@@ -55,14 +63,14 @@ const Tag = ({
     }
   }
   const onnMouseEnterHandle = (e: React.SyntheticEvent) => {
-    setIsHovered(true)
+    setInternalHovered(true)
     if (onMouseEnter) {
       onMouseEnter(e)
     }
   }
 
   const onMouseLeaveHandle = (e: React.SyntheticEvent) => {
-    setIsHovered(false)
+    setInternalHovered(false)
     if (onMouseLeave) {
       onMouseLeave(e)
     }
@@ -77,14 +85,6 @@ const Tag = ({
     className,
     validate(classList),
   )
-
-  React.useEffect(() => {
-    setDisplay(deletable || false)
-  }, [deletable])
-
-  React.useEffect(() => {
-    setIsHovered(hovered ?? false)
-  }, [hovered])
 
   // Deletable tag
   if (deletable && display) {

@@ -23,14 +23,6 @@ import { default as styles, type Styles } from '@flex-design-system/framework'
  */
 const Pagination = ({ className, classList, count, defaultPage = 1, pageSize = 10, onClick, ...others }: PaginationProps): React.JSX.Element => {
   const [currentPage, setCurrentPage] = React.useState<number>(defaultPage)
-  const [arrayPage] = React.useState<Array<number>>(Array.from(Array(count + 1).keys()))
-  const [pager, setPager] = React.useState<Pager>({
-    currentPage: currentPage,
-    pageSize: pageSize,
-    totalPages: pageSize,
-    endPage: count,
-    pages: arrayPage,
-  })
 
   const classes = classNames(
     styles.pagination,
@@ -40,19 +32,16 @@ const Pagination = ({ className, classList, count, defaultPage = 1, pageSize = 1
     validate(classList),
   )
 
-  React.useEffect(() => {
-    // Calculate total pages
+  const pager = React.useMemo<Pager>(() => {
     const totalPages = Math.ceil(count / pageSize)
 
     let startPage = 1
     let endPage = 5
 
     if (totalPages <= 5) {
-      // less than pageSize(default is 5) total pages so show all
       startPage = 1
       endPage = totalPages
     } else {
-      // more than 3 total pages so calculate start and end pages
       if (currentPage <= 3) {
         startPage = 1
         endPage = 5
@@ -65,17 +54,15 @@ const Pagination = ({ className, classList, count, defaultPage = 1, pageSize = 1
       }
     }
 
-    // Create an array of pages
     const pages = [...Array(endPage + 1 - startPage).keys()].map((i) => startPage + i)
 
-    // Set pager object
-    setPager({
+    return {
       currentPage,
       pageSize,
       totalPages,
       endPage,
       pages,
-    })
+    }
   }, [currentPage, pageSize, count])
 
   React.useEffect(() => {

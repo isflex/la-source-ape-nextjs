@@ -38,10 +38,12 @@ const ProductTour = ({
   ...others
 }: ProductTourWebProps): React.JSX.Element => {
   const [display, setDisplay] = React.useState<boolean>(active || false)
+  const [prevActive, setPrevActive] = React.useState(active)
 
-  React.useEffect(() => {
+  if (active !== prevActive) {
+    setPrevActive(active)
     setDisplay(active || false)
-  }, [active])
+  }
 
   const classes = classNames(
     styles.productTour,

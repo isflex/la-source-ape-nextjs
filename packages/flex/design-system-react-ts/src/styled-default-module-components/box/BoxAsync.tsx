@@ -1,5 +1,4 @@
-
-'use client'
+'use server'
 
 import React from 'react'
 import classNames from 'classnames'
@@ -13,9 +12,8 @@ import { default as styles } from '@flex-design-system/framework'
 // ///////////////////////////////////////////////////////////////////////////
 
 /**
- * Box Component
+ * Box Component (Server)
  * @param children {ReactNode} Box child
- * - -------------------------- WEB PROPERTIES -------------------------------
  * @param className {string} Additionnal css classes
  * @param classList {array} Additionnal css classes
  * @param onClick {Function} onClick Event
@@ -23,7 +21,7 @@ import { default as styles } from '@flex-design-system/framework'
  * @param skeleton {boolean} add or remove is-loading & is-loaded classes
  * @param to {string} Box link
  */
-const Box = ({ children, className, classList, onClick, markup, skeleton, to, ...others }: BoxProps): React.JSX.Element => {
+const Box = async ({ children, className, classList, onClick, markup, skeleton, to, ...others }: BoxProps): Promise<React.ReactNode> => {
   const isLoading = skeleton ?? false
 
   if (markup === BoxMarkup.A || to) {
@@ -45,4 +43,4 @@ const Box = ({ children, className, classList, onClick, markup, skeleton, to, ..
   )
 }
 
-export { Box }
+export default Box

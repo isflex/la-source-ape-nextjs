@@ -24,12 +24,14 @@ import { default as styles } from '@flex-design-system/framework'
  */
 const OptionsItem = ({ id, disabled, name, value, checked, label, readonly, onChange, onClick, ...others }: OptionsItemProps): React.JSX.Element => {
   const [_checked, setChecked] = React.useState<boolean>(Boolean(checked) || false)
+  const [prevChecked, setPrevChecked] = React.useState(checked)
 
-  React.useEffect(() => {
+  if (checked !== prevChecked) {
+    setPrevChecked(checked)
     if (readonly) {
       setChecked(checked || false)
     }
-  }, [readonly, checked])
+  }
 
   const idGenerated = nanoid()
 

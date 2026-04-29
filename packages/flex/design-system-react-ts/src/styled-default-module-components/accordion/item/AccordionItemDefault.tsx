@@ -44,8 +44,14 @@ const AccordionItem = ({
 }: AccordionItemProps): React.JSX.Element => {
   const ref = React.useRef<HTMLDivElement>(null)
   const [isActive, setIsActive] = React.useState<boolean>(active || false)
+  const [prevActive, setPrevActive] = React.useState(active)
   const [expandedHeight, setExpandedHeight] = React.useState<string>()
   const [collapsedHeight, setCollapsedHeight] = React.useState<string>()
+
+  if (active !== prevActive) {
+    setPrevActive(active)
+    setIsActive(active || false)
+  }
 
   // Faire à l'avance un pré-calcul de la hauteur de l'accordéon plié et déplié,
   // Ces infos sont enregistrées dans les data-attributs "data-collapsed" et "data-expanded".
@@ -71,10 +77,6 @@ const AccordionItem = ({
     setExpandedHeight(expanded)
     setCollapsedHeight(collapsed)
   }, [isActive])
-
-  React.useEffect(() => {
-    setIsActive(active || false)
-  }, [active])
 
   const toggleAccordion = (e: OnClickEvent) => {
     const target = e.target as TargetElement

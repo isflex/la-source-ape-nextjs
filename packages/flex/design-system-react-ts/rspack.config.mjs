@@ -185,7 +185,7 @@ const getConfig = async (env, argv) => {
       //   remotes: {},
       //   exposes: {
       //     './Styled':  './src/styled-default',
-      //     './StyledAsync':  './src/server-async-styled-default',
+      //     './StyledAsync':  './src/styled-default-module-components/server-async',
       //     './ModulesDefault': './src/views/ModulesDefault',
       //   },
       //   shared: {

@@ -42,6 +42,12 @@ const Tabs = ({
   ...others
 }: TabsProps): React.JSX.Element => {
   const [activateIndex, setActivateIndex] = React.useState<number>(activeIndex || 0)
+  const [prevActiveIndex, setPrevActiveIndex] = React.useState(activeIndex)
+
+  if (activeIndex !== prevActiveIndex) {
+    setPrevActiveIndex(activeIndex)
+    setActivateIndex(activeIndex || 0)
+  }
 
   const classes = classNames(
     styles.tabs,
@@ -71,10 +77,6 @@ const Tabs = ({
       onClick(e)
     }
   }
-
-  React.useEffect(() => {
-    setActivateIndex(activateIndex)
-  }, [activateIndex])
 
   return (
     <div className={classes} role='tablist' {...others}>

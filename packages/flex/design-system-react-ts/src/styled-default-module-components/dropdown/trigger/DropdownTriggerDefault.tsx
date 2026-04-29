@@ -23,12 +23,14 @@ import { default as styles } from '@flex-design-system/framework'
  */
 const DropdownTrigger = ({ className, classList, active, onClick, label, name, ...others }: DropdownTriggerWebProps): React.JSX.Element => {
   const [triggered, setTriggered] = React.useState<boolean>(active || false)
+  const [prevActive, setPrevActive] = React.useState(active)
+
+  if (active !== prevActive) {
+    setPrevActive(active)
+    setTriggered(active || false)
+  }
 
   const classes = classNames(styles.dropdownTrigger, triggered && is('triggered'), className, validate(classList))
-
-  React.useEffect(() => {
-    setTriggered(active || false)
-  }, [active])
 
   return (
     <div

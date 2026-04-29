@@ -24,6 +24,12 @@ import { default as styles } from '@flex-design-system/framework'
  */
 const TabsItem = ({ active, children, className, classList, onClick, ...others }: TabsItemProps): React.JSX.Element => {
   const [activeItem, setActiveItem] = React.useState<boolean>(active || false)
+  const [prevActive, setPrevActive] = React.useState(active)
+
+  if (active !== prevActive) {
+    setPrevActive(active)
+    setActiveItem(active || false)
+  }
 
   // accessibility
   const a11y = {
@@ -35,10 +41,6 @@ const TabsItem = ({ active, children, className, classList, onClick, ...others }
       'aria-selected': activeItem,
     },
   }
-
-  React.useEffect(() => {
-    setActiveItem(active || false)
-  }, [active])
 
   return (
     <li

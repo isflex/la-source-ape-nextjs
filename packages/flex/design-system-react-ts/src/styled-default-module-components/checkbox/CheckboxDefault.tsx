@@ -51,6 +51,14 @@ const Checkbox = ({
   ...others
 }: CheckboxProps): React.JSX.Element => {
   const [_checked, setChecked] = React.useState<boolean>(checked || false)
+  const [prevChecked, setPrevChecked] = React.useState(checked)
+
+  if (checked !== prevChecked) {
+    setPrevChecked(checked)
+    if (!readonly) {
+      setChecked(checked || false)
+    }
+  }
 
   const classes = classNames(
     styles.input,
@@ -64,12 +72,6 @@ const Checkbox = ({
   )
 
   const labelClasses = classNames(checked && styles[camelCase(has('text-info')) as keyof Styles], labelClassName)
-
-  React.useEffect(() => {
-    if (!readonly) {
-      setChecked(checked || false)
-    }
-  }, [checked, readonly])
 
   const idGenerated = nanoid()
 
