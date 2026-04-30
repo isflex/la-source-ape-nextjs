@@ -221,7 +221,7 @@ const setupSlider = function (slider: HTMLDivElement) {
     const getParsedDuration = durationAttribute !== null ? parseInt(durationAttribute) : null
     const duration: Duration = getParsedDuration || timerDurationDefault
 
-    const enableTimer = (sliderTimer: Element, duration: Duration) => {
+    const enableTimer = (_sliderTimer: Element, duration: Duration) => {
       timerInterval = setInterval(function () {
         activePageIndex = modulo(activePageIndex + 1, numberOfPages)
         updateViewToActivePage()

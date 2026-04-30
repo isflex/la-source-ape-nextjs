@@ -229,7 +229,7 @@ export const contentBlockGeneratorHTML = (
   subtitle?: string,
   content?: string,
   href?: string,
-  filename?: string,
+  _filename?: string,
   filetype?: string,
   encoding?: string
 ): string => {

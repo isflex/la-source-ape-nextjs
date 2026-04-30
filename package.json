@@ -26,7 +26,7 @@
     "dev:turbo": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- turbo run dev:turbo",
     "install:dev": "./bin/pnpm-install.sh",
     "install:prod": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- ./bin/run-install-prod.sh",
-    "lint": "cross-env NODE_OPTIONS='--max-old-space-size=8192' turbo run lint --concurrency 1",
+    "lint": "cross-env NODE_OPTIONS='--max-old-space-size=8192' turbo run lint --continue --concurrency 1",
     "listen:stripe": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- stripe listen --forward-to $FLEX_GATEWAY_HOST/api/cagnotte/webhook/",
     "prepare": "node .husky/install.mjs",
     "reset:compile": "./bin/run-reset-compile.sh",
