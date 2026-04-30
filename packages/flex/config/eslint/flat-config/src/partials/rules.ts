@@ -3,10 +3,12 @@ const rulesBase = {
   'block-spacing': 1,
   'brace-style': 1,
   camelcase: ['warn', { properties: 'always', allow: [
-    // Stripe
+    // Stripe API
     'payment_method_types', 'line_items', 'price_data', 'product_data', 'unit_amount', 'success_url', 'cancel_url', 'customer_email',
-    // Google calendar
+    // Google Calendar API
     'calendar_v3', 'access_token', 'refresh_token', 'access_type',
+    // Google Routes API
+    'place_ID', 'formatted_address', 'administrative_area_level_1', 'administrative_area_level_2', 'postal_code', 'street_number',
     // Standard zod schema validation
     'required_error', 'invalid_type_error',
     // Standard amplify auth attributes
@@ -43,7 +45,8 @@ const rulesBase = {
   'no-multiple-empty-lines': [1, { max: 1 }],
   'no-trailing-spaces': 1,
   'no-unneeded-ternary': 1,
-  'no-unused-expressions': 1,
+  // https://typescript-eslint.io/rules/no-unused-expressions/ Note: you must disable the base rule as it can report incorrect errors
+  'no-unused-expressions': 0,
   'no-useless-catch': 1,
   'no-mixed-spaces-and-tabs': ['error', 'smart-tabs'],
   'no-useless-constructor': 1,
@@ -79,6 +82,7 @@ const rulesReact = {
 
 const rulesTS = {
   '@typescript-eslint/no-explicit-any': 1,
+  '@typescript-eslint/no-unused-expressions': ['error', { 'allowShortCircuit': true, 'allowTernary': true }],
   '@typescript-eslint/no-unused-vars': ['error', {
     args: 'all',
     argsIgnorePattern: '^_',

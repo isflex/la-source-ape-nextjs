@@ -35,7 +35,6 @@ const eslintBaseTSConfig: Config = tseslint.config(
       '**/amplify/**',
       '**/.amplify/**',
       '**/server.cjs',
-      'packages/flex/design-system-react-ts/src/server-async-styled-default-module-components/**',
       // Additional patterns from .eslintignore
       '.storybook/**',
       'package-lock.json',
