@@ -31,12 +31,7 @@ function FlexCopilotContent({
   sidebarConfig?: FlexCopilotProviderProps['sidebarConfig'];
 }): React.ReactElement {
   // v2 useAgent for enhanced functionality
-  const { agent } = useAgent({ agentId });
-
-  // Log agent availability in development
-  if (process.env.FLEX_MODE === 'development' && agent) {
-    console.log('[FlexCopilotProvider] Agent connected:', agentId);
-  }
+  useAgent({ agentId });
 
   return (
     <>

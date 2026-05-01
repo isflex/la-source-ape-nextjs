@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { fetchUserAttributes } from 'aws-amplify/auth';
+import { debug } from '@flexiness/domain-utils';
 
 import classNames from 'classnames';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
@@ -58,7 +59,7 @@ export default function AdhesionContent() {
       try {
         setPageState('checking');
         const attributes = await fetchUserAttributes();
-        const email = attributes.email;
+        const {email} = attributes;
 
         if (!email) {
           setErrorMessage("Impossible de récupérer votre adresse email.");
@@ -85,7 +86,7 @@ export default function AdhesionContent() {
         }
       } catch (err) {
         if (cancelled) return;
-        console.error('[adhesion] Subscription check failed:', err);
+        debug.adhesion('Subscription check failed:', err);
         setErrorMessage("Erreur lors de la vérification de votre adhésion. Veuillez réessayer.");
         setPageState('error');
       }

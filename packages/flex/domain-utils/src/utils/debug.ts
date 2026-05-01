@@ -79,6 +79,10 @@ const DEBUG_CATEGORIES = {
   WEB_APP: 'WEB_APP',
   NAVIGATION: 'NAVIGATION',
   COPILOT_KIT: 'COPILOT_KIT',
+  WEBHOOKS: 'WEBHOOKS',
+  ADHESION: 'ADHESION',
+  STRIPE_CONNECT: 'STRIPE_CONNECT',
+  ERROR_BOUNDARY: 'ERROR_BOUNDARY',
 } as const
 
 type DebugCategory = keyof typeof DEBUG_CATEGORIES
@@ -138,6 +142,10 @@ export const debug = {
   webApp: createCategoryLogger('WEB_APP', '🌍', '#6366f1'),
   navigation: createCategoryLogger('NAVIGATION', '🧭', '#84cc16'),
   copilotKit: createCategoryLogger('COPILOT_KIT', '🤖', '#4477ef'),
+  webhooks: createCategoryLogger('WEBHOOKS', '🪝', '#a855f7'),
+  adhesion: createCategoryLogger('ADHESION', '🎟️', '#0ea5e9'),
+  stripeConnect: createCategoryLogger('STRIPE_CONNECT', '💳', '#635bff'),
+  errorBoundary: createCategoryLogger('ERROR_BOUNDARY', '🛑', '#dc2626'),
 
   // Generic debug with custom prefix
   log: (prefix: string, ...args: any[]) => {
@@ -300,6 +308,26 @@ export const debug = {
     copilotKit: (...args: any[]) => {
       if (getCategoryFlag('COPILOT_KIT')) {
         console.log('%c🤖 [COPILOT_KIT]', 'color: #4477ef; font-weight: bold', ...args)
+      }
+    },
+    webhooks: (...args: any[]) => {
+      if (getCategoryFlag('WEBHOOKS')) {
+        console.log('%c🪝 [WEBHOOKS]', 'color: #a855f7; font-weight: bold', ...args)
+      }
+    },
+    adhesion: (...args: any[]) => {
+      if (getCategoryFlag('ADHESION')) {
+        console.log('%c🎟️ [ADHESION]', 'color: #0ea5e9; font-weight: bold', ...args)
+      }
+    },
+    stripeConnect: (...args: any[]) => {
+      if (getCategoryFlag('STRIPE_CONNECT')) {
+        console.log('%c💳 [STRIPE_CONNECT]', 'color: #635bff; font-weight: bold', ...args)
+      }
+    },
+    errorBoundary: (...args: any[]) => {
+      if (getCategoryFlag('ERROR_BOUNDARY')) {
+        console.log('%c🛑 [ERROR_BOUNDARY]', 'color: #dc2626; font-weight: bold', ...args)
       }
     },
   },

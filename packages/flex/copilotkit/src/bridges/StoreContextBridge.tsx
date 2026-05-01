@@ -53,7 +53,7 @@ export function StoreContextBridge<T>({
   store,
   selector,
   description = 'Application state from MobX store',
-}: StoreContextBridgeProps<T>): React.ReactElement {
+}: StoreContextBridgeProps<T>): React.ReactNode {
   // Track store state for the context
   const [storeSnapshot, setStoreSnapshot] = useState<Record<string, JsonValue>>(() => {
     try {
@@ -88,7 +88,7 @@ export function StoreContextBridge<T>({
     value: storeSnapshot as { [key: string]: JsonValue },
   });
 
-  return <>{children}</>;
+  return children;
 }
 
 export default StoreContextBridge;

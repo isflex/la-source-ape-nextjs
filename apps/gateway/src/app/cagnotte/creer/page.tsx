@@ -266,7 +266,6 @@ export default function CagnotteCreerPage() {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- Required to prevent hydration mismatch
     setMounted(true);
 
     // Track unsubscribe function for cleanup
@@ -333,7 +332,6 @@ export default function CagnotteCreerPage() {
   // Load Stripe Connect account status
   useEffect(() => {
     if (!user) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- Required to set initial loading state when no user
       setConnectLoading(false);
       return;
     }

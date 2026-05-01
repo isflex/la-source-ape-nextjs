@@ -12,6 +12,7 @@ import {
   buildDedupeKey,
   type HelloAssoOrderData,
 } from "@src/lib/helloasso/webhook";
+import { debug } from "@flexiness/domain-utils";
 
 // Configure Amplify for server-side API routes
 Amplify.configure(getCurrentConfig(), { ssr: true });
@@ -49,7 +50,7 @@ export async function POST(request: NextRequest) {
     // 1. Verify source IP
     const clientIp = extractClientIp(request);
     if (!verifySourceIp(clientIp, HELLOASSO_ENV)) {
-      console.warn(
+      debug.warn(
         `[helloasso/webhook] Rejected request from IP: ${clientIp} (expected env: ${HELLOASSO_ENV})`,
       );
       // Return 200 even for rejected IPs to avoid information leakage
@@ -62,11 +63,11 @@ export async function POST(request: NextRequest) {
     const envelope = parseWebhookEnvelope(body);
 
     if (!envelope) {
-      console.warn("[helloasso/webhook] Invalid webhook envelope");
+      debug.warn("[helloasso/webhook] Invalid webhook envelope");
       return NextResponse.json({ received: true });
     }
 
-    eventType = envelope.eventType;
+    ({ eventType } = envelope);
 
     // 3. Deduplicate
     const dedupeKey = buildDedupeKey(
@@ -74,7 +75,7 @@ export async function POST(request: NextRequest) {
       (envelope.data as { id: number }).id,
     );
     if (processedEvents.has(dedupeKey)) {
-      console.log(`[helloasso/webhook] Duplicate event skipped: ${dedupeKey}`);
+      debug.webhooks(`[helloasso] Duplicate event skipped: ${dedupeKey}`);
       return NextResponse.json({ received: true });
     }
     processedEvents.add(dedupeKey);
@@ -94,14 +95,14 @@ export async function POST(request: NextRequest) {
       if (isMembershipOrder(orderData)) {
         await handleMembershipOrder(orderData);
       } else {
-        console.log(
-          `[helloasso/webhook] Non-membership order ignored (formType: ${orderData.formType})`,
+        debug.webhooks(
+          `[helloasso] Non-membership order ignored (formType: ${orderData.formType})`,
         );
       }
     } else {
       // Payment events: log only, the Order event handles the DB write
-      console.log(
-        `[helloasso/webhook] Payment event received (id: ${(envelope.data as { id: number }).id})`,
+      debug.webhooks(
+        `[helloasso] Payment event received (id: ${(envelope.data as { id: number }).id})`,
       );
     }
 
@@ -130,8 +131,8 @@ async function handleMembershipOrder(order: HelloAssoOrderData) {
     });
 
     if (existing && existing.length > 0) {
-      console.log(
-        `[helloasso/webhook] Membership for order ${order.id} already exists, skipping`,
+      debug.webhooks(
+        `[helloasso] Membership for order ${order.id} already exists, skipping`,
       );
       return;
     }
@@ -155,8 +156,8 @@ async function handleMembershipOrder(order: HelloAssoOrderData) {
       updatedAt: new Date().toISOString(),
     });
 
-    console.log(
-      `[helloasso/webhook] Membership created for ${payer.email} (order: ${order.id}, valid until: ${validUntil.toISOString()})`,
+    debug.webhooks(
+      `[helloasso] Membership created for ${payer.email} (order: ${order.id}, valid until: ${validUntil.toISOString()})`,
     );
   } catch (error) {
     await logWebhookError(error, "Order", {

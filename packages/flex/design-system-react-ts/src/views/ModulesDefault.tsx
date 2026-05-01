@@ -1,7 +1,5 @@
-/* eslint-disable no-debugger */
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
-/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import React from 'react'

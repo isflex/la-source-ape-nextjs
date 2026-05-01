@@ -6,6 +6,7 @@ import Stripe from "stripe";
 import { getCurrentConfig } from "@src/utils/amplify/configureAmplifyWithPortDetection";
 import { logServerError, type ErrorContext } from "@src/lib/server-error-logger";
 import { getStripeSecrets } from "@src/lib/secrets";
+import { debug } from "@flexiness/domain-utils";
 
 // Configure Amplify for server-side API routes
 Amplify.configure(getCurrentConfig(), { ssr: true });
@@ -105,7 +106,7 @@ export async function POST(request: NextRequest) {
       }
 
       default:
-        console.log(`Unhandled event type: ${event.type}`);
+        debug.webhooks(`Unhandled event type: ${event.type}`);
     }
 
     // Return 200 to acknowledge receipt
@@ -276,7 +277,7 @@ async function handleAccountUpdated(account: Stripe.Account) {
     }
 
     // Update StripeConnectAccount with latest info from Stripe
-    console.log("[WEBHOOK] account.updated processing:", {
+    debug.webhooks("account.updated processing:", {
       stripeAccountId: account.id,
       chargesEnabled: account.charges_enabled,
       payoutsEnabled: account.payouts_enabled,

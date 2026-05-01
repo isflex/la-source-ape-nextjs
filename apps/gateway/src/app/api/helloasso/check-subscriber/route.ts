@@ -11,6 +11,7 @@ import {
   checkSubscriberByEmail,
   type HelloAssoFormOrder,
 } from "@src/lib/helloasso/subscribers";
+import { debug } from "@flexiness/domain-utils";
 
 Amplify.configure(getCurrentConfig(), { ssr: true });
 const dbClient = generateClient<Schema>();
@@ -54,8 +55,8 @@ async function findActiveMembership(
     const { data } = await model({ emailCognito: cognitoEmail });
     return data?.find((m) => m.status === "ACTIVE") ?? null;
   } catch (err) {
-    console.warn(
-      "[helloasso/check-subscriber] DB lookup failed, falling back to HelloAsso-only:",
+    debug.adhesion(
+      "[check-subscriber] DB lookup failed, falling back to HelloAsso-only:",
       err,
     );
     return null;
@@ -70,8 +71,8 @@ async function markMembershipDeleted(row: MembershipRow): Promise<void> {
       updatedAt: new Date().toISOString(),
     });
   } catch (err) {
-    console.warn(
-      "[helloasso/check-subscriber] Failed to mark membership DELETED:",
+    debug.adhesion(
+      "[check-subscriber] Failed to mark membership DELETED:",
       err,
     );
   }
@@ -102,7 +103,7 @@ async function backfillMembership(
       updatedAt: new Date().toISOString(),
     });
   } catch (err) {
-    console.warn("[helloasso/check-subscriber] Backfill failed:", err);
+    debug.adhesion("[check-subscriber] Backfill failed:", err);
   }
 }
 
@@ -165,7 +166,7 @@ export async function GET(request: NextRequest) {
       order: serializeOrder(fallback.order),
     });
   } catch (error) {
-    console.error("[helloasso/check-subscriber] Error:", error);
+    debug.error("[helloasso/check-subscriber]", error);
     return NextResponse.json(
       { error: "Failed to check subscriber status" },
       { status: 500 },

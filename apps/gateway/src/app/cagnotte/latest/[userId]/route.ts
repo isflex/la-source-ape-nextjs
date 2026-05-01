@@ -3,6 +3,7 @@ import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import { getCurrentConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection';
+import { debug } from '@flexiness/domain-utils';
 
 // Configure Amplify for server-side API routes
 Amplify.configure(getCurrentConfig(), { ssr: true });
@@ -52,7 +53,7 @@ export async function GET(
     return NextResponse.redirect(`${baseUrl}/cagnotte/info/`);
 
   } catch (error) {
-    console.error('Error fetching user cagnottes:', error);
+    debug.error('Error fetching user cagnottes:', error);
     // Fallback on error
     return NextResponse.redirect(`${baseUrl}/cagnotte/info/`);
   }

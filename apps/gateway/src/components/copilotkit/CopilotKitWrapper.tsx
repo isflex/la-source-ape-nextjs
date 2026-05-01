@@ -74,8 +74,8 @@ class CopilotKitErrorBoundary extends Component<CopilotKitErrorBoundaryProps, Co
     });
 
     // Log to console for production debugging
-    console.error('[CopilotKitErrorBoundary] CopilotKit failed to initialize:', error);
-    console.warn('[CopilotKitErrorBoundary] Falling back to rendering without CopilotKit');
+    debug.errorBoundary('[CopilotKitErrorBoundary] CopilotKit failed to initialize:', error);
+    debug.warn('[CopilotKitErrorBoundary] Falling back to rendering without CopilotKit');
   }
 
   render() {
@@ -387,7 +387,7 @@ export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) 
     [authStatus],
   );
 
-  console.log(`[CopilotKitWrapper] isEnabled: ${isEnabled}, disabledByError: ${disabledByError}, isReady: ${isReady}, authStatus: ${authStatus}`);
+  debug.copilotKit(`[CopilotKitWrapper] isEnabled: ${isEnabled}, disabledByError: ${disabledByError}, isReady: ${isReady}, authStatus: ${authStatus}`);
 
   // Hold off rendering the provider until sessionStorage has been read on
   // the client. SSR and the first client render both produce just
@@ -395,7 +395,7 @@ export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) 
   if (!isEnabled || disabledByError || !isReady) {
     // CopilotKit disabled, killed by error, or sessionStorage not yet resolved
     // Pages using useSafeAgentContext will no-op based on the same env var
-    return <>{children}</>;
+    return children;
   }
 
   // Pass threadId only when authenticated AND a stored value already
@@ -413,7 +413,7 @@ export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) 
   // ChildrenErrorBoundary inside the provider catches child errors and
   // signals us to unmount the provider (stopping SDK polling)
   return (
-    <CopilotKitErrorBoundary fallback={<>{children}</>}>
+    <CopilotKitErrorBoundary fallback={children}>
       <FlexCopilotProvider
         agentId={AGENT_ID}
         sidebarConfig={{

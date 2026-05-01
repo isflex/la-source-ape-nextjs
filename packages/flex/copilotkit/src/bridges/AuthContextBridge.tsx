@@ -49,7 +49,7 @@ export function AuthContextBridge({
   children,
   user,
   description = 'Current authenticated user',
-}: AuthContextBridgeProps): React.ReactElement {
+}: AuthContextBridgeProps): React.ReactNode {
   // Memoize user context to avoid unnecessary re-renders
   // Ensure all values are JSON-serializable (no undefined)
   const userContext = useMemo(() => {
@@ -70,7 +70,7 @@ export function AuthContextBridge({
     value: userContext as Record<string, string | null> | null,
   });
 
-  return <>{children}</>;
+  return children;
 }
 
 export default AuthContextBridge;

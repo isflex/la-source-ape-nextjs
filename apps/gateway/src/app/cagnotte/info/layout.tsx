@@ -10,5 +10,5 @@ export default function CagnotteInfoLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return children;
 }

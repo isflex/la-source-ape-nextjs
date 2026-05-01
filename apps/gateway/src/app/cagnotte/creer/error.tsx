@@ -16,6 +16,7 @@ import {
 import { IconName } from '@flex-design-system/react-ts/client-sync-styled-direct/icon'
 import { default as flexStyles } from '@flex-design-system/framework'
 import posthog from 'posthog-js'
+import { debug } from '@flexiness/domain-utils'
 import { logClientError } from '@src/app/actions/log-error'
 
 interface ErrorProps {
@@ -40,7 +41,7 @@ export default function CagnotteCreerError({ error, reset }: ErrorProps) {
     })
 
     // Log to console for debugging
-    console.error('[CagnotteCreer Error]', {
+    debug.errorBoundary('[CagnotteCreer Error]', {
       name: error.name,
       message: error.message,
       digest: error.digest,

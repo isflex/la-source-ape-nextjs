@@ -10,6 +10,7 @@ import Stripe from "stripe";
 import { getCurrentConfig } from "@src/utils/amplify/configureAmplifyWithPortDetection";
 import { logApiError } from "@src/lib/with-error-logging";
 import { getStripeSecrets } from "@src/lib/secrets";
+import { debug } from "@flexiness/domain-utils";
 
 // Configure Amplify for server-side API routes
 Amplify.configure(getCurrentConfig(), { ssr: true });
@@ -34,8 +35,8 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    userId = body.userId;
-    const email = body.email;
+    const { email } = body;
+    ({ userId } = body);
 
     if (!userId || !email) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -52,8 +53,8 @@ export async function POST(request: NextRequest) {
 
     if (existingAccounts && existingAccounts.length > 0) {
       // Use existing account
-      accountRecord = existingAccounts[0];
-      stripeAccountId = accountRecord.stripeAccountId;
+      [accountRecord] = existingAccounts;
+      ({ stripeAccountId } = accountRecord);
     } else {
       // Get base URL for business profile (only valid in production)
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -125,7 +126,7 @@ export async function POST(request: NextRequest) {
       });
 
       if (errors) {
-        console.error("Error creating StripeConnectAccount:", errors);
+        debug.stripeConnect("Error creating StripeConnectAccount:", errors);
         return NextResponse.json({ error: "Failed to save account record" }, { status: 500 });
       }
 
@@ -158,7 +159,7 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     // Immediate sync logging for debugging (Amplify captures stdout/stderr)
-    console.error(
+    debug.error(
       "[STRIPE-CONNECT-ERROR]",
       JSON.stringify(
         {

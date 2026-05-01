@@ -94,68 +94,70 @@ const S3ImageUploader: React.FC<S3ImageUploaderProps> = ({
     maxHeight: number,
     quality: number = 0.8
   ): Promise<File> => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const { width, height } = await getImageDimensions(file)
+    return new Promise<File>((resolve, reject) => {
+      void (async () => {
+        try {
+          const { width, height } = await getImageDimensions(file)
 
-        // Check if resizing is needed
-        if (width <= maxWidth && height <= maxHeight) {
-          resolve(file) // No resizing needed
-          return
-        }
-
-        const canvas = document.createElement('canvas')
-        const ctx = canvas.getContext('2d')
-        const img = new Image()
-
-        img.onload = () => {
-          // Calculate new dimensions maintaining aspect ratio
-          let newWidth = width
-          let newHeight = height
-
-          if (width > maxWidth || height > maxHeight) {
-            const ratio = Math.min(maxWidth / width, maxHeight / height)
-            newWidth = width * ratio
-            newHeight = height * ratio
-          }
-
-          canvas.width = newWidth
-          canvas.height = newHeight
-
-          if (!ctx) {
-            reject(new Error("Impossible de créer le contexte canvas"))
+          // Check if resizing is needed
+          if (width <= maxWidth && height <= maxHeight) {
+            resolve(file) // No resizing needed
             return
           }
 
-          // Draw and compress image
-          ctx.drawImage(img, 0, 0, newWidth, newHeight)
+          const canvas = document.createElement('canvas')
+          const ctx = canvas.getContext('2d')
+          const img = new Image()
 
-          // Convert to blob with compression
-          canvas.toBlob(
-            (blob) => {
-              if (!blob) {
-                reject(new Error("Impossible de compresser l'image"))
-                return
-              }
+          img.onload = () => {
+            // Calculate new dimensions maintaining aspect ratio
+            let newWidth = width
+            let newHeight = height
 
-              // Create a new File object with the compressed data
-              const compressedFile = new File([blob], file.name, {
-                type: file.type,
-                lastModified: Date.now(),
-              })
+            if (width > maxWidth || height > maxHeight) {
+              const ratio = Math.min(maxWidth / width, maxHeight / height)
+              newWidth = width * ratio
+              newHeight = height * ratio
+            }
 
-              resolve(compressedFile)
-            },
-            file.type,
-            quality
-          )
+            canvas.width = newWidth
+            canvas.height = newHeight
+
+            if (!ctx) {
+              reject(new Error("Impossible de créer le contexte canvas"))
+              return
+            }
+
+            // Draw and compress image
+            ctx.drawImage(img, 0, 0, newWidth, newHeight)
+
+            // Convert to blob with compression
+            canvas.toBlob(
+              (blob) => {
+                if (!blob) {
+                  reject(new Error("Impossible de compresser l'image"))
+                  return
+                }
+
+                // Create a new File object with the compressed data
+                const compressedFile = new File([blob], file.name, {
+                  type: file.type,
+                  lastModified: Date.now(),
+                })
+
+                resolve(compressedFile)
+              },
+              file.type,
+              quality
+            )
+          }
+
+          img.onerror = () => reject(new Error("Impossible de charger l&apos;image"))
+          img.src = URL.createObjectURL(file)
+        } catch (error) {
+          reject(error)
         }
-
-        img.onerror = () => reject(new Error("Impossible de charger l&apos;image"))
-        img.src = URL.createObjectURL(file)
-      } catch (error) {
-        reject(error)
-      }
+      })()
     })
   }, [getImageDimensions])
 

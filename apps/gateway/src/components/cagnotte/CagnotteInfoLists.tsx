@@ -293,45 +293,43 @@ const StepItem = ({
   label: string;
   bgColorClass: string;
 }) => (
-  <>
-    {isComplete ? (
-      <ListItem>
-        <div className={classNames(
-          flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
-          flexStyles.isFullwidth,
-        )} style={{
-          gridTemplateColumns: '40px 1fr',
-        }}>
-          <Icon name={IconName.UI_CHECK_CIRCLE_S} size={IconSize.SMALL} position={IconPosition.LEFT}/>
-          <Text className={classNames(
-            flexStyles.isInline, flexStyles.hasTextLeft, flexStyles.hasTextWeightMedium,
-            isComplete && flexStyles.hasTextSuccess
-          )} style={{ marginTop: '0.25rem' }}>
-            {label}
-          </Text>
-        </div>
-      </ListItem>
-    ) : (
-      <ListItem>
-        <div className={classNames(
-          flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
-          flexStyles.isAlignItemsBaseline,
-          flexStyles.isJustifyContentStart,
-          flexStyles.isFullwidth,
-        )} style={{
-          gridTemplateColumns: '40px 1fr',
-        }}>
-          <ListNumber number={stepNumber} bgColorClass={bgColorClass} />
-          <Text className={classNames(
-            flexStyles.isInline, flexStyles.hasTextLeft, flexStyles.hasTextWeightMedium,
-            isComplete && flexStyles.hasTextSuccess
-          )} style={{ marginTop: '0.25rem' }}>
-            {label}
-          </Text>
-        </div>
-      </ListItem>
-    )}
-  </>
+  isComplete ? (
+    <ListItem>
+      <div className={classNames(
+        flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+        flexStyles.isFullwidth,
+      )} style={{
+        gridTemplateColumns: '40px 1fr',
+      }}>
+        <Icon name={IconName.UI_CHECK_CIRCLE_S} size={IconSize.SMALL} position={IconPosition.LEFT}/>
+        <Text className={classNames(
+          flexStyles.isInline, flexStyles.hasTextLeft, flexStyles.hasTextWeightMedium,
+          isComplete && flexStyles.hasTextSuccess
+        )} style={{ marginTop: '0.25rem' }}>
+          {label}
+        </Text>
+      </div>
+    </ListItem>
+  ) : (
+    <ListItem>
+      <div className={classNames(
+        flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+        flexStyles.isAlignItemsBaseline,
+        flexStyles.isJustifyContentStart,
+        flexStyles.isFullwidth,
+      )} style={{
+        gridTemplateColumns: '40px 1fr',
+      }}>
+        <ListNumber number={stepNumber} bgColorClass={bgColorClass} />
+        <Text className={classNames(
+          flexStyles.isInline, flexStyles.hasTextLeft, flexStyles.hasTextWeightMedium,
+          isComplete && flexStyles.hasTextSuccess
+        )} style={{ marginTop: '0.25rem' }}>
+          {label}
+        </Text>
+      </div>
+    </ListItem>
+  )
 );
 
 interface CreerCagnotteListStepsProps {

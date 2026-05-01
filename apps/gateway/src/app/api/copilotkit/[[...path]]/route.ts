@@ -115,7 +115,7 @@ app.post("/", async (c) => {
           },
           default: {
             name: "default",
-            description: "Default agent (alias for " + AGENT_ID + ")",
+            description: `Default agent (alias for ${  AGENT_ID  })`,
           },
         },
         defaultAgent: AGENT_ID,
@@ -272,7 +272,7 @@ async function cacheResponse(method: string, pathname: string, response: Respons
 
 export const GET = async (req: NextRequest, ctx: { params: Promise<{ path?: string[] }> }) => {
   const params = await ctx.params;
-  const pathname = new URL(req.url).pathname;
+  const {pathname} = new URL(req.url);
 
   // Check throttle cache first
   const throttled = getThrottledResponse("GET", pathname);
@@ -291,7 +291,7 @@ export const GET = async (req: NextRequest, ctx: { params: Promise<{ path?: stri
 
 export const POST = async (req: NextRequest, ctx: { params: Promise<{ path?: string[] }> }) => {
   const params = await ctx.params;
-  const pathname = new URL(req.url).pathname;
+  const {pathname} = new URL(req.url);
 
   // Only throttle non-streaming POST requests (e.g. /info via POST)
   // Don't throttle agent/run or agent/connect as those are intentional user actions
