@@ -33,7 +33,7 @@ $accordion-content-pre-code-background-color: transparent !default;
       color: currentcolor;
     }
 
-    a:not(.button, .tag) {
+    a:not(.button, .tag, .link) {
       color: currentcolor;
       text-decoration: underline;
     }
