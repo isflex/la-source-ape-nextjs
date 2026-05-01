@@ -1,5 +1,3 @@
-'use server'
-
 import React from 'react'
 import { headers } from 'next/headers'
 import { isMobile } from '@src/utils'
