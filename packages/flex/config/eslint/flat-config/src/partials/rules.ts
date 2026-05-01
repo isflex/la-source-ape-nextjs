@@ -12,7 +12,7 @@ const rulesBase = {
     // Standard zod schema validation
     'required_error', 'invalid_type_error',
     // Standard amplify auth attributes
-    'given_name', 'family_name', 'phone_number', 'confirm_password',
+    'given_name', 'family_name', 'phone_number', 'confirm_password', 'confirmation_code',
     // csv-parse
     'skip_empty_lines',
   ]}],

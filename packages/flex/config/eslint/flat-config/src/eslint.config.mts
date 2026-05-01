@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-
 /*
 *
 https://eslint.org/docs/latest/extend/custom-processors
@@ -12,7 +8,8 @@ We will need to develope a custom processor inorder :
 *
 */
 
-import tseslint, { type Config } from 'typescript-eslint'
+import { defineConfig, globalIgnores } from 'eslint/config'
+import tseslint from 'typescript-eslint'
 import eslint from '@eslint/js'
 import eslintConfigPrettier from 'eslint-config-prettier'
 import jsonI18nPlugin from 'eslint-plugin-i18n-json'
@@ -24,32 +21,28 @@ import { fixupPluginRules } from '@eslint/compat'
 
 const { rulesBase, rulesReact, rulesTS, internalRegex, baseGlobals } = await import('./partials/index.js')
 
-const eslintBaseTSConfig: Config = tseslint.config(
-  {
-    ignores: [
-      '**/dist/**',
-      '**/build/**',
-      '**/node_modules/**',
-      '**/public/**',
-      'bin/**',
-      '**/amplify/**',
-      '**/.amplify/**',
-      '**/server.cjs',
-      // Additional patterns from .eslintignore
-      '.storybook/**',
-      'package-lock.json',
-      '**/webpack.config.js',
-      '**/webpack.lib.config.js',
-      '**/webpack.web.config.js',
-      'setup.js',
-      // Root-level config files
-      '**/cssnano.config.js',
-      '**/gulpfile.js',
-      '**/postcss.config.js',
-      '**/rollup*.config.js',
-      '**/lint.*.config.js',
-    ],
-  },
+const eslintBaseTSConfig = defineConfig([
+  globalIgnores([
+    '**/dist/**',
+    '**/build/**',
+    '**/node_modules/**',
+    '**/public/**',
+    'bin/**',
+    '**/amplify/**',
+    '**/.amplify/**',
+    '**/server.cjs',
+    '.storybook/**',
+    'package-lock.json',
+    '**/webpack.config.js',
+    '**/webpack.lib.config.js',
+    '**/webpack.web.config.js',
+    'setup.js',
+    '**/cssnano.config.js',
+    '**/gulpfile.js',
+    '**/postcss.config.js',
+    '**/rollup*.config.js',
+    '**/lint.*.config.js',
+  ]),
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -59,8 +52,8 @@ const eslintBaseTSConfig: Config = tseslint.config(
         tsconfigRootDir: import.meta.dirname ? import.meta.dirname + '/../../../../../..' : process.cwd(),
       },
       globals: {
-				...baseGlobals,
-			},
+        ...baseGlobals,
+      },
     },
   },
   {
@@ -175,7 +168,7 @@ const eslintBaseTSConfig: Config = tseslint.config(
       'i18n-json/identical-keys': 0,
     },
   },
-  eslintConfigPrettier
-)
+  eslintConfigPrettier,
+])
 
 export { eslintBaseTSConfig }
