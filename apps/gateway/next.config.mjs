@@ -141,6 +141,8 @@ const nextConfig = (() => {
     // https://gist.github.com/kettanaito/56861aff96e6debc575d522dd03e5725
     serverExternalPackages: [
       '@marp-team/marp-cli',
+      '@aws-sdk/client-cloudwatch-logs',
+      'posthog-node',
     ],
 
     outputFileTracingRoot: process.env.FLEX_PROJ_ROOT,

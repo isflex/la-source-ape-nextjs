@@ -98,11 +98,8 @@ const RootLayout = async ({
 
   // throw new Error(`HTTP error! status: Test General error`)
 
-  let statusEC2Active = false
+  let statusBackendActive = false
   let resultModFeds: ResultModFeds = null
-  // let responseEC2Addresses: ResponseDescribeAddressesCommand = null
-  let responseEC2SpotRequests: ResponseDescribeSpotInstanceRequestsCommand = null
-  let responseEC2Instances: ResponseDescribeInstancesCommand = null
 
   const fetchMFAssets = async () => {
     const responseWebAppClient = await fetch(`${remoteWebAppClient}/loadable-stats.json`, {
@@ -122,64 +119,64 @@ const RootLayout = async ({
     }
   }
 
-  try {
-    // process data
-    const client = new EC2Client({ region: process.env.AWS_REGION })
-    // const input = {
-    //   PublicIps: [
-    //     '15.188.148.108',
-    //   ],
-    //   DryRun: false, // true || false
-    //   // Filters: [
-    //   //   {
-    //   //     Name: "STRING_VALUE",
-    //   //     Values: [
-    //   //       "STRING_VALUE",
-    //   //     ],
-    //   //   },
-    //   // ],
-    //   // AllocationIds: [
-    //   //   'eipalloc-00054b08ec67239e2',
-    //   // ],
-    // }
-    // const command = new DescribeAddressesCommand(input)
-    const inputSpotRequests = {
-      DryRun: false, // true || false
-      Filters: [
-        {
-          Name: 'tag:Name',
-          Values: [
-            'flex-homepage',
-          ],
-        },
-      ],
-    }
-    const commandSpotRequests = new DescribeSpotInstanceRequestsCommand(inputSpotRequests)
-    responseEC2SpotRequests = await client.send(commandSpotRequests)
-    if (responseEC2SpotRequests?.SpotInstanceRequests?.[0]?.InstanceId) {
-      const inputInstances = {
-        DryRun: false, // true || false
-        InstanceIds: [
-          responseEC2SpotRequests.SpotInstanceRequests[0].InstanceId,
+  const deploymentMethode = process.env.FLEX_WEB_APP_DEPLOYMENT_METHODE
+
+  if (deploymentMethode === 'aws-spot-ec2') {
+    let responseEC2SpotRequests: ResponseDescribeSpotInstanceRequestsCommand = null
+    let responseEC2Instances: ResponseDescribeInstancesCommand = null
+    try {
+      const client = new EC2Client({ region: process.env.AWS_REGION })
+      const inputSpotRequests = {
+        DryRun: false,
+        Filters: [
+          {
+            Name: 'tag:Name',
+            Values: [
+              'flex-homepage',
+            ],
+          },
         ],
       }
-      const commandInstances = new DescribeInstancesCommand(inputInstances)
-      responseEC2Instances = await client.send(commandInstances)
-      // console.log(responseEC2Instances?.Reservations?.[0]?.Instances?.[0])
+      const commandSpotRequests = new DescribeSpotInstanceRequestsCommand(inputSpotRequests)
+      responseEC2SpotRequests = await client.send(commandSpotRequests)
+      if (responseEC2SpotRequests?.SpotInstanceRequests?.[0]?.InstanceId) {
+        const inputInstances = {
+          DryRun: false,
+          InstanceIds: [
+            responseEC2SpotRequests.SpotInstanceRequests[0].InstanceId,
+          ],
+        }
+        const commandInstances = new DescribeInstancesCommand(inputInstances)
+        responseEC2Instances = await client.send(commandInstances)
+      }
+    } catch (error) {
+      debug.error(error)
+    } finally {
+      if (
+        responseEC2SpotRequests?.SpotInstanceRequests?.[0]?.Status?.Code === 'fulfilled' &&
+        responseEC2Instances?.Reservations?.[0]?.Instances?.[0]?.State?.Name === 'running'
+      ) {
+        statusBackendActive = true
+        resultModFeds = await fetchMFAssets().catch((e) => {
+          debug.error('An error occurred while fetching the data from fetchMFAssets : ', e)
+        })
+      }
     }
-  } catch (error) {
-    // error handling.
-    debug.error(error)
-  } finally {
-    if (
-      responseEC2SpotRequests?.SpotInstanceRequests?.[0]?.Status?.Code === 'fulfilled' &&
-      responseEC2Instances?.Reservations?.[0]?.Instances?.[0]?.State?.Name === 'running'
-    ) {
-      statusEC2Active = true
-      resultModFeds = await fetchMFAssets().catch((e) => {
-        // handle the error as needed
-        debug.error('An error occurred while fetching the data from fetchMFAssets : ', e)
+  } else if (deploymentMethode === 'linode') {
+    try {
+      const probe = await fetch(`${remoteWebAppClient}/loadable-stats.json`, {
+        method: 'HEAD',
+        cache: 'no-store',
+        signal: AbortSignal.timeout(2000),
       })
+      if (probe.ok) {
+        statusBackendActive = true
+        resultModFeds = await fetchMFAssets().catch((e) => {
+          debug.error('An error occurred while fetching the data from fetchMFAssets : ', e)
+        })
+      }
+    } catch (error) {
+      debug.error('Linode asset-server probe failed: ', error)
     }
   }
 
@@ -191,16 +188,16 @@ const RootLayout = async ({
       // className={commissioner.className}
     >
       <head>
-        {statusEC2Active && (
+        {statusBackendActive && (
           <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/mf-manifest.json`} crossOrigin='anonymous' />
         )}
         {/* <link nonce={_nonce} rel='prefetch' as='fetch' href={`${remoteWebAppClient}/loadable-stats.json`} crossOrigin='anonymous' /> */}
 
-        {(statusEC2Active && resultModFeds?.remoteEntryWebAppClient) && (
+        {(statusBackendActive && resultModFeds?.remoteEntryWebAppClient) && (
           <link nonce={_nonce} rel='prefetch' as='script' href={`${remoteWebAppClient}/${resultModFeds?.remoteEntryWebAppClient}`} crossOrigin='anonymous' />
         )}
 
-        {(statusEC2Active && resultModFeds?.flexFrameworkStyles) && (
+        {(statusBackendActive && resultModFeds?.flexFrameworkStyles) && (
           <>
             <link nonce={_nonce} rel='prefetch' as='style' href={`${remoteWebAppClient}/${resultModFeds?.flexFrameworkStyles}`} crossOrigin='anonymous' />
             <link nonce={_nonce} rel='stylesheet' href={`${remoteWebAppClient}/${resultModFeds?.flexFrameworkStyles}`} />

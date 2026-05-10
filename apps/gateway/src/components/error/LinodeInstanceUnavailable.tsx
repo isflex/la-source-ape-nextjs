@@ -1,0 +1,94 @@
+'use client' // Error boundaries must be Client Components
+
+import React from 'react'
+import dynamic from 'next/dynamic'
+import classNames from 'classnames'
+import { Button } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
+import {
+  InfoBlock,
+  InfoBlockAction,
+  InfoBlockContent,
+  InfoBlockHeader
+} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
+import { default as flexStyles } from '@flex-design-system/framework'
+import { default as stylesGeneric } from '@src/styles/scss/flex/generic.module.scss'
+import '@src/styles/globals.css'
+
+const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
+
+interface ErrorBoundaryProps {
+  reset?: () => void
+  mobileCheck?: boolean
+}
+
+const FallBackLinodeInstanceUnavailable: React.FC<ErrorBoundaryProps> = (props) => {
+  const { reset, mobileCheck } = props
+  const _reset = reset || (() => window.location.reload())
+  const isMobile = mobileCheck || false
+  return (
+    <div className={classNames(
+      stylesGeneric.genericLayout1,
+      isMobile && `mobileMode__${process.env.NEXT_PUBLIC_BUILD_ID}`
+    )}>
+      <div style={{
+        height: 'auto',
+        padding: '2rem 0',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        <div style={{
+          width: '100%',
+        }}>
+          <LogoAPE />
+        </div>
+        <main className={classNames(stylesGeneric.fullPage, stylesGeneric.hasSpaceBetweenContent)}>
+          <section className={classNames(
+            flexStyles.isFullwidth
+          )}>
+            <InfoBlock>
+              <InfoBlockHeader>
+                <Title level={TitleLevel.LEVEL3}>
+                  🥴
+                  <br/>
+                  {`Le serveur est temporairement hors ligne`}
+                  <br/>
+                  {`Réessayez dans un petit moment !!`}
+                </Title>
+                <br/>
+              </InfoBlockHeader>
+              <InfoBlockContent>
+                <Title level={TitleLevel.LEVEL4}>
+                  {`Cette page est hébergée sur une instance Linode`}<br/>
+                  {`pour faire fonctionner le serveur`}<br/>
+                  {`« ${process.env.NEXT_PUBLIC_APP_TITLE} »`}
+                </Title>
+                <Title level={TitleLevel.LEVEL4}>
+                  {`Vous pouvez consulter les autres pages du site en attendant`}
+                </Title>
+                {_reset !== undefined && (
+                  <Title level={TitleLevel.LEVEL4}>
+                    {`ou`}
+                    <br/>
+                  </Title>
+                )}
+              </InfoBlockContent>
+              <InfoBlockAction>
+                <div className={classNames(flexStyles.isFullwidth, flexStyles.isFlex, flexStyles.isAlignItemsCenter, flexStyles.isJustifyContentCenter)}>
+                  {_reset !== undefined && (
+                    <Button small variant={VariantState.FLEX_PINK} onClick={_reset}>Recharger la page</Button>
+                  )}
+                </div>
+              </InfoBlockAction>
+            </InfoBlock>
+          </section>
+        </main>
+      </div>
+    </div>
+  )
+}
+
+export default FallBackLinodeInstanceUnavailable

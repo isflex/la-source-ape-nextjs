@@ -1,0 +1,81 @@
+.adhesion {
+  .content-section {
+    min-height: 100vh;
+    position: relative;
+    z-Index: 1;
+  }
+
+  .bg-svg-section {
+    display: none;
+  }
+
+  &.with-svg-bg {
+    .bg-svg-section {
+      display: block;
+      position: fixed;
+      left: 0;
+      top: 90px;
+      width: 100vw;
+      height: auto;
+
+      svg {
+        width: auto;
+        height: 100vh;
+        translate: -100vw 0 0;
+
+        @media screen and (min-width: 360px) {
+          translate: -85vw 0 0;
+        }
+
+        @media screen and (min-width: 480px) {
+          translate: -75vw 0 0;
+        }
+
+        @media screen and (min-width: 560px) {
+          translate: -50vw 0 0;
+        }
+
+        @media screen and (min-width: 760px) {
+          translate: -25vw 0 0;
+        }
+
+        @media screen and (min-width: 960px) {
+          translate: -15vw 0 0;
+        }
+
+        @media screen and (min-width: 1024px) {
+          width: auto;
+          height: 120vh;
+          translate: -20vw -10vh 0;
+        }
+
+        @media screen and (min-width: 1160px) {
+          width: 100vw;
+          height: auto;
+          translate: 0 0 0;
+        }
+      }
+    }
+
+    .title {
+      color: #fff;
+    }
+
+    .boxed-custom-color {
+      /* background-color: rgba(255, 255, 255, 0.8); */
+      background-color: rgba(37, 70, 95, 0.8);
+      margin: 2rem 1rem 0;
+
+      .section {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+/* https://adactio.medium.com/inlining-svg-background-images-in-css-with-custom-properties-c32adde256c3 */
+/*
+@at-root .adhesion {
+  --firstSVG: url('');
+}
+*/

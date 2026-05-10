@@ -32,6 +32,7 @@ import { default as stylesGeneric } from '@src/styles/scss/flex/generic.module.s
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 const WebAppMF = dynamic(async () => await import('@src/components/web-app-mf'), { ssr: true })
 const FallBackEC2InstanceUnavailable = dynamic(() => import('@src/components/error/EC2InstanceUnavailable'), { ssr: true })
+const FallBackLinodeInstanceUnavailable = dynamic(() => import('@src/components/error/LinodeInstanceUnavailable'), { ssr: true })
 // const OAuthRedirectHandler = dynamic(() => import('@src/components/auth/OAuthRedirectHandler'))
 
 export const metadata: Metadata = {
@@ -57,6 +58,10 @@ export default async function WebAppLayout({
   const mobileCheck = isMobile(userAgent)
   const posthog = PostHogNodeClient()
   await posthog.shutdown()
+
+  const FallBackInstanceUnavailable = process.env.NEXT_PUBLIC_WEB_APP_DEPLOYMENT_METHODE === 'linode'
+    ? FallBackLinodeInstanceUnavailable
+    : FallBackEC2InstanceUnavailable
 
   return (
     <>
@@ -88,7 +93,7 @@ export default async function WebAppLayout({
           </div>
         </div>
       ) : (
-        <ErrorBoundary fallback={<FallBackEC2InstanceUnavailable mobileCheck={mobileCheck} />}>
+        <ErrorBoundary fallback={<FallBackInstanceUnavailable mobileCheck={mobileCheck} />}>
           <div className={classNames(
             stylesGeneric.genericLayout1,
             stylesGeneric.isPlain,
