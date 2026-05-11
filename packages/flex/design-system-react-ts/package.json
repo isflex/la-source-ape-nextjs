@@ -11,29 +11,29 @@
   "exports": {
     ".": {
       "@flexiness/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.js"
     },
     "./client-sync-styled-default": {
       "@flexiness/source": "./src/styled-default-module-components/index.ts",
-      "import": "./dist/styled-default-module-components/index.js",
-      "types": "./dist/styled-default-module-components/index.d.ts"
+      "types": "./dist/styled-default-module-components/index.d.ts",
+      "import": "./dist/styled-default-module-components/index.js"
     },
     "./server-async-styled-default": {
       "@flexiness/source": "./src/styled-default-module-components/server-async.ts",
-      "import": "./dist/styled-default-module-components/server-async.js",
-      "types": "./dist/styled-default-module-components/server-async.d.ts"
+      "types": "./dist/styled-default-module-components/server-async.d.ts",
+      "import": "./dist/styled-default-module-components/server-async.js"
     },
     "./client-sync-styled-direct/*": {
       "@flexiness/source": "./src/styled-default-module-components/*/index.ts",
-      "import": "./dist/styled-default-module-components/*/index.js",
-      "types": "./dist/styled-default-module-components/*/index.d.ts"
+      "types": "./dist/styled-default-module-components/*/index.d.ts",
+      "import": "./dist/styled-default-module-components/*/index.js"
     },
     "./facets": {
       "@flexiness/source": "./src/objects/facets/index.ts",
-      "import": "./dist/objects/facets/index.js",
-      "types": "./dist/objects/facets/index.d.ts"
+      "types": "./dist/objects/facets/index.d.ts",
+      "import": "./dist/objects/facets/index.js"
     },
     "./assets/*": {
       "asset": "./build/webpack/web/"
@@ -82,8 +82,8 @@
     "@emotion/cache": "11.13.1",
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.5",
-    "@flex-design-system/framework": "@flex-design-system/framework@0.0.1",
-    "@flexiness/domain-utils": "@flexiness/domain-utils@0.0.1",
+    "@flex-design-system/framework": "workspace:*",
+    "@flexiness/domain-utils": "workspace:*",
     "@loadable/component": "5.16.3",
     "@loadable/server": "5.16.2",
     "@module-federation/enhanced": "2.3.1",
@@ -117,8 +117,8 @@
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@babel/preset-flow": "^7.18.6",
-    "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
-    "@flexiness/webpack": "@flexiness/webpack@1.0.0",
+    "@flexiness/eslint-config-flat": "workspace:*",
+    "@flexiness/webpack": "workspace:*",
     "@loadable/webpack-plugin": "5.15.2",
     "@rspack/cli": "^1.6.6",
     "@rspack/core": "^1.6.6",
@@ -144,7 +144,7 @@
     "dotenv-webpack": "8.0.1",
     "envsub": "4.1.0",
     "file-loader": "6.2.0",
-    "flexiness": "workspace:*",
+    "flexiness": "workspace:@types/flexiness@*",
     "fork-ts-checker-webpack-plugin": "9.1.0",
     "html-webpack-plugin": "5.6.5",
     "mini-css-extract-plugin": "2.10.2",

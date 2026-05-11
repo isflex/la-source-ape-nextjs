@@ -15,23 +15,23 @@
   "exports": {
     ".": {
       "sass": "./src/modules3/main/all.module.scss",
-      "import": "./src/modules3/main/all.module.scss",
-      "types": "./types/__generated__/default/src/modules3/main/all.module.scss.d.ts"
+      "types": "./types/__generated__/default/src/modules3/main/all.module.scss.d.ts",
+      "import": "./src/modules3/main/all.module.scss"
     },
     "./main/all.module.scss": {
       "sass": "./src/modules3/main/all.module.scss",
-      "import": "./src/modules3/main/all.module.scss",
-      "types": "./types/__generated__/default/src/modules3/main/all.module.scss.d.ts"
+      "types": "./types/__generated__/default/src/modules3/main/all.module.scss.d.ts",
+      "import": "./src/modules3/main/all.module.scss"
     },
     "./flexslider.scss": {
       "sass": "./src/modules3/standalone/flexslider.module.scss",
-      "import": "./src/modules3/standalone/flexslider.module.scss",
-      "types": "./types/__generated__/default/src/modules3/standalone/flexslider.module.scss.d.ts"
+      "types": "./types/__generated__/default/src/modules3/standalone/flexslider.module.scss.d.ts",
+      "import": "./src/modules3/standalone/flexslider.module.scss"
     },
     "./standalone/flexslider.scss": {
       "sass": "./src/modules3/standalone/flexslider.module.scss",
-      "import": "./src/modules3/standalone/flexslider.module.scss",
-      "types": "./types/__generated__/default/src/modules3/standalone/flexslider.module.scss.d.ts"
+      "types": "./types/__generated__/default/src/modules3/standalone/flexslider.module.scss.d.ts",
+      "import": "./src/modules3/standalone/flexslider.module.scss"
     },
     "./package.json": "./package.json",
     "./all.module.css": "./dist/modules/allv3.module.css"
@@ -76,7 +76,7 @@
   "devDependencies": {
     "@abcaustralia/postcss-to-camel-case": "0.0.0",
     "@dotenvx/dotenvx": "1.44.0",
-    "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
+    "@flexiness/eslint-config-flat": "workspace:*",
     "@vusion/webfonts-generator": "0.8.0",
     "autoprefixer": "^10.4.14",
     "bulma": "1.0.3",
@@ -109,7 +109,7 @@
     "stylelint-config-standard-scss": "14.0.0",
     "ttf2woff": "3.0.0",
     "ttf2woff2": "4.0.5",
-    "typed-scss-modules": "@flexiness/typed-scss-modules@8.1.0"
+    "typed-scss-modules": "workspace:@flexiness/typed-scss-modules@*"
   },
   "peerDependencies": {
     "stylelint": "^16.13.2",

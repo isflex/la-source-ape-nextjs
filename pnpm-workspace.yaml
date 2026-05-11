@@ -1,24 +1,22 @@
 packages:
-  - 'apps/**'
-  - '!apps/gateway/.next/standalone/**'
-  - '!apps/gateway/amplify/**'
-  - 'packages/**'
-
+  - "apps/**"
+  - "!apps/gateway/.next/standalone/**"
+  - "!apps/gateway/amplify/**"
+  - "packages/**"
 hoistPattern:
-  - '*eslint*'
-  - '*prettier*'
-  - '@flexiness/*'
-  - '@flex-design-system/*'
-  - 'gateway'
-
-# ignoredBuiltDependencies:
-  # - '@rspack/binding'
-  #   - fsevents
-  #   - sharp
-  #   - '@parcel/watcher'
-  #   - core-js
-  #   - cypress
-  #   - esbuild
-  #   - sharp
-  #   - ttf2woff2
-  #   - unrs-resolver
+  - "*eslint*"
+  - "*prettier*"
+  - "@flexiness/*"
+  - "@flex-design-system/*"
+  - "gateway"
+  - "!*aws-*"
+allowBuilds:
+  "@parcel/watcher": false
+  "@scarf/scarf": false
+  core-js: false
+  cypress: false
+  esbuild: false
+  protobufjs: false
+  sharp: false
+  ttf2woff2: false
+  unrs-resolver: false

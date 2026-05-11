@@ -48,12 +48,12 @@
   },
   "dependencies": {
     "@dotenvx/dotenvx": "1.44.0",
-    "@flex-design-system/framework": "@flex-design-system/framework@0.0.1",
-    "@flex-design-system/react-ts": "@flex-design-system/react-ts@0.0.1",
-    "@flexiness/copilotkit": "@flexiness/copilotkit@0.0.1",
-    "@flexiness/domain-store": "@flexiness/domain-store@0.1.0",
-    "@flexiness/domain-tailwind": "@flexiness/domain-tailwind@0.0.1",
-    "@flexiness/domain-utils": "@flexiness/domain-utils@0.0.1",
+    "@flex-design-system/framework": "workspace:*",
+    "@flex-design-system/react-ts": "workspace:*",
+    "@flexiness/copilotkit": "workspace:*",
+    "@flexiness/domain-store": "workspace:*",
+    "@flexiness/domain-tailwind": "workspace:*",
+    "@flexiness/domain-utils": "workspace:*",
     "aws-amplify": "^6.16.3",
     "classnames": "^2.5.1",
     "isomorphic-dompurify": "^2.33.0",
@@ -68,9 +68,9 @@
     "zod": "4.3.5"
   },
   "devDependencies": {
-    "@flexiness/eslint-config-flat": "@flexiness/eslint-config-flat@1.0.2",
-    "@flexiness/tsconfig": "@flexiness/tsconfig@0.0.0",
-    "@flexiness/webpack": "@flexiness/webpack@1.0.0",
+    "@flexiness/eslint-config-flat": "workspace:*",
+    "@flexiness/tsconfig": "workspace:*",
+    "@flexiness/webpack": "workspace:*",
     "@rspack/cli": "^1.6.6",
     "@rspack/core": "^1.6.6",
     "@types/ejs": "3.1.5",
@@ -79,7 +79,7 @@
     "cross-env": "7.0.3",
     "css-loader": "7.1.2",
     "file-loader": "6.2.0",
-    "flexiness": "@types/flexiness@0.0.1",
+    "flexiness": "workspace:@types/flexiness@*",
     "html-webpack-plugin": "5.6.5",
     "husky": "9.0.11",
     "mini-css-extract-plugin": "2.10.2",
@@ -98,12 +98,12 @@
     "ts-node": "10.9.2",
     "tsconfig-paths-webpack-plugin": "4.2.0",
     "tsup": "^8.5.1",
-    "turbo": "2.6.3",
-    "typed-scss-modules": "@flexiness/typed-scss-modules@8.1.0",
+    "turbo": "2.9.12",
+    "typed-scss-modules": "workspace:@flexiness/typed-scss-modules@*",
     "typescript": "5.9.3",
     "webpack": "5.105.4"
   },
-  "packageManager": "pnpm@10.28.0+sha512.05df71d1421f21399e053fde567cea34d446fa02c76571441bfc1c7956e98e363088982d940465fd34480d4d90a0668bc12362f8aa88000a64e83d0b0e47be48",
+  "packageManager": "pnpm@11.0.9+sha512.34ce82e6780233cf9cad8685029a8f81d2e06196c5a9bad98879f7424940c6817c4e4524fb7d38b8553ceed48b9758b8ebaf1abd3600c232c4c8cf7366086f38",
   "pnpm": {
     "overrides": {
       "flexiness": "workspace:./packages/flex/types",
@@ -118,8 +118,8 @@
       "@flex-design-system/framework": "workspace:./packages/flex/design-system-framework",
       "@flex-design-system/react-ts": "workspace:./packages/flex/design-system-react-ts",
       "typed-scss-modules": "workspace:./packages/flex/config/typed-scss-modules",
-      "aws-amplify": "^6.16.3",
-      "@aws-amplify/core": "6.16.1",
+      "aws-amplify": "^6.17.0",
+      "@aws-amplify/core": "6.16.3",
       "glob": "13.0.6",
       "node-fetch": "^3.3.2",
       "next": "16.2.4",
@@ -149,7 +149,11 @@
       "rxjs": "7.8.1",
       "openai": "^6.16.0",
       "graphql": "^16.12.0",
-      "zod": "4.3.5"
+      "zod": "4.3.5",
+      "@ag-ui/client": "0.0.53",
+      "@ag-ui/core": "0.0.53",
+      "@ag-ui/encoder": "0.0.53",
+      "@ag-ui/proto": "0.0.53"
     }
   }
 }

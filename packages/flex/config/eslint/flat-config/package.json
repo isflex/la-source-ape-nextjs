@@ -6,8 +6,8 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/eslint.config.mjs",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/eslint.config.mjs"
     },
     "./dist/eslint.config.mjs": "./dist/eslint.config.mjs",
     "./package.json": "./package.json"

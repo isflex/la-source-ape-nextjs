@@ -23,9 +23,14 @@
  */
 import { AsyncLocalStorage } from "node:async_hooks";
 
-import { CopilotRuntime, InMemoryAgentRunner, createCopilotEndpoint } from "@copilotkit/runtime/v2";
-import { HttpAgent, type RunAgentInput } from "@ag-ui/client";
-import { handle } from "hono/vercel";
+import {
+  CopilotRuntime,
+  InMemoryAgentRunner,
+  createCopilotEndpoint,
+  HttpAgent,
+  type RunAgentInput,
+  handle,
+} from "@flexiness/copilotkit/server";
 import { NextResponse, type NextRequest } from "next/server";
 import { fetchAuthSession } from "aws-amplify/auth/server";
 
