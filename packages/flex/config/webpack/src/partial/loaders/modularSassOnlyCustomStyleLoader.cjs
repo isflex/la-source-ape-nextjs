@@ -47,7 +47,7 @@ module.exports = (target) => {
             {
               loader: require.resolve('sass-loader'),
               options: {
-                implementation: require('sass'),
+                implementation: require('sass-embedded'),
                 sourceMap: mode === 'development'
               },
             },
@@ -79,7 +79,7 @@ module.exports = (target) => {
             {
               loader: require.resolve('sass-loader'),
               options: {
-                implementation: require('sass'),
+                implementation: require('sass-embedded'),
                 sourceMap: mode === 'development'
               },
             },
