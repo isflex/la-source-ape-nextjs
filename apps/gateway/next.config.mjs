@@ -1,50 +1,52 @@
 // __dirname is not defined in ES module scope
-import * as path from 'path'
-import { fileURLToPath } from 'url'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+import * as path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // require.resolve for ES modules
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 
-import fs, { writeFileSync } from 'node:fs'
-import subprocess from 'node:child_process'
-import { promisify } from 'node:util'
-const execPromise = promisify(subprocess.exec)
+import fs, { writeFileSync } from "node:fs";
+import subprocess from "node:child_process";
+import { promisify } from "node:util";
+const execPromise = promisify(subprocess.exec);
 
 // import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 // import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
 // import { withSentryConfig } from '@sentry/nextjs'
-import createMDX from '@next/mdx'
-import bundleAnalyzer from '@next/bundle-analyzer'
+import createMDX from "@next/mdx";
+import bundleAnalyzer from "@next/bundle-analyzer";
 
-import { camelCase } from 'lodash-es'
+import { camelCase } from "lodash-es";
 
 const withBundleAnalyzer = bundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-})
+  enabled: process.env.ANALYZE === "true",
+});
 
-let _gitCommitSHA = ''
-let _buildId = ''
+let _gitCommitSHA = "";
+let _buildId = "";
 async function getGitCommitSHA() {
-  const result = await execPromise(`${process.env.FLEX_PROJ_ROOT}/bin/run-get-git-commit.sh`)
-  const { stdout, stderr } = result
-  if (stderr) Promise.reject(stderr)
-  return Promise.resolve(stdout.trim())
+  const result = await execPromise(
+    `${process.env.FLEX_PROJ_ROOT}/bin/run-get-git-commit.sh`,
+  );
+  const { stdout, stderr } = result;
+  if (stderr) Promise.reject(stderr);
+  return Promise.resolve(stdout.trim());
 }
-_gitCommitSHA = await getGitCommitSHA()
+_gitCommitSHA = await getGitCommitSHA();
 
 async function getBuildId() {
-  const result = await execPromise(`git rev-parse --short HEAD`)
-  const { stdout, stderr } = result
-  if (stderr) Promise.reject(stderr)
-  return Promise.resolve(stdout.trim())
+  const result = await execPromise(`git rev-parse --short HEAD`);
+  const { stdout, stderr } = result;
+  if (stderr) Promise.reject(stderr);
+  return Promise.resolve(stdout.trim());
 }
-_buildId = await getBuildId()
+_buildId = await getBuildId();
 
-console.log(`Git Commit SHA :`, _gitCommitSHA)
-console.log(`Build Id       :`, _buildId)
+console.log(`Git Commit SHA :`, _gitCommitSHA);
+console.log(`Build Id       :`, _buildId);
 // console.log('process        :', process.cwd())
 
 // https://github.com/vercel/next.js/discussions/21061
@@ -60,22 +62,24 @@ async function getActiveRoutes() {
     //       !folder.startsWith('_') && folder !== 'api',
     //   ),
     ...fs
-      .readdirSync(path.resolve(__dirname, 'src/app'), { withFileTypes: true })
+      .readdirSync(path.resolve(__dirname, "src/app"), { withFileTypes: true })
       .filter((file) => file.isDirectory())
-      .map((folder) => folder.name.replace(regexFolderName, ''))
+      .map((folder) => folder.name.replace(regexFolderName, ""))
       .filter(
         (folder) =>
-          !folder.startsWith('layout') && folder !== 'api' && folder !== 'actions',
-      )
-  ])
+          !folder.startsWith("layout") &&
+          folder !== "api" &&
+          folder !== "actions",
+      ),
+  ]);
 
   try {
-    writeFileSync('./routes.active.json', jsonData, 'utf8')
+    writeFileSync("./routes.active.json", jsonData, "utf8");
   } catch (error) {
-    console.log('An error has occurred writing file to disk', error)
+    console.log("An error has occurred writing file to disk", error);
   }
 }
-getActiveRoutes()
+getActiveRoutes();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = (() => {
@@ -90,97 +94,101 @@ const nextConfig = (() => {
 
     async rewrites() {
       // Dynamically load active routes and exclude them from rewrite (except web-app)
-      const activeRoutes = JSON.parse(fs.readFileSync('./routes.active.json', 'utf8'))
-      const excludedRoutes = activeRoutes.filter(route => route !== 'web-app')
+      const activeRoutes = JSON.parse(
+        fs.readFileSync("./routes.active.json", "utf8"),
+      );
+      const excludedRoutes = activeRoutes.filter(
+        (route) => route !== "web-app",
+      );
       // Always exclude API routes from rewrite
-      excludedRoutes.push('api', '_next', 'favicon.ico')
-      const exclusionPattern = excludedRoutes.join('|')
+      excludedRoutes.push("api", "_next", "favicon.ico");
+      const exclusionPattern = excludedRoutes.join("|");
 
       return [
         // Handle root route specifically - server-side rewrite to web-app
         {
-          source: '/',
-          destination: '/web-app',
+          source: "/",
+          destination: "/web-app",
         },
         // Handle all other non-excluded routes
         {
           source: `/((?!${exclusionPattern}).*)/:path*`,
-          destination: '/web-app/$1/:path*',
-        }
+          destination: "/web-app/$1/:path*",
+        },
       ];
     },
     async redirects() {
       return [
         {
-          source: '/',
-          destination: '/web-app',
+          source: "/",
+          destination: "/web-app",
           permanent: false,
         },
         {
-          source: '/qui-sommes-nous',
-          destination: 'https://ecolelasource.org/une-ecole-active/role-des-parents/',
+          source: "/qui-sommes-nous",
+          destination:
+            "https://ecolelasource.org/une-ecole-active/role-des-parents/",
           permanent: false,
         },
         {
-          source: '/helloasso',
-          destination: 'https://www.helloasso.com/associations/association-des-parents-d-eleves-de-la-source-ecole-nouvelle/',
+          source: "/helloasso",
+          destination:
+            "https://www.helloasso.com/associations/association-des-parents-d-eleves-de-la-source-ecole-nouvelle/",
           permanent: false,
         },
-      ]
+      ];
     },
 
     transpilePackages: [
-      '@types/flexiness',
+      "@types/flexiness",
       // '@flex-design-system/framework',
-      '@flex-design-system/react-ts',
-      '@flexiness/domain-utils',
-      '@flexiness/domain-store'
+      "@flex-design-system/react-ts",
+      "@flexiness/domain-utils",
+      "@flexiness/domain-store",
     ],
 
     // https://github.com/orgs/marp-team/discussions/499
     // https://gist.github.com/kettanaito/56861aff96e6debc575d522dd03e5725
     serverExternalPackages: [
-      '@marp-team/marp-cli',
-      '@aws-sdk/client-cloudwatch-logs',
-      '@aws-sdk/client-secrets-manager',
+      "@marp-team/marp-cli",
+      "@aws-sdk/client-cloudwatch-logs",
+      "@aws-sdk/client-secrets-manager",
       // Externalize posthog-node in dev only — keeps instrumentation.ts compile fast.
       // In prod we bundle it so the Amplify Hosting Lambda can resolve it without
       // a runtime node_modules lookup (Lambda runtime does not contain posthog-node).
-      ...(process.env.FLEX_MODE === 'development' ? ['posthog-node'] : []),
-      'isomorphic-dompurify',
-      'jsdom',
+      ...(process.env.FLEX_MODE === "development" ? ["posthog-node"] : []),
     ],
 
     outputFileTracingRoot: process.env.FLEX_PROJ_ROOT,
 
     typescript: {
       ignoreBuildErrors: false,
-      tsconfigPath: './tsconfig.json'
+      tsconfigPath: "./tsconfig.json",
     },
 
     reactStrictMode: false,
 
     generateBuildId: async () => {
       // You can, for example, get the latest git commit hash here
-      return _buildId
+      return _buildId;
     },
 
     env: {
-      NEXT_PUBLIC_BUILD_ID: _buildId
+      NEXT_PUBLIC_BUILD_ID: _buildId,
     },
 
-    crossOrigin: 'anonymous',
+    crossOrigin: "anonymous",
 
     sassOptions: {
-      implementation: 'sass-embedded',
-      silenceDeprecations: ['legacy-js-api'],
+      implementation: "sass-embedded",
+      silenceDeprecations: ["legacy-js-api"],
     },
 
     // Support MDX files as pages:
-    pageExtensions: ['md', 'mdx', 'tsx', 'ts', 'jsx', 'js'],
+    pageExtensions: ["md", "mdx", "tsx", "ts", "jsx", "js"],
 
     webpack: (config, options) => {
-      const { isServer, webpack, dev } = options
+      const { isServer, webpack, dev } = options;
 
       // Fix: node:* protocol imports in client bundle
       // CopilotKit's telemetry chain pulls @segment/analytics-node → node-fetch v3
@@ -188,12 +196,9 @@ const nextConfig = (() => {
       // resolve.fallback (incl. Next.js built-in polyfills) can handle them.
       if (!isServer) {
         config.plugins.push(
-          new webpack.NormalModuleReplacementPlugin(
-            /^node:/,
-            (resource) => {
-              resource.request = resource.request.replace(/^node:/, '');
-            }
-          )
+          new webpack.NormalModuleReplacementPlugin(/^node:/, (resource) => {
+            resource.request = resource.request.replace(/^node:/, "");
+          }),
         );
 
         config.resolve.fallback = {
@@ -201,7 +206,7 @@ const nextConfig = (() => {
           fs: false,
           net: false,
           worker_threads: false,
-          'stream/web': false,
+          "stream/web": false,
         };
       }
 
@@ -221,38 +226,39 @@ const nextConfig = (() => {
       // https://stackoverflow.com/questions/78042657/hash-classnames-nextjs-v14
 
       function cssLoaderOptions(modules) {
-        const { getLocalIdent, ...others } = modules
+        const { getLocalIdent, ...others } = modules;
         return {
           ...others,
           getLocalIdent: (context, _, exportName, options) => {
             // const customIdent = exportName.startsWith('flexi-webfont')
-            const webFontRegex = new RegExp(/flexi-webfont/g)
+            const webFontRegex = new RegExp(/flexi-webfont/g);
             const customIdent = webFontRegex.test(exportName)
-              ? `${exportName}__${_buildId}` : `${camelCase(exportName)}__${_buildId}`
+              ? `${exportName}__${_buildId}`
+              : `${camelCase(exportName)}__${_buildId}`;
             // const customIdent =`${camelCase(exportName)}__${_buildId}`
-            return customIdent
+            return customIdent;
           },
           // exportLocalsConvention: 'asIs',
           // exportLocalsConvention: 'camelCaseOnly',
-          exportLocalsConvention: 'camelCase',
-        }
+          exportLocalsConvention: "camelCase",
+        };
       }
 
       const rules = config.module.rules
-        .find((rule) => typeof rule.oneOf === 'object')
+        .find((rule) => typeof rule.oneOf === "object")
         .oneOf.filter((rule) => Array.isArray(rule.use));
 
       rules.forEach((rule) => {
         rule.use.forEach((moduleLoader) => {
           if (
-            moduleLoader.loader?.includes('css-loader')
-            && !moduleLoader.loader?.includes('postcss-loader')
-            && moduleLoader.options.modules
+            moduleLoader.loader?.includes("css-loader") &&
+            !moduleLoader.loader?.includes("postcss-loader") &&
+            moduleLoader.options.modules
           ) {
             moduleLoader.options = {
               ...moduleLoader.options,
               modules: cssLoaderOptions(moduleLoader.options.modules),
-            }
+            };
           }
         });
       });
@@ -294,7 +300,7 @@ const nextConfig = (() => {
             ...config.module.rules,
             {
               test: /\.svg$/,
-              use: ['@svgr/webpack'],
+              use: ["@svgr/webpack"],
             },
           ],
         },
@@ -327,12 +333,16 @@ const nextConfig = (() => {
         },
 
         infrastructureLogging: {
-          level: 'none',
+          level: "none",
           // colors: true,
           // level: 'verbose',
           // debug: [/PackFileCache/]
         },
-      }
+
+        // isomorphic-dompurify requires jsdom
+        // jsdom includes optional dependency
+        externals: [...config.externals, "canvas", "jsdom"],
+      };
 
       // Only add minimal watchOptions in dev mode for client bundles
       // Let Next.js handle most of the watching, just ensure it's not disabled
@@ -343,7 +353,7 @@ const nextConfig = (() => {
         // }
       }
 
-      return webpackConfig
+      return webpackConfig;
     },
 
     experimental: {
@@ -357,19 +367,19 @@ const nextConfig = (() => {
       // },
       // dynamicIO: true,
     },
-  }
+  };
 
-  return nextConfig
-})()
+  return nextConfig;
+})();
 
 const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
     /* otherOptions… */
   },
-})
+});
 
-export default withBundleAnalyzer(withMDX(nextConfig))
+export default withBundleAnalyzer(withMDX(nextConfig));
 
 // export default withSentryConfig(mainConfig, {
 //   org: 'flexiness',
