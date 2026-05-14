@@ -7,6 +7,7 @@ import { Amplify } from "aws-amplify";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@amplify/data/resource";
 import Stripe from "stripe";
+import { clearWindow } from "isomorphic-dompurify";
 import { ContributionSchema } from "@src/lib/cagnotte-helpers";
 import { buildPaymentIntentParams, calculateChargeAmount, DEFAULT_FEE_CONFIG, type FeeConfig } from "@src/lib/cagnotte-fees";
 import { getCurrentConfig } from "@src/utils/amplify/configureAmplifyWithPortDetection";
@@ -241,5 +242,13 @@ export async function POST(request: NextRequest) {
       },
       { status: 500 },
     );
+  } finally {
+    // isomorphic-dompurify's server-side jsdom window accumulates DOM state
+    // across sanitize() calls (run here via ContributionSchema's Zod transforms).
+    // Reset it at the request boundary in long-lived Lambda containers.
+    // https://github.com/kkomelin/isomorphic-dompurify#memory-management-server
+    if (typeof globalThis.window === "undefined") {
+      clearWindow();
+    }
   }
 }
