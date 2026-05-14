@@ -4,7 +4,7 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-packageExtensionsChecksum: sha256-gSGBZ5O0qiB3Yr6jymdvuhCBmU4OwlTydB1S2plfX54=
+packageExtensionsChecksum: sha256-ex0T8nXStckQ3ZexcGXZ87xvb3h5got189/0pvYKoeo=
 
 patchedDependencies:
   aws-cdk-lib@2.253.1: 12624955c6e7dda8ca77f924c5c4e95e67d84958b052a89b0f0e1a07319bbd43
