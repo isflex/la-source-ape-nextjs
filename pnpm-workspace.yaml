@@ -7,6 +7,10 @@ packageExtensions:
   "@aws-amplify/backend-cli":
     dependencies:
       tsx: "^4.19.4"
+  "isomorphic-dompurify":
+    dependencies:
+      jsdom: "^28.1.0"
+      canvas: "*"
 allowBuilds:
   "@parcel/watcher": false
   "@scarf/scarf": false

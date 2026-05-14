@@ -77,6 +77,7 @@
     "escape-string-regexp": "5.0.0",
     "framer-motion": "12.23.12",
     "isomorphic-dompurify": "^2.33.0",
+    "jsdom": "^28.1.0",
     "libphonenumber-js": "1.12.23",
     "lodash-es": "4.17.22",
     "material-ui-confirm": "4.0.0",
