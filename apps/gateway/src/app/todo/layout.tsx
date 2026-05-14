@@ -25,8 +25,8 @@ export default async function ToDoAppLayout({
   children: React.ReactNode
 }) {
 
-  const posthog = PostHogNodeClient()
-  await posthog.shutdown()
+  const posthog = await PostHogNodeClient()
+  await posthog?.shutdown()
 
   return (
     <div className={classNames(stylesGeneric.genericLayout1, stylesPage.todoApp)}>

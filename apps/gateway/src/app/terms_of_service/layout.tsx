@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 
 export default async function Layout() {
 
-  const posthog = PostHogNodeClient()
-  await posthog.shutdown()
+  const posthog = await PostHogNodeClient()
+  await posthog?.shutdown()
 
   return (
     <PageContent />

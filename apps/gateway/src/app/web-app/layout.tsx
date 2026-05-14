@@ -56,8 +56,8 @@ export default async function WebAppLayout({
   // console.debug((new RegExp(`${regexEscape(process.env.NEXT_PUBLIC_FLEX_FUTUR_PROOF_2_BASE_DOMAIN!)}`, 'g')).test(currentHost))
 
   const mobileCheck = isMobile(userAgent)
-  const posthog = PostHogNodeClient()
-  await posthog.shutdown()
+  const posthog = await PostHogNodeClient()
+  await posthog?.shutdown()
 
   const FallBackInstanceUnavailable = process.env.NEXT_PUBLIC_WEB_APP_DEPLOYMENT_METHODE === 'linode'
     ? FallBackLinodeInstanceUnavailable

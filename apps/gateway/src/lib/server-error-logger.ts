@@ -280,7 +280,8 @@ async function sendToPostHog(
   context: ErrorContext
 ): Promise<void> {
   try {
-    const posthog = getPostHogServer()
+    const posthog = await getPostHogServer()
+    if (!posthog) return // posthog-node unavailable; CloudWatch still runs in parallel
 
     // Use captureException for error tracking
     await posthog.captureException(

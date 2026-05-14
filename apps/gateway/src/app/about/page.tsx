@@ -10,8 +10,8 @@ async function actionPageInfo() {
   const userAgent = (await headers()).get('user-agent') || ''
   const mobileCheck = isMobile(userAgent)
   // const session = await getSession(); // Fetch session data
-  const posthog = PostHogNodeClient()
-  await posthog.shutdown()
+  const posthog = await PostHogNodeClient()
+  await posthog?.shutdown()
 
   return {
     mobileCheck

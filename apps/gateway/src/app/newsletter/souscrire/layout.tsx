@@ -34,8 +34,8 @@ export default async function NewsletterLayout({
   //   redirect('/newsletter/souscrire/')
   // }
 
-  const posthog = PostHogNodeClient()
-  await posthog.shutdown()
+  const posthog = await PostHogNodeClient()
+  await posthog?.shutdown()
 
   return (
     <div className={classNames(

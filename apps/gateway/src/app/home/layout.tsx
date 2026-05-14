@@ -24,8 +24,8 @@ export default async function HomeLayout({
   children: React.ReactNode
 }) {
 
-  const posthog = PostHogNodeClient()
-  await posthog.shutdown()
+  const posthog = await PostHogNodeClient()
+  await posthog?.shutdown()
 
   return (
     <div className={stylesGeneric.genericLayout1}>

@@ -1,10 +1,11 @@
+import type { PostHog as PostHogType } from 'posthog-node'
 import PostHogNodeClient from '@src/utils/posthog/initPostHogNode'
 
-let posthogInstance: any = null
+let posthogInstance: PostHogType | null = null
 
-export function getPostHogServer() {
+export async function getPostHogServer(): Promise<PostHogType | null> {
   if (!posthogInstance) {
-    posthogInstance = PostHogNodeClient()
+    posthogInstance = await PostHogNodeClient()
   }
   return posthogInstance
 }

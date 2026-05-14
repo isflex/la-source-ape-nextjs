@@ -143,7 +143,10 @@ const nextConfig = (() => {
       '@marp-team/marp-cli',
       '@aws-sdk/client-cloudwatch-logs',
       '@aws-sdk/client-secrets-manager',
-      'posthog-node',
+      // Externalize posthog-node in dev only — keeps instrumentation.ts compile fast.
+      // In prod we bundle it so the Amplify Hosting Lambda can resolve it without
+      // a runtime node_modules lookup (Lambda runtime does not contain posthog-node).
+      ...(process.env.FLEX_MODE === 'development' ? ['posthog-node'] : []),
       'isomorphic-dompurify',
       'jsdom',
     ],
