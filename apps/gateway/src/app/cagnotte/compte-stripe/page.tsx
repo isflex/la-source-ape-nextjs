@@ -123,6 +123,7 @@ export default function StripeAccountPage() {
     if (searchParams.get('success') === 'true') {
       // Don't show "terminée avec succès" - the actual status display will reflect the true state
       // Just show a neutral message indicating we're processing
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- react to Stripe redirect URL param on mount
       setSuccess('Étape complétée. Vérification en cours...');
       // Remove query param
       router.replace('/cagnotte/compte-stripe/');
@@ -180,6 +181,7 @@ export default function StripeAccountPage() {
   // Load account status with observeQuery for real-time updates
   useEffect(() => {
     if (!user) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- early-exit loading when unauthenticated
       setLoading(false);
       return;
     }

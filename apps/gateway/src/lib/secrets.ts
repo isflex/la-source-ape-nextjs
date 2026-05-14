@@ -1,6 +1,14 @@
 import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-secrets-manager';
 
-const client = new SecretsManagerClient({ region: 'eu-west-3' });
+let _client: SecretsManagerClient | null = null;
+function getClient(): SecretsManagerClient {
+  if (!_client) {
+    _client = new SecretsManagerClient({
+      region: process.env.AWS_REGION || 'eu-west-3',
+    });
+  }
+  return _client;
+}
 
 interface StripeSecrets {
   FLEX_STRIPE_SECRET_KEY: string;
@@ -46,7 +54,7 @@ export async function getStripeSecrets(): Promise<StripeSecrets> {
     SecretId: process.env.FLEX_STRIPE_SECRET_ARN || 'apelasource/stripe',
   });
 
-  const response = await client.send(command);
+  const response = await getClient().send(command);
 
   if (!response.SecretString) {
     throw new Error('Secret not found in Secrets Manager');
@@ -90,7 +98,7 @@ export async function getHelloAssoSecrets(): Promise<HelloAssoSecrets> {
 
   const secretId = process.env.FLEX_HELLOASSO_SECRET_ARN || 'apelasource/helloasso';
   const command = new GetSecretValueCommand({ SecretId: secretId });
-  const response = await client.send(command);
+  const response = await getClient().send(command);
 
   if (!response.SecretString) {
     throw new Error('HelloAsso secret not found in Secrets Manager');

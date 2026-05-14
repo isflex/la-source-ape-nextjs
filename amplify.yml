@@ -1,106 +1,34 @@
 version: 1
 applications:
   - appRoot: apps/gateway
+
     backend:
       phases:
         preBuild:
           commands:
-            # - 'nvm install 20.19.1'
-            # - 'nvm use 20.19.1'
-            # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
-            # - node -v
-            # - pwd
-            # - cd apps/gateway
-            # - pwd
-            # - sudo fallocate -l 40G /swapfile
-            # - sudo chmod 600 /swapfile
-            # - sudo mkswap /swapfile
-            # - sudo swapon /swapfile
-            # - sudo swapon -s
-            # - npm install --cache .npm --prefer-offline
             - corepack enable
-            - corepack prepare pnpm@latest-10 --activate
-            - printenv PATH
-            - pnpm config set global-bin-dir /root/bin
-            - pnpm install --frozen-lockfile
-            # Switch to Zod 3.x for Amplify CLI compatibility
+            - corepack prepare pnpm@latest-11 --activate
             - node bin/switch-zod-version.mjs 3
-            # Switch to GraphQL 15.x for Amplify CLI compatibility
             - node bin/switch-graphql-version.mjs 15
             - pnpm install --no-frozen-lockfile
-            # - pnpm add -g react-router@7.6.0
-            # - pnpm store path
-            # - pnpm list react*
-            # - npx ampx info
-            - pnpm ampx info
         build:
           commands:
-            # Create symlink to root pnpm-lock.yaml for monorepo support
             - ln -sf ../../pnpm-lock.yaml apps/gateway/pnpm-lock.yaml
-            # CDK Lambda bundling enforces that the lambda source is under
-            # the projectRoot (apps/gateway). pnpm's hoisted node-linker
-            # places @aws-amplify/backend at the repo root, triggering
-            # [PathNotUnderRoot] during ampx pipeline-deploy. Hardlink-copy
-            # (cp -al) the package into apps/gateway/node_modules so its
-            # realpath sits under projectRoot. Hardlinks share inodes, so
-            # this adds zero disk usage. Node's module resolution walks up
-            # for transitive deps and finds them in the repo-root tree.
-            - mkdir -p apps/gateway/node_modules/@aws-amplify
-            - cp -al node_modules/@aws-amplify/backend apps/gateway/node_modules/@aws-amplify/backend
-            - cp -al node_modules/@aws-amplify/backend-cli apps/gateway/node_modules/@aws-amplify/backend-cli
             - cd apps/gateway
-            # # Check current AWS identity
-            # - aws sts get-caller-identity
-            # - npm install --cache .npm --prefer-offline
-            # - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
+            - pnpm ampx info
             - pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
-            # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-            # # Run Amplify deployment with loaded environment variables
-            # # /!\ THIS WILL NOT WORK. IT WILL CAUSE CDK_DEFAULT_ACCOUNT TO BE INVALID
-            # # [assembly: CDK_ASSEMBLY_I0010] Setting "CDK_DEFAULT_ACCOUNT" environment variable to 693207358157
-            # # [BootstrapDetectionError] Unable to detect CDK bootstrap stack due to permission issues.
-            # - pnpm dotenvx run --env-file=../../env/public/.env.production -- sh -c "export CDK_DEFAULT_ACCOUNT=$FLEX_AWS_ORG_ID && pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug"
-            # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-      cache:
-        paths:
-          - "node_modules/**/*"
+
     frontend:
       buildPath: /
       phases:
         preBuild:
           commands:
-            # - 'nvm install 20.19.1'
-            # - 'nvm use 20.19.1'
-            # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html#setup-live-updates
-            # - node -v
-            - pwd
-            # - cd apps/gateway
-            # - pwd
-            # - rm -rf .next
-            - cd ../../ # run install and build from monorepo project root
-            - pwd
-            # Switch back to Zod 4.x for CopilotKit compatibility in frontend build
+            - cd ../../
             - node bin/switch-zod-version.mjs 4
-            # Switch back to GraphQL 16.x for CopilotKit compatibility
             - node bin/switch-graphql-version.mjs 16
             - pnpm install --no-frozen-lockfile
-            # - npm install -g pnpm
-            # - npm install --global corepack@latest
-            # - corepack enable
-            # - corepack prepare pnpm@latest-10 --activate
-            # - printenv PATH
-            # - mkdir ../.pnpm-store
-            # - pnpm config set store-dir ../.pnpm-store
-            # - pnpm config set global-bin-dir /root/bin
-            # - pnpm install --frozen-lockfile
-            # - pnpm add -g react-router@7.6.0
-            - pnpm store path
-            - pnpm list react*
-            # - ls -al /tmp/app/node_modules
-            # - printenv TMPTIME
         build:
           commands:
-            - pwd
             - export FLEX_PROJ_ROOT=$(pwd)
             - pnpm build
             - rm -f node_modules/@rspack/binding-linux-x64-gnu/rspack.linux-x64-gnu.node
@@ -109,16 +37,6 @@ applications:
         baseDirectory: apps/gateway/.next
         files:
           - "**/*"
-        # # Nextjs standalone mode
-        # baseDirectory: apps/gateway
-        # files:
-        #   - '.next/standalone/**/*'
-        #   - '.next/static/**/*'
-        #   - 'public/**/*'
-        #   - '.next/BUILD_ID'
-        #   - '.next/routes-manifest.json'
-        #   - '.next/required-server-files.json'
       cache:
         paths:
           - "apps/gateway/.next/cache/**/*"
-          - "node_modules/**/*"

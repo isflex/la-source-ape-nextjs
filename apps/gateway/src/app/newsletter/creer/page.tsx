@@ -152,6 +152,7 @@ export default function NewsletterCreationPage() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- mount flag + auth-dependent data load
     setMounted(true);
 
     const initializeNewsletters = async () => {

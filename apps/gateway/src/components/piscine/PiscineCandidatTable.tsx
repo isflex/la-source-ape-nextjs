@@ -197,6 +197,7 @@ export default function PiscineCandidatTable({
 
   useEffect(() => {
     if (piscineFormId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- load data when piscineFormId arrives
       loadDateSlotsWithCandidats();
     }
   }, [piscineFormId]); // eslint-disable-line react-hooks/exhaustive-deps

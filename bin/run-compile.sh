@@ -55,4 +55,6 @@ retry_until() {
 #     # pnpm clean:all:tsc
 # fi
 
-retry_until 5s 5 pnpm compile:tsc:project:references
+# retry_until 5s 5 pnpm compile:tsc:project:references
+
+pnpm turbo run compile:transit;

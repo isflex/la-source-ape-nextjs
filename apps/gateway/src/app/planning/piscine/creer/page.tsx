@@ -176,6 +176,7 @@ export default function PiscineCreerPage() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- mount flag + auth-dependent data load
     setMounted(true);
 
     const initializeForms = async () => {

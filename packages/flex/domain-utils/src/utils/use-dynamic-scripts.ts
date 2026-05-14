@@ -17,6 +17,7 @@ const useDynamicScript = (args: { url: string; nonce: string }) => {
     element.async = true
     element.nonce = args.nonce
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset state before injecting new script tag
     setReady(false)
     setFailed(false)
 

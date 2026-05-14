@@ -14,28 +14,17 @@
     "HUSKY"
   ],
   "tasks": {
-    "dev:compile:transit": {
-      "with": ["@flexiness/domain-tailwind#dev:tailwind"],
-      "cache": false,
-      "persistent": true
-    },
-    "dev:packages:transit": {
-      "dependsOn": ["^dev:compile:transit"],
-      "cache": false,
-      "persistent": true
-    },
     "//#agent:dev": {
       "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*", "NEXT_PUBLIC_*"],
       "cache": false,
       "persistent": true
     },
-
     "//#listen:stripe": {
       "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*", "NEXT_PUBLIC_*"],
       "cache": false,
       "persistent": true
     },
-    "//#compile:clean:sh": {
+    "//#compile:tsc:project:references": {
       "dependsOn": [
         "@flexiness/domain-utils#compile:tsup",
         "@flexiness/copilotkit#compile:tsup",
@@ -49,16 +38,15 @@
       "cache": true,
       "persistent": false
     },
+    "//#compile:transit": {
+      "dependsOn": ["//#compile:tsc:project:references", "gateway#next:tsc"],
+      "cache": true,
+      "persistent": false
+    },
     "//#compile:watch:sh": {
       "outputs": ["packages/flex/domain-store/dist/**", "apps/gateway/public/slides/**"],
       "cache": false,
       "persistent": true
-    },
-    "lint": {
-      "dependsOn": ["//#compile:clean:sh", "gateway#next:tsc", "^lint"],
-      "env": ["FLEX_*", "GIT_*"],
-      "cache": true,
-      "persistent": false
     },
     "seed": {
       "dependsOn": ["gateway#amplify:sandbox:create"],
@@ -66,31 +54,29 @@
       "cache": true,
       "persistent": false
     },
+    "lint": {
+      "dependsOn": ["//#compile:transit", "^lint"],
+      "env": ["FLEX_*", "GIT_*"],
+      "cache": true,
+      "persistent": false
+    },
     "build:lib": {
-      "dependsOn": ["//#compile:clean:sh", "^build:lib"],
+      "dependsOn": ["//#compile:transit", "^build:lib"],
       "env": ["FLEX_*", "GIT_*"],
       "cache": true,
       "persistent": false
     },
     "build": {
-      "dependsOn": ["//#compile:clean:sh", "^build:lib", "^build"],
+      "dependsOn": ["//#compile:transit", "^build:lib", "^build"],
       "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*", "NEXT_PUBLIC_*", "SENTRY_*"],
       "cache": true,
       "persistent": false
     },
-    "start:client:transit": {
-      "dependsOn": ["@flexiness/domain-content#start"],
-      "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*"],
-      "cache": false
-    },
-    "//#turbo:start:client": {
-      "dependsOn": ["^start:client:transit"],
-      "cache": false
-    },
-    "//#turbo:start:gateway": {
-      "dependsOn": ["^start:client:transit", "gateway#start"],
-      "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*", "NEXT_PUBLIC_*", "SENTRY_*"],
-      "cache": false
+    "dev": {
+      "dependsOn": ["//#compile:transit"],
+      "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*", "NEXT_PUBLIC_*"],
+      "cache": false,
+      "persistent": true
     }
   }
 }

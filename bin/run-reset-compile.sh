@@ -1,15 +1,27 @@
 #!/bin/bash
+set -euo pipefail
 
-cd $FLEX_PROJ_ROOT
-pnpm exec rimraf -g '**/.turbo'
-pnpm exec rimraf -g '**/.webpack-cache'
-# pnpm exec rimraf -g '**/.eslintcache'
-# pnpm exec rimraf -g '**/prebuild'
-# pnpm exec rimraf -g '**/bundle'
-pnpm exec rimraf -g '**/dist'
-# pnpm exec rimraf -g 'apps/**/dist'
-pnpm exec rimraf -g '**/*.tsbuildinfo'
-pnpm exec rimraf -g '**/build'
-# pnpm exec rimraf -g '**/build' -g '**/server-build'
-pnpm exec rimraf -g '**/.next'
-pnpm exec rimraf -g '**/node_modules'
+cd "$FLEX_PROJ_ROOT"
+
+# Each line below is an INDEPENDENT find call. Comment any line out to skip
+# that category — same workflow as the previous rimraf version.
+#
+# Every cache-pass line begins with `-name node_modules -prune -o` so find
+# never descends into node_modules subtrees (the .pnpm/<pkg>/dist explosion
+# is what made naive globbing unbearably slow on a populated workspace).
+# node_modules itself is wiped by the final block.
+
+# --- caches & build outputs --------------------------------------------------
+find . -name node_modules -prune -o -type d -name '.turbo'         -prune -exec rm -rf {} +
+find . -name node_modules -prune -o -type d -name '.webpack-cache' -prune -exec rm -rf {} +
+find . -name node_modules -prune -o -type d -name 'dist'           -prune -exec rm -rf {} +
+find . -name node_modules -prune -o -type d -name 'build'          -prune -exec rm -rf {} +
+find . -name node_modules -prune -o -type d -name '.next'          -prune -exec rm -rf {} +
+
+# --- typescript build info ---------------------------------------------------
+find . -name node_modules -prune -o -type f -name '*.tsbuildinfo' -exec rm -f {} +
+
+# --- ALL node_modules (workspace + nested) — comment out to keep them --------
+find . -type d -name 'node_modules' -prune -exec rm -rf {} +
+
+echo "✓ run-reset-compile.sh: workspace wiped clean."

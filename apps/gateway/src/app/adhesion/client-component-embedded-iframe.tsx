@@ -30,7 +30,7 @@ import {
   IconSize,
   // IconPosition,
   IconName,
-  IconStatus,
+  // IconStatus,
 } from "@flex-design-system/react-ts/client-sync-styled-direct/icon";
 import { Link } from "@flex-design-system/react-ts/client-sync-styled-direct/link";
 import { View } from "@flex-design-system/react-ts/client-sync-styled-direct/view";
@@ -83,6 +83,7 @@ export default function AdhesionContent({
 
   useEffect(() => {
     if (!user) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sync UI state to async auth user
       setPageState("unauthenticated");
       return;
     }

@@ -7,7 +7,18 @@
       "persistent": true,
       "env": ["FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"]
     },
+    "next:dev:all": {
+      "cache": false,
+      "env": ["FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"],
+      "with": ["dev:all:transit"]
+    },
+    "next:dev:turbo": {
+      "cache": false,
+      "env": ["FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"],
+      "with": ["dev:all:transit"]
+    },
     "next:tsc": {
+      "dependsOn": ["//#compile:tsc:project:references"],
       "cache": false,
       "env": ["FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"]
     },
@@ -25,31 +36,36 @@
       "env": ["DOTENV_*", "FLEX_*"],
       "with": ["marp:dev", "warm:api"]
     },
-    "next:dev:all": {
-      "cache": false,
-      "env": ["FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"],
-      "with": ["dev:all:transit"]
-    },
-    "next:dev:turbo": {
-      "cache": false,
-      "env": ["FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"],
-      "with": ["dev:all:transit"]
-    },
     "dev": {
-      "dependsOn": ["^dev:packages:transit"],
-      "with": ["next:dev"],
+      "dependsOn": ["dev:all:transit"],
+      "with": [
+        "@flexiness/domain-tailwind#dev:tailwind",
+        "//#agent:dev",
+        "//#listen:stripe",
+        "next:dev"
+      ],
       "cache": false,
       "persistent": true
     },
     "dev:all": {
-      "dependsOn": ["^dev:packages:transit"],
-      "with": ["//#agent:dev", "//#listen:stripe", "next:dev:all"],
+      "dependsOn": ["dev:all:transit"],
+      "with": [
+        "@flexiness/domain-tailwind#dev:tailwind",
+        "//#agent:dev",
+        "//#listen:stripe",
+        "next:dev:all"
+      ],
       "cache": false,
       "persistent": true
     },
     "dev:turbo": {
-      "dependsOn": ["^dev:packages:transit"],
-      "with": ["//#agent:dev", "//#listen:stripe", "next:dev:turbo"],
+      "dependsOn": ["dev:all:transit"],
+      "with": [
+        "@flexiness/domain-tailwind#dev:tailwind",
+        "//#agent:dev",
+        "//#listen:stripe",
+        "next:dev:turbo"
+      ],
       "cache": false,
       "persistent": true
     },
@@ -72,20 +88,42 @@
       "env": ["AWS_*", "DOTENV_*", "FLEX_*"]
     },
     "build": {
-      "dependsOn": ["//#compile:clean:sh", "@flex-design-system/react-ts#build", "marp:build"],
+      "dependsOn": [
+        "//#compile:transit",
+        "@flex-design-system/react-ts#build",
+        "marp:build"
+      ],
       "outputs": [".next/**/*"],
       "inputs": ["$TURBO_DEFAULT$", "amplify_outputs.json", "!README.md"],
       "cache": true,
       "persistent": false,
-      "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*", "NEXT_PUBLIC_*", "SENTRY_*"]
+      "env": [
+        "AWS_*",
+        "DOTENV_*",
+        "FLEX_*",
+        "GIT_*",
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
+      ]
     },
     "analyze": {
-      "dependsOn": ["//#compile:clean:sh", "@flex-design-system/react-ts#build", "marp:build"],
+      "dependsOn": [
+        "//#compile:transit",
+        "@flex-design-system/react-ts#build",
+        "marp:build"
+      ],
       "outputs": [".next/**/*"],
       "inputs": ["$TURBO_DEFAULT$", "amplify_outputs.json", "!README.md"],
       "cache": true,
       "persistent": false,
-      "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*", "NEXT_PUBLIC_*", "SENTRY_*"]
+      "env": [
+        "AWS_*",
+        "DOTENV_*",
+        "FLEX_*",
+        "GIT_*",
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
+      ]
     },
     "start": {
       "cache": false,

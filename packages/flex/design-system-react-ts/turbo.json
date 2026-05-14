@@ -7,13 +7,9 @@
       "cache": true,
       "persistent": false
     },
-    "clean:source": {
-    },
+    "clean:source": {},
     "build": {
-      "dependsOn": [
-        "//#compile:clean:sh",
-        "@flex-design-system/framework#build:lib"
-      ],
+      "dependsOn": ["//#compile:transit", "@flex-design-system/framework#build:lib"],
       "outputs": ["build/**"],
       "cache": true,
       "persistent": false

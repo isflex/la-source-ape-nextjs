@@ -27,6 +27,7 @@ export default function NewsletterContentPage({ params }: NewsletterContentPageP
 
   useEffect(() => {
     if (!slugArray || slugArray.length === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- set 404 state when slug missing on mount
       setNotFoundError(true)
       setIsLoading(false)
       return

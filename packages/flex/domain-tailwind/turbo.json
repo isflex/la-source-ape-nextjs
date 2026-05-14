@@ -7,14 +7,8 @@
       "persistent": true
     },
     "build:lib": {
-      "dependsOn": [
-        "//#compile:clean:sh",
-        "@flexiness/typed-scss-modules#build:lib",
-        "@flex-design-system/framework#build:lib"
-      ],
-      "outputs": [
-        "dist/**"
-      ],
+      "dependsOn": ["//#compile:transit", "@flexiness/typed-scss-modules#build:lib", "@flex-design-system/framework#build:lib"],
+      "outputs": ["dist/**"],
       "cache": true,
       "persistent": false
     }

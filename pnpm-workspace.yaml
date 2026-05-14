@@ -1,15 +1,12 @@
 packages:
   - "apps/**"
   - "!apps/gateway/.next/standalone/**"
-  - "!apps/gateway/amplify/**"
+  # - "!apps/gateway/amplify/**"
   - "packages/**"
-hoistPattern:
-  - "*eslint*"
-  - "*prettier*"
-  - "@flexiness/*"
-  - "@flex-design-system/*"
-  - "gateway"
-  - "!*aws-*"
+packageExtensions:
+  "@aws-amplify/backend-cli":
+    dependencies:
+      tsx: "^4.19.4"
 allowBuilds:
   "@parcel/watcher": false
   "@scarf/scarf": false
@@ -20,3 +17,5 @@ allowBuilds:
   sharp: false
   ttf2woff2: false
   unrs-resolver: false
+patchedDependencies:
+  aws-cdk-lib@2.253.1: patches/aws-cdk-lib@2.253.1.patch

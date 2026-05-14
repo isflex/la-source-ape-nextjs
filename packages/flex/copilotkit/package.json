@@ -39,6 +39,16 @@
       "import": "./dist/actions/index.js",
       "require": "./dist/actions/index.cjs"
     },
+    "./server": {
+      "types": "./dist/server/index.d.ts",
+      "import": "./dist/server/index.js",
+      "require": "./dist/server/index.cjs"
+    },
+    "./federation": {
+      "types": "./dist/federation/index.d.ts",
+      "import": "./dist/federation/index.js",
+      "require": "./dist/federation/index.cjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/index.cjs",
@@ -66,14 +76,13 @@
     "@copilotkit/sdk-js": "^1.56.3",
     "hono": "^4.11.4",
     "tslib": "^2.8.1",
-    "uuid": "8.3.2"
+    "uuid": "14.0.0"
   },
   "devDependencies": {
     "@flexiness/eslint-config-flat": "workspace:*",
     "@types/node": "25.6.0",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
-    "@types/uuid": "9.0.3",
     "cross-env": "7.0.3",
     "flexiness": "workspace:@types/flexiness@*",
     "rimraf": "6.1.0",

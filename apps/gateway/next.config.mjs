@@ -142,7 +142,10 @@ const nextConfig = (() => {
     serverExternalPackages: [
       '@marp-team/marp-cli',
       '@aws-sdk/client-cloudwatch-logs',
+      '@aws-sdk/client-secrets-manager',
       'posthog-node',
+      'isomorphic-dompurify',
+      'jsdom',
     ],
 
     outputFileTracingRoot: process.env.FLEX_PROJ_ROOT,

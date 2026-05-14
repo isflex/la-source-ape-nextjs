@@ -49,6 +49,7 @@ export default function AdhesionContent() {
 
   useEffect(() => {
     if (!user) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sync UI state to async auth user
       setPageState('unauthenticated');
       return;
     }

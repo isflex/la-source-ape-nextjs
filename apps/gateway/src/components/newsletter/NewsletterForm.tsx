@@ -67,6 +67,7 @@ export default function NewsletterForm({ onSubmit, onCancel, loading = false, in
   // Update form data when initialData changes
   useEffect(() => {
     if (initialData) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sync form state when initialData prop arrives/changes
       setFormData({
         ...INITIAL_FORM_DATA,
         ...initialData

@@ -306,7 +306,7 @@ L'avènement de l'intelligence artificielle la rendra omniprésente et accessibl
 
 En adoptant une architecture technique et des pratiques courantes dans le secteur, nous établissons les normes et les mesures de sécurité indispensables au développement de nouveaux outils d'IA, guidés par l'intervention <s>l'humain</s> des parents.
 
-Si vous souhaitez participer ou si vous pensez que ce logiciel pourrait être utile à votre établissement scolaire, nous vous expliquerons la marche à suivre. Il vous suffit de <a class='link' href='/web-app' target='_blank'>réserver un créneau horaire</a> avec un développeur dédié.
+Si vous souhaitez participer ou si vous pensez que ce logiciel pourrait être utile à votre établissement scolaire, nous vous expliquerons la marche à suivre. Il vous suffit de <a class='link' href='https://www.flexiness.com/meet-up/794e456e-8c6d-4679-9b58-1443a9af8f5f' target='_blank'>réserver un créneau horaire</a> avec un développeur dédié.
 
 <!-- Ceci est une note pour le présentateur. Vous pouvez écrire des notes via cette balise de commentaire HTML -->
 
@@ -344,7 +344,7 @@ En promouvant l'<a class='link' href='https://www.library.hbs.edu/working-knowle
   Plateforme développée en partenariat avec l'agence web
 </p>
 
-<a href='https://flexiness.com' target='_blank'>
+<a href='https://www.flexiness.com' target='_blank'>
   <div class='logo-flexiness'></div>
 </a>
 

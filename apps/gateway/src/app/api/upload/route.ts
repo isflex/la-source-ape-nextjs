@@ -9,25 +9,25 @@ export const runtime = 'nodejs'
 async function getS3ClientWithCognito(idToken: string) {
   const { S3Client } = await import('@aws-sdk/client-s3')
   const { fromCognitoIdentityPool } = await import('@aws-sdk/credential-provider-cognito-identity')
-  const { CognitoIdentityClient } = await import('@aws-sdk/client-cognito-identity')
+
+  const region = getAuthConfig()?.aws_region || 'eu-west-3'
 
   debug.upload('S3 Client Debug (Cognito):', {
-    region: getAuthConfig()?.aws_region || 'eu-west-3',
+    region,
     identityPoolId: getAuthConfig()?.identity_pool_id,
     userPoolId: getAuthConfig()?.user_pool_id,
     bucketName: getStorageConfig()?.bucket_name || ''
   })
 
-  // Create Cognito Identity client
-  const cognitoIdentity = new CognitoIdentityClient({
-    region: getAuthConfig()?.aws_region || 'eu-west-3'
-  })
-
-  // Use Cognito Identity Pool with authenticated user credentials
+  // Use Cognito Identity Pool with authenticated user credentials.
+  // We rely on `clientConfig` (rather than constructing CognitoIdentityClient
+  // ourselves) so the provider uses its bundled nested-clients copy — avoids
+  // a Smithy type-identity mismatch between @aws-sdk/client-cognito-identity
+  // and @aws-sdk/credential-provider-cognito-identity's internal version.
   const client = new S3Client({
-    region: getStorageConfig()?.aws_region || getAuthConfig()?.aws_region || 'eu-west-3',
+    region: getStorageConfig()?.aws_region || region,
     credentials: fromCognitoIdentityPool({
-      client: cognitoIdentity,
+      clientConfig: { region },
       identityPoolId: getAuthConfig()?.identity_pool_id || '',
       logins: {
         [`cognito-idp.${getAuthConfig()?.aws_region}.amazonaws.com/${getAuthConfig()?.user_pool_id}`]: idToken

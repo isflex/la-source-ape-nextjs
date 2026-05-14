@@ -39,7 +39,6 @@ This project uses **pnpm** as the package manager. All commands should use pnpm,
 
 ### Compilation
 
-- `pnpm compile:clean:sh` - Clean compile all packages
 - `pnpm compile:tsc:project:references` - TypeScript project references compilation
 - `pnpm compile:tsc:project:references:watch` - Watch mode for TypeScript compilation
 

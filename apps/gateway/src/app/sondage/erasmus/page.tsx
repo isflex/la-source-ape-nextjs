@@ -179,6 +179,7 @@ export default function ErasmusSurvey() {
       listResponses();
     } catch (err) {
       debug.error(err);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- set error state on subscription init failure
       setHasError(true);
     }
   }, []);

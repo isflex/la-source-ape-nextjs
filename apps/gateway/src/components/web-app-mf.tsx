@@ -4,11 +4,13 @@ import React from 'react'
 import * as mobx from 'mobx'
 import * as mobxReactLite from 'mobx-react-lite'
 import * as framerMotion from 'framer-motion'
-import * as copilotkitReactCoreV2 from '@copilotkit/react-core/v2'
-import * as agUiClient from '@ag-ui/client'
-import * as agUiCore from '@ag-ui/core'
-import * as agUiEncoder from '@ag-ui/encoder'
-import * as agUiProto from '@ag-ui/proto'
+import {
+  agUiClient,
+  agUiCore,
+  agUiEncoder,
+  agUiProto,
+  copilotkitReactCoreV2,
+} from '@flexiness/copilotkit/federation'
 // import dynamic from 'next/dynamic'
 import loadable from '@loadable/component'
 import { createInstance } from '@module-federation/enhanced/runtime'

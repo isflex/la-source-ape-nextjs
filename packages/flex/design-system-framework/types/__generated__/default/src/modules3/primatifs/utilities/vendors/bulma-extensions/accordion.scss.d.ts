@@ -27,6 +27,7 @@ export type Styles = {
   isTertiaryLight: string;
   isWarning: string;
   isWhite: string;
+  link: string;
   tag: string;
   toggle: string;
 };

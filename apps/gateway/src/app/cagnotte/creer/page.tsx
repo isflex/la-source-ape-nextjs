@@ -266,6 +266,7 @@ export default function CagnotteCreerPage() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- mount flag + Amplify observeQuery subscription
     setMounted(true);
 
     // Track unsubscribe function for cleanup
@@ -332,6 +333,7 @@ export default function CagnotteCreerPage() {
   // Load Stripe Connect account status
   useEffect(() => {
     if (!user) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- early-exit loading when unauthenticated
       setConnectLoading(false);
       return;
     }

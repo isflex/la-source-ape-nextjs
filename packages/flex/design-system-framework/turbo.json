@@ -15,10 +15,7 @@
         "src/assets/fonts/**",
         "../../../apps/gateway/public/assets/fonts/**"
       ],
-      "env": [
-        "FLEX_*",
-        "GIT_*"
-      ],
+      "env": ["FLEX_*", "GIT_*"],
       "cache": true,
       "persistent": false
     },
@@ -33,10 +30,7 @@
         "src/modules3/primatifs/utilities/mixins/generated/*.scss",
         "src/modules3/primatifs/components/_radial-progress-bar.scss"
       ],
-      "env": [
-        "FLEX_*",
-        "GIT_*"
-      ],
+      "env": ["FLEX_*", "GIT_*"],
       "cache": true,
       "persistent": false
     },
@@ -49,27 +43,15 @@
         "!src/assets/*.template.scss",
         "src/modules3/**/*.scss"
       ],
-      "outputs": [
-        "types/__generated__/default/**"
-      ],
-      "dependsOn": [
-        "lint:scss"
-      ],
-      "env": [
-        "FLEX_*",
-        "GIT_*"
-      ],
+      "outputs": ["types/__generated__/default/**"],
+      "dependsOn": ["lint:scss"],
+      "env": ["FLEX_*", "GIT_*"],
       "cache": true,
       "persistent": false
     },
     "build:lib": {
-      "dependsOn": [
-        "//#compile:clean:sh"
-      ],
-      "env": [
-        "FLEX_*",
-        "GIT_*"
-      ],
+      "dependsOn": ["//#compile:transit"],
+      "env": ["FLEX_*", "GIT_*"],
       "cache": true,
       "persistent": false
     },

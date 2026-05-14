@@ -98,6 +98,7 @@ export type Styles = {
   isWhite: string;
   isWidescreen: string;
   isWrapped: string;
+  link: string;
   loader: string;
   number: string;
   pagination: string;
