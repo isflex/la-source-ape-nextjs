@@ -389,24 +389,28 @@ export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) 
 
   debug.copilotKit(`[CopilotKitWrapper] isEnabled: ${isEnabled}, disabledByError: ${disabledByError}, isReady: ${isReady}, authStatus: ${authStatus}`);
 
-  // Hold off rendering the provider until sessionStorage has been read on
-  // the client. SSR and the first client render both produce just
-  // `{children}`, so hydration agrees regardless of stored value.
-  if (!isEnabled || disabledByError || !isReady) {
-    // CopilotKit disabled, killed by error, or sessionStorage not yet resolved
-    // Pages using useSafeAgentContext will no-op based on the same env var
+  // When CopilotKit is disabled or has been killed by a runtime error,
+  // render children with no provider. When enabled, the provider is
+  // mounted from SSR onward so that pages calling useSafe* hooks (which
+  // gate on the same NEXT_PUBLIC_COPILOTKIT_ENABLED build-time flag)
+  // always find a CopilotKitProvider in the tree.
+  if (!isEnabled || disabledByError) {
     return children;
   }
 
-  // Pass threadId only when authenticated AND a stored value already
-  // exists (i.e. user has engaged before in this tab). Otherwise let
-  // CopilotKit auto-generate an implicit threadId so hasExplicitThreadId
-  // stays false and the welcome-screen branch fires — that's how the
-  // unauthenticated CTA and the authenticated greeting both reach the
-  // user. ThreadIdPersistence captures the implicit threadId after the
-  // first user message so the next reload resumes via the explicit path.
+  // SSR and the first client render both compute sidebarThreadId=undefined
+  // and providerKey='fresh', so hydration agrees regardless of what is in
+  // sessionStorage. After useStableThreadId's useEffect flips isReady, a
+  // stored thread for the current authenticated user changes providerKey
+  // and triggers a one-shot remount of the provider with an explicit
+  // threadId — that's the resume path the v2 runtime already supports
+  // through ThreadIdPersistence. When no stored thread exists,
+  // providerKey stays 'fresh' and no remount happens.
   const sidebarThreadId =
-    authStatus === 'authenticated' && storedThreadId ? storedThreadId : undefined;
+    isReady && authStatus === 'authenticated' && storedThreadId
+      ? storedThreadId
+      : undefined;
+  const providerKey = sidebarThreadId ? `thread-${sidebarThreadId}` : 'fresh';
 
   // Wrap CopilotKit in error boundary to prevent crashes when CopilotKit fails
   // If CopilotKit fails, children render without it
@@ -415,6 +419,7 @@ export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) 
   return (
     <CopilotKitErrorBoundary fallback={children}>
       <FlexCopilotProvider
+        key={providerKey}
         agentId={AGENT_ID}
         sidebarConfig={{
           threadId: sidebarThreadId,
