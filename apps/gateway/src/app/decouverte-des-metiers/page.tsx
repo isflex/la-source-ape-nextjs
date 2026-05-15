@@ -5,7 +5,7 @@
 import React from 'react';
 import { debug } from '@flexiness/domain-utils';
 import { z } from 'zod';
-import DOMPurify from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 
 import { generateClient } from 'aws-amplify/data';
@@ -64,13 +64,13 @@ const careerResponseSelectionSet = [
 const CareerDiscoverySchema = z.object({
   email: z.string().min(1, 'Email requis').email('Format email invalide'),
   firstName: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Prénom requis')),
   lastName: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Nom de famille requis')),
   childrenClasses: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Classe des enfants requise')),
   phone: z.string()
     .transform((arg, ctx) => {
@@ -105,13 +105,13 @@ const CareerDiscoverySchema = z.object({
   availability: z.array(z.string())
     .min(1, 'Veuillez sélectionner au moins une disponibilité'),
   organization: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .optional(),
   jobDescription: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Description du métier requise')),
   companySector: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .optional(),
 });
 

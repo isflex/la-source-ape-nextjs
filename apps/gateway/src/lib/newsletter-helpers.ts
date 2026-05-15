@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import DOMPurify from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 import type { Schema } from '@amplify/data/resource'
 import { debug } from '@flexiness/domain-utils'
 
@@ -217,9 +217,9 @@ export const validateNewsletterData = (data: unknown): ValidationResult => {
 
 // HTML Content Generation
 export const sanitizeContent = (content: string): string => {
-  return DOMPurify.sanitize(content, {
-    ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'h3', 'a'],
-    ALLOWED_ATTR: ['href', 'target']
+  return sanitizeHtml(content, {
+    allowedTags: ['p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'h3', 'a'],
+    allowedAttributes: { a: ['href', 'target'] },
   })
 }
 

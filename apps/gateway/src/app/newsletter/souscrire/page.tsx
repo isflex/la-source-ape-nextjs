@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { z } from 'zod';
-import DOMPurify from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
@@ -38,10 +38,10 @@ import { debug } from '@flexiness/domain-utils';
 const NewsletterSignupSchema = z.object({
   email: z.string().min(1, 'Email requis').email('Format email invalide'),
   firstName: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Prénom requis')),
   lastName: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Nom de famille requis')),
 });
 

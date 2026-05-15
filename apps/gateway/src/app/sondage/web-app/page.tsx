@@ -6,7 +6,7 @@ import React from 'react';
 import { debug } from '@flexiness/domain-utils';
 import { useRouter } from 'next/navigation'
 import { z } from 'zod';
-import DOMPurify from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 
 import { generateClient } from 'aws-amplify/data'
 import type { Schema } from '@amplify/data/resource'
@@ -47,9 +47,9 @@ import { default as flexStyles } from '@flex-design-system/framework'
 const StudentSchema = z.object({
   firstname: z.string()
     .min(1, 'Prénom élève requis')
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] })),
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} })),
   surname: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .optional(),
   level: z.enum([
     'COLLEGE_3EME',
@@ -77,13 +77,13 @@ const QuestionSchema = z.object({
 const SondageSchema = z.object({
   firstname: z.string()
     .min(1, 'Prénom requis')
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] })),
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} })),
   surname: z.string()
     .min(1, 'Nom requis')
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] })),
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} })),
   email: z.string().min(1, 'Email requis').email('Format email invalide'),
   comment: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .optional(),
   students: z.array(StudentSchema).min(1, 'Au moins un élève requis'),
   questions: z.array(QuestionSchema).length(7, 'Toutes les questions doivent être répondues')

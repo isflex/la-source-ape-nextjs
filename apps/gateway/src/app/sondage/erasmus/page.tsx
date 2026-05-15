@@ -5,7 +5,7 @@
 import React from 'react';
 import { debug } from '@flexiness/domain-utils';
 import { z } from 'zod';
-import DOMPurify from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
@@ -97,13 +97,13 @@ const IDEAL_DURATION_OPTIONS = [
 const ErasmusSchema = z.object({
   email: z.string().min(1, 'Email requis').email('Format email invalide'),
   childDetails: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Détails de l\'enfant requis')),
   erasmusAwareness: z.enum(['OUI', 'NON', 'PAS_VRAIMENT'], {
     error: 'Veuillez répondre à cette question'
   }),
   erasmusDefinition: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .optional(),
   erasmusInterest: z.enum(['OUI_BEAUCOUP', 'OUI_UN_PEU', 'PAS_VRAIMENT', 'PAS_DU_TOUT'], {
     error: 'Veuillez indiquer votre niveau d\'intérêt'
@@ -113,7 +113,7 @@ const ErasmusSchema = z.object({
   }),
   motivations: z.array(z.string()).min(1, 'Veuillez sélectionner au moins une motivation'),
   desiredInformation: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Veuillez indiquer les informations souhaitées')),
   concerns: z.array(z.string()).min(1, 'Veuillez sélectionner au moins une préoccupation'),
   financingWillingness: z.enum(['OUI_SANS_HESITATION', 'OUI_SELON_COUT', 'PEUT_ETRE', 'PROBABLEMENT_PAS', 'NON'], {
@@ -123,10 +123,10 @@ const ErasmusSchema = z.object({
     error: 'Veuillez sélectionner la durée idéale'
   }),
   previousExperience: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .optional(),
   suggestions: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .optional(),
 });
 

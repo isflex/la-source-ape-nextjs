@@ -339,10 +339,6 @@ const nextConfig = (() => {
           // level: 'verbose',
           // debug: [/PackFileCache/]
         },
-
-        // isomorphic-dompurify requires jsdom
-        // jsdom includes optional dependency
-        externals: [...config.externals, "canvas", "jsdom"],
       };
 
       // Only add minimal watchOptions in dev mode for client bundles

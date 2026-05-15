@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import DOMPurify from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 import { format, formatDistanceToNow, isPast } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import type { Schema } from '@amplify/data/resource';
@@ -94,17 +94,17 @@ export const generateSlug = (title: string, existingSlugs: string[] = []): strin
  */
 export const JackpotFormSchema = z.object({
   title: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Le titre est requis')),
 
   teacherName: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Le nom de l\'enseignant est requis')),
 
   description: z.string()
-    .transform((val) => DOMPurify.sanitize(val, {
-      ALLOWED_TAGS: ['b', 'i', 'u', 'br', 'p', 'strong', 'em'],
-      ALLOWED_ATTR: []
+    .transform((val) => sanitizeHtml(val, {
+      allowedTags: ['b', 'i', 'u', 'br', 'p', 'strong', 'em'],
+      allowedAttributes: {},
     }))
     .optional(),
 
@@ -125,7 +125,7 @@ export const JackpotFormSchema = z.object({
  */
 export const ContributionSchema = z.object({
   contributorName: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Le nom est requis')),
 
   contributorEmail: z.string()
@@ -139,7 +139,7 @@ export const ContributionSchema = z.object({
     .max(MAX_CONTRIBUTION_AMOUNT, `Le montant maximum est de ${MAX_CONTRIBUTION_AMOUNT}€`),
 
   contributorMessage: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .optional(),
 
   isAnonymous: z.boolean().default(false),

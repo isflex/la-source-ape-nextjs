@@ -28,7 +28,7 @@ import {
   getSepaConfig,
   calculateSepaCutoffDate
 } from '@src/lib/cagnotte-helpers';
-import DOMPurify from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 import NewsletterDatePicker from '@src/components/newsletter/NewsletterDatePicker';
 import { debug } from '@flexiness/domain-utils';
 
@@ -147,13 +147,13 @@ export default function JackpotForm({ onSubmit, onCancel, existingSlugs = [], ed
       const sepaCutoffDate = sepaConfig.enabled ? calculateSepaCutoffDate(deadlineDate) : null;
 
       const formData = {
-        title: DOMPurify.sanitize(title.trim(), { ALLOWED_TAGS: [] }),
+        title: sanitizeHtml(title.trim(), { allowedTags: [], allowedAttributes: {} }),
         slug,
-        teacherName: DOMPurify.sanitize(teacherName.trim(), { ALLOWED_TAGS: [] }),
+        teacherName: sanitizeHtml(teacherName.trim(), { allowedTags: [], allowedAttributes: {} }),
         schoolLevel: schoolLevel || undefined,
-        description: description ? DOMPurify.sanitize(description, {
-          ALLOWED_TAGS: ['b', 'i', 'u', 'br', 'p', 'strong', 'em'],
-          ALLOWED_ATTR: []
+        description: description ? sanitizeHtml(description, {
+          allowedTags: ['b', 'i', 'u', 'br', 'p', 'strong', 'em'],
+          allowedAttributes: {},
         }) : undefined,
         targetAmount: targetAmount ? parseFloat(targetAmount) : undefined,
         deadline: deadlineDate.toISOString(),
@@ -452,9 +452,9 @@ export default function JackpotForm({ onSubmit, onCancel, existingSlugs = [], ed
               {description && (
                 <div style={{ marginBottom: '1rem' }}>
                   <Text><strong>Description :</strong></Text>
-                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description, {
-                    ALLOWED_TAGS: ['b', 'i', 'u', 'br', 'p', 'strong', 'em'],
-                    ALLOWED_ATTR: []
+                  <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(description, {
+                    allowedTags: ['b', 'i', 'u', 'br', 'p', 'strong', 'em'],
+                    allowedAttributes: {},
                   }) }} />
                 </div>
               )}

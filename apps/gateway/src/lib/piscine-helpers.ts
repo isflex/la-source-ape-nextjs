@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import DOMPurify from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 import { format, parse } from 'date-fns';
 import type { Schema } from '@amplify/data/resource';
@@ -92,7 +92,7 @@ export const generateSlug = (title: string, existingSlugs: string[] = []): strin
 // PiscineForm validation schema
 export const PiscineFormSchema = z.object({
   title: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Le titre est requis')),
 
   dayOfWeek: z.enum(VALID_DAYS, {
@@ -118,7 +118,7 @@ export const PiscineFormSchema = z.object({
   }),
 
   teacherName: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Le nom de l\'enseignant est requis')),
 
   selectedDates: z.array(z.date())
@@ -162,11 +162,11 @@ export const PiscineDateSlotSchema = z.object({
 // PiscineCandidat validation schema
 export const PiscineCandidatSchema = z.object({
   firstName: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Le prénom est requis')),
 
   lastName: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Le nom de famille est requis')),
 
   email: z.string()
@@ -200,7 +200,7 @@ export const PiscineCandidatSchema = z.object({
     }),
 
   nameOfChild: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Le nom de l\'enfant est requis')),
 
   piscineDateSlotId: z.string().min(1, 'ID de la date requis'),
@@ -522,7 +522,7 @@ export const DayTimeSlotSchema = z.object({
  */
 export const MultiDayFormSchema = z.object({
   title: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Le titre est requis')),
 
   dayTimeSlots: z.array(DayTimeSlotSchema)
@@ -554,7 +554,7 @@ export const MultiDayFormSchema = z.object({
   }),
 
   teacherName: z.string()
-    .transform((val) => DOMPurify.sanitize(val.trim(), { ALLOWED_TAGS: [] }))
+    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
     .pipe(z.string().min(1, 'Le nom de l\'enseignant est requis'))
 });
 
