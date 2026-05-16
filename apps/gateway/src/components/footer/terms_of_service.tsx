@@ -7,6 +7,10 @@ import {
 } from "@flex-design-system/react-ts/client-sync-styled-direct/box";
 import { Divider } from "@flex-design-system/react-ts/client-sync-styled-direct/divider";
 import { Link } from "@flex-design-system/react-ts/client-sync-styled-direct/link";
+import {
+  List,
+  ListItem,
+} from "@flex-design-system/react-ts/client-sync-styled-direct/list";
 import { Section } from "@flex-design-system/react-ts/client-sync-styled-direct/section";
 import { Text } from "@flex-design-system/react-ts/client-sync-styled-direct/text";
 import {
@@ -193,7 +197,7 @@ const App: React.FC = () => {
             <Text>
               A moins que précisé autrement, les conditions d&apos;utilisation
               détaillées dans cette section s&apos;appliquent généralement
-              pendant l&apos;utilisation de cette application.
+              pendant l&apos;utilisation de cette Application.
             </Text>
             <Text>
               Des conditions d&apos;utilisation uniques ou additionnelles
@@ -228,16 +232,16 @@ const App: React.FC = () => {
                   <strong>{process.env.NEXT_PUBLIC_SCHOOL_TITLE}</strong>
                   {` (actuels ou passés) qui pourraient proposer leurs services pour s'occuper
                     d'autres enfants, vous comprenez que les parents ont aussi la responsabilité
-                    d'accompagner leur enfant(s) dans l'utilisation de l'application `}
+                    d'accompagner leur enfant(s) dans l'utilisation de l'Application `}
                   <strong>{process.env.NEXT_PUBLIC_APP_TITLE}</strong>
                   {`.`}
                 </Text>
                 <Text>
-                  {`Sachant que l'application `}
+                  {`Sachant que l'Application `}
                   <strong>{process.env.NEXT_PUBLIC_APP_TITLE}</strong>
                   {` a été conçue pour protéger au maximum vos informations personnelles et la
                     sécurité de vos données, qu'elle a été développée sur une base volontaire
-                    et en tant que service gratuit, vous comprenez que ni l'application `}
+                    et en tant que service gratuit, vous comprenez que ni l'Application `}
                   <strong>{process.env.NEXT_PUBLIC_APP_TITLE}</strong>
                   {`, ni `}
                   <strong>{process.env.NEXT_PUBLIC_PARENT_ASSOCIATION}</strong>
@@ -246,7 +250,7 @@ const App: React.FC = () => {
                   {` ne peut être tenue responsable d'une quelconque utilisation abusive.`}
                 </Text>
                 <Text>
-                  {`L'application `}
+                  {`L'Application `}
                   <strong>{process.env.NEXT_PUBLIC_APP_TITLE}</strong>
                   {` est destinée à l'ensemble de la communauté scolaire de `}
                   <strong>{process.env.NEXT_PUBLIC_SCHOOL_TITLE}</strong>
@@ -257,7 +261,7 @@ const App: React.FC = () => {
                     qui se fera progressivement.`}
                 </Text>
                 <Text>
-                  {`Vous comprenez que l'application `}
+                  {`Vous comprenez que l'Application `}
                   <strong>{process.env.NEXT_PUBLIC_APP_TITLE}</strong>
                   {` a pour vocation de servir de forum d'annonces plus ou moins ouvert à tous.
                     Son bon fonctionnement repose sur la bonne volonté et la supervision de tous.`}
@@ -344,29 +348,29 @@ const App: React.FC = () => {
             </Text>
             <ul>
               <li>
-                <strong>Nature du service :</strong> L&apos;Agent IA est un
-                système automatisé utilisant le modèle Claude (Anthropic) via
-                AWS Bedrock. Il ne s&apos;agit pas d&apos;un être humain.
+                <strong>{`Nature du service :`}</strong>
+                {` L'Agent IA est un système automatisé utilisant le modèle Claude (Anthropic)
+                  via AWS Bedrock. Il ne s'agit pas d'un être humain.`}
               </li>
               <li>
-                <strong>Limitations :</strong> Les réponses sont générées
-                automatiquement et peuvent contenir des inexactitudes. Le
-                contenu n&apos;est pas examiné par un humain avant sa livraison.
+                <strong>{`Limitations :`}</strong>
+                {` Les réponses sont générées automatiquement et peuvent contenir des inexactitudes.
+                  Le contenu n'est pas examiné par un humain avant sa livraison.`}
               </li>
               <li>
-                <strong>Données sensibles :</strong> Les Utilisateurs ne doivent
-                jamais partager de données personnelles sensibles (coordonnées
-                bancaires, mots de passe, informations de santé, numéros
-                d&apos;identification) avec l&apos;Agent IA.
+                <strong>{`Données sensibles :`}</strong>
+                {` Les Utilisateurs ne doivent jamais partager de données personnelles sensibles
+                  (coordonnées bancaires, mots de passe, informations de santé, numéros d'identification)
+                  avec l'Agent IA.`}
               </li>
               <li>
-                <strong>Escalade humaine :</strong> Les Utilisateurs peuvent à
-                tout moment demander à être mis en relation avec un humain.
+                <strong>{`Escalade humaine :`}</strong>
+                {` Les Utilisateurs peuvent à tout moment demander à être mis en relation avec un humain.`}
               </li>
               <li>
                 <strong>{`Retrait du consentement :`}</strong>
-                {` Les Utilisateurs peuvent se désinscrire à tout moment en quittant
-                  le groupe et en nous contactant à `}
+                {` Les Utilisateurs peuvent se désinscrire à tout moment en quittant le groupe WhatsApp
+                  et en nous contactant à `}
                 <Link href="mailto:hello@flexiness.com">
                   hello@flexiness.com
                 </Link>
@@ -518,47 +522,49 @@ const App: React.FC = () => {
               fournisseurs et employés ne peuvent en aucun cas être tenus pour
               responsables
             </Text>
-            <ul>
-              <li>
+            <List>
+              <ListItem>
                 des dommages indirects, punitifs, consécutifs, spéciaux,
                 accessoires ou exemplaires, y compris mais sans s&apos;y
                 limiter, les dommages pour manque à gagner, perte de clientèle,
                 d&apos;utilisation, de données ou d&apos;autres pertes
                 immatérielles découlant de l&apos;utilisation du Service ou de
                 l&apos;incapacité à l&apos;utiliser ; et
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 des dommages, pertes ou préjudices résultant du piratage, de la
                 falsification ou de tout autre accès ou utilisation non
                 autorisés du Service ou du compte de l&apos;Utilisateur ou des
                 informations qui y figurent ;
-              </li>
-              <li>des erreurs, des fautes ou des inexactitudes de contenu ;</li>
-              <li>
+              </ListItem>
+              <ListItem>
+                des erreurs, des fautes ou des inexactitudes de contenu ;
+              </ListItem>
+              <ListItem>
                 des blessures ou des dommages matériels, de quelque nature que
                 ce soit, résultant de l&apos;accès ou de l&apos;utilisation du
                 Service par l&apos;Utilisateur ;
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 de tout accès non autorisé aux serveurs sécurisés du
                 Propriétaire, ou de leur utilisation, ou aux informations
                 personnelles qui y sont stockées ;
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 de toute interruption ou cessation de transmission vers ou
                 depuis le Service ;
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 de tout bogue, virus, cheval de Troie ou autre pouvant être
                 transmis au Service ou par son intermédiaire ;
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 de toute erreur ou omission de contenu ou de toute perte ou
                 dommage subis suite à l&apos;utilisation du contenu publié,
                 envoyé par courrier électronique, transmis ou mis à disposition
                 par le Service ; ou
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 la conduite diffamatoire, offensante ou illégale de tout
                 Utilisateur ou tiers. Le Propriétaire ainsi que ses filiales,
                 sociétés affiliées, directeurs, administrateurs, représentants,
@@ -570,8 +576,8 @@ const App: React.FC = () => {
                 présentes au cours des 12 mois précédents ou pendant la durée du
                 présent Contrat entre le Propriétaire et l&apos;Utilisateur,
                 selon la période la plus courte.
-              </li>
-            </ul>
+              </ListItem>
+            </List>
             <Text>
               La présente partie se rapportant à la limitation de responsabilité
               s&apos;applique, dans toute la mesure permise par la loi, dans la
@@ -605,44 +611,44 @@ const App: React.FC = () => {
               responsabilité, coût ou dette et dépense, y compris, mais sans
               s&apos;y limiter, les honoraires et frais juridiques, découlant de
             </Text>
-            <ul>
-              <li>
+            <List>
+              <ListItem>
                 l&apos;utilisation du Service et son accès par
                 l&apos;Utilisateur, y compris toutes données ou tout contenu
                 transmis ou reçus par l&apos;Utilisateur ;
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 la violation des présentes conditions par l&apos;Utilisateur, y
                 compris, mais sans s&apos;y limiter, la violation par celui-ci
                 de l&apos;une des déclarations et garanties énoncées dans les
                 présentes Conditions ;
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 la violation de tout droit de tiers par l&apos;Utilisateur, y
                 compris, mais sans s&apos;y limiter, tout droit de
                 confidentialité ou de propriété intellectuelle ;
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 la violation par l&apos;Utilisateur de toute loi, règle ou
                 réglementation ;
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 tout contenu envoyé depuis le compte de l&apos;Utilisateur, y
                 compris l&apos;accès de tiers avec le nom unique, le mot de
                 passe ou toute autre mesure de sécurité de l&apos;Utilisateur,
                 le cas échéant, y compris, mais sans s&apos;y limiter, des
                 informations trompeuses, fausses ou inexactes ;
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 une faute intentionnelle commise par l&apos;Utilisateur ; ou
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 la violation de toute disposition légale par l&apos;Utilisateur
                 ou ses sociétés affiliées, directeurs, administrateurs,
                 représentants, partenaires de co-marquage, partenaires,
                 fournisseurs et employés dans les limites de la loi en vigueur.
-              </li>
-            </ul>
+              </ListItem>
+            </List>
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
               Dispositions communes
             </Title>
@@ -874,11 +880,11 @@ const App: React.FC = () => {
             <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
               Définitions et références légales
             </Title>
-            <Text>
-              <strong>Cette Application (ou cette Application)</strong>
-            </Text>
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
+              Cette Application (ou cette Application)
+            </Title>
             <Text>Le bien qui permet la mise à disposition du Service.</Text>
-            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
               Accord
             </Title>
             <Text>
@@ -886,13 +892,13 @@ const App: React.FC = () => {
               contractuelle entre le Propriétaire et l&apos;Utilisateur,
               gouverné par ces Conditions générales.
             </Text>
-            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
               Utilisateur Commercial
             </Title>
             <Text>
               Tout Utilisateur qui ne se qualifie pas de Consommateur.
             </Text>
-            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
               Européen (ou Europe)
             </Title>
             <Text>
@@ -900,21 +906,21 @@ const App: React.FC = () => {
               a des bureaux enregistrés dans l&apos;UE, quelque soit leur
               nationalité.
             </Text>
-            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
               Propriétaire (ou Nous)
             </Title>
             <Text>
               Indique la ou les personne(s) ou entité légale(s) qui fournit
               cette Application et/ou le Service aux Utilisateurs.
             </Text>
-            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
               Service
             </Title>
             <Text>
               Le service fourni par cette Application telle que décrite dans ces
               Conditions générales et sur cette Application.
             </Text>
-            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
               Conditions générales
             </Title>
             <Text>
@@ -923,14 +929,14 @@ const App: React.FC = () => {
               compris tous autres documents ou accords, et tels que mis à jour
               de temps en temps.
             </Text>
-            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
               Utilisateur (ou Vous)
             </Title>
             <Text>
               Indique la personne naturelle ou l&apos;entité légale utilisant
               cette Application.
             </Text>
-            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+            <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
               Consommateur
             </Title>
             <Text>

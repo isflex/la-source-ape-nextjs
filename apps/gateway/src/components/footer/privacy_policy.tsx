@@ -1169,17 +1169,16 @@ const App: React.FC = () => {
             </Text>
             <ul>
               <li>
-                <strong>Droit d&apos;accès (Art. 15) :</strong> Obtenir une
-                copie des données personnelles que nous détenons à votre sujet.
+                <strong>{`Droit d'accès (Art. 15) :`}</strong>
+                {` Obtenir une copie des données personnelles que nous détenons à votre sujet.`}
               </li>
               <li>
-                <strong>Droit de rectification (Art. 16) :</strong> Demander la
-                correction de données personnelles inexactes.
+                <strong>{`Droit de rectification (Art. 16) :`}</strong>
+                {` Demander la correction de données personnelles inexactes.`}
               </li>
               <li>
-                <strong>Droit à l&apos;effacement (Art. 17) :</strong> Demander
-                la suppression de vos données personnelles (« droit à
-                l&apos;oubli »).
+                <strong>{`Droit à l'effacement (Art. 17) :`}</strong>
+                {` Demander la suppression de vos données personnelles (« droit à l'oubli »).`}
               </li>
               <li>
                 <strong>{`Droit à la limitation du traitement (Art. 18) :`}</strong>
@@ -1290,31 +1289,27 @@ const App: React.FC = () => {
             </Text>
             <ul>
               <li>
-                <strong>Minimisation des données :</strong> L&apos;agent IA est
-                configuré pour ne demander que les informations nécessaires au
-                traitement de votre demande.
+                <strong>{`Minimisation des données :`}</strong>
+                {` L'agent IA est configuré pour ne demander que les informations nécessaires au traitement
+                  de votre demande.`}
               </li>
               <li>
-                <strong>Protection des données sensibles :</strong> L&apos;agent
-                IA est configuré pour ne jamais demander et pour décourager
-                activement le partage de données personnelles sensibles telles
-                que les coordonnées bancaires, les mots de passe, les
-                informations de santé ou les numéros d&apos;identification
-                délivrés par l&apos;État.
+                <strong>{`Protection des données sensibles :`}</strong>
+                {` L'agent IA est configuré pour ne jamais demander et pour décourager activement le partage
+                  de données personnelles sensibles telles que les coordonnées bancaires, les mots de passe,
+                  les informations de santé ou les numéros d'identification délivrés par l'État.`}
               </li>
               <li>
-                <strong>Pas d&apos;entraînement du modèle :</strong> Vos
-                conversations ne sont pas utilisées pour entraîner ou améliorer
-                les modèles d&apos;IA.
+                <strong>{`Pas d'entraînement du modèle :`}</strong>
+                {` Vos conversations ne sont pas utilisées pour entraîner ou améliorer les modèles d'IA.`}
               </li>
               <li>
-                <strong>Escalade humaine :</strong> Vous pouvez demander une
-                intervention humaine à tout moment.
+                <strong>{`Escalade humaine :`}</strong>
+                {` Vous pouvez demander une intervention humaine à tout moment.`}
               </li>
               <li>
-                <strong>Transparence :</strong> L&apos;IA s&apos;identifie
-                clairement comme un système automatisé au début de chaque
-                interaction.
+                <strong>{`Transparence :`}</strong>
+                {` L'IA s'identifie clairement comme un système automatisé au début de chaque interaction.`}
               </li>
             </ul>
             <Divider />
