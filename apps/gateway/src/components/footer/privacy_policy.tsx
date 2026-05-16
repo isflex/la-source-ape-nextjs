@@ -209,12 +209,9 @@ const App: React.FC = () => {
               1. Introduction
             </Title>
             <Text>
-              Bienvenue sur{" "}
+              {`Bienvenue sur `}
               <strong>{`${process.env.NEXT_PUBLIC_APP_TITLE} | APE | LA SOURCE`}</strong>
-              . Votre confidentialité est essentielle pour nous. Cette politique
-              explique comment nous collectons, traitons et protégeons vos
-              données conformément au Règlement Général sur la Protection des
-              Données (RGPD).
+              {`. Votre confidentialité est essentielle pour nous. Cette politique explique comment nous collectons, traitons et protégeons vos données conformément au Règlement Général sur la Protection des Données (RGPD).`}
             </Text>
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
               2. Collecte et traitement des données
@@ -464,12 +461,11 @@ const App: React.FC = () => {
               </TableBody>
             </Table>
             <Text>
-              Nous utilisons ces données{" "}
-              <strong>uniquement à des fins fonctionnelles</strong> et pour{" "}
-              <strong>
-                mieux comprendre le comportement des utilisateurs en interne
-              </strong>
-              .
+              {`Nous utilisons ces données `}
+              <strong>{`uniquement à des fins fonctionnelles`}</strong>
+              {` et pour `}
+              <strong>{`mieux comprendre le comportement des utilisateurs en interne`}</strong>
+              {`.`}
             </Text>
             <Text>
               Vous pouvez désactiver les autorisations à tout moment en
@@ -526,11 +522,11 @@ const App: React.FC = () => {
               </li>
             </ul>
             <Text>
-              Pour exercer ces droits, contactez-nous à{" "}
+              {`Pour exercer ces droits, contactez-nous à `}
               <Link href="mailto:system_admin@flexiness.com">
                 system_admin@flexiness.com
               </Link>
-              .
+              {`.`}
             </Text>
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
               5. Mesures de sécurité
@@ -562,22 +558,26 @@ const App: React.FC = () => {
             </Text>
             <ul>
               <li>
-                <strong>Organisation :</strong>{" "}
+                <strong>{`Organisation :`}</strong>
+                {` `}
                 <Link href="https://www.flexiness.com" target="_blank">
                   Flexiness
                 </Link>
               </li>
               <li>
-                <strong>Adresse :</strong> 46 rue Vital, 75116 Paris, France
+                <strong>{`Adresse :`}</strong>
+                {` 46 rue Vital, 75116 Paris, France`}
               </li>
               <li>
-                <strong>Email :</strong>{" "}
+                <strong>{`Email :`}</strong>
+                {` `}
                 <Link href="mailto:hello@flexiness.com">
                   hello@flexiness.com
                 </Link>
               </li>
               <li>
-                <strong>Délégué à la Protection des Données (DPO) :</strong>{" "}
+                <strong>{`Délégué à la Protection des Données (DPO) :`}</strong>
+                {` `}
                 <Link href="mailto:system_admin@flexiness.com">
                   system_admin@flexiness.com
                 </Link>
@@ -610,15 +610,10 @@ const App: React.FC = () => {
                 <Icon
                   content={
                     <Text>
-                      <strong>
-                        Divulgation au titre du Règlement européen sur l&apos;IA
-                        (Article 50) :
-                      </strong>{" "}
-                      Vous interagissez avec un système d&apos;intelligence
-                      artificielle et non avec un être humain. L&apos;agent IA
-                      est conçu pour vous assister, mais il s&apos;agit
-                      d&apos;un système automatisé. Vous pouvez à tout moment
-                      demander à être mis en relation avec un humain.
+                      <strong>{`Divulgation au titre du Règlement européen sur l'IA (Article 50) :`}</strong>
+                      {` Vous interagissez avec un système d'intelligence artificielle et non avec un être humain.
+                        L'agent IA est conçu pour vous assister, mais il s'agit d'un système automatisé.
+                        Vous pouvez à tout moment demander à être mis en relation avec un humain.`}
                     </Text>
                   }
                   size={IconSize.SMALL}
@@ -635,9 +630,9 @@ const App: React.FC = () => {
               6.2.2 Fournisseur de la plateforme WhatsApp
             </Title>
             <Text>
-              Notre communication WhatsApp est assurée via l&apos;
-              <strong>API Cloud WhatsApp Business de Meta</strong>, exploitée
-              par :
+              {`Notre communication WhatsApp est assurée via l'`}
+              <strong>{`API Cloud WhatsApp Business de Meta`}</strong>
+              {`, exploitée par :`}
             </Text>
             <Text>
               <strong>Meta Platforms Ireland Limited</strong>
@@ -1074,11 +1069,11 @@ const App: React.FC = () => {
               </TableBody>
             </Table>
             <Text>
-              <strong>Note :</strong> Anthropic (le développeur du modèle
-              d&apos;IA Claude) <strong>n&apos;agit pas</strong> en tant que
-              sous-traitant dans notre architecture. Le modèle Claude est
-              accessible exclusivement via AWS Bedrock, et Anthropic n&apos;a
-              aucun accès à vos données.
+              <strong>{`Note :`}</strong>
+              {` Anthropic (le développeur du modèle d'IA Claude) `}
+              <strong>{`n'agit pas`}</strong>
+              {` en tant que sous-traitant dans notre architecture. Le modèle Claude est
+                accessible exclusivement via AWS Bedrock, et Anthropic n'a aucun accès à vos données.`}
             </Text>
 
             <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
@@ -1187,39 +1182,31 @@ const App: React.FC = () => {
                 l&apos;oubli »).
               </li>
               <li>
-                <strong>Droit à la limitation du traitement (Art. 18) :</strong>{" "}
-                Demander la limitation du traitement dans certaines
-                circonstances.
+                <strong>{`Droit à la limitation du traitement (Art. 18) :`}</strong>
+                {` Demander la limitation du traitement dans certaines circonstances.`}
               </li>
               <li>
-                <strong>Droit à la portabilité des données (Art. 20) :</strong>{" "}
-                Recevoir vos données dans un format structuré, couramment
-                utilisé et lisible par machine.
+                <strong>{`Droit à la portabilité des données (Art. 20) :`}</strong>
+                {` Recevoir vos données dans un format structuré, couramment utilisé et lisible par machine.`}
               </li>
               <li>
-                <strong>Droit d&apos;opposition (Art. 21) :</strong> Vous
-                opposer au traitement fondé sur l&apos;intérêt légitime.
+                <strong>{`Droit d'opposition (Art. 21) :`}</strong>
+                {` Vous opposer au traitement fondé sur l'intérêt légitime.`}
               </li>
               <li>
-                <strong>
-                  Droit de retirer votre consentement (Art. 7(3)) :
-                </strong>{" "}
-                Retirer votre consentement à tout moment. Ce retrait ne
-                compromet pas la licéité du traitement fondé sur le consentement
-                effectué avant ce retrait.
+                <strong>{`Droit de retirer votre consentement (Art. 7(3)) :`}</strong>
+                {` Retirer votre consentement à tout moment. Ce retrait ne compromet pas la licéité
+                  du traitement fondé sur le consentement effectué avant ce retrait.`}
               </li>
               <li>
-                <strong>
-                  Droit de ne pas faire l&apos;objet d&apos;une décision
-                  automatisée (Art. 22) :
-                </strong>{" "}
-                Ne pas être soumis à une décision fondée exclusivement sur un
-                traitement automatisé produisant des effets juridiques ou vous
-                affectant de manière significative de façon similaire.
+                <strong>{`Droit de ne pas faire l'objet d'une décision automatisée (Art. 22) :`}</strong>
+                {` Ne pas être soumis à une décision fondée exclusivement sur un traitement
+                  automatisé produisant des effets juridiques ou vous affectant de manière
+                  significative de façon similaire.`}
               </li>
             </ul>
             <Text>
-              Pour exercer l&apos;un de ces droits, contactez-nous à :{" "}
+              {`Pour exercer l'un de ces droits, contactez-nous à : `}
               <Link href="mailto:hello@flexiness.com">hello@flexiness.com</Link>
             </Text>
             <Text>
@@ -1254,7 +1241,7 @@ const App: React.FC = () => {
             <ul>
               <li>Quittant le groupe WhatsApp</li>
               <li>
-                Nous contactant à{" "}
+                {`Nous contactant à `}
                 <Link href="mailto:hello@flexiness.com">
                   hello@flexiness.com
                 </Link>
@@ -1360,10 +1347,9 @@ const App: React.FC = () => {
               8. Contact
             </Title>
             <Text>
-              Pour toute question relative à la confidentialité, contactez-nous
-              à{" "}
+              {`Pour toute question relative à la confidentialité, contactez-nous à `}
               <Link href="mailto:hello@flexiness.com">hello@flexiness.com</Link>
-              .
+              {`.`}
             </Text>
             <Divider />
 

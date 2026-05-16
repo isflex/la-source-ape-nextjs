@@ -224,46 +224,43 @@ const App: React.FC = () => {
             >
               <Section>
                 <Text>
-                  Si vous avez des enfants scolarisés à{" "}
-                  <strong>{`${process.env.NEXT_PUBLIC_SCHOOL_TITLE}`}</strong>{" "}
-                  (actuels ou passés) qui pourraient proposer leurs services
-                  pour s&apos;occuper d&apos;autres enfants, vous comprenez que
-                  les parents ont aussi la responsabilité d&apos;accompagner
-                  leur enfant(s) dans l&apos;utilisation de l&apos;application{" "}
-                  <strong>{`${process.env.NEXT_PUBLIC_APP_TITLE}`}</strong>.
+                  {`Si vous avez des enfants scolarisés à `}
+                  <strong>{process.env.NEXT_PUBLIC_SCHOOL_TITLE}</strong>
+                  {` (actuels ou passés) qui pourraient proposer leurs services pour s'occuper
+                    d'autres enfants, vous comprenez que les parents ont aussi la responsabilité
+                    d'accompagner leur enfant(s) dans l'utilisation de l'application `}
+                  <strong>{process.env.NEXT_PUBLIC_APP_TITLE}</strong>
+                  {`.`}
                 </Text>
                 <Text>
-                  Sachant que l&apos;application{" "}
-                  <strong>{`${process.env.NEXT_PUBLIC_APP_TITLE}`}</strong> a
-                  été conçue pour protéger au maximum vos informations
-                  personnelles et la sécurité de vos données, qu&apos;elle a été
-                  développée sur une base volontaire et en tant que service
-                  gratuit, vous comprenez que ni l&apos;application{" "}
-                  <strong>{`${process.env.NEXT_PUBLIC_APP_TITLE}`}</strong>, ni{" "}
-                  <strong>{`${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION}`}</strong>{" "}
-                  et ni{" "}
-                  <strong>{`${process.env.NEXT_PUBLIC_SCHOOL_TITLE}`}</strong>{" "}
-                  ne peut être tenue responsable d&apos;une quelconque
-                  utilisation abusive.
+                  {`Sachant que l'application `}
+                  <strong>{process.env.NEXT_PUBLIC_APP_TITLE}</strong>
+                  {` a été conçue pour protéger au maximum vos informations personnelles et la
+                    sécurité de vos données, qu'elle a été développée sur une base volontaire
+                    et en tant que service gratuit, vous comprenez que ni l'application `}
+                  <strong>{process.env.NEXT_PUBLIC_APP_TITLE}</strong>
+                  {`, ni `}
+                  <strong>{process.env.NEXT_PUBLIC_PARENT_ASSOCIATION}</strong>
+                  {` et ni `}
+                  <strong>{process.env.NEXT_PUBLIC_SCHOOL_TITLE}</strong>
+                  {` ne peut être tenue responsable d'une quelconque utilisation abusive.`}
                 </Text>
                 <Text>
-                  L&apos;application{" "}
-                  <strong>{`${process.env.NEXT_PUBLIC_APP_TITLE}`}</strong> est
-                  destinée à l&apos;ensemble de la communauté scolaire de{" "}
-                  <strong>{`${process.env.NEXT_PUBLIC_SCHOOL_TITLE}`}</strong>{" "}
-                  (parents et enfants inclus), mais à ce jour, son accès reste
-                  ouvert à toute personne disposant d&apos;un accès à
-                  l&apos;URL. Vous comprenez qu&apos;à terme, nous pourrions
-                  décider de contrôler et de restreindre l&apos;accès, mais cela
-                  nécessite une collaboration entre les différentes parties
-                  prenantes, qui se fera progressivement.
+                  {`L'application `}
+                  <strong>{process.env.NEXT_PUBLIC_APP_TITLE}</strong>
+                  {` est destinée à l'ensemble de la communauté scolaire de `}
+                  <strong>{process.env.NEXT_PUBLIC_SCHOOL_TITLE}</strong>
+                  {` (parents et enfants inclus), mais à ce jour, son accès reste ouvert
+                    à toute personne disposant d'un accès à l'URL. Vous comprenez qu'à terme,
+                    nous pourrions décider de contrôler et de restreindre l'accès, mais cela
+                    nécessite une collaboration entre les différentes parties prenantes,
+                    qui se fera progressivement.`}
                 </Text>
                 <Text>
-                  Vous comprenez que l&apos;application{" "}
-                  <strong>{`${process.env.NEXT_PUBLIC_APP_TITLE}`}</strong> a
-                  pour vocation de servir de forum d&apos;annonces plus ou moins
-                  ouvert à tous. Son bon fonctionnement repose sur la bonne
-                  volonté et la supervision de tous.
+                  {`Vous comprenez que l'application `}
+                  <strong>{process.env.NEXT_PUBLIC_APP_TITLE}</strong>
+                  {` a pour vocation de servir de forum d'annonces plus ou moins ouvert à tous.
+                    Son bon fonctionnement repose sur la bonne volonté et la supervision de tous.`}
                 </Text>
               </Section>
             </Box>
@@ -367,13 +364,13 @@ const App: React.FC = () => {
                 tout moment demander à être mis en relation avec un humain.
               </li>
               <li>
-                <strong>Retrait du consentement :</strong> Les Utilisateurs
-                peuvent se désinscrire à tout moment en quittant le groupe et en
-                nous contactant à{" "}
+                <strong>{`Retrait du consentement :`}</strong>
+                {` Les Utilisateurs peuvent se désinscrire à tout moment en quittant
+                  le groupe et en nous contactant à `}
                 <Link href="mailto:hello@flexiness.com">
                   hello@flexiness.com
                 </Link>
-                .
+                {`.`}
               </li>
             </ul>
             <Text>
@@ -786,7 +783,7 @@ const App: React.FC = () => {
             <Text>
               Toute communication liée à l&apos;utilisation de cette Application
               doit être envoyée utilisant les coordonnées citées dans ce
-              document.{" "}
+              document.
             </Text>
             <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
               Divisabilité
