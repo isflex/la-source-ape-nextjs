@@ -34,11 +34,11 @@ $spaghetti-min-height-desk: 864px !default;
     padding: 1rem 0;
 
     // Very small mobile device display (ie. iPhone SE, Samsung Galaxy S8+)
-    @media screen and (orientation: portrait) and (max-width: '379px') {
+    @media screen and (orientation: portrait) and (max-width: "379px") {
       margin: 0 0 2rem;
     }
 
-    @media screen and (min-width: '449px') {
+    @media screen and (min-width: "449px") {
       padding: 0;
     }
 
@@ -63,34 +63,58 @@ $spaghetti-min-height-desk: 864px !default;
     &.show-spagehetti {
       .about-container {
         min-height: 228px;
-        height: calc((#{$spaghetti-min-height-mob} * #{0.8}) - #{var(--nav-layout-height)} - 2rem - 108px);
+        height: calc(
+          (#{$spaghetti-min-height-mob} * #{0.8}) -
+            #{var(--nav-layout-height)} - 2rem - 108px
+        );
 
-        @media screen and (min-width: '379px') {
-          height: calc((#{$spaghetti-min-height-mob} * #{0.9}) - #{var(--nav-layout-height)} - 2rem - 132px);
+        @media screen and (min-width: "379px") {
+          height: calc(
+            (#{$spaghetti-min-height-mob} * #{0.9}) -
+              #{var(--nav-layout-height)} - 2rem - 132px
+          );
         }
 
-        @media screen and (min-width: '449px') {
-          height: calc($spaghetti-min-height-mob - #{var(--nav-layout-height)} - 2rem - 210px);
+        @media screen and (min-width: "449px") {
+          height: calc(
+            $spaghetti-min-height-mob - #{var(--nav-layout-height)} - 2rem -
+              210px
+          );
         }
 
-        @media screen and (min-width: '529px') {
-          height: calc($spaghetti-min-height-mob - #{var(--nav-layout-height)} - 2rem - 210px);
+        @media screen and (min-width: "529px") {
+          height: calc(
+            $spaghetti-min-height-mob - #{var(--nav-layout-height)} - 2rem -
+              210px
+          );
         }
 
-        @media screen and (min-width: '759px') {
-          height: calc($spaghetti-min-height-mob - #{var(--nav-layout-height)} - 2rem - 225px);
+        @media screen and (min-width: "759px") {
+          height: calc(
+            $spaghetti-min-height-mob - #{var(--nav-layout-height)} - 2rem -
+              225px
+          );
         }
 
-        @media screen and (min-width: '799px') {
-          height: calc($spaghetti-min-height-mob - #{var(--nav-layout-height)} - 2rem - 225px);
+        @media screen and (min-width: "799px") {
+          height: calc(
+            $spaghetti-min-height-mob - #{var(--nav-layout-height)} - 2rem -
+              225px
+          );
         }
 
-        @media screen and (min-width: '1024px') {
-          height: calc(#{var(--spaghetti-holder-height)} - #{var(--nav-layout-height)} - 2rem - 225px);
+        @media screen and (min-width: "1024px") {
+          height: calc(
+            #{var(--spaghetti-holder-height)} - #{var(--nav-layout-height)} -
+              2rem - 225px
+          );
         }
 
-        @media screen and (min-width: '1388px') {
-          height: calc(#{var(--spaghetti-holder-height)} - #{var(--nav-layout-height)} - 2rem - 225px);
+        @media screen and (min-width: "1388px") {
+          height: calc(
+            #{var(--spaghetti-holder-height)} - #{var(--nav-layout-height)} -
+              2rem - 225px
+          );
         }
 
         // min-height: calc(100vh - var(--spaghetti-holder-height) + $spaghetti-min-height-mob);
@@ -107,7 +131,7 @@ $spaghetti-min-height-desk: 864px !default;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(2, minmax(0, 1fr));
 
-    @media screen and (min-width: '1024px') {
+    @media screen and (min-width: "1024px") {
       width: 100%;
       margin: 0 auto;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -616,16 +640,16 @@ $spaghetti-min-height-desk: 864px !default;
     min-height: 680px;
 
     // Very small mobile device display (ie. iPhone SE, Samsung Galaxy S8+)
-    @media screen and (orientation: portrait) and (max-width: '379px') {
+    @media screen and (orientation: portrait) and (max-width: "379px") {
       min-height: 495px;
     }
 
-    @media screen and (orientation: landscape) and (max-width: '759px') {
+    @media screen and (orientation: landscape) and (max-width: "759px") {
       min-height: 465px;
     }
 
     // Very large mobile device display (ie. iPhone 12 Pro, Samsung Galaxy S20 Ultra)
-    @media screen and (orientation: landscape) and (min-width: '800px') and (max-width: '949px') {
+    @media screen and (orientation: landscape) and (min-width: "800px") and (max-width: "949px") {
       min-height: 465px;
     }
   }
@@ -854,12 +878,12 @@ $spaghetti-min-height-desk: 864px !default;
         y: max(calc(var(--spaghetti-holder-height) - 8px), 572px);
         width: calc(6vw - 62px);
 
-        @media screen and (min-width: '1646px') {
+        @media screen and (min-width: "1646px") {
           x: calc(100% - 7vw);
           width: calc(7vw - 62px);
         }
 
-        @media screen and (min-width: '2046px') {
+        @media screen and (min-width: "2046px") {
           x: calc(100% - 8vw);
           width: calc(8vw - 62px);
         }
@@ -873,7 +897,7 @@ $spaghetti-min-height-desk: 864px !default;
     }
   }
 
-  @media screen and (max-width: '1023px') {
+  @media screen and (max-width: "1023px") {
     .spaghetti-holder-mobile {
       display: block;
     }
@@ -883,7 +907,7 @@ $spaghetti-min-height-desk: 864px !default;
     }
   }
 
-  @media screen and (min-width: '1024px') {
+  @media screen and (min-width: "1024px") {
     .spaghetti-holder-mobile {
       display: none;
     }
@@ -899,7 +923,9 @@ $spaghetti-min-height-desk: 864px !default;
     top: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url('/assets/svg/spaghetti-bg-left.svg'), url('/assets/svg/spaghetti-bg-center.svg'), url('/assets/svg/spaghetti-bg-right.svg');
+    background-image: url("/assets/svg/spaghetti-bg-left.svg"),
+      url("/assets/svg/spaghetti-bg-center.svg"),
+      url("/assets/svg/spaghetti-bg-right.svg");
     background-repeat: no-repeat;
     background-size: 1200px auto;
     background-position: 50% 0;
@@ -966,7 +992,7 @@ $spaghetti-min-height-desk: 864px !default;
     pointer-events: none;
   }
 
-  @media screen and (max-width: '499px') {
+  @media screen and (max-width: "499px") {
     .lift-off-holder-mob {
       display: block;
     }
@@ -980,7 +1006,7 @@ $spaghetti-min-height-desk: 864px !default;
     }
   }
 
-  @media screen and (min-width: '500px') {
+  @media screen and (min-width: "500px") {
     .lift-off-holder-mob {
       display: none;
     }
@@ -994,7 +1020,7 @@ $spaghetti-min-height-desk: 864px !default;
     }
   }
 
-  @media screen and (min-width: '1024px') {
+  @media screen and (min-width: "1024px") {
     .lift-off-holder-mob {
       display: none;
     }
@@ -1058,7 +1084,7 @@ $spaghetti-min-height-desk: 864px !default;
   }
 
   &.slides-version-2 {
-    top: 7.15rem;
+    top: 1.15rem;
   }
 }
 
@@ -1076,7 +1102,7 @@ $spaghetti-min-height-desk: 864px !default;
   display: inline;
 }
 
-@media screen and (max-width: '900px') {
+@media screen and (max-width: "900px") {
   .slides-menu-open .show-slide-btn {
     display: block;
     position: fixed;
@@ -1092,7 +1118,7 @@ $spaghetti-min-height-desk: 864px !default;
   }
 }
 
-@media screen and (orientation: portrait) and (max-width: '500px') {
+@media screen and (orientation: portrait) and (max-width: "500px") {
   .slides-menu-open .show-slide-btn {
     display: block;
     position: fixed;
@@ -1108,7 +1134,7 @@ $spaghetti-min-height-desk: 864px !default;
   }
 }
 
-@media screen and (orientation: landscape) and (max-width: '900px') {
+@media screen and (orientation: landscape) and (max-width: "900px") {
   .slides-menu-open .show-slide-btn {
     display: block;
     position: fixed;
@@ -1133,10 +1159,9 @@ $spaghetti-min-height-desk: 864px !default;
   justify-content: center;
   align-items: center;
   z-index: 3;
-
 }
 
-@media screen and (min-width: '900px') {
+@media screen and (min-width: "900px") {
   .slides-menu-closed {
     position: absolute;
     display: block;
