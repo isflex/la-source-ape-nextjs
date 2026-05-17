@@ -75,6 +75,7 @@ export type Styles = {
   isMedium: string;
   isNarrow: string;
   isNormal: string;
+  isNotBorderedMobile: string;
   isOutlined: string;
   isParent: string;
   isPrimary: string;
@@ -87,6 +88,7 @@ export type Styles = {
   isSmall: string;
   isStriped: string;
   isSuccess: string;
+  isTableStackedRowMobile: string;
   isTertiary: string;
   isTertiaryDark: string;
   isTertiaryLight: string;
@@ -119,12 +121,14 @@ export type Styles = {
   tableContainer: string;
   tabs: string;
   tag: string;
+  text: string;
   tile: string;
   timeline: string;
   timelineContent: string;
   timelineHeader: string;
   timelineItem: string;
   timelineMarker: string;
+  title: string;
   toggle: string;
 };
 

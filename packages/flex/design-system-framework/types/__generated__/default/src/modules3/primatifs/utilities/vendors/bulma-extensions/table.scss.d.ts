@@ -16,12 +16,14 @@ export type Styles = {
   isHoverable: string;
   isInfo: string;
   isNarrow: string;
+  isNotBorderedMobile: string;
   isPrimary: string;
   isQuaternary: string;
   isSecondary: string;
   isSelected: string;
   isStriped: string;
   isSuccess: string;
+  isTableStackedRowMobile: string;
   isTertiary: string;
   isTertiaryDark: string;
   isTertiaryLight: string;
@@ -30,6 +32,8 @@ export type Styles = {
   isWhite: string;
   table: string;
   tableContainer: string;
+  text: string;
+  title: string;
 };
 
 export type ClassNames = keyof Styles;

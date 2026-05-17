@@ -44,7 +44,10 @@
         "src/modules3/**/*.scss"
       ],
       "outputs": ["types/__generated__/default/**"],
-      "dependsOn": ["lint:scss"],
+      "dependsOn": [
+        "@flexiness/typed-scss-modules#compile:proj:ref:cjs:phase1",
+        "lint:scss"
+      ],
       "env": ["FLEX_*", "GIT_*"],
       "cache": true,
       "persistent": false

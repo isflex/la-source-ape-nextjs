@@ -30,12 +30,14 @@ export type Styles = {
   isInfo: string;
   isLarge: string;
   isNarrow: string;
+  isNotBorderedMobile: string;
   isPrimary: string;
   isQuaternary: string;
   isSecondary: string;
   isSelected: string;
   isStriped: string;
   isSuccess: string;
+  isTableStackedRowMobile: string;
   isTertiary: string;
   isTertiaryDark: string;
   isTertiaryLight: string;
@@ -47,6 +49,8 @@ export type Styles = {
   subtable: string;
   table: string;
   tableContainer: string;
+  text: string;
+  title: string;
   toggle: string;
 };
 

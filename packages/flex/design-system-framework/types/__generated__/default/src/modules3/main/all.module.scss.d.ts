@@ -2556,6 +2556,7 @@ export type Styles = {
   isNarrowWidescreen: string;
   isNew: string;
   isNormal: string;
+  isNotBorderedMobile: string;
   isNowrap: string;
   isNpm: string;
   isOffset1: string;
@@ -2851,6 +2852,7 @@ export type Styles = {
   isTableRowTouch: string;
   isTableRowWidescreen: string;
   isTableRowWidescreenOnly: string;
+  isTableStackedRowMobile: string;
   isTertiary: string;
   isTertiaryDark: string;
   isTertiaryLight: string;

@@ -196,6 +196,7 @@ export type Styles = {
   isMultiple: string;
   isNarrow: string;
   isNormal: string;
+  isNotBorderedMobile: string;
   isNowrap: string;
   isOutlined: string;
   isParent: string;
@@ -223,6 +224,7 @@ export type Styles = {
   isStriked: string;
   isStriped: string;
   isSuccess: string;
+  isTableStackedRowMobile: string;
   isTertiary: string;
   isTertiaryDark: string;
   isTertiaryLight: string;

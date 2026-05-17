@@ -28,12 +28,14 @@
       "dependsOn": [
         "@flexiness/domain-utils#compile:tsup",
         "@flexiness/copilotkit#compile:tsup",
-        "@flexiness/typed-scss-modules#compile:proj:ref:cjs:phase1"
+        "@flexiness/typed-scss-modules#compile:proj:ref:cjs:phase1",
+        "@flex-design-system/framework#build:types:scss"
       ],
       "outputs": [
         "packages/flex/design-system-react-ts/dist/**",
         "packages/flex/domain-store/dist/**",
-        "packages/flex/config/eslint/flat-config/dist/**"
+        "packages/flex/config/eslint/flat-config/dist/**",
+        "packages/flex/design-system-framework/types/__generated__/default/**"
       ],
       "cache": true,
       "persistent": false
@@ -44,7 +46,10 @@
       "persistent": false
     },
     "//#compile:watch:sh": {
-      "outputs": ["packages/flex/domain-store/dist/**", "apps/gateway/public/slides/**"],
+      "outputs": [
+        "packages/flex/domain-store/dist/**",
+        "apps/gateway/public/slides/**"
+      ],
       "cache": false,
       "persistent": true
     },
@@ -68,7 +73,14 @@
     },
     "build": {
       "dependsOn": ["//#compile:transit", "^build:lib", "^build"],
-      "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*", "NEXT_PUBLIC_*", "SENTRY_*"],
+      "env": [
+        "AWS_*",
+        "DOTENV_*",
+        "FLEX_*",
+        "GIT_*",
+        "NEXT_PUBLIC_*",
+        "SENTRY_*"
+      ],
       "cache": true,
       "persistent": false
     },
