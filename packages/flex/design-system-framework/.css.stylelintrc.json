@@ -1,16 +1,29 @@
 {
-  "extends": [
-    "stylelint-config-standard"
-  ],
+  "extends": ["stylelint-config-standard"],
   "rules": {
+    "selector-not-notation": "simple",
     "font-family-name-quotes": "always-unless-keyword",
     "alpha-value-notation": "number",
     "no-descending-specificity": null,
     "no-empty-source": null,
     "font-family-no-missing-generic-family-keyword": null,
     "comment-whitespace-inside": null,
-    "at-rule-no-unknown": [true, {
-      "ignoreAtRules": ["function", "if", "else", "each", "for", "include", "extend", "mixin", "content", "return"]
-    }]
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "function",
+          "if",
+          "else",
+          "each",
+          "for",
+          "include",
+          "extend",
+          "mixin",
+          "content",
+          "return"
+        ]
+      }
+    ]
   }
 }
