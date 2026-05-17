@@ -192,7 +192,10 @@ const App: React.FC = () => {
               <Title
                 level={TitleLevel.LEVEL5}
                 className={flexStyles.isMarginless}
-              >{`${process.env.NEXT_PUBLIC_APP_TITLE}`}</Title>
+              >
+                {process.env.NEXT_PUBLIC_APP_TITLE}
+              </Title>
+              <br />
             </div>
             <Text>
               A moins que précisé autrement, les conditions d&apos;utilisation

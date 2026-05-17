@@ -28,7 +28,8 @@ $subtable-fill: variables.$grey-lighter;
 
 .table {
   &:not(:last-child),
-  &:not(tr, td) {
+  &:not(tr),
+  &:not(td) {
     margin-bottom: functions.size(3em);
   }
 

@@ -199,9 +199,12 @@ const App: React.FC = () => {
                   fill="white"
                 />
               </svg>
-              <Text
+              <Title
+                level={TitleLevel.LEVEL5}
                 className={flexStyles.isMarginless}
-              >{`${process.env.NEXT_PUBLIC_APP_TITLE}`}</Text>
+              >
+                {process.env.NEXT_PUBLIC_APP_TITLE}
+              </Title>
             </div>
             <Text>Date d&apos;entrée en vigueur : 04 juin 2025</Text>
             <Divider />
@@ -210,8 +213,12 @@ const App: React.FC = () => {
             </Title>
             <Text>
               {`Bienvenue sur `}
-              <strong>{`${process.env.NEXT_PUBLIC_APP_TITLE} | APE | LA SOURCE`}</strong>
-              {`. Votre confidentialité est essentielle pour nous. Cette politique explique comment nous collectons, traitons et protégeons vos données conformément au Règlement Général sur la Protection des Données (RGPD).`}
+              <strong>{process.env.NEXT_PUBLIC_APP_TITLE}</strong>
+              {` de `}
+              <strong>{process.env.NEXT_PUBLIC_PARENT_ASSOCIATION}</strong>
+              {`. Votre confidentialité est essentielle pour nous. Cette politique explique comment
+                nous collectons, traitons et protégeons vos données conformément au Règlement Général
+                sur la Protection des Données (RGPD).`}
             </Text>
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
               2. Collecte et traitement des données
@@ -452,7 +459,7 @@ const App: React.FC = () => {
             <ul>
               <li>
                 <strong>{`Intérêt légitime :`}</strong>
-                {` Améliorer les fonctionnalités et l&apos;expérience utilisateur.`}
+                {` Améliorer les fonctionnalités et l'expérience utilisateur.`}
               </li>
               <li>
                 <strong>{`Nécessité contractuelle :`}</strong>
@@ -519,7 +526,7 @@ const App: React.FC = () => {
             </Text>
             <Text>
               <strong>{`Réglementations applicables :`}</strong>
-              {` RGPD (UE) 2016/679 • Règlement européen sur l&apos;IA (UE) 2024/1689 • Directive ePrivacy 2002/58/CE`}
+              {` RGPD (UE) 2016/679 • Règlement européen sur l'IA (UE) 2024/1689 • Directive ePrivacy 2002/58/CE`}
             </Text>
             <Divider />
             <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
@@ -1686,9 +1693,12 @@ const App: React.FC = () => {
                   significative de façon similaire.`}
               </li>
             </ul>
+            <br />
             <Text>
               {`Pour exercer l'un de ces droits, contactez-nous à : `}
-              <Link href="mailto:hello@flexiness.com">hello@flexiness.com</Link>
+              <Link href="mailto:system_admin@flexiness.com">
+                system_admin@flexiness.com
+              </Link>
             </Text>
             <Text>
               Nous répondrons à votre demande dans un délai de 30 jours.
