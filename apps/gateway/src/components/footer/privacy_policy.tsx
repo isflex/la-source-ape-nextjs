@@ -221,13 +221,17 @@ const App: React.FC = () => {
               travers Google, nous sollicitons les autorisations suivantes pour
               accéder à d&apos;autres services de Google API :
             </Text>
-            <Table bordered>
+            <Table bordered className={flexStyles.isNotBorderedMobile}>
               <TableHead>
                 <TableTr>
                   <TableTh>
                     <Title level={TitleLevel.LEVEL6}>
                       <Text>Autorisations</Text>
-                      <Text>{`(https://www.googleapis.com)`}</Text>
+                      <Text>
+                        <span
+                          style={{ display: "block", minWidth: "240px" }}
+                        >{`(https://www.googleapis.com)`}</span>
+                      </Text>
                     </Title>
                   </TableTh>
                   <TableTh className={flexStyles.isHiddenMobile}>
@@ -244,9 +248,17 @@ const App: React.FC = () => {
                     flexStyles.isFlexDirectionColumn,
                     flexStyles.isTableRowTablet,
                     flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
                   )}
                 >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Autorisation</Text>
+                      <Text>{`(https://www.googleapis.com)`}</Text>
+                    </Title>
                     <Text
                       className={classNames(
                         flexStyles.hasTextFlexPink,
@@ -259,6 +271,12 @@ const App: React.FC = () => {
                     </Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Utilisation</Text>
+                    </Title>
                     <Text className={flexStyles.hasTextTertiary}>
                       Consultez l&apos;adresse e-mail principale de votre compte
                       Google
@@ -271,9 +289,17 @@ const App: React.FC = () => {
                     flexStyles.isFlexDirectionColumn,
                     flexStyles.isTableRowTablet,
                     flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
                   )}
                 >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Autorisation</Text>
+                      <Text>{`(https://www.googleapis.com)`}</Text>
+                    </Title>
                     <Text
                       className={classNames(
                         flexStyles.hasTextFlexPink,
@@ -286,6 +312,12 @@ const App: React.FC = () => {
                     </Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Utilisation</Text>
+                    </Title>
                     <Text className={flexStyles.hasTextTertiary}>
                       Consultez vos informations personnelles, y compris toutes
                       les informations personnelles que vous avez rendues
@@ -299,9 +331,17 @@ const App: React.FC = () => {
                     flexStyles.isFlexDirectionColumn,
                     flexStyles.isTableRowTablet,
                     flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
                   )}
                 >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Autorisation</Text>
+                      <Text>{`(https://www.googleapis.com)`}</Text>
+                    </Title>
                     <Text
                       className={classNames(
                         flexStyles.hasTextFlexPink,
@@ -312,6 +352,12 @@ const App: React.FC = () => {
                     </Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Utilisation</Text>
+                    </Title>
                     <Text className={flexStyles.hasTextTertiary}>
                       Associez-vous à vos informations personnelles sur Google
                     </Text>
@@ -323,9 +369,17 @@ const App: React.FC = () => {
                     flexStyles.isFlexDirectionColumn,
                     flexStyles.isTableRowTablet,
                     flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
                   )}
                 >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Autorisation</Text>
+                      <Text>{`(https://www.googleapis.com)`}</Text>
+                    </Title>
                     <Text
                       className={classNames(
                         flexStyles.hasTextFlexPink,
@@ -339,6 +393,12 @@ const App: React.FC = () => {
                     </Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Utilisation</Text>
+                    </Title>
                     <Text className={flexStyles.hasTextTertiary}>
                       Consultez et téléchargez vos numéros de téléphone
                       personnels
@@ -366,98 +426,6 @@ const App: React.FC = () => {
                     />
                   </TableTd>
                 </TableTr>
-
-                {/* <TableTr className={classNames(flexStyles.isFlexMobile, flexStyles.isFlexDirectionColumn, flexStyles.isTableRowTablet, flexStyles.isColumnSpanAllTablet )}>
-                <TableTd>
-                  <Text className={classNames(flexStyles.hasTextSecondary, flexStyles.hasTextWeightBold)}>
-                    <span>/auth</span><span>/calendar</span>
-                  </Text>
-                </TableTd>
-                <TableTd>
-                  <Text className={flexStyles.hasTextTertiary}>
-                    Consultez, modifiez, partagez et supprimez définitivement tous les calendriers auxquels vous pouvez accéder à l&apos;aide de Google Agenda
-                  </Text>
-                </TableTd>
-              </TableTr>
-              <TableTr className={classNames(flexStyles.isFlexMobile, flexStyles.isFlexDirectionColumn, flexStyles.isTableRowTablet, flexStyles.isColumnSpanAllTablet )}>
-                <TableTd>
-                  <Text className={classNames(flexStyles.hasTextSecondary, flexStyles.hasTextWeightBold)}>
-                    <span>/auth</span><span>/calendar</span><span>.events</span>
-                  </Text>
-                </TableTd>
-                <TableTd>
-                  <Text className={flexStyles.hasTextTertiary}>
-                    Affichez et modifiez les événements sur tous vos calendriers
-                  </Text>
-                </TableTd>
-              </TableTr>
-              <TableTr className={classNames(flexStyles.isFlexMobile, flexStyles.isFlexDirectionColumn, flexStyles.isTableRowTablet, flexStyles.isColumnSpanAllTablet )}>
-                <TableTd>
-                  <Text className={classNames(flexStyles.hasTextSecondary, flexStyles.hasTextWeightBold)}>
-                    <span>/auth</span><span>/admin</span><span>.directory</span><span>.resource</span><span>.calendar</span>
-                  </Text>
-                </TableTd>
-                <TableTd>
-                  <Text className={flexStyles.hasTextTertiary}>
-                    Afficher et gérer l&apos;approvisionnement des ressources de calendrier sur votre domaine
-                  </Text>
-                </TableTd>
-              </TableTr>
-              <TableTr>
-                <TableTd colSpan={2}>
-                  <Icon
-                    content={
-                      <Text>
-                        Cela nous permet de partager efficacement des événements créer à travers cette application à votre calendrier Google Agenda et les calendriers d&apos;autres utilisateurs
-                      </Text>
-                    }
-                    size={IconSize.SMALL}
-                    position={IconPosition.LEFT}
-                    name={IconName.UI_EXCLAMATION_CIRCLE}
-                    className={classNames(flexStyles.hasTextSecondary, flexStyles.hasTextWeightBold)}
-                  />
-                </TableTd>
-              </TableTr> */}
-
-                {/* <TableTr className={classNames(flexStyles.isFlexMobile, flexStyles.isFlexDirectionColumn, flexStyles.isTableRowTablet, flexStyles.isColumnSpanAllTablet )}>
-                <TableTd>
-                  <Text className={classNames(flexStyles.hasTextFlexPurple, flexStyles.hasTextWeightBold)}>
-                    <span>/auth</span><span>/bigquery</span>
-                  </Text>
-                </TableTd>
-                <TableTd>
-                  <Text className={flexStyles.hasTextTertiary}>
-                    Affichez et gérez vos données dans Google BigQuery et consultez l&apos;adresse e-mail de votre compte Google
-                  </Text>
-                </TableTd>
-              </TableTr>
-              <TableTr className={classNames(flexStyles.isFlexMobile, flexStyles.isFlexDirectionColumn, flexStyles.isTableRowTablet, flexStyles.isColumnSpanAllTablet )}>
-                <TableTd>
-                  <Text className={classNames(flexStyles.hasTextFlexPurple, flexStyles.hasTextWeightBold)}>
-                    <span>/auth</span><span>/cloud-platform</span>
-                  </Text>
-                </TableTd>
-                <TableTd>
-                  <Text className={flexStyles.hasTextTertiary}>
-                    Consultez, modifiez, configurez et supprimez vos données Google Cloud et consultez l&apos;adresse e-mail de votre compte Google.
-                  </Text>
-                </TableTd>
-              </TableTr>
-              <TableTr>
-                <TableTd colSpan={2}>
-                  <Icon
-                    content={
-                      <Text>
-                        Cela nous permettra à terme de développer des outils d&apos;intelligence artificielle pour mieux assister les utilisateurs de l&apos;application.
-                      </Text>
-                    }
-                    size={IconSize.SMALL}
-                    position={IconPosition.LEFT}
-                    name={IconName.UI_EXCLAMATION_CIRCLE}
-                    className={classNames(flexStyles.hasTextFlexPurple, flexStyles.hasTextWeightBold)}
-                  />
-                </TableTd>
-              </TableTr> */}
               </TableBody>
             </Table>
             <Text>
@@ -483,16 +451,16 @@ const App: React.FC = () => {
             </Text>
             <ul>
               <li>
-                <strong>Intérêt légitime :</strong> Améliorer les
-                fonctionnalités et l&apos;expérience utilisateur.
+                <strong>{`Intérêt légitime :`}</strong>
+                {` Améliorer les fonctionnalités et l&apos;expérience utilisateur.`}
               </li>
               <li>
-                <strong>Nécessité contractuelle :</strong> Fournir des services
-                essentiels.
+                <strong>{`Nécessité contractuelle :`}</strong>
+                {` Fournir des services essentiels.`}
               </li>
               <li>
-                <strong>Consentement :</strong> Lorsque nécessaire, nous
-                obtenons votre consentement.
+                <strong>{`Consentement :`}</strong>
+                {` Lorsque nécessaire, nous obtenons votre consentement.`}
               </li>
             </ul>
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
@@ -501,26 +469,31 @@ const App: React.FC = () => {
             <Text>En vertu du RGPD, vous disposez des droits suivants :</Text>
             <ul>
               <li>
-                Accès : Demander l&apos;accès à vos données personnelles
-                stockées.
+                <strong>{`Accès :`}</strong>
+                {` Demander l'accès à vos données personnelles stockées.`}
               </li>
               <li>
-                Rectification : Corriger les données inexactes ou incomplètes.
+                <strong>{`Rectification :`}</strong>
+                {` Corriger les données inexactes ou incomplètes.`}
               </li>
               <li>
-                Effacement : Demander la suppression de vos données
-                personnelles.
-              </li>
-              <li>Restriction : Limiter le traitement de vos données.</li>
-              <li>
-                Portabilité des données : Demander un transfert de vos données
-                personnelles.
+                <strong>{`Effacement :`}</strong>
+                {` Demander la suppression de vos données personnelles.`}
               </li>
               <li>
-                Opposition : Vous opposer au traitement dans certaines
-                circonstances.
+                <strong>{`Restriction :`}</strong>
+                {` Limiter le traitement de vos données.`}
+              </li>
+              <li>
+                <strong>{`Portabilité des données :`}</strong>
+                {` Demander un transfert de vos données personnelles.`}
+              </li>
+              <li>
+                <strong>{`Opposition :`}</strong>
+                {` Vous opposer au traitement dans certaines circonstances.`}
               </li>
             </ul>
+            <br />
             <Text>
               {`Pour exercer ces droits, contactez-nous à `}
               <Link href="mailto:system_admin@flexiness.com">
@@ -541,12 +514,12 @@ const App: React.FC = () => {
               6. Communication par Agent IA via WhatsApp
             </Title>
             <Text>
-              <strong>Version :</strong> 1.0 — Avril 2026
+              <strong>{`Version :`}</strong>
+              {` 1.0 — Avril 2026`}
             </Text>
             <Text>
-              <strong>Réglementations applicables :</strong> RGPD (UE) 2016/679
-              • Règlement européen sur l&apos;IA (UE) 2024/1689 • Directive
-              ePrivacy 2002/58/CE
+              <strong>{`Réglementations applicables :`}</strong>
+              {` RGPD (UE) 2016/679 • Règlement européen sur l&apos;IA (UE) 2024/1689 • Directive ePrivacy 2002/58/CE`}
             </Text>
             <Divider />
             <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
@@ -662,7 +635,7 @@ const App: React.FC = () => {
               Lorsque vous interagissez avec nous via WhatsApp, les données
               personnelles suivantes peuvent être traitées :
             </Text>
-            <Table bordered>
+            <Table bordered className={flexStyles.isNotBorderedMobile}>
               <TableHead>
                 <TableTr>
                   <TableTh>
@@ -681,83 +654,212 @@ const App: React.FC = () => {
                 </TableTr>
               </TableHead>
               <TableBody>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Catégorie de données
+                    </Title>
                     <Text>Données de contact</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Exemples
+                    </Title>
                     <Text>
                       Numéro de téléphone, nom d&apos;affichage WhatsApp, photo
                       de profil
                     </Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Source
+                    </Title>
                     <Text>Plateforme WhatsApp</Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Catégorie de données
+                    </Title>
                     <Text>Contenu des messages</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Exemples
+                    </Title>
                     <Text>
                       Messages textuels, fichiers multimédias que vous envoyez
                     </Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Source
+                    </Title>
                     <Text>Vous (l&apos;utilisateur)</Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Catégorie de données
+                    </Title>
                     <Text>Métadonnées</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Exemples
+                    </Title>
                     <Text>
                       Horodatages, statut de livraison des messages,
                       informations sur l&apos;appareil
                     </Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Source
+                    </Title>
                     <Text>Plateforme WhatsApp</Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Catégorie de données
+                    </Title>
                     <Text>Données d&apos;interaction</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Exemples
+                    </Title>
                     <Text>
                       Questions posées, sujets abordés, préférences exprimées
                     </Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Source
+                    </Title>
                     <Text>Vos interactions avec l&apos;agent IA</Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Catégorie de données
+                    </Title>
                     <Text>Identifiants techniques</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Exemples
+                    </Title>
                     <Text>
                       Identifiant utilisateur WhatsApp, identifiant de fil de
                       conversation
                     </Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Source
+                    </Title>
                     <Text>Plateforme WhatsApp</Text>
                   </TableTd>
                 </TableTr>
               </TableBody>
             </Table>
             <Text>
-              <strong>Important :</strong> Les messages WhatsApp sont chiffrés
-              de bout en bout entre votre appareil et le point d&apos;accès de
-              l&apos;API Cloud WhatsApp Business. Cependant, une fois que les
-              messages atteignent notre infrastructure serveur pour le
-              traitement par l&apos;IA, ils sont déchiffrés et traités
-              conformément à la présente politique.
+              <strong>{`Important :`}</strong>
+              {` Les messages WhatsApp sont chiffrés de bout en bout entre votre appareil
+                et le point d'accès de l'API Cloud WhatsApp Business. Cependant, une fois
+                que les messages atteignent notre infrastructure serveur pour le traitement
+                par l'IA, ils sont déchiffrés et traités conformément à la présente politique.`}
             </Text>
             <Divider />
             <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
@@ -771,7 +873,7 @@ const App: React.FC = () => {
               Vos messages sont traités par un assistant IA afin de générer des
               réponses. Le système IA fonctionne de la manière suivante :
             </Text>
-            <Table bordered>
+            <Table bordered className={flexStyles.isNotBorderedMobile}>
               <TableHead>
                 <TableTr>
                   <TableTh>
@@ -785,66 +887,174 @@ const App: React.FC = () => {
                 </TableTr>
               </TableHead>
               <TableBody>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
-                    <Text>
-                      <strong>Modèle IA</strong>
-                    </Text>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Élément
+                    </Title>
+                    <Text>Modèle IA</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Détail
+                    </Title>
                     <Text>Claude (développé par Anthropic)</Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
-                    <Text>
-                      <strong>Infrastructure d&apos;hébergement</strong>
-                    </Text>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Élément
+                    </Title>
+                    <Text>Infrastructure d&apos;hébergement</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Détail
+                    </Title>
                     <Text>Amazon Web Services (AWS) — service Bedrock</Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
-                    <Text>
-                      <strong>Orchestration</strong>
-                    </Text>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Élément
+                    </Title>
+                    <Text>Orchestration</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Détail
+                    </Title>
                     <Text>AWS Strands Agents</Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
-                    <Text>
-                      <strong>Région de traitement des données</strong>
-                    </Text>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Élément
+                    </Title>
+                    <Text>Région de traitement des données</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Détail
+                    </Title>
                     <Text>eu-west-3 (Paris, France)</Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
-                    <Text>
-                      <strong>Entraînement du modèle</strong>
-                    </Text>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Élément
+                    </Title>
+                    <Text>Entraînement du modèle</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Détail
+                    </Title>
                     <Text>
                       Vos messages et conversations ne sont PAS utilisés pour
                       entraîner ou améliorer les modèles d&apos;IA
                     </Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
-                    <Text>
-                      <strong>Accès direct par le fournisseur d&apos;IA</strong>
-                    </Text>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Élément
+                    </Title>
+                    <Text>Accès direct par le fournisseur d&apos;IA</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Détail
+                    </Title>
                     <Text>
                       Anthropic n&apos;a PAS d&apos;accès direct à vos données.
                       Le traitement s&apos;effectue entièrement au sein de
@@ -916,7 +1126,7 @@ const App: React.FC = () => {
               Nous traitons vos données personnelles sur les bases juridiques
               suivantes au titre de l&apos;Article 6(1) du RGPD :
             </Text>
-            <Table bordered>
+            <Table bordered className={flexStyles.isNotBorderedMobile}>
               <TableHead>
                 <TableTr>
                   <TableTh>
@@ -937,58 +1147,162 @@ const App: React.FC = () => {
                 </TableTr>
               </TableHead>
               <TableBody>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Activité de traitement
+                    </Title>
                     <Text>Communication WhatsApp</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Base juridique
+                    </Title>
                     <Text>Art. 6(1)(a) — Consentement</Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Détails
+                    </Title>
                     <Text>
                       Vous initiez le contact et consentez à la communication
                       via WhatsApp
                     </Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Activité de traitement
+                    </Title>
                     <Text>Traitement IA des messages</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Base juridique
+                    </Title>
                     <Text>
                       Art. 6(1)(a) — Consentement / Art. 6(1)(b) — Contrat
                     </Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Détails
+                    </Title>
                     <Text>
                       Le traitement est nécessaire pour répondre à votre demande
                       ou fournir notre service
                     </Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Activité de traitement
+                    </Title>
                     <Text>Fonctionnement technique et sécurité</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Base juridique
+                    </Title>
                     <Text>Art. 6(1)(f) — Intérêt légitime</Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Détails
+                    </Title>
                     <Text>
                       Assurer la sécurité et le bon fonctionnement de nos
                       systèmes
                     </Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Activité de traitement
+                    </Title>
                     <Text>Conformité légale</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Base juridique
+                    </Title>
                     <Text>Art. 6(1)(c) — Obligation légale</Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Détails
+                    </Title>
                     <Text>Respect des lois et réglementations applicables</Text>
                   </TableTd>
                 </TableTr>
@@ -1007,7 +1321,7 @@ const App: React.FC = () => {
               Les sous-traitants tiers suivants interviennent dans le traitement
               de vos données personnelles :
             </Text>
-            <Table bordered>
+            <Table bordered className={flexStyles.isNotBorderedMobile}>
               <TableHead>
                 <TableTr>
                   <TableTh>
@@ -1031,36 +1345,100 @@ const App: React.FC = () => {
                 </TableTr>
               </TableHead>
               <TableBody>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Sous-traitant
+                    </Title>
                     <Text>Meta Platforms Ireland Ltd</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Rôle
+                    </Title>
                     <Text>Livraison des messages WhatsApp (API Cloud)</Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Localisation
+                    </Title>
                     <Text>Irlande (UE) / États-Unis</Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Garantie de transfert
+                    </Title>
                     <Text>
                       Cadre de Protection des Données UE-États-Unis (DPF)
                     </Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Sous-traitant
+                    </Title>
                     <Text>Amazon Web Services EMEA SARL</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Rôle
+                    </Title>
                     <Text>
                       Hébergement cloud, hébergement du modèle IA (Bedrock),
                       orchestration des agents (Strands)
                     </Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Localisation
+                    </Title>
                     <Text>UE — Paris (eu-west-3)</Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Garantie de transfert
+                    </Title>
                     <Text>
                       Données traitées dans la région UE ; DPA RGPD AWS
                     </Text>
@@ -1091,7 +1469,7 @@ const App: React.FC = () => {
             <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
               6.6 Conservation des données
             </Title>
-            <Table bordered>
+            <Table bordered className={flexStyles.isNotBorderedMobile}>
               <TableHead>
                 <TableTr>
                   <TableTh>
@@ -1112,47 +1490,151 @@ const App: React.FC = () => {
                 </TableTr>
               </TableHead>
               <TableBody>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Type de données
+                    </Title>
                     <Text>Journaux de conversation</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Durée de conservation
+                    </Title>
                     <Text>90 jours</Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Justification
+                    </Title>
                     <Text>Fourniture du service et assurance qualité</Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Type de données
+                    </Title>
                     <Text>Données de contact (numéro de téléphone)</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Durée de conservation
+                    </Title>
                     <Text>Jusqu&apos;au retrait du consentement</Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Justification
+                    </Title>
                     <Text>Communication continue</Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Type de données
+                    </Title>
                     <Text>Journaux de traitement IA</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Durée de conservation
+                    </Title>
                     <Text>30 jours</Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Justification
+                    </Title>
                     <Text>Débogage et surveillance des systèmes</Text>
                   </TableTd>
                 </TableTr>
-                <TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Type de données
+                    </Title>
                     <Text>Registres de consentement</Text>
                   </TableTd>
                   <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Durée de conservation
+                    </Title>
                     <Text>3 ans après le retrait</Text>
                   </TableTd>
-                  <TableTd className={flexStyles.isHiddenMobile}>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      Justification
+                    </Title>
                     <Text>Obligation légale de démontrer la conformité</Text>
                   </TableTd>
                 </TableTr>
