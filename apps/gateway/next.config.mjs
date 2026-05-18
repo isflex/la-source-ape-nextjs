@@ -191,6 +191,20 @@ const nextConfig = (() => {
     webpack: (config, options) => {
       const { isServer, webpack, dev } = options;
 
+      // Use an in-memory webpack cache in dev. The persistent filesystem cache holds the
+      // closure-captured _buildId inside getLocalIdent output; once HEAD advances, cached
+      // entries from the prior session keep the old __hash and mix with freshly compiled
+      // ones. Memory cache resets every dev process start, eliminating the drift.
+      // cacheUnaffected keeps in-session HMR fast by memoizing unchanged modules that
+      // only depend on unchanged modules (requires experiments.cacheUnaffected).
+      if (dev) {
+        config.cache = {
+          type: "memory",
+          cacheUnaffected: true,
+          maxGenerations: Infinity,
+        };
+      }
+
       // Fix: node:* protocol imports in client bundle
       // CopilotKit's telemetry chain pulls @segment/analytics-node → node-fetch v3
       // which uses node: protocol imports. Strip the prefix so webpack's
@@ -331,6 +345,8 @@ const nextConfig = (() => {
           topLevelAwait: true,
           // outputModule: true,
           layers: true,
+          // Required by cache.cacheUnaffected above (webpack ≥ 5.54).
+          cacheUnaffected: dev ? true : false,
         },
 
         infrastructureLogging: {
@@ -354,6 +370,7 @@ const nextConfig = (() => {
     },
 
     experimental: {
+      webpackMemoryOptimizations: true,
       // turbo: {
       //   rules: {
       //     '*.svg': {

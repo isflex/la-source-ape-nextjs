@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 /**
  * Custom CopilotKit welcomeScreen pieces.
@@ -16,12 +17,15 @@ import Link from 'next/link';
  *    keeps the panel's centering / spacing / cpk styling intact and only
  *    swaps the title+body text.
  *
- * Both pieces only ever render client-side because CopilotKitWrapper
- * mount-gates the entire FlexCopilotProvider on sessionStorage resolution.
+ * SSR-safe: returnTo is built from usePathname/useSearchParams, not the
+ * window object — FlexCopilotProvider mounts during SSR.
  */
 
 export function AuthRequiredWelcomeScreen() {
-  const currentPath = `${window.location.pathname}${window.location.search}`;
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const search = searchParams.toString();
+  const currentPath = `${pathname}${search ? `?${search}` : ''}`;
   const href = `/auth?returnTo=${encodeURIComponent(currentPath)}`;
 
   return (

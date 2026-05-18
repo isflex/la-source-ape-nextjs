@@ -1,30 +1,12 @@
-import { Handler } from 'aws-lambda';
+import { Handler, APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda';
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 
 // Initialize S3 client
 const s3Client = new S3Client({});
 
-interface LambdaEvent {
-  pathParameters: {
-    s3Key: string;
-  };
-  queryStringParameters?: {
-    bucket?: string;
-  };
-}
+const PATH_PREFIX = '/image-base64/';
 
-interface LambdaResponse {
-  statusCode: number;
-  headers: {
-    'Content-Type': string;
-    'Access-Control-Allow-Origin': string;
-    'Access-Control-Allow-Headers': string;
-    'Cache-Control'?: string;
-  };
-  body: string;
-}
-
-export const handler: Handler<LambdaEvent, LambdaResponse> = async (event) => {
+export const handler: Handler<APIGatewayProxyEventV2, APIGatewayProxyResultV2> = async (event) => {
   console.log('Event:', JSON.stringify(event, null, 2));
 
   const headers = {
@@ -34,21 +16,22 @@ export const handler: Handler<LambdaEvent, LambdaResponse> = async (event) => {
   };
 
   try {
-    // Get S3 key from path parameters
-    const s3Key = event.pathParameters?.s3Key;
-    if (!s3Key) {
+    // Function URLs deliver the path on event.rawPath; no API Gateway pathParameters.
+    const rawPath = event.rawPath || '';
+    if (!rawPath.startsWith(PATH_PREFIX) || rawPath.length === PATH_PREFIX.length) {
       return {
         statusCode: 400,
         headers,
-        body: JSON.stringify({ error: 'S3 key is required' }),
+        body: JSON.stringify({ error: 'S3 key is required (expected path /image-base64/<key>)' }),
       };
     }
+    const s3Key = rawPath.slice(PATH_PREFIX.length);
 
     // Decode the S3 key (it may be URL encoded)
     const decodedS3Key = decodeURIComponent(s3Key);
 
-    // Get bucket from query parameters or environment
-    const bucketName = event.queryStringParameters?.bucket;
+    // Bucket is provisioned via env var by backend.ts (no per-request override).
+    const bucketName = process.env.FLEX_AWS_STORAGE_BUCKET_NAME;
     if (!bucketName) {
       return {
         statusCode: 500,
@@ -142,7 +125,7 @@ export const handler: Handler<LambdaEvent, LambdaResponse> = async (event) => {
       headers,
       body: JSON.stringify({
         error: errorMessage,
-        s3Key: event.pathParameters?.s3Key,
+        rawPath: event.rawPath,
       }),
     };
   }

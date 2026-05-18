@@ -15,11 +15,13 @@
   ],
   "tasks": {
     "//#agent:dev": {
+      "dependsOn": ["//#compile:transit"],
       "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*", "NEXT_PUBLIC_*"],
       "cache": false,
       "persistent": true
     },
     "//#listen:stripe": {
+      "dependsOn": ["//#compile:transit"],
       "env": ["AWS_*", "DOTENV_*", "FLEX_*", "GIT_*", "NEXT_PUBLIC_*"],
       "cache": false,
       "persistent": true

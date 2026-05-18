@@ -175,6 +175,17 @@ export const getStorageConfig = () => {
   return outputs.storage;
 };
 
+// Custom outputs published by backend.ts via backend.addOutput({ custom: { ... } }).
+// Typed loosely because amplify_outputs.json is regenerated on each `ampx sandbox`
+// deploy and the keys are produced by CDK code, not by the schema.
+export interface AmplifyCustomOutputs {
+  imageBase64ConverterUrl?: string;
+}
+
+export const getCustomConfig = (): AmplifyCustomOutputs | undefined => {
+  return (outputs as { custom?: AmplifyCustomOutputs }).custom;
+};
+
 // Get the current configuration that Amplify is actually using
 export const getCurrentConfig = () => {
   if (CONFIG_MODE === 'v2-config') {

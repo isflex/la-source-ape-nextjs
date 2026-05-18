@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { Amplify } from 'aws-amplify'
 import { generateClient } from 'aws-amplify/data'
 import type { Schema } from '@amplify/data/resource'
-import { getCurrentConfig, getStorageConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection'
+import { getCurrentConfig, getStorageConfig, getCustomConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection'
 import fs from 'fs'
 import path from 'path'
 import crypto from 'crypto'
@@ -23,6 +23,14 @@ const s3Client = new S3Client({
 const LOGO_CONTENT_BLOCK_ID = 'NEWSLETTER_LOGO_HEADER'
 const LOGO_FILE_PATH = path.join(process.cwd(), 'public', 'assets', 'img', 'newsletter', 'presentation', 'logo_ape_900x175.png')
 
+// Lambda Function URL is published into amplify_outputs.json by backend.ts.
+// Returns undefined before the sandbox has been deployed — callers must fall back.
+const getImageBase64Url = (s3Key: string): string | undefined => {
+  const baseUrl = getCustomConfig()?.imageBase64ConverterUrl
+  if (!baseUrl) return undefined
+  return `${baseUrl.replace(/\/$/, '')}/image-base64/${encodeURIComponent(s3Key)}`
+}
+
 /**
  * Ensures the shared newsletter logo exists in S3 and has a ContentBlock record
  * Returns the base64 encoded logo for email use
@@ -39,16 +47,19 @@ async function ensureNewsletterLogo(): Promise<string> {
     const logoFileHash = crypto.createHash('md5').update(logoFileBuffer).digest('hex')
 
     if (existingLogo && existingLogo.path === logoFileHash) {
-      debug.newsletter('Logo ContentBlock exists and file unchanged, calling Lambda for base64...')
-
       // Logo exists and file hasn't changed, get base64 from Lambda
       if (existingLogo.s3Key) {
-        const lambdaUrl = `${process.env.LAMBDA_BASE_URL}/image-base64/${encodeURIComponent(existingLogo.s3Key)}`
-        const response = await fetch(lambdaUrl)
+        const lambdaUrl = getImageBase64Url(existingLogo.s3Key)
+        if (lambdaUrl) {
+          debug.newsletter('Logo ContentBlock exists and file unchanged, calling Lambda for base64...')
+          const response = await fetch(lambdaUrl)
 
-        if (response.ok) {
-          const { base64 } = await response.json()
-          return base64
+          if (response.ok) {
+            const { base64 } = await response.json()
+            return base64
+          }
+        } else {
+          debug.warn('imageBase64ConverterUrl not in amplify_outputs.json — falling back to local logo buffer')
         }
       }
     }
@@ -105,16 +116,18 @@ async function ensureNewsletterLogo(): Promise<string> {
     }
 
     // Get base64 from Lambda function for email use
-    const lambdaUrl = `${process.env.LAMBDA_BASE_URL}/image-base64/${encodeURIComponent(logoS3Key)}`
-    const lambdaResponse = await fetch(lambdaUrl)
-
-    if (lambdaResponse.ok) {
-      const { base64 } = await lambdaResponse.json()
-      return base64
-    } else {
+    const lambdaUrl = getImageBase64Url(logoS3Key)
+    if (lambdaUrl) {
+      const lambdaResponse = await fetch(lambdaUrl)
+      if (lambdaResponse.ok) {
+        const { base64 } = await lambdaResponse.json()
+        return base64
+      }
       debug.warn('Lambda function not available, falling back to direct base64')
-      return logoFileBuffer.toString('base64')
+    } else {
+      debug.warn('imageBase64ConverterUrl not in amplify_outputs.json — falling back to local logo buffer')
     }
+    return logoFileBuffer.toString('base64')
 
   } catch (error) {
     debug.error('Error ensuring newsletter logo:', error)

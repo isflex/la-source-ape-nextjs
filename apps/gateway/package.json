@@ -27,7 +27,7 @@
     "marp:html:dev": "cross-env BUILD_RUNNING=false marp --config ./marp.config.mjs",
     "prenext:dev": "pnpm copy:wasm",
     "next:dev": "cross-env NODE_OPTIONS='--max-old-space-size=8192' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev --webpack ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
-    "next:dev:all": "cross-env NODE_OPTIONS='--max-old-space-size=8192' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev --webpack ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME",
+    "next:dev:all": "cross-env NODE_OPTIONS='--max-old-space-size=8192' dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- next dev --webpack ./ --port $FLEX_GATEWAY_PORT --hostname $FLEX_GATEWAY_HOSTNAME 2>&1 | tee $FLEX_PROJ_ROOT/tmp/next-dev-all.log",
     "next:dev:turbo": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- $FLEX_PROJ_ROOT/bin/next-turbo-dev.sh",
     "next:tsc": "pnpm exec tsc --project tsconfig.json --noEmit",
     "setup:admin": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- $FLEX_PROJ_ROOT/bin/setup-dev-admin.sh",

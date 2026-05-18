@@ -8,7 +8,7 @@ packageExtensions:
     dependencies:
       tsx: "^4.19.4"
 allowBuilds:
-  "@parcel/watcher": false
+  "@parcel/watcher": true # required for @tailwindcss/cli
   "@scarf/scarf": false
   core-js: false
   cypress: false

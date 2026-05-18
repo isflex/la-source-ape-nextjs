@@ -88,25 +88,15 @@ const app = createCopilotEndpoint({
   basePath: "/api/copilotkit",
 });
 
-// Add debug middleware to log all requests at Hono level
-app.use("*", async (c, next) => {
-  debug.copilotKit("[Hono] Request:", {
-    method: c.req.method,
-    path: c.req.path,
-    url: c.req.url,
-  });
-  await next();
-  debug.copilotKit("[Hono] Response status:", c.res.status);
-});
-
 // Handle root POST - CopilotKit v2 client uses JSON-RPC style routing
 // The 'method' field in the body determines which endpoint to call
 app.post("/", async (c) => {
-  debug.copilotKit("Root POST received");
   try {
     const body = await c.req.json();
     const { method, params, body: requestBody } = body;
-    debug.copilotKit("Root POST method:", method, "params:", JSON.stringify(params));
+    if (method !== "info") {
+      debug.copilotKit("Root POST method:", method, "params:", JSON.stringify(params));
+    }
 
     // Route based on the method field (JSON-RPC style)
     if (method === "info") {
@@ -248,7 +238,6 @@ function getThrottledResponse(method: string, pathname: string): Response | null
 
   // Within throttle window → return cached response
   if (age < MIN_INTERVAL_MS) {
-    debug.copilotKit(`[Throttle] Returning cached response for ${method} ${pathname} (age: ${age}ms)`);
     return new Response(cached.body, {
       status: cached.status,
       headers: { "Content-Type": cached.contentType },
@@ -283,11 +272,13 @@ export const GET = async (req: NextRequest, ctx: { params: Promise<{ path?: stri
   const throttled = getThrottledResponse("GET", pathname);
   if (throttled) return throttled;
 
-  debug.copilotKit("GET request:", {
-    path: params.path,
-    url: req.url,
-    pathname,
-  });
+  if (!pathname.endsWith("/info")) {
+    debug.copilotKit("GET request:", {
+      path: params.path,
+      url: req.url,
+      pathname,
+    });
+  }
 
   const token = await getCognitoAccessToken(req);
   const response = await authTokenStore.run(token, () => honoHandler(req));
@@ -306,12 +297,14 @@ export const POST = async (req: NextRequest, ctx: { params: Promise<{ path?: str
     if (throttled) return throttled;
   }
 
-  debug.copilotKit("POST request:", {
-    path: params.path,
-    url: req.url,
-    pathname,
-    hasAuth: req.headers.has("authorization") || req.headers.has("cookie"),
-  });
+  if (!pathname.endsWith("/info")) {
+    debug.copilotKit("POST request:", {
+      path: params.path,
+      url: req.url,
+      pathname,
+      hasAuth: req.headers.has("authorization") || req.headers.has("cookie"),
+    });
+  }
 
   const token = await getCognitoAccessToken(req);
   const response = await authTokenStore.run(token, () => honoHandler(req));

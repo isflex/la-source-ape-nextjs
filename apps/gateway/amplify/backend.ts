@@ -1,6 +1,7 @@
 import { defineBackend } from '@aws-amplify/backend';
 import { PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { FunctionUrlAuthType, HttpMethod } from 'aws-cdk-lib/aws-lambda';
 import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { RemovalPolicy } from 'aws-cdk-lib';
 import { auth } from './auth/resource';
@@ -45,6 +46,23 @@ backend.imageBase64Converter.addEnvironment(
   'FLEX_AWS_STORAGE_BUCKET_NAME',
   existingBucketName
 );
+
+// Expose the Lambda via a Function URL so the Next.js API route can fetch
+// base64-encoded S3 objects over HTTPS. The URL is published to
+// amplify_outputs.json under outputs.custom.imageBase64ConverterUrl.
+const imageBase64ConverterFnUrl = backend.imageBase64Converter.resources.lambda.addFunctionUrl({
+  authType: FunctionUrlAuthType.NONE,
+  cors: {
+    allowedOrigins: ['*'],
+    allowedMethods: [HttpMethod.GET],
+  },
+});
+
+backend.addOutput({
+  custom: {
+    imageBase64ConverterUrl: imageBase64ConverterFnUrl.url,
+  },
+});
 
 // Create CloudWatch Log Group for server-side error tracing
 // const loggingStack = backend.createStack('error-logging-stack');

@@ -3,23 +3,27 @@
   "extends": ["//"],
   "tasks": {
     "next:dev": {
+      "dependsOn": ["//#compile:transit"],
       "cache": false,
       "persistent": true,
       "env": ["FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"]
     },
     "next:dev:all": {
+      "dependsOn": ["//#compile:transit"],
       "cache": false,
       "env": ["FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"],
       "with": ["dev:all:transit"]
     },
     "next:dev:turbo": {
+      "dependsOn": ["//#compile:transit"],
       "cache": false,
       "env": ["FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"],
       "with": ["dev:all:transit"]
     },
     "next:tsc": {
       "dependsOn": ["//#compile:tsc:project:references"],
-      "cache": false,
+      "cache": true,
+      "persistent": false,
       "env": ["FLEX_*", "NEXT_PUBLIC_*", "SENTRY_*"]
     },
     "marp:dev": {
@@ -32,12 +36,13 @@
       "env": ["FLEX_*"]
     },
     "dev:all:transit": {
+      "dependsOn": ["//#compile:transit"],
       "cache": false,
       "env": ["DOTENV_*", "FLEX_*"],
       "with": ["marp:dev", "warm:api"]
     },
     "dev": {
-      "dependsOn": ["dev:all:transit"],
+      "dependsOn": ["//#compile:transit"],
       "with": [
         "@flexiness/domain-tailwind#dev:tailwind",
         "//#agent:dev",
@@ -48,7 +53,7 @@
       "persistent": true
     },
     "dev:all": {
-      "dependsOn": ["dev:all:transit"],
+      "dependsOn": ["//#compile:transit", "dev:all:transit"],
       "with": [
         "@flexiness/domain-tailwind#dev:tailwind",
         "//#agent:dev",
@@ -59,7 +64,7 @@
       "persistent": true
     },
     "dev:turbo": {
-      "dependsOn": ["dev:all:transit"],
+      "dependsOn": ["//#compile:transit", "dev:all:transit"],
       "with": [
         "@flexiness/domain-tailwind#dev:tailwind",
         "//#agent:dev",

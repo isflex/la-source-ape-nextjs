@@ -387,7 +387,9 @@ export default function CopilotKitWrapper({ children }: CopilotKitWrapperProps) 
     [authStatus],
   );
 
-  debug.copilotKit(`[CopilotKitWrapper] isEnabled: ${isEnabled}, disabledByError: ${disabledByError}, isReady: ${isReady}, authStatus: ${authStatus}`);
+  useEffect(() => {
+    debug.copilotKit(`[CopilotKitWrapper] isEnabled: ${isEnabled}, disabledByError: ${disabledByError}, isReady: ${isReady}, authStatus: ${authStatus}`);
+  }, [isEnabled, disabledByError, isReady, authStatus]);
 
   // When CopilotKit is disabled or has been killed by a runtime error,
   // render children with no provider. When enabled, the provider is
