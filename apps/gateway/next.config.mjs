@@ -158,6 +158,11 @@ const nextConfig = (() => {
       // a runtime node_modules lookup (Lambda runtime does not contain posthog-node).
       ...(process.env.FLEX_MODE === "development" ? ["posthog-node"] : []),
       "jsdom",
+      // CopilotKit runtime's v2 barrel re-exports an Express endpoint; Express's
+      // view.js uses dynamic require() which triggers a webpack "Critical dependency"
+      // warning. Externalizing skips bundling and lets Node resolve at runtime.
+      "@copilotkit/runtime",
+      "express",
     ],
 
     outputFileTracingRoot: process.env.FLEX_PROJ_ROOT,
