@@ -1,4 +1,5 @@
 import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-secrets-manager';
+import { isProductionSandbox } from './deployment';
 
 let _client: SecretsManagerClient | null = null;
 function getClient(): SecretsManagerClient {
@@ -8,6 +9,21 @@ function getClient(): SecretsManagerClient {
     });
   }
   return _client;
+}
+
+/**
+ * Build a Secrets Manager SecretId for the active deployment target.
+ *
+ * - production-sandbox → `apelasource-sandbox/<name>`
+ * - production / local → `apelasource/<name>`
+ *
+ * Pass `overrideArn` (e.g. process.env.FLEX_*_SECRET_ARN) to pin a
+ * specific secret name or full ARN and bypass the convention.
+ */
+function resolveSecretId(name: string, overrideArn?: string): string {
+  if (overrideArn) return overrideArn;
+  const prefix = isProductionSandbox() ? 'apelasource-sandbox' : 'apelasource';
+  return `${prefix}/${name}`;
 }
 
 interface StripeSecrets {
@@ -51,7 +67,7 @@ export async function getStripeSecrets(): Promise<StripeSecrets> {
 
   // Production: fetch from AWS Secrets Manager
   const command = new GetSecretValueCommand({
-    SecretId: process.env.FLEX_STRIPE_SECRET_ARN || 'apelasource/stripe',
+    SecretId: resolveSecretId('stripe', process.env.FLEX_STRIPE_SECRET_ARN),
   });
 
   const response = await getClient().send(command);
@@ -96,7 +112,7 @@ export async function getHelloAssoSecrets(): Promise<HelloAssoSecrets> {
     return cachedHelloAssoSecrets;
   }
 
-  const secretId = process.env.FLEX_HELLOASSO_SECRET_ARN || 'apelasource/helloasso';
+  const secretId = resolveSecretId('helloasso', process.env.FLEX_HELLOASSO_SECRET_ARN);
   const command = new GetSecretValueCommand({ SecretId: secretId });
   const response = await getClient().send(command);
 
