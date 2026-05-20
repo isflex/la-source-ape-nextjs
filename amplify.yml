@@ -30,6 +30,7 @@ applications:
         build:
           commands:
             - export FLEX_PROJ_ROOT=$(pwd)
+            - export NEXT_PUBLIC_AWS_APP_ID=$AWS_APP_ID
             - pnpm build
             - rm -f node_modules/@rspack/binding-linux-x64-gnu/rspack.linux-x64-gnu.node
             - rm -f node_modules/@rspack/binding-linux-x64-musl/rspack.linux-x64-musl.node

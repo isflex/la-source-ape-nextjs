@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { isFeatureEnabled } from "@src/lib/feature-flags";
 
 const getBaseUrl = (): string => {
   const url = process.env.NEXT_PUBLIC_FLEX_GATEWAY_BASE_URL;
@@ -31,7 +32,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/terms_of_service", priority: 0.3, changeFrequency: "yearly" },
   ];
 
-  return routes.map(({ path, priority, changeFrequency }) => ({
+  const filtered = routes.filter(
+    ({ path }) => path !== "/adhesion" || isFeatureEnabled("ADHESION_ENABLED"),
+  );
+
+  return filtered.map(({ path, priority, changeFrequency }) => ({
     url: `${baseUrl}${path}`,
     lastModified: now,
     changeFrequency,

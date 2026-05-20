@@ -1,7 +1,9 @@
 import React from 'react'
 import { headers } from 'next/headers'
 import { isMobile } from '@src/utils'
-import About from './client-component-2'
+import { isFeatureEnabled } from '@src/lib/feature-flags'
+import AboutLegacy from './client-component'
+import AboutV2 from './client-component-2'
 import PostHogNodeClient from '@src/utils/posthog/initPostHogNode'
 
 async function actionPageInfo() {
@@ -21,5 +23,6 @@ async function actionPageInfo() {
 export default async function Page() {
   // 'use cache'
 
+  const About = isFeatureEnabled('ABOUT_USES_LEGACY_V1') ? AboutLegacy : AboutV2
   return <About {...(await actionPageInfo())} />
 }

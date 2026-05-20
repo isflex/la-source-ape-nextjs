@@ -8,6 +8,7 @@ import routesActive from "@root/routes.active.json";
 import routesMeta from "@root/routes.meta.json";
 import { useGetPageNameClientSide } from "@src/utils";
 import { useIsAdmin } from "@src/hooks/useIsAdmin";
+import { isFeatureEnabled } from "@src/lib/feature-flags";
 import type { RoutesMetaConfig } from "@src/types/routes";
 
 import {
@@ -133,7 +134,12 @@ const NavbarApp = ({ mobileCheck }: { mobileCheck: boolean }) => {
               return false;
             }
 
-            // Check 3: Current page exclusion (existing logic)
+            // Check 3: Per-deployment feature flag for adhesion
+            if (key === "adhesion" && !isFeatureEnabled("ADHESION_ENABLED")) {
+              return false;
+            }
+
+            // Check 4: Current page exclusion (existing logic)
             if (isOldFormat) {
               // Old format: check against routesActive and match segment
               const isActiveInOldList = routesActive.includes(key);
