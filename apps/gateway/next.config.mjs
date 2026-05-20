@@ -168,7 +168,12 @@ const nextConfig = (() => {
     outputFileTracingRoot: process.env.FLEX_PROJ_ROOT,
 
     typescript: {
-      ignoreBuildErrors: false,
+      // Type-checking already runs as a hard prerequisite in CI via gateway#next:tsc
+      // (turbo `build` -> //#compile:transit -> gateway#next:tsc, `tsc --noEmit`),
+      // so Next's own in-build TS worker is redundant. Skipping it removes the
+      // process that was OOM-killed (SIGKILL) on the 8GiB Amplify container and
+      // frees peak memory. Type errors are still caught by next:tsc.
+      ignoreBuildErrors: true,
       tsconfigPath: "./tsconfig.json",
     },
 

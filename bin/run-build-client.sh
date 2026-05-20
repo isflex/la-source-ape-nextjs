@@ -9,7 +9,9 @@ run_local () {
 
 run_ci () {
   echo "//////////////////////// Running CI build ////////////////////////";
-  turbo run build;
+  # --concurrency 1 keeps the design-system rspack build and the gateway Next
+  # build from overlapping in memory on the 8GiB Amplify container.
+  turbo run build --concurrency 1;
   # turbo run build --filter=!gateway{./apps/la-source/ape/gateway/build/standalone/**/*};
   # turbo run build --filter=!gateway;
   # turbo run build --dry-run --filter=!gateway;
