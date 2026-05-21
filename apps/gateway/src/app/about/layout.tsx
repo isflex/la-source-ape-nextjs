@@ -73,8 +73,6 @@ import  { title } from '@src/seo'
 import { isMobile } from '@src/utils'
 import PostHogNodeClient from '@src/utils/posthog/initPostHogNode'
 
-import About from './client-component-2'
-
 export const metadata: Metadata = {
   title: `À propos | ${title}`,
 }
@@ -89,8 +87,8 @@ import { default as flexStyles } from '@flex-design-system/framework'
 import { default as stylesGeneric } from '@src/styles/scss/flex/generic.module.scss'
 import { default as stylesPage } from '@src/styles/scss/pages/about.module.scss'
 
-export default async function AboutLayout() {
-  
+export default async function AboutLayout({ children }: { children: React.ReactNode }) {
+
   const userAgent = (await headers()).get('user-agent') || ''
   const mobileCheck = isMobile(userAgent)
   const posthog = await PostHogNodeClient()
@@ -107,7 +105,7 @@ export default async function AboutLayout() {
           stylesPage.sectionAbout, flexStyles.isFullwidth,
           !mobileCheck && `showSpagehetti__${process.env.NEXT_PUBLIC_BUILD_ID}`
         )}>
-          <About mobileCheck={mobileCheck} />
+          {children}
         </section>
       </main>
     </div>
