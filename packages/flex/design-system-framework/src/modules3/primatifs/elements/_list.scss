@@ -1,0 +1,17 @@
+ul {
+    &.std-list {
+        list-style: disc;
+        list-style-position: inside;
+        text-align: left;
+
+        > li {
+            display: list-item;
+            unicode-bidi: isolate;
+        }
+    }
+}
+
+ul ul.std-list {
+  list-style: circle;
+  margin: 0.5rem 2.5rem;
+}

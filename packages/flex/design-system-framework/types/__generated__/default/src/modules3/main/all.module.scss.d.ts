@@ -3148,6 +3148,7 @@ export type Styles = {
   socialIcons: string;
   specification: string;
   spinAround: string;
+  stdList: string;
   step: string;
   stepper: string;
   sticker: string;

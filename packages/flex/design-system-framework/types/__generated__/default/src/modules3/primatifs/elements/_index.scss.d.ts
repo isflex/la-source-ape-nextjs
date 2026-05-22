@@ -271,6 +271,7 @@ export type Styles = {
   slidingLink: string;
   small: string;
   spinAround: string;
+  stdList: string;
   sticker: string;
   subtable: string;
   subtitle: string;

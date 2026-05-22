@@ -211,13 +211,13 @@ const App: React.FC = () => {
               En utilisant cette Application, les Utilisateurs s&apos;engagent à
               respecter les conditions suivantes :
             </Text>
-            <ul>
-              <li>
+            <List className={flexStyles.stdList}>
+              <ListItem>
                 Il n&apos;y a pas de restrictions pour les Utilisateurs en
                 termes de leur statut de Consommateur ou d&apos;Utilisateurs
                 Professionnels.
-              </li>
-            </ul>
+              </ListItem>
+            </List>
             <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
               Charte d&apos;utilisation de la communauté
             </Title>
@@ -349,37 +349,36 @@ const App: React.FC = () => {
               »). En utilisant ce service, les Utilisateurs acceptent les
               conditions suivantes :
             </Text>
-            <ul>
-              <li>
-                <strong>{`Nature du service :`}</strong>
-                {` L'Agent IA est un système automatisé utilisant le modèle Claude (Anthropic)
+            <List className={flexStyles.stdList}>
+              <ListItem>
+                <strong>{`Nature du service`}</strong>
+                {` : L'Agent IA est un système automatisé utilisant le modèle Claude (Anthropic)
                   via AWS Bedrock. Il ne s'agit pas d'un être humain.`}
-              </li>
-              <li>
-                <strong>{`Limitations :`}</strong>
-                {` Les réponses sont générées automatiquement et peuvent contenir des inexactitudes.
+              </ListItem>
+              <ListItem>
+                <strong>{`Limitations`}</strong>
+                {` : Les réponses sont générées automatiquement et peuvent contenir des inexactitudes.
                   Le contenu n'est pas examiné par un humain avant sa livraison.`}
-              </li>
-              <li>
-                <strong>{`Données sensibles :`}</strong>
-                {` Les Utilisateurs ne doivent jamais partager de données personnelles sensibles
+              </ListItem>
+              <ListItem>
+                <strong>{`Données sensibles`}</strong>
+                {` : Les Utilisateurs ne doivent jamais partager de données personnelles sensibles
                   (coordonnées bancaires, mots de passe, informations de santé, numéros d'identification)
                   avec l'Agent IA.`}
-              </li>
-              <li>
-                <strong>{`Escalade humaine :`}</strong>
-                {` Les Utilisateurs peuvent à tout moment demander à être mis en relation avec un humain.`}
-              </li>
-              <li>
-                <strong>{`Retrait du consentement :`}</strong>
-                {` Les Utilisateurs peuvent se désinscrire à tout moment en quittant le groupe WhatsApp
+              </ListItem>
+              <ListItem>
+                <strong>{`Escalade humaine`}</strong>
+                {` : Les Utilisateurs peuvent à tout moment demander à être mis en relation avec un humain.`}
+              </ListItem>
+              <ListItem>
+                <strong>{`Retrait du consentement`}</strong>
+                {` : Les Utilisateurs peuvent se désinscrire à tout moment en quittant le groupe WhatsApp
                   et en nous contactant à `}
-                <Link href="mailto:hello@flexiness.com">
-                  hello@flexiness.com
-                </Link>
+                <Link href={`mailto:${process.env.NEXT_PUBLIC_TECH_EMAIL}`}>{process.env.NEXT_PUBLIC_TECH_EMAIL}</Link>
                 {`.`}
-              </li>
-            </ul>
+              </ListItem>
+            </List>
+            <br/>
             <Text>
               L&apos;Agent IA fournit uniquement des réponses informatives et
               une assistance. Il ne prend pas de décisions automatisées
@@ -411,18 +410,18 @@ const App: React.FC = () => {
               Utilisateurs se livrent ou sont soupçonnés de se livrer aux
               activités suivantes :
             </Text>
-            <ul>
-              <li>
+            <List className={flexStyles.stdList}>
+              <ListItem>
                 une violation de lois ou de règlements en vigueur et/ou de ces
                 Conditions générales ;
-              </li>
-              <li>l&apos;atteinte à tout droit de tiers ;</li>
-              <li>
+              </ListItem>
+              <ListItem>l&apos;atteinte à tout droit de tiers ;</ListItem>
+              <ListItem>
                 une atteinte considérable aux intérêts légitimes du Propriétaire
                 ;
-              </li>
-              <li>une offense au Propriétaire ou à un tiers</li>
-            </ul>
+              </ListItem>
+              <ListItem>une offense au Propriétaire ou à un tiers</ListItem>
+            </List>
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
               Responsabilité et indemnisation
             </Title>
@@ -525,7 +524,7 @@ const App: React.FC = () => {
               fournisseurs et employés ne peuvent en aucun cas être tenus pour
               responsables
             </Text>
-            <List>
+            <List className={flexStyles.stdList}>
               <ListItem>
                 des dommages indirects, punitifs, consécutifs, spéciaux,
                 accessoires ou exemplaires, y compris mais sans s&apos;y
@@ -614,7 +613,7 @@ const App: React.FC = () => {
               responsabilité, coût ou dette et dépense, y compris, mais sans
               s&apos;y limiter, les honoraires et frais juridiques, découlant de
             </Text>
-            <List>
+            <List className={flexStyles.stdList}>
               <ListItem>
                 l&apos;utilisation du Service et son accès par
                 l&apos;Utilisateur, y compris toutes données ou tout contenu
@@ -950,7 +949,7 @@ const App: React.FC = () => {
             </Text>
             <Divider />
             <Title level={TitleLevel.LEVEL6}>
-              Dernière mise à jour : 18 janvier 2021
+              Dernière mise à jour : Mai 2026
             </Title>
           </BoxContent>
         </Box>

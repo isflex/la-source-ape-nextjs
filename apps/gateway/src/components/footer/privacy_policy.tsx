@@ -13,6 +13,10 @@ import {
   IconName,
 } from "@flex-design-system/react-ts/client-sync-styled-direct/icon";
 import { Link } from "@flex-design-system/react-ts/client-sync-styled-direct/link";
+import {
+  List,
+  ListItem,
+} from "@flex-design-system/react-ts/client-sync-styled-direct/list";
 import { Section } from "@flex-design-system/react-ts/client-sync-styled-direct/section";
 import {
   Table,
@@ -206,7 +210,7 @@ const App: React.FC = () => {
                 {process.env.NEXT_PUBLIC_APP_TITLE}
               </Title>
             </div>
-            <Text>Date d&apos;entrée en vigueur : 04 juin 2025</Text>
+            <Text>Date d&apos;entrée en vigueur : 22 mai 2026</Text>
             <Divider />
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
               1. Introduction
@@ -223,6 +227,19 @@ const App: React.FC = () => {
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
               2. Collecte et traitement des données
             </Title>
+            <Divider />
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              2.1 Authentification via Google
+            </Title>
+            <Text>
+              <strong>Google</strong> {` est utilisé comme `}
+              <strong>fournisseur d&apos;identité fédérée</strong>
+              {` à travers notre service d'authentification `}
+              <strong>AWS Cognito</strong>
+              {` (voir section 2.2), selon le protocole `}
+              <strong>OAuth 2.0</strong>
+              {` (flux Authorization Code avec PKCE — RFC 7636).`}
+            </Text>
             <Text>
               Si l&apos;utilisateur s&apos;authentifie à notre application à
               travers Google, nous sollicitons les autorisations suivantes pour
@@ -370,48 +387,6 @@ const App: React.FC = () => {
                     </Text>
                   </TableTd>
                 </TableTr>
-                <TableTr
-                  className={classNames(
-                    flexStyles.isFlexMobile,
-                    flexStyles.isFlexDirectionColumn,
-                    flexStyles.isTableRowTablet,
-                    flexStyles.isColumnSpanAllTablet,
-                    flexStyles.isTableStackedRowMobile,
-                  )}
-                >
-                  <TableTd>
-                    <Title
-                      level={TitleLevel.LEVEL6}
-                      className={flexStyles.isHiddenTablet}
-                    >
-                      <Text>Autorisation</Text>
-                      <Text>{`(https://www.googleapis.com)`}</Text>
-                    </Title>
-                    <Text
-                      className={classNames(
-                        flexStyles.hasTextFlexPink,
-                        flexStyles.hasTextWeightBold,
-                      )}
-                    >
-                      <span>/auth</span>
-                      <span>/user</span>
-                      <span>.phonenumbers</span>
-                      <span>.read</span>
-                    </Text>
-                  </TableTd>
-                  <TableTd>
-                    <Title
-                      level={TitleLevel.LEVEL6}
-                      className={flexStyles.isHiddenTablet}
-                    >
-                      <Text>Utilisation</Text>
-                    </Title>
-                    <Text className={flexStyles.hasTextTertiary}>
-                      Consultez et téléchargez vos numéros de téléphone
-                      personnels
-                    </Text>
-                  </TableTd>
-                </TableTr>
                 <TableTr>
                   <TableTd colSpan={2}>
                     <Icon
@@ -450,62 +425,851 @@ const App: React.FC = () => {
             <Text>
               Aucune donnée personnelle n&apos;est partagée avec des tiers.
             </Text>
+            <Divider />
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              2.2 Authentification via AWS Cognito
+            </Title>
+            <Text>
+              {`Que l'utilisateur crée un compte directement sur notre plateforme (avec e-mail et mot
+              de passe) ou s'authentifie via `}<strong>Google</strong>{`, dans les deux cas c'est `}
+              <strong>AWS Cognito</strong>
+              {` (hébergé dans l'Union européenne) qui gère son identité et la session d'authentification.`}
+            </Text>
+            <Text>
+              {`Les attributs suivants sont collectés et stockés par `}<strong>AWS Cognito</strong>{` :`}
+            </Text>
+            <Table bordered className={flexStyles.isNotBorderedMobile}>
+              <TableHead>
+                <TableTr>
+                  <TableTh>
+                    <Title level={TitleLevel.LEVEL6}>
+                      <Text>Attribut</Text>
+                      <Text>
+                        <span
+                          style={{ display: "block", minWidth: "240px" }}
+                        >{`(AWS Cognito User Pool)`}</span>
+                      </Text>
+                    </Title>
+                  </TableTh>
+                  <TableTh className={flexStyles.isHiddenMobile}>
+                    <Title level={TitleLevel.LEVEL6}>
+                      <Text>Description</Text>
+                    </Title>
+                  </TableTh>
+                </TableTr>
+              </TableHead>
+              <TableBody>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Attribut</Text>
+                      <Text>{`(AWS Cognito User Pool)`}</Text>
+                    </Title>
+                    <Text
+                      className={classNames(
+                        flexStyles.hasTextFlexPink,
+                        flexStyles.hasTextWeightBold,
+                      )}
+                    >
+                      <span>given_name</span>
+                    </Text>
+                  </TableTd>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Description</Text>
+                    </Title>
+                    <Text className={flexStyles.hasTextTertiary}>
+                      Prénom de l&apos;utilisateur, fourni à l&apos;inscription
+                    </Text>
+                  </TableTd>
+                </TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Attribut</Text>
+                      <Text>{`(AWS Cognito User Pool)`}</Text>
+                    </Title>
+                    <Text
+                      className={classNames(
+                        flexStyles.hasTextFlexPink,
+                        flexStyles.hasTextWeightBold,
+                      )}
+                    >
+                      <span>family_name</span>
+                    </Text>
+                  </TableTd>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Description</Text>
+                    </Title>
+                    <Text className={flexStyles.hasTextTertiary}>
+                      Nom de l&apos;utilisateur, fourni à l&apos;inscription
+                    </Text>
+                  </TableTd>
+                </TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Attribut</Text>
+                      <Text>{`(AWS Cognito User Pool)`}</Text>
+                    </Title>
+                    <Text
+                      className={classNames(
+                        flexStyles.hasTextFlexPink,
+                        flexStyles.hasTextWeightBold,
+                      )}
+                    >
+                      <span>email</span>
+                    </Text>
+                  </TableTd>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Description</Text>
+                    </Title>
+                    <Text className={flexStyles.hasTextTertiary}>
+                      Adresse e-mail, utilisée comme identifiant principal et
+                      pour les communications transactionnelles
+                    </Text>
+                  </TableTd>
+                </TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Attribut</Text>
+                      <Text>{`(AWS Cognito User Pool)`}</Text>
+                    </Title>
+                    <Text
+                      className={classNames(
+                        flexStyles.hasTextFlexPink,
+                        flexStyles.hasTextWeightBold,
+                      )}
+                    >
+                      <span>phone_number</span>
+                    </Text>
+                  </TableTd>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Description</Text>
+                    </Title>
+                    <Text className={flexStyles.hasTextTertiary}>
+                      Numéro de téléphone, facultatif
+                    </Text>
+                  </TableTd>
+                </TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Attribut</Text>
+                      <Text>{`(AWS Cognito User Pool)`}</Text>
+                    </Title>
+                    <Text
+                      className={classNames(
+                        flexStyles.hasTextFlexPink,
+                        flexStyles.hasTextWeightBold,
+                      )}
+                    >
+                      <span>password</span>
+                    </Text>
+                  </TableTd>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Description</Text>
+                    </Title>
+                    <Text className={flexStyles.hasTextTertiary}>
+                      {`Mot de passe (uniquement si inscription par e-mail) — haché par `}
+                      <strong>AWS Cognito</strong>
+                      {` et jamais stocké en clair`}
+                    </Text>
+                  </TableTd>
+                </TableTr>
+                <TableTr
+                  className={classNames(
+                    flexStyles.isFlexMobile,
+                    flexStyles.isFlexDirectionColumn,
+                    flexStyles.isTableRowTablet,
+                    flexStyles.isColumnSpanAllTablet,
+                    flexStyles.isTableStackedRowMobile,
+                  )}
+                >
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Attribut</Text>
+                      <Text>{`(AWS Cognito User Pool)`}</Text>
+                    </Title>
+                    <Text
+                      className={classNames(
+                        flexStyles.hasTextFlexPink,
+                        flexStyles.hasTextWeightBold,
+                      )}
+                    >
+                      <span>sub</span>
+                    </Text>
+                  </TableTd>
+                  <TableTd>
+                    <Title
+                      level={TitleLevel.LEVEL6}
+                      className={flexStyles.isHiddenTablet}
+                    >
+                      <Text>Description</Text>
+                    </Title>
+                    <Text className={flexStyles.hasTextTertiary}>
+                      {`Identifiant unique généré par `}
+                      <strong>AWS Cognito</strong>
+                      {` , utilisé en interne pour relier les ressources de l'application à l'utilisateur`}
+                    </Text>
+                  </TableTd>
+                </TableTr>
+                <TableTr>
+                  <TableTd colSpan={2}>
+                    <Icon
+                      content={
+                        <Text>
+                          Ces données servent uniquement à authentifier
+                          l&apos;utilisateur et à permettre aux familles
+                          authentifiées de communiquer entre elles dans le cadre
+                          de l&apos;application.
+                        </Text>
+                      }
+                      size={IconSize.SMALL}
+                      position={IconPosition.LEFT}
+                      name={IconName.UI_EXCLAMATION_CIRCLE}
+                      className={classNames(
+                        flexStyles.hasTextFlexPink,
+                        flexStyles.hasTextWeightBold,
+                      )}
+                    />
+                  </TableTd>
+                </TableTr>
+              </TableBody>
+            </Table>
+            <Text>
+              <strong>Politique de mot de passe :</strong>
+              {` minimum 8 caractères avec au moins une majuscule, une minuscule, un chiffre et un
+              symbole. L'authentification multi-facteur (MFA) n'est actuellement pas activée.`}
+            </Text>
+            <Text>
+              <strong>Portées OAuth 2.0 émises par AWS Cognito à l&apos;application</strong>
+              {` (flux Authorization Code avec PKCE) `}
+              <strong>:</strong>{" "}
+              <code>email</code>, <code>openid</code>, <code>profile</code>,{" "}
+              <code>phone</code>.
+            </Text>
+            <Text>
+              Vous pouvez à tout moment demander la modification de vos
+              attributs ou la suppression de votre compte en écrivant à{" "}
+              <Link href={`mailto:${process.env.NEXT_PUBLIC_TECH_EMAIL}`}>{process.env.NEXT_PUBLIC_TECH_EMAIL}</Link>
+              .
+            </Text>
+            <Text>
+              Aucune donnée d&apos;authentification n&apos;est partagée avec des
+              tiers en dehors du fournisseur d&apos;infrastructure AWS, soumis
+              à ses propres engagements RGPD.
+            </Text>
+            <Divider />
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              2.3 Stripe Connect — création d&apos;une cagnotte
+            </Title>
+            <Text>
+              {`Lorsqu'un parent crée une cagnotte pour recevoir des dons
+              d'autres parents, nous utilisons `}
+              <strong>Stripe Connect (compte Express)</strong>{`. Stripe agit en
+              tant que `}
+              <strong>responsable de traitement distinct</strong>
+              {` pour les données de vérification d'identité réglementaires (KYC /
+              LCB-FT).`}
+            </Text>
+            <Text>
+              {`Les données suivantes sont fournies `}
+              <strong>directement à Stripe</strong>{` via son formulaire hébergé
+              d'onboarding. Elles ne transitent jamais par nos serveurs :`}
+            </Text>
+            <List className={flexStyles.stdList}>
+              <ListItem>Nom et prénom du titulaire du compte</ListItem>
+              <ListItem>Date de naissance</ListItem>
+              <ListItem>Adresse postale</ListItem>
+              <ListItem>IBAN et coordonnées bancaires</ListItem>
+              <ListItem>
+                Pièce d&apos;identité (passeport, permis de conduire ou carte
+                nationale d&apos;identité) pour la vérification KYC
+              </ListItem>
+            </List>
+            <br/>
+            <Text>
+              {`Les données suivantes sont stockées par notre application (base de données `}
+              <strong>AWS DynamoDB</strong>
+              {` hébergée dans l'Union européenne) afin de gérer le cycle de vie du compte :`}
+            </Text>
+            <List className={flexStyles.stdList}>
+              <ListItem>
+                {`Identifiant utilisateur `}<strong>AWS Cognito</strong>
+                {` et identifiant de compte `}<strong>Stripe</strong>{` (`}<code>acct_…</code>{`)`}
+              </ListItem>
+              <ListItem>Adresse e-mail du titulaire</ListItem>
+              <ListItem>
+                Statut du compte (en attente, en cours, actif), capacités
+                activées (paiements par carte, virements)
+              </ListItem>
+              <ListItem>Pays, devise, horodatages d&apos;onboarding</ListItem>
+              <ListItem>
+                Liste des éléments de vérification encore requis par Stripe
+              </ListItem>
+            </List>
+            <br/>
+            <Text>
+              Stripe nous transmet les mises à jour de statut de vérification
+              via des webhooks signés (<code>account.updated</code>), afin de
+              tenir à jour l&apos;état d&apos;activation de votre cagnotte.
+            </Text>
+            <Box
+              className={classNames(
+                flexStyles.isPaddingless,
+                flexStyles.isFlat,
+                flexStyles.isFlatFlexPurple,
+                flexStyles.isGreyDark,
+              )}
+            >
+              <Section>
+                <Icon
+                  content={
+                    <Text>
+                      <strong>{`Responsable de traitement KYC :`}</strong>
+                      {` Stripe est responsable du traitement des données d'identification réglementaires.
+                        Consultez la `}
+                      <Link href="https://stripe.com/fr/privacy" target="_blank">
+                        Politique de confidentialité Stripe
+                      </Link>
+                      {` pour les détails.`}
+                    </Text>
+                  }
+                  size={IconSize.SMALL}
+                  position={IconPosition.LEFT}
+                  name={IconName.UI_EXCLAMATION_CIRCLE}
+                  className={classNames(
+                    flexStyles.hasTextFlexPurple,
+                    flexStyles.hasTextWeightBold,
+                  )}
+                />
+              </Section>
+            </Box>
+            <Text>
+              <strong>Finalité</strong>{` : exécution du contrat (mise à
+              disposition d'un compte de paiement) et respect de nos
+              obligations légales en matière de lutte contre le blanchiment.`}
+            </Text>
+            <Text>
+              <strong>Conservation</strong>{` : tant que la cagnotte est active.
+              La suppression de votre compte Stripe peut être demandée à tout
+              moment, sous réserve des obligations légales de conservation
+              applicables à Stripe.`}
+            </Text>
+            <Divider />
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              2.4 Stripe — contribution à une cagnotte
+            </Title>
+            <Text>
+              {`Lorsqu'un parent contribue à une cagnotte existante, nous utilisons `}
+              <strong>Stripe Checkout</strong>
+              {`. Le paiement est traité selon le modèle des `}
+              <strong>{`paiements à destination ("destination charges")`}</strong>
+              {` : les fonds sont transférés directement au compte Stripe Connect
+              du créateur de la cagnotte, déduction faite des éventuels frais de
+              plateforme et de traitement.`}
+            </Text>
+            <Text>
+              Les données suivantes sont collectées et stockées par notre
+              application pour chaque contribution :
+            </Text>
+            <List className={flexStyles.stdList}>
+              <ListItem>Nom du contributeur (fourni)</ListItem>
+              <ListItem>Adresse e-mail du contributeur (fournie)</ListItem>
+              <ListItem>Message optionnel adressé au bénéficiaire</ListItem>
+              <ListItem>
+                Préférences d&apos;affichage : contribution anonyme,
+                affichage ou non du montant
+              </ListItem>
+              <ListItem>
+                Montant, type de moyen de paiement (carte ou SEPA), ventilation
+                des frais
+              </ListItem>
+              <ListItem>
+                Identifiant AWS Cognito du contributeur (uniquement si
+                authentifié au moment de la contribution)
+              </ListItem>
+            </List>
+            <br/>
+            <Text>
+              {`Les données bancaires (numéro de carte, cryptogramme visuel,
+              coordonnées SEPA) sont saisies par le contributeur `}
+              <strong>directement sur la page de paiement hébergée par Stripe</strong>
+              {` (conforme PCI-DSS Level 1). `}
+              <strong>
+                Aucune donnée bancaire n&apos;est jamais transmise à nos
+                serveurs ni stockée par notre application.
+              </strong>
+            </Text>
+            <Text>
+              Stripe nous transmet l&apos;évolution du statut de paiement via
+              des webhooks signés : <code>checkout.session.completed</code>,{" "}
+              <code>checkout.session.expired</code>,{" "}
+              <code>payment_intent.payment_failed</code>,{" "}
+              <code>charge.refunded</code>.
+            </Text>
+            <Box
+              className={classNames(
+                flexStyles.isPaddingless,
+                flexStyles.isFlat,
+                flexStyles.isFlatFlexPurple,
+                flexStyles.isGreyDark,
+              )}
+            >
+              <Section>
+                <Icon
+                  content={
+                    <Text>
+                      <strong>{`Aucune donnée bancaire conservée :`}</strong>
+                      {` les informations de paiement sont traitées exclusivement par Stripe,
+                        responsable de traitement distinct. Consultez la `}
+                      <Link href="https://stripe.com/fr/privacy" target="_blank">
+                        Politique de confidentialité Stripe
+                      </Link>
+                      {`.`}
+                    </Text>
+                  }
+                  size={IconSize.SMALL}
+                  position={IconPosition.LEFT}
+                  name={IconName.UI_EXCLAMATION_CIRCLE}
+                  className={classNames(
+                    flexStyles.hasTextFlexPurple,
+                    flexStyles.hasTextWeightBold,
+                  )}
+                />
+              </Section>
+            </Box>
+            <Text>
+              <strong>Finalité</strong>{` : exécution de la transaction,
+              transparence vis-à-vis du bénéficiaire (lorsque la contribution
+              n'est pas anonyme) et traçabilité comptable.`}
+            </Text>
+            <Text>
+              <strong>Conservation</strong>{` : les données relatives aux
+              contributions sont conservées pendant la durée légale applicable
+              aux pièces comptables (10 ans en France).`}
+            </Text>
+            <Text>
+              Vous pouvez exercer vos droits d&apos;accès, de rectification ou
+              d&apos;effacement (sous réserve des obligations comptables) en
+              écrivant à{" "}
+              <Link href={`mailto:${process.env.NEXT_PUBLIC_TECH_EMAIL}`}>{process.env.NEXT_PUBLIC_TECH_EMAIL}</Link>
+              .
+            </Text>
+            <Divider />
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              2.5 Cookies et stockage local
+            </Title>
+            <Text>
+              {`Notre application utilise des cookies HTTP et le stockage local
+              (`}<code>localStorage</code>{`) du navigateur. Par défaut, `}
+              <strong>
+                seuls les éléments strictement nécessaires au fonctionnement de
+                l&apos;application
+              </strong>
+              {` sont déposés. Les cookies à finalité analytique ne sont installés `}
+              <strong>qu&apos;après votre consentement explicite</strong>{` via la
+              bannière dédiée.`}
+            </Text>
+            <List className={flexStyles.stdList}>
+              <ListItem>
+                <Text className={flexStyles.isInline}>
+                  <strong>Strictement nécessaires (toujours actifs) :</strong>
+                </Text>
+                <List className={flexStyles.stdList}>
+                  <ListItem>
+                    <strong>Cookies d&apos;authentification AWS Cognito</strong>{` —
+                    jetons d'accès et de rafraîchissement gérés par AWS
+                    Amplify, indispensables pour maintenir votre session connectée.`}
+                  </ListItem>
+                  <ListItem>
+                    <code>localStorage.cookie_consent</code>{` — mémorisation de
+                    votre choix concernant la bannière de cookies (valeurs
+                    possibles : `}<code>yes</code>{`, `}<code>no</code>{`, `}
+                    <code>undecided</code>{`).`}
+                  </ListItem>
+                </List>
+              </ListItem>
+              <ListItem>
+                <Text className={flexStyles.isInline}>
+                  <strong>
+                    Analytiques (déposés uniquement si vous acceptez la bannière) :
+                  </strong>
+                </Text>
+                <List className={flexStyles.stdList}>
+                  <ListItem>
+                    <strong>Cookies PostHog</strong>{` (`}<code>ph_phc_*_posthog</code>{`) —
+                    identifiant anonyme de session permettant l'agrégation
+                    des visites de pages (voir section 2.7).`}
+                  </ListItem>
+                </List>
+              </ListItem>
+            </List>
+            <br/>
+            <Text>
+              Lorsque vous contribuez à une cagnotte, la page de paiement
+              hébergée par Stripe peut déposer ses propres cookies sur le
+              domaine <code>stripe.com</code>. Ces cookies tiers sont régis par
+              la politique de confidentialité de Stripe (voir section 2.4).
+            </Text>
+            <Box
+              className={classNames(
+                flexStyles.isPaddingless,
+                flexStyles.isFlat,
+                flexStyles.isFlatFlexPurple,
+                flexStyles.isGreyDark,
+              )}
+            >
+              <Section>
+                <Icon
+                  content={
+                    <Text>
+                      <strong>{`Modifier votre choix à tout moment`}</strong>
+                      {` : vous pouvez revenir sur votre décision concernant les cookies analytiques en effaçant l'entrée `}
+                      <code>cookie_consent</code>
+                      {` de votre stockage local — la bannière s'affichera à nouveau lors de votre prochaine visite.`}
+                    </Text>
+                  }
+                  size={IconSize.SMALL}
+                  position={IconPosition.LEFT}
+                  name={IconName.UI_EXCLAMATION_CIRCLE}
+                  className={classNames(
+                    flexStyles.hasTextFlexPurple,
+                    flexStyles.hasTextWeightBold,
+                  )}
+                />
+              </Section>
+            </Box>
+            <Text>
+              Aucun cookie publicitaire, aucun cookie de pistage cross-site,
+              aucun cookie tiers en dehors de Stripe lors d&apos;un paiement.
+            </Text>
+            <Divider />
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              2.6 Suivi des erreurs (AWS CloudWatch et PostHog)
+            </Title>
+            <Text>
+              Nous enregistrons les erreurs techniques afin de diagnostiquer
+              les incidents et améliorer la fiabilité du service. Deux
+              destinataires sont utilisés en parallèle :
+            </Text>
+            <List className={flexStyles.stdList}>
+              <ListItem>
+                <strong>AWS CloudWatch Logs</strong>{` (région `}
+                <code>eu-west-3</code>{`, hébergé dans l'Union européenne) —
+                journalisation côté serveur dans le groupe `}
+                <code>/apelasource/gateway/errors</code>.
+              </ListItem>
+              <ListItem>
+                <strong>PostHog</strong>{` (instance UE, `}
+                <code>eu.i.posthog.com</code>{`) — capture des erreurs côté
+                client (interface) et complément côté serveur.`}
+                <Text>
+                  <span style={{ marginLeft: '1.4rem' }}><strong>Données journalisées :</strong></span>
+                </Text>
+                <List className={flexStyles.stdList}>
+                  <ListItem>Horodatage, identifiant de requête, environnement, version applicative</ListItem>
+                  <ListItem>Route HTTP, méthode, agent utilisateur, adresse IP</ListItem>
+                  <ListItem>Message et type d&apos;erreur (sanitisé)</ListItem>
+                  <ListItem>
+                    {`Identifiant utilisateur Cognito `}
+                    <strong>
+                      uniquement lorsque la session est authentifiée
+                    </strong>
+                    {` au moment de l'erreur`}
+                  </ListItem>
+                </List>
+              </ListItem>
+            </List>
+            <br/>
+            <Box
+              className={classNames(
+                flexStyles.isPaddingless,
+                flexStyles.isFlat,
+                flexStyles.isFlatFlexPurple,
+                flexStyles.isGreyDark,
+              )}
+            >
+              <Section>
+                <Icon
+                  content={
+                    <Text>
+                      <strong>{`Sanitisation automatique des données personnelles`}</strong>
+                      {` : les adresses e-mail sont masquées (format `}
+                      <code>xx***@domain</code>
+                      {`), les mots de passe, jetons, numéros de carte et CVV sont automatiquement supprimés
+                        des journaux. Les piles d'appel détaillées (stack traces) ne sont conservées
+                        qu'en environnement de développement et jamais en production.`}
+                    </Text>
+                  }
+                  size={IconSize.SMALL}
+                  position={IconPosition.LEFT}
+                  name={IconName.UI_EXCLAMATION_CIRCLE}
+                  className={classNames(
+                    flexStyles.hasTextFlexPurple,
+                    flexStyles.hasTextWeightBold,
+                  )}
+                />
+              </Section>
+            </Box>
+            <Text>
+              <strong>Finalité</strong>{` : intérêt légitime (RGPD Art. 6(1)(f))
+              — sécurité, débogage et fiabilité du service.`}
+            </Text>
+            <Text>
+              <strong>Conservation</strong>{` : selon les politiques de
+              rétention configurées sur AWS CloudWatch et PostHog.`}
+            </Text>
+            <Divider />
+            <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
+              2.7 Analyse d&apos;usage anonymisée (PostHog)
+            </Title>
+            <Text>
+              {`Nous utilisons `}<strong>PostHog</strong>{` (hébergé dans
+              l'Union européenne, `}<code>eu.i.posthog.com</code>{`) pour
+              comprendre de manière agrégée comment notre application est
+              utilisée.`}
+            </Text>
+            <Text>
+              <strong>
+                État actuel à la date d&apos;entrée en vigueur de cette
+                politique :
+              </strong>
+              {` l'analyse repose uniquement sur la consultation de pages
+              (événement `}<code>$pageview</code>{`) et la journalisation des
+              erreurs (voir section 2.6). `}
+              <strong>
+                Aucune analyse comportementale fine n&apos;est effectuée
+                aujourd&apos;hui.
+              </strong>
+            </Text>
+            <Text>
+              <strong>Ce que nous ne faisons pas :</strong>
+            </Text>
+            <List className={flexStyles.stdList}>
+              <ListItem>
+                <strong>Pas d&apos;enregistrement de session</strong>{` (session
+                replay désactivé)`}
+              </ListItem>
+              <ListItem>
+                <strong>
+                  Pas de capture automatique des clics et formulaires
+                </strong>{` (autocapture désactivé)`}
+              </ListItem>
+              <ListItem>
+                <strong>Pas d&apos;identification nominative</strong>{` :
+                l'identifiant PostHog (`}<code>distinct_id</code>{`) est
+                anonyme et n'est pas relié à votre compte AWS Cognito`}
+              </ListItem>
+              <ListItem>
+                <strong>Pas de pistage cross-site</strong>{`, pas de profilage
+                publicitaire`}
+              </ListItem>
+            </List>
+            <br/>
+            <Text>
+              <strong>Ce que nous capturons aujourd&apos;hui</strong>{` : URL de
+              la page consultée, horodatage, type de navigateur et
+              d'appareil (anonymisés), identifiant de session PostHog
+              anonyme.`}
+            </Text>
+            <Box
+              className={classNames(
+                flexStyles.isPaddingless,
+                flexStyles.isFlat,
+                flexStyles.isFlatFlexPurple,
+                flexStyles.isGreyDark,
+              )}
+            >
+              <Section>
+                <Icon
+                  content={
+                    <Text>
+                      <strong>{`Mode sans cookie en cas de refus`}</strong>
+                      {` : si vous refusez la bannière de consentement, PostHog fonctionne en mode
+                        `}
+                      <code>cookieless_mode</code>
+                      {` — aucune persistance, aucune trace inter-pages.`}
+                    </Text>
+                  }
+                  size={IconSize.SMALL}
+                  position={IconPosition.LEFT}
+                  name={IconName.UI_EXCLAMATION_CIRCLE}
+                  className={classNames(
+                    flexStyles.hasTextFlexPurple,
+                    flexStyles.hasTextWeightBold,
+                  )}
+                />
+              </Section>
+            </Box>
+            <Text>
+              <strong>Évolution future</strong>{` : nous nous réservons la
+              possibilité d'ajouter à l'avenir des fonctionnalités
+              d'analyse d'usage plus détaillées (par exemple,
+              entonnoirs de conversion ou cartes de chaleur agrégées), `}
+              <strong>
+                sous réserve d&apos;une mise à jour préalable de la présente
+                politique et d&apos;un nouveau recueil de votre consentement
+              </strong>
+              {` via la bannière dédiée.`}
+            </Text>
+            <Text>
+              <strong>Base légale</strong>{` : consentement explicite (RGPD Art.
+              6(1)(a) et ePrivacy Art. 5(3)) recueilli via la bannière de
+              cookies.`}
+            </Text>
+            <Text>
+              Vous pouvez à tout moment retirer votre consentement depuis le
+              pied de page de l&apos;application.
+            </Text>
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
               3. Base légale du traitement
             </Title>
             <Text>
               Nous traitons vos données sur les bases légales suivantes :
             </Text>
-            <ul>
-              <li>
+            <List className={flexStyles.stdList}>
+              <ListItem>
                 <strong>{`Intérêt légitime :`}</strong>
                 {` Améliorer les fonctionnalités et l'expérience utilisateur.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Nécessité contractuelle :`}</strong>
                 {` Fournir des services essentiels.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Consentement :`}</strong>
                 {` Lorsque nécessaire, nous obtenons votre consentement.`}
-              </li>
-            </ul>
+              </ListItem>
+              <ListItem>
+                <strong>{`Cookies strictement nécessaires (section 2.5) :`}</strong>
+                {` intérêt légitime et exemption de l'article 82 de la loi
+                Informatique et Libertés (cookies indispensables au fonctionnement de l'application).`}
+              </ListItem>
+              <ListItem>
+                <strong>{`Suivi des erreurs (section 2.6) :`}</strong>
+                {` intérêt légitime (RGPD Art. 6(1)(f)) — sécurité, débogage et
+                fiabilité du service.`}
+              </ListItem>
+              <ListItem>
+                <strong>{`Analyse d'usage anonymisée (section 2.7) :`}</strong>
+                {` consentement explicite (RGPD Art. 6(1)(a) et ePrivacy Art.
+                5(3)) recueilli via la bannière de cookies.`}
+              </ListItem>
+            </List>
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
               4. Droits des utilisateurs selon le RGPD
             </Title>
             <Text>En vertu du RGPD, vous disposez des droits suivants :</Text>
-            <ul>
-              <li>
+            <List className={flexStyles.stdList}>
+              <ListItem>
                 <strong>{`Accès :`}</strong>
                 {` Demander l'accès à vos données personnelles stockées.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Rectification :`}</strong>
                 {` Corriger les données inexactes ou incomplètes.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Effacement :`}</strong>
                 {` Demander la suppression de vos données personnelles.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Restriction :`}</strong>
                 {` Limiter le traitement de vos données.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Portabilité des données :`}</strong>
                 {` Demander un transfert de vos données personnelles.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Opposition :`}</strong>
                 {` Vous opposer au traitement dans certaines circonstances.`}
-              </li>
-            </ul>
+              </ListItem>
+            </List>
             <br />
             <Text>
               {`Pour exercer ces droits, contactez-nous à `}
-              <Link href="mailto:system_admin@flexiness.com">
-                system_admin@flexiness.com
-              </Link>
+              <Link href={`mailto:${process.env.NEXT_PUBLIC_TECH_EMAIL}`}>{process.env.NEXT_PUBLIC_TECH_EMAIL}</Link>
               {`.`}
             </Text>
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
@@ -536,33 +1300,33 @@ const App: React.FC = () => {
               Le responsable du traitement de vos données personnelles dans le
               cadre de notre service de communication WhatsApp est :
             </Text>
-            <ul>
-              <li>
+            <List className={flexStyles.stdList}>
+              <ListItem>
                 <strong>{`Organisation :`}</strong>
                 {` `}
                 <Link href="https://www.flexiness.com" target="_blank">
                   Flexiness
                 </Link>
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Adresse :`}</strong>
                 {` 46 rue Vital, 75116 Paris, France`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Email :`}</strong>
                 {` `}
                 <Link href="mailto:hello@flexiness.com">
                   hello@flexiness.com
                 </Link>
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Délégué à la Protection des Données (DPO) :`}</strong>
                 {` `}
                 <Link href="mailto:system_admin@flexiness.com">
                   system_admin@flexiness.com
                 </Link>
-              </li>
-            </ul>
+              </ListItem>
+            </List>
             <Divider />
             <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
               6.2 Communication via WhatsApp Business
@@ -1078,10 +1842,10 @@ const App: React.FC = () => {
             <Text>
               L&apos;agent IA traite vos messages aux fins suivantes :
             </Text>
-            <ul>
-              <li>Répondre à vos questions et fournir des informations</li>
-              <li>Vous assister dans vos demandes relatives à nos services</li>
-            </ul>
+            <List className={flexStyles.stdList}>
+              <ListItem>Répondre à vos questions et fournir des informations</ListItem>
+              <ListItem>Vous assister dans vos demandes relatives à nos services</ListItem>
+            </List>
 
             <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
               6.3.3 Divulgation de transparence IA (Règlement européen sur
@@ -1091,27 +1855,27 @@ const App: React.FC = () => {
               Conformément au Règlement européen sur l&apos;Intelligence
               Artificielle (Règlement (UE) 2024/1689), nous vous informons que :
             </Text>
-            <ul>
-              <li>
+            <List className={flexStyles.stdList}>
+              <ListItem>
                 <strong>
                   L&apos;agent avec lequel vous interagissez dans notre groupe
                   WhatsApp est un système d&apos;IA
                 </strong>
                 , et non un être humain.
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>Les réponses sont générées automatiquement</strong> par
                 un grand modèle de langage et peuvent contenir des
                 inexactitudes.
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>
                   Le contenu généré par l&apos;IA n&apos;est pas examiné par un
                   humain avant sa livraison
                 </strong>
                 , sauf indication contraire.
-              </li>
-            </ul>
+              </ListItem>
+            </List>
 
             <Title level={TitleLevel.LEVEL4} markup={TitleMarkup.H4}>
               6.3.4 Prise de décision automatisée (RGPD, Article 22)
@@ -1656,49 +2420,47 @@ const App: React.FC = () => {
               En vertu du RGPD, vous disposez des droits suivants concernant vos
               données personnelles :
             </Text>
-            <ul>
-              <li>
+            <List className={flexStyles.stdList}>
+              <ListItem>
                 <strong>{`Droit d'accès (Art. 15) :`}</strong>
                 {` Obtenir une copie des données personnelles que nous détenons à votre sujet.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Droit de rectification (Art. 16) :`}</strong>
                 {` Demander la correction de données personnelles inexactes.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Droit à l'effacement (Art. 17) :`}</strong>
                 {` Demander la suppression de vos données personnelles (« droit à l'oubli »).`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Droit à la limitation du traitement (Art. 18) :`}</strong>
                 {` Demander la limitation du traitement dans certaines circonstances.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Droit à la portabilité des données (Art. 20) :`}</strong>
                 {` Recevoir vos données dans un format structuré, couramment utilisé et lisible par machine.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Droit d'opposition (Art. 21) :`}</strong>
                 {` Vous opposer au traitement fondé sur l'intérêt légitime.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Droit de retirer votre consentement (Art. 7(3)) :`}</strong>
                 {` Retirer votre consentement à tout moment. Ce retrait ne compromet pas la licéité
                   du traitement fondé sur le consentement effectué avant ce retrait.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Droit de ne pas faire l'objet d'une décision automatisée (Art. 22) :`}</strong>
                 {` Ne pas être soumis à une décision fondée exclusivement sur un traitement
                   automatisé produisant des effets juridiques ou vous affectant de manière
                   significative de façon similaire.`}
-              </li>
-            </ul>
+              </ListItem>
+            </List>
             <br />
             <Text>
               {`Pour exercer l'un de ces droits, contactez-nous à : `}
-              <Link href="mailto:system_admin@flexiness.com">
-                system_admin@flexiness.com
-              </Link>
+              <Link href={`mailto:${process.env.NEXT_PUBLIC_TECH_EMAIL}`}>{process.env.NEXT_PUBLIC_TECH_EMAIL}</Link>
             </Text>
             <Text>
               Nous répondrons à votre demande dans un délai de 30 jours.
@@ -1729,15 +2491,14 @@ const App: React.FC = () => {
               Vous pouvez retirer votre consentement et vous désinscrire à tout
               moment en :
             </Text>
-            <ul>
-              <li>Quittant le groupe WhatsApp</li>
-              <li>
+            <List className={flexStyles.stdList}>
+              <ListItem>Quittant le groupe WhatsApp</ListItem>
+              <ListItem>
                 {`Nous contactant à `}
-                <Link href="mailto:hello@flexiness.com">
-                  hello@flexiness.com
-                </Link>
-              </li>
-            </ul>
+                <Link href={`mailto:${process.env.NEXT_PUBLIC_TECH_EMAIL}`}>{process.env.NEXT_PUBLIC_TECH_EMAIL}</Link>
+              </ListItem>
+            </List>
+            <br/>
             <Text>
               Après le retrait de votre consentement, nous cesserons de traiter
               vos données à des fins de communication et supprimerons vos
@@ -1753,21 +2514,21 @@ const App: React.FC = () => {
               Nous mettons en œuvre des mesures techniques et organisationnelles
               appropriées pour protéger vos données personnelles, notamment :
             </Text>
-            <ul>
-              <li>
+            <List className={flexStyles.stdList}>
+              <ListItem>
                 Chiffrement de bout en bout des messages WhatsApp (fourni par la
                 plateforme WhatsApp)
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 Chiffrement des données au repos et en transit au sein de
                 l&apos;infrastructure AWS
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 Contrôles d&apos;accès et authentification pour tous les
                 systèmes traitant des données personnelles
-              </li>
-              <li>Évaluations de sécurité et surveillance régulières</li>
-            </ul>
+              </ListItem>
+              <ListItem>Évaluations de sécurité et surveillance régulières</ListItem>
+            </List>
             <Divider />
 
             <Title level={TitleLevel.LEVEL3} markup={TitleMarkup.H3}>
@@ -1779,31 +2540,31 @@ const App: React.FC = () => {
               place les mesures de protection suivantes pour le traitement par
               l&apos;IA :
             </Text>
-            <ul>
-              <li>
+            <List className={flexStyles.stdList}>
+              <ListItem>
                 <strong>{`Minimisation des données :`}</strong>
                 {` L'agent IA est configuré pour ne demander que les informations nécessaires au traitement
                   de votre demande.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Protection des données sensibles :`}</strong>
                 {` L'agent IA est configuré pour ne jamais demander et pour décourager activement le partage
                   de données personnelles sensibles telles que les coordonnées bancaires, les mots de passe,
                   les informations de santé ou les numéros d'identification délivrés par l'État.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Pas d'entraînement du modèle :`}</strong>
                 {` Vos conversations ne sont pas utilisées pour entraîner ou améliorer les modèles d'IA.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Escalade humaine :`}</strong>
                 {` Vous pouvez demander une intervention humaine à tout moment.`}
-              </li>
-              <li>
+              </ListItem>
+              <ListItem>
                 <strong>{`Transparence :`}</strong>
                 {` L'IA s'identifie clairement comme un système automatisé au début de chaque interaction.`}
-              </li>
-            </ul>
+              </ListItem>
+            </List>
             <Divider />
 
             <Title level={TitleLevel.LEVEL2} markup={TitleMarkup.H2}>
@@ -1835,7 +2596,7 @@ const App: React.FC = () => {
             </Title>
             <Text>
               {`Pour toute question relative à la confidentialité, contactez-nous à `}
-              <Link href="mailto:hello@flexiness.com">hello@flexiness.com</Link>
+              <Link href={`mailto:${process.env.NEXT_PUBLIC_TECH_EMAIL}`}>{process.env.NEXT_PUBLIC_TECH_EMAIL}</Link>
               {`.`}
             </Text>
             <Divider />
@@ -1851,7 +2612,7 @@ const App: React.FC = () => {
               ci-dessous.
             </Text>
             <Text>
-              <strong>Dernière mise à jour :</strong> Avril 2026
+              <strong>Dernière mise à jour :</strong> Mai 2026
             </Text>
           </BoxContent>
         </Box>
