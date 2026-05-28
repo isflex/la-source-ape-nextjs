@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import { headers } from 'next/headers'
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import  { title, description, jsonLd } from '@src/seo'
+import { jsonLd, buildMetadata, siteUrl, flexinessUrl } from '@src/seo'
 // import { isServer } from '@src/utils'
 
 // Server-side Amplify configuration
@@ -74,8 +74,8 @@ const remoteWebAppClient = process.env.NEXT_PUBLIC_CLIENT_DEPLOYED_REMOTE_HOST
 // })
 
 export const metadata: Metadata = {
-  title: title,
-  description: description,
+  metadataBase: new URL(siteUrl),
+  ...buildMetadata({ path: '/' }),
 }
 
 const MainLayout = dynamic(() => import('../components/main-layout/app'))
@@ -213,6 +213,9 @@ const RootLayout = async ({
         <link nonce={_nonce} rel='apple-touch-icon' sizes='512x512' href={`/logo/ape/Logo_512.png`} />
         <link nonce={_nonce} rel='icon' type='image/png' sizes='192x192' href={`/logo/ape/Logo_192.png`} />
         <link nonce={_nonce} rel='icon' type='image/png' sizes='512x512' href={`/logo/ape/Logo_512.png`} />
+
+        <link nonce={_nonce} rel='author' href={flexinessUrl} />
+        <link nonce={_nonce} rel='publisher' href={siteUrl} />
 
         <Script
           nonce={_nonce}

@@ -69,13 +69,16 @@
 import React from 'react'
 import { headers } from 'next/headers'
 import type { Metadata } from 'next'
-import  { title } from '@src/seo'
+import { buildMetadata } from '@src/seo'
 import { isMobile } from '@src/utils'
 import PostHogNodeClient from '@src/utils/posthog/initPostHogNode'
 
-export const metadata: Metadata = {
-  title: `À propos | ${title}`,
-}
+export const metadata: Metadata = buildMetadata({
+  title: 'À propos',
+  description:
+    "L'Association des parents d'élèves de l'École nouvelle La Source — missions, équipe et site conçu par l'agence web Flexiness.",
+  path: '/about',
+})
 
 import classNames from 'classnames'
 // import {

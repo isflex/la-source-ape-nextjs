@@ -12,6 +12,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { headers } from 'next/headers'
 import type { Metadata } from 'next'
+import { buildMetadata } from '@src/seo'
 import PostHogNodeClient from '@src/utils/posthog/initPostHogNode'
 import { ErrorBoundary } from 'react-error-boundary'
 import regexEscape from 'regex-escape'
@@ -35,9 +36,11 @@ const FallBackEC2InstanceUnavailable = dynamic(() => import('@src/components/err
 const FallBackLinodeInstanceUnavailable = dynamic(() => import('@src/components/error/LinodeInstanceUnavailable'), { ssr: true })
 // const OAuthRedirectHandler = dynamic(() => import('@src/components/auth/OAuthRedirectHandler'))
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: `${process.env.NEXT_PUBLIC_APP_TITLE}`,
-}
+  path: '/web-app',
+  noIndex: true,
+})
 
 export default async function WebAppLayout({
   children,

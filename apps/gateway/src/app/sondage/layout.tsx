@@ -1,7 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import type { Metadata } from 'next'
-import  { title } from '@src/seo'
+import { buildMetadata } from '@src/seo'
 import PostHogNodeClient from '@src/utils/posthog/initPostHogNode'
 
 import classNames from 'classnames'
@@ -15,9 +15,12 @@ import { default as stylesGeneric } from '@src/styles/scss/flex/generic.module.s
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 
-export const metadata: Metadata = {
-  title: `Sondage ${title}`,
-}
+export const metadata: Metadata = buildMetadata({
+  title: 'Sondages',
+  description:
+    "Sondages de l'Association des parents d'élèves de l'École nouvelle La Source.",
+  path: '/sondage',
+})
 
 export default async function SondageLayout({
   children,

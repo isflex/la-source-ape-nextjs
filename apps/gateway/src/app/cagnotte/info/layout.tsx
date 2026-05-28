@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
+import { buildMetadata } from '@src/seo';
 
-export const metadata: Metadata = {
-  title: 'Cagnottes APE La Source - Plateforme de collecte',
-  description: 'Plateforme de cagnottes collectives pour les cadeaux enseignants de l\'APE La Source',
-};
+export const metadata: Metadata = buildMetadata({
+  title: 'À propos des cagnottes',
+  description:
+    "Découvrez la plateforme de cagnottes collectives APE La Source : fonctionnement, sécurité des paiements Stripe et contact.",
+  path: '/cagnotte/info',
+});
 
 export default function CagnotteInfoLayout({
   children,

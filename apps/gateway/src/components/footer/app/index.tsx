@@ -39,12 +39,19 @@ const Footer: React.FC = () => {
         <small>
           <Link href={`/privacy_policy`} target='_blank' rel='privacy-policy'>politique de confidentialité</Link>
         </small>
-        <button className={stylesGeneric.btnStd} onClick={() => window.open('https://www.flexiness.com', '_blank')}>
+        <a
+          className={stylesGeneric.btnStd}
+          href='https://www.flexiness.com'
+          target='_blank'
+          rel='author noopener noreferrer'
+          aria-label='Site by Flexiness'
+          title='Site by Flexiness'
+        >
           <LogoFlex
             ref={ref}
             className={stylesLogo.logoFooter}
           />
-        </button>
+        </a>
         <small>
           <Link href={`/terms_of_service`} target='_blank' rel='terms-of-service'>conditions générales d&apos;utilisation</Link>
         </small>

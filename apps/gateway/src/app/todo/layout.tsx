@@ -1,7 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import type { Metadata } from 'next'
-import  { title } from '@src/seo'
+import { buildMetadata } from '@src/seo'
 import PostHogNodeClient from '@src/utils/posthog/initPostHogNode'
 
 import classNames from 'classnames'
@@ -15,9 +15,12 @@ import { default as stylesPage } from '@src/styles/scss/pages/todo.module.scss'
 
 const LogoAPE = dynamic(() => import('@src/components/logo-ape'), { ssr: true })
 
-export const metadata: Metadata = {
-  title: `Todo App | ${title}`,
-}
+export const metadata: Metadata = buildMetadata({
+  title: 'Todo App',
+  description: "La liste à faire de l'APE La Source.",
+  path: '/todo',
+  noIndex: true,
+})
 
 export default async function ToDoAppLayout({
   children,

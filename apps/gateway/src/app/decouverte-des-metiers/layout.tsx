@@ -1,11 +1,13 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import  { title } from '@src/seo'
+import { buildMetadata } from '@src/seo'
 
-export const metadata: Metadata = {
-  title: `Découverte des métiers | ${title}`,
-  description: 'Inscription à la découverte des métiers de l\'École nouvelle La Source',
-}
+export const metadata: Metadata = buildMetadata({
+  title: 'Découverte des métiers',
+  description:
+    "Inscription à la découverte des métiers de l'École nouvelle La Source.",
+  path: '/decouverte-des-metiers',
+})
 
 export default function Layout({
   children,

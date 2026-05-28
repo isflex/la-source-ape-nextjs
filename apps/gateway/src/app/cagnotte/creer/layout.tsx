@@ -1,4 +1,13 @@
 import React from 'react';
+import type { Metadata } from 'next';
+import { buildMetadata } from '@src/seo';
+
+export const metadata: Metadata = buildMetadata({
+  title: 'Créer une cagnotte',
+  description:
+    "Créez une cagnotte collective APE La Source pour offrir un cadeau de fin d'année à un enseignant de l'École nouvelle La Source.",
+  path: '/cagnotte/creer',
+});
 
 export default function CagnotteCreerLayout({
   children,

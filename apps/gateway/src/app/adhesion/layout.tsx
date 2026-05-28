@@ -1,6 +1,15 @@
 import React from "react";
+import type { Metadata } from "next";
 import classNames from "classnames";
+import { buildMetadata } from "@src/seo";
 import { default as stylesPage } from "@src/styles/scss/pages/adhesion.module.scss";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Adhésion",
+  description:
+    "Adhérez à l'Association des parents d'élèves de l'École nouvelle La Source et soutenez les actions périscolaires de l'APE.",
+  path: "/adhesion",
+});
 
 export default function AdhesionLayout({
   children,
