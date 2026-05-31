@@ -1,0 +1,110 @@
+.roundtable {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+
+  &.mobile-mode {
+    min-height: 600px;
+    justify-content: center;
+
+    @media screen and (orientation: landscape) {
+      min-height: 400px;
+      justify-content: start;
+    }
+
+    .roundtable-svg {
+      zoom: 0.45;
+      margin-left: -10px;
+      margin-bottom: 10rem;
+    }
+  }
+
+  .roundtable-svg {
+    margin-top: 2rem;
+    margin-left: -40px;
+    margin-bottom: 1rem;
+    overflow: visible;
+    zoom: 0.6;
+    min-height: 1000px;
+
+    @media screen and (min-width: "640px") {
+      zoom: 0.75;
+      min-height: 900px;
+    }
+
+    @media screen and (min-width: "760px") {
+      zoom: 1;
+      min-height: unset;
+    }
+
+    .stages {
+      .stage {
+        cursor: pointer;
+
+        .label {
+          display: none;
+        }
+
+        &.active {
+          .title-bg {
+            fill: #25465f;
+          }
+
+          .label {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Crossfade-spin transition for the auto-cycle. The controller toggles
+// `.spin-in` / `.spin-out` on the label groups (#label-0 … #label-5).
+// Pivot is the centre of #ellipse-1 in viewBox user units; `transform-box:
+// view-box` makes the px transform-origin resolve in SVG coordinates.
+@keyframes spin-720-in {
+  from {
+    transform: rotate(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: rotate(720deg);
+    opacity: 1;
+  }
+}
+
+@keyframes spin-720-out {
+  from {
+    transform: rotate(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.spin-in,
+.spin-out {
+  transform-box: view-box;
+  transform-origin: 416.05px 365.503px;
+}
+
+.spin-in {
+  animation: spin-720-in 0.8s ease-in-out both;
+}
+
+.spin-out {
+  animation: spin-720-out 0.8s ease-in-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin-in,
+  .spin-out {
+    animation: none;
+  }
+}

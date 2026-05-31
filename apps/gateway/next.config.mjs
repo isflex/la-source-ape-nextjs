@@ -63,7 +63,7 @@ async function getActiveRoutes() {
     //   ),
     ...fs
       .readdirSync(path.resolve(__dirname, "src/app"), { withFileTypes: true })
-      .filter((file) => file.isDirectory())
+      .filter((file) => file.isDirectory() && !file.name.startsWith("("))
       .map((folder) => folder.name.replace(regexFolderName, ""))
       .filter(
         (folder) =>
@@ -105,12 +105,10 @@ const nextConfig = (() => {
       const exclusionPattern = excludedRoutes.join("|");
 
       return [
-        // Handle root route specifically - server-side rewrite to web-app
-        {
-          source: "/",
-          destination: "/web-app",
-        },
-        // Handle all other non-excluded routes
+        // Handle all non-excluded routes — deep links to /foo route into the
+        // web-app's nested router. Bare `/` does not match (regex requires at
+        // least one non-/ char in the first capture) and falls through to the
+        // marketing landing page at app/(marketing)/page.tsx.
         {
           source: `/((?!${exclusionPattern}).*)/:path*`,
           destination: "/web-app/$1/:path*",
@@ -120,9 +118,9 @@ const nextConfig = (() => {
     async redirects() {
       return [
         {
-          source: "/",
-          destination: "/web-app",
-          permanent: false,
+          source: "/home",
+          destination: "/",
+          permanent: true,
         },
         {
           source: "/qui-sommes-nous",
