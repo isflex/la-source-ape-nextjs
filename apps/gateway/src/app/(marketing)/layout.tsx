@@ -1,10 +1,12 @@
 import React from "react";
+import Link from "next/link";
 import { headers } from "next/headers";
 // import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { buildMetadata } from "@src/seo";
 import { isMobile } from "@src/utils";
 import PostHogNodeClient from "@src/utils/posthog/initPostHogNode";
+import { isFeatureEnabled } from "@src/lib/feature-flags";
 
 import classNames from "classnames";
 import { Title } from "@src/components/flex-server-components";
@@ -134,15 +136,20 @@ export default async function MarketingLayout({
                         y: "259px",
                       }}
                     >
-                      <Title
-                        level={TitleLevel.LEVEL6}
-                        className={classNames(
-                          flexStyles.isCentered,
-                          flexStyles.hasTextWhite,
-                        )}
+                      <Link
+                        href="/cagnotte/creer"
+                        className={flexStyles.isPlain}
                       >
-                        Financer des Projets de Classe
-                      </Title>
+                        <Title
+                          level={TitleLevel.LEVEL6}
+                          className={classNames(
+                            flexStyles.isCentered,
+                            flexStyles.hasTextWhite,
+                          )}
+                        >
+                          Financer des Projets de Classe
+                        </Title>
+                      </Link>
                     </foreignObject>
                   </g>
                   <g id="label-1" className={classNames(stylesPage.label)}>
@@ -212,15 +219,27 @@ export default async function MarketingLayout({
                         y: "443px",
                       }}
                     >
-                      <Title
-                        level={TitleLevel.LEVEL6}
-                        className={classNames(
-                          flexStyles.isCentered,
-                          flexStyles.hasTextWhite,
-                        )}
+                      <Link
+                        {...(isFeatureEnabled("ADHESION_ENABLED")
+                          ? {
+                              href: `/adhesion`,
+                            }
+                          : {
+                              href: `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_1_HOSTNAME_2}/adhesion`,
+                              target: "_blank",
+                            })}
+                        className={flexStyles.isPlain}
                       >
-                        Adhésions
-                      </Title>
+                        <Title
+                          level={TitleLevel.LEVEL6}
+                          className={classNames(
+                            flexStyles.isCentered,
+                            flexStyles.hasTextWhite,
+                          )}
+                        >
+                          Adhésions
+                        </Title>
+                      </Link>
                     </foreignObject>
                   </g>
                   <g id="label-2" className={classNames(stylesPage.label)}>
@@ -290,15 +309,17 @@ export default async function MarketingLayout({
                         y: "595px",
                       }}
                     >
-                      <Title
-                        level={TitleLevel.LEVEL6}
-                        className={classNames(
-                          flexStyles.isCentered,
-                          flexStyles.hasTextWhite,
-                        )}
-                      >
-                        Chaperons&Co
-                      </Title>
+                      <Link href="/web-app" className={flexStyles.isPlain}>
+                        <Title
+                          level={TitleLevel.LEVEL6}
+                          className={classNames(
+                            flexStyles.isCentered,
+                            flexStyles.hasTextWhite,
+                          )}
+                        >
+                          Chaperons&Co
+                        </Title>
+                      </Link>
                     </foreignObject>
                   </g>
                   <g id="label-3" className={classNames(stylesPage.label)}>
@@ -368,15 +389,20 @@ export default async function MarketingLayout({
                         y: "443px",
                       }}
                     >
-                      <Title
-                        level={TitleLevel.LEVEL6}
-                        className={classNames(
-                          flexStyles.isCentered,
-                          flexStyles.hasTextWhite,
-                        )}
+                      <Link
+                        href="/newsletter/souscrire"
+                        className={flexStyles.isPlain}
                       >
-                        Communications
-                      </Title>
+                        <Title
+                          level={TitleLevel.LEVEL6}
+                          className={classNames(
+                            flexStyles.isCentered,
+                            flexStyles.hasTextWhite,
+                          )}
+                        >
+                          Communications
+                        </Title>
+                      </Link>
                     </foreignObject>
                   </g>
                   <g id="label-4" className={classNames(stylesPage.label)}>
@@ -446,15 +472,20 @@ export default async function MarketingLayout({
                         y: "252px",
                       }}
                     >
-                      <Title
-                        level={TitleLevel.LEVEL6}
-                        className={classNames(
-                          flexStyles.isCentered,
-                          flexStyles.hasTextWhite,
-                        )}
+                      <Link
+                        href="/planning/piscine/creer"
+                        className={flexStyles.isPlain}
                       >
-                        Planning Sorties de Classe
-                      </Title>
+                        <Title
+                          level={TitleLevel.LEVEL6}
+                          className={classNames(
+                            flexStyles.isCentered,
+                            flexStyles.hasTextWhite,
+                          )}
+                        >
+                          Planning Sorties de Classe
+                        </Title>
+                      </Link>
                     </foreignObject>
                   </g>
                   <g id="label-5" className={classNames(stylesPage.label)}>

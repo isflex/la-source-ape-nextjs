@@ -1,4 +1,3 @@
-
 import React from 'react'
 import classNames from 'classnames'
 import { nanoid } from 'nanoid'
@@ -98,16 +97,16 @@ const AccordionItem = ({
   const getId = (index: number) => {
     switch (true) {
       case index === 0: {
-        return `header-${id || idGenerated}`
+        return `accordion-header-${id || idGenerated}`
       }
       case index === 1: {
-        return `body-${id || idGenerated}`
+        return `accordion-body-${id || idGenerated}`
       }
       case index === 2: {
-        return `action-${id || idGenerated}`
+        return `accordion-action-${id || idGenerated}`
       }
       default:
-        return `${id || idGenerated}`
+        return `accordion-child-${index}-${id || idGenerated}`
     }
   }
 

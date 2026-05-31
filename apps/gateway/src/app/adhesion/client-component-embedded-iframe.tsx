@@ -7,6 +7,12 @@ import { fetchUserAttributes } from "aws-amplify/auth";
 import { debug } from "@flexiness/domain-utils";
 
 import classNames from "classnames";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionHeader,
+  AccordionBody,
+} from "@flex-design-system/react-ts/client-sync-styled-direct/accordion";
 import { Box } from "@flex-design-system/react-ts/client-sync-styled-direct/box";
 import {
   Button,
@@ -38,6 +44,7 @@ import { default as flexStyles } from "@flex-design-system/framework";
 import { default as stylesPage } from "@src/styles/scss/pages/adhesion.module.scss";
 import { LoadingBackdrop } from "@src/components/loading/LoadingBackdrop";
 import AuthBanner from "@src/components/auth/AuthBanner";
+import { isProductionSandbox, isLocal } from "@src/lib/deployment";
 
 const ADHESION_RETURN_URL = encodeURIComponent("/adhesion/");
 
@@ -202,6 +209,81 @@ export default function AdhesionContent({
     };
   }, [pageState, websiteBase]);
 
+  const showSandboxNotice = isProductionSandbox() || isLocal();
+  const sandboxTestNotice = showSandboxNotice ? (
+    <div style={{ fontSize: "smaller", margin: "auto 0", padding: "0 1rem" }}>
+      <Accordion>
+        <AccordionItem
+          id="sandboxTestNoticeAdhesion"
+          active={pageState === "already-subscribed" || pageState === "ready"}
+          className={flexStyles.version2}
+        >
+          <AccordionHeader
+            toggle
+            className={classNames(
+              flexStyles.isPaddingless,
+              flexStyles.hasTextCentered,
+            )}
+          >
+            <InfoBlock>
+              <InfoBlockHeader
+                status={InfoBlockStatus.WARNING}
+                customIcon={IconName.UI_INFO_CIRCLE}
+              >
+                <Title level={TitleLevel.LEVEL4}>
+                  Environnement de test (sandbox)
+                </Title>
+              </InfoBlockHeader>
+            </InfoBlock>
+          </AccordionHeader>
+          <AccordionBody>
+            <InfoBlock>
+              <InfoBlockContent size={12}>
+                <Title level={TitleLevel.LEVEL5}>
+                  Cette page est un environnement de test qui vous permet
+                  d&apos;essayer le parcours de paiement d&apos;adhésion sans
+                  être relié à une banque réelle. Aucun paiement réel n&apos;est
+                  effectué.
+                </Title>
+
+                <Title level={TitleLevel.LEVEL5} style={{ marginTop: "1rem" }}>
+                  Vous pouvez simuler un paiement avec une carte de test :
+                </Title>
+                <Text>
+                  Numéro de carte : <strong>4242 4242 4242 4242</strong>
+                </Text>
+                <Text>
+                  Date d&apos;expiration : n&apos;importe quelle date future
+                  (ex. 12/34)
+                </Text>
+                <Text>CVC : n&apos;importe quels 3 chiffres (ex. 123)</Text>
+
+                <Title level={TitleLevel.LEVEL5} style={{ marginTop: "1rem" }}>
+                  Les administrateurs de l&apos;association peuvent vérifier les
+                  membres inscrits depuis le backoffice HelloAsso sandbox :
+                </Title>
+                <div style={{ margin: "0.5rem 0" }}>
+                  <Link
+                    href="https://admin.helloasso-sandbox.com/association-des-parents-d-eleves-de-la-source-ecole-nouvelle-sandbox/adhesions/test-subscribe/statistiques"
+                    target="_blank"
+                  >
+                    Accéder au backoffice sandbox
+                  </Link>
+                </div>
+                <Text>
+                  Identifiant : <strong>is-test@apelasource.org</strong>
+                </Text>
+                <Text>
+                  Mot de passe : <strong>S8v8r8Nc8!seven</strong>
+                </Text>
+              </InfoBlockContent>
+            </InfoBlock>
+          </AccordionBody>
+        </AccordionItem>
+      </Accordion>
+    </div>
+  ) : null;
+
   if (pageState === "unauthenticated") {
     return (
       <View>
@@ -252,6 +334,7 @@ export default function AdhesionContent({
     return (
       <View>
         {user && <AuthBanner />}
+        {sandboxTestNotice}
         <div style={{ maxWidth: "920px", margin: "2rem auto" }}>
           <InfoBlock>
             <InfoBlockHeader
@@ -286,6 +369,7 @@ export default function AdhesionContent({
     return (
       <View>
         {user && <AuthBanner />}
+        {sandboxTestNotice}
         <div style={{ maxWidth: "920px", margin: "2rem auto" }}>
           <InfoBlock>
             <InfoBlockHeader
@@ -331,6 +415,7 @@ export default function AdhesionContent({
     return (
       <View>
         {user && <AuthBanner />}
+        {sandboxTestNotice}
         <div style={{ maxWidth: "920px", margin: "2rem auto" }}>
           <InfoBlock>
             <InfoBlockHeader
@@ -400,6 +485,7 @@ export default function AdhesionContent({
   return (
     <View>
       {user && <AuthBanner />}
+      {sandboxTestNotice}
       <div
         style={{ margin: "2rem auto" }}
         className={classNames(flexStyles.hasTextTertiary)}
