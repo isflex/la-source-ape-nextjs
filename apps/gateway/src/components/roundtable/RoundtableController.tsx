@@ -23,12 +23,17 @@ const SPIN_MS = 850; // slightly longer than the 0.8s CSS animation
 
 export default function RoundtableController({
   children,
+  disabled = false,
 }: {
   children: React.ReactNode;
+  /** On mobile the roundtable is shown statically — skip all animation logic. */
+  disabled?: boolean;
 }): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (disabled) return;
+
     const root = containerRef.current;
     if (!root) return;
 
@@ -198,7 +203,7 @@ export default function RoundtableController({
         stage.removeEventListener("mouseleave", onLeave);
       });
     };
-  }, []);
+  }, [disabled]);
 
   return (
     <div ref={containerRef} style={{ display: "contents" }}>

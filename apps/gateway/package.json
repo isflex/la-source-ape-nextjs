@@ -120,7 +120,7 @@
     "eslint": "^9.39.1",
     "eslint-config-next": "14.1.4",
     "flexiness": "workspace:@types/flexiness@*",
-    "sass-embedded": "^1.93.3",
+    "sass-embedded": "^1.100.0",
     "tsconfig-paths-webpack-plugin": "4.2.0",
     "typescript": "5.9.3",
     "vitest": "^4.1.4",

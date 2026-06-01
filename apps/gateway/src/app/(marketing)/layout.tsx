@@ -66,7 +66,7 @@ export default async function MarketingLayout({
       </div>
       */}
       <main>
-        <RoundtableController>
+        <RoundtableController disabled={mobileCheck}>
           <svg
             id="roundtableSvg"
             className={classNames(stylesPage.roundtableSvg)}
@@ -758,7 +758,8 @@ export default async function MarketingLayout({
             </g>
           </svg>
 
-          <div className={stylesPage.apeProjets}>
+          {!mobileCheck && (
+            <div className={stylesPage.apeProjets}>
             <svg
               width="1652"
               height="827"
@@ -1424,7 +1425,8 @@ export default async function MarketingLayout({
                 />
               </defs>
             </svg>
-          </div>
+            </div>
+          )}
         </RoundtableController>
 
         <section>{children}</section>

@@ -80,7 +80,7 @@
     "lint-staged": "15.2.4",
     "prettier": "3.4.2",
     "prettier-plugin-organize-imports": "^3.2.3",
-    "sass-embedded": "^1.99.0",
+    "sass-embedded": "^1.100.0",
     "semantic-release": "^17.4.7",
     "ts-node": "10.9.2",
     "typescript": "5.9.3"
