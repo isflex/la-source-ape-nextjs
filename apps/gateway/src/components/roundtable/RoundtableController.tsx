@@ -42,6 +42,12 @@ export default function RoundtableController({
 
     if (!roundtable || !label0 || stages.length === 0) return;
 
+    // Project groups in document order (foulée-meudonnaise, dîner-des-parents,
+    // collecte-de-noël). Empty array → reveal helpers below are no-ops.
+    const projectGroups = Array.from(
+      root.querySelectorAll<SVGGElement>("#apeProjectsGroup > g"),
+    );
+
     // views[0] = #label-0, views[k] = stage k's #label-k group.
     const views: (Element | null)[] = [
       label0,
@@ -56,6 +62,20 @@ export default function RoundtableController({
     const currentRef = { value: 0 };
     let intervalId: ReturnType<typeof setInterval> | null = null;
     let spinTimeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    // Switch the visible project group as the auto-cycle reaches a given view,
+    // every two stages (n+2): stage 1 → group 0, stage 3 → group 1, stage 5 →
+    // group 2. The three groups overlap in the same SVG slots, so only ONE is
+    // shown at a time; it keeps rotating g0 → g1 → g2 → g0 … across loops.
+    const PROJECT_AT_VIEW: Record<number, number> = { 1: 0, 3: 1, 5: 2 };
+    const showOnlyProject = (i: number) =>
+      projectGroups.forEach((g, idx) =>
+        g.classList.toggle(stylesPage.projectVisible, idx === i),
+      );
+    const hideAllProjects = () =>
+      projectGroups.forEach((g) =>
+        g.classList.remove(stylesPage.projectVisible),
+      );
 
     const showView = (i: number) => {
       if (i === 0) {
@@ -118,6 +138,9 @@ export default function RoundtableController({
       const next = (currentRef.value + 1) % viewCount;
       transition(currentRef.value, next);
       currentRef.value = next;
+      // Auto-cycle only — hover-driven showInstant never reveals projects.
+      const gi = PROJECT_AT_VIEW[next];
+      if (gi !== undefined) showOnlyProject(gi);
     };
 
     const startAuto = () => {
@@ -136,6 +159,7 @@ export default function RoundtableController({
     const onRoundEnter = () => {
       stopAuto();
       clearSpin();
+      hideAllProjects();
     };
     const onRoundLeave = () => {
       clearSpin();

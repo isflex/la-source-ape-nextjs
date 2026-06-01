@@ -46,7 +46,9 @@ const Home: NextPage<PageAppProps> = () => {
             Qui somme nous ?
           </Link>
           <Link href="/helloasso" target="_blank" className={flexStyles.link}>
-            {/*{`${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION} sur helloasso`}*/}
+            {/*
+              {`${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION} sur helloasso`}
+            */}
             L&apos;APE sur helloasso
           </Link>
         </div>

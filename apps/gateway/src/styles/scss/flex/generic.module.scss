@@ -18,11 +18,11 @@
   min-width: #{var(--min-width-mob)};
 
   &.mobile-mode {
-    @media screen and (max-width: '768px') and (orientation: portrait) {
+    @media screen and (max-width: "768px") and (orientation: portrait) {
       margin-bottom: 3rem;
     }
 
-    @media screen and (max-width: '768px') and (orientation: landscape) {
+    @media screen and (max-width: "768px") and (orientation: landscape) {
       margin-bottom: 1rem;
     }
 
@@ -45,7 +45,9 @@
       height: calc(100vh - 4.2rem);
     }
 
-    main [data-amplify-authenticator][data-variation="modal"] [data-amplify-container] {
+    main
+      [data-amplify-authenticator][data-variation="modal"]
+      [data-amplify-container] {
       margin-top: 2.5rem;
     }
   }
@@ -56,6 +58,8 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    position: relative;
+    z-index: 1;
 
     &.has-centered-content {
       justify-content: center;
