@@ -402,8 +402,8 @@ const schema = a.schema({
       stripeAccountId: a.string(),  // Connect account that will receive funds
 
       // Fee configuration (stored per cagnotte for historical accuracy)
-      feePayInPayer: a.string().default('platform'),  // 'platform' | 'contributor' | 'recipient'
-      feePayoutPayer: a.string().default('platform'),  // 'platform' | 'recipient'
+      feePayInPayer: a.string().default('contributor'),  // 'platform' | 'contributor' | 'recipient'
+      feePayoutPayer: a.string().default('recipient'),  // 'platform' | 'recipient'
       platformCommissionPercent: a.float().default(0),  // e.g., 5 for 5%
 
       // SEPA payment constraints

@@ -96,8 +96,14 @@ const jsonLd = {
       name: process.env.NEXT_PUBLIC_APP_TITLE || "Chaperons&Co",
       url: `${siteUrl}/web-app`,
       applicationCategory: "Lifestyle",
+      operatingSystem: "All",
       description:
         "Une plateforme de gestion d'événements communautaires scolaires. Il permet aux parents d'élèves d'organiser et de participer a des activités d'entraide autour des écoles : covoiturage, pedibus (accompagnement a pied), babysitting, soutien aux devoirs, et autres activités.",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "EUR",
+      },
       creator: { "@id": ID_ORG_FLEXINESS },
       publisher: { "@id": ID_ORG_APE },
       isPartOf: { "@id": ID_WEBSITE },

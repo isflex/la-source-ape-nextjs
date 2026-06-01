@@ -3,16 +3,16 @@ import { redirect } from 'next/navigation'
 
 interface NewsletterCatchAllLayoutProps {
   children: ReactNode
-  params: {
+  params: Promise<{
     slug?: string[]
-  }
+  }>
 }
 
-export default function NewsletterCatchAllLayout({
+export default async function NewsletterCatchAllLayout({
   children,
   params
 }: NewsletterCatchAllLayoutProps) {
-  const slugArray = params.slug
+  const { slug: slugArray } = await params
   const slugBase = slugArray?.[0]
 
   // Redirect routes that should be handled by dedicated pages

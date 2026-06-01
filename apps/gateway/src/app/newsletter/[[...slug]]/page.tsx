@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react'
+import React, { use, useState, useEffect } from 'react'
 import { notFound } from 'next/navigation'
 import classNames from 'classnames'
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
@@ -11,13 +11,13 @@ import { default as flexStyles } from '@flex-design-system/framework'
 import { debug } from '@flexiness/domain-utils'
 
 interface NewsletterContentPageProps {
-  params: {
+  params: Promise<{
     slug: string[]
-  }
+  }>
 }
 
 export default function NewsletterContentPage({ params }: NewsletterContentPageProps) {
-  const slugArray = params.slug
+  const { slug: slugArray } = use(params)
   const [ContentComponent, setContentComponent] = useState<React.ComponentType | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [notFoundError, setNotFoundError] = useState(false)
