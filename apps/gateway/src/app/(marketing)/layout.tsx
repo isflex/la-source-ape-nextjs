@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { headers } from "next/headers";
 // import dynamic from "next/dynamic";
 import type { Metadata } from "next";
@@ -9,8 +8,6 @@ import PostHogNodeClient from "@src/utils/posthog/initPostHogNode";
 import { isFeatureEnabled } from "@src/lib/feature-flags";
 
 import classNames from "classnames";
-import { Title } from "@src/components/flex-server-components";
-import { TitleLevel } from "@flex-design-system/react-ts/client-sync-styled-direct/title";
 import { default as flexStyles } from "@flex-design-system/framework";
 import { default as stylesGeneric } from "@src/styles/scss/flex/generic.module.scss";
 import { default as stylesPage } from "@src/styles/scss/pages/roundtable.module.scss";
@@ -109,7 +106,7 @@ export default async function MarketingLayout({
                   className={classNames(stylesPage.stage)}
                   data-stage="1"
                 >
-                  <g>
+                  <a href="/cagnotte/creer">
                     <path
                       id="Rectangle 1_1"
                       className={classNames(stylesPage.titleBg)}
@@ -128,30 +125,18 @@ export default async function MarketingLayout({
                       stroke="white"
                       strokeWidth="3"
                     />
-                    <foreignObject
-                      style={{
-                        width: "310px",
-                        height: "30px",
-                        x: "-5px",
-                        y: "259px",
-                      }}
+                    <text
+                      x="150"
+                      y="274"
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      fill="#fff"
+                      className={classNames(flexStyles.title, flexStyles.is6)}
+                      style={{ transform: "translateY(-6px)" }}
                     >
-                      <Link
-                        href="/cagnotte/creer"
-                        className={flexStyles.isPlain}
-                      >
-                        <Title
-                          level={TitleLevel.LEVEL6}
-                          className={classNames(
-                            flexStyles.isCentered,
-                            flexStyles.hasTextWhite,
-                          )}
-                        >
-                          Financer des Projets de Classe
-                        </Title>
-                      </Link>
-                    </foreignObject>
-                  </g>
+                      Financer des Projets de Classe
+                    </text>
+                  </a>
                   <g id="label-1" className={classNames(stylesPage.label)}>
                     <g id="Top label">
                       <text
@@ -192,7 +177,16 @@ export default async function MarketingLayout({
                   className={classNames(stylesPage.stage)}
                   data-stage="2"
                 >
-                  <g>
+                  <a
+                    {...(isFeatureEnabled("ADHESION_ENABLED")
+                      ? {
+                          href: `/adhesion`,
+                        }
+                      : {
+                          href: `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_1_HOSTNAME_2}/adhesion`,
+                          target: "_blank",
+                        })}
+                  >
                     <path
                       id="Rectangle 2_1"
                       className={classNames(stylesPage.titleBg)}
@@ -211,37 +205,18 @@ export default async function MarketingLayout({
                       stroke="white"
                       strokeWidth="3"
                     />
-                    <foreignObject
-                      style={{
-                        width: "180px",
-                        height: "30px",
-                        x: "64px",
-                        y: "443px",
-                      }}
+                    <text
+                      x="154"
+                      y="458"
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      fill="#fff"
+                      className={classNames(flexStyles.title, flexStyles.is6)}
+                      style={{ transform: "translateY(-6px)" }}
                     >
-                      <Link
-                        {...(isFeatureEnabled("ADHESION_ENABLED")
-                          ? {
-                              href: `/adhesion`,
-                            }
-                          : {
-                              href: `${process.env.NEXT_PUBLIC_FLEX_GATEWAY_DEPLOYED_REMOTE_1_HOSTNAME_2}/adhesion`,
-                              target: "_blank",
-                            })}
-                        className={flexStyles.isPlain}
-                      >
-                        <Title
-                          level={TitleLevel.LEVEL6}
-                          className={classNames(
-                            flexStyles.isCentered,
-                            flexStyles.hasTextWhite,
-                          )}
-                        >
-                          Adhésions
-                        </Title>
-                      </Link>
-                    </foreignObject>
-                  </g>
+                      Adhésions
+                    </text>
+                  </a>
                   <g id="label-2" className={classNames(stylesPage.label)}>
                     <g id="Top label">
                       <text
@@ -282,7 +257,7 @@ export default async function MarketingLayout({
                   className={classNames(stylesPage.stage)}
                   data-stage="3"
                 >
-                  <g>
+                  <a href="/web-app">
                     <path
                       id="Rectangle 3_1"
                       className={classNames(stylesPage.titleBg)}
@@ -301,27 +276,18 @@ export default async function MarketingLayout({
                       stroke="white"
                       strokeWidth="3"
                     />
-                    <foreignObject
-                      style={{
-                        width: "180px",
-                        height: "30px",
-                        x: "329px",
-                        y: "595px",
-                      }}
+                    <text
+                      x="419"
+                      y="610"
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      fill="#fff"
+                      className={classNames(flexStyles.title, flexStyles.is6)}
+                      style={{ transform: "translateY(-6px)" }}
                     >
-                      <Link href="/web-app" className={flexStyles.isPlain}>
-                        <Title
-                          level={TitleLevel.LEVEL6}
-                          className={classNames(
-                            flexStyles.isCentered,
-                            flexStyles.hasTextWhite,
-                          )}
-                        >
-                          Chaperons&Co
-                        </Title>
-                      </Link>
-                    </foreignObject>
-                  </g>
+                      Chaperons&Co
+                    </text>
+                  </a>
                   <g id="label-3" className={classNames(stylesPage.label)}>
                     <g id="Top label">
                       <text
@@ -362,7 +328,7 @@ export default async function MarketingLayout({
                   className={classNames(stylesPage.stage)}
                   data-stage="4"
                 >
-                  <g>
+                  <a href="/newsletter/souscrire">
                     <path
                       id="Rectangle 4_1"
                       className={classNames(stylesPage.titleBg)}
@@ -381,30 +347,18 @@ export default async function MarketingLayout({
                       stroke="white"
                       strokeWidth="3"
                     />
-                    <foreignObject
-                      style={{
-                        width: "200px",
-                        height: "30px",
-                        x: "573px",
-                        y: "443px",
-                      }}
+                    <text
+                      x="673"
+                      y="458"
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      fill="#fff"
+                      className={classNames(flexStyles.title, flexStyles.is6)}
+                      style={{ transform: "translateY(-6px)" }}
                     >
-                      <Link
-                        href="/newsletter/souscrire"
-                        className={flexStyles.isPlain}
-                      >
-                        <Title
-                          level={TitleLevel.LEVEL6}
-                          className={classNames(
-                            flexStyles.isCentered,
-                            flexStyles.hasTextWhite,
-                          )}
-                        >
-                          Communications
-                        </Title>
-                      </Link>
-                    </foreignObject>
-                  </g>
+                      Communications
+                    </text>
+                  </a>
                   <g id="label-4" className={classNames(stylesPage.label)}>
                     <g id="Top label">
                       <text
@@ -445,7 +399,7 @@ export default async function MarketingLayout({
                   className={classNames(stylesPage.stage)}
                   data-stage="5"
                 >
-                  <g>
+                  <a href="/planning/piscine/creer">
                     <path
                       id="Rectangle 5_1"
                       className={classNames(stylesPage.titleBg)}
@@ -464,30 +418,18 @@ export default async function MarketingLayout({
                       stroke="white"
                       strokeWidth="3"
                     />
-                    <foreignObject
-                      style={{
-                        width: "270px",
-                        height: "30px",
-                        x: "528px",
-                        y: "252px",
-                      }}
+                    <text
+                      x="663"
+                      y="267"
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      fill="#fff"
+                      className={classNames(flexStyles.title, flexStyles.is6)}
+                      style={{ transform: "translateY(-6px)" }}
                     >
-                      <Link
-                        href="/planning/piscine/creer"
-                        className={flexStyles.isPlain}
-                      >
-                        <Title
-                          level={TitleLevel.LEVEL6}
-                          className={classNames(
-                            flexStyles.isCentered,
-                            flexStyles.hasTextWhite,
-                          )}
-                        >
-                          Planning Sorties de Classe
-                        </Title>
-                      </Link>
-                    </foreignObject>
-                  </g>
+                      Planning Sorties de Classe
+                    </text>
+                  </a>
                   <g id="label-5" className={classNames(stylesPage.label)}>
                     <g id="Top label">
                       <text
@@ -760,671 +702,671 @@ export default async function MarketingLayout({
 
           {!mobileCheck && (
             <div className={stylesPage.apeProjets}>
-            <svg
-              width="1652"
-              height="827"
-              viewBox="0 0 1652 827"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-            >
-              <g
-                id="apeProjectsGroup"
-                className={classNames(stylesPage.projects)}
+              <svg
+                width="1652"
+                height="827"
+                viewBox="0 0 1652 827"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
               >
-                <g id="foul&#195;&#169;e-meudonnaise">
-                  <g className={stylesPage.bottomLeft}>
-                    <mask
-                      id="mask0_2027_30"
-                      style={{ maskType: "alpha" }}
-                      maskUnits="userSpaceOnUse"
-                      x="43"
-                      y="496"
-                      width="430"
-                      height="331"
-                    >
-                      <path
-                        id="Vector 113"
-                        d="M43.5091 744.819C43.0091 820.319 66.5091 825.819 66.5091 825.819H433.509C451.509 825.819 471.509 803.819 471.509 785.319C471.509 770.319 473.009 687.319 468.009 653.319C463.009 619.319 422.509 503.571 331.009 497.819C239.509 492.068 188.009 516.819 131.509 565.319C75.0092 613.819 44.0091 669.319 43.5091 744.819Z"
-                        fill="#D9D9D9"
-                        stroke="#FF0000"
-                      />
-                    </mask>
-                    <g mask="url(#mask0_2027_30)">
-                      <rect
-                        id="IMG_0482 1"
-                        x="331.501"
-                        y="688"
-                        width="147"
-                        height="147"
-                        fill="url(#pattern0_2027_30)"
-                      />
-                      <rect
-                        id="IMG_0484 1"
-                        x="29.5012"
-                        y="656"
-                        width="204"
-                        height="177"
-                        fill="url(#pattern1_2027_30)"
-                      />
-                      <rect
-                        id="IMG_0483 1"
-                        x="47.5012"
-                        y="492"
-                        width="440"
-                        height="196"
-                        fill="url(#pattern2_2027_30)"
-                      />
-                      <rect
-                        id="IMG_0487 1"
-                        x="184.501"
-                        y="488"
-                        width="179"
-                        height="349"
-                        fill="url(#pattern3_2027_30)"
-                      />
-                    </g>
-                  </g>
-                  <g className={stylesPage.topLeft}>
-                    <mask
-                      id="mask1_2027_30"
-                      style={{ maskType: "alpha" }}
-                      maskUnits="userSpaceOnUse"
-                      x="0"
-                      y="0"
-                      width="403"
-                      height="266"
-                    >
-                      <path
-                        id="Vector 114"
-                        d="M365.001 0.500073C348.501 0.499909 0.501221 0.500073 0.501221 0.500073C0.501221 0.500073 1.00128 200.5 1.00122 217.5C18.0012 229 62.5012 246.5 111.001 256.5C159.501 266.5 243.501 271.5 300.001 247.5C356.501 223.5 397.501 165.5 401.001 123C404.501 80.4999 391.001 38.9999 365.001 0.500073Z"
-                        fill="#D9D9D9"
-                        stroke="#FF0000"
-                      />
-                    </mask>
-                    <g mask="url(#mask1_2027_30)">
-                      <path
-                        id="274e1f92-cb80-4940-944e-2d140a558ec5 1"
-                        d="M-10.4988 -15.0001H409.501V276H-10.4988V-15.0001Z"
-                        fill="url(#pattern4_2027_30)"
-                      />
-                    </g>
-                  </g>
-                  <g className={stylesPage.topRight}>
-                    <mask
-                      id="mask2_2027_30"
-                      style={{ maskType: "alpha" }}
-                      maskUnits="userSpaceOnUse"
-                      x="1295"
-                      y="0"
-                      width="357"
-                      height="412"
-                    >
-                      <path
-                        id="Vector 115"
-                        d="M1301.4 137.5C1315.4 69.9999 1395.9 0.999939 1395.9 0.999939H1651.4V357.5C1651.4 357.5 1628.9 374 1588.4 388.5C1547.9 403 1484.4 411 1427.4 410.5C1370.4 410 1339.88 360 1329.9 341C1298.9 282 1287.4 205 1301.4 137.5Z"
-                        fill="#D9D9D9"
-                        stroke="#FF0000"
-                      />
-                    </mask>
-                    <g mask="url(#mask2_2027_30)">
-                      <g id="Group 40">
+                <g
+                  id="apeProjectsGroup"
+                  className={classNames(stylesPage.projects)}
+                >
+                  <g id="foul&#195;&#169;e-meudonnaise">
+                    <g className={stylesPage.bottomLeft}>
+                      <mask
+                        id="mask0_2027_30"
+                        style={{ maskType: "alpha" }}
+                        maskUnits="userSpaceOnUse"
+                        x="43"
+                        y="496"
+                        width="430"
+                        height="331"
+                      >
+                        <path
+                          id="Vector 113"
+                          d="M43.5091 744.819C43.0091 820.319 66.5091 825.819 66.5091 825.819H433.509C451.509 825.819 471.509 803.819 471.509 785.319C471.509 770.319 473.009 687.319 468.009 653.319C463.009 619.319 422.509 503.571 331.009 497.819C239.509 492.068 188.009 516.819 131.509 565.319C75.0092 613.819 44.0091 669.319 43.5091 744.819Z"
+                          fill="#D9D9D9"
+                          stroke="#FF0000"
+                        />
+                      </mask>
+                      <g mask="url(#mask0_2027_30)">
                         <rect
-                          id="ffb872c6-f1c8-4367-8632-c50cb2aa8dfa 1"
-                          x="1281.5"
-                          y="-6.10352e-05"
-                          width="386"
-                          height="414"
-                          fill="url(#pattern5_2027_30)"
+                          id="IMG_0482 1"
+                          x="331.501"
+                          y="688"
+                          width="147"
+                          height="147"
+                          fill="url(#pattern0_2027_30)"
+                        />
+                        <rect
+                          id="IMG_0484 1"
+                          x="29.5012"
+                          y="656"
+                          width="204"
+                          height="177"
+                          fill="url(#pattern1_2027_30)"
+                        />
+                        <rect
+                          id="IMG_0483 1"
+                          x="47.5012"
+                          y="492"
+                          width="440"
+                          height="196"
+                          fill="url(#pattern2_2027_30)"
+                        />
+                        <rect
+                          id="IMG_0487 1"
+                          x="184.501"
+                          y="488"
+                          width="179"
+                          height="349"
+                          fill="url(#pattern3_2027_30)"
+                        />
+                      </g>
+                    </g>
+                    <g className={stylesPage.topLeft}>
+                      <mask
+                        id="mask1_2027_30"
+                        style={{ maskType: "alpha" }}
+                        maskUnits="userSpaceOnUse"
+                        x="0"
+                        y="0"
+                        width="403"
+                        height="266"
+                      >
+                        <path
+                          id="Vector 114"
+                          d="M365.001 0.500073C348.501 0.499909 0.501221 0.500073 0.501221 0.500073C0.501221 0.500073 1.00128 200.5 1.00122 217.5C18.0012 229 62.5012 246.5 111.001 256.5C159.501 266.5 243.501 271.5 300.001 247.5C356.501 223.5 397.501 165.5 401.001 123C404.501 80.4999 391.001 38.9999 365.001 0.500073Z"
+                          fill="#D9D9D9"
+                          stroke="#FF0000"
+                        />
+                      </mask>
+                      <g mask="url(#mask1_2027_30)">
+                        <path
+                          id="274e1f92-cb80-4940-944e-2d140a558ec5 1"
+                          d="M-10.4988 -15.0001H409.501V276H-10.4988V-15.0001Z"
+                          fill="url(#pattern4_2027_30)"
+                        />
+                      </g>
+                    </g>
+                    <g className={stylesPage.topRight}>
+                      <mask
+                        id="mask2_2027_30"
+                        style={{ maskType: "alpha" }}
+                        maskUnits="userSpaceOnUse"
+                        x="1295"
+                        y="0"
+                        width="357"
+                        height="412"
+                      >
+                        <path
+                          id="Vector 115"
+                          d="M1301.4 137.5C1315.4 69.9999 1395.9 0.999939 1395.9 0.999939H1651.4V357.5C1651.4 357.5 1628.9 374 1588.4 388.5C1547.9 403 1484.4 411 1427.4 410.5C1370.4 410 1339.88 360 1329.9 341C1298.9 282 1287.4 205 1301.4 137.5Z"
+                          fill="#D9D9D9"
+                          stroke="#FF0000"
+                        />
+                      </mask>
+                      <g mask="url(#mask2_2027_30)">
+                        <g id="Group 40">
+                          <rect
+                            id="ffb872c6-f1c8-4367-8632-c50cb2aa8dfa 1"
+                            x="1281.5"
+                            y="-6.10352e-05"
+                            width="386"
+                            height="414"
+                            fill="url(#pattern5_2027_30)"
+                          />
+                        </g>
+                      </g>
+                    </g>
+                    <g className={stylesPage.bottomRight}>
+                      <mask
+                        id="mask3_2027_30"
+                        style={{ maskType: "alpha" }}
+                        maskUnits="userSpaceOnUse"
+                        x="1325"
+                        y="613"
+                        width="327"
+                        height="214"
+                      >
+                        <path
+                          id="Vector 116"
+                          d="M1341.09 662.245C1361.18 633.017 1407.94 613.289 1503.3 614.02C1598.65 614.75 1635.19 645.44 1651.26 670.284V825.555C1651.26 825.555 1521.2 825.724 1511.7 825.555C1491.24 825.189 1432.06 816.421 1413.06 810.575C1394.06 804.73 1374.33 796.327 1346.2 766.003C1318.07 735.68 1320.99 691.473 1341.09 662.245Z"
+                          fill="#D9D9D9"
+                          stroke="#FF0000"
+                        />
+                      </mask>
+                      <g mask="url(#mask3_2027_30)">
+                        <rect
+                          id="Rectangle 17"
+                          x="1305.82"
+                          y="592.81"
+                          width="362.423"
+                          height="257.203"
+                          fill="#B3FF4C"
+                        />
+                        <rect
+                          id="Logo-Foulee-Meudonnaise-2 1"
+                          x="1362.5"
+                          y="631"
+                          width="303"
+                          height="160"
+                          fill="url(#pattern6_2027_30)"
                         />
                       </g>
                     </g>
                   </g>
-                  <g className={stylesPage.bottomRight}>
-                    <mask
-                      id="mask3_2027_30"
-                      style={{ maskType: "alpha" }}
-                      maskUnits="userSpaceOnUse"
-                      x="1325"
-                      y="613"
-                      width="327"
-                      height="214"
-                    >
-                      <path
-                        id="Vector 116"
-                        d="M1341.09 662.245C1361.18 633.017 1407.94 613.289 1503.3 614.02C1598.65 614.75 1635.19 645.44 1651.26 670.284V825.555C1651.26 825.555 1521.2 825.724 1511.7 825.555C1491.24 825.189 1432.06 816.421 1413.06 810.575C1394.06 804.73 1374.33 796.327 1346.2 766.003C1318.07 735.68 1320.99 691.473 1341.09 662.245Z"
-                        fill="#D9D9D9"
-                        stroke="#FF0000"
-                      />
-                    </mask>
-                    <g mask="url(#mask3_2027_30)">
-                      <rect
-                        id="Rectangle 17"
-                        x="1305.82"
-                        y="592.81"
-                        width="362.423"
-                        height="257.203"
-                        fill="#B3FF4C"
-                      />
-                      <rect
-                        id="Logo-Foulee-Meudonnaise-2 1"
-                        x="1362.5"
-                        y="631"
-                        width="303"
-                        height="160"
-                        fill="url(#pattern6_2027_30)"
-                      />
+                  <g id="d&#195;&#174;ner-des-parents">
+                    <g className={stylesPage.bottomLeft}>
+                      <mask
+                        id="mask0_2027_37"
+                        style={{ maskType: "alpha" }}
+                        maskUnits="userSpaceOnUse"
+                        x="43"
+                        y="496"
+                        width="430"
+                        height="331"
+                      >
+                        <path
+                          id="Vector 113"
+                          d="M43.5091 744.819C43.0091 820.319 66.5091 825.819 66.5091 825.819H433.509C451.509 825.819 471.509 803.819 471.509 785.319C471.509 770.319 473.009 687.319 468.009 653.319C463.009 619.319 422.509 503.571 331.009 497.819C239.509 492.068 188.009 516.819 131.509 565.319C75.0092 613.819 44.0091 669.319 43.5091 744.819Z"
+                          fill="#D9D9D9"
+                          stroke="#FF0000"
+                        />
+                      </mask>
+                      <g mask="url(#mask0_2027_37)">
+                        <rect
+                          id="50f96441-c5be-45a8-9405-14630afa50d7 1"
+                          x="30.5012"
+                          y="473"
+                          width="457"
+                          height="364"
+                          fill="url(#pattern0_2027_37)"
+                        />
+                      </g>
+                    </g>
+                    <g className={stylesPage.topLeft}>
+                      <mask
+                        id="mask1_2027_37"
+                        style={{ maskType: "alpha" }}
+                        maskUnits="userSpaceOnUse"
+                        x="0"
+                        y="0"
+                        width="403"
+                        height="266"
+                      >
+                        <path
+                          id="Vector 114"
+                          d="M365.001 0.500073C348.501 0.499909 0.501221 0.500073 0.501221 0.500073C0.501221 0.500073 1.00128 200.5 1.00122 217.5C18.0012 229 62.5012 246.5 111.001 256.5C159.501 266.5 243.501 271.5 300.001 247.5C356.501 223.5 397.501 165.5 401.001 123C404.501 80.4999 391.001 38.9999 365.001 0.500073Z"
+                          fill="#D9D9D9"
+                          stroke="#FF0000"
+                        />
+                      </mask>
+                      <g mask="url(#mask1_2027_37)">
+                        <rect
+                          id="2c6f638b-702b-41a7-a5ab-6c65a4028e61 1"
+                          x="-10.4988"
+                          y="-13.0001"
+                          width="429"
+                          height="295"
+                          fill="url(#pattern1_2027_37)"
+                        />
+                      </g>
+                    </g>
+                    <g className={stylesPage.topRight}>
+                      <mask
+                        id="mask2_2027_37"
+                        style={{ maskType: "alpha" }}
+                        maskUnits="userSpaceOnUse"
+                        x="1295"
+                        y="0"
+                        width="357"
+                        height="412"
+                      >
+                        <path
+                          id="Vector 115"
+                          d="M1301.4 137.5C1315.4 69.9999 1395.9 0.999939 1395.9 0.999939H1651.4V357.5C1651.4 357.5 1628.9 374 1588.4 388.5C1547.9 403 1484.4 411 1427.4 410.5C1370.4 410 1339.88 360 1329.9 341C1298.9 282 1287.4 205 1301.4 137.5Z"
+                          fill="#D9D9D9"
+                          stroke="#FF0000"
+                        />
+                      </mask>
+                      <g mask="url(#mask2_2027_37)">
+                        <rect
+                          id="4ff2b212-079c-41da-9a8f-6374bf6c1f90 1"
+                          x="1283.5"
+                          y="-15.0001"
+                          width="380"
+                          height="439"
+                          fill="url(#pattern2_2027_37)"
+                        />
+                      </g>
+                    </g>
+                    <g className={stylesPage.bottomRight}>
+                      <mask
+                        id="mask3_2027_37"
+                        style={{ maskType: "alpha" }}
+                        maskUnits="userSpaceOnUse"
+                        x="1317"
+                        y="608"
+                        width="336"
+                        height="219"
+                      >
+                        <path
+                          id="Vector 116"
+                          d="M1333.44 658.493C1354.05 628.509 1402.03 608.27 1499.85 609.02C1597.67 609.77 1635.15 641.253 1651.64 666.739V826.026C1651.64 826.026 1518.21 826.2 1508.47 826.026C1487.48 825.651 1426.76 816.656 1407.27 810.659C1387.78 804.663 1367.55 796.042 1338.69 764.934C1309.83 733.827 1312.83 688.476 1333.44 658.493Z"
+                          fill="#D9D9D9"
+                          stroke="#FF0000"
+                        />
+                      </mask>
+                      <g mask="url(#mask3_2027_37)">
+                        <rect
+                          id="7b03f968-74ca-4072-9f8a-344136890888 1"
+                          x="1316.98"
+                          y="568.167"
+                          width="426.783"
+                          height="228.187"
+                          transform="rotate(9.93841 1316.98 568.167)"
+                          fill="url(#pattern3_2027_37)"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                  <g id="collecte-de-no&#195;&#171;l">
+                    <g className={stylesPage.bottomLeft}>
+                      <mask
+                        id="mask0_2027_50"
+                        style={{ maskType: "alpha" }}
+                        maskUnits="userSpaceOnUse"
+                        x="43"
+                        y="496"
+                        width="430"
+                        height="331"
+                      >
+                        <path
+                          id="Vector 113"
+                          d="M43.5091 744.819C43.0091 820.319 66.5091 825.819 66.5091 825.819H433.509C451.509 825.819 471.509 803.819 471.509 785.319C471.509 770.319 473.009 687.319 468.009 653.319C463.009 619.319 422.509 503.571 331.009 497.819C239.509 492.068 188.009 516.819 131.509 565.319C75.0092 613.819 44.0091 669.319 43.5091 744.819Z"
+                          fill="#D9D9D9"
+                          stroke="#FF0000"
+                        />
+                      </mask>
+                      <g mask="url(#mask0_2027_50)">
+                        <rect
+                          id="896bb6d5-c5ee-4996-b162-8862a4af1afb 1"
+                          x="38.5012"
+                          y="493"
+                          width="444"
+                          height="333"
+                          fill="url(#pattern0_2027_50)"
+                        />
+                      </g>
+                    </g>
+                    <g className={stylesPage.topLeft}>
+                      <mask
+                        id="mask1_2027_50"
+                        style={{ maskType: "alpha" }}
+                        maskUnits="userSpaceOnUse"
+                        x="0"
+                        y="0"
+                        width="403"
+                        height="266"
+                      >
+                        <path
+                          id="Vector 114"
+                          d="M365.001 0.500073C348.501 0.499909 0.501221 0.500073 0.501221 0.500073C0.501221 0.500073 1.00128 200.5 1.00122 217.5C18.0012 229 62.5012 246.5 111.001 256.5C159.501 266.5 243.501 271.5 300.001 247.5C356.501 223.5 397.501 165.5 401.001 123C404.501 80.4999 391.001 38.9999 365.001 0.500073Z"
+                          fill="#D9D9D9"
+                          stroke="#FF0000"
+                        />
+                      </mask>
+                      <g mask="url(#mask1_2027_50)">
+                        <rect
+                          id="1f60bf43-9eaa-4dac-b5ee-b1de651e2234 1"
+                          x="-15.4988"
+                          y="-19.0001"
+                          width="434"
+                          height="308"
+                          fill="url(#pattern1_2027_50)"
+                        />
+                      </g>
+                    </g>
+                    <g className={stylesPage.topRight}>
+                      <mask
+                        id="mask2_2027_50"
+                        style={{ maskType: "alpha" }}
+                        maskUnits="userSpaceOnUse"
+                        x="1295"
+                        y="0"
+                        width="357"
+                        height="412"
+                      >
+                        <path
+                          id="Vector 115"
+                          d="M1301.4 137.5C1315.4 69.9999 1395.9 0.999939 1395.9 0.999939H1651.4V357.5C1651.4 357.5 1628.9 374 1588.4 388.5C1547.9 403 1484.4 411 1427.4 410.5C1370.4 410 1339.88 360 1329.9 341C1298.9 282 1287.4 205 1301.4 137.5Z"
+                          fill="#D9D9D9"
+                          stroke="#FF0000"
+                        />
+                      </mask>
+                      <g mask="url(#mask2_2027_50)">
+                        <rect
+                          id="f1a17721-e184-4f93-b6d9-6b4ee9e9007d 1"
+                          x="1281.5"
+                          y="-13.0001"
+                          width="390"
+                          height="437"
+                          fill="url(#pattern2_2027_50)"
+                        />
+                      </g>
+                    </g>
+                    <g className={stylesPage.bottomRight}>
+                      <mask
+                        id="mask3_2027_50"
+                        style={{ maskType: "alpha" }}
+                        maskUnits="userSpaceOnUse"
+                        x="1317"
+                        y="608"
+                        width="336"
+                        height="219"
+                      >
+                        <path
+                          id="Vector 116"
+                          d="M1333.44 658.493C1354.05 628.509 1402.03 608.27 1499.85 609.02C1597.67 609.77 1635.15 641.253 1651.64 666.739V826.026C1651.64 826.026 1518.21 826.2 1508.47 826.026C1487.48 825.651 1426.76 816.656 1407.27 810.659C1387.78 804.663 1367.55 796.042 1338.69 764.934C1309.83 733.827 1312.83 688.476 1333.44 658.493Z"
+                          fill="#D9D9D9"
+                          stroke="#FF0000"
+                        />
+                      </mask>
+                      <g mask="url(#mask3_2027_50)">
+                        <rect
+                          id="b7fbdb50-facc-426a-9182-38c5165a7760 1"
+                          x="1316.5"
+                          y="607"
+                          width="338"
+                          height="240"
+                          fill="url(#pattern3_2027_50)"
+                        />
+                      </g>
                     </g>
                   </g>
                 </g>
-                <g id="d&#195;&#174;ner-des-parents">
-                  <g className={stylesPage.bottomLeft}>
-                    <mask
-                      id="mask0_2027_37"
-                      style={{ maskType: "alpha" }}
-                      maskUnits="userSpaceOnUse"
-                      x="43"
-                      y="496"
-                      width="430"
-                      height="331"
-                    >
-                      <path
-                        id="Vector 113"
-                        d="M43.5091 744.819C43.0091 820.319 66.5091 825.819 66.5091 825.819H433.509C451.509 825.819 471.509 803.819 471.509 785.319C471.509 770.319 473.009 687.319 468.009 653.319C463.009 619.319 422.509 503.571 331.009 497.819C239.509 492.068 188.009 516.819 131.509 565.319C75.0092 613.819 44.0091 669.319 43.5091 744.819Z"
-                        fill="#D9D9D9"
-                        stroke="#FF0000"
-                      />
-                    </mask>
-                    <g mask="url(#mask0_2027_37)">
-                      <rect
-                        id="50f96441-c5be-45a8-9405-14630afa50d7 1"
-                        x="30.5012"
-                        y="473"
-                        width="457"
-                        height="364"
-                        fill="url(#pattern0_2027_37)"
-                      />
-                    </g>
-                  </g>
-                  <g className={stylesPage.topLeft}>
-                    <mask
-                      id="mask1_2027_37"
-                      style={{ maskType: "alpha" }}
-                      maskUnits="userSpaceOnUse"
-                      x="0"
-                      y="0"
-                      width="403"
-                      height="266"
-                    >
-                      <path
-                        id="Vector 114"
-                        d="M365.001 0.500073C348.501 0.499909 0.501221 0.500073 0.501221 0.500073C0.501221 0.500073 1.00128 200.5 1.00122 217.5C18.0012 229 62.5012 246.5 111.001 256.5C159.501 266.5 243.501 271.5 300.001 247.5C356.501 223.5 397.501 165.5 401.001 123C404.501 80.4999 391.001 38.9999 365.001 0.500073Z"
-                        fill="#D9D9D9"
-                        stroke="#FF0000"
-                      />
-                    </mask>
-                    <g mask="url(#mask1_2027_37)">
-                      <rect
-                        id="2c6f638b-702b-41a7-a5ab-6c65a4028e61 1"
-                        x="-10.4988"
-                        y="-13.0001"
-                        width="429"
-                        height="295"
-                        fill="url(#pattern1_2027_37)"
-                      />
-                    </g>
-                  </g>
-                  <g className={stylesPage.topRight}>
-                    <mask
-                      id="mask2_2027_37"
-                      style={{ maskType: "alpha" }}
-                      maskUnits="userSpaceOnUse"
-                      x="1295"
-                      y="0"
-                      width="357"
-                      height="412"
-                    >
-                      <path
-                        id="Vector 115"
-                        d="M1301.4 137.5C1315.4 69.9999 1395.9 0.999939 1395.9 0.999939H1651.4V357.5C1651.4 357.5 1628.9 374 1588.4 388.5C1547.9 403 1484.4 411 1427.4 410.5C1370.4 410 1339.88 360 1329.9 341C1298.9 282 1287.4 205 1301.4 137.5Z"
-                        fill="#D9D9D9"
-                        stroke="#FF0000"
-                      />
-                    </mask>
-                    <g mask="url(#mask2_2027_37)">
-                      <rect
-                        id="4ff2b212-079c-41da-9a8f-6374bf6c1f90 1"
-                        x="1283.5"
-                        y="-15.0001"
-                        width="380"
-                        height="439"
-                        fill="url(#pattern2_2027_37)"
-                      />
-                    </g>
-                  </g>
-                  <g className={stylesPage.bottomRight}>
-                    <mask
-                      id="mask3_2027_37"
-                      style={{ maskType: "alpha" }}
-                      maskUnits="userSpaceOnUse"
-                      x="1317"
-                      y="608"
-                      width="336"
-                      height="219"
-                    >
-                      <path
-                        id="Vector 116"
-                        d="M1333.44 658.493C1354.05 628.509 1402.03 608.27 1499.85 609.02C1597.67 609.77 1635.15 641.253 1651.64 666.739V826.026C1651.64 826.026 1518.21 826.2 1508.47 826.026C1487.48 825.651 1426.76 816.656 1407.27 810.659C1387.78 804.663 1367.55 796.042 1338.69 764.934C1309.83 733.827 1312.83 688.476 1333.44 658.493Z"
-                        fill="#D9D9D9"
-                        stroke="#FF0000"
-                      />
-                    </mask>
-                    <g mask="url(#mask3_2027_37)">
-                      <rect
-                        id="7b03f968-74ca-4072-9f8a-344136890888 1"
-                        x="1316.98"
-                        y="568.167"
-                        width="426.783"
-                        height="228.187"
-                        transform="rotate(9.93841 1316.98 568.167)"
-                        fill="url(#pattern3_2027_37)"
-                      />
-                    </g>
-                  </g>
-                </g>
-                <g id="collecte-de-no&#195;&#171;l">
-                  <g className={stylesPage.bottomLeft}>
-                    <mask
-                      id="mask0_2027_50"
-                      style={{ maskType: "alpha" }}
-                      maskUnits="userSpaceOnUse"
-                      x="43"
-                      y="496"
-                      width="430"
-                      height="331"
-                    >
-                      <path
-                        id="Vector 113"
-                        d="M43.5091 744.819C43.0091 820.319 66.5091 825.819 66.5091 825.819H433.509C451.509 825.819 471.509 803.819 471.509 785.319C471.509 770.319 473.009 687.319 468.009 653.319C463.009 619.319 422.509 503.571 331.009 497.819C239.509 492.068 188.009 516.819 131.509 565.319C75.0092 613.819 44.0091 669.319 43.5091 744.819Z"
-                        fill="#D9D9D9"
-                        stroke="#FF0000"
-                      />
-                    </mask>
-                    <g mask="url(#mask0_2027_50)">
-                      <rect
-                        id="896bb6d5-c5ee-4996-b162-8862a4af1afb 1"
-                        x="38.5012"
-                        y="493"
-                        width="444"
-                        height="333"
-                        fill="url(#pattern0_2027_50)"
-                      />
-                    </g>
-                  </g>
-                  <g className={stylesPage.topLeft}>
-                    <mask
-                      id="mask1_2027_50"
-                      style={{ maskType: "alpha" }}
-                      maskUnits="userSpaceOnUse"
-                      x="0"
-                      y="0"
-                      width="403"
-                      height="266"
-                    >
-                      <path
-                        id="Vector 114"
-                        d="M365.001 0.500073C348.501 0.499909 0.501221 0.500073 0.501221 0.500073C0.501221 0.500073 1.00128 200.5 1.00122 217.5C18.0012 229 62.5012 246.5 111.001 256.5C159.501 266.5 243.501 271.5 300.001 247.5C356.501 223.5 397.501 165.5 401.001 123C404.501 80.4999 391.001 38.9999 365.001 0.500073Z"
-                        fill="#D9D9D9"
-                        stroke="#FF0000"
-                      />
-                    </mask>
-                    <g mask="url(#mask1_2027_50)">
-                      <rect
-                        id="1f60bf43-9eaa-4dac-b5ee-b1de651e2234 1"
-                        x="-15.4988"
-                        y="-19.0001"
-                        width="434"
-                        height="308"
-                        fill="url(#pattern1_2027_50)"
-                      />
-                    </g>
-                  </g>
-                  <g className={stylesPage.topRight}>
-                    <mask
-                      id="mask2_2027_50"
-                      style={{ maskType: "alpha" }}
-                      maskUnits="userSpaceOnUse"
-                      x="1295"
-                      y="0"
-                      width="357"
-                      height="412"
-                    >
-                      <path
-                        id="Vector 115"
-                        d="M1301.4 137.5C1315.4 69.9999 1395.9 0.999939 1395.9 0.999939H1651.4V357.5C1651.4 357.5 1628.9 374 1588.4 388.5C1547.9 403 1484.4 411 1427.4 410.5C1370.4 410 1339.88 360 1329.9 341C1298.9 282 1287.4 205 1301.4 137.5Z"
-                        fill="#D9D9D9"
-                        stroke="#FF0000"
-                      />
-                    </mask>
-                    <g mask="url(#mask2_2027_50)">
-                      <rect
-                        id="f1a17721-e184-4f93-b6d9-6b4ee9e9007d 1"
-                        x="1281.5"
-                        y="-13.0001"
-                        width="390"
-                        height="437"
-                        fill="url(#pattern2_2027_50)"
-                      />
-                    </g>
-                  </g>
-                  <g className={stylesPage.bottomRight}>
-                    <mask
-                      id="mask3_2027_50"
-                      style={{ maskType: "alpha" }}
-                      maskUnits="userSpaceOnUse"
-                      x="1317"
-                      y="608"
-                      width="336"
-                      height="219"
-                    >
-                      <path
-                        id="Vector 116"
-                        d="M1333.44 658.493C1354.05 628.509 1402.03 608.27 1499.85 609.02C1597.67 609.77 1635.15 641.253 1651.64 666.739V826.026C1651.64 826.026 1518.21 826.2 1508.47 826.026C1487.48 825.651 1426.76 816.656 1407.27 810.659C1387.78 804.663 1367.55 796.042 1338.69 764.934C1309.83 733.827 1312.83 688.476 1333.44 658.493Z"
-                        fill="#D9D9D9"
-                        stroke="#FF0000"
-                      />
-                    </mask>
-                    <g mask="url(#mask3_2027_50)">
-                      <rect
-                        id="b7fbdb50-facc-426a-9182-38c5165a7760 1"
-                        x="1316.5"
-                        y="607"
-                        width="338"
-                        height="240"
-                        fill="url(#pattern3_2027_50)"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
-              <defs>
-                <pattern
-                  id="pattern0_2027_30"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image0_2027_30"
-                    transform="matrix(0.00650681 0 0 0.00648831 -1.08191 -0.537415)"
-                  />
-                </pattern>
-                <pattern
-                  id="pattern1_2027_30"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image1_2027_30"
-                    transform="matrix(0.00469484 0 0 0.005411 0 -0.000517228)"
-                  />
-                </pattern>
-                <pattern
-                  id="pattern2_2027_30"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image2_2027_30"
-                    transform="matrix(0.00217021 0 0 0.00486381 -8.00256e-05 -0.25)"
-                  />
-                </pattern>
-                <pattern
-                  id="pattern3_2027_30"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image3_2027_30"
-                    transform="matrix(0.00533092 0 0 0.00273056 -0.00110664 0)"
-                  />
-                </pattern>
-                <pattern
-                  id="pattern4_2027_30"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image4_2027_30"
-                    transform="matrix(0.00227059 0 0 0.0032734 -0.232588 -0.271982)"
-                  />
-                </pattern>
-                <pattern
-                  id="pattern5_2027_30"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image5_2027_30"
-                    transform="matrix(0.00247394 0 0 0.00230529 -0.236023 0.000857717)"
-                  />
-                </pattern>
-                <pattern
-                  id="pattern6_2027_30"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image6_2027_30"
-                    transform="matrix(0.00314672 0 0 0.00595238 -0.00190249 0)"
-                  />
-                </pattern>
+                <defs>
+                  <pattern
+                    id="pattern0_2027_30"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image0_2027_30"
+                      transform="matrix(0.00650681 0 0 0.00648831 -1.08191 -0.537415)"
+                    />
+                  </pattern>
+                  <pattern
+                    id="pattern1_2027_30"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image1_2027_30"
+                      transform="matrix(0.00469484 0 0 0.005411 0 -0.000517228)"
+                    />
+                  </pattern>
+                  <pattern
+                    id="pattern2_2027_30"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image2_2027_30"
+                      transform="matrix(0.00217021 0 0 0.00486381 -8.00256e-05 -0.25)"
+                    />
+                  </pattern>
+                  <pattern
+                    id="pattern3_2027_30"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image3_2027_30"
+                      transform="matrix(0.00533092 0 0 0.00273056 -0.00110664 0)"
+                    />
+                  </pattern>
+                  <pattern
+                    id="pattern4_2027_30"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image4_2027_30"
+                      transform="matrix(0.00227059 0 0 0.0032734 -0.232588 -0.271982)"
+                    />
+                  </pattern>
+                  <pattern
+                    id="pattern5_2027_30"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image5_2027_30"
+                      transform="matrix(0.00247394 0 0 0.00230529 -0.236023 0.000857717)"
+                    />
+                  </pattern>
+                  <pattern
+                    id="pattern6_2027_30"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image6_2027_30"
+                      transform="matrix(0.00314672 0 0 0.00595238 -0.00190249 0)"
+                    />
+                  </pattern>
 
-                <image
-                  id="image0_2027_30"
-                  width="320"
-                  height="476"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image0_2027_30.jpg"
-                />
-                <image
-                  id="image1_2027_30"
-                  width="213"
-                  height="185"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image1_2027_30.jpg"
-                />
-                <image
-                  id="image2_2027_30"
-                  width="464"
-                  height="257"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image2_2027_30.jpg"
-                />
-                <image
-                  id="image3_2027_30"
-                  width="188"
-                  height="489"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image3_2027_30.png"
-                />
-                <image
-                  id="image4_2027_30"
-                  width="616"
-                  height="462"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image4_2027_30.jpg"
-                />
-                <image
-                  id="image5_2027_30"
-                  width="577"
-                  height="433"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image5_2027_30.jpg"
-                />
-                <image
-                  id="image6_2027_30"
-                  width="319"
-                  height="168"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image6_2027_30.png"
-                />
+                  <image
+                    id="image0_2027_30"
+                    width="320"
+                    height="476"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image0_2027_30.jpg"
+                  />
+                  <image
+                    id="image1_2027_30"
+                    width="213"
+                    height="185"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image1_2027_30.jpg"
+                  />
+                  <image
+                    id="image2_2027_30"
+                    width="464"
+                    height="257"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image2_2027_30.jpg"
+                  />
+                  <image
+                    id="image3_2027_30"
+                    width="188"
+                    height="489"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image3_2027_30.png"
+                  />
+                  <image
+                    id="image4_2027_30"
+                    width="616"
+                    height="462"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image4_2027_30.jpg"
+                  />
+                  <image
+                    id="image5_2027_30"
+                    width="577"
+                    height="433"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image5_2027_30.jpg"
+                  />
+                  <image
+                    id="image6_2027_30"
+                    width="319"
+                    height="168"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image6_2027_30.png"
+                  />
 
-                <pattern
-                  id="pattern0_2027_37"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image0_2027_37"
-                    transform="matrix(0.00208611 0 0 0.00261949 -0.206574 -0.282723)"
-                  />
-                </pattern>
-                <pattern
-                  id="pattern1_2027_37"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image1_2027_37"
-                    transform="matrix(0.00222154 0 0 0.00323064 -0.000582751 -0.454237)"
-                  />
-                </pattern>
-                <pattern
-                  id="pattern2_2027_37"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image2_2027_37"
-                    transform="matrix(0.00251012 0 0 0.00217068 -0.0315789 -0.342065)"
-                  />
-                </pattern>
-                <pattern
-                  id="pattern3_2027_37"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image3_2027_37"
-                    transform="scale(0.00223714 0.00418417)"
-                  />
-                </pattern>
+                  <pattern
+                    id="pattern0_2027_37"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image0_2027_37"
+                      transform="matrix(0.00208611 0 0 0.00261949 -0.206574 -0.282723)"
+                    />
+                  </pattern>
+                  <pattern
+                    id="pattern1_2027_37"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image1_2027_37"
+                      transform="matrix(0.00222154 0 0 0.00323064 -0.000582751 -0.454237)"
+                    />
+                  </pattern>
+                  <pattern
+                    id="pattern2_2027_37"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image2_2027_37"
+                      transform="matrix(0.00251012 0 0 0.00217068 -0.0315789 -0.342065)"
+                    />
+                  </pattern>
+                  <pattern
+                    id="pattern3_2027_37"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image3_2027_37"
+                      transform="scale(0.00223714 0.00418417)"
+                    />
+                  </pattern>
 
-                <image
-                  id="image0_2027_37"
-                  width="748"
-                  height="561"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image0_2027_37.jpg"
-                />
-                <image
-                  id="image1_2027_37"
-                  width="543"
-                  height="724"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image1_2027_37.jpg"
-                />
-                <image
-                  id="image2_2027_37"
-                  width="520"
-                  height="694"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image2_2027_37.jpg"
-                />
-                <image
-                  id="image3_2027_37"
-                  width="447"
-                  height="239"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image3_2027_37.jpg"
-                />
+                  <image
+                    id="image0_2027_37"
+                    width="748"
+                    height="561"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image0_2027_37.jpg"
+                  />
+                  <image
+                    id="image1_2027_37"
+                    width="543"
+                    height="724"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image1_2027_37.jpg"
+                  />
+                  <image
+                    id="image2_2027_37"
+                    width="520"
+                    height="694"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image2_2027_37.jpg"
+                  />
+                  <image
+                    id="image3_2027_37"
+                    width="447"
+                    height="239"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image3_2027_37.jpg"
+                  />
 
-                <pattern
-                  id="pattern0_2027_50"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image0_2027_50"
-                    transform="matrix(0.00215054 0 0 0.00286738 0 -0.000358423)"
-                  />
-                </pattern>
-                <pattern
-                  id="pattern1_2027_50"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image1_2027_50"
-                    transform="matrix(0.00219785 0 0 0.00309439 -0.52765 -0.657062)"
-                  />
-                </pattern>
-                <pattern
-                  id="pattern2_2027_50"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image2_2027_50"
-                    transform="matrix(0.00244292 0 0 0.0021795 -1.93632 -2.34325)"
-                  />
-                </pattern>
-                <pattern
-                  id="pattern3_2027_50"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlinkHref="#image3_2027_50"
-                    transform="scale(0.0028177 0.00396825)"
-                  />
-                </pattern>
+                  <pattern
+                    id="pattern0_2027_50"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image0_2027_50"
+                      transform="matrix(0.00215054 0 0 0.00286738 0 -0.000358423)"
+                    />
+                  </pattern>
+                  <pattern
+                    id="pattern1_2027_50"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image1_2027_50"
+                      transform="matrix(0.00219785 0 0 0.00309439 -0.52765 -0.657062)"
+                    />
+                  </pattern>
+                  <pattern
+                    id="pattern2_2027_50"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image2_2027_50"
+                      transform="matrix(0.00244292 0 0 0.0021795 -1.93632 -2.34325)"
+                    />
+                  </pattern>
+                  <pattern
+                    id="pattern3_2027_50"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image3_2027_50"
+                      transform="scale(0.0028177 0.00396825)"
+                    />
+                  </pattern>
 
-                <image
-                  id="image0_2027_50"
-                  width="465"
-                  height="349"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image0_2027_50.jpg"
-                />
-                <image
-                  id="image1_2027_50"
-                  width="802"
-                  height="602"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image1_2027_50.jpg"
-                />
-                <image
-                  id="image2_2027_50"
-                  width="2130"
-                  height="1598"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image2_2027_50.jpg"
-                />
-                <image
-                  id="image3_2027_50"
-                  width="355"
-                  height="252"
-                  preserveAspectRatio="none"
-                  xlinkHref="/assets/img/roundtable/projects/image3_2027_50.jpg"
-                />
-              </defs>
-            </svg>
+                  <image
+                    id="image0_2027_50"
+                    width="465"
+                    height="349"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image0_2027_50.jpg"
+                  />
+                  <image
+                    id="image1_2027_50"
+                    width="802"
+                    height="602"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image1_2027_50.jpg"
+                  />
+                  <image
+                    id="image2_2027_50"
+                    width="2130"
+                    height="1598"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image2_2027_50.jpg"
+                  />
+                  <image
+                    id="image3_2027_50"
+                    width="355"
+                    height="252"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image3_2027_50.jpg"
+                  />
+                </defs>
+              </svg>
             </div>
           )}
         </RoundtableController>
