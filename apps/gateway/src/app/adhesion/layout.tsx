@@ -6,8 +6,7 @@ import { default as stylesPage } from "@src/styles/scss/pages/adhesion.module.sc
 
 export const metadata: Metadata = buildMetadata({
   title: "Adhésion",
-  description:
-    "Adhérez à l'Association des parents d'élèves de l'École nouvelle La Source et soutenez les actions périscolaires de l'APE.",
+  description: `Adhérez à ${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION_GENERIC} de ${process.env.NEXT_PUBLIC_SCHOOL_TITLE_GENERIC} et soutenez les actions périscolaires de l'APE.`,
   path: "/adhesion",
 });
 

@@ -754,9 +754,9 @@ export default function PiscineCreerPage() {
                 <Box>
                   <Title level={TitleLevel.LEVEL2}>Accès réservé</Title>
                   <Text>
-                    Vous devez être connecté pour créer des plannings de sorties
-                    scolaires, communément appelés &laquo; plannings piscine
-                    &raquo;.
+                    {`Vous devez être connecté pour créer des plannings de sorties scolaires, communément appelés `}
+                    <strong>&laquo; plannings piscine &raquo;</strong>
+                    {`.`}
                   </Text>
                 </Box>
               )}

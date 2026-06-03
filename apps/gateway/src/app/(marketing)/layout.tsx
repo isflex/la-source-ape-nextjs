@@ -19,8 +19,7 @@ import RoundtableController from "@src/components/roundtable/RoundtableControlle
 
 export const metadata: Metadata = buildMetadata({
   title: "Accueil",
-  description:
-    "Bienvenue sur le site de l'Association des parents d'élèves de l'École nouvelle La Source.",
+  description: `Bienvenue sur le site de ${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION_GENERIC} de ${process.env.NEXT_PUBLIC_SCHOOL_TITLE_GENERIC}.`,
   path: "/",
 });
 

@@ -10,7 +10,7 @@ Make the relationship machine-readable and sitewide:
 
 ## Context / constraints
 
-- `apelasource.org` — site of the nonprofit (association des parents d'élèves de l'école nouvelle La Source).
+- `apelasource.org` — site of the nonprofit (association des parents d'élèves de La Source école nouvelle).
 - `www.flexiness.com` — Paris web agency (46 rue Vital, 75116 Paris) that built it.
 - The `/about` page loads its content from a slides iframe (`/slides/about.html`) — make sure JSON-LD lives in the real page `<head>`, not only inside the iframe.
 
@@ -36,7 +36,7 @@ Inject this into the shared layout/template `<head>` so all pages carry it (not 
     {
       "@type": "Organization",
       "@id": "https://apelasource.org/#organization",
-      "name": "Association des Parents d'Élèves de l'École Nouvelle La Source",
+      "name": "Association des Parents d'Élèves de La Source école nouvelle",
       "alternateName": "APE La Source",
       "url": "https://apelasource.org/",
       "sameAs": ["https://apelasource.org/about/"]

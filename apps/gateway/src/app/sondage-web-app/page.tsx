@@ -1,115 +1,141 @@
 /* eslint-disable no-alert */
 
-'use client';
+"use client";
 
-import React from 'react';
-import { debug } from '@flexiness/domain-utils';
-import { useRouter } from 'next/navigation'
-import { z } from 'zod';
-import sanitizeHtml from 'sanitize-html';
+import React from "react";
+import { debug } from "@flexiness/domain-utils";
+import { useRouter } from "next/navigation";
+import { z } from "zod";
+import sanitizeHtml from "sanitize-html";
 
-import { generateClient } from 'aws-amplify/data'
-import type { Schema } from '@amplify/data/resource'
-const client = generateClient<Schema>()
+import { generateClient } from "aws-amplify/data";
+import type { Schema } from "@amplify/data/resource";
+const client = generateClient<Schema>();
 
-import classNames from 'classnames'
-import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
-import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
-import { Divider } from '@flex-design-system/react-ts/client-sync-styled-direct/divider';
-import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link';
-import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
-import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
-import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
+import classNames from "classnames";
+import { Box } from "@flex-design-system/react-ts/client-sync-styled-direct/box";
+import {
+  Button,
+  ButtonMarkup,
+} from "@flex-design-system/react-ts/client-sync-styled-direct/button";
+import { Divider } from "@flex-design-system/react-ts/client-sync-styled-direct/divider";
+import { Link } from "@flex-design-system/react-ts/client-sync-styled-direct/link";
+import { Text } from "@flex-design-system/react-ts/client-sync-styled-direct/text";
+import {
+  Title,
+  TitleLevel,
+} from "@flex-design-system/react-ts/client-sync-styled-direct/title";
+import { VariantState } from "@flex-design-system/react-ts/client-sync-styled-direct/objects";
 import {
   IconName,
   IconSize,
   IconPosition,
   IconStatus,
-  StatusIcon
-} from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
+  StatusIcon,
+} from "@flex-design-system/react-ts/client-sync-styled-direct/icon";
 import {
   InfoBlock,
   InfoBlockContent,
   InfoBlockHeader,
-  InfoBlockStatus
-} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
-import { Input } from '@flex-design-system/react-ts/client-sync-styled-direct/input';
-import { Radio } from '@flex-design-system/react-ts/client-sync-styled-direct/radio';
-import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
-import { Select } from '@flex-design-system/react-ts/client-sync-styled-direct/select';
-import { Textarea } from '@flex-design-system/react-ts/client-sync-styled-direct/textarea';
-import { Modal } from '@flex-design-system/react-ts/client-sync-styled-direct/modal';
-import { View } from '@flex-design-system/react-ts/client-sync-styled-direct/view';
-import { default as flexStyles } from '@flex-design-system/framework'
+  InfoBlockStatus,
+} from "@flex-design-system/react-ts/client-sync-styled-direct/info-block";
+import { Input } from "@flex-design-system/react-ts/client-sync-styled-direct/input";
+import { Radio } from "@flex-design-system/react-ts/client-sync-styled-direct/radio";
+import { Section } from "@flex-design-system/react-ts/client-sync-styled-direct/section";
+import { Select } from "@flex-design-system/react-ts/client-sync-styled-direct/select";
+import { Textarea } from "@flex-design-system/react-ts/client-sync-styled-direct/textarea";
+import { Modal } from "@flex-design-system/react-ts/client-sync-styled-direct/modal";
+import { View } from "@flex-design-system/react-ts/client-sync-styled-direct/view";
+import { default as flexStyles } from "@flex-design-system/framework";
 
 // Zod validation schema
 const StudentSchema = z.object({
-  firstname: z.string()
-    .min(1, 'Prénom élève requis')
-    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} })),
-  surname: z.string()
-    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
+  firstname: z
+    .string()
+    .min(1, "Prénom élève requis")
+    .transform((val) =>
+      sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }),
+    ),
+  surname: z
+    .string()
+    .transform((val) =>
+      sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }),
+    )
     .optional(),
-  level: z.enum([
-    'COLLEGE_3EME',
-    'COLLEGE_4EME',
-    'COLLEGE_5EME',
-    'COLLEGE_6EME',
-    'LYCEE_PREMIERE',
-    'LYCEE_SECONDE',
-    'LYCEE_TERMINALE',
-    'MATERNELLE_GS',
-    'PRIMAIRE_CE1',
-    'PRIMAIRE_CE2',
-    'PRIMAIRE_CM1',
-    'PRIMAIRE_CM2',
-    'PRIMAIRE_CP',
-    'ANCIEN_ELEVE'
-  ], { error: 'Niveau scolaire requis' })
+  level: z.enum(
+    [
+      "COLLEGE_3EME",
+      "COLLEGE_4EME",
+      "COLLEGE_5EME",
+      "COLLEGE_6EME",
+      "LYCEE_PREMIERE",
+      "LYCEE_SECONDE",
+      "LYCEE_TERMINALE",
+      "MATERNELLE_GS",
+      "PRIMAIRE_CE1",
+      "PRIMAIRE_CE2",
+      "PRIMAIRE_CM1",
+      "PRIMAIRE_CM2",
+      "PRIMAIRE_CP",
+      "ANCIEN_ELEVE",
+    ],
+    { error: "Niveau scolaire requis" },
+  ),
 });
 
 const QuestionSchema = z.object({
   question: z.any(), // Changed from z.string() to z.any() to handle JSX elements
-  answer: z.enum(['Oui', 'Non'])
+  answer: z.enum(["Oui", "Non"]),
 });
 
 const SondageSchema = z.object({
-  firstname: z.string()
-    .min(1, 'Prénom requis')
-    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} })),
-  surname: z.string()
-    .min(1, 'Nom requis')
-    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} })),
-  email: z.string().min(1, 'Email requis').email('Format email invalide'),
-  comment: z.string()
-    .transform((val) => sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }))
+  firstname: z
+    .string()
+    .min(1, "Prénom requis")
+    .transform((val) =>
+      sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }),
+    ),
+  surname: z
+    .string()
+    .min(1, "Nom requis")
+    .transform((val) =>
+      sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }),
+    ),
+  email: z.string().min(1, "Email requis").email("Format email invalide"),
+  comment: z
+    .string()
+    .transform((val) =>
+      sanitizeHtml(val.trim(), { allowedTags: [], allowedAttributes: {} }),
+    )
     .optional(),
-  students: z.array(StudentSchema).min(1, 'Au moins un élève requis'),
-  questions: z.array(QuestionSchema).length(7, 'Toutes les questions doivent être répondues')
+  students: z.array(StudentSchema).min(1, "Au moins un élève requis"),
+  questions: z
+    .array(QuestionSchema)
+    .length(7, "Toutes les questions doivent être répondues"),
 });
 
 type SondageFormData = z.infer<typeof SondageSchema>;
 
 // Helper function to convert JSX questions to plain text for database storage
 const getQuestionText = (question: React.ReactNode): string => {
-  if (typeof question === 'string') {
+  if (typeof question === "string") {
     return question;
   }
   if (React.isValidElement(question)) {
     // Extract text content from JSX element recursively
     const extractText = (element: React.ReactNode): string => {
-      if (typeof element === 'string') return element;
-      if (typeof element === 'number') return String(element);
+      if (typeof element === "string") return element;
+      if (typeof element === "number") return String(element);
       if (React.isValidElement(element)) {
         const props = element.props as { children?: React.ReactNode };
         if (props.children) {
           if (Array.isArray(props.children)) {
-            return props.children.map(extractText).join('');
+            return props.children.map(extractText).join("");
           }
           return extractText(props.children);
         }
       }
-      return '';
+      return "";
     };
     return extractText(question);
   }
@@ -117,58 +143,85 @@ const getQuestionText = (question: React.ReactNode): string => {
 };
 
 const PREDEFINED_QUESTIONS = [
-  <>En tant que parent, souhaiteriez-vous pouvoir utiliser l&apos;application {process.env.NEXT_PUBLIC_APP_TITLE} proposée <Link href={`/web-app`} target="_blank" rel={`${process.env.NEXT_PUBLIC_APP_TITLE}`}>ici</Link> ?</>,
-  `Si vous avez des enfants scolarisés à l'École nouvelle La Source (actuels ou passés) qui pourraient proposer leurs services pour s'occuper d'autres enfants, acceptez-vous qu'ils utilisent l'application ${process.env.NEXT_PUBLIC_APP_TITLE} ?`,
+  <>
+    En tant que parent, souhaiteriez-vous pouvoir utiliser l&apos;application{" "}
+    {process.env.NEXT_PUBLIC_APP_TITLE} proposée{" "}
+    <Link
+      href={`/web-app`}
+      target="_blank"
+      rel={`${process.env.NEXT_PUBLIC_APP_TITLE}`}
+    >
+      ici
+    </Link>{" "}
+    ?
+  </>,
+  `Si vous avez des enfants scolarisés à ${process.env.NEXT_PUBLIC_SCHOOL_TITLE} (actuels ou passés) qui pourraient proposer leurs services pour s'occuper d'autres enfants, acceptez-vous qu'ils utilisent l'application ${process.env.NEXT_PUBLIC_APP_TITLE} ?`,
   `Êtes-vous d'accord que les parents ont aussi la responsabilité d'accompagner leur enfant(s) dans l'utilisation de l'application ${process.env.NEXT_PUBLIC_APP_TITLE} ?`,
-  <>Trouvez-vous le communiqué de presse proposé <Link href={`/newsletter`} target="_blank" rel="newsletter">ici</Link> adéquate pour une diffusion via École Directe à l&apos;ensemble de la communauté scolaire de École nouvelle La Source ?</>,
+  <>
+    Trouvez-vous le communiqué de presse proposé{" "}
+    <Link href={`/newsletter`} target="_blank" rel="newsletter">
+      ici
+    </Link>{" "}
+    adéquate pour une diffusion via École Directe à l&apos;ensemble de la
+    communauté scolaire de École nouvelle La Source ?
+  </>,
   `Sachant que l'application ${process.env.NEXT_PUBLIC_APP_TITLE} a été conçue pour protéger au maximum vos informations personnelles et la sécurité de vos données, qu'elle a été développée sur une base volontaire et en tant que service gratuit, vous comprenez que l'application ne peut être tenue responsable d'une quelconque utilisation abusive.`,
-  `L'application ${process.env.NEXT_PUBLIC_APP_TITLE} est destinée à l'ensemble de la communauté scolaire de l'École nouvelle La Source (parents et enfants inclus), mais à ce jour, son accès reste ouvert à toute personne disposant d'un accès à l'URL. Vous comprenez qu'à terme, nous pourrions décider de contrôler et de restreindre l'accès, mais cela nécessite une collaboration entre les différentes parties prenantes, qui se fera progressivement.`,
-  `Vous comprenez que l'application ${process.env.NEXT_PUBLIC_APP_TITLE} a pour vocation de servir de forum d'annonces plus ou moins ouvert à tous. Son bon fonctionnement repose sur la bonne volonté et la supervision de tous.`
+  `L'application ${process.env.NEXT_PUBLIC_APP_TITLE} est destinée à l'ensemble de la communauté scolaire de ${process.env.NEXT_PUBLIC_SCHOOL_TITLE_GENERIC} (parents et enfants inclus), mais à ce jour, son accès reste ouvert à toute personne disposant d'un accès à l'URL. Vous comprenez qu'à terme, nous pourrions décider de contrôler et de restreindre l'accès, mais cela nécessite une collaboration entre les différentes parties prenantes, qui se fera progressivement.`,
+  `Vous comprenez que l'application ${process.env.NEXT_PUBLIC_APP_TITLE} a pour vocation de servir de forum d'annonces plus ou moins ouvert à tous. Son bon fonctionnement repose sur la bonne volonté et la supervision de tous.`,
 ];
 
 const SCHOOL_LEVELS = [
-  { value: 'MATERNELLE_GS', label: 'Maternelle GS' },
-  { value: 'PRIMAIRE_CP', label: 'Primaire CP' },
-  { value: 'PRIMAIRE_CE1', label: 'Primaire CE1' },
-  { value: 'PRIMAIRE_CE2', label: 'Primaire CE2' },
-  { value: 'PRIMAIRE_CM1', label: 'Primaire CM1' },
-  { value: 'PRIMAIRE_CM2', label: 'Primaire CM2' },
-  { value: 'COLLEGE_6EME', label: 'Collège 6ème' },
-  { value: 'COLLEGE_5EME', label: 'Collège 5ème' },
-  { value: 'COLLEGE_4EME', label: 'Collège 4ème' },
-  { value: 'COLLEGE_3EME', label: 'Collège 3ème' },
-  { value: 'LYCEE_SECONDE', label: 'Lycée Seconde' },
-  { value: 'LYCEE_PREMIERE', label: 'Lycée Première' },
-  { value: 'LYCEE_TERMINALE', label: 'Lycée Terminale' },
-  { value: 'ANCIEN_ELEVE', label: 'Ancien élève' }
+  { value: "MATERNELLE_GS", label: "Maternelle GS" },
+  { value: "PRIMAIRE_CP", label: "Primaire CP" },
+  { value: "PRIMAIRE_CE1", label: "Primaire CE1" },
+  { value: "PRIMAIRE_CE2", label: "Primaire CE2" },
+  { value: "PRIMAIRE_CM1", label: "Primaire CM1" },
+  { value: "PRIMAIRE_CM2", label: "Primaire CM2" },
+  { value: "COLLEGE_6EME", label: "Collège 6ème" },
+  { value: "COLLEGE_5EME", label: "Collège 5ème" },
+  { value: "COLLEGE_4EME", label: "Collège 4ème" },
+  { value: "COLLEGE_3EME", label: "Collège 3ème" },
+  { value: "LYCEE_SECONDE", label: "Lycée Seconde" },
+  { value: "LYCEE_PREMIERE", label: "Lycée Première" },
+  { value: "LYCEE_TERMINALE", label: "Lycée Terminale" },
+  { value: "ANCIEN_ELEVE", label: "Ancien élève" },
 ];
 
 export default function SondageApp() {
   const [formData, setFormData] = React.useState<SondageFormData>({
-    firstname: '',
-    surname: '',
-    email: '',
-    comment: '',
-    students: [{ firstname: '', surname: '', level: '' as any }],
-    questions: PREDEFINED_QUESTIONS.map(q => ({ question: q, answer: 'Oui' as const }))
+    firstname: "",
+    surname: "",
+    email: "",
+    comment: "",
+    students: [{ firstname: "", surname: "", level: "" as any }],
+    questions: PREDEFINED_QUESTIONS.map((q) => ({
+      question: q,
+      answer: "Oui" as const,
+    })),
   });
 
   const [hasError, setHasError] = React.useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
   const [validationErrors, setValidationErrors] = React.useState<string[]>([]);
   const [sessionId] = React.useState<string>(() => crypto.randomUUID());
-  const [sondages, setSondages] = React.useState<Array<Schema['Sondage']['type']>>([]);
-  const [questions, setQuestions] = React.useState<Array<Schema['Questions']['type']>>([]);
+  const [sondages, setSondages] = React.useState<
+    Array<Schema["Sondage"]["type"]>
+  >([]);
+  const [questions, setQuestions] = React.useState<
+    Array<Schema["Questions"]["type"]>
+  >([]);
   const [showSondageForm, setShowSondageForm] = React.useState<boolean>(false);
 
   const router = useRouter();
 
   const toggleSondageForm = () => {
-    setShowSondageForm(prev => !prev);
+    setShowSondageForm((prev) => !prev);
   };
 
   // Store field-specific errors using Zod error paths
-  const [fieldErrors, setFieldErrors] = React.useState<Record<string, string[]>>({});
+  const [fieldErrors, setFieldErrors] = React.useState<
+    Record<string, string[]>
+  >({});
 
   // Helper function to get field-specific errors by path
   const getFieldErrors = (fieldPath: string) => {
@@ -189,42 +242,49 @@ export default function SondageApp() {
 
   React.useEffect(() => {
     try {
-      listSondages()
-      listQuestions()
-    } catch(err) {
-      debug.error(err)
+      listSondages();
+      listQuestions();
+    } catch (err) {
+      debug.error(err);
       // eslint-disable-next-line react-hooks/set-state-in-effect -- set error state on subscription init failure
-      setHasError(true)
+      setHasError(true);
     }
   }, []);
 
   const handleInputChange = (field: keyof SondageFormData, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleStudentChange = (index: number, field: keyof typeof formData.students[0], value: string) => {
+  const handleStudentChange = (
+    index: number,
+    field: keyof (typeof formData.students)[0],
+    value: string,
+  ) => {
     const updatedStudents = [...formData.students];
     updatedStudents[index] = { ...updatedStudents[index], [field]: value };
-    setFormData(prev => ({ ...prev, students: updatedStudents }));
+    setFormData((prev) => ({ ...prev, students: updatedStudents }));
   };
 
-  const handleQuestionChange = (index: number, answer: 'Oui' | 'Non') => {
+  const handleQuestionChange = (index: number, answer: "Oui" | "Non") => {
     const updatedQuestions = [...formData.questions];
     updatedQuestions[index] = { ...updatedQuestions[index], answer };
-    setFormData(prev => ({ ...prev, questions: updatedQuestions }));
+    setFormData((prev) => ({ ...prev, questions: updatedQuestions }));
   };
 
   const addStudent = () => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      students: [...prev.students, { firstname: '', surname: '', level: '' as any }]
+      students: [
+        ...prev.students,
+        { firstname: "", surname: "", level: "" as any },
+      ],
     }));
   };
 
   const removeStudent = (index: number) => {
     if (formData.students.length > 1) {
       const updatedStudents = formData.students.filter((_, i) => i !== index);
-      setFormData(prev => ({ ...prev, students: updatedStudents }));
+      setFormData((prev) => ({ ...prev, students: updatedStudents }));
     }
   };
 
@@ -242,7 +302,7 @@ export default function SondageApp() {
         email: validatedData.email || null,
         session: sessionId,
         comment: validatedData.comment || null,
-        surveyType: 'WEB_APP',
+        surveyType: "WEB_APP",
       });
 
       if (sondageResponse.data) {
@@ -265,16 +325,19 @@ export default function SondageApp() {
           });
         }
 
-        alert('Sondage soumis avec succès !');
+        alert("Sondage soumis avec succès !");
 
         // Reset form and hide it
         setFormData({
-          firstname: '',
-          surname: '',
-          email: '',
-          comment: '',
-          students: [{ firstname: '', surname: '', level: '' as any }],
-          questions: PREDEFINED_QUESTIONS.map(q => ({ question: q, answer: 'Oui' as const }))
+          firstname: "",
+          surname: "",
+          email: "",
+          comment: "",
+          students: [{ firstname: "", surname: "", level: "" as any }],
+          questions: PREDEFINED_QUESTIONS.map((q) => ({
+            question: q,
+            answer: "Oui" as const,
+          })),
         });
         setFieldErrors({});
         setValidationErrors([]);
@@ -289,7 +352,7 @@ export default function SondageApp() {
         const newFieldErrors: Record<string, string[]> = {};
 
         error.issues.forEach((err) => {
-          const path = err.path.join('.');
+          const path = err.path.join(".");
           if (!newFieldErrors[path]) {
             newFieldErrors[path] = [];
           }
@@ -297,10 +360,12 @@ export default function SondageApp() {
         });
 
         setFieldErrors(newFieldErrors);
-        setValidationErrors(error.issues.map((e: { message: string }) => e.message));
+        setValidationErrors(
+          error.issues.map((e: { message: string }) => e.message),
+        );
       } else {
-        debug.error('Erreur lors de la soumission:', error);
-        setValidationErrors(['Erreur lors de la soumission du sondage']);
+        debug.error("Erreur lors de la soumission:", error);
+        setValidationErrors(["Erreur lors de la soumission du sondage"]);
         setFieldErrors({});
       }
     } finally {
@@ -310,27 +375,33 @@ export default function SondageApp() {
 
   const deleteSondage = async (id: string, sondageSession: string) => {
     if (sondageSession !== sessionId) {
-      alert('Vous ne pouvez supprimer que vos propres sondages.');
+      alert("Vous ne pouvez supprimer que vos propres sondages.");
       return;
     }
 
     try {
       await client.models.Sondage.delete({ id });
     } catch (error) {
-      debug.error('Erreur lors de la suppression:', error);
+      debug.error("Erreur lors de la suppression:", error);
     }
   };
 
   if (hasError) {
     return (
-      <Modal active={true} onClose={() => router.push('/home')}>
+      <Modal active={true} onClose={() => router.push("/home")}>
         <InfoBlock>
-          <InfoBlockHeader status={InfoBlockStatus.WARNING} customIcon={IconName.UI_EXCLAMATION_CIRCLE}>
-            <Title level={TitleLevel.LEVEL3}>{`AWS Amplify n'est pas configuré`}</Title>
+          <InfoBlockHeader
+            status={InfoBlockStatus.WARNING}
+            customIcon={IconName.UI_EXCLAMATION_CIRCLE}
+          >
+            <Title
+              level={TitleLevel.LEVEL3}
+            >{`AWS Amplify n'est pas configuré`}</Title>
           </InfoBlockHeader>
           <InfoBlockContent>
             <Title level={TitleLevel.LEVEL4}>
-              Pensez à créer vos identifiants de connexion à AWS Amplify pour utiliser cette page.
+              Pensez à créer vos identifiants de connexion à AWS Amplify pour
+              utiliser cette page.
             </Title>
           </InfoBlockContent>
         </InfoBlock>
@@ -341,346 +412,539 @@ export default function SondageApp() {
   return (
     <View>
       <Box className={classNames(flexStyles.hasTextTertiary)}>
-        <div style={{ maxWidth: '920px' }}>
+        <div style={{ maxWidth: "920px" }}>
           <Section>
-            <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTertiary}>
+            <Title
+              level={TitleLevel.LEVEL2}
+              className={flexStyles.hasTextTertiary}
+            >
               {showSondageForm
                 ? `Merci de remplir ce sondage concernant l'accès à l'application ${`\u00AB`} ${process.env.NEXT_PUBLIC_APP_TITLE} ${`\u00BB`}.`
-                : `Participer au sondage concernant l'accès à l'application ${`\u00AB`} ${process.env.NEXT_PUBLIC_APP_TITLE} ${`\u00BB`}.`
-              }
+                : `Participer au sondage concernant l'accès à l'application ${`\u00AB`} ${process.env.NEXT_PUBLIC_APP_TITLE} ${`\u00BB`}.`}
             </Title>
-            <div style={{ marginTop: '1rem' }}>
+            <div style={{ marginTop: "1rem" }}>
               <Button
                 id="toggle-sondage-form"
                 onClick={toggleSondageForm}
                 variant={VariantState.SECONDARY}
                 markup={ButtonMarkup.BUTTON}
               >
-                {showSondageForm ? 'Masquer le formulaire' : 'Participer'}
+                {showSondageForm ? "Masquer le formulaire" : "Participer"}
               </Button>
             </div>
           </Section>
           {showSondageForm && (
             <div id="sondage-form">
-            {/* Questions Section */}
-            <Section>
-              <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTertiary}>
-                Questions (toutes obligatoires)
-              </Title>
-              {formData.questions.map((question, index) => (
-                <React.Fragment key={index}>
-                  <div className={classNames(
-                    flexStyles.isGridDisplayGrid,
-                    flexStyles.isGridCols12,
-                  )} style={{ margin: '2rem 0 1rem' }}>
-                    <div className={classNames(
-                      flexStyles.isGridDisplayGrid,
-                      flexStyles.isGridColSpan12,
-                    )} style={{ marginBottom: '1rem' }}>
-                      <div className={classNames(
-                        flexStyles.hasTextTertiary,
-                        flexStyles.isFlex, flexStyles.isFlexDirectionRow, flexStyles.isFlexWrapNowrap,
-                        flexStyles.isAlignItemsBaseline,
-                      )}>
-                        <Title level={TitleLevel.LEVEL7} style={{ width: '30px' }}>
-                          <span>{index + 1}.</span>
-                        </Title>
-                        <Text className={classNames(
-                          flexStyles.isMarginless,
-                        )} style={{ width: 'calc(100% - 30px)' }}>
-                          {question.question}
-                        </Text>
+              {/* Questions Section */}
+              <Section>
+                <Title
+                  level={TitleLevel.LEVEL3}
+                  className={flexStyles.hasTextTertiary}
+                >
+                  Questions (toutes obligatoires)
+                </Title>
+                {formData.questions.map((question, index) => (
+                  <React.Fragment key={index}>
+                    <div
+                      className={classNames(
+                        flexStyles.isGridDisplayGrid,
+                        flexStyles.isGridCols12,
+                      )}
+                      style={{ margin: "2rem 0 1rem" }}
+                    >
+                      <div
+                        className={classNames(
+                          flexStyles.isGridDisplayGrid,
+                          flexStyles.isGridColSpan12,
+                        )}
+                        style={{ marginBottom: "1rem" }}
+                      >
+                        <div
+                          className={classNames(
+                            flexStyles.hasTextTertiary,
+                            flexStyles.isFlex,
+                            flexStyles.isFlexDirectionRow,
+                            flexStyles.isFlexWrapNowrap,
+                            flexStyles.isAlignItemsBaseline,
+                          )}
+                        >
+                          <Title
+                            level={TitleLevel.LEVEL7}
+                            style={{ width: "30px" }}
+                          >
+                            <span>{index + 1}.</span>
+                          </Title>
+                          <Text
+                            className={classNames(flexStyles.isMarginless)}
+                            style={{ width: "calc(100% - 30px)" }}
+                          >
+                            {question.question}
+                          </Text>
+                        </div>
+                      </div>
+                      <div
+                        className={classNames(
+                          flexStyles.isGridDisplayGrid,
+                          flexStyles.isGridGap4,
+                          flexStyles.isGridCols2,
+                          flexStyles.isGridColSpan12,
+                          flexStyles.isGridColSpan8Tablet,
+                          flexStyles.isGridColStart1,
+                          flexStyles.isGridColStart3Tablet,
+                          flexStyles.isGridItemsCenter,
+                          flexStyles.isGridJustifyItemsCenter,
+                        )}
+                        style={{ marginBottom: "1rem" }}
+                      >
+                        <Radio
+                          name={`question-${index}`}
+                          id={`question-sourceandco-oui-${index}`}
+                          value="Oui"
+                          label="Oui"
+                          checked={question.answer === "Oui"}
+                          onChange={() => handleQuestionChange(index, "Oui")}
+                        />
+                        <Radio
+                          name={`question-${index}`}
+                          id={`question-sourceandco-non-${index}`}
+                          value="Non"
+                          label="Non"
+                          checked={question.answer === "Non"}
+                          onChange={() => handleQuestionChange(index, "Non")}
+                        />
                       </div>
                     </div>
-                    <div className={classNames(
-                      flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-                      flexStyles.isGridCols2,
-                      flexStyles.isGridColSpan12, flexStyles.isGridColSpan8Tablet,
-                      flexStyles.isGridColStart1, flexStyles.isGridColStart3Tablet,
-                      flexStyles.isGridItemsCenter,
-                      flexStyles.isGridJustifyItemsCenter,
-                    )} style={{ marginBottom: '1rem' }}>
-                      <Radio
-                        name={`question-${index}`}
-                        id={`question-sourceandco-oui-${index}`}
-                        value="Oui"
-                        label="Oui"
-                        checked={question.answer === 'Oui'}
-                        onChange={() => handleQuestionChange(index, 'Oui')}
-                      />
-                      <Radio
-                        name={`question-${index}`}
-                        id={`question-sourceandco-non-${index}`}
-                        value="Non"
-                        label="Non"
-                        checked={question.answer === 'Non'}
-                        onChange={() => handleQuestionChange(index, 'Non')}
-                      />
-                    </div>
-                  </div>
-                  {index < (formData.questions.length - 1) && (
-                    <Divider />
-                  )}
-                </React.Fragment >
-              ))}
-            </Section>
+                    {index < formData.questions.length - 1 && <Divider />}
+                  </React.Fragment>
+                ))}
+              </Section>
 
-            {/* Parent Information */}
-            <Section>
-              <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTertiary}>
-                Informations Parent
-              </Title>
-
-              <div className={classNames(
-                flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-                flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
-                flexStyles.isGridItemsCenter,
-              )} style={{ marginBottom: '1rem' }}>
-                <div className={classNames(
-                  flexStyles.isGridDisplayGrid,
-                  flexStyles.isGridItemsStart,
-                  flexStyles.isFullheight,
-                )}>
-                  <Input
-                    id={`parent-info-sourceandco-firstname`}
-                    placeholder="Prénom *"
-                    value={formData.firstname}
-                    onChange={(e) => handleInputChange('firstname', e.inputValue)}
-                  />
-                  {getFieldErrors('firstname').map((error, errorIndex) => (
-                    <span key={errorIndex} style={{ color: 'red', fontSize: '0.875rem', display: 'flex', alignItems: 'center', marginTop: '0.5rem' }}>
-                      <StatusIcon size={IconSize.SMALL} position={IconPosition.LEFT} status={IconStatus.WARNING} />
-                      <div style={{ marginBottom: '0.5rem' }}>{error}</div>
-                    </span>
-                  ))}
-                </div>
-                <div className={classNames(
-                  flexStyles.isGridDisplayGrid,
-                  flexStyles.isGridItemsStart,
-                  flexStyles.isFullheight,
-                )}>
-                  <Input
-                    id={`parent-info-sourceandco-surname`}
-                    placeholder="Nom *"
-                    value={formData.surname}
-                    onChange={(e) => handleInputChange('surname', e.inputValue)}
-                  />
-                  {getFieldErrors('surname').map((error, errorIndex) => (
-                    <span key={errorIndex} style={{ color: 'red', fontSize: '0.875rem', display: 'flex', alignItems: 'center', marginTop: '0.5rem' }}>
-                      <StatusIcon size={IconSize.SMALL} position={IconPosition.LEFT} status={IconStatus.WARNING} />
-                      <div style={{ marginBottom: '0.5rem' }}>{error}</div>
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className={classNames(
-                flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-                flexStyles.isGridCols1,
-                flexStyles.isGridItemsCenter,
-              )}>
-                <div className={classNames(
-                  flexStyles.isGridDisplayGrid,
-                  flexStyles.isGridItemsStart,
-                  flexStyles.isFullheight,
-                )}>
-                  <Input
-                    id={`parent-info-sourceandco-email`}
-                    placeholder="Email *"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.inputValue)}
-                  />
-                  {getFieldErrors('email').map((error, errorIndex) => (
-                    <span key={errorIndex} style={{ color: 'red', fontSize: '0.875rem', display: 'flex', alignItems: 'center', marginTop: '0.5rem' }}>
-                      <StatusIcon size={IconSize.SMALL} position={IconPosition.LEFT} status={IconStatus.WARNING} />
-                      <div style={{ marginBottom: '0.5rem' }}>{error}</div>
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Section>
-
-            {/* Students Section */}
-            <Section>
-              <div className={classNames(
-                flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-                flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
-                flexStyles.isGridItemsCenter,
-              )} style={{ marginBottom: '1rem' }}>
-                <Title level={TitleLevel.LEVEL3} className={classNames(flexStyles.hasTextTertiary, flexStyles.isMarginless)}>
-                  Élèves (au moins un requis)
+              {/* Parent Information */}
+              <Section>
+                <Title
+                  level={TitleLevel.LEVEL3}
+                  className={flexStyles.hasTextTertiary}
+                >
+                  Informations Parent
                 </Title>
-                <div>
-                  <Button
-                    id={`students-sourceandco-add`}
-                    onClick={addStudent}
-                    variant={VariantState.SECONDARY}
-                    markup={ButtonMarkup.BUTTON}
-                  >
-                    Ajouter un élève
-                  </Button>
-                </div>
-              </div>
 
-              {formData.students.map((student, index) => (
-                <Box key={index} className={classNames(flexStyles.isFlat, flexStyles.isFlatSecondary)}>
-                  <div className={classNames(
-                    flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-                    flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
+                <div
+                  className={classNames(
+                    flexStyles.isGridDisplayGrid,
+                    flexStyles.isGridGap4,
+                    flexStyles.isGridCols1,
+                    flexStyles.isGridCols2Tablet,
                     flexStyles.isGridItemsCenter,
-                  )} style={{ marginBottom: '1rem' }}>
-                    <div className={classNames(
+                  )}
+                  style={{ marginBottom: "1rem" }}
+                >
+                  <div
+                    className={classNames(
                       flexStyles.isGridDisplayGrid,
                       flexStyles.isGridItemsStart,
                       flexStyles.isFullheight,
-                    )}>
-                      <Input
-                        id={`student-info-sourceandco-firstname-${index}`}
-                        placeholder="Prénom de l&apos;élève *"
-                        value={student.firstname}
-                        onChange={(e) => handleStudentChange(index, 'firstname', e.inputValue)}
-                      />
-                      {getFieldErrors(`students.${index}.firstname`).map((error, errorIndex) => (
-                        <span key={errorIndex} style={{ color: 'red', fontSize: '0.875rem', display: 'flex', alignItems: 'center', marginTop: '0.5rem' }}>
-                          <StatusIcon size={IconSize.SMALL} position={IconPosition.LEFT} status={IconStatus.WARNING} />
-                          <div style={{ marginBottom: '0.5rem' }}>{error}</div>
-                        </span>
-                      ))}
-                    </div>
-                    <div className={classNames(
-                      flexStyles.isGridDisplayGrid,
-                      flexStyles.isGridItemsStart,
-                      flexStyles.isFullheight,
-                    )}>
-                      <Input
-                        id={`student-info-sourceandco-surname-${index}`}
-                        placeholder="Nom de l&apos;élève"
-                        value={student.surname}
-                        onChange={(e) => handleStudentChange(index, 'surname', e.inputValue)}
-                      />
-                    </div>
+                    )}
+                  >
+                    <Input
+                      id={`parent-info-sourceandco-firstname`}
+                      placeholder="Prénom *"
+                      value={formData.firstname}
+                      onChange={(e) =>
+                        handleInputChange("firstname", e.inputValue)
+                      }
+                    />
+                    {getFieldErrors("firstname").map((error, errorIndex) => (
+                      <span
+                        key={errorIndex}
+                        style={{
+                          color: "red",
+                          fontSize: "0.875rem",
+                          display: "flex",
+                          alignItems: "center",
+                          marginTop: "0.5rem",
+                        }}
+                      >
+                        <StatusIcon
+                          size={IconSize.SMALL}
+                          position={IconPosition.LEFT}
+                          status={IconStatus.WARNING}
+                        />
+                        <div style={{ marginBottom: "0.5rem" }}>{error}</div>
+                      </span>
+                    ))}
                   </div>
+                  <div
+                    className={classNames(
+                      flexStyles.isGridDisplayGrid,
+                      flexStyles.isGridItemsStart,
+                      flexStyles.isFullheight,
+                    )}
+                  >
+                    <Input
+                      id={`parent-info-sourceandco-surname`}
+                      placeholder="Nom *"
+                      value={formData.surname}
+                      onChange={(e) =>
+                        handleInputChange("surname", e.inputValue)
+                      }
+                    />
+                    {getFieldErrors("surname").map((error, errorIndex) => (
+                      <span
+                        key={errorIndex}
+                        style={{
+                          color: "red",
+                          fontSize: "0.875rem",
+                          display: "flex",
+                          alignItems: "center",
+                          marginTop: "0.5rem",
+                        }}
+                      >
+                        <StatusIcon
+                          size={IconSize.SMALL}
+                          position={IconPosition.LEFT}
+                          status={IconStatus.WARNING}
+                        />
+                        <div style={{ marginBottom: "0.5rem" }}>{error}</div>
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-                  <div className={classNames(
-                    flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
+                <div
+                  className={classNames(
+                    flexStyles.isGridDisplayGrid,
+                    flexStyles.isGridGap4,
                     flexStyles.isGridCols1,
                     flexStyles.isGridItemsCenter,
-                  )}>
-                    <div className={classNames(
+                  )}
+                >
+                  <div
+                    className={classNames(
                       flexStyles.isGridDisplayGrid,
                       flexStyles.isGridItemsStart,
                       flexStyles.isFullheight,
-                    )}>
-                      <Select name='SCHOOL_LEVELS' dynamicPlaceholder
-                        placeholder={'Niveau scolaire *'}
-                        placeholderId={`student-info-sourceandco-school-level-placeholder-${index}`}
-                        id={`student-info-sourceandco-school-level-${index}`}
-                        value={student.level || ''}
-                        onChange={(e) => handleStudentChange(index, 'level', e.selectValue!)}>
-                        <option value="" disabled>
-                          Sélectionnez un niveau scolaire
-                        </option>
-                        {SCHOOL_LEVELS.map(level => (
-                          <option key={level.value} value={level.value}
-                            id={`student-info-sourceandco-school-levels-option-${level.value}-${index}`}>
-                            {level.label}
-                          </option>
-                        ))}
-                      </Select>
-                      {getFieldErrors(`students.${index}.level`).map((error, errorIndex) => {
-                        const regexZodErrorEnumSchoolLevel = /^Invalid enum value/g
-                        const hasZodErrorEnumSchoolLevel = regexZodErrorEnumSchoolLevel.test(error)
-                        if (!hasZodErrorEnumSchoolLevel) return null
-                        return (
-                          <span key={errorIndex} style={{ color: 'red', fontSize: '0.875rem', display: 'flex', alignItems: 'center', marginTop: '0.5rem' }}>
-                            <StatusIcon size={IconSize.SMALL} position={IconPosition.LEFT} status={IconStatus.WARNING} />
-                            <div style={{ marginBottom: '0.5rem' }}>Veuillez sélectionner un niveau scolaire pour votre enfant</div>
-                          </span>
-                        )
-                      })}
-                    </div>
-                  </div>
-
-                  {formData.students.length > 1 && (
-                    <div className={classNames(
-                      flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-                      flexStyles.isGridCols1,
-                      flexStyles.isGridItemsCenter,
-                    )} style={{ marginTop: '1rem' }}>
-                      <Button
-                        id={`students-sourceandco-remove`}
-                        onClick={() => removeStudent(index)}
-                        variant={VariantState.WARNING}
-                        markup={ButtonMarkup.BUTTON}
+                    )}
+                  >
+                    <Input
+                      id={`parent-info-sourceandco-email`}
+                      placeholder="Email *"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange("email", e.inputValue)}
+                    />
+                    {getFieldErrors("email").map((error, errorIndex) => (
+                      <span
+                        key={errorIndex}
+                        style={{
+                          color: "red",
+                          fontSize: "0.875rem",
+                          display: "flex",
+                          alignItems: "center",
+                          marginTop: "0.5rem",
+                        }}
                       >
-                        Supprimer cet élève
-                      </Button>
-                    </div>
+                        <StatusIcon
+                          size={IconSize.SMALL}
+                          position={IconPosition.LEFT}
+                          status={IconStatus.WARNING}
+                        />
+                        <div style={{ marginBottom: "0.5rem" }}>{error}</div>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Section>
+
+              {/* Students Section */}
+              <Section>
+                <div
+                  className={classNames(
+                    flexStyles.isGridDisplayGrid,
+                    flexStyles.isGridGap4,
+                    flexStyles.isGridCols1,
+                    flexStyles.isGridCols2Tablet,
+                    flexStyles.isGridItemsCenter,
                   )}
-                </Box>
-              ))}
-            </Section>
-
-            {/* Comment Section */}
-            <Section>
-              <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTertiary}>
-                Commentaire (optionnel)
-              </Title>
-
-              <div className={classNames(
-                flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-                flexStyles.isGridCols1,
-                flexStyles.isGridItemsCenter,
-              )}>
-                <Textarea
-                  id={`comments-sourceandco`}
-                  placeholder="Vos commentaires..."
-                  defaultValue={formData.comment}
-                  onChange={(e) => handleInputChange('comment', e.textareaValue)}
-                />
-              </div>
-            </Section>
-
-            {/* Form Errors Section */}
-            <Section>
-              {validationErrors.length > 0 && (
-                // <div className={classNames(
-                //   flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-                //   flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
-                //   flexStyles.isGridItemsCenter,
-                // )} style={{ marginBottom: '1rem' }}>
-                //   {validationErrors.map((error, index) => (
-                //     <span key={index}>
-                //       <StatusIcon size={IconSize.SMALL} position={IconPosition.LEFT} status={IconStatus.WARNING} />
-                //       <div style={{ marginBottom: '0.5rem' }}>{error}</div>
-                //     </span>
-                //   ))}
-                // </div>
-                <InfoBlock>
-                  <InfoBlockHeader status={InfoBlockStatus.WARNING} customIcon={IconName.UI_EXCLAMATION_CIRCLE}>
-                    <Title level={TitleLevel.LEVEL3}>{`Erreur(s) dans le formulaire !!`}</Title>
-                  </InfoBlockHeader>
-                  <InfoBlockContent>
-                    <Title level={TitleLevel.LEVEL4}>
-                      Merci de corriger les erreurs ci-dessus pour pouvoir soumettre votre sondage
-                    </Title>
-                  </InfoBlockContent>
-                </InfoBlock>
-              )}
-              <div className={classNames(flexStyles.isFullwidth, flexStyles.isAlignItemsCenter, flexStyles.isMarginless)}>
-                <Button
-                  id={`students-sourceandco-submit`}
-                  onClick={validateAndSubmit}
-                  variant={VariantState.PRIMARY}
-                  markup={ButtonMarkup.BUTTON}
-                  disabled={isSubmitting}
+                  style={{ marginBottom: "1rem" }}
                 >
-                  <span style={{ marginBottom: '2rem' }}>
-                    {isSubmitting ? 'Envoi en cours...' : 'Soumettre le sondage'}
-                  </span>
-                </Button>
-              </div>
-            </Section>
+                  <Title
+                    level={TitleLevel.LEVEL3}
+                    className={classNames(
+                      flexStyles.hasTextTertiary,
+                      flexStyles.isMarginless,
+                    )}
+                  >
+                    Élèves (au moins un requis)
+                  </Title>
+                  <div>
+                    <Button
+                      id={`students-sourceandco-add`}
+                      onClick={addStudent}
+                      variant={VariantState.SECONDARY}
+                      markup={ButtonMarkup.BUTTON}
+                    >
+                      Ajouter un élève
+                    </Button>
+                  </div>
+                </div>
+
+                {formData.students.map((student, index) => (
+                  <Box
+                    key={index}
+                    className={classNames(
+                      flexStyles.isFlat,
+                      flexStyles.isFlatSecondary,
+                    )}
+                  >
+                    <div
+                      className={classNames(
+                        flexStyles.isGridDisplayGrid,
+                        flexStyles.isGridGap4,
+                        flexStyles.isGridCols1,
+                        flexStyles.isGridCols2Tablet,
+                        flexStyles.isGridItemsCenter,
+                      )}
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <div
+                        className={classNames(
+                          flexStyles.isGridDisplayGrid,
+                          flexStyles.isGridItemsStart,
+                          flexStyles.isFullheight,
+                        )}
+                      >
+                        <Input
+                          id={`student-info-sourceandco-firstname-${index}`}
+                          placeholder="Prénom de l'élève *"
+                          value={student.firstname}
+                          onChange={(e) =>
+                            handleStudentChange(
+                              index,
+                              "firstname",
+                              e.inputValue,
+                            )
+                          }
+                        />
+                        {getFieldErrors(`students.${index}.firstname`).map(
+                          (error, errorIndex) => (
+                            <span
+                              key={errorIndex}
+                              style={{
+                                color: "red",
+                                fontSize: "0.875rem",
+                                display: "flex",
+                                alignItems: "center",
+                                marginTop: "0.5rem",
+                              }}
+                            >
+                              <StatusIcon
+                                size={IconSize.SMALL}
+                                position={IconPosition.LEFT}
+                                status={IconStatus.WARNING}
+                              />
+                              <div style={{ marginBottom: "0.5rem" }}>
+                                {error}
+                              </div>
+                            </span>
+                          ),
+                        )}
+                      </div>
+                      <div
+                        className={classNames(
+                          flexStyles.isGridDisplayGrid,
+                          flexStyles.isGridItemsStart,
+                          flexStyles.isFullheight,
+                        )}
+                      >
+                        <Input
+                          id={`student-info-sourceandco-surname-${index}`}
+                          placeholder="Nom de l'élève"
+                          value={student.surname}
+                          onChange={(e) =>
+                            handleStudentChange(index, "surname", e.inputValue)
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div
+                      className={classNames(
+                        flexStyles.isGridDisplayGrid,
+                        flexStyles.isGridGap4,
+                        flexStyles.isGridCols1,
+                        flexStyles.isGridItemsCenter,
+                      )}
+                    >
+                      <div
+                        className={classNames(
+                          flexStyles.isGridDisplayGrid,
+                          flexStyles.isGridItemsStart,
+                          flexStyles.isFullheight,
+                        )}
+                      >
+                        <Select
+                          name="SCHOOL_LEVELS"
+                          dynamicPlaceholder
+                          placeholder={"Niveau scolaire *"}
+                          placeholderId={`student-info-sourceandco-school-level-placeholder-${index}`}
+                          id={`student-info-sourceandco-school-level-${index}`}
+                          value={student.level || ""}
+                          onChange={(e) =>
+                            handleStudentChange(index, "level", e.selectValue!)
+                          }
+                        >
+                          <option value="" disabled>
+                            Sélectionnez un niveau scolaire
+                          </option>
+                          {SCHOOL_LEVELS.map((level) => (
+                            <option
+                              key={level.value}
+                              value={level.value}
+                              id={`student-info-sourceandco-school-levels-option-${level.value}-${index}`}
+                            >
+                              {level.label}
+                            </option>
+                          ))}
+                        </Select>
+                        {getFieldErrors(`students.${index}.level`).map(
+                          (error, errorIndex) => {
+                            const regexZodErrorEnumSchoolLevel =
+                              /^Invalid enum value/g;
+                            const hasZodErrorEnumSchoolLevel =
+                              regexZodErrorEnumSchoolLevel.test(error);
+                            if (!hasZodErrorEnumSchoolLevel) return null;
+                            return (
+                              <span
+                                key={errorIndex}
+                                style={{
+                                  color: "red",
+                                  fontSize: "0.875rem",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  marginTop: "0.5rem",
+                                }}
+                              >
+                                <StatusIcon
+                                  size={IconSize.SMALL}
+                                  position={IconPosition.LEFT}
+                                  status={IconStatus.WARNING}
+                                />
+                                <div style={{ marginBottom: "0.5rem" }}>
+                                  Veuillez sélectionner un niveau scolaire pour
+                                  votre enfant
+                                </div>
+                              </span>
+                            );
+                          },
+                        )}
+                      </div>
+                    </div>
+
+                    {formData.students.length > 1 && (
+                      <div
+                        className={classNames(
+                          flexStyles.isGridDisplayGrid,
+                          flexStyles.isGridGap4,
+                          flexStyles.isGridCols1,
+                          flexStyles.isGridItemsCenter,
+                        )}
+                        style={{ marginTop: "1rem" }}
+                      >
+                        <Button
+                          id={`students-sourceandco-remove`}
+                          onClick={() => removeStudent(index)}
+                          variant={VariantState.WARNING}
+                          markup={ButtonMarkup.BUTTON}
+                        >
+                          Supprimer cet élève
+                        </Button>
+                      </div>
+                    )}
+                  </Box>
+                ))}
+              </Section>
+
+              {/* Comment Section */}
+              <Section>
+                <Title
+                  level={TitleLevel.LEVEL3}
+                  className={flexStyles.hasTextTertiary}
+                >
+                  Commentaire (optionnel)
+                </Title>
+
+                <div
+                  className={classNames(
+                    flexStyles.isGridDisplayGrid,
+                    flexStyles.isGridGap4,
+                    flexStyles.isGridCols1,
+                    flexStyles.isGridItemsCenter,
+                  )}
+                >
+                  <Textarea
+                    id={`comments-sourceandco`}
+                    placeholder="Vos commentaires..."
+                    defaultValue={formData.comment}
+                    onChange={(e) =>
+                      handleInputChange("comment", e.textareaValue)
+                    }
+                  />
+                </div>
+              </Section>
+
+              {/* Form Errors Section */}
+              <Section>
+                {validationErrors.length > 0 && (
+                  // <div className={classNames(
+                  //   flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
+                  //   flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
+                  //   flexStyles.isGridItemsCenter,
+                  // )} style={{ marginBottom: '1rem' }}>
+                  //   {validationErrors.map((error, index) => (
+                  //     <span key={index}>
+                  //       <StatusIcon size={IconSize.SMALL} position={IconPosition.LEFT} status={IconStatus.WARNING} />
+                  //       <div style={{ marginBottom: '0.5rem' }}>{error}</div>
+                  //     </span>
+                  //   ))}
+                  // </div>
+                  <InfoBlock>
+                    <InfoBlockHeader
+                      status={InfoBlockStatus.WARNING}
+                      customIcon={IconName.UI_EXCLAMATION_CIRCLE}
+                    >
+                      <Title
+                        level={TitleLevel.LEVEL3}
+                      >{`Erreur(s) dans le formulaire !!`}</Title>
+                    </InfoBlockHeader>
+                    <InfoBlockContent>
+                      <Title level={TitleLevel.LEVEL4}>
+                        Merci de corriger les erreurs ci-dessus pour pouvoir
+                        soumettre votre sondage
+                      </Title>
+                    </InfoBlockContent>
+                  </InfoBlock>
+                )}
+                <div
+                  className={classNames(
+                    flexStyles.isFullwidth,
+                    flexStyles.isAlignItemsCenter,
+                    flexStyles.isMarginless,
+                  )}
+                >
+                  <Button
+                    id={`students-sourceandco-submit`}
+                    onClick={validateAndSubmit}
+                    variant={VariantState.PRIMARY}
+                    markup={ButtonMarkup.BUTTON}
+                    disabled={isSubmitting}
+                  >
+                    <span style={{ marginBottom: "2rem" }}>
+                      {isSubmitting
+                        ? "Envoi en cours..."
+                        : "Soumettre le sondage"}
+                    </span>
+                  </Button>
+                </div>
+              </Section>
             </div>
           )}
 
@@ -688,107 +952,166 @@ export default function SondageApp() {
           {sondages.length > 0 && (
             <>
               <Section>
-                <Title level={TitleLevel.LEVEL2} className={flexStyles.hasTextTertiary}>
+                <Title
+                  level={TitleLevel.LEVEL2}
+                  className={flexStyles.hasTextTertiary}
+                >
                   Résultat des sondages soumis
                 </Title>
 
                 {/* Results Tally */}
-                <div style={{ marginTop: '2rem' }}>
-                  <Title level={TitleLevel.LEVEL4} className={flexStyles.hasTextTertiary}>
+                <div style={{ marginTop: "2rem" }}>
+                  <Title
+                    level={TitleLevel.LEVEL4}
+                    className={flexStyles.hasTextTertiary}
+                  >
                     Répartition des réponses par question
                   </Title>
-                  {PREDEFINED_QUESTIONS.map((questionElement, questionIndex) => {
-                    // Get all answers for this specific question text from all submitted surveys
-                    const questionText = getQuestionText(questionElement);
+                  {PREDEFINED_QUESTIONS.map(
+                    (questionElement, questionIndex) => {
+                      // Get all answers for this specific question text from all submitted surveys
+                      const questionText = getQuestionText(questionElement);
 
-                    // Simple exact matching since questions now use consistent environment variable
-                    const allAnswersForQuestion = questions.filter(q => q.question === questionText);
+                      // Simple exact matching since questions now use consistent environment variable
+                      const allAnswersForQuestion = questions.filter(
+                        (q) => q.question === questionText,
+                      );
 
-                    const totalAnswers = allAnswersForQuestion.length;
-                    const ouiCount = allAnswersForQuestion.filter(q => q.answer === 'Oui').length;
-                    const nonCount = allAnswersForQuestion.filter(q => q.answer === 'Non').length;
+                      const totalAnswers = allAnswersForQuestion.length;
+                      const ouiCount = allAnswersForQuestion.filter(
+                        (q) => q.answer === "Oui",
+                      ).length;
+                      const nonCount = allAnswersForQuestion.filter(
+                        (q) => q.answer === "Non",
+                      ).length;
 
-                    const ouiPercentage = totalAnswers > 0 ? Math.round((ouiCount / totalAnswers) * 100) : 0;
-                    const nonPercentage = totalAnswers > 0 ? Math.round((nonCount / totalAnswers) * 100) : 0;
+                      const ouiPercentage =
+                        totalAnswers > 0
+                          ? Math.round((ouiCount / totalAnswers) * 100)
+                          : 0;
+                      const nonPercentage =
+                        totalAnswers > 0
+                          ? Math.round((nonCount / totalAnswers) * 100)
+                          : 0;
 
-                    return (
-                      <div key={questionIndex} style={{
-                        border: '1px solid #e0e0e0',
-                        padding: '1rem',
-                        marginBottom: '1rem',
-                        borderRadius: '4px',
-                        backgroundColor: '#f9f9f9'
-                      }}>
-                        <Text className={flexStyles.hasTextTertiary} style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
-                          Question {questionIndex + 1}: {questionElement}
-                        </Text>
-
-                        <div className={classNames(
-                          flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-                          flexStyles.isGridCols2,
-                          flexStyles.isGridItemsCenter,
-                        )} style={{ marginTop: '1rem' }}>
-                          <div style={{
-                            backgroundColor: '#e8f5e8',
-                            padding: '0.75rem',
-                            borderRadius: '4px',
-                            textAlign: 'center'
-                          }}>
-                            <Text style={{ fontWeight: 'bold', color: '#2d5016' }}>
-                              Oui: {ouiPercentage}% ({ouiCount} réponses)
-                            </Text>
-                          </div>
-
-                          <div style={{
-                            backgroundColor: '#ffe8e8',
-                            padding: '0.75rem',
-                            borderRadius: '4px',
-                            textAlign: 'center'
-                          }}>
-                            <Text style={{ fontWeight: 'bold', color: '#8b1538' }}>
-                              Non: {nonPercentage}% ({nonCount} réponses)
-                            </Text>
-                          </div>
-                        </div>
-
-                        {totalAnswers === 0 && (
-                          <Text style={{
-                            fontStyle: 'italic',
-                            color: '#666',
-                            textAlign: 'center',
-                            marginTop: '0.5rem'
-                          }}>
-                            Aucune réponse encore reçue
+                      return (
+                        <div
+                          key={questionIndex}
+                          style={{
+                            border: "1px solid #e0e0e0",
+                            padding: "1rem",
+                            marginBottom: "1rem",
+                            borderRadius: "4px",
+                            backgroundColor: "#f9f9f9",
+                          }}
+                        >
+                          <Text
+                            className={flexStyles.hasTextTertiary}
+                            style={{
+                              fontWeight: "bold",
+                              marginBottom: "0.5rem",
+                            }}
+                          >
+                            Question {questionIndex + 1}: {questionElement}
                           </Text>
-                        )}
-                      </div>
-                    );
-                  })}
+
+                          <div
+                            className={classNames(
+                              flexStyles.isGridDisplayGrid,
+                              flexStyles.isGridGap4,
+                              flexStyles.isGridCols2,
+                              flexStyles.isGridItemsCenter,
+                            )}
+                            style={{ marginTop: "1rem" }}
+                          >
+                            <div
+                              style={{
+                                backgroundColor: "#e8f5e8",
+                                padding: "0.75rem",
+                                borderRadius: "4px",
+                                textAlign: "center",
+                              }}
+                            >
+                              <Text
+                                style={{ fontWeight: "bold", color: "#2d5016" }}
+                              >
+                                Oui: {ouiPercentage}% ({ouiCount} réponses)
+                              </Text>
+                            </div>
+
+                            <div
+                              style={{
+                                backgroundColor: "#ffe8e8",
+                                padding: "0.75rem",
+                                borderRadius: "4px",
+                                textAlign: "center",
+                              }}
+                            >
+                              <Text
+                                style={{ fontWeight: "bold", color: "#8b1538" }}
+                              >
+                                Non: {nonPercentage}% ({nonCount} réponses)
+                              </Text>
+                            </div>
+                          </div>
+
+                          {totalAnswers === 0 && (
+                            <Text
+                              style={{
+                                fontStyle: "italic",
+                                color: "#666",
+                                textAlign: "center",
+                                marginTop: "0.5rem",
+                              }}
+                            >
+                              Aucune réponse encore reçue
+                            </Text>
+                          )}
+                        </div>
+                      );
+                    },
+                  )}
                 </div>
               </Section>
               <Section>
-                <Title level={TitleLevel.LEVEL3} className={flexStyles.hasTextTertiary}>
+                <Title
+                  level={TitleLevel.LEVEL3}
+                  className={flexStyles.hasTextTertiary}
+                >
                   Participants au sondage
                 </Title>
                 {sondages
                   .sort((a, b) => {
                     // Current session participant appears first
-                    if (a.session === sessionId && b.session !== sessionId) return -1;
-                    if (a.session !== sessionId && b.session === sessionId) return 1;
+                    if (a.session === sessionId && b.session !== sessionId)
+                      return -1;
+                    if (a.session !== sessionId && b.session === sessionId)
+                      return 1;
                     return 0; // Keep original order for other participants
                   })
                   .map((sondage) => (
-                    <div key={sondage.id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem', borderRadius: '4px' }}>
-                    <Text className={flexStyles.hasTextTertiary}>
-                      {sondage.firstname} {sondage.surname} - {sondage.email || "Pas d'email"}
-                    </Text>
+                    <div
+                      key={sondage.id}
+                      style={{
+                        border: "1px solid #ccc",
+                        padding: "1rem",
+                        marginBottom: "1rem",
+                        borderRadius: "4px",
+                      }}
+                    >
+                      <Text className={flexStyles.hasTextTertiary}>
+                        {sondage.firstname} {sondage.surname} -{" "}
+                        {sondage.email || "Pas d'email"}
+                      </Text>
                       {sondage.session === sessionId && (
                         <Button
-                          onClick={() => deleteSondage(sondage.id, sondage.session || '')}
+                          onClick={() =>
+                            deleteSondage(sondage.id, sondage.session || "")
+                          }
                           variant={VariantState.PRIMARY}
                           markup={ButtonMarkup.BUTTON}
                         >
-                          <span style={{ marginTop: '0.5rem' }}>Supprimer</span>
+                          <span style={{ marginTop: "0.5rem" }}>Supprimer</span>
                         </Button>
                       )}
                     </div>

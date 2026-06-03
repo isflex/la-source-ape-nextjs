@@ -8,9 +8,9 @@ const getSiteUrl = (): string => {
   return url.replace(/\/$/, "");
 };
 
-const title = "APE La Source";
-const description =
-  "Le site de l'association des parents d'élèves de l'école nouvelle la Source";
+const title = `${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION}`;
+// const description = `Le site de ${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION_GENERIC} de ${process.env.NEXT_PUBLIC_SCHOOL_TITLE_GENERIC}`;
+const description = `Le site de ${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION_FULL}`;
 const siteUrl = getSiteUrl();
 const flexinessUrl = "https://www.flexiness.com";
 
@@ -51,8 +51,7 @@ const jsonLd = {
       "@type": "Organization",
       "@id": ID_ORG_APE,
       name: title,
-      alternateName:
-        "Association des parents d'élèves de l'École nouvelle La Source",
+      alternateName: `${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION_FULL}`,
       url: siteUrl,
       email: `mailto:${process.env.NEXT_PUBLIC_HELP_EMAIL}`,
       description,

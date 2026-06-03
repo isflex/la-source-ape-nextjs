@@ -35,7 +35,7 @@ const Email: React.FC = () => (
               <div className={stylesPage.contentBlock}>
                 <h2>Bonjour</h2>
                 <p>
-                  {`L'Association des parents d'élèves de La Source met à votre disposition un outil pour `}
+                  {`${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION_GENERIC} de ${process.env.NEXT_PUBLIC_SCHOOL_TITLE_GENERIC} met à votre disposition un outil pour `}
                   <strong>mobiliser les parents accompagnateurs</strong>
                   {` lors des sorties scolaires. Régulièrement, les enseignants ont besoin d'un nombre suffisant d'adultes pour encadrer les groupes d'élèves lorsqu'ils quittent l'enceinte de l'école.`}
                 </p>
