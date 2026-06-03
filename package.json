@@ -27,7 +27,7 @@
     "install:dev": "./bin/pnpm-install.sh",
     "install:prod": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- ./bin/run-install-prod.sh",
     "lint": "cross-env NODE_OPTIONS='--max-old-space-size=8192' turbo run lint --continue --concurrency 1",
-    "kill:all:ports": "pnpm kill-port --port 3001,8061",
+    "kill:all:ports": "pnpm kill-port --port 3001,8061; fuser -k 3001/tcp 8061/tcp 2>/dev/null || true",
     "listen:stripe": "dotenvx run -f $FLEX_PROJ_ROOT/env/public/.env.$FLEX_MODE -- stripe listen --forward-to $FLEX_GATEWAY_HOST/api/cagnotte/webhook/",
     "prepare": "node .husky/install.mjs",
     "reset:compile": "./bin/run-reset-compile.sh",

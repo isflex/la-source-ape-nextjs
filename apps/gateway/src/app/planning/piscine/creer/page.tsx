@@ -1,63 +1,69 @@
 /* eslint-disable no-alert */
 
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation'
-import { generateClient } from 'aws-amplify/data';
-import type { Schema } from '@amplify/data/resource';
-import { useAuthenticator } from '@aws-amplify/ui-react';
-import { signOut } from 'aws-amplify/auth';
-import { debug } from '@flexiness/domain-utils';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { generateClient } from "aws-amplify/data";
+import type { Schema } from "@amplify/data/resource";
+import { useAuthenticator } from "@aws-amplify/ui-react";
+import { signOut } from "aws-amplify/auth";
+import { debug } from "@flexiness/domain-utils";
 
 const client = generateClient<Schema>();
 
-import { LoadingBackdrop } from '@src/components/loading/LoadingBackdrop'
+import { LoadingBackdrop } from "@src/components/loading/LoadingBackdrop";
 
-import classNames from 'classnames';
-import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
-import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
-import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
-import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
+import classNames from "classnames";
+import { Box } from "@flex-design-system/react-ts/client-sync-styled-direct/box";
+import {
+  Button,
+  ButtonMarkup,
+} from "@flex-design-system/react-ts/client-sync-styled-direct/button";
+import { Container } from "@flex-design-system/react-ts/client-sync-styled-direct/container";
+import { Section } from "@flex-design-system/react-ts/client-sync-styled-direct/section";
 import {
   Table,
   TableHead,
   TableBody,
   TableTr,
   TableTh,
-  TableTd
-} from '@flex-design-system/react-ts/client-sync-styled-direct/table';
-import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
-import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
+  TableTd,
+} from "@flex-design-system/react-ts/client-sync-styled-direct/table";
+import {
+  Title,
+  TitleLevel,
+} from "@flex-design-system/react-ts/client-sync-styled-direct/title";
+import { VariantState } from "@flex-design-system/react-ts/client-sync-styled-direct/objects";
 import {
   InfoBlock,
   InfoBlockContent,
   InfoBlockHeader,
-  InfoBlockStatus
-} from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
+  InfoBlockStatus,
+} from "@flex-design-system/react-ts/client-sync-styled-direct/info-block";
 import {
   Icon,
   IconName,
   IconSize,
-  IconPosition
-} from '@flex-design-system/react-ts/client-sync-styled-direct/icon';
+  IconPosition,
+} from "@flex-design-system/react-ts/client-sync-styled-direct/icon";
 import {
   Stepper,
   StepperStep,
   StepperStepMarkup,
-} from '@flex-design-system/react-ts/client-sync-styled-direct/stepper';
-import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
-import { default as flexStyles } from '@flex-design-system/framework';
-import PiscineForm from '@src/components/piscine/PiscineForm';
-import AuthBanner from '@src/components/auth/AuthBanner';
-import { useSafeAgentContext } from '@flexiness/copilotkit';
+} from "@flex-design-system/react-ts/client-sync-styled-direct/stepper";
+import { Text } from "@flex-design-system/react-ts/client-sync-styled-direct/text";
+import { default as flexStyles } from "@flex-design-system/framework";
+import PiscineForm from "@src/components/piscine/PiscineForm";
+import AuthBanner from "@src/components/auth/AuthBanner";
+import { useSafeAgentContext } from "@flexiness/copilotkit";
 
 type PiscineFormData = {
   id: string;
   title: string;
   slug: string;
   isMultiDay?: boolean | null;
-  schoolLevel: Schema['ESchoolLevel']['type'];
+  schoolLevel: Schema["ESchoolLevel"]["type"];
   teacherName: string;
   owner: string;
   createdAt: string;
@@ -69,7 +75,6 @@ export default function PiscineCreerPage() {
   const { user } = useAuthenticator();
   const isAuthenticated = !!user;
 
-
   const [showForm, setShowForm] = useState(false);
   const [editingFormId, setEditingFormId] = useState<string | null>(null);
   const [forms, setForms] = useState<PiscineFormData[]>([]);
@@ -78,19 +83,25 @@ export default function PiscineCreerPage() {
   const [mounted, setMounted] = useState(false);
   const [createSuccess, setCreateSuccess] = useState<string | null>(null);
   const [createError, setCreateError] = useState<string | null>(null);
-  const [formTimeSlots, setFormTimeSlots] = useState<Record<string, Array<{
-    dayOfWeek: Schema['EDayOfWeek']['type'];
-    startTime: string;
-    endTime: string;
-  }>>>({});
+  const [formTimeSlots, setFormTimeSlots] = useState<
+    Record<
+      string,
+      Array<{
+        dayOfWeek: Schema["EDayOfWeek"]["type"];
+        startTime: string;
+        endTime: string;
+      }>
+    >
+  >({});
   const formRef = React.useRef<HTMLDivElement>(null);
 
   // CopilotKit v2: Expose page context to AI agent
   useSafeAgentContext({
-    description: 'Current page context - Pool (Piscine) planning management page for organizing parent volunteer schedules',
+    description:
+      'Current page context - Planning management page for organizing schedules of volunteer accompanying parents (parents accompagnateurs) on school trips/outings commonly named "Swimming pool outings" ("Plannings Piscine" in French). It is NOT for enrolling children: parents sign up as supervising adults.',
     value: {
-      page: 'planning/piscine/creer',
-      pageTitle: 'Gestion des Plannings Piscine',
+      page: "planning/piscine/creer",
+      pageTitle: "Gestion des Plannings Piscine",
       isAuthenticated,
       totalForms: forms.length,
       showingForm: showForm,
@@ -99,8 +110,9 @@ export default function PiscineCreerPage() {
   });
 
   useSafeAgentContext({
-    description: 'List of pool planning forms with time slots',
-    value: forms.map(form => ({
+    description:
+      'List of planning forms with time slots on which parents volunteer as accompanying adults (parents accompagnateurs) for school trips commonly named "Swimming pool outings" ("Plannings Piscine" in French)',
+    value: forms.map((form) => ({
       id: form.id,
       title: form.title,
       slug: form.slug,
@@ -114,25 +126,25 @@ export default function PiscineCreerPage() {
   const loadTimeSlots = async (formId: string) => {
     try {
       const { data: timeSlots } = await client.models.PiscineTimeSlot.list({
-        filter: { piscineFormId: { eq: formId } }
+        filter: { piscineFormId: { eq: formId } },
       });
 
       if (timeSlots && timeSlots.length > 0) {
         const sortedTimeSlots = timeSlots
           .sort((a, b) => (a.order || 0) - (b.order || 0))
-          .map(ts => ({
-            dayOfWeek: ts.dayOfWeek as Schema['EDayOfWeek']['type'],
+          .map((ts) => ({
+            dayOfWeek: ts.dayOfWeek as Schema["EDayOfWeek"]["type"],
             startTime: ts.startTime,
-            endTime: ts.endTime
+            endTime: ts.endTime,
           }));
 
-        setFormTimeSlots(prev => ({
+        setFormTimeSlots((prev) => ({
           ...prev,
-          [formId]: sortedTimeSlots
+          [formId]: sortedTimeSlots,
         }));
       }
     } catch (error) {
-      debug.error('Error loading time slots:', error);
+      debug.error("Error loading time slots:", error);
     }
   };
 
@@ -143,8 +155,8 @@ export default function PiscineCreerPage() {
       if (isAuthenticated) {
         const { unsubscribe } = client.models.PiscineForm.observeQuery({
           filter: {
-            owner: { eq: user?.userId || '' }
-          }
+            owner: { eq: user?.userId || "" },
+          },
         }).subscribe({
           next: async ({ items }) => {
             setForms(items || []);
@@ -159,17 +171,17 @@ export default function PiscineCreerPage() {
             setLoading(false);
           },
           error: (error) => {
-            setError('Error loading piscine forms');
-            debug.error('Error loading forms:', error);
+            setError("Error loading piscine forms");
+            debug.error("Error loading forms:", error);
             setLoading(false);
-          }
+          },
         });
 
         return unsubscribe;
       }
     } catch (err) {
-      setError('Error loading piscine forms');
-      debug.error('Error loading forms:', err);
+      setError("Error loading piscine forms");
+      debug.error("Error loading forms:", err);
     } finally {
       setLoading(false);
     }
@@ -195,23 +207,21 @@ export default function PiscineCreerPage() {
     return (
       <Container>
         <Section>
-          <Title level={TitleLevel.LEVEL1}>
-            Gestion des Plannings Piscine
-          </Title>
-          <LoadingBackdrop loadingText={'Chargement...'} />
+          <Title level={TitleLevel.LEVEL1}>Gestion des Plannings Piscine</Title>
+          <LoadingBackdrop loadingText={"Chargement..."} />
         </Section>
       </Container>
     );
   }
 
   const handleAdminToggle = async () => {
-    const returnUrl = encodeURIComponent('/planning/piscine/creer/');
+    const returnUrl = encodeURIComponent("/planning/piscine/creer/");
     if (isAuthenticated) {
       await signOut({
         global: false,
         oauth: {
-          redirectUrl: `/auth/?returnUrl=${returnUrl}`
-        }
+          redirectUrl: `/auth/?returnUrl=${returnUrl}`,
+        },
       });
       setShowForm(false);
     } else {
@@ -221,46 +231,48 @@ export default function PiscineCreerPage() {
   };
 
   const handleDeleteForm = async (id: string, title: string) => {
-    const confirmed = window.confirm(`Êtes-vous sûr de vouloir supprimer ce planning: "${title}" ?`);
+    const confirmed = window.confirm(
+      `Êtes-vous sûr de vouloir supprimer ce planning: "${title}" ?`,
+    );
     if (!confirmed) return;
 
     try {
       const response = await client.models.PiscineForm.delete({ id });
 
       if (response.errors) {
-        alert('Erreur lors de la suppression du planning');
+        alert("Erreur lors de la suppression du planning");
       } else {
         await loadForms();
       }
     } catch (err) {
-      alert('Erreur lors de la suppression du planning');
-      debug.error('Error deleting form:', err);
+      alert("Erreur lors de la suppression du planning");
+      debug.error("Error deleting form:", err);
     }
   };
 
   const handleViewOnline = (form: PiscineFormData) => {
     const url = `/planning/piscine/${form.slug}`;
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
-  const formatDayOfWeek = (day: Schema['EDayOfWeek']['type']) => {
-    const dayMap: Record<Schema['EDayOfWeek']['type'], string> = {
-      'MONDAY': 'Lundi',
-      'TUESDAY': 'Mardi',
-      'WEDNESDAY': 'Mercredi',
-      'THURSDAY': 'Jeudi',
-      'FRIDAY': 'Vendredi'
+  const formatDayOfWeek = (day: Schema["EDayOfWeek"]["type"]) => {
+    const dayMap: Record<Schema["EDayOfWeek"]["type"], string> = {
+      MONDAY: "Lundi",
+      TUESDAY: "Mardi",
+      WEDNESDAY: "Mercredi",
+      THURSDAY: "Jeudi",
+      FRIDAY: "Vendredi",
     };
     return dayMap[day] || day;
   };
 
-  const formatShortDayOfWeek = (day: Schema['EDayOfWeek']['type']) => {
-    const dayMap: Record<Schema['EDayOfWeek']['type'], string> = {
-      'MONDAY': 'Lun',
-      'TUESDAY': 'Mar',
-      'WEDNESDAY': 'Mer',
-      'THURSDAY': 'Jeu',
-      'FRIDAY': 'Ven'
+  const formatShortDayOfWeek = (day: Schema["EDayOfWeek"]["type"]) => {
+    const dayMap: Record<Schema["EDayOfWeek"]["type"], string> = {
+      MONDAY: "Lun",
+      TUESDAY: "Mar",
+      WEDNESDAY: "Mer",
+      THURSDAY: "Jeu",
+      FRIDAY: "Ven",
     };
     return dayMap[day] || day;
   };
@@ -270,14 +282,17 @@ export default function PiscineCreerPage() {
       <AuthBanner />
       <Container>
         <Section>
-          <Title level={TitleLevel.LEVEL1} className={classNames(
+          <Title
+            level={TitleLevel.LEVEL1}
+            className={classNames(
               flexStyles.isFullwidth,
               flexStyles.hasTextCentered,
-            )}>
+            )}
+          >
             Gestion des Plannings Piscine
           </Title>
 
-          <div style={{ marginTop: '1.5rem', marginBottom: '1rem' }}>
+          <div style={{ marginTop: "1.5rem", marginBottom: "1rem" }}>
             <Stepper
               centered
               className={classNames(
@@ -285,42 +300,46 @@ export default function PiscineCreerPage() {
                 flexStyles.isFlex,
                 flexStyles.isJustifiedCenter,
                 flexStyles.isPaddingless,
-                flexStyles.isTransparentOnly
-              )}>
-                <StepperStep
-                  markup={StepperStepMarkup.DIV}
-                  validated
-                  highlighted
-                  label='Créez un formulaire qui définit les dates du planning'
-                  labelTablet='Créer votre formulaire'
-                  labelMobile='Créer votre formulaire'
-                  step={1}
-                />
-                <StepperStep
-                  markup={StepperStepMarkup.DIV}
-                  done
-                  highlighted
-                  label={`Partagez votre formulaire pour que d'autres parents puissent participer`}
-                  labelTablet='Partagez votre formulaire'
-                  labelMobile='Partagez votre formulaire'
-                  step={2}
-                />
-                <StepperStep
-                  markup={StepperStepMarkup.DIV}
-                  active
-                  current
-                  label={`Gérer les participants et partager les résultats avec l'enseignant`}
-                  labelTablet='Gérer les participants'
-                  labelMobile='Gérer les participants'
-                  step={3}
-                />
+                flexStyles.isTransparentOnly,
+              )}
+            >
+              <StepperStep
+                markup={StepperStepMarkup.DIV}
+                validated
+                highlighted
+                label="Créez un formulaire qui définit les dates du planning"
+                labelTablet="Créer votre formulaire"
+                labelMobile="Créer votre formulaire"
+                step={1}
+              />
+              <StepperStep
+                markup={StepperStepMarkup.DIV}
+                done
+                highlighted
+                label={`Partagez votre formulaire pour que d'autres parents puissent participer`}
+                labelTablet="Partagez votre formulaire"
+                labelMobile="Partagez votre formulaire"
+                step={2}
+              />
+              <StepperStep
+                markup={StepperStepMarkup.DIV}
+                active
+                current
+                label={`Gérer les accompagnateurs et partager les résultats avec l'enseignant`}
+                labelTablet="Gérer les accompagnateurs"
+                labelMobile="Gérer les accompagnateurs"
+                step={3}
+              />
             </Stepper>
           </div>
 
           {/* Success/Error Messages */}
           {createSuccess && (
             <InfoBlock>
-              <InfoBlockHeader status={InfoBlockStatus.SUCCESS} customIcon={IconName.UI_CHECK_CIRCLE}>
+              <InfoBlockHeader
+                status={InfoBlockStatus.SUCCESS}
+                customIcon={IconName.UI_CHECK_CIRCLE}
+              >
                 <Title level={TitleLevel.LEVEL3}>Succès</Title>
               </InfoBlockHeader>
               <InfoBlockContent>
@@ -331,7 +350,10 @@ export default function PiscineCreerPage() {
 
           {createError && (
             <InfoBlock>
-              <InfoBlockHeader status={InfoBlockStatus.DANGER} customIcon={IconName.UI_EXCLAMATION_CIRCLE}>
+              <InfoBlockHeader
+                status={InfoBlockStatus.DANGER}
+                customIcon={IconName.UI_EXCLAMATION_CIRCLE}
+              >
                 <Title level={TitleLevel.LEVEL3}>Erreur</Title>
               </InfoBlockHeader>
               <InfoBlockContent>
@@ -342,12 +364,22 @@ export default function PiscineCreerPage() {
 
           {/* Forms List */}
           <Box>
-            <div style={{ overflowX: 'auto' }}>
+            <div style={{ overflowX: "auto" }}>
               {loading ? (
-                <Text className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>Chargement des plannings...</Text>
+                <Text
+                  className={classNames(
+                    flexStyles.isFullwidth,
+                    flexStyles.hasTextCentered,
+                  )}
+                >
+                  Chargement des plannings...
+                </Text>
               ) : error ? (
                 <InfoBlock>
-                  <InfoBlockHeader status={InfoBlockStatus.DANGER} customIcon={IconName.UI_EXCLAMATION_CIRCLE}>
+                  <InfoBlockHeader
+                    status={InfoBlockStatus.DANGER}
+                    customIcon={IconName.UI_EXCLAMATION_CIRCLE}
+                  >
                     <Title level={TitleLevel.LEVEL3}>Erreur</Title>
                   </InfoBlockHeader>
                   <InfoBlockContent>
@@ -357,37 +389,58 @@ export default function PiscineCreerPage() {
               ) : isAuthenticated ? (
                 <>
                   <Title level={TitleLevel.LEVEL2}>
-                    Mes plannings piscine
+                    Mes plannings sorties scolaires
                   </Title>
 
                   {forms.length === 0 ? (
                     <Text>Aucun planning trouvé.</Text>
                   ) : (
                     <>
-                      {forms.map(form => (
-                        <div key={form.id} className={classNames(
-                            flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
+                      {forms.map((form) => (
+                        <div
+                          key={form.id}
+                          className={classNames(
+                            flexStyles.isGridDisplayGrid,
+                            flexStyles.isGridGap4,
                             flexStyles.isGridCols1,
                             flexStyles.isGridItemsCenter,
-                            flexStyles.isFullwidth
-                          )} style={{ marginTop: '1.5rem'}}>
-                          <Box className={classNames(flexStyles.isFlat, flexStyles.isMarginless)}>
+                            flexStyles.isFullwidth,
+                          )}
+                          style={{ marginTop: "1.5rem" }}
+                        >
+                          <Box
+                            className={classNames(
+                              flexStyles.isFlat,
+                              flexStyles.isMarginless,
+                            )}
+                          >
                             {/* <Title level={TitleLevel.LEVEL7}>{form.title}</Title> */}
 
-                            <div className={classNames(
-                                flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-                                flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
+                            <div
+                              className={classNames(
+                                flexStyles.isGridDisplayGrid,
+                                flexStyles.isGridGap4,
+                                flexStyles.isGridCols1,
+                                flexStyles.isGridCols2Tablet,
                                 flexStyles.isAlignItemsCenter,
                                 flexStyles.isJustifyContentSpaceBetween,
                                 flexStyles.isFullwidth,
-                              )}>
-                              <Title level={TitleLevel.LEVEL7}>{form.title}</Title>
-                              <Text className={classNames(
-                                  flexStyles.help, flexStyles.isInfo, flexStyles.hasTextSmall,
+                              )}
+                            >
+                              <Title level={TitleLevel.LEVEL7}>
+                                {form.title}
+                              </Title>
+                              <Text
+                                className={classNames(
+                                  flexStyles.help,
+                                  flexStyles.isInfo,
+                                  flexStyles.hasTextSmall,
                                   flexStyles.isFullwidth,
                                   flexStyles.isGridDisplayGrid,
-                                  flexStyles.isGridPlaceItemsStart, flexStyles.isGridPlaceItemsEndTablet,
-                                )}>
+                                  flexStyles.isGridPlaceItemsStart,
+                                  flexStyles.isGridPlaceItemsEndTablet,
+                                )}
+                              >
                                 <Icon
                                   content={`Cliquez sur « Voir » pour accéder à la version participative.`}
                                   size={IconSize.SMALL}
@@ -396,25 +449,34 @@ export default function PiscineCreerPage() {
                                 />
                               </Text>
                             </div>
-
                           </Box>
                           <Table className={classNames(flexStyles.isFullwidth)}>
                             <TableHead>
                               <TableTr>
                                 <TableTh className={flexStyles.isHiddenMobile}>
-                                  <div style={{ padding: '0 0.5rem' }}>Jour(s)</div>
+                                  <div style={{ padding: "0 0.5rem" }}>
+                                    Jour(s)
+                                  </div>
                                 </TableTh>
                                 <TableTh className={flexStyles.isHiddenMobile}>
-                                  <div style={{ padding: '0 0.5rem' }}>Horaire(s)</div>
+                                  <div style={{ padding: "0 0.5rem" }}>
+                                    Horaire(s)
+                                  </div>
                                 </TableTh>
                                 <TableTh className={flexStyles.isHiddenMobile}>
-                                  <div style={{ padding: '0 0.5rem' }}>Niveau</div>
+                                  <div style={{ padding: "0 0.5rem" }}>
+                                    Niveau
+                                  </div>
                                 </TableTh>
                                 <TableTh className={flexStyles.isHiddenMobile}>
-                                  <div style={{ padding: '0 0.5rem' }}>Enseignant</div>
+                                  <div style={{ padding: "0 0.5rem" }}>
+                                    Enseignant
+                                  </div>
                                 </TableTh>
                                 <TableTh className={flexStyles.isHiddenMobile}>
-                                  <div style={{ padding: '0 0.5rem' }}>Actions</div>
+                                  <div style={{ padding: "0 0.5rem" }}>
+                                    Actions
+                                  </div>
                                 </TableTh>
                               </TableTr>
                             </TableHead>
@@ -425,146 +487,234 @@ export default function PiscineCreerPage() {
                                   flexStyles.isFlexDirectionColumn,
                                   flexStyles.isFullwidthMobile,
                                   flexStyles.isTableRowTablet,
-                                  flexStyles.isColumnSpanAllTablet
-                                )}>
-                                  <TableTd className={classNames(
+                                  flexStyles.isColumnSpanAllTablet,
+                                )}
+                              >
+                                <TableTd
+                                  className={classNames(
                                     flexStyles.isFlexMobile,
                                     flexStyles.isAlignItemsCenter,
                                     flexStyles.isJustifyContentSpaceBetween,
                                     flexStyles.isDataCellResponsiveHelper,
-                                  )}>
-                                    <div className={classNames(
+                                  )}
+                                >
+                                  <div
+                                    className={classNames(
                                       flexStyles.isHiddenTablet,
                                       flexStyles.isFullwidth,
-                                    )} style={{ backgroundColor: 'var(--flex-table-head-fill)' }}>Jour(s)</div>
-                                    <div className={classNames(
+                                    )}
+                                    style={{
+                                      backgroundColor:
+                                        "var(--flex-table-head-fill)",
+                                    }}
+                                  >
+                                    Jour(s)
+                                  </div>
+                                  <div
+                                    className={classNames(
                                       flexStyles.isFlexMobile,
                                       flexStyles.isFlexDirectionColumn,
                                       flexStyles.isAlignItemsCenter,
                                       flexStyles.isJustifyContentStart,
                                       flexStyles.isFullwidth,
-                                    )} style={{ padding: '0 0.5rem' }}>
-                                      {formTimeSlots[form.id]?.map((ts, index) => {
+                                    )}
+                                    style={{ padding: "0 0.5rem" }}
+                                  >
+                                    {formTimeSlots[form.id]?.map(
+                                      (ts, index) => {
                                         return (
-                                          <div key={index} className={classNames(flexStyles.isFullwidth)}>
+                                          <div
+                                            key={index}
+                                            className={classNames(
+                                              flexStyles.isFullwidth,
+                                            )}
+                                          >
                                             {formatDayOfWeek(ts.dayOfWeek)}
                                           </div>
-                                        )
-                                      })}
-                                    </div>
-                                  </TableTd>
-                                  <TableTd className={classNames(
+                                        );
+                                      },
+                                    )}
+                                  </div>
+                                </TableTd>
+                                <TableTd
+                                  className={classNames(
                                     flexStyles.isFlexMobile,
                                     flexStyles.isAlignItemsCenter,
                                     flexStyles.isJustifyContentSpaceBetween,
                                     flexStyles.isDataCellResponsiveHelper,
-                                  )}>
-                                    <div className={classNames(
+                                  )}
+                                >
+                                  <div
+                                    className={classNames(
                                       flexStyles.isHiddenTablet,
                                       flexStyles.isFullwidth,
-                                    )} style={{ backgroundColor: 'var(--flex-table-head-fill)' }}>Horaire(s)</div>
-                                    <div className={classNames(
+                                    )}
+                                    style={{
+                                      backgroundColor:
+                                        "var(--flex-table-head-fill)",
+                                    }}
+                                  >
+                                    Horaire(s)
+                                  </div>
+                                  <div
+                                    className={classNames(
                                       flexStyles.isFlexMobile,
                                       flexStyles.isFlexDirectionColumn,
                                       flexStyles.isAlignItemsCenter,
                                       flexStyles.isJustifyContentStart,
                                       flexStyles.isFullwidth,
-                                    )} style={{ padding: '0 0.5rem' }}>
-                                      {formTimeSlots[form.id]?.map((ts, index) => {
+                                    )}
+                                    style={{ padding: "0 0.5rem" }}
+                                  >
+                                    {formTimeSlots[form.id]?.map(
+                                      (ts, index) => {
                                         return (
-                                          <div key={index} className={classNames(flexStyles.isFullwidth)}>
-                                            {`${ts.startTime}-${ts.endTime}`}<span className={flexStyles.isInvisibleTablet}>{`\u00A0\u00A0(${formatShortDayOfWeek(ts.dayOfWeek)})`}</span>
+                                          <div
+                                            key={index}
+                                            className={classNames(
+                                              flexStyles.isFullwidth,
+                                            )}
+                                          >
+                                            {`${ts.startTime}-${ts.endTime}`}
+                                            <span
+                                              className={
+                                                flexStyles.isInvisibleTablet
+                                              }
+                                            >{`\u00A0\u00A0(${formatShortDayOfWeek(ts.dayOfWeek)})`}</span>
                                           </div>
-                                        )
-                                      })}
-                                    </div>
-                                  </TableTd>
-                                  <TableTd className={classNames(
+                                        );
+                                      },
+                                    )}
+                                  </div>
+                                </TableTd>
+                                <TableTd
+                                  className={classNames(
                                     flexStyles.isFlexMobile,
                                     flexStyles.isAlignItemsCenter,
                                     flexStyles.isJustifyContentSpaceBetween,
                                     flexStyles.isDataCellResponsiveHelper,
-                                  )}>
-                                    <div className={classNames(
+                                  )}
+                                >
+                                  <div
+                                    className={classNames(
                                       flexStyles.isHiddenTablet,
                                       flexStyles.isFullwidth,
-                                    )} style={{ backgroundColor: 'var(--flex-table-head-fill)' }}>Niveau</div>
-                                    <div className={classNames(
+                                    )}
+                                    style={{
+                                      backgroundColor:
+                                        "var(--flex-table-head-fill)",
+                                    }}
+                                  >
+                                    Niveau
+                                  </div>
+                                  <div
+                                    className={classNames(
                                       flexStyles.isFlexMobile,
                                       flexStyles.isAlignItemsCenter,
                                       flexStyles.isJustifyContentStart,
                                       flexStyles.isFullwidth,
-                                    )} style={{ padding: '0 0.5rem' }}>{form.schoolLevel}</div>
-                                  </TableTd>
-                                  <TableTd className={classNames(
+                                    )}
+                                    style={{ padding: "0 0.5rem" }}
+                                  >
+                                    {form.schoolLevel}
+                                  </div>
+                                </TableTd>
+                                <TableTd
+                                  className={classNames(
                                     flexStyles.isFlexMobile,
                                     flexStyles.isAlignItemsCenter,
                                     flexStyles.isJustifyContentSpaceBetween,
                                     flexStyles.isDataCellResponsiveHelper,
-                                        )}>
-                                    <div className={classNames(
+                                  )}
+                                >
+                                  <div
+                                    className={classNames(
                                       flexStyles.isHiddenTablet,
                                       flexStyles.isFullwidth,
-                                    )} style={{ backgroundColor: 'var(--flex-table-head-fill)' }}>Enseignant</div>
-                                    <div className={classNames(
+                                    )}
+                                    style={{
+                                      backgroundColor:
+                                        "var(--flex-table-head-fill)",
+                                    }}
+                                  >
+                                    Enseignant
+                                  </div>
+                                  <div
+                                    className={classNames(
                                       flexStyles.isFlexMobile,
                                       flexStyles.isAlignItemsCenter,
                                       flexStyles.isJustifyContentStart,
                                       flexStyles.isFullwidth,
-                                    )} style={{ padding: '0 0.5rem' }}>{form.teacherName}</div>
-                                  </TableTd>
-                                  <TableTd className={classNames(
+                                    )}
+                                    style={{ padding: "0 0.5rem" }}
+                                  >
+                                    {form.teacherName}
+                                  </div>
+                                </TableTd>
+                                <TableTd
+                                  className={classNames(
                                     flexStyles.isGridDisplayGrid,
                                     flexStyles.isFullheight,
                                     flexStyles.isFullwidth,
                                     flexStyles.isPaddingless,
-                                  )}>
-                                    <div className={classNames(
-                                      flexStyles.isGridDisplayGrid, flexStyles.isGridGap2,
+                                  )}
+                                >
+                                  <div
+                                    className={classNames(
+                                      flexStyles.isGridDisplayGrid,
+                                      flexStyles.isGridGap2,
                                       // flexStyles.isGridCols1,
-                                      flexStyles.isGridCols1, flexStyles.isGridCols3MobileMax, flexStyles.isGridCols1Tablet,
+                                      flexStyles.isGridCols1,
+                                      flexStyles.isGridCols3MobileMax,
+                                      flexStyles.isGridCols1Tablet,
                                       flexStyles.isAlignItemsCenter,
                                       flexStyles.isJustifyContentCenter,
                                       flexStyles.isJustifiedCenter,
                                       flexStyles.isFullheight,
                                       flexStyles.isFullwidth,
                                     )}
-                                    style={{ padding: '1rem 0 0' }}>
-                                      <Button
-                                        small
-                                        markup={ButtonMarkup.BUTTON}
-                                        variant={VariantState.SECONDARY}
-                                        onClick={() => handleViewOnline(form)}
-                                      >
-                                        Voir
-                                      </Button>
-                                      <Button
-                                        small
-                                        markup={ButtonMarkup.BUTTON}
-                                        variant={VariantState.PRIMARY}
-                                        onClick={() => {
-                                          setEditingFormId(form.id);
-                                          setShowForm(true);
-                                          setCreateSuccess(null);
-                                          setCreateError(null);
-                                          // Scroll to form after state update
-                                          setTimeout(() => {
-                                            formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                          }, 100);
-                                        }}
-                                      >
-                                        Modifier
-                                      </Button>
-                                      <Button
-                                        small
-                                        markup={ButtonMarkup.BUTTON}
-                                        variant={VariantState.DANGER}
-                                        onClick={() => handleDeleteForm(form.id, form.title)}
-                                      >
-                                        Supprimer
-                                      </Button>
-                                    </div>
-                                  </TableTd>
+                                    style={{ padding: "1rem 0 0" }}
+                                  >
+                                    <Button
+                                      small
+                                      markup={ButtonMarkup.BUTTON}
+                                      variant={VariantState.SECONDARY}
+                                      onClick={() => handleViewOnline(form)}
+                                    >
+                                      Voir
+                                    </Button>
+                                    <Button
+                                      small
+                                      markup={ButtonMarkup.BUTTON}
+                                      variant={VariantState.PRIMARY}
+                                      onClick={() => {
+                                        setEditingFormId(form.id);
+                                        setShowForm(true);
+                                        setCreateSuccess(null);
+                                        setCreateError(null);
+                                        // Scroll to form after state update
+                                        setTimeout(() => {
+                                          formRef.current?.scrollIntoView({
+                                            behavior: "smooth",
+                                            block: "start",
+                                          });
+                                        }, 100);
+                                      }}
+                                    >
+                                      Modifier
+                                    </Button>
+                                    <Button
+                                      small
+                                      markup={ButtonMarkup.BUTTON}
+                                      variant={VariantState.DANGER}
+                                      onClick={() =>
+                                        handleDeleteForm(form.id, form.title)
+                                      }
+                                    >
+                                      Supprimer
+                                    </Button>
+                                  </div>
+                                </TableTd>
                               </TableTr>
                             </TableBody>
                           </Table>
@@ -573,16 +723,26 @@ export default function PiscineCreerPage() {
 
                       <Section>
                         <InfoBlock>
-                          <InfoBlockHeader status={InfoBlockStatus.SUCCESS} customIcon={IconName.UI_CHECK_CIRCLE}>
+                          <InfoBlockHeader
+                            status={InfoBlockStatus.SUCCESS}
+                            customIcon={IconName.UI_CHECK_CIRCLE}
+                          >
                             <Title level={TitleLevel.LEVEL3}>
                               Vous avez créé votre formulaire avec succès.
                             </Title>
                           </InfoBlockHeader>
                           <InfoBlockContent size={12}>
                             <Title level={TitleLevel.LEVEL4}>
-                              Pour la consulter en ligne, cliquez sur <span className={classNames(flexStyles.isNowrap)}>« Voir ».</span><br/>
-                              Notez et copiez l&apos;URL de la page.<br/>
-                              C&apos;est cette URL que vous partagerez avec d&apos;autres parents pour qu&apos;ils puissent contribuer.
+                              Pour la consulter en ligne, cliquez sur{" "}
+                              <span className={classNames(flexStyles.isNowrap)}>
+                                « Voir ».
+                              </span>
+                              <br />
+                              Notez et copiez l&apos;URL de la page.
+                              <br />
+                              C&apos;est cette URL que vous partagerez avec
+                              d&apos;autres parents pour qu&apos;ils puissent
+                              contribuer.
                             </Title>
                           </InfoBlockContent>
                         </InfoBlock>
@@ -592,10 +752,12 @@ export default function PiscineCreerPage() {
                 </>
               ) : (
                 <Box>
-                  <Title level={TitleLevel.LEVEL2}>
-                    Accès réservé
-                  </Title>
-                  <Text>Vous devez être connecté pour créer des plannings piscine.</Text>
+                  <Title level={TitleLevel.LEVEL2}>Accès réservé</Title>
+                  <Text>
+                    Vous devez être connecté pour créer des plannings de sorties
+                    scolaires, communément appelés &laquo; plannings piscine
+                    &raquo;.
+                  </Text>
                 </Box>
               )}
             </div>
@@ -603,28 +765,38 @@ export default function PiscineCreerPage() {
 
           {/* Admin Controls */}
           <Box>
-            <div className={classNames(
-              flexStyles.isGridDisplayGrid, flexStyles.isGridGap4,
-              flexStyles.isGridCols1, flexStyles.isGridCols2Tablet,
-              flexStyles.isGridItemsCenter,
-              flexStyles.isFullheight,
-              flexStyles.isFullwidth,
-            )}>
+            <div
+              className={classNames(
+                flexStyles.isGridDisplayGrid,
+                flexStyles.isGridGap4,
+                flexStyles.isGridCols1,
+                flexStyles.isGridCols2Tablet,
+                flexStyles.isGridItemsCenter,
+                flexStyles.isFullheight,
+                flexStyles.isFullwidth,
+              )}
+            >
               <Button
                 markup={ButtonMarkup.BUTTON}
-                variant={isAuthenticated ? VariantState.SUCCESS : VariantState.TERTIARY}
+                variant={
+                  isAuthenticated ? VariantState.SUCCESS : VariantState.TERTIARY
+                }
                 onClick={handleAdminToggle}
               >
-                {isAuthenticated ? 'Déconnexion 🔓' : 'Connexion 🔒'}
+                {isAuthenticated ? "Déconnexion 🔓" : "Connexion 🔒"}
               </Button>
 
               {isAuthenticated && (
                 <Button
                   markup={ButtonMarkup.BUTTON}
-                  variant={showForm ? VariantState.SECONDARY : VariantState.PRIMARY}
+                  variant={
+                    showForm ? VariantState.SECONDARY : VariantState.PRIMARY
+                  }
                   onClick={() => setShowForm(!showForm)}
                 >
-                  {showForm ? 'Cacher le formulaire' : 'Créer un nouveau planning'}
+                  {showForm
+                    ? "Cacher le formulaire"
+                    : "Créer un nouveau planning"}
                 </Button>
               )}
             </div>
@@ -652,7 +824,7 @@ export default function PiscineCreerPage() {
                   setEditingFormId(null); // Reset editing state
                   setCreateError(null);
                 }}
-                existingSlugs={forms.map(f => f.slug)}
+                existingSlugs={forms.map((f) => f.slug)}
                 editingFormId={editingFormId || undefined}
               />
             </div>
