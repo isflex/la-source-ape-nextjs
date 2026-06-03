@@ -4,7 +4,11 @@ import { describe, expect, it } from 'vitest';
 import type Stripe from 'stripe';
 import { mapStripeAccountToConnectFields } from './stripe-connect-sync';
 
-function buildAccount(overrides: Partial<Stripe.Account> & { requirements?: Partial<Stripe.Account.Requirements> } = {}): Stripe.Account {
+type AccountOverrides = Omit<Partial<Stripe.Account>, 'requirements'> & {
+  requirements?: Partial<Stripe.Account.Requirements>;
+};
+
+function buildAccount(overrides: AccountOverrides = {}): Stripe.Account {
   const { requirements, ...rest } = overrides;
   return {
     id: 'acct_test',
