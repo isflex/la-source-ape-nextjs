@@ -4,45 +4,50 @@ export type StepStatus = {
   identityComplete: boolean;
 };
 
-// Identity is only considered ✓ once Stripe has actually verified the documents.
-// Form-submission (`detailsSubmitted`) is necessary but not sufficient — Stripe can hold an
-// account at `details_submitted=true` / `charges_enabled=false` while running internal checks.
-// The user-facing list must reflect that wait, otherwise we show "Configuration terminée"
-// while the badge still reads "EN ATTENTE DE VÉRIFICATION".
+const IDENTITY_PATTERNS = ['verification.document', 'verification.additional_document'];
+
+function matches(req: string, patterns: string[]): boolean {
+  return patterns.some((p) => req.includes(p));
+}
+
+// Each step ticks when the user has submitted the corresponding info to Stripe — not when
+// Stripe finishes its server-side verification (that's reflected by the badge + the
+// "Vos informations sont en cours de vérification" block, not by the tick).
+//
+// Two gotchas we explicitly handle:
+//   * Right after we create the Connect account, the DB record has currentlyDue=[] /
+//     eventuallyDue=[] because we haven't synced from Stripe yet. The `!detailsSubmitted` gate
+//     at the top keeps every step numbered in that window — otherwise the page flashes ticks.
+//   * `create-account-link/route.ts` pre-fills `email`, so Stripe never lists `individual.email`
+//     in currentlyDue. Personal-info detection has to look at the whole `individual.*` family,
+//     not just email.
 export function getStepStatus(
   currentlyDue: (string | null)[] | null | undefined,
   eventuallyDue: (string | null)[] | null | undefined,
   detailsSubmitted: boolean = false,
-  chargesEnabled: boolean = false,
 ): StepStatus {
-  const currentRequirements = currentlyDue?.filter((req): req is string => req !== null) || [];
-  const eventualRequirements = eventuallyDue?.filter((req): req is string => req !== null) || [];
+  const currentRequirements = (currentlyDue ?? []).filter((r): r is string => !!r);
+  const eventualRequirements = (eventuallyDue ?? []).filter((r): r is string => !!r);
 
-  // If no requirements in either array
-  if (currentRequirements.length === 0 && eventualRequirements.length === 0) {
-    return {
-      personalInfoComplete: true,
-      bankingInfoComplete: true,
-      identityComplete: detailsSubmitted && chargesEnabled,
-    };
+  if (!detailsSubmitted) {
+    return { personalInfoComplete: false, bankingInfoComplete: false, identityComplete: false };
   }
 
-  // Personal info complete: individual.email is NOT in currentlyDue
-  // (email is removed once user enters Stripe onboarding and provides it)
-  const hasEmailRequirement = currentRequirements.some(req => req.includes('individual.email'));
+  const identityStillPending =
+    currentRequirements.some((r) => matches(r, IDENTITY_PATTERNS)) ||
+    eventualRequirements.some((r) => matches(r, IDENTITY_PATTERNS));
 
-  // Banking complete: external_account is NOT in currentlyDue
-  const hasBankingRequirement = currentRequirements.some(req => req.includes('external_account'));
+  const bankingStillPending = currentRequirements.some((r) => r.includes('external_account'));
 
-  // Identity: check both arrays, and require detailsSubmitted + chargesEnabled
-  const identityPatterns = ['verification.document', 'verification.additional_document'];
-  const hasIdentityRequirements =
-    currentRequirements.some(req => identityPatterns.some(pattern => req.includes(pattern))) ||
-    eventualRequirements.some(req => identityPatterns.some(pattern => req.includes(pattern)));
+  const personalStillPending = currentRequirements.some(
+    (r) =>
+      (r.startsWith('individual.') && !matches(r, IDENTITY_PATTERNS)) ||
+      r.startsWith('tos_acceptance.'),
+  );
 
   return {
-    personalInfoComplete: !hasEmailRequirement,
-    bankingInfoComplete: !hasBankingRequirement,
-    identityComplete: !hasIdentityRequirements && detailsSubmitted && chargesEnabled,
+    personalInfoComplete: !personalStillPending,
+    bankingInfoComplete: !bankingStillPending,
+    identityComplete: !identityStillPending,
   };
 }

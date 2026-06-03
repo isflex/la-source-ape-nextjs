@@ -298,15 +298,14 @@ interface CreerCagnotteListStepsProps {
   eventuallyDue?: (string | null)[] | null;
   hasStartedOnboarding?: boolean;
   detailsSubmitted?: boolean;
-  chargesEnabled?: boolean;
   title?: string;
 }
 
-const CreerCagnotteListSteps = ({ currentlyDue, eventuallyDue, hasStartedOnboarding = false, detailsSubmitted = false, chargesEnabled = false, title }: CreerCagnotteListStepsProps) => {
+const CreerCagnotteListSteps = ({ currentlyDue, eventuallyDue, hasStartedOnboarding = false, detailsSubmitted = false, title }: CreerCagnotteListStepsProps) => {
   // If onboarding hasn't started yet, show all steps as pending
   // Otherwise, check both currentlyDue AND eventuallyDue to determine completion
   const stepStatus = hasStartedOnboarding
-    ? getStepStatus(currentlyDue, eventuallyDue, detailsSubmitted, chargesEnabled)
+    ? getStepStatus(currentlyDue, eventuallyDue, detailsSubmitted)
     : { personalInfoComplete: false, bankingInfoComplete: false, identityComplete: false };
 
   // Determine the title based on completion status (3 states)

@@ -616,7 +616,6 @@ export default function StripeAccountPage() {
                       eventuallyDue={connectAccount?.eventuallyDue}
                       hasStartedOnboarding
                       detailsSubmitted={connectAccount?.detailsSubmitted || false}
-                      chargesEnabled={connectAccount?.chargesEnabled || false}
                     />
                   </InfoBlockContent>
                 </InfoBlock>
@@ -640,7 +639,6 @@ export default function StripeAccountPage() {
                       eventuallyDue={connectAccount?.eventuallyDue}
                       hasStartedOnboarding={!!connectAccount && connectAccount.accountStatus !== 'NOT_STARTED'}
                       detailsSubmitted={connectAccount?.detailsSubmitted || false}
-                      chargesEnabled={connectAccount?.chargesEnabled || false}
                     />
                     <br/>
                     <Button
@@ -694,7 +692,6 @@ export default function StripeAccountPage() {
                       eventuallyDue={connectAccount?.eventuallyDue}
                       hasStartedOnboarding={!!connectAccount && connectAccount.accountStatus !== 'NOT_STARTED'}
                       detailsSubmitted={connectAccount?.detailsSubmitted || false}
-                      chargesEnabled={connectAccount?.chargesEnabled || false}
                     />
                     <br/>
                     <div style={{ marginTop: '1rem' }}>
