@@ -120,14 +120,52 @@ export default function StripeAccountPage() {
 
   // Handle return from Stripe onboarding
   useEffect(() => {
-    if (searchParams.get('success') === 'true') {
-      // Don't show "terminée avec succès" - the actual status display will reflect the true state
-      // Just show a neutral message indicating we're processing
+    if (searchParams.get('success') !== 'true') return;
+
+    let cancelled = false;
+
+    (async () => {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- react to Stripe redirect URL param on mount
       setSuccess('Étape complétée. Vérification en cours...');
-      // Remove query param
-      router.replace('/cagnotte/compte-stripe/');
-    }
+
+      try {
+        const session = await fetchAuthSession();
+        const accessToken = session.tokens?.accessToken?.toString();
+        const idToken = session.tokens?.idToken?.toString();
+
+        if (!accessToken || !idToken) {
+          debug.warn('[StripeConnect] No tokens available for refresh; relying on polling fallback');
+          return;
+        }
+
+        const response = await fetch('/api/stripe-connect/refresh-account-status', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken},${idToken}`,
+          },
+        });
+
+        if (!response.ok) {
+          const errBody = await response.json().catch(() => ({}));
+          debug.error('[StripeConnect] Refresh endpoint failed:', response.status, errBody);
+          return;
+        }
+
+        const data = await response.json();
+        debug.log('[StripeConnect] Refresh endpoint synced:', data);
+      } catch (err) {
+        debug.error('[StripeConnect] Refresh call threw:', err);
+      } finally {
+        if (!cancelled) {
+          router.replace('/cagnotte/compte-stripe/');
+        }
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, [searchParams, router]);
 
   // Polling fallback for real-time subscription reliability

@@ -6,6 +6,7 @@ import Stripe from "stripe";
 import { getCurrentConfig } from "@src/utils/amplify/configureAmplifyWithPortDetection";
 import { logServerError, type ErrorContext } from "@src/lib/server-error-logger";
 import { getStripeSecrets } from "@src/lib/secrets";
+import { mapStripeAccountToConnectFields } from "@src/lib/stripe-connect-sync";
 import { debug } from "@flexiness/domain-utils";
 
 // Configure Amplify for server-side API routes
@@ -261,43 +262,20 @@ async function handleAccountUpdated(account: Stripe.Account) {
 
     const connectAccount = connectAccounts[0];
 
-    // Determine account status based on Stripe account state
-    let accountStatus: Schema["EStripeAccountStatus"]["type"] = "ONBOARDING_STARTED";
+    const mapped = mapStripeAccountToConnectFields(account, connectAccount);
 
-    if (account.charges_enabled && account.payouts_enabled) {
-      accountStatus = "ACTIVE";
-    } else if (account.details_submitted) {
-      accountStatus = "ONBOARDING_COMPLETE";
-    } else if (account.requirements?.currently_due && account.requirements.currently_due.length > 0) {
-      // Has pending requirements - show as RESTRICTED (recoverable)
-      accountStatus = "RESTRICTED";
-    } else if (account.requirements?.disabled_reason && account.requirements.disabled_reason !== "requirements.past_due") {
-      // Only set DISABLED for real issues (fraud, compliance) - not just past_due
-      accountStatus = "DISABLED";
-    }
-
-    // Update StripeConnectAccount with latest info from Stripe
     debug.webhooks("account.updated processing:", {
       stripeAccountId: account.id,
       chargesEnabled: account.charges_enabled,
       payoutsEnabled: account.payouts_enabled,
       detailsSubmitted: account.details_submitted,
-      computedStatus: accountStatus,
+      computedStatus: mapped.accountStatus,
     });
 
     await client.models.StripeConnectAccount.update({
       id: connectAccount.id,
-      accountStatus,
-      onboardingComplete: account.details_submitted || false,
-      chargesEnabled: account.charges_enabled || false,
-      payoutsEnabled: account.payouts_enabled || false,
-      detailsSubmitted: account.details_submitted || false,
-      currentlyDue: account.requirements?.currently_due || [],
-      eventuallyDue: account.requirements?.eventually_due || [],
-      pastDue: account.requirements?.past_due || [],
-      disabledReason: account.requirements?.disabled_reason || undefined,
-      onboardingCompletedAt: account.charges_enabled && account.payouts_enabled ? new Date().toISOString() : connectAccount.onboardingCompletedAt,
-      updatedAt: new Date().toISOString(), // Explicit update to ensure subscription change detection
+      ...mapped,
+      updatedAt: new Date().toISOString(),
     });
   } catch (error) {
     await logWebhookError(error, "account.updated", {

@@ -96,14 +96,19 @@ The webhook endpoint (`POST /api/cagnotte/webhook/`) handles the following Strip
 1. Go to **Developers > Webhooks** in the Stripe Dashboard
 2. Click **Add endpoint**
 3. Set the endpoint URL: `https://yourdomain.com/api/cagnotte/webhook/`
-4. Select events:
+4. **Set "Listen to events on" to `Connected accounts`** (not "Account") — `account.updated` for an Express connected account is a Connect event and is only delivered to endpoints that opt in. Without this, the platform endpoint receives checkout/charge events but never the connected-account onboarding update, leaving `StripeConnectAccount` stuck at `ONBOARDING_STARTED`. If both platform and connected events are needed, either flip the toggle to include both or register a second endpoint.
+5. Select events:
    - `checkout.session.completed`
    - `checkout.session.expired`
    - `payment_intent.payment_failed`
    - `charge.refunded`
    - `account.updated`
-5. Copy the webhook signing secret
-6. Store it as `FLEX_STRIPE_WEBHOOK_SECRET` (in AWS Secrets Manager for production)
+6. Copy the webhook signing secret
+7. Store it as `FLEX_STRIPE_WEBHOOK_SECRET` (in AWS Secrets Manager for production)
+
+### Defense in depth: `/api/stripe-connect/refresh-account-status`
+
+The page at `/cagnotte/compte-stripe/` also calls `POST /api/stripe-connect/refresh-account-status` when the user returns from Stripe (`?success=true`). That endpoint calls `stripe.accounts.retrieve()` directly and syncs the DB record, so the UI updates correctly even if the webhook is misconfigured or delivery is delayed. The webhook remains the source of truth for async state changes (later disputes, balance restrictions, etc.).
 
 ## Payment Flow
 
