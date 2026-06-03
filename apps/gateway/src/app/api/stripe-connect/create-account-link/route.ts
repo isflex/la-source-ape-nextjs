@@ -28,6 +28,11 @@ async function getStripeClient(): Promise<Stripe> {
   return stripeClient;
 }
 
+function buildBusinessProfileName(firstName?: string, lastName?: string): string {
+  const fullName = `${firstName ?? ""} ${lastName ?? ""}`.trim();
+  return fullName ? `APE La Source — ${fullName}` : "Cagnotte APE La Source";
+}
+
 export async function POST(request: NextRequest) {
   const stripe = await getStripeClient();
   let userId: string | undefined;
@@ -35,7 +40,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { email } = body;
+    const { email, firstName, lastName } = body;
     ({ userId } = body);
 
     if (!userId || !email) {
@@ -68,8 +73,8 @@ export async function POST(request: NextRequest) {
         // Description for Stripe risk assessment
         product_description: "Cagnotte collective pour cadeau enseignant - plateforme APE La Source",
 
-        // Business name (appears on bank statements)
-        name: "Cagnotte APE La Source",
+        // Business name (appears on bank statements + Stripe Connect dashboard listing)
+        name: buildBusinessProfileName(firstName, lastName),
 
         // Support contact
         support_email: process.env.FLEX_HELP_EMAIL || "contact@apelasource.org",

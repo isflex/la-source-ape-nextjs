@@ -265,12 +265,14 @@ export default function StripeAccountPage() {
       // Fetch user attributes to get the real email (not OAuth username)
       const attributes = await fetchUserAttributes();
       const userEmail = attributes.email;
+      const firstName = attributes.given_name;
+      const lastName = attributes.family_name;
 
       if (!userEmail) {
         throw new Error('Impossible de récupérer votre email. Veuillez vous reconnecter.');
       }
 
-      debug.log('Creating account link for:', { userId: user.userId, email: userEmail });
+      debug.log('Creating account link for:', { userId: user.userId, email: userEmail, firstName, lastName });
 
       // Check Stripe mode: 'local' (default) or 'backend'
       const stripeMode = process.env.NEXT_PUBLIC_STRIPE_MODE || 'local';
@@ -297,6 +299,8 @@ export default function StripeAccountPage() {
           body: JSON.stringify({
             userId: user.userId,
             email: userEmail,
+            firstName,
+            lastName,
             baseUrl,
           }),
         });
@@ -323,6 +327,8 @@ export default function StripeAccountPage() {
           body: JSON.stringify({
             userId: user.userId,
             email: userEmail,
+            firstName,
+            lastName,
             baseUrl,
           }),
         });
