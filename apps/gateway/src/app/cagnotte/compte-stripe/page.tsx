@@ -168,15 +168,42 @@ export default function StripeAccountPage() {
     };
   }, [searchParams, router]);
 
-  // Polling fallback for real-time subscription reliability
-  // Activates when success message is shown (user just returned from onboarding)
+  // Polling fallback for real-time subscription reliability.
+  // Activates when success message is shown (user just returned from onboarding) OR when the
+  // user lands in ONBOARDING_COMPLETE (Stripe still verifying — even on a later visit/reload).
+  // Each tick calls the refresh-account-status endpoint (which talks to Stripe directly
+  // and writes to the DB), then re-reads the DB. The webhook alone is unreliable in prod —
+  // this loop is what reliably advances ONBOARDING_COMPLETE → ACTIVE without manual reload.
   useEffect(() => {
-    if (!success || !user) return;
+    const shouldPoll = !!user && (success !== null || connectAccount?.accountStatus === 'ONBOARDING_COMPLETE');
+    if (!shouldPoll) return;
 
     debug.log('[StripeConnect] Starting polling fallback');
 
     const pollInterval = setInterval(async () => {
       try {
+        // Force a Stripe → DB sync before reading.
+        try {
+          const session = await fetchAuthSession();
+          const accessToken = session.tokens?.accessToken?.toString();
+          const idToken = session.tokens?.idToken?.toString();
+          if (accessToken && idToken) {
+            const refreshResp = await fetch('/api/stripe-connect/refresh-account-status', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken},${idToken}`,
+              },
+            });
+            if (!refreshResp.ok) {
+              const errBody = await refreshResp.json().catch(() => ({}));
+              debug.warn('[StripeConnect] Poll refresh non-OK:', refreshResp.status, errBody);
+            }
+          }
+        } catch (refreshErr) {
+          debug.warn('[StripeConnect] Poll refresh threw:', refreshErr);
+        }
+
         const { data: accounts } = await client.models.StripeConnectAccount.list({
           filter: { userId: { eq: user.userId } },
           selectionSet: stripeConnectAccountSelectionSet as any
@@ -201,7 +228,7 @@ export default function StripeAccountPage() {
       } catch (err) {
         debug.error('[StripeConnect] Poll error:', err);
       }
-    }, 3000); // Poll every 3 seconds
+    }, 5000); // Poll every 5 seconds (≈24 Stripe retrieve calls per 2-min window)
 
     // Stop polling after 2 minutes maximum
     const timeout = setTimeout(() => {
@@ -419,7 +446,10 @@ export default function StripeAccountPage() {
   const isStillProcessing = connectAccount?.accountStatus === 'ONBOARDING_COMPLETE' || connectAccount?.accountStatus === 'RESTRICTED'
   const needsOnboarding = !connectAccount || connectAccount.accountStatus === 'NOT_STARTED' || connectAccount.accountStatus === 'ONBOARDING_STARTED';
   const { step1Pending, step2Pending, steps } = categorizeRequirements(connectAccount?.currentlyDue);
-  const hasRequirements = connectAccount?.currentlyDue && connectAccount.currentlyDue.length > 0;
+  const hasRequirements = !!connectAccount?.currentlyDue && connectAccount.currentlyDue.length > 0;
+  // ONBOARDING_COMPLETE with no outstanding requirements = Stripe accepted the submission and is
+  // running internal verification. Don't fall through to a blank box.
+  const isVerificationPending = connectAccount?.accountStatus === 'ONBOARDING_COMPLETE' && !hasRequirements;
 
   return (
     <div className={classNames(
@@ -570,6 +600,30 @@ export default function StripeAccountPage() {
             </div>
           )}
 
+          {isVerificationPending && (
+            <div>
+              <Box>
+                <InfoBlock>
+                  <InfoBlockHeader status={InfoBlockStatus.INFO} customIcon={IconName.UI_INFO_CIRCLE}>
+                    <Title level={TitleLevel.LEVEL3}>Vos informations sont en cours de vérification</Title>
+                  </InfoBlockHeader>
+                  <InfoBlockContent>
+                    <Text style={{ marginBottom: '1rem' }}>
+                      Merci ! Vos informations ont bien été envoyées à Stripe. La vérification finale est en cours. Cela peut prendre quelques minutes. Vous pourrez créer des cagnottes dès l&apos;activation de votre compte.
+                    </Text>
+                    <CreerCagnotteListSteps
+                      currentlyDue={connectAccount?.currentlyDue}
+                      eventuallyDue={connectAccount?.eventuallyDue}
+                      hasStartedOnboarding
+                      detailsSubmitted={connectAccount?.detailsSubmitted || false}
+                      chargesEnabled={connectAccount?.chargesEnabled || false}
+                    />
+                  </InfoBlockContent>
+                </InfoBlock>
+              </Box>
+            </div>
+          )}
+
           {needsOnboarding && (
             <div>
               <Box>
@@ -586,6 +640,7 @@ export default function StripeAccountPage() {
                       eventuallyDue={connectAccount?.eventuallyDue}
                       hasStartedOnboarding={!!connectAccount && connectAccount.accountStatus !== 'NOT_STARTED'}
                       detailsSubmitted={connectAccount?.detailsSubmitted || false}
+                      chargesEnabled={connectAccount?.chargesEnabled || false}
                     />
                     <br/>
                     <Button
@@ -639,6 +694,7 @@ export default function StripeAccountPage() {
                       eventuallyDue={connectAccount?.eventuallyDue}
                       hasStartedOnboarding={!!connectAccount && connectAccount.accountStatus !== 'NOT_STARTED'}
                       detailsSubmitted={connectAccount?.detailsSubmitted || false}
+                      chargesEnabled={connectAccount?.chargesEnabled || false}
                     />
                     <br/>
                     <div style={{ marginTop: '1rem' }}>

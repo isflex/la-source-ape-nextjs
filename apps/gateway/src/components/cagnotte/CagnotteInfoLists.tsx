@@ -237,49 +237,10 @@ const CreerCagnotteList3 = () => {
   );
 }
 
-// Helper to determine step completion status based on currentlyDue requirements
-type StepStatus = {
-  personalInfoComplete: boolean;
-  bankingInfoComplete: boolean;
-  identityComplete: boolean;
-};
-
-function getStepStatus(
-  currentlyDue: (string | null)[] | null | undefined,
-  eventuallyDue: (string | null)[] | null | undefined,
-  detailsSubmitted: boolean = false
-): StepStatus {
-  const currentRequirements = currentlyDue?.filter((req): req is string => req !== null) || [];
-  const eventualRequirements = eventuallyDue?.filter((req): req is string => req !== null) || [];
-
-  // If no requirements in either array
-  if (currentRequirements.length === 0 && eventualRequirements.length === 0) {
-    return {
-      personalInfoComplete: true,
-      bankingInfoComplete: true,
-      identityComplete: detailsSubmitted,
-    };
-  }
-
-  // Personal info complete: individual.email is NOT in currentlyDue
-  // (email is removed once user enters Stripe onboarding and provides it)
-  const hasEmailRequirement = currentRequirements.some(req => req.includes('individual.email'));
-
-  // Banking complete: external_account is NOT in currentlyDue
-  const hasBankingRequirement = currentRequirements.some(req => req.includes('external_account'));
-
-  // Identity: check both arrays, and require detailsSubmitted
-  const identityPatterns = ['verification.document', 'verification.additional_document'];
-  const hasIdentityRequirements =
-    currentRequirements.some(req => identityPatterns.some(pattern => req.includes(pattern))) ||
-    eventualRequirements.some(req => identityPatterns.some(pattern => req.includes(pattern)));
-
-  return {
-    personalInfoComplete: !hasEmailRequirement,
-    bankingInfoComplete: !hasBankingRequirement,
-    identityComplete: !hasIdentityRequirements && detailsSubmitted,
-  };
-}
+// Helper to determine step completion status — extracted to its own module so tests can
+// import it without dragging the surrounding JSX through vite's parser.
+import { getStepStatus } from './getStepStatus';
+export { getStepStatus } from './getStepStatus';
 
 // Reusable step item component
 const StepItem = ({
@@ -337,14 +298,15 @@ interface CreerCagnotteListStepsProps {
   eventuallyDue?: (string | null)[] | null;
   hasStartedOnboarding?: boolean;
   detailsSubmitted?: boolean;
+  chargesEnabled?: boolean;
   title?: string;
 }
 
-const CreerCagnotteListSteps = ({ currentlyDue, eventuallyDue, hasStartedOnboarding = false, detailsSubmitted = false, title }: CreerCagnotteListStepsProps) => {
+const CreerCagnotteListSteps = ({ currentlyDue, eventuallyDue, hasStartedOnboarding = false, detailsSubmitted = false, chargesEnabled = false, title }: CreerCagnotteListStepsProps) => {
   // If onboarding hasn't started yet, show all steps as pending
   // Otherwise, check both currentlyDue AND eventuallyDue to determine completion
   const stepStatus = hasStartedOnboarding
-    ? getStepStatus(currentlyDue, eventuallyDue, detailsSubmitted)
+    ? getStepStatus(currentlyDue, eventuallyDue, detailsSubmitted, chargesEnabled)
     : { personalInfoComplete: false, bankingInfoComplete: false, identityComplete: false };
 
   // Determine the title based on completion status (3 states)
