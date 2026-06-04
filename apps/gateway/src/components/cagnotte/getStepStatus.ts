@@ -33,8 +33,11 @@ export function getStepStatus(
     return { personalInfoComplete: false, bankingInfoComplete: false, identityComplete: false };
   }
 
+  // Stripe doesn't always list `verification.document` explicitly until the user re-enters
+  // onboarding. Treat ANY unresolved currently_due as "identity not yet done" — step 3 is the
+  // final step before activation, so while Stripe is still asking for anything it cannot be ✓.
   const identityStillPending =
-    currentRequirements.some((r) => matches(r, IDENTITY_PATTERNS)) ||
+    currentRequirements.length > 0 ||
     eventualRequirements.some((r) => matches(r, IDENTITY_PATTERNS));
 
   const bankingStillPending = currentRequirements.some((r) => r.includes('external_account'));
