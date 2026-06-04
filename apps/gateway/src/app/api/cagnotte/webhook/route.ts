@@ -7,6 +7,7 @@ import { getCurrentConfig } from "@src/utils/amplify/configureAmplifyWithPortDet
 import { logServerError, type ErrorContext } from "@src/lib/server-error-logger";
 import { getStripeSecrets } from "@src/lib/secrets";
 import { mapStripeAccountToConnectFields } from "@src/lib/stripe-connect-sync";
+import { syncContributionFromSession } from "@src/lib/cagnotte-session-sync";
 import { debug } from "@flexiness/domain-utils";
 
 // Configure Amplify for server-side API routes
@@ -121,38 +122,7 @@ export async function POST(request: NextRequest) {
 
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   try {
-    const { contributionId } = session.metadata || {};
-
-    if (!contributionId) {
-      await logWebhookError(new Error("No contributionId in session metadata"), "checkout.session.completed", { sessionId: session.id });
-      return;
-    }
-
-    // Find the contribution
-    const { data: contribution } = await client.models.JackpotContribution.get({
-      id: contributionId,
-    });
-
-    if (!contribution) {
-      await logWebhookError(new Error(`Contribution ${contributionId} not found`), "checkout.session.completed", {
-        contributionId,
-        sessionId: session.id,
-      });
-      return;
-    }
-
-    // Check if already processed (prevent duplicate processing)
-    if (contribution.paymentStatus === "SUCCEEDED") {
-      return;
-    }
-
-    // Update contribution status
-    await client.models.JackpotContribution.update({
-      id: contributionId,
-      paymentStatus: "SUCCEEDED",
-      stripePaymentIntentId: session.payment_intent as string,
-      paidAt: new Date().toISOString(),
-    });
+    await syncContributionFromSession(client, session);
   } catch (error) {
     await logWebhookError(error, "checkout.session.completed", {
       sessionId: session.id,

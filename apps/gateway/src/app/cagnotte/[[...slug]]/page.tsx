@@ -2,7 +2,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { generateClient } from 'aws-amplify/data';
@@ -224,20 +224,75 @@ export default function CagnotteSlugPage() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
 
-    // Check for success/cancel from Stripe redirect
     const success = searchParams?.get('success');
+    const sessionId = searchParams?.get('session_id');
     const canceled = searchParams?.get('canceled');
 
-    if (success === 'true') {
-      // Show success message (could use InfoBlock)
-      debug.cagnotte('Payment successful!');
-    }
-
     if (canceled === 'true') {
-      // Show canceled message
       debug.cagnotte('Payment canceled');
     }
-  }, [searchParams]);
+
+    if (success !== 'true' || !sessionId || !slug) return;
+
+    let cancelled = false;
+    (async () => {
+      try {
+        const response = await fetch('/api/cagnotte/refresh-session-status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId }),
+        });
+        if (!response.ok) {
+          const errBody = await response.json().catch(() => ({}));
+          debug.error('[Cagnotte] Refresh session non-OK:', response.status, errBody);
+        } else {
+          debug.cagnotte('[Cagnotte] Refresh session OK');
+        }
+      } catch (err) {
+        debug.error('[Cagnotte] Refresh session threw:', err);
+      } finally {
+        if (!cancelled) {
+          router.replace(`/cagnotte/${slug}/`);
+        }
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [searchParams, router, slug]);
+
+  // Owner-only background reconcile: when the cagnotte owner is viewing their own page and
+  // observeQuery surfaces contributions left at PENDING with a real Stripe session ID, sync
+  // each one against Stripe. Each session ID is reconciled at most once per page load.
+  const reconciledSessionIdsRef = useRef<Set<string>>(new Set());
+
+  useEffect(() => {
+    if (!isCreator) return;
+
+    const stuck = contributions.filter(
+      (c) =>
+        c.paymentStatus === 'PENDING' &&
+        c.stripeSessionId &&
+        c.stripeSessionId !== 'temp' &&
+        !reconciledSessionIdsRef.current.has(c.stripeSessionId),
+    );
+    if (stuck.length === 0) return;
+
+    stuck.forEach((c) => reconciledSessionIdsRef.current.add(c.stripeSessionId));
+
+    void Promise.all(
+      stuck.map((c) =>
+        fetch('/api/cagnotte/refresh-session-status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId: c.stripeSessionId }),
+        }).catch((err) => {
+          debug.error('[Cagnotte] Owner reconcile error:', c.stripeSessionId, err);
+        }),
+      ),
+    );
+  }, [isCreator, contributions]);
 
   const toggleModal = () => {
     setShowModal(!showModal)
