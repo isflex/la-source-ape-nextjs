@@ -271,9 +271,10 @@ export default function CagnotteSlugPage() {
     if (!isCreator) return;
 
     const stuck = contributions.filter(
-      (c) =>
+      (c): c is JackpotContributionData & { stripeSessionId: string } =>
         c.paymentStatus === 'PENDING' &&
-        c.stripeSessionId &&
+        typeof c.stripeSessionId === 'string' &&
+        c.stripeSessionId !== '' &&
         c.stripeSessionId !== 'temp' &&
         !reconciledSessionIdsRef.current.has(c.stripeSessionId),
     );

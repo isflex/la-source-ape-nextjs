@@ -214,6 +214,7 @@ export interface JackpotContributionData {
   showAmount: boolean;
   createdAt?: string | null;
   paidAt?: string | null;
+  stripeSessionId?: string | null;
 }
 
 /**
