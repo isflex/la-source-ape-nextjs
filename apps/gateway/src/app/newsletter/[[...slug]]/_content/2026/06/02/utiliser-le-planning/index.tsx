@@ -22,9 +22,7 @@ const Email: React.FC = () => (
             <div className={stylesPage.emailContainer}>
               <div className={stylesPage.imageContainer}>
                 <Image
-                  src={
-                    "/assets/img/newsletter/presentation/logo_ape_900x175.png"
-                  }
+                  src={"/assets/img/newsletter/header/logo_ape_900x175.png"}
                   alt="Logo de l'APE La Source"
                   width="400"
                   height="200"
@@ -49,44 +47,10 @@ const Email: React.FC = () => (
               </div>
 
               <div className={stylesPage.contentBlock}>
-                <table
-                  role="presentation"
-                  cellSpacing={0}
-                  cellPadding="0"
-                  border={0}
-                  width="100%"
-                  className={stylesPage.outlookFix}
-                >
-                  <tbody>
-                    <tr>
-                      <td align="center">
-                        <p>
-                          <strong>
-                            <span className={stylesPage.linkHolder}>
-                              <FlexLink
-                                className={classNames(
-                                  flexStyles.link,
-                                  flexStyles.hasInheritedColor,
-                                )}
-                                href="https://apelasource.org/planning/piscine/"
-                                target="_blank"
-                              >
-                                https://apelasource.org/planning/piscine
-                              </FlexLink>
-                            </span>
-                          </strong>
-                        </p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div className={stylesPage.contentBlock}>
                 <h3>Comment ça marche ?</h3>
                 <ol>
                   <li>
-                    {`Le délégué (ou l'enseignant) crée un planning en choisissant les jours, les horaires et les dates des sorties.`}
+                    {`Le délégué crée un planning en choisissant les jours, les horaires et les dates des sorties.`}
                   </li>
                   <li>{`Il partage le lien du planning avec les parents.`}</li>
                   <li>
@@ -109,6 +73,50 @@ const Email: React.FC = () => (
                   <strong>dates</strong>
                   {`, le niveau scolaire et le nom de l'enseignant, puis le titre du planning.`}
                 </p>
+                <table
+                  role="presentation"
+                  cellSpacing={0}
+                  cellPadding="0"
+                  border={0}
+                  width="100%"
+                  className={stylesPage.outlookFix}
+                >
+                  <tbody>
+                    <tr>
+                      <td align="center">
+                        <p>
+                          <strong>
+                            <span className={stylesPage.linkHolder}>
+                              <FlexLink
+                                className={classNames(
+                                  flexStyles.link,
+                                  flexStyles.hasInheritedColor,
+                                )}
+                                href="https://apelasource.org/planning/piscine/creer/"
+                                target="_blank"
+                              >
+                                https://apelasource.org/planning/piscine/creer
+                              </FlexLink>
+                            </span>
+                          </strong>
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className={stylesPage.imageContainer}>
+                <Image
+                  src={"/assets/img/newsletter/planning/creer-planning-1.png"}
+                  alt="Capture d'écran de la création d'un planning de piscine"
+                  width="400"
+                  height="200"
+                  className={stylesPage.centeredImage}
+                />
+              </div>
+
+              <div className={stylesPage.contentBlock}>
                 <p>
                   {`Une fois le planning créé, partagez le lien, suivez les inscriptions en temps réel, réorganisez les accompagnateurs si besoin et exportez la liste complète au format CSV.`}
                 </p>
@@ -116,10 +124,8 @@ const Email: React.FC = () => (
 
               <div className={stylesPage.imageContainer}>
                 <Image
-                  src={
-                    "/assets/img/newsletter/planning/creer_planning_900x450.png"
-                  }
-                  alt="Capture d'écran de la création d'un planning de piscine"
+                  src={"/assets/img/newsletter/planning/gestion-plannings.png"}
+                  alt="Capture d'écran de la gestion des planning de piscine"
                   width="400"
                   height="200"
                   className={stylesPage.centeredImage}
@@ -149,12 +155,10 @@ const Email: React.FC = () => (
 
               <div className={stylesPage.imageContainer}>
                 <Image
-                  src={
-                    "/assets/img/newsletter/planning/inscription_piscine_900x450.png"
-                  }
+                  src={"/assets/img/newsletter/planning/inscrire-planning.png"}
                   alt="Capture d'écran de l'inscription d'un parent accompagnateur"
                   width="400"
-                  height="200"
+                  height="338"
                   className={stylesPage.centeredImage}
                 />
               </div>
@@ -162,23 +166,32 @@ const Email: React.FC = () => (
               <div className={stylesPage.contentBlock}>
                 <h3>Pour rappel l&apos;url du planning :</h3>
                 <p>
+                  {`Délégués, pour créer un planning, rendez-vous sur :`}
+                  <br />
                   <span className={stylesPage.linkHolder}>
                     <FlexLink
                       className={classNames(
                         flexStyles.link,
                         flexStyles.hasInheritedColor,
                       )}
-                      href="https://apelasource.org/planning/piscine/"
+                      href="https://apelasource.org/planning/piscine/creer/"
                       target="_blank"
                     >
-                      https://apelasource.org/planning/piscine
+                      https://apelasource.org/planning/piscine/creer
                     </FlexLink>
                   </span>
                 </p>
                 <p>
-                  Nous espérons que cet outil simplifiera l&apos;organisation
-                  des sorties scolaires (&laquo; plannings piscine &raquo;) et
-                  encouragera les parents à se porter volontaires pour
+                  {`Parents, pour vous porter volontaire comme accompagnateur, utilisez le `}
+                  <strong>
+                    lien du planning que votre délégué vous a communiqué
+                  </strong>
+                  {`.`}
+                </p>
+                <p>
+                  Nous espérons que cet outil appelé &laquo; plannings piscine
+                  &raquo; simplifiera l&apos;organisation des sorties scolaires
+                  et encouragera les parents à se porter volontaires pour
                   accompagner les sorties.
                 </p>
               </div>

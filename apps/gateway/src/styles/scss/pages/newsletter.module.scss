@@ -63,6 +63,10 @@
     color: #009dcc;
   }
 
+  p::first-letter {
+    text-transform: capitalize;
+  }
+
   /* Mobile responsive styles */
   @media screen and (max-width: "600px") {
     .email-container {

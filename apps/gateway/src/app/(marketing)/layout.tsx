@@ -733,11 +733,11 @@ export default async function MarketingLayout({
                       </mask>
                       <g mask="url(#mask0_2027_30)">
                         <rect
-                          id="IMG_0482 1"
-                          x="331.501"
+                          id="IMG_0482_b 1"
+                          x="315.501"
                           y="688"
-                          width="147"
-                          height="147"
+                          width="163"
+                          height="167"
                           fill="url(#pattern0_2027_30)"
                         />
                         <rect
@@ -809,16 +809,25 @@ export default async function MarketingLayout({
                         />
                       </mask>
                       <g mask="url(#mask2_2027_30)">
-                        <g id="Group 40">
-                          <rect
-                            id="ffb872c6-f1c8-4367-8632-c50cb2aa8dfa 1"
-                            x="1281.5"
-                            y="-6.10352e-05"
-                            width="386"
-                            height="414"
-                            fill="url(#pattern5_2027_30)"
-                          />
-                        </g>
+                        {/*
+                        <rect
+                          id="ffb872c6-f1c8-4367-8632-c50cb2aa8dfa-2 1"
+                          x="1281.5"
+                          y="2.99994"
+                          width="398"
+                          height="409"
+                          fill="url(#pattern5_2027_30)"
+                        />
+                        */}
+
+                        <rect
+                          id="ffb872c6-f1c8-4367-8632-c50cb2aa8dfa - faces blur 2 1"
+                          x="1281.5"
+                          y="2.99994"
+                          width="398"
+                          height="409"
+                          fill="url(#pattern5_2027_30_blur)"
+                        />
                       </g>
                     </g>
                     <g className={stylesPage.bottomRight}>
@@ -1097,7 +1106,7 @@ export default async function MarketingLayout({
                   >
                     <use
                       xlinkHref="#image0_2027_30"
-                      transform="matrix(0.00650681 0 0 0.00648831 -1.08191 -0.537415)"
+                      transform="matrix(0.00588235 0 0 0.00574146 0 -0.0023776)"
                     />
                   </pattern>
                   <pattern
@@ -1152,7 +1161,18 @@ export default async function MarketingLayout({
                   >
                     <use
                       xlinkHref="#image5_2027_30"
-                      transform="matrix(0.00247394 0 0 0.00230529 -0.236023 0.000857717)"
+                      transform="matrix(0.00239808 0 0 0.00233359 0 -0.00055408)"
+                    />
+                  </pattern>
+                  <pattern
+                    id="pattern5_2027_30_blur"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                  >
+                    <use
+                      xlinkHref="#image5_2027_30_blur"
+                      transform="matrix(0.00240091 0 0 0.00233347 -0.228802 -0.000305623)"
                     />
                   </pattern>
                   <pattern
@@ -1169,10 +1189,10 @@ export default async function MarketingLayout({
 
                   <image
                     id="image0_2027_30"
-                    width="320"
-                    height="476"
+                    width="170"
+                    height="175"
                     preserveAspectRatio="none"
-                    xlinkHref="/assets/img/roundtable/projects/image0_2027_30.jpg"
+                    xlinkHref="/assets/img/roundtable/projects/image0_2027_30.png"
                   />
                   <image
                     id="image1_2027_30"
@@ -1204,11 +1224,19 @@ export default async function MarketingLayout({
                   />
                   <image
                     id="image5_2027_30"
+                    width="417"
+                    height="429"
+                    preserveAspectRatio="none"
+                    xlinkHref="/assets/img/roundtable/projects/image5_2027_30.png"
+                  />
+                  <image
+                    id="image5_2027_30_blur"
                     width="577"
                     height="433"
                     preserveAspectRatio="none"
-                    xlinkHref="/assets/img/roundtable/projects/image5_2027_30.jpg"
+                    xlinkHref="/assets/img/roundtable/projects/image5_2027_30_blur.jpg"
                   />
+
                   <image
                     id="image6_2027_30"
                     width="319"

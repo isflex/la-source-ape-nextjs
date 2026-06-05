@@ -21,7 +21,7 @@
   },
   "/newsletter/souscrire/": {
     "emoji": "📧",
-    "navTitle": "Souscrire au newsletter",
+    "navTitle": "Newsletter",
     "active": true
   },
   "/newsletter/creer/": {

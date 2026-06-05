@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import React from "react";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 
 /**
  * Custom CopilotKit welcomeScreen pieces.
@@ -25,7 +25,7 @@ export function AuthRequiredWelcomeScreen() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const search = searchParams.toString();
-  const currentPath = `${pathname}${search ? `?${search}` : ''}`;
+  const currentPath = `${pathname}${search ? `?${search}` : ""}`;
   const href = `/auth?returnTo=${encodeURIComponent(currentPath)}`;
 
   return (
@@ -34,32 +34,40 @@ export function AuthRequiredWelcomeScreen() {
       className="cpk:text-foreground"
       style={{
         flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '1rem',
-        padding: '2rem 1.5rem',
-        textAlign: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "1rem",
+        padding: "2rem 1.5rem",
+        textAlign: "center",
       }}
     >
-      <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 600 }}>
+      <h3 style={{ margin: 0, fontSize: "1.1rem", fontWeight: 600 }}>
         Connectez-vous pour utiliser l'assistant
       </h3>
-      <p style={{ margin: 0, fontSize: '0.95rem', opacity: 0.85, maxWidth: '28ch' }}>
+      <p
+        style={{
+          margin: 0,
+          fontSize: "0.95rem",
+          opacity: 0.85,
+          maxWidth: "28ch",
+        }}
+      >
         Vous devez être connecté pour discuter avec l'assistant IA.
       </p>
       <Link
         href={href}
+        id="auth-required-for-ai-chat"
         style={{
-          display: 'inline-block',
-          padding: '0.6rem 1.25rem',
-          borderRadius: '999px',
-          background: 'var(--copilot-primary, #1f6feb)',
-          color: '#fff',
-          textDecoration: 'none',
+          display: "inline-block",
+          padding: "0.6rem 1.25rem",
+          borderRadius: "999px",
+          background: "var(--copilot-primary, #1f6feb)",
+          color: "#fff",
+          textDecoration: "none",
           fontWeight: 600,
-          fontSize: '0.9rem',
+          fontSize: "0.9rem",
         }}
       >
         Se connecter
@@ -75,8 +83,14 @@ export function AuthRequiredWelcomeScreen() {
  * CopilotKit. Uses cpk: classes so the text picks up the panel's foreground
  * design token — plain inline-styled text is invisible in this scope.
  */
-export function AuthenticatedWelcomeMessage({ className }: { className?: string }) {
-  const containerClass = ['cpk:text-foreground', 'cpk:text-center', className].filter(Boolean).join(' ');
+export function AuthenticatedWelcomeMessage({
+  className,
+}: {
+  className?: string;
+}) {
+  const containerClass = ["cpk:text-foreground", "cpk:text-center", className]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className={containerClass}>
@@ -84,7 +98,8 @@ export function AuthenticatedWelcomeMessage({ className }: { className?: string 
         Comment puis-je vous aider aujourd'hui ?
       </h1>
       <p className="cpk:mt-2 cpk:text-sm cpk:opacity-80 cpk:max-w-prose cpk:mx-auto">
-        Posez-moi des questions sur votre compte, naviguez dans l'application, ou demandez un résumé.
+        Posez-moi des questions sur votre compte, naviguez dans l'application,
+        ou demandez un résumé.
       </p>
     </div>
   );

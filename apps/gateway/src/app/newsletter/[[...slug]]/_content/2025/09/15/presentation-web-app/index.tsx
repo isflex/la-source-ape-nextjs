@@ -23,9 +23,7 @@ const Email: React.FC = () => (
             <div className={stylesPage.emailContainer}>
               <div className={stylesPage.imageContainer}>
                 <Image
-                  src={
-                    "/assets/img/newsletter/presentation/logo_ape_900x175.png"
-                  }
+                  src={"/assets/img/newsletter/header/logo_ape_900x175.png"}
                   alt="Logo de l'APE La Source"
                   width="400"
                   height="200"
