@@ -819,7 +819,6 @@ export default async function MarketingLayout({
                           fill="url(#pattern5_2027_30)"
                         />
                         */}
-
                         <rect
                           id="ffb872c6-f1c8-4367-8632-c50cb2aa8dfa - faces blur 2 1"
                           x="1281.5"

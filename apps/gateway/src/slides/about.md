@@ -135,7 +135,7 @@ _paginate: false
   .logo-ape {
     width: 100%;
     height: 35%;
-    background-image: url('/logo/ape/ape_la_source_logo_1.svg');
+    background-image: url('/logo/ape/ape_la_source_logo_2.svg');
     background-repeat: no-repeat;
     background-size: 18%;
     background-position: center center, 50%, 50%;

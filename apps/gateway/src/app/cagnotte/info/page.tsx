@@ -7,9 +7,12 @@ import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styl
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { Link } from '@flex-design-system/react-ts/client-sync-styled-direct/link';
 
+import SandboxBanner from '@src/components/cagnotte/SandboxBanner';
+
 export default function CagnotteInfoPage() {
   return (
     <Box>
+      <SandboxBanner />
       <div className={classNames(
         flexStyles.isFlex,
         flexStyles.isFlexDirectionColumn,

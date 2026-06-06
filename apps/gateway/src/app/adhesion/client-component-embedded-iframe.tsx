@@ -225,16 +225,18 @@ export default function AdhesionContent({
               flexStyles.hasTextCentered,
             )}
           >
-            <InfoBlock>
-              <InfoBlockHeader
-                status={InfoBlockStatus.WARNING}
-                customIcon={IconName.UI_INFO_CIRCLE}
-              >
-                <Title level={TitleLevel.LEVEL4}>
-                  Environnement de test (sandbox)
-                </Title>
-              </InfoBlockHeader>
-            </InfoBlock>
+            <div style={{ fontSize: "x-small" }}>
+              <InfoBlock>
+                <InfoBlockHeader
+                  status={InfoBlockStatus.WARNING}
+                  customIcon={IconName.UI_INFO_CIRCLE}
+                >
+                  <Title level={TitleLevel.LEVEL4}>
+                    Environnement de test (sandbox)
+                  </Title>
+                </InfoBlockHeader>
+              </InfoBlock>
+            </div>
           </AccordionHeader>
           <AccordionBody>
             <InfoBlock>

@@ -82,6 +82,21 @@ export async function getStripeSecrets(): Promise<StripeSecrets> {
   return cachedSecrets!;
 }
 
+/**
+ * True when the active Stripe secret key is a TEST key (the string contains
+ * "test", e.g. `sk_test_…`). Used to surface a sandbox banner on cagnotte
+ * pages. Reuses the cached `getStripeSecrets()` and is resilient: returns
+ * false when secrets can't be resolved (e.g. local dev without credentials).
+ */
+export async function isStripeTestMode(): Promise<boolean> {
+  try {
+    const { FLEX_STRIPE_SECRET_KEY } = await getStripeSecrets();
+    return FLEX_STRIPE_SECRET_KEY.includes('test');
+  } catch {
+    return false;
+  }
+}
+
 function assertHelloAssoEnv(value: string | undefined): asserts value is HelloAssoEnv {
   if (value !== 'sandbox' && value !== 'production') {
     throw new Error(

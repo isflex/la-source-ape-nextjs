@@ -1,6 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
 import { buildMetadata } from "@src/seo";
+import { isStripeTestMode } from "@src/lib/secrets";
+import { SandboxModeProvider } from "@src/components/cagnotte/SandboxModeContext";
 
 export const metadata: Metadata = buildMetadata({
   title: "Cagnottes",
@@ -8,10 +10,12 @@ export const metadata: Metadata = buildMetadata({
   path: "/cagnotte",
 });
 
-export default function CagnotteSectionLayout({
+export default async function CagnotteSectionLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  const testMode = await isStripeTestMode();
+
+  return <SandboxModeProvider value={testMode}>{children}</SandboxModeProvider>;
 }

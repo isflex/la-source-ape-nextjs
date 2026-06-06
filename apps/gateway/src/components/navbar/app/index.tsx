@@ -45,14 +45,16 @@ const NavbarApp = ({ mobileCheck }: { mobileCheck: boolean }) => {
   return (
     <div className={classNames(stylesPage.navBar, flexStyles.navBarHolder)}>
       <div className={flexStyles.navBarLogo}>
-        <LogoAPE
-          isNavLogo={true}
-          className={classNames(
-            stylesLayout.navLogo,
-            stylesLayout.navLogoLeft,
-            stylesLayout.navLogoApe,
-          )}
-        />
+        <Link href="/">
+          <LogoAPE
+            isNavLogo={true}
+            className={classNames(
+              stylesLayout.navLogo,
+              stylesLayout.navLogoLeft,
+              stylesLayout.navLogoApe,
+            )}
+          />
+        </Link>
         {/* <Title level={7} className={flexStyles.isMarginless}>Test text</Title> */}
       </div>
       {/* <div className={classNames(

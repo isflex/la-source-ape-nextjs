@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { isProductionSandbox } from "@src/lib/deployment";
 
 const getBaseUrl = (): string => {
   const url = process.env.NEXT_PUBLIC_FLEX_GATEWAY_BASE_URL;
@@ -9,6 +10,14 @@ const getBaseUrl = (): string => {
 };
 
 export default function robots(): MetadataRoute.Robots {
+  // The production-sandbox app mirrors production content — keep it out of every
+  // search index so it can't compete with or leak ahead of production.
+  if (isProductionSandbox()) {
+    return {
+      rules: [{ userAgent: "*", disallow: "/" }],
+    };
+  }
+
   const baseUrl = getBaseUrl();
 
   return {

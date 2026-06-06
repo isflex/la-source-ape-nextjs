@@ -1,92 +1,69 @@
-'use client';
-
-import React, { use, useState, useEffect } from 'react'
+import type { ComponentType } from 'react'
+import { readdirSync } from 'fs'
+import { join } from 'path'
 import { notFound } from 'next/navigation'
-import classNames from 'classnames'
-import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
-import { Container } from '@flex-design-system/react-ts/client-sync-styled-direct/container';
-import { Section } from '@flex-design-system/react-ts/client-sync-styled-direct/section';
-import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
-import { default as flexStyles } from '@flex-design-system/framework'
-import { debug } from '@flexiness/domain-utils'
+
+// Statically generate every newsletter article from the _content tree.
+// force-static + dynamicParams=false => the full article HTML is prerendered
+// at build time (good for SEO/crawlers) and any unknown slug returns 404.
+// The interactive sibling routes (creer/, souscrire/) are separate segments and
+// keep their own 'use client' / dynamic behaviour.
+export const dynamic = 'force-static'
+export const dynamicParams = false
+
+// Resolved at build time from apps/gateway (next build cwd). Holds the article
+// modules as ./_content/<year>/<month>/<day>/<slug>/index.tsx
+const CONTENT_DIR = join(process.cwd(), 'src/app/newsletter/[[...slug]]/_content')
+
+// Walk _content and collect the slug array (path segments) for every index.tsx.
+function collectSlugs(dir: string, prefix: string[] = []): string[][] {
+  const slugs: string[][] = []
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isDirectory()) {
+      slugs.push(...collectSlugs(join(dir, entry.name), [...prefix, entry.name]))
+    } else if (entry.name === 'index.tsx' && prefix.length > 0) {
+      slugs.push(prefix)
+    }
+  }
+  return slugs
+}
+
+export function generateStaticParams(): { slug: string[] }[] {
+  // `{ slug: [] }` keeps the /newsletter index route valid so the catch-all
+  // layout can redirect it to /newsletter/souscrire/ under dynamicParams=false.
+  return [
+    { slug: [] as string[] },
+    ...collectSlugs(CONTENT_DIR).map((slug) => ({ slug })),
+  ]
+}
 
 interface NewsletterContentPageProps {
   params: Promise<{
-    slug: string[]
+    slug?: string[]
   }>
 }
 
-export default function NewsletterContentPage({ params }: NewsletterContentPageProps) {
-  const { slug: slugArray } = use(params)
-  const [ContentComponent, setContentComponent] = useState<React.ComponentType | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [notFoundError, setNotFoundError] = useState(false)
+export default async function NewsletterContentPage({ params }: NewsletterContentPageProps) {
+  const { slug } = await params
 
-  // If we reach here, layout has already handled creer/souscrire redirects
-  // This page only handles dynamic content from _content folder
-
-  useEffect(() => {
-    if (!slugArray || slugArray.length === 0) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- set 404 state when slug missing on mount
-      setNotFoundError(true)
-      setIsLoading(false)
-      return
-    }
-
-    const loadContent = async () => {
-      try {
-        // Try to load content from _content folder
-        const contentPath = slugArray.join('/')
-        const moduleImport = await import(`./_content/${contentPath}/index`)
-        setContentComponent(() => moduleImport.default)
-      } catch (error) {
-        debug.error(`Content not found at path: ${slugArray.join('/')}`, error)
-        setNotFoundError(true)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    loadContent()
-  }, [slugArray])
-
-  if (notFoundError && !isLoading) {
+  // The /newsletter index (empty slug) is redirected by the layout before we
+  // get here; treat it as not-found defensively.
+  if (!slug || slug.length === 0) {
     notFound()
   }
 
-  if (isLoading) {
-    return (
-      <Container>
-        <Section>
-          <Title level={TitleLevel.LEVEL2} className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>
-            Chargement...
-          </Title>
-        </Section>
-      </Container>
-    )
+  // Webpack resolves this template-literal import into a context module over
+  // ./_content/**, so each statically-generated slug renders its own article.
+  let Content: ComponentType
+  try {
+    Content = (await import(`./_content/${slug.join('/')}/index`)).default
+  } catch {
+    notFound()
   }
 
-  if (ContentComponent) {
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '2rem' }}>
-        <ContentComponent />
-      </div>
-    )
-  }
-
-  // Show content not found
   return (
-    <Container>
-      <Box className={classNames(flexStyles.hasTextTertiary)}>
-        <Section>
-          <Title level={TitleLevel.LEVEL2} className={classNames(flexStyles.isFullwidth, flexStyles.hasTextCentered)}>
-            Contenu introuvable
-          </Title>
-          <p style={{ textAlign: 'center', marginTop: '2rem' }}>
-            Le contenu demandé &quot;{slugArray.join('/')}&quot; n&apos;existe pas.
-          </p>
-        </Section>
-      </Box>
-    </Container>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '2rem' }}>
+      <Content />
+    </div>
   )
 }

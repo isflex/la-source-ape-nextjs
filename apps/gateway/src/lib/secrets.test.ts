@@ -334,3 +334,67 @@ describe('getStripeSecrets', () => {
     });
   });
 });
+
+describe('isStripeTestMode', () => {
+  const snapshot: Partial<Record<(typeof STRIPE_ENV_KEYS)[number], string | undefined>> = {};
+
+  beforeEach(() => {
+    vi.resetModules();
+    mockSend.mockReset();
+    MockGetSecretValueCommand.mockClear();
+
+    for (const k of STRIPE_ENV_KEYS) {
+      snapshot[k] = process.env[k];
+      delete process.env[k];
+    }
+  });
+
+  afterEach(() => {
+    for (const k of STRIPE_ENV_KEYS) {
+      if (snapshot[k] === undefined) {
+        delete process.env[k];
+      } else {
+        process.env[k] = snapshot[k];
+      }
+    }
+  });
+
+  it('returns true when the env secret key is a test key', async () => {
+    process.env.FLEX_STRIPE_SECRET_KEY = 'sk_test_123';
+    process.env.FLEX_STRIPE_WEBHOOK_SECRET = 'whsec_test';
+
+    const { isStripeTestMode } = await import('./secrets');
+
+    await expect(isStripeTestMode()).resolves.toBe(true);
+  });
+
+  it('returns false when the env secret key is a live key', async () => {
+    process.env.FLEX_STRIPE_SECRET_KEY = 'sk_live_123';
+    process.env.FLEX_STRIPE_WEBHOOK_SECRET = 'whsec_live';
+
+    const { isStripeTestMode } = await import('./secrets');
+
+    await expect(isStripeTestMode()).resolves.toBe(false);
+  });
+
+  it('returns true when the Secrets Manager key contains "test"', async () => {
+    mockSend.mockResolvedValueOnce({
+      SecretString: JSON.stringify({
+        FLEX_STRIPE_SECRET_KEY: 'sk_test_fromSecretsManager',
+        FLEX_STRIPE_WEBHOOK_SECRET: 'whsec',
+      }),
+    });
+
+    const { isStripeTestMode } = await import('./secrets');
+
+    await expect(isStripeTestMode()).resolves.toBe(true);
+  });
+
+  it('returns false (resilient) when secrets cannot be resolved', async () => {
+    mockSend.mockRejectedValueOnce(new Error('no credentials'));
+
+    const { isStripeTestMode } = await import('./secrets');
+
+    await expect(isStripeTestMode()).resolves.toBe(false);
+  });
+});

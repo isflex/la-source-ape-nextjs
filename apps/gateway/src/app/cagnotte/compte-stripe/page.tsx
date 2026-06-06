@@ -11,6 +11,7 @@ import { debug } from '@flexiness/domain-utils';
 import { LoadingBackdrop } from '@src/components/loading/LoadingBackdrop'
 import { SuccessCelebration } from '@src/components/animations/index'
 import { CreerCagnotteListSteps } from '@src/components/cagnotte/CagnotteInfoLists'
+import SandboxBanner from '@src/components/cagnotte/SandboxBanner'
 
 import { default as flexStyles } from '@flex-design-system/framework';
 import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
@@ -455,6 +456,8 @@ export default function StripeAccountPage() {
     <div className={classNames(
       flexStyles.isFlex, flexStyles.isFlexDirectionColumn, flexStyles.isAlignItemsCenter, flexStyles.isJustifyContentCenter
       )} style={{ position: 'relative', padding: '0 1rem' }}>
+
+      <SandboxBanner />
 
       <div style={{ marginTop: '2rem', marginBottom: '2rem' }}>
         <Title level={TitleLevel.LEVEL1} className={classNames(flexStyles.hasTextCentered)}>

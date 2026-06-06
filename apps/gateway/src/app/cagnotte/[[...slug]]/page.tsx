@@ -42,6 +42,7 @@ import { DEFAULT_FEE_CONFIG, type FeeConfig } from '@src/lib/cagnotte-fees';
 import JackpotContributionTable from '@src/components/cagnotte/JackpotContributionTable';
 import StripeCheckoutButton from '@src/components/cagnotte/StripeCheckoutButton';
 import AuthBanner from '@src/components/auth/AuthBanner';
+import SandboxBanner from '@src/components/cagnotte/SandboxBanner';
 import { debug } from '@flexiness/domain-utils';
 import { useSafeAgentContext } from '@flexiness/copilotkit';
 
@@ -347,6 +348,7 @@ export default function CagnotteSlugPage() {
     return (
       <>
         <AuthBanner />
+        <SandboxBanner />
         <Container>
           <Section>
             {/* Public Cagnottes List */}
@@ -440,6 +442,7 @@ export default function CagnotteSlugPage() {
     return (
       <>
         <AuthBanner />
+        <SandboxBanner />
         <Container>
           <Section>
             <InfoBlock>
@@ -487,6 +490,7 @@ export default function CagnotteSlugPage() {
   return (
     <>
       <AuthBanner />
+      <SandboxBanner />
       <Container>
         <Section>
           {/* Header */}

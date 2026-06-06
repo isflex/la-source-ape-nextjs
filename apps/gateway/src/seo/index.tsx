@@ -12,16 +12,22 @@ const title = `${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION}`;
 // const description = `Le site de ${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION_GENERIC} de ${process.env.NEXT_PUBLIC_SCHOOL_TITLE_GENERIC}`;
 const description = `Le site de ${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION_FULL}`;
 const siteUrl = getSiteUrl();
+
+// Hardcoded cross-domain URIs — MUST stay byte-identical to the flexiness side
+// (v1/apps/gateway/src/seo/index.tsx) so Google can join these entities on @id.
+// They are stable public identities, intentionally decoupled from the serving
+// host (siteUrl), which can drift across sandbox/preview deploys.
+const apelasourceUrl = "https://apelasource.org";
 const flexinessUrl = "https://www.flexiness.com";
 
-const ID_WEBSITE = `${siteUrl}/#website`;
-const ID_WEBAPP = `${siteUrl}/web-app#app`;
-const ID_ORG_APE = `${siteUrl}/#organization`;
+const ID_WEBSITE = `${apelasourceUrl}/#website`;
+const ID_WEBAPP = `${apelasourceUrl}/web-app#app`;
+const ID_ORG_APE = `${apelasourceUrl}/#organization`;
 const ID_ORG_FLEXINESS = `${flexinessUrl}/#organization`;
-const ID_ORG_SCHOOL = `${siteUrl}/#school`;
-const ID_LOGO_APE = `${siteUrl}/logo/ape/Logo_512.png#logo`;
+const ID_ORG_SCHOOL = `${apelasourceUrl}/#school`;
+const ID_LOGO_APE = `${apelasourceUrl}/logo/ape/Logo_512.png#logo`;
 const ID_LOGO_FLEXINESS = `${flexinessUrl}/logo_flexiness.svg#logo`;
-const ID_LOGO_SCHOOL = `${siteUrl}/logo/la_source/LaSource.svg#logo`;
+const ID_LOGO_SCHOOL = `${apelasourceUrl}/logo/la_source/LaSource.svg#logo`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -29,7 +35,7 @@ const jsonLd = {
     {
       "@type": "WebSite",
       "@id": ID_WEBSITE,
-      url: siteUrl,
+      url: apelasourceUrl,
       name: title,
       description,
       inLanguage: "fr-FR",
@@ -52,7 +58,7 @@ const jsonLd = {
       "@id": ID_ORG_APE,
       name: title,
       alternateName: `${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION_FULL}`,
-      url: siteUrl,
+      url: apelasourceUrl,
       email: `mailto:${process.env.NEXT_PUBLIC_HELP_EMAIL}`,
       description,
       logo: {
@@ -87,13 +93,13 @@ const jsonLd = {
         url: `${flexinessUrl}/logo_flexiness.svg`,
         caption: "Flexiness",
       },
-      sameAs: [`${siteUrl}/about`],
+      sameAs: [`${apelasourceUrl}/about`],
     },
     {
       "@type": "WebApplication",
       "@id": ID_WEBAPP,
       name: process.env.NEXT_PUBLIC_APP_TITLE || "Chaperons&Co",
-      url: `${siteUrl}/web-app`,
+      url: `${apelasourceUrl}/web-app`,
       applicationCategory: "Lifestyle",
       operatingSystem: "All",
       description:
