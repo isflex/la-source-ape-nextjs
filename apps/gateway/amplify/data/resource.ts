@@ -397,6 +397,7 @@ const schema = a.schema({
       payoutRequestedAt: a.datetime(),
       payoutCompletedAt: a.datetime(),
       payoutNotes: a.string(),
+      payoutStripeId: a.string(),  // Stripe payout id (po_…) — used to reconcile webhook events
 
       // Stripe Connect fields
       stripeAccountId: a.string(),  // Connect account that will receive funds

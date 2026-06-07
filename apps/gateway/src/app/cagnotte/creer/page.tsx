@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@amplify/data/resource";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { signOut } from "aws-amplify/auth";
+import { signOut, fetchAuthSession } from "aws-amplify/auth";
 import {
   formatCurrency,
   formatDeadline,
@@ -289,16 +289,28 @@ export default function CagnotteCreerPage() {
           return { success: false, error: "No contributions to pay out" };
 
         try {
-          const response = await client.models.JackpotForm.update({
-            id: form.id,
-            payoutRequested: true,
-            payoutRequestedAt: new Date().toISOString(),
+          const session = await fetchAuthSession();
+          const accessToken = session.tokens?.accessToken?.toString();
+          const idToken = session.tokens?.idToken?.toString();
+          if (!accessToken || !idToken) {
+            return { success: false, error: "Authentication required" };
+          }
+          const response = await fetch("/api/cagnotte/request-payout", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken},${idToken}`,
+            },
+            body: JSON.stringify({ jackpotFormId: form.id }),
           });
-          if (response.errors)
-            return { success: false, error: "Error requesting payout" };
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            debug.error("Error requesting payout:", response.status, data);
+            return { success: false, error: data?.error || "Error requesting payout" };
+          }
           return {
             success: true,
-            message: `Payout of ${formatCurrency(stats.totalAmount)} requested for "${form.title}"`,
+            message: `Payout of ${formatCurrency(data?.amount ?? stats.totalAmount)} requested for "${form.title}"`,
           };
         } catch (err) {
           debug.error("Error requesting payout:", err);
@@ -553,18 +565,36 @@ export default function CagnotteCreerPage() {
     if (!confirmed) return;
 
     try {
-      const response = await client.models.JackpotForm.update({
-        id: form.id,
-        payoutRequested: true,
-        payoutRequestedAt: new Date().toISOString(),
+      const session = await fetchAuthSession();
+      const accessToken = session.tokens?.accessToken?.toString();
+      const idToken = session.tokens?.idToken?.toString();
+      if (!accessToken || !idToken) {
+        alert("Session non valide. Veuillez vous reconnecter.");
+        return;
+      }
+
+      const response = await fetch("/api/cagnotte/request-payout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken},${idToken}`,
+        },
+        body: JSON.stringify({ jackpotFormId: form.id }),
       });
 
-      if (response.errors) {
-        alert("Erreur lors de la demande de paiement");
-      } else {
-        alert("Demande de paiement envoyée avec succès");
-        // Note: observeQuery will automatically update the forms list
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        debug.error("Error requesting payout:", response.status, data);
+        alert(data?.error || "Erreur lors de la demande de paiement");
+        return;
       }
+
+      const cappedNote = data?.capped
+        ? ` (montant ajusté au solde disponible : ${formatCurrency(data.amount)})`
+        : "";
+      alert(`Demande de paiement envoyée avec succès${cappedNote}.`);
+      // observeQuery picks up payoutRequested/payoutRequestedAt; payout.paid webhook will
+      // later flip status to PAID_OUT.
     } catch (err) {
       alert("Erreur lors de la demande de paiement");
       debug.error("Error requesting payout:", err);

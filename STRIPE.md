@@ -90,6 +90,8 @@ The webhook endpoint (`POST /api/cagnotte/webhook/`) handles the following Strip
 | `payment_intent.payment_failed` | Updates contribution status to `FAILED` |
 | `charge.refunded` | Updates contribution status to `REFUNDED` |
 | `account.updated` | Updates Stripe Connect account status |
+| `payout.paid` | Flips JackpotForm to `PAID_OUT` and stamps `payoutCompletedAt` |
+| `payout.failed` | Resets `payoutRequested=false`, stores failure details in `payoutNotes` so the owner can retry |
 
 ## Stripe Dashboard Webhook Setup (Production)
 
@@ -103,8 +105,31 @@ The webhook endpoint (`POST /api/cagnotte/webhook/`) handles the following Strip
    - `payment_intent.payment_failed`
    - `charge.refunded`
    - `account.updated`
+   - `payout.paid`
+   - `payout.failed`
 6. Copy the webhook signing secret
 7. Store it as `FLEX_STRIPE_WEBHOOK_SECRET` (in AWS Secrets Manager for production)
+
+### Cagnotte payout (manual schedule)
+
+Connect accounts are created with `payouts.schedule.interval = 'manual'`, so funds collected
+through Stripe Checkout sit on the connected account's Stripe balance until explicitly paid
+out. The flow:
+
+1. Cagnotte transitions to `CLOSED` (deadline reached or owner closed manually).
+2. Owner clicks **"Demander paiement"** from `/cagnotte/creer` or the public detail page
+   `/cagnotte/<slug>/` (creator-only).
+3. Frontend calls `POST /api/cagnotte/request-payout` with the cagnotte ID and a Cognito
+   token. The server validates ownership, sums SUCCEEDED contributions, confirms the connected
+   account's available EUR balance, and calls
+   `stripe.payouts.create({ amount, currency: 'eur', metadata: { jackpotFormId, userId } },
+   { stripeAccount, idempotencyKey })`. It also stores the resulting `po_…` id on
+   `JackpotForm.payoutStripeId`.
+4. `payout.paid` webhook fires → `applyPayoutResult` flips
+   `JackpotForm.status='PAID_OUT'` and stamps `payoutCompletedAt`.
+5. If `payout.failed` fires instead, the helper resets `payoutRequested=false`, clears
+   `payoutStripeId`, and writes the failure code/message into `payoutNotes`. The owner sees
+   the "Demander paiement" button reappear and can retry.
 
 ### Defense in depth: `/api/stripe-connect/refresh-account-status`
 

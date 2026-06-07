@@ -8,6 +8,7 @@ import { logServerError, type ErrorContext } from "@src/lib/server-error-logger"
 import { getStripeSecrets } from "@src/lib/secrets";
 import { mapStripeAccountToConnectFields } from "@src/lib/stripe-connect-sync";
 import { syncContributionFromSession } from "@src/lib/cagnotte-session-sync";
+import { applyPayoutResult } from "@src/lib/cagnotte-payout-sync";
 import { debug } from "@flexiness/domain-utils";
 
 // Configure Amplify for server-side API routes
@@ -104,6 +105,13 @@ export async function POST(request: NextRequest) {
       case "account.updated": {
         const account = event.data.object as Stripe.Account;
         await handleAccountUpdated(account);
+        break;
+      }
+
+      case "payout.paid":
+      case "payout.failed": {
+        const payout = event.data.object as Stripe.Payout;
+        await handlePayoutEvent(event.type, payout);
         break;
       }
 
@@ -250,6 +258,22 @@ async function handleAccountUpdated(account: Stripe.Account) {
   } catch (error) {
     await logWebhookError(error, "account.updated", {
       stripeAccountId: account.id,
+    });
+  }
+}
+
+async function handlePayoutEvent(eventType: string, payout: Stripe.Payout) {
+  try {
+    debug.webhooks(`${eventType} processing:`, {
+      payoutId: payout.id,
+      status: payout.status,
+      jackpotFormId: payout.metadata?.jackpotFormId,
+    });
+    await applyPayoutResult(client, payout);
+  } catch (error) {
+    await logWebhookError(error, eventType, {
+      payoutId: payout.id,
+      jackpotFormId: payout.metadata?.jackpotFormId,
     });
   }
 }

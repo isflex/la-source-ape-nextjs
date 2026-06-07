@@ -8,6 +8,7 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@amplify/data/resource';
 import { useAuthenticator } from '@aws-amplify/ui-react';
+import { fetchAuthSession } from 'aws-amplify/auth';
 import CagnotteModal from './cagnotte-modal'
 import { LoadingBackdrop } from '@src/components/loading/LoadingBackdrop'
 import classNames from 'classnames';
@@ -64,6 +65,10 @@ type JackpotFormData = {
   platformCommissionPercent?: number | null;
   sepaPaymentsAllowed?: boolean | null;
   isPubliclyVisible?: boolean | null;
+  payoutRequested?: boolean | null;
+  payoutRequestedAt?: string | null;
+  payoutCompletedAt?: string | null;
+  payoutStripeId?: string | null;
 };
 
 export default function CagnotteSlugPage() {
@@ -299,6 +304,66 @@ export default function CagnotteSlugPage() {
   const toggleModal = () => {
     setShowModal(!showModal)
   }
+
+  const [requestingPayout, setRequestingPayout] = useState(false);
+
+  const handleRequestPayout = async () => {
+    if (!jackpotForm) return;
+    const stats = calculateJackpotStats(contributions);
+    const confirmed = window.confirm(
+      `Demander le paiement de ${formatCurrency(stats.totalAmount)} pour "${jackpotForm.title}" ?`,
+    );
+    if (!confirmed) return;
+
+    setRequestingPayout(true);
+    try {
+      const session = await fetchAuthSession();
+      const accessToken = session.tokens?.accessToken?.toString();
+      const idToken = session.tokens?.idToken?.toString();
+      if (!accessToken || !idToken) {
+        alert('Session non valide. Veuillez vous reconnecter.');
+        return;
+      }
+
+      const response = await fetch('/api/cagnotte/request-payout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken},${idToken}`,
+        },
+        body: JSON.stringify({ jackpotFormId: jackpotForm.id }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        debug.error('Error requesting payout:', response.status, data);
+        alert(data?.error || 'Erreur lors de la demande de paiement');
+        return;
+      }
+
+      const cappedNote = data?.capped
+        ? ` (montant ajusté au solde disponible : ${formatCurrency(data.amount)})`
+        : '';
+      alert(`Demande de paiement envoyée avec succès${cappedNote}.`);
+
+      // Optimistic local update; the payout.paid webhook will later flip status to PAID_OUT.
+      setJackpotForm((prev) =>
+        prev
+          ? {
+              ...prev,
+              payoutRequested: true,
+              payoutRequestedAt: new Date().toISOString(),
+              payoutStripeId: data?.payoutId ?? null,
+            }
+          : prev,
+      );
+    } catch (err) {
+      debug.error('Error requesting payout:', err);
+      alert('Erreur lors de la demande de paiement');
+    } finally {
+      setRequestingPayout(false);
+    }
+  };
 
   if (!mounted) {
     return null;
@@ -637,6 +702,40 @@ export default function CagnotteSlugPage() {
                 </InfoBlockHeader>
                 <InfoBlockContent>
                   <Text>Cette cagnotte est fermée et n&apos;accepte plus de contributions.</Text>
+
+                  {isCreator && jackpotForm?.payoutCompletedAt && (
+                    <Text style={{ marginTop: '1rem', fontStyle: 'italic' }}>
+                      Paiement effectué le{' '}
+                      {new Date(jackpotForm.payoutCompletedAt).toLocaleDateString('fr-FR')}.
+                    </Text>
+                  )}
+
+                  {isCreator && !jackpotForm?.payoutCompletedAt && jackpotForm?.payoutRequested && (
+                    <Text style={{ marginTop: '1rem', fontStyle: 'italic' }}>
+                      Demande de paiement envoyée
+                      {jackpotForm.payoutRequestedAt
+                        ? ` le ${new Date(jackpotForm.payoutRequestedAt).toLocaleDateString('fr-FR')}`
+                        : ''}
+                      . Le paiement sera confirmé sous quelques jours.
+                    </Text>
+                  )}
+
+                  {isCreator
+                    && !jackpotForm?.payoutCompletedAt
+                    && !jackpotForm?.payoutRequested
+                    && calculateJackpotStats(contributions).totalAmount > 0 && (
+                    <div style={{ marginTop: '1rem' }}>
+                      <Button
+                        id='cagnotte-detail-request-payout-btn'
+                        markup={ButtonMarkup.BUTTON}
+                        variant={VariantState.SUCCESS}
+                        onClick={handleRequestPayout}
+                        disabled={requestingPayout}
+                      >
+                        {requestingPayout ? 'Demande en cours…' : 'Demander paiement'}
+                      </Button>
+                    </div>
+                  )}
                 </InfoBlockContent>
               </InfoBlock>
             </div>
