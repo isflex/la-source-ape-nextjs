@@ -530,6 +530,29 @@ const Email: React.FC = () => (
               </div>
 
               <div className={stylesPage.contentBlock}>
+                <h3>Pour les délégués : clôturer la cagnotte</h3>
+                <p>
+                  {`Une fois la campagne de collecte de fonds sera terminée, le statut `}
+                  <strong>« Terminée »</strong>
+                  {` apparaîtra dans la liste des campagnes que vous avez créées. Vous pourrez alors cliquer sur `}
+                  <strong>« Demander paiement »</strong>
+                  {` pour que les fonds soient transférés sur votre compte.`}
+                </p>
+              </div>
+
+              <div className={stylesPage.imageContainer}>
+                <Image
+                  src={
+                    "/assets/img/newsletter/cagnotte/payout/cagnottes-1-payout.png"
+                  }
+                  alt="Capture d'écran de la liste des cagnottes, avec une cagnotte à l'état terminée"
+                  width="900"
+                  height="388"
+                  className={stylesPage.centeredImage}
+                />
+              </div>
+
+              <div className={stylesPage.contentBlock}>
                 <h3>Pour rappel l&apos;url de la cagnotte :</h3>
                 <p>
                   {`Délégués, pour créer une cagnotte, rendez-vous sur :`}
