@@ -41,6 +41,7 @@ import {
 } from '@src/lib/cagnotte-helpers';
 import { DEFAULT_FEE_CONFIG, type FeeConfig } from '@src/lib/cagnotte-fees';
 import JackpotContributionTable from '@src/components/cagnotte/JackpotContributionTable';
+import RequestPayoutModal from '@src/components/cagnotte/RequestPayoutModal';
 import StripeCheckoutButton from '@src/components/cagnotte/StripeCheckoutButton';
 import AuthBanner from '@src/components/auth/AuthBanner';
 import SandboxBanner from '@src/components/cagnotte/SandboxBanner';
@@ -87,6 +88,7 @@ export default function CagnotteSlugPage() {
   const [showModal, setShowModal] = useState(false);
   const [publicJackpots, setPublicJackpots] = useState<JackpotFormData[]>([]);
   const [publicJackpotStats, setPublicJackpotStats] = useState<Record<string, { totalAmount: number; contributorCount: number }>>({});
+  const [payoutModalOpen, setPayoutModalOpen] = useState(false);
 
   const isCreator = user?.userId && jackpotForm?.owner === user.userId;
   const status = jackpotForm?.status || 'DRAFT';
@@ -305,17 +307,8 @@ export default function CagnotteSlugPage() {
     setShowModal(!showModal)
   }
 
-  const [requestingPayout, setRequestingPayout] = useState(false);
-
-  const handleRequestPayout = async () => {
+  const handlePayoutConfirm = async () => {
     if (!jackpotForm) return;
-    const stats = calculateJackpotStats(contributions);
-    const confirmed = window.confirm(
-      `Demander le paiement de ${formatCurrency(stats.totalAmount)} pour "${jackpotForm.title}" ?`,
-    );
-    if (!confirmed) return;
-
-    setRequestingPayout(true);
     try {
       const session = await fetchAuthSession();
       const accessToken = session.tokens?.accessToken?.toString();
@@ -341,10 +334,7 @@ export default function CagnotteSlugPage() {
         return;
       }
 
-      const cappedNote = data?.capped
-        ? ` (montant ajusté au solde disponible : ${formatCurrency(data.amount)})`
-        : '';
-      alert(`Demande de paiement envoyée avec succès${cappedNote}.`);
+      alert('Demande de paiement envoyée avec succès.');
 
       // Optimistic local update; the payout.paid webhook will later flip status to PAID_OUT.
       setJackpotForm((prev) =>
@@ -361,7 +351,7 @@ export default function CagnotteSlugPage() {
       debug.error('Error requesting payout:', err);
       alert('Erreur lors de la demande de paiement');
     } finally {
-      setRequestingPayout(false);
+      setPayoutModalOpen(false);
     }
   };
 
@@ -729,10 +719,9 @@ export default function CagnotteSlugPage() {
                         id='cagnotte-detail-request-payout-btn'
                         markup={ButtonMarkup.BUTTON}
                         variant={VariantState.SUCCESS}
-                        onClick={handleRequestPayout}
-                        disabled={requestingPayout}
+                        onClick={() => setPayoutModalOpen(true)}
                       >
-                        {requestingPayout ? 'Demande en cours…' : 'Demander paiement'}
+                        Demander paiement
                       </Button>
                     </div>
                   )}
@@ -756,6 +745,13 @@ export default function CagnotteSlugPage() {
           </div>
         </Section>
       </Container>
+      <RequestPayoutModal
+        open={payoutModalOpen}
+        amount={calculateJackpotStats(contributions).totalAmount}
+        cagnotteTitle={jackpotForm.title}
+        onClose={() => setPayoutModalOpen(false)}
+        onConfirm={handlePayoutConfirm}
+      />
     </>
   );
 }

@@ -14,6 +14,14 @@ Amplify.configure(getCurrentConfig(), { ssr: true });
 
 const client = generateClient<Schema>();
 
+const formatEuroCents = (cents: number) =>
+  new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(cents / 100);
+
+const sumEurCents = (entries: Stripe.Balance.Available[] | undefined) =>
+  (entries ?? [])
+    .filter((b) => b.currency === "eur")
+    .reduce((sum, b) => sum + b.amount, 0);
+
 let stripeClient: Stripe | null = null;
 
 async function getStripeClient(): Promise<Stripe> {
@@ -56,49 +64,49 @@ export async function POST(request: NextRequest) {
   try {
     const auth = await verifyUserAuth(request);
     if (!auth) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: "Non autorisé. Veuillez vous reconnecter." }, { status: 401 });
     }
     ({ userId } = auth);
 
     const body = await request.json();
     jackpotFormId = body?.jackpotFormId;
     if (!jackpotFormId || typeof jackpotFormId !== "string") {
-      return NextResponse.json({ error: "Missing jackpotFormId" }, { status: 400 });
+      return NextResponse.json({ error: "Identifiant de cagnotte manquant" }, { status: 400 });
     }
 
     const { data: jackpotForm } = await client.models.JackpotForm.get({ id: jackpotFormId });
     if (!jackpotForm) {
-      return NextResponse.json({ error: "Jackpot not found" }, { status: 404 });
+      return NextResponse.json({ error: "Cagnotte introuvable" }, { status: 404 });
     }
 
     if (jackpotForm.owner !== userId) {
-      return NextResponse.json({ error: "Not the cagnotte owner" }, { status: 403 });
+      return NextResponse.json({ error: "Vous n'êtes pas le créateur de cette cagnotte" }, { status: 403 });
     }
 
     if (jackpotForm.status !== "CLOSED") {
       return NextResponse.json(
-        { error: "Cagnotte must be CLOSED before requesting payout" },
+        { error: "La cagnotte doit être fermée avant de demander le paiement" },
         { status: 409 },
       );
     }
 
     if (jackpotForm.payoutRequested) {
       return NextResponse.json(
-        { error: "A payout request is already in flight" },
+        { error: "Une demande de paiement est déjà en cours" },
         { status: 409 },
       );
     }
 
     if (jackpotForm.payoutCompletedAt) {
       return NextResponse.json(
-        { error: "This cagnotte has already been paid out" },
+        { error: "Cette cagnotte a déjà été payée" },
         { status: 409 },
       );
     }
 
     if (!jackpotForm.stripeAccountId) {
       return NextResponse.json(
-        { error: "No Stripe Connect account linked to this cagnotte" },
+        { error: "Aucun compte Stripe Connect n'est lié à cette cagnotte" },
         { status: 409 },
       );
     }
@@ -108,7 +116,7 @@ export async function POST(request: NextRequest) {
     });
     const connectAccount = connectAccounts?.[0];
     if (!connectAccount) {
-      return NextResponse.json({ error: "Connect account not found" }, { status: 409 });
+      return NextResponse.json({ error: "Compte Stripe Connect introuvable" }, { status: 409 });
     }
     if (
       connectAccount.accountStatus !== "ACTIVE" ||
@@ -116,7 +124,7 @@ export async function POST(request: NextRequest) {
       !connectAccount.payoutsEnabled
     ) {
       return NextResponse.json(
-        { error: "Connect account is not ready to receive payouts" },
+        { error: "Le compte Stripe Connect n'est pas prêt à recevoir des paiements" },
         { status: 409 },
       );
     }
@@ -137,7 +145,7 @@ export async function POST(request: NextRequest) {
     const requestedCents = Math.round(succeededAmountEur * 100);
     if (requestedCents <= 0) {
       return NextResponse.json(
-        { error: "No successful contributions to pay out" },
+        { error: "Aucune contribution réussie à payer" },
         { status: 409 },
       );
     }
@@ -145,16 +153,28 @@ export async function POST(request: NextRequest) {
     const stripe = await getStripeClient();
 
     const balance = await stripe.balance.retrieve({ stripeAccount: jackpotForm.stripeAccountId });
-    const availableEurCents = balance.available
-      .filter((b) => b.currency === "eur")
-      .reduce((sum, b) => sum + b.amount, 0);
-    const amountCents = Math.min(requestedCents, availableEurCents);
-    if (amountCents <= 0) {
+    const availableEurCents = sumEurCents(balance.available);
+    const pendingEurCents = sumEurCents(balance.pending);
+
+    if (availableEurCents < requestedCents) {
+      if (availableEurCents + pendingEurCents >= requestedCents) {
+        return NextResponse.json(
+          {
+            error:
+              `Les fonds (${formatEuroCents(requestedCents)}) ne sont pas encore disponibles. ` +
+              "Stripe les libère après une période de sécurité (généralement 7 jours après chaque " +
+              "contribution). Veuillez réessayer après cette période.",
+          },
+          { status: 409 },
+        );
+      }
       return NextResponse.json(
-        { error: "Connect account has no available EUR balance" },
+        { error: "Aucun solde EUR disponible sur le compte Stripe Connect." },
         { status: 409 },
       );
     }
+
+    const amountCents = requestedCents;
 
     const payout = await stripe.payouts.create(
       {
@@ -183,7 +203,6 @@ export async function POST(request: NextRequest) {
       jackpotFormId,
       payoutId: payout.id,
       amountCents,
-      cappedFromCents: requestedCents,
     });
 
     return NextResponse.json({
@@ -191,8 +210,6 @@ export async function POST(request: NextRequest) {
       payoutId: payout.id,
       amount: amountCents / 100,
       currency: "eur",
-      capped: amountCents < requestedCents,
-      requestedAmount: requestedCents / 100,
     });
   } catch (error) {
     debug.error(
@@ -217,7 +234,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       {
-        error: error instanceof Error ? error.message : "Internal server error",
+        error: error instanceof Error ? error.message : "Erreur interne du serveur",
         requestId,
       },
       { status: 500 },

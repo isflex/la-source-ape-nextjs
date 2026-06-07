@@ -131,6 +131,17 @@ out. The flow:
    `payoutStripeId`, and writes the failure code/message into `payoutNotes`. The owner sees
    the "Demander paiement" button reappear and can retry.
 
+Stripe holds card transactions on a rolling clearing period (typically 7 days for French
+Express accounts) before they can be paid out. Until funds move from "Available soon"
+(`balance.pending`) to "Available" (`balance.available`), `request-payout` returns a 409 with
+a French wait message and does **not** call Stripe or write `payoutRequested=true`. Two ways
+to get money out earlier exist but are not wired in today:
+
+1. `stripe.payouts.create({ method: 'instant' }, { stripeAccount })` against
+   `balance.instant_available` — same-day, ~1% Stripe fee.
+2. Ask Stripe Support to reduce the rolling reserve for a specific account once it has a
+   track record (months, not days).
+
 ### Defense in depth: `/api/stripe-connect/refresh-account-status`
 
 The page at `/cagnotte/compte-stripe/` also calls `POST /api/stripe-connect/refresh-account-status` when the user returns from Stripe (`?success=true`). That endpoint calls `stripe.accounts.retrieve()` directly and syncs the DB record, so the UI updates correctly even if the webhook is misconfigured or delivery is delayed. The webhook remains the source of truth for async state changes (later disputes, balance restrictions, etc.).

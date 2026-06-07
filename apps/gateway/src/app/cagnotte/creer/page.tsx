@@ -88,6 +88,7 @@ import { Text } from "@flex-design-system/react-ts/client-sync-styled-direct/tex
 import { default as flexStyles } from "@flex-design-system/framework";
 import JackpotForm from "@src/components/cagnotte/JackpotForm";
 import AuthBanner from "@src/components/auth/AuthBanner";
+import RequestPayoutModal from "@src/components/cagnotte/RequestPayoutModal";
 import SandboxBanner from "@src/components/cagnotte/SandboxBanner";
 import { debug } from "@flexiness/domain-utils";
 import {
@@ -138,6 +139,7 @@ export default function CagnotteCreerPage() {
     Schema["StripeConnectAccount"]["type"] | null
   >(null);
   const [connectLoading, setConnectLoading] = useState(true);
+  const [payoutModalFor, setPayoutModalFor] = useState<JackpotFormData | null>(null);
   const formRef = React.useRef<HTMLDivElement>(null);
 
   // CopilotKit v2: Expose page context to AI agent
@@ -559,11 +561,6 @@ export default function CagnotteCreerPage() {
   };
 
   const handleRequestPayout = async (form: JackpotFormData) => {
-    const confirmed = window.confirm(
-      `Demander le paiement de ${formatCurrency(formStats[form.id]?.totalAmount || 0)} pour "${form.title}" ?`,
-    );
-    if (!confirmed) return;
-
     try {
       const session = await fetchAuthSession();
       const accessToken = session.tokens?.accessToken?.toString();
@@ -589,15 +586,14 @@ export default function CagnotteCreerPage() {
         return;
       }
 
-      const cappedNote = data?.capped
-        ? ` (montant ajusté au solde disponible : ${formatCurrency(data.amount)})`
-        : "";
-      alert(`Demande de paiement envoyée avec succès${cappedNote}.`);
+      alert("Demande de paiement envoyée avec succès.");
       // observeQuery picks up payoutRequested/payoutRequestedAt; payout.paid webhook will
       // later flip status to PAID_OUT.
     } catch (err) {
       alert("Erreur lors de la demande de paiement");
       debug.error("Error requesting payout:", err);
+    } finally {
+      setPayoutModalFor(null);
     }
   };
 
@@ -1118,7 +1114,7 @@ export default function CagnotteCreerPage() {
                                           markup={ButtonMarkup.BUTTON}
                                           variant={VariantState.SUCCESS}
                                           onClick={() =>
-                                            handleRequestPayout(form)
+                                            setPayoutModalFor(form)
                                           }
                                         >
                                           Demander paiement
@@ -1250,6 +1246,15 @@ export default function CagnotteCreerPage() {
             )}
         </Section>
       </Container>
+      <RequestPayoutModal
+        open={!!payoutModalFor}
+        amount={payoutModalFor ? formStats[payoutModalFor.id]?.totalAmount ?? 0 : 0}
+        cagnotteTitle={payoutModalFor?.title ?? ''}
+        onClose={() => setPayoutModalFor(null)}
+        onConfirm={async () => {
+          if (payoutModalFor) await handleRequestPayout(payoutModalFor);
+        }}
+      />
     </>
   );
 }
