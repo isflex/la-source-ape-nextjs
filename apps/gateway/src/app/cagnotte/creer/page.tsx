@@ -560,14 +560,13 @@ export default function CagnotteCreerPage() {
     window.open(url, "_blank");
   };
 
-  const handleRequestPayout = async (form: JackpotFormData) => {
+  const handleRequestPayout = async (form: JackpotFormData): Promise<string | null> => {
     try {
       const session = await fetchAuthSession();
       const accessToken = session.tokens?.accessToken?.toString();
       const idToken = session.tokens?.idToken?.toString();
       if (!accessToken || !idToken) {
-        alert("Session non valide. Veuillez vous reconnecter.");
-        return;
+        return "Session non valide. Veuillez vous reconnecter.";
       }
 
       const response = await fetch("/api/cagnotte/request-payout", {
@@ -582,18 +581,16 @@ export default function CagnotteCreerPage() {
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
         debug.error("Error requesting payout:", response.status, data);
-        alert(data?.error || "Erreur lors de la demande de paiement");
-        return;
+        return data?.error || "Erreur lors de la demande de paiement";
       }
 
       alert("Demande de paiement envoyée avec succès.");
       // observeQuery picks up payoutRequested/payoutRequestedAt; payout.paid webhook will
       // later flip status to PAID_OUT.
+      return null;
     } catch (err) {
-      alert("Erreur lors de la demande de paiement");
       debug.error("Error requesting payout:", err);
-    } finally {
-      setPayoutModalFor(null);
+      return "Erreur lors de la demande de paiement";
     }
   };
 
@@ -1252,7 +1249,8 @@ export default function CagnotteCreerPage() {
         cagnotteTitle={payoutModalFor?.title ?? ''}
         onClose={() => setPayoutModalFor(null)}
         onConfirm={async () => {
-          if (payoutModalFor) await handleRequestPayout(payoutModalFor);
+          if (!payoutModalFor) return null;
+          return handleRequestPayout(payoutModalFor);
         }}
       />
     </>

@@ -18,7 +18,10 @@ export interface RequestPayoutModalProps {
   amount: number;
   cagnotteTitle: string;
   onClose: () => void;
-  onConfirm: () => Promise<void>;
+  // Resolve with `null`/`undefined` on success → modal closes.
+  // Resolve with a string → modal switches to the error step and displays the string.
+  // Reject (throw) → caught here, treated like a returned string error.
+  onConfirm: () => Promise<string | null | void>;
 }
 
 const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
@@ -28,8 +31,9 @@ const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
   onClose,
   onConfirm,
 }) => {
-  const [step, setStep] = useState<'info' | 'confirm'>('info');
+  const [step, setStep] = useState<'info' | 'confirm' | 'error'>('info');
   const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -39,9 +43,10 @@ const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
 
   useEffect(() => {
     if (!open) return;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset step + submitting whenever the modal re-opens
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset step + submitting + errorMessage whenever the modal re-opens
     setStep('info');
     setSubmitting(false);
+    setErrorMessage(null);
   }, [open]);
 
   if (!mounted) return null;
@@ -56,7 +61,16 @@ const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
   const handleConfirm = async () => {
     setSubmitting(true);
     try {
-      await onConfirm();
+      const result = await onConfirm();
+      if (result == null) {
+        onClose();
+        return;
+      }
+      setErrorMessage(result);
+      setStep('error');
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : 'Erreur inconnue');
+      setStep('error');
     } finally {
       setSubmitting(false);
     }
@@ -81,7 +95,7 @@ const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
     <div onClick={(e) => e.stopPropagation()}>
       <Modal active={open} onClose={handleClose}>
         <br />
-        {step === 'info' ? (
+        {step === 'info' && (
           <div className={panelClass}>
             <Title level={TitleLevel.LEVEL3}>Demander le paiement</Title>
             <Text>
@@ -108,7 +122,9 @@ const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
               </Button>
             </div>
           </div>
-        ) : (
+        )}
+
+        {step === 'confirm' && (
           <div className={panelClass}>
             <Title level={TitleLevel.LEVEL3}>Confirmer la demande</Title>
             <Text>
@@ -134,6 +150,23 @@ const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
                 disabled={submitting}
               >
                 {submitting ? 'Envoi…' : 'Confirmer la demande'}
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {step === 'error' && (
+          <div className={panelClass}>
+            <Title level={TitleLevel.LEVEL3}>Impossible de traiter la demande</Title>
+            <Text>{errorMessage}</Text>
+            <div style={{ marginTop: '1rem' }}>
+              <Button
+                id='cagnotte-request-payout-error-close-btn'
+                markup={ButtonMarkup.BUTTON}
+                variant={VariantState.SECONDARY}
+                onClick={handleClose}
+              >
+                Fermer
               </Button>
             </div>
           </div>

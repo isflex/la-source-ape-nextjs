@@ -307,15 +307,14 @@ export default function CagnotteSlugPage() {
     setShowModal(!showModal)
   }
 
-  const handlePayoutConfirm = async () => {
-    if (!jackpotForm) return;
+  const handlePayoutConfirm = async (): Promise<string | null> => {
+    if (!jackpotForm) return 'Cagnotte introuvable';
     try {
       const session = await fetchAuthSession();
       const accessToken = session.tokens?.accessToken?.toString();
       const idToken = session.tokens?.idToken?.toString();
       if (!accessToken || !idToken) {
-        alert('Session non valide. Veuillez vous reconnecter.');
-        return;
+        return 'Session non valide. Veuillez vous reconnecter.';
       }
 
       const response = await fetch('/api/cagnotte/request-payout', {
@@ -330,8 +329,7 @@ export default function CagnotteSlugPage() {
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
         debug.error('Error requesting payout:', response.status, data);
-        alert(data?.error || 'Erreur lors de la demande de paiement');
-        return;
+        return data?.error || 'Erreur lors de la demande de paiement';
       }
 
       alert('Demande de paiement envoyée avec succès.');
@@ -347,11 +345,10 @@ export default function CagnotteSlugPage() {
             }
           : prev,
       );
+      return null;
     } catch (err) {
       debug.error('Error requesting payout:', err);
-      alert('Erreur lors de la demande de paiement');
-    } finally {
-      setPayoutModalOpen(false);
+      return 'Erreur lors de la demande de paiement';
     }
   };
 
