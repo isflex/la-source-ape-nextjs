@@ -158,12 +158,24 @@ export async function POST(request: NextRequest) {
 
     if (availableEurCents < requestedCents) {
       if (availableEurCents + pendingEurCents >= requestedCents) {
+        const dayMs = 24 * 60 * 60 * 1000;
+        const lastContributionMs = (contributions ?? []).reduce((max, c) => {
+          const ts = new Date(c.paidAt ?? c.createdAt ?? 0).getTime();
+          return Number.isFinite(ts) && ts > max ? ts : max;
+        }, 0);
+        const availableAtMs = lastContributionMs > 0
+          ? lastContributionMs + 7 * dayMs
+          : Date.now() + 7 * dayMs;
+        const daysRemaining = Math.max(1, Math.ceil((availableAtMs - Date.now()) / dayMs));
+
         return NextResponse.json(
           {
             error:
               `Les fonds (${formatEuroCents(requestedCents)}) ne sont pas encore disponibles. ` +
               "Stripe les libère après une période de sécurité (généralement 7 jours après chaque " +
               "contribution). Veuillez réessayer après cette période.",
+            code: "FUNDS_PENDING",
+            daysRemaining,
           },
           { status: 409 },
         );

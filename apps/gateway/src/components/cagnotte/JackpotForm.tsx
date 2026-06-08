@@ -20,8 +20,8 @@ import {
   InfoBlockStatus
 } from '@flex-design-system/react-ts/client-sync-styled-direct/info-block';
 import {
-  Icon,
-  IconSize,
+  // Icon,
+  // IconSize,
   // IconPosition,
   IconName,
   // IconStatus,

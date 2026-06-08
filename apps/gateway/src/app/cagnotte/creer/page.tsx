@@ -88,7 +88,7 @@ import { Text } from "@flex-design-system/react-ts/client-sync-styled-direct/tex
 import { default as flexStyles } from "@flex-design-system/framework";
 import JackpotForm from "@src/components/cagnotte/JackpotForm";
 import AuthBanner from "@src/components/auth/AuthBanner";
-import RequestPayoutModal from "@src/components/cagnotte/RequestPayoutModal";
+import RequestPayoutModal, { type PayoutErrorInfo } from "@src/components/cagnotte/RequestPayoutModal";
 import SandboxBanner from "@src/components/cagnotte/SandboxBanner";
 import { debug } from "@flexiness/domain-utils";
 import {
@@ -560,7 +560,7 @@ export default function CagnotteCreerPage() {
     window.open(url, "_blank");
   };
 
-  const handleRequestPayout = async (form: JackpotFormData): Promise<string | null> => {
+  const handleRequestPayout = async (form: JackpotFormData): Promise<string | PayoutErrorInfo | null> => {
     try {
       const session = await fetchAuthSession();
       const accessToken = session.tokens?.accessToken?.toString();
@@ -581,6 +581,13 @@ export default function CagnotteCreerPage() {
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
         debug.error("Error requesting payout:", response.status, data);
+        if (data?.code === "FUNDS_PENDING") {
+          return {
+            message: data.error || "Erreur lors de la demande de paiement",
+            code: "FUNDS_PENDING",
+            daysRemaining: typeof data.daysRemaining === "number" ? data.daysRemaining : undefined,
+          };
+        }
         return data?.error || "Erreur lors de la demande de paiement";
       }
 

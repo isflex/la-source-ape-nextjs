@@ -13,15 +13,22 @@ import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-di
 
 import { formatCurrency } from '@src/lib/cagnotte-helpers';
 
+export interface PayoutErrorInfo {
+  message: string;
+  code?: string;          // currently only "FUNDS_PENDING" surfaced
+  daysRemaining?: number; // present iff code === "FUNDS_PENDING"
+}
+
 export interface RequestPayoutModalProps {
   open: boolean;
   amount: number;
   cagnotteTitle: string;
   onClose: () => void;
   // Resolve with `null`/`undefined` on success → modal closes.
-  // Resolve with a string → modal switches to the error step and displays the string.
+  // Resolve with a string or PayoutErrorInfo → modal switches to the error step and displays
+  // the message (string is treated as `{ message }`).
   // Reject (throw) → caught here, treated like a returned string error.
-  onConfirm: () => Promise<string | null | void>;
+  onConfirm: () => Promise<string | PayoutErrorInfo | null | void>;
 }
 
 const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
@@ -33,7 +40,7 @@ const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
 }) => {
   const [step, setStep] = useState<'info' | 'confirm' | 'error'>('info');
   const [submitting, setSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorInfo, setErrorInfo] = useState<PayoutErrorInfo | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -43,10 +50,10 @@ const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
 
   useEffect(() => {
     if (!open) return;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset step + submitting + errorMessage whenever the modal re-opens
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset step + submitting + errorInfo whenever the modal re-opens
     setStep('info');
     setSubmitting(false);
-    setErrorMessage(null);
+    setErrorInfo(null);
   }, [open]);
 
   if (!mounted) return null;
@@ -66,10 +73,12 @@ const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
         onClose();
         return;
       }
-      setErrorMessage(result);
+      const info: PayoutErrorInfo =
+        typeof result === 'string' ? { message: result } : result;
+      setErrorInfo(info);
       setStep('error');
     } catch (err) {
-      setErrorMessage(err instanceof Error ? err.message : 'Erreur inconnue');
+      setErrorInfo({ message: err instanceof Error ? err.message : 'Erreur inconnue' });
       setStep('error');
     } finally {
       setSubmitting(false);
@@ -101,7 +110,7 @@ const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
             <Text>
               Stripe libère les fonds après une période de sécurité (généralement 7 jours
               après chaque contribution). Selon la date des contributions, il se peut que vous
-              deviez attendre quelques jours avant que le paiement soit effectué.
+              devez attendre quelques jours avant que le transfert peut être effectué.
             </Text>
             <div className={buttonRowClass} style={{ marginTop: '1rem' }}>
               <Button
@@ -155,10 +164,16 @@ const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
           </div>
         )}
 
-        {step === 'error' && (
+        {step === 'error' && errorInfo && (
           <div className={panelClass}>
-            <Title level={TitleLevel.LEVEL3}>Impossible de traiter la demande</Title>
-            <Text>{errorMessage}</Text>
+            <Title level={TitleLevel.LEVEL3}>
+              {errorInfo.code === 'FUNDS_PENDING' && errorInfo.daysRemaining != null
+                ? errorInfo.daysRemaining === 1
+                  ? 'Veuillez réessayer dans 1 jour'
+                  : `Veuillez réessayer dans ${errorInfo.daysRemaining} jours`
+                : 'Impossible de traiter la demande'}
+            </Title>
+            <Text>{errorInfo.message}</Text>
             <div style={{ marginTop: '1rem' }}>
               <Button
                 id='cagnotte-request-payout-error-close-btn'

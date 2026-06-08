@@ -41,7 +41,7 @@ import {
 } from '@src/lib/cagnotte-helpers';
 import { DEFAULT_FEE_CONFIG, type FeeConfig } from '@src/lib/cagnotte-fees';
 import JackpotContributionTable from '@src/components/cagnotte/JackpotContributionTable';
-import RequestPayoutModal from '@src/components/cagnotte/RequestPayoutModal';
+import RequestPayoutModal, { type PayoutErrorInfo } from '@src/components/cagnotte/RequestPayoutModal';
 import StripeCheckoutButton from '@src/components/cagnotte/StripeCheckoutButton';
 import AuthBanner from '@src/components/auth/AuthBanner';
 import SandboxBanner from '@src/components/cagnotte/SandboxBanner';
@@ -307,7 +307,7 @@ export default function CagnotteSlugPage() {
     setShowModal(!showModal)
   }
 
-  const handlePayoutConfirm = async (): Promise<string | null> => {
+  const handlePayoutConfirm = async (): Promise<string | PayoutErrorInfo | null> => {
     if (!jackpotForm) return 'Cagnotte introuvable';
     try {
       const session = await fetchAuthSession();
@@ -329,6 +329,13 @@ export default function CagnotteSlugPage() {
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
         debug.error('Error requesting payout:', response.status, data);
+        if (data?.code === 'FUNDS_PENDING') {
+          return {
+            message: data.error || 'Erreur lors de la demande de paiement',
+            code: 'FUNDS_PENDING',
+            daysRemaining: typeof data.daysRemaining === 'number' ? data.daysRemaining : undefined,
+          };
+        }
         return data?.error || 'Erreur lors de la demande de paiement';
       }
 
