@@ -553,6 +553,41 @@ const Email: React.FC = () => (
               </div>
 
               <div className={stylesPage.contentBlock}>
+                <h3>Pourquoi un délai après la clôture ?</h3>
+                <p>
+                  {`Les fonds pourront vous être transférés au plus tard 7 jours après la date de la `}
+                  <strong>dernière contribution</strong>
+                  {`. Ce délai correspond à la période de sécurité que Stripe applique sur chaque paiement par carte bancaire afin de couvrir d'éventuelles oppositions de paiement. Nous avons choisi de respecter cette période standard pour `}
+                  <strong>maintenir les frais de traitement au minimum</strong>
+                  {` — les virements instantanés existent mais sont facturés en supplément.`}
+                </p>
+                <p>
+                  {`Concrètement, le délai s'applique à chaque contribution prise individuellement :`}
+                </p>
+                <ul>
+                  <li>
+                    {`Un parent contribue le `}
+                    <strong>jour 1</strong>
+                    {` → les fonds sont disponibles vers le `}
+                    <strong>jour 8</strong>
+                    {` (que la cagnotte soit fermée ou non).`}
+                  </li>
+                  <li>
+                    {`Un parent contribue le `}
+                    <strong>jour de clôture</strong>
+                    {` → les fonds sont disponibles `}
+                    <strong>environ 7 jours après la clôture</strong>
+                    {`.`}
+                  </li>
+                </ul>
+                <p>
+                  {`Si vous cliquez sur `}
+                  <strong>« Demander paiement »</strong>
+                  {` avant que tous les fonds soient disponibles, un message vous l'indiquera et vous pourrez réessayer après ce délai.`}
+                </p>
+              </div>
+
+              <div className={stylesPage.contentBlock}>
                 <h3>Pour rappel l&apos;url de la cagnotte :</h3>
                 <p>
                   {`Délégués, pour créer une cagnotte, rendez-vous sur :`}
