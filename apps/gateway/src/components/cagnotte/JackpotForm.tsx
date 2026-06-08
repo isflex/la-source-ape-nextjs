@@ -413,25 +413,9 @@ export default function JackpotForm({ onSubmit, onCancel, existingSlugs = [], ed
                 <Text style={{ fontSize: '0.875rem', opacity: 0.7 }}>
                   La cagnotte se fermera automatiquement à cette date.
                 </Text>
-                {/*
                 <Text style={{ fontSize: '0.875rem', opacity: 0.7 }}>
                   Les fonds pourront vous être transférés au plus tard 7 jours après la date de la dernière contribution.
                 </Text>
-                */}
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    margin: "0 auto",
-                    fontSize: '0.875rem',
-                    opacity: 0.7
-                  }}
-                >
-                  <Icon size={IconSize.SMALL} name={IconName.UI_INFO_CIRCLE} />
-                  <Text>
-                    Les fonds pourront vous être transférés au plus tard 7 jours après la date de la dernière contribution.
-                  </Text>
-                </div>
                 {errors.deadline && <Text className={flexStyles.hasTextDanger}>{errors.deadline}</Text>}
               </label>
             </div>
