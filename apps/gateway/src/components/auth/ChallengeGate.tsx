@@ -1,0 +1,148 @@
+'use client';
+
+import React, { useCallback, useEffect, useState } from 'react';
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { fetchAuthSession } from 'aws-amplify/auth';
+
+import { default as flexStyles } from '@flex-design-system/framework';
+import { Modal } from '@flex-design-system/react-ts/client-sync-styled-direct/modal';
+import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
+import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
+import { Button, ButtonMarkup } from '@flex-design-system/react-ts/client-sync-styled-direct/button';
+import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
+import { Box } from '@flex-design-system/react-ts/client-sync-styled-direct/box';
+
+import { CHALLENGE_QUESTION, readChallengePassed } from '@src/lib/auth-challenge';
+
+type GateStatus = 'checking' | 'gated' | 'passed';
+
+/**
+ * Blocks signed-in users (password AND Google) until the `challenge_passed`
+ * ID-token claim is 'true'. Unauthenticated visitors are unaffected.
+ * The claim is the enforceable artifact — this UI is UX only; the answer is
+ * verified server-side by POST /api/auth/challenge.
+ */
+const ChallengeGate: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { user, authStatus } = useAuthenticator((ctx) => [ctx.user, ctx.authStatus]);
+  const [status, setStatus] = useState<GateStatus>('checking');
+  const [answer, setAnswer] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
+
+  const checkClaim = useCallback(async (forceRefresh = false): Promise<boolean> => {
+    const session = await fetchAuthSession(forceRefresh ? { forceRefresh: true } : undefined);
+    return readChallengePassed(session);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        if (authStatus !== 'authenticated' || !user) {
+          // Public browsing (and the sign-in flow itself) stays unaffected.
+          if (!cancelled) setStatus('passed');
+          return;
+        }
+        const passed = await checkClaim();
+        if (!cancelled) setStatus(passed ? 'passed' : 'gated');
+      } catch {
+        // If the session cannot be read, do not lock the user out of public content.
+        if (!cancelled) setStatus('passed');
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [authStatus, user, checkClaim]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
+    setError('');
+    try {
+      const session = await fetchAuthSession();
+      const accessToken = session.tokens?.accessToken?.toString();
+      if (!accessToken) {
+        setError('Session expirée. Veuillez vous reconnecter.');
+        return;
+      }
+      const response = await fetch('/api/auth/challenge', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        },
+        body: JSON.stringify({ answer })
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        setError('Une erreur est survenue. Veuillez réessayer.');
+        return;
+      }
+      if (!result.success) {
+        setError('Réponse incorrecte. Veuillez réessayer.');
+        return;
+      }
+      // Attribute set server-side — refresh tokens so PreTokenGeneration re-runs.
+      if (await checkClaim(true)) {
+        setStatus('passed');
+        return;
+      }
+      // Rare attribute-write/refresh race: one delayed retry.
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (await checkClaim(true)) {
+        setStatus('passed');
+      } else {
+        setError('Vérification en cours. Veuillez réessayer dans un instant.');
+      }
+    } catch {
+      setError('Une erreur est survenue. Veuillez réessayer.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <>
+      {children}
+      {status === 'gated' && (
+        <Modal active={true} onClose={() => { /* non-dismissable: answering is the only way through */ }}>
+          <Box>
+            <Title level={TitleLevel.LEVEL4}>
+              Une dernière question
+            </Title>
+            <form onSubmit={(e) => void handleSubmit(e)}>
+              <Text>
+                <label htmlFor="challenge-answer">{CHALLENGE_QUESTION}</label>
+              </Text>
+              <input
+                id="challenge-answer"
+                type="text"
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
+                placeholder="Votre réponse..."
+                className={flexStyles.isFullwidth}
+                autoFocus
+                required
+              />
+              {error && (
+                <Text className={flexStyles.hasTextDanger}>
+                  {error}
+                </Text>
+              )}
+              <Button
+                markup={ButtonMarkup.BUTTON}
+                type="submit"
+                variant={VariantState.PRIMARY}
+                disabled={submitting || !answer.trim()}
+              >
+                {submitting ? 'Vérification...' : 'Valider'}
+              </Button>
+            </form>
+          </Box>
+        </Modal>
+      )}
+    </>
+  );
+};
+
+export default ChallengeGate;

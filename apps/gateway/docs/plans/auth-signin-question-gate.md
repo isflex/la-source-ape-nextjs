@@ -1,8 +1,12 @@
 # Plan: Sign-in question/answer gate (works for password AND Google sign-in)
 
-> **Status:** Planned, not yet implemented. The Gen-1 Amplify auth changes (`amplify push`) cannot be
-> done on the current machine. Commit this doc, then re-open the plan on a machine with the Gen-1 Amplify
-> CLI authenticated for this AWS account and execute the "Division of labor" below.
+> **Status:** Application code implemented in BOTH repos (gateway route/helper/ChallengeGate +
+> websocket express endpoint/ChallengeGateComponent/AuthComponent wiring). Gen-1 backend **deployed
+> to the `dev` env and verified**: `custom:challenge_passed` in schema (not client-writable),
+> PreTokenGeneration attached and live-invoked (absent→'false', 'true'→'true'), backends' IAM user
+> (`isflex-amplify`, shared by both repos in dev) has Cognito admin-API access. Remaining: browser
+> e2e (password + Google), the `prod` amplify env (same Part A steps incl. the corepack lockfile
+> gotcha), and production `FLEX_CHALLENGE_ANSWER` values in both repos' `.env.production`.
 
 ## Context
 
@@ -27,8 +31,13 @@ This is the simple first step; it also lays the groundwork for the future accred
 accreditation, not a Cognito challenge).
 
 Repo paths:
-- Gen-1 backend: `/home/ischerer/workspaces/ape-la-source/amplify-gen-1/websocket-app/ape-la-source`
-- Gateway: `/home/ischerer/workspaces/ape-la-source/amplify-gen-2/gateway/flexi/apps/gateway`
+- Gen-1 backend (websocket app): `/home/ischerer/workspaces/flex/websocket-app/ape-la-source`
+- Gateway: `/home/ischerer/workspaces/flex/la-source-ape/gateway/flexi/apps/gateway`
+
+**Scope addition:** the gate is wired not only into the gateway (`src/app/layout.tsx` /
+`AuthProvider`) but also into the websocket repo's own client at
+`apps/la-source/ape/on-board/client/src/AuthComponent.tsx`, with a matching express verification
+endpoint — see Part D.
 
 ## How it works (end to end)
 
@@ -44,27 +53,106 @@ Repo paths:
 
 ## Part A — Gen-1: PreTokenGeneration trigger + custom attribute
 
-Via `amplify update auth` (interactive) on resource `v3onBoard05c84909`:
-- Add a **custom attribute** `custom:challenge_passed` (String).
-  **Security:** it must NOT be in the app client's *write* attributes (so a user can't self-grant via
-  `updateUserAttributes`); only the backend sets it with `AdminUpdateUserAttributes`. Verify the generated
-  `cli-inputs.json` `userpoolClientWriteAttributes` does **not** list it (and the gateway's
-  `bin/update-cognito-user-pool.sh` `--write-attributes` likewise omits it).
-- Enable the **PreTokenGeneration** trigger (new function
-  `amplify/backend/function/v3onBoard05c84909PreTokenGeneration/`).
+Runs anywhere the Amplify CLI 14.x is installed and AWS creds work (this dev machine qualifies —
+the original "needs a separate Gen-1 machine" assumption was wrong). In this order:
 
-**Handler (authored by us; CommonJS, matching `…PostConfirmation/src/add-to-group.js` style):**
+1. **Custom attribute via direct CLI** — the Gen-1 `amplify update auth` walkthrough has no
+   custom-attribute prompt, and `amplify override auth` CFN `Schema` edits on an existing pool risk
+   user-pool *replacement*. The direct call is append-only and creates no Amplify-config drift
+   (cli-inputs.json has no representation of custom attributes):
+   ```bash
+   aws cognito-idp add-custom-attributes --user-pool-id $FLEX_AWS_COGNITO_USER_POOL_ID \
+     --custom-attributes Name=challenge_passed,AttributeDataType=String,Mutable=true,StringAttributeConstraints='{MinLength=0,MaxLength=8}'
+   ```
+   **Security:** it must NOT be in the app client's *write* attributes (so a user can't self-grant via
+   `updateUserAttributes`); only the backends set it with `AdminUpdateUserAttributes`. Leave
+   `cli-inputs.json` `userpoolClientWriteAttributes`/`ReadAttributes` untouched (and the gateway's
+   `bin/update-cognito-user-pool.sh` `--write-attributes` likewise omits it).
+
+2. **PreTokenGeneration trigger** via `amplify update auth` (interactive) on resource
+   `v3onBoard05c84909`, choosing "Walkthrough all the auth configurations" and re-confirming every
+   existing answer. ⚠️ The trigger config hides behind a **Y/n question near the END of the long
+   walkthrough** — "Do you want to configure Lambda Triggers for Cognito?" defaults to No and is
+   easy to miss; a first attempt recorded *nothing* because of it. Answer **Yes** → checklist:
+   **keep Custom Message and Post Confirmation checked** (unchecking unregisters them), additionally
+   check **Pre Token Generation** → template **"Alter Claims in Id Token"** → "edit the function
+   now?" → No. Do NOT pre-create the function dir — the CLI scaffolds
+   `amplify/backend/function/v3onBoard05c84909PreTokenGeneration/`. No IAM `permissions` entry is
+   needed (the Lambda only reads the event).
+
+   **Pre-push verification gate** (the CLI writes everything BEFORE push — if `git diff` is missing
+   any of these, the trigger was not recorded and push will not create it):
+   - new function dir with `function-parameters.json` → `"triggerTemplate": "PreTokenGeneration.json.ejs"`
+   - `cli-inputs.json`: `triggers.PreTokenGeneration: ["alter-claims"]` + `dependsOn` +
+     `authTriggerConnections` entries
+   - `backend-config.json`: `function.v3onBoard05c84909PreTokenGeneration` entry + auth `dependsOn` entry
+   - no unwanted changes (write attributes / OAuth URLs untouched)
+
+3. **Replace the generated `src/alter-claims.js`** (authored by us; CommonJS, matching
+   `…PostConfirmation/src/add-to-group.js` style). It MUST never throw — a throwing
+   PreTokenGeneration blocks ALL sign-ins pool-wide:
 ```js
+/**
+ * PreTokenGeneration (V1): map custom:challenge_passed -> `challenge_passed` ID-token claim.
+ * Twin consumer: gateway src/lib/auth-challenge.ts readChallengePassed().
+ * MUST never throw — a PreTokenGeneration error blocks ALL sign-ins.
+ */
 exports.handler = async (event) => {
-  const passed = event.request.userAttributes['custom:challenge_passed'] === 'true';
+  const passed = event?.request?.userAttributes?.['custom:challenge_passed'] === 'true'
+  event.response = event.response || {}
   event.response.claimsOverrideDetails = {
     claimsToAddOrOverride: { challenge_passed: passed ? 'true' : 'false' },
-  };
-  return event;
-};
+  }
+  return event
+}
 ```
 (v1 claims override → ID token. If access-token/AppSync enforcement is wanted later, switch to the v2
-`claimsAndScopeOverrideDetails`.) Then `amplify push`.
+`claimsAndScopeOverrideDetails`.)
+
+4. **Add `src/alter-claims.test.js`** (zero-dep `node --test`, run with
+   `node --test amplify/backend/function/v3onBoard05c84909PreTokenGeneration/src/alter-claims.test.js`
+   — point at the file, NOT the directory: a directory run also executes the scaffolded `index.js`
+   loader, which throws on the missing `MODULES` env var):
+```js
+const { test } = require('node:test')
+const assert = require('node:assert')
+const { handler } = require('./alter-claims')
+
+const claim = (event) => event.response.claimsOverrideDetails.claimsToAddOrOverride.challenge_passed
+
+test("attribute 'true' -> claim 'true'", async () => {
+  const event = { request: { userAttributes: { 'custom:challenge_passed': 'true' } }, response: {} }
+  assert.strictEqual(claim(await handler(event)), 'true')
+})
+
+test("attribute absent -> claim 'false'", async () => {
+  const event = { request: { userAttributes: {} }, response: {} }
+  assert.strictEqual(claim(await handler(event)), 'false')
+})
+
+test("attribute 'false' -> claim 'false'", async () => {
+  const event = { request: { userAttributes: { 'custom:challenge_passed': 'false' } }, response: {} }
+  assert.strictEqual(claim(await handler(event)), 'false')
+})
+
+test('malformed event does not throw, claim false', async () => {
+  const event = {}
+  assert.strictEqual(claim(await handler(event)), 'false')
+})
+```
+
+5. ⚠️ **Corepack gotcha:** before pushing, the new function's `src/` needs a `package-lock.json`
+   (`cd …PreTokenGeneration/src && npm install --package-lock-only --ignore-scripts`). Without a
+   lockfile, Amplify's function build probes `yarn --version`, which corepack kills in this repo
+   (root `"packageManager": "pnpm@…"`) and the push aborts during local packaging. The existing
+   CustomMessage/PostConfirmation functions already carry npm lockfiles for this reason.
+
+6. Validate generation first with `pnpm exec amplify build` — the regenerated
+   `amplify/backend/auth/v3onBoard05c84909/build/auth-trigger-cloudformation-template.json` must
+   contain a `UserPoolPreTokenGenerationLambdaInvokePermission` alongside the existing two. Then
+   `amplify push` — review the CFN diff: new Lambda + `LambdaConfig` wiring only, **no UserPool
+   replacement**. Repeat Part A for the `prod` amplify env later (`amplify env checkout prod`;
+   attribute creation on the prod pool + push).
 
 The `Define/Create/Verify` custom-auth Lambdas and `ALLOW_CUSTOM_AUTH` are **not** needed.
 
@@ -98,6 +186,43 @@ New `apps/gateway/src/app/api/auth/challenge/route.ts` (POST):
 No change to `src/utils/amplify/configure.ts`. No change to the `<Authenticator>` sign-in flow itself —
 the gate sits *after* any successful sign-in, which is what makes it work for Google too.
 
+## Part D — Websocket repo: gate in AuthComponent.tsx + express verification endpoint
+
+The websocket repo's own client must be gated too (same pool, same claim). **Implemented:**
+
+- **Client** `apps/la-source/ape/on-board/client/src/ChallengeGateComponent.tsx` (new; mirrors
+  `BouncerComponent.tsx` idioms — `Modal`/`InfoBlock*` from
+  `@flex-design-system/react-ts/client-sync-styled-default`): reads
+  `session.tokens?.idToken?.payload?.['challenge_passed']` via `fetchAuthSession()`; when not
+  `'true'`, replaces its children with a blocking question modal; POSTs `{ answer }` with
+  `Authorization: Bearer <accessToken>` to `${FLEX_POKER_BACK_HOST}/api/verify-challenge-amplify`;
+  on success `fetchAuthSession({ forceRefresh: true })`. The question text is a hard-coded constant
+  (non-secret; rspack has no env plumbing for new vars).
+- **Wiring** in `AuthComponent.tsx`'s `route === 'authenticated'` branch:
+  `<AuthSignedIn /><ChallengeGateComponent><BouncerComponent …/></ChallengeGateComponent>`.
+- **Hub interaction:** the module-level `Hub.listen('auth')` in `AuthComponent.tsx` reloads the page
+  on `tokenRefresh`. The post-answer `forceRefresh` therefore reloads — this is safe and loop-free
+  (tokens carrying the new claim are persisted before the event fires; after reload the cached
+  session reads `'true'`).
+- **Server** `apps/la-source/ape/on-board/server/src/middlewares/onboard/amplify/verify-challenge-amplify.mts`
+  (new; mirrors `sign-user-agreement-amplify.mts`): zod-validates `{ answer }`, verifies the access
+  token via `req.app.locals.authManager`, compares with `isChallengeAnswerCorrect` (twin helper at
+  `src/functions/auth-challenge.mts`) against `FLEX_CHALLENGE_ANSWER`, then
+  `AdminUpdateUserAttributesCommand` (`@aws-sdk/client-cognito-identity-provider`, added to the
+  server package) with `UserPoolId: FLEX_AWS_COGNITO_USER_POOL_ID`. Registered in `src/server.mts` as
+  `POST /api/verify-challenge-amplify`. The server's IAM user needs
+  `cognito-idp:AdminUpdateUserAttributes` on the pool.
+- **Env:** `FLEX_CHALLENGE_ANSWER` (same value as the gateway's) in `env/public/.env.development`
+  (done, dev placeholder) and `.env.production` (to set at deploy time).
+
+## Part E — Deploy ordering
+
+Backend first, then clients: a client gate shipped before the attribute + PreTokenGeneration Lambda
+exist is **unpassable** (the claim never appears and `AdminUpdateUserAttributes` errors on the
+unknown attribute). Order: Part A (`amplify push`) → websocket server → websocket client → gateway.
+Pre-existing users are gated once at their next sign-in/refresh; optionally pre-seed the admin
+user's attribute so automated flows never see the gate.
+
 ## TDD
 
 - **PreTokenGeneration** handler — `node --test` (zero deps): attribute `'true'` → claim `'true'`;
@@ -107,12 +232,14 @@ the gate sits *after* any successful sign-in, which is what makes it work for Go
 
 ## Critical files
 
-- Gen-1 `amplify/backend/function/v3onBoard05c84909PreTokenGeneration/src/index.js` (+ `*.test.js`)
-- Gen-1 `amplify/backend/auth/v3onBoard05c84909/cli-inputs.json` — custom attribute + trigger (via `amplify update auth`)
-- Gateway `src/app/api/auth/challenge/route.ts` — verify answer + `AdminUpdateUserAttributes`
-- Gateway `src/lib/auth-challenge.ts` (+ `.test.ts`) — `isChallengeAnswerCorrect`, claim reader
-- Gateway `ChallengeGate` component + wire into `src/app/layout.tsx` / `AuthProvider`
-- Gateway `bin/update-cognito-user-pool.sh` — confirm `custom:challenge_passed` stays OUT of write attrs
+- Gen-1 `amplify/backend/function/v3onBoard05c84909PreTokenGeneration/src/alter-claims.js` (+ `.test.js`) — CLI-scaffolded, then replaced with the code in Part A
+- Gen-1 `amplify/backend/auth/v3onBoard05c84909/cli-inputs.json` — trigger wiring (via `amplify update auth`); attribute via `add-custom-attributes` (Part A)
+- Gateway `src/app/api/auth/challenge/route.ts` — verify answer + `AdminUpdateUserAttributes` ✅
+- Gateway `src/lib/auth-challenge.ts` (+ `.test.ts`) — `isChallengeAnswerCorrect`, claim reader ✅
+- Gateway `src/components/auth/ChallengeGate.tsx` + wired into `src/app/layout.tsx` ✅
+- Gateway `bin/update-cognito-user-pool.sh` — confirm `custom:challenge_passed` stays OUT of write attrs (verified, no change needed)
+- Websocket `apps/la-source/ape/on-board/client/src/ChallengeGateComponent.tsx` + `AuthComponent.tsx` wiring ✅
+- Websocket `apps/la-source/ape/on-board/server/src/middlewares/onboard/amplify/verify-challenge-amplify.mts` + `src/functions/auth-challenge.mts` + `src/server.mts` registration ✅
 
 ## Verification
 
@@ -131,8 +258,14 @@ the gate sits *after* any successful sign-in, which is what makes it work for Go
 
 ## Division of labor
 
-- **Code (any machine):** the PreTokenGeneration handler + `node --test`, the gateway API route,
-  `auth-challenge.ts` helper + vitest, the `ChallengeGate` component + layout wiring, the env-var wiring.
-- **Requires the Gen-1-capable machine (interactive, via `!`):** `amplify update auth` to add
-  `custom:challenge_passed` + the PreTokenGeneration trigger, set the `CHALLENGE_ANSWER` secret/env,
-  ensure the server role has `AdminUpdateUserAttributes`, and `amplify push` from the Gen-1 repo.
+- **Code (any machine) — DONE:** the gateway API route, `auth-challenge.ts` helper + vitest, the
+  `ChallengeGate` component + layout wiring, the websocket `ChallengeGateComponent` +
+  `AuthComponent.tsx` wiring, the `verify-challenge-amplify.mts` middleware + registration, and the
+  dev env-var wiring (`FLEX_CHALLENGE_ANSWER` placeholder "La Source" /
+  `NEXT_PUBLIC_FLEX_CHALLENGE_QUESTION` in both repos' `.env.development` — choose real production
+  values at deploy time).
+- **Gen-1 backend (`dev` env) — DONE except push:** attribute created, trigger scaffolded
+  (walkthrough Part A.2, pre-push gate verified), handler + test in place (4/4 pass),
+  `amplify build` validated. **Remaining (interactive, via `!`):** `amplify push` for `dev`, the
+  same Part A run for `prod`, set `FLEX_CHALLENGE_ANSWER` in `.env.production` of both repos, and
+  ensure both backends' principals have `cognito-idp:AdminUpdateUserAttributes` on the pool.
