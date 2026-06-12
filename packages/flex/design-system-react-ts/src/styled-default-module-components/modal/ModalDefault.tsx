@@ -81,7 +81,7 @@ const Modal = ({
           <div className={styles.modalBackground}></div>
           <div className={styles.modalContent}>
             <Box>
-              <BoxContent>
+              <BoxContent className={styles.isPaddingless}>
                 <button
                   onClick={(e: React.MouseEvent) => {
                     setDisplay(false)
@@ -116,7 +116,7 @@ const Modal = ({
         <div className={styles.modalBackground}></div>
         <div className={styles.modalContent}>
           <Box>
-            <BoxContent>
+            <BoxContent className={styles.isPaddingless}>
               <button
                 onClick={(e: React.MouseEvent) => {
                   setDisplay(false)

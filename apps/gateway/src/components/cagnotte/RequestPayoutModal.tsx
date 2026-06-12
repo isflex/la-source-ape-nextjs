@@ -38,7 +38,7 @@ const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
   onClose,
   onConfirm,
 }) => {
-  const [step, setStep] = useState<'info' | 'confirm' | 'error'>('info');
+  const [step, setStep] = useState<'info' | 'confirm' | 'success' | 'error'>('info');
   const [submitting, setSubmitting] = useState(false);
   const [errorInfo, setErrorInfo] = useState<PayoutErrorInfo | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -70,7 +70,7 @@ const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
     try {
       const result = await onConfirm();
       if (result == null) {
-        onClose();
+        setStep('success');
         return;
       }
       const info: PayoutErrorInfo =
@@ -159,6 +159,27 @@ const RequestPayoutModal: React.FC<RequestPayoutModalProps> = ({
                 disabled={submitting}
               >
                 {submitting ? 'Envoi…' : 'Confirmer la demande'}
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {step === 'success' && (
+          <div className={panelClass}>
+            <Title level={TitleLevel.LEVEL3}>Demande envoyée</Title>
+            <Text>
+              Demande de paiement de <strong>{formatCurrency(amount)}</strong> pour &laquo;{' '}
+              {cagnotteTitle} &raquo; envoyée avec succès.
+            </Text>
+            <Text>Le paiement sera confirmé sous quelques jours.</Text>
+            <div style={{ marginTop: '1rem' }}>
+              <Button
+                id='cagnotte-request-payout-success-close-btn'
+                markup={ButtonMarkup.BUTTON}
+                variant={VariantState.SECONDARY}
+                onClick={onClose}
+              >
+                Fermer
               </Button>
             </div>
           </div>

@@ -1,5 +1,3 @@
-/* eslint-disable no-alert */
-
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -42,6 +40,7 @@ import {
 import { DEFAULT_FEE_CONFIG, type FeeConfig } from '@src/lib/cagnotte-fees';
 import JackpotContributionTable from '@src/components/cagnotte/JackpotContributionTable';
 import RequestPayoutModal, { type PayoutErrorInfo } from '@src/components/cagnotte/RequestPayoutModal';
+import FeedbackModal from '@src/components/cagnotte/FeedbackModal';
 import StripeCheckoutButton from '@src/components/cagnotte/StripeCheckoutButton';
 import AuthBanner from '@src/components/auth/AuthBanner';
 import SandboxBanner from '@src/components/cagnotte/SandboxBanner';
@@ -89,6 +88,7 @@ export default function CagnotteSlugPage() {
   const [publicJackpots, setPublicJackpots] = useState<JackpotFormData[]>([]);
   const [publicJackpotStats, setPublicJackpotStats] = useState<Record<string, { totalAmount: number; contributorCount: number }>>({});
   const [payoutModalOpen, setPayoutModalOpen] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const isCreator = user?.userId && jackpotForm?.owner === user.userId;
   const status = jackpotForm?.status || 'DRAFT';
@@ -338,8 +338,6 @@ export default function CagnotteSlugPage() {
         }
         return data?.error || 'Erreur lors de la demande de paiement';
       }
-
-      alert('Demande de paiement envoyée avec succès.');
 
       // Optimistic local update; the payout.paid webhook will later flip status to PAID_OUT.
       setJackpotForm((prev) =>
@@ -681,7 +679,7 @@ export default function CagnotteSlugPage() {
                     teacherName={jackpotForm.teacherName}
                     feeConfig={feeConfig}
                     sepaAllowed={sepaAllowed}
-                    onError={(message) => alert(message)}
+                    onError={(message) => setCheckoutError(message)}
                   />
                 </div>
               </Box>
@@ -755,6 +753,12 @@ export default function CagnotteSlugPage() {
         cagnotteTitle={jackpotForm.title}
         onClose={() => setPayoutModalOpen(false)}
         onConfirm={handlePayoutConfirm}
+      />
+      <FeedbackModal
+        open={!!checkoutError}
+        title='Erreur'
+        message={checkoutError ?? ''}
+        onClose={() => setCheckoutError(null)}
       />
     </>
   );
