@@ -1,3 +1,21 @@
+Bonjour,
+
+Avant les vacances d’avril, nous avons discuté de la question des adhésions.
+
+Depuis, il a été décidé de continuer à collecter les adhésions par l’intermédiaire de l’administration scolaire, comme auparavant.
+
+Toutefois, une alternative est proposée ici si l’association des parents d’élèves souhaite gérer les adhésions de manière indépendante.
+
+L’idée est de pouvoir configurer plus facilement le formulaire d’adhésion sur notre site web selon nos besoins :
+
+- Un champ RGPD nous permettant d’obtenir le consentement des membres pour communiquer avec eux par courriel (et par téléphone si nécessaire)
+- Un ciblage basé sur le niveau scolaire de leurs enfants scolarisés afin de mieux définir notre public
+
+Comme avec le parcours des cagnottes, le formulaire ici est mode test sandbox. Il est branché sur une instance de helloasso backoffice qui est également en mode test sandbox. 
+
+Je vous invite d'en prendre connaissance.
+
+
 # 🧪 Test de l'adhésion — Mode d'emploi pour l'équipe APE La Source
 
 > **En deux mots :** on lance un test grandeur nature de l'application d'**adhésion** (la cotisation
@@ -24,24 +42,18 @@ on est nombreux à tester, plus on repère vite les éventuels problèmes. 🙌
 ## 2. 🔗 Quels liens utiliser ?
 
 ⚠️ **Différence avec la cagnotte :** la page d'adhésion n'est **pas encore visible sur le site de
-production** (apelasource.org) — la fonctionnalité y est désactivée pour l'instant. Le test se
+production** ([https://apelasource.org/adhesion](https://apelasource.org/adhesion)) — la fonctionnalité y est désactivée pour l'instant. Le test se
 déroule donc sur l'**environnement de pré-production (sandbox)**.
 
-> 🌐 **Adresse de base : https://<URL-DU-SANDBOX>/**
->
-> 👉 Remplacez `<URL-DU-SANDBOX>` par l'adresse exacte du déploiement **production-sandbox**
-> (communiquée par l'équipe technique) avant de partager ce guide.
+> 🌐 **Adresse de base :** [https://flexi.d2ybqei9w8j7t5.amplifyapp.com/adhesion](https://flexi.d2ybqei9w8j7t5.amplifyapp.com/adhesion)
 
 ⚠️ **Important :** HelloAsso est en **mode TEST (sandbox)** pendant toute cette phase. Aucun argent
 réel n'est débité (voir §4 et §6).
 
 | Action                                              | Lien à utiliser                                                                                              | Pour qui ?            |
 | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | --------------------- |
-| **Adhérer (faire une adhésion de test)**            | `https://<URL-DU-SANDBOX>/adhesion/`                                                                         | Toute l'équipe        |
-| **Vérifier les adhérents (backoffice HelloAsso)**   | `https://admin.helloasso-sandbox.com/association-des-parents-d-eleves-de-la-source-ecole-nouvelle-sandbox/adhesions/test-subscribe/statistiques` | Meriem (trésorière)   |
-
-> 🔚 Pensez à conserver la **barre oblique finale** (`/`) dans les adresses — le site l'utilise par
-> convention.
+| **Adhérer (faire une adhésion de test)**            | [formulaire d'adhésion en test sandbox](https://flexi.d2ybqei9w8j7t5.amplifyapp.com/adhesion)                                                                         | Toute l'équipe        |
+| **Vérifier les adhérents (backoffice HelloAsso)**   | [backoffice helloasso en test sandbox](https://admin.helloasso-sandbox.com/association-des-parents-d-eleves-de-la-source-ecole-nouvelle-sandbox/adhesions/test-subscribe/statistiques) | Meriem (trésorière) ou autre administrateur du backoffice  |
 
 ---
 
@@ -51,11 +63,11 @@ réel n'est débité (voir §4 et §6).
 
 Chaque membre :
 
-1. Ouvre **https://<URL-DU-SANDBOX>/adhesion/** et se **connecte** (bouton « Se connecter »).
+1. Ouvre **[https://flexi.d2ybqei9w8j7t5.amplifyapp.com/adhesion](https://flexi.d2ybqei9w8j7t5.amplifyapp.com/adhesion)** et se **connecte** (bouton « Se connecter »).
 2. La page vérifie automatiquement votre statut (« Vérification de votre adhésion en cours... »).
 3. Si vous n'êtes pas encore adhérent, le **formulaire HelloAsso** s'affiche directement dans la
    page (« Complétez le formulaire ci-dessous pour finaliser votre adhésion »).
-4. ⚠️ **Très important :** utilisez **la même adresse e-mail que celle de votre compte** au moment
+4. ⚠️ **Important :** utilisez **la même adresse e-mail que celle de votre compte de connexion** au moment
    du paiement. C'est ce qui relie automatiquement votre adhésion à votre compte. La page vous
    rappelle l'adresse à utiliser.
 5. Payez avec une **carte de test** (voir §4).

@@ -86,7 +86,8 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
 
         // Subscribe to piscine form changes with observeQuery
         formSubscription = client.models.PiscineForm.observeQuery({
-          filter: { slug: { eq: slug } }
+          filter: { slug: { eq: slug } },
+          authMode: 'apiKey'
         }).subscribe({
           next: ({ items }) => {
             if (!items || items.length === 0) {
@@ -107,7 +108,8 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
 
               // Subscribe to time slot changes
               timeSlotSubscription = client.models.PiscineTimeSlot.observeQuery({
-                filter: { piscineFormId: { eq: form.id } }
+                filter: { piscineFormId: { eq: form.id } },
+                authMode: 'apiKey'
               }).subscribe({
                 next: ({ items: timeSlotsData }) => {
                   if (timeSlotsData) {
@@ -392,6 +394,7 @@ export default function PiscineSlugPage({ params }: PiscineSlugPageProps) {
           {/* Candidat Table */}
           <PiscineCandidatTable
             piscineFormId={piscineForm.id}
+            formOwner={piscineForm.owner}
             isCreatorMode={!!isCreator}
             isAuthenticated={!!user}
             onMessage={handleMessage}

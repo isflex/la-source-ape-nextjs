@@ -583,3 +583,58 @@ export const validateMultiDayFormData = (data: unknown): ValidationResult<MultiD
     };
   }
 };
+
+/**
+ * Non-PII fields fetched for guests so enrollment counts can be displayed
+ * without ever requesting personal details (names, email, phone, child name).
+ */
+export const CANDIDAT_COUNT_SELECTION_SET = [
+  'id',
+  'order',
+  'piscineDateSlotId',
+  'owner'
+] as const;
+
+export interface CandidatQueryOptions {
+  authMode: 'userPool' | 'apiKey';
+  selectionSet?: readonly string[];
+}
+
+/**
+ * Decide how to query PiscineCandidat records based on the session.
+ *
+ * - Authenticated: userPool auth mode, full field access (PII visible).
+ * - Guest: apiKey auth mode with a PII-free selection set, so only counts are
+ *   retrievable. This pairs with field-level `allow.authenticated()` on the PII
+ *   fields in the data schema — guests cannot read personal details at the API.
+ *
+ * @param isAuthenticated - Whether a Cognito user is signed in
+ */
+export const getCandidatQueryOptions = (isAuthenticated: boolean): CandidatQueryOptions => {
+  if (isAuthenticated) {
+    return { authMode: 'userPool' };
+  }
+  return {
+    authMode: 'apiKey',
+    selectionSet: CANDIDAT_COUNT_SELECTION_SET
+  };
+};
+
+/**
+ * Build the `editors` list for a PiscineCandidat — the Cognito userIds allowed
+ * to update/delete the enrollment. This is the enrolling participant plus the
+ * planning creator (PiscineForm.owner), so the creator can manage every
+ * enrollment while a participant can only manage their own.
+ *
+ * Backs the model's `allow.ownersDefinedIn('editors')` write rule.
+ *
+ * @param participantId - Cognito userId of the enrolling participant
+ * @param formOwnerId - Cognito userId of the planning creator
+ * @returns De-duplicated list with falsy ids removed
+ */
+export const buildCandidatEditors = (
+  participantId?: string | null,
+  formOwnerId?: string | null
+): string[] => {
+  return [...new Set([participantId, formOwnerId].filter((id): id is string => Boolean(id)))];
+};

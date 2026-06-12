@@ -330,19 +330,42 @@ const schema = a.schema({
 
   PiscineCandidat: a
     .model({
-      firstName: a.string().required(),
-      lastName: a.string().required(),
-      email: a.string().required(),
-      phoneNumber: a.string().required(),
-      nameOfChild: a.string().required(),
+      // PII fields: field-level auth restricts reads/writes to authenticated users.
+      // The public API key can still list/count records (model-level rule below),
+      // but cannot read these fields — protecting enrolled individuals' details
+      // from unauthenticated sessions.
+      // NOTE: these must NOT be `.required()`. Amplify forbids a required field
+      // from having a field-level rule more restrictive than the model's read
+      // access (a publicApiKey reader could otherwise receive a record missing a
+      // required field). They stay required at the app layer via the Zod
+      // PiscineCandidatSchema validation in PiscineCandidatRow.
+      firstName: a.string().authorization((allow) => [allow.authenticated()]),
+      lastName: a.string().authorization((allow) => [allow.authenticated()]),
+      email: a.string().authorization((allow) => [allow.authenticated()]),
+      phoneNumber: a.string().authorization((allow) => [allow.authenticated()]),
+      nameOfChild: a.string().authorization((allow) => [allow.authenticated()]),
       order: a.integer().default(0), // For creator reordering within date slot
       owner: a.string(), // Cognito userId of participant creator (nullable for backward compatibility)
+      // Cognito userIds allowed to update/delete this enrollment: the enrolling
+      // participant + the planning creator (PiscineForm.owner). Drives the
+      // ownersDefinedIn write rule below. Populated via buildCandidatEditors().
+      editors: a.string().array(),
       piscineDateSlotId: a.id().required(),
       piscineDateSlot: a.belongsTo('PiscineDateSlot', 'piscineDateSlotId'),
       piscineFormId: a.id().required(),
       piscineForm: a.belongsTo('PiscineForm', 'piscineFormId'), // For easier queries
     })
-    .authorization((allow) => [allow.publicApiKey()]),
+    // Reads are intentionally broad (visibility unchanged):
+    //   publicApiKey.to(read):  guests list/count enrollments (non-PII fields only).
+    //   authenticated.to(read): any signed-in user sees the full roster.
+    // Writes are owner/creator-only:
+    //   ownersDefinedIn('editors'): only the participant or planning creator can
+    //   create/update/delete an enrollment.
+    .authorization((allow) => [
+      allow.publicApiKey().to(['read']),
+      allow.authenticated().to(['read']),
+      allow.ownersDefinedIn('editors').to(['create', 'update', 'delete']),
+    ]),
 
   // Stripe Connect Account (for cagnotte creators)
   StripeConnectAccount: a

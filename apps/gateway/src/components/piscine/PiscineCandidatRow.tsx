@@ -14,7 +14,7 @@ import { Input, type InputChangeEvent } from '@flex-design-system/react-ts/clien
 import { Text } from '@flex-design-system/react-ts/client-sync-styled-direct/text';
 import { VariantState } from '@flex-design-system/react-ts/client-sync-styled-direct/objects';
 import { default as flexStyles } from '@flex-design-system/framework';
-import { PiscineCandidatSchema, type PiscineCandidatData } from '@src/lib/piscine-helpers';
+import { PiscineCandidatSchema, type PiscineCandidatData, buildCandidatEditors } from '@src/lib/piscine-helpers';
 import { Title, TitleLevel } from '@flex-design-system/react-ts/client-sync-styled-direct/title';
 
 const client = generateClient<Schema>();
@@ -22,6 +22,7 @@ const client = generateClient<Schema>();
 interface PiscineCandidatRowProps {
   piscineDateSlotId: string;
   piscineFormId: string;
+  formOwner?: string; // Cognito userId of the planning creator (for the editors write-auth list)
   existingCandidat?: {
     id: string;
     firstName: string;
@@ -53,6 +54,7 @@ const INITIAL_CANDIDAT_DATA = {
 export default function PiscineCandidatRow({
   piscineDateSlotId,
   piscineFormId,
+  formOwner,
   existingCandidat,
   onSuccess,
   onError,
@@ -111,7 +113,7 @@ export default function PiscineCandidatRow({
           email: validatedData.email,
           phoneNumber: validatedData.phoneNumber,
           nameOfChild: validatedData.nameOfChild
-        });
+        }, { authMode: 'userPool' });
 
         if (updateErrors || !data) {
           debug.error('Update candidat errors:', updateErrors);
@@ -132,8 +134,11 @@ export default function PiscineCandidatRow({
           piscineDateSlotId: validatedData.piscineDateSlotId,
           piscineFormId: validatedData.piscineFormId,
           owner: user?.userId || null, // Track who created this participant
+          // Write-auth list: the participant + the planning creator can later
+          // update/delete this enrollment (allow.ownersDefinedIn('editors')).
+          editors: buildCandidatEditors(user?.userId, formOwner),
           order: 0 // Will be assigned by database
-        });
+        }, { authMode: 'userPool' });
 
         if (createErrors || !data) {
           debug.error('Create candidat errors:', createErrors);
@@ -180,7 +185,7 @@ export default function PiscineCandidatRow({
 
       const { errors } = await client.models.PiscineCandidat.delete({
         id: existingCandidat.id
-      });
+      }, { authMode: 'userPool' });
 
       if (errors) {
         debug.error('Delete candidat errors:', errors);
