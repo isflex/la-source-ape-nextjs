@@ -64,14 +64,14 @@ export default async function MarketingLayout({
       <main>
         <RoundtableController disabled={mobileCheck}>
           <svg
-            id="roundtableSvg"
-            className={classNames(stylesPage.roundtableSvg)}
-            width="792"
-            height="735"
-            viewBox="0 0 792 735"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+              id="roundtableSvg"
+              className={classNames(stylesPage.roundtableSvg)}
+              width="792"
+              height="735"
+              viewBox="0 0 792 735"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
             <rect width="792" height="735" />
             <g id="roundtableGroup">
               <path
@@ -702,13 +702,13 @@ export default async function MarketingLayout({
           {!mobileCheck && (
             <div className={stylesPage.apeProjets}>
               <svg
-                width="1652"
-                height="827"
-                viewBox="0 0 1652 827"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlnsXlink="http://www.w3.org/1999/xlink"
-              >
+                  width="1652"
+                  height="827"
+                  viewBox="0 0 1652 827"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlnsXlink="http://www.w3.org/1999/xlink"
+                >
                 <g
                   id="apeProjectsGroup"
                   className={classNames(stylesPage.projects)}

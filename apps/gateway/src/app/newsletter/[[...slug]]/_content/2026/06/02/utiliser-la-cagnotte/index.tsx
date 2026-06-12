@@ -100,7 +100,7 @@ const Email: React.FC = () => (
               <div className={stylesPage.contentBlock}>
                 <h2>Bonjour</h2>
                 <p>
-                  {`${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION_GENERIC_GENERIC} de ${process.env.NEXT_PUBLIC_SCHOOL_TITLE_GENERIC} met à votre disposition un nouvel outil : la `}
+                  {`${process.env.NEXT_PUBLIC_PARENT_ASSOCIATION_GENERIC} de ${process.env.NEXT_PUBLIC_SCHOOL_TITLE_GENERIC} met à votre disposition un nouvel outil : la `}
                   <strong>cagnotte en ligne</strong>
                   {`. Elle permet d'organiser facilement une collecte solidaire entre parents — par exemple pour offrir un cadeau de fin d'année à un enseignant ou financer un projet de classe.`}
                 </p>
