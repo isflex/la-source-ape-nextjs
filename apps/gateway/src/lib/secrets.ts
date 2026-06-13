@@ -29,6 +29,9 @@ function resolveSecretId(name: string, overrideArn?: string): string {
 interface StripeSecrets {
   FLEX_STRIPE_SECRET_KEY: string;
   FLEX_STRIPE_WEBHOOK_SECRET: string;
+  // Signing secret of the "Connected accounts" scoped event destination.
+  // Optional: local dev (Stripe CLI) usually forwards a single secret.
+  FLEX_STRIPE_WEBHOOK_SECRET_CONNECT?: string;
 }
 
 export type HelloAssoEnv = 'sandbox' | 'production';
@@ -66,6 +69,7 @@ export async function getStripeSecrets(): Promise<StripeSecrets> {
     cachedSecrets = {
       FLEX_STRIPE_SECRET_KEY: localSecretKey,
       FLEX_STRIPE_WEBHOOK_SECRET: localWebhookSecret,
+      FLEX_STRIPE_WEBHOOK_SECRET_CONNECT: process.env.FLEX_STRIPE_WEBHOOK_SECRET_CONNECT,
     };
     cacheExpiry = Date.now() + CACHE_TTL;
     return cachedSecrets;

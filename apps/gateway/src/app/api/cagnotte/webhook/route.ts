@@ -18,7 +18,7 @@ const client = generateClient<Schema>();
 
 // Lazy initialization with caching - fetches secrets from AWS Secrets Manager
 let stripeClient: Stripe | null = null;
-let cachedWebhookSecret: string | null = null;
+let cachedWebhookSecrets: string[] | null = null;
 
 async function getStripeClient(): Promise<Stripe> {
   if (!stripeClient) {
@@ -28,12 +28,18 @@ async function getStripeClient(): Promise<Stripe> {
   return stripeClient;
 }
 
-async function getWebhookSecret(): Promise<string> {
-  if (!cachedWebhookSecret) {
+// As a Connect platform we run two scoped event destinations ("Your account"
+// and "Connected accounts"), each with its own signing secret, both pointing at
+// this route. Verify against whichever secrets are configured.
+async function getWebhookSecrets(): Promise<string[]> {
+  if (!cachedWebhookSecrets) {
     const secrets = await getStripeSecrets();
-    cachedWebhookSecret = secrets.FLEX_STRIPE_WEBHOOK_SECRET;
+    cachedWebhookSecrets = [
+      secrets.FLEX_STRIPE_WEBHOOK_SECRET,
+      secrets.FLEX_STRIPE_WEBHOOK_SECRET_CONNECT,
+    ].filter((s): s is string => Boolean(s));
   }
-  return cachedWebhookSecret;
+  return cachedWebhookSecrets;
 }
 
 // Helper to log webhook errors
@@ -63,14 +69,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing stripe-signature header" }, { status: 400 });
     }
 
-    // Verify webhook signature (CRITICAL for security)
-    let event: Stripe.Event;
-    try {
-      const stripe = await getStripeClient();
-      const webhookSecret = await getWebhookSecret();
-      event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
-    } catch (err) {
-      await logWebhookError(err, "signature_verification_failed");
+    // Verify webhook signature (CRITICAL for security). Try each configured
+    // signing secret (one per scoped event destination) until one validates.
+    let event: Stripe.Event | null = null;
+    const stripe = await getStripeClient();
+    for (const secret of await getWebhookSecrets()) {
+      try {
+        event = stripe.webhooks.constructEvent(body, signature, secret);
+        break;
+      } catch {
+        // Signature didn't match this secret — try the next one.
+      }
+    }
+
+    if (!event) {
+      await logWebhookError(new Error("Webhook signature verification failed"), "signature_verification_failed");
       return NextResponse.json({ error: "Webhook signature verification failed" }, { status: 400 });
     }
 
