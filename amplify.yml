@@ -43,4 +43,4 @@ applications:
       cache:
         paths:
           - "apps/gateway/.next/cache/**/*"
-          - "node_modules/**/*"
+          # - "node_modules/**/*"
