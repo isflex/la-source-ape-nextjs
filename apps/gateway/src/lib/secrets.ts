@@ -40,10 +40,16 @@ export interface HelloAssoSecrets {
   FLEX_HELLOASSO_ENV: HelloAssoEnv;
 }
 
+interface ChallengeSecrets {
+  FLEX_CHALLENGE_ANSWER: string;
+}
+
 let cachedSecrets: StripeSecrets | null = null;
 let cacheExpiry: number = 0;
 let cachedHelloAssoSecrets: HelloAssoSecrets | null = null;
 let helloAssoCacheExpiry: number = 0;
+let cachedChallengeSecrets: ChallengeSecrets | null = null;
+let challengeCacheExpiry: number = 0;
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
 export async function getStripeSecrets(): Promise<StripeSecrets> {
@@ -95,6 +101,46 @@ export async function isStripeTestMode(): Promise<boolean> {
   } catch {
     return false;
   }
+}
+
+/**
+ * The sign-in challenge answer (server-side only — never shipped to the client).
+ *
+ * - Local dev: `process.env.FLEX_CHALLENGE_ANSWER` (dotenvx-decrypted).
+ * - Production: AWS Secrets Manager `apelasource[-sandbox]/challenge` →
+ *   `{ "FLEX_CHALLENGE_ANSWER": "…" }`. This is required because the Amplify SSR
+ *   runtime does NOT load the dotenvx env file, so server-only (non-NEXT_PUBLIC)
+ *   vars are absent at runtime. Mirrors getStripeSecrets/getHelloAssoSecrets.
+ */
+export async function getChallengeAnswer(): Promise<string> {
+  if (cachedChallengeSecrets && Date.now() < challengeCacheExpiry) {
+    return cachedChallengeSecrets.FLEX_CHALLENGE_ANSWER;
+  }
+
+  const local = process.env.FLEX_CHALLENGE_ANSWER;
+  if (local) {
+    cachedChallengeSecrets = { FLEX_CHALLENGE_ANSWER: local };
+    challengeCacheExpiry = Date.now() + CACHE_TTL;
+    return local;
+  }
+
+  const command = new GetSecretValueCommand({
+    SecretId: resolveSecretId('challenge', process.env.FLEX_CHALLENGE_SECRET_ARN),
+  });
+  const response = await getClient().send(command);
+
+  if (!response.SecretString) {
+    throw new Error('Challenge secret not found in Secrets Manager');
+  }
+
+  const parsed = JSON.parse(response.SecretString) as ChallengeSecrets;
+  if (!parsed.FLEX_CHALLENGE_ANSWER) {
+    throw new Error('Challenge secret is missing FLEX_CHALLENGE_ANSWER');
+  }
+
+  cachedChallengeSecrets = parsed;
+  challengeCacheExpiry = Date.now() + CACHE_TTL;
+  return parsed.FLEX_CHALLENGE_ANSWER;
 }
 
 function assertHelloAssoEnv(value: string | undefined): asserts value is HelloAssoEnv {

@@ -162,8 +162,18 @@ New `apps/gateway/src/app/api/auth/challenge/route.ts` (POST):
 - Authenticate the caller: verify their Cognito access token with `CognitoJwtVerifier` (reuse the pattern
   in `src/app/api/admin/login/route.ts` GET) to get their `sub`/username.
 - Compare the submitted answer to the server secret using a pure helper
-  `isChallengeAnswerCorrect(answer, expected)` (case/space-insensitive). Expected answer from server env
-  `CHALLENGE_ANSWER` (never `NEXT_PUBLIC_`).
+  `isChallengeAnswerCorrect(answer, expected)` (case/space-insensitive). Expected answer via
+  `getChallengeAnswer()` in `src/lib/secrets.ts` (never `NEXT_PUBLIC_`).
+  **PROD GOTCHA:** the Amplify SSR runtime does NOT load the dotenvx `.env.production` file, so a
+  server-only var like `FLEX_CHALLENGE_ANSWER` is `undefined` at runtime → the route returned 503
+  `CHALLENGE_ANSWER_MISSING` in prod (only `NEXT_PUBLIC_*` get inlined at build, which is why the
+  question text worked). Fixed by following the project's Secrets Manager pattern
+  (`getStripeSecrets`/`getHelloAssoSecrets`): `getChallengeAnswer()` returns
+  `process.env.FLEX_CHALLENGE_ANSWER` for local dev, else reads `apelasource[-sandbox]/challenge`
+  (override via `FLEX_CHALLENGE_SECRET_ARN`) → `{ "FLEX_CHALLENGE_ANSWER": "…" }`.
+  **Required prod setup:** create the `apelasource/challenge` secret; ensure the SSR runtime role can
+  `secretsmanager:GetSecretValue` it (the `apelasource/*` Stripe/HelloAsso secrets already work from
+  the same runtime, so the policy likely covers it).
 - On success: `AdminUpdateUserAttributes({ UserPoolId, Username, UserAttributes: [{Name:'custom:challenge_passed', Value:'true'}] })`
   via `CognitoIdentityProviderClient` (reuse `src/lib/server-admin-auth.ts` credential/config pattern).
   Ensure the server role has `cognito-idp:AdminUpdateUserAttributes`.

@@ -34,6 +34,7 @@ import {
   CHALLENGE_QUESTION,
   readChallengePassed,
 } from "@src/lib/auth-challenge";
+import LogoApe from "@src/components/logo-ape";
 
 type GateStatus = "checking" | "gated" | "passed";
 
@@ -140,6 +141,23 @@ const ChallengeGate: React.FC<{ children: React.ReactNode }> = ({
   // visitors; preserves SSR/hydration parity — SSR initial status is 'checking').
   if (status === "gated") {
     return (
+      <>
+        {/* Centered logo behind the modal: the protected app is still never in the
+            DOM (so deleting the modal node reveals only this branding, not the app),
+            but the page isn't a blank void. */}
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100vw",
+            height: "100vh",
+          }}
+        >
+          <LogoApe />
+        </div>
         <Modal
           active={true}
           onClose={() => {
@@ -184,6 +202,7 @@ const ChallengeGate: React.FC<{ children: React.ReactNode }> = ({
             </InfoBlock>
           </form>
         </Modal>
+      </>
     );
   }
 

@@ -398,3 +398,94 @@ describe('isStripeTestMode', () => {
     await expect(isStripeTestMode()).resolves.toBe(false);
   });
 });
+
+const CHALLENGE_ENV_KEYS = [
+  'FLEX_CHALLENGE_ANSWER',
+  'FLEX_CHALLENGE_SECRET_ARN',
+  'NEXT_PUBLIC_AWS_APP_ID',
+] as const;
+
+describe('getChallengeAnswer', () => {
+  const snapshot: Partial<Record<(typeof CHALLENGE_ENV_KEYS)[number], string | undefined>> = {};
+
+  beforeEach(() => {
+    vi.resetModules();
+    mockSend.mockReset();
+    MockGetSecretValueCommand.mockClear();
+
+    for (const k of CHALLENGE_ENV_KEYS) {
+      snapshot[k] = process.env[k];
+      delete process.env[k];
+    }
+  });
+
+  afterEach(() => {
+    for (const k of CHALLENGE_ENV_KEYS) {
+      if (snapshot[k] === undefined) {
+        delete process.env[k];
+      } else {
+        process.env[k] = snapshot[k];
+      }
+    }
+  });
+
+  it('returns the answer from the env var when present (local dev)', async () => {
+    process.env.FLEX_CHALLENGE_ANSWER = 'env-answer';
+
+    const { getChallengeAnswer } = await import('./secrets');
+
+    await expect(getChallengeAnswer()).resolves.toBe('env-answer');
+    expect(mockSend).not.toHaveBeenCalled();
+  });
+
+  it('falls back to AWS Secrets Manager when the env var is absent', async () => {
+    mockSend.mockResolvedValueOnce({
+      SecretString: JSON.stringify({ FLEX_CHALLENGE_ANSWER: 'sm-answer' }),
+    });
+
+    const { getChallengeAnswer } = await import('./secrets');
+
+    await expect(getChallengeAnswer()).resolves.toBe('sm-answer');
+    expect(mockSend).toHaveBeenCalledTimes(1);
+    expect(MockGetSecretValueCommand).toHaveBeenCalledWith({
+      SecretId: 'apelasource/challenge',
+    });
+  });
+
+  it('uses the sandbox SecretId on the production-sandbox Amplify app', async () => {
+    process.env.NEXT_PUBLIC_AWS_APP_ID = PROD_SANDBOX_AWS_APP_ID;
+    mockSend.mockResolvedValueOnce({
+      SecretString: JSON.stringify({ FLEX_CHALLENGE_ANSWER: 'sm-answer' }),
+    });
+
+    const { getChallengeAnswer } = await import('./secrets');
+    await getChallengeAnswer();
+
+    expect(MockGetSecretValueCommand).toHaveBeenCalledWith({
+      SecretId: 'apelasource-sandbox/challenge',
+    });
+  });
+
+  it('lets FLEX_CHALLENGE_SECRET_ARN override the SecretId', async () => {
+    process.env.FLEX_CHALLENGE_SECRET_ARN =
+      'arn:aws:secretsmanager:eu-west-3:123:secret:custom-challenge';
+    mockSend.mockResolvedValueOnce({
+      SecretString: JSON.stringify({ FLEX_CHALLENGE_ANSWER: 'sm-answer' }),
+    });
+
+    const { getChallengeAnswer } = await import('./secrets');
+    await getChallengeAnswer();
+
+    expect(MockGetSecretValueCommand).toHaveBeenCalledWith({
+      SecretId: 'arn:aws:secretsmanager:eu-west-3:123:secret:custom-challenge',
+    });
+  });
+
+  it('throws when the Secrets Manager payload lacks FLEX_CHALLENGE_ANSWER', async () => {
+    mockSend.mockResolvedValueOnce({ SecretString: JSON.stringify({}) });
+
+    const { getChallengeAnswer } = await import('./secrets');
+
+    await expect(getChallengeAnswer()).rejects.toThrow(/FLEX_CHALLENGE_ANSWER/);
+  });
+});

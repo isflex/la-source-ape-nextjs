@@ -2,6 +2,7 @@ import { debug } from '@flexiness/domain-utils';
 import { NextRequest, NextResponse } from 'next/server'
 import { getAuthConfig } from '@src/utils/amplify/configureAmplifyWithPortDetection'
 import { isChallengeAnswerCorrect } from '@src/lib/auth-challenge'
+import { getChallengeAnswer } from '@src/lib/secrets'
 
 /**
  * POST /api/auth/challenge
@@ -37,9 +38,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const expected = process.env.FLEX_CHALLENGE_ANSWER
+    let expected: string | undefined
+    try {
+      expected = await getChallengeAnswer()
+    } catch (error) {
+      debug.error('❌ Failed to load challenge answer:', error)
+    }
     if (!expected) {
-      debug.error('❌ FLEX_CHALLENGE_ANSWER is not configured')
+      debug.error('❌ FLEX_CHALLENGE_ANSWER is not configured (env or Secrets Manager)')
       return NextResponse.json(
         { error: 'Challenge not configured', code: 'CHALLENGE_ANSWER_MISSING' },
         { status: 503 }
