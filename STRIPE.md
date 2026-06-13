@@ -56,6 +56,42 @@ The cagnotte (fundraiser/jackpot) feature uses **Stripe Checkout** with **Stripe
 - **Development**: Secrets loaded directly from environment variables (encrypted with dotenvx)
 - **Production**: Fetched from AWS Secrets Manager via `FLEX_STRIPE_SECRET_ARN` (region: `eu-west-3`, cached for 5 minutes)
 
+#### Secret JSON shape — test vs live account
+
+The Secrets Manager JSON shape differs between a **test** account and a **live** account
+because the live account runs **two scoped webhook destinations** (see
+[Webhook Setup](#stripe-dashboard-webhook-setup-production)), each with its own signing
+secret, whereas the test account uses a single legacy endpoint with one secret.
+
+**Test account** (current production, for now):
+
+```json
+{
+  "FLEX_STRIPE_SECRET_KEY": "sk_test_...",
+  "FLEX_STRIPE_WEBHOOK_SECRET": "whsec_..."
+}
+```
+
+**Live account** (sandbox switch):
+
+```json
+{
+  "FLEX_STRIPE_SECRET_KEY": "sk_live_...",
+  "FLEX_STRIPE_WEBHOOK_SECRET": "whsec_...",
+  "FLEX_STRIPE_WEBHOOK_SECRET_CONNECT": "whsec_..."
+}
+```
+
+| | Secret JSON | Secrets verified against |
+|---|---|---|
+| Test account (current prod, for now) | `FLEX_STRIPE_SECRET_KEY` (sk_test), `FLEX_STRIPE_WEBHOOK_SECRET` only | 1 secret |
+| Live account (sandbox switch) | + `FLEX_STRIPE_WEBHOOK_SECRET_CONNECT` | 2 secrets |
+
+`FLEX_STRIPE_WEBHOOK_SECRET_CONNECT` is **optional**: the webhook handler builds its list
+of signing secrets with `.filter(Boolean)`, so absent secrets are skipped. The same JSON
+shape therefore works for both modes — the connect secret is only required for the live
+two-destination setup, and test mode runs unchanged on the single secret.
+
 ## Stripe CLI Installation
 
 ### Download and install
@@ -95,20 +131,51 @@ The webhook endpoint (`POST /api/cagnotte/webhook/`) handles the following Strip
 
 ## Stripe Dashboard Webhook Setup (Production)
 
-1. Go to **Developers > Webhooks** in the Stripe Dashboard
-2. Click **Add endpoint**
-3. Set the endpoint URL: `https://yourdomain.com/api/cagnotte/webhook/`
-4. **Set "Listen to events on" to `Connected accounts`** (not "Account") — `account.updated` for an Express connected account is a Connect event and is only delivered to endpoints that opt in. Without this, the platform endpoint receives checkout/charge events but never the connected-account onboarding update, leaving `StripeConnectAccount` stuck at `ONBOARDING_STARTED`. If both platform and connected events are needed, either flip the toggle to include both or register a second endpoint.
-5. Select events:
-   - `checkout.session.completed`
-   - `checkout.session.expired`
-   - `payment_intent.payment_failed`
-   - `charge.refunded`
-   - `account.updated`
-   - `payout.paid`
-   - `payout.failed`
-6. Copy the webhook signing secret
-7. Store it as `FLEX_STRIPE_WEBHOOK_SECRET` (in AWS Secrets Manager for production)
+As a Connect platform, the events we handle originate in **two different scopes**: some
+fire on **your platform** account (destination charges), others on the **connected
+account** (onboarding + payouts). How you configure this depends on the account:
+
+| Event handled | Where it fires | Scope needed |
+|---|---|---|
+| `checkout.session.completed` / `.expired` | Your platform (destination charge — checkout session created on your account, no `stripeAccount` param) | Your account |
+| `payment_intent.payment_failed` | Your platform | Your account |
+| `charge.refunded` | Your platform | Your account |
+| `account.updated` | The teacher's connected account | Connected accounts |
+| `payout.paid` / `payout.failed` | The connected account (payout created with `{ stripeAccount: jackpotForm.stripeAccountId }`) | Connected accounts |
+
+The webhook handler verifies every request against whichever signing secrets are
+configured, so a single endpoint URL (`/api/cagnotte/webhook/`) serves both scopes.
+
+### Test account (legacy single endpoint)
+
+The test account uses one classic webhook endpoint that listens to **both** account and
+connected-account events (the legacy "Listen to events on connected accounts" toggle).
+All events are signed with one secret.
+
+1. Go to **Developers > Webhooks**, click **Add endpoint**.
+2. URL: `https://yourdomain.com/api/cagnotte/webhook/`.
+3. Enable the option to include **connected account** events as well as your account's, so
+   `account.updated` and `payout.*` are delivered (otherwise `StripeConnectAccount` stays
+   stuck at `ONBOARDING_STARTED`).
+4. Select all seven events listed above.
+5. Copy the signing secret → store as `FLEX_STRIPE_WEBHOOK_SECRET`.
+
+### Live account (two scoped Event destinations)
+
+The live account uses the newer **Event destinations** UI, which forces a scope choice
+(*Your account* vs *Connected accounts*). Create **two destinations**, both pointing at the
+**same** `/api/cagnotte/webhook/` URL:
+
+1. **Your account** destination — events: `checkout.session.completed`,
+   `checkout.session.expired`, `payment_intent.payment_failed`, `charge.refunded`.
+   Copy its signing secret → store as `FLEX_STRIPE_WEBHOOK_SECRET`.
+2. **Connected accounts** destination — events: `account.updated`, `payout.paid`,
+   `payout.failed`.
+   Copy its signing secret → store as `FLEX_STRIPE_WEBHOOK_SECRET_CONNECT`.
+
+Both secrets go into the same Secrets Manager JSON (see
+[Secret JSON shape](#secret-json-shape--test-vs-live-account)). The handler tries each
+configured secret until one validates the signature.
 
 ### Cagnotte payout (manual schedule)
 

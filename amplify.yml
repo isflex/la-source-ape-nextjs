@@ -17,7 +17,9 @@ applications:
             - cd apps/gateway
             - pnpm ampx info
             - pnpm ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --debug
-
+      # cache:
+      #   paths:
+      #     - "node_modules/**/*"
     frontend:
       buildPath: /
       phases:
@@ -41,3 +43,4 @@ applications:
       cache:
         paths:
           - "apps/gateway/.next/cache/**/*"
+          - "node_modules/**/*"
