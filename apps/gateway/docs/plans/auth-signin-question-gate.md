@@ -177,7 +177,10 @@ New `apps/gateway/src/app/api/auth/challenge/route.ts` (POST):
   `src/app/layout.tsx` / `src/components/auth/AuthProvider.tsx`):
   - If no `useAuthenticator().user` → render children (public browsing unaffected).
   - If signed in and `challenge_passed !== 'true'` (from `fetchAuthSession()`), render the question form
-    (static question text — not secret) blocking the app.
+    (static question text — not secret) **instead of** children (mutual exclusion — NOT an overlay), so
+    the protected app is never in the DOM while gated and can't be revealed by deleting the modal node
+    in devtools. ('checking' and 'passed' both render children → no blank-flash for public visitors,
+    SSR/hydration parity preserved.)
   - On submit → POST to the route; on success `await fetchAuthSession({ forceRefresh: true })` then
     re-check and render children.
 - Question text can be a non-secret constant / `NEXT_PUBLIC_CHALLENGE_QUESTION`; the **answer stays
@@ -269,3 +272,28 @@ user's attribute so automated flows never see the gate.
   `amplify build` validated. **Remaining (interactive, via `!`):** `amplify push` for `dev`, the
   same Part A run for `prod`, set `FLEX_CHALLENGE_ANSWER` in `.env.production` of both repos, and
   ensure both backends' principals have `cognito-idp:AdminUpdateUserAttributes` on the pool.
+
+## Part F — Server-side guardrail (websocket app; defense beyond the client gate)
+
+The client `ChallengeGateComponent` is UX/defense-in-depth only (a user can delete the modal node or
+call the backend directly). Real enforcement of `custom:challenge_passed` was added server-side:
+
+- **Express middleware** `apps/la-source/ape/on-board/server/src/middlewares/onboard/amplify/
+  require-challenge-passed.mts` — verifies the access token (`authManager`), then reads
+  `custom:challenge_passed` via Cognito `AdminGetUser` (the V1 claim is in the ID token, not the
+  access token the client sends to express; AdminGetUser is also staleness-free). 403
+  `{ code: 'CHALLENGE_NOT_PASSED' }` if not `'true'`; 60s positive in-memory cache. Wired as the first
+  handler on the express WRITE routes in `server.mts`: add/remove-participant, submit-controle-parentale,
+  submit-sponsoring, create-contact-form, create-reply-contact-form. (login-accreditation &
+  verify-challenge & get-* are intentionally NOT guarded.)
+- **AppSync resolver gate** for create-event, which writes **directly client→AppSync** (bypassing
+  express): additive `postAuth.2` VTL slots in `amplify/backend/api/v3onBoardEvent/resolvers/` for
+  `Mutation.create{OnBoardEvent,Times,TTime,Attendees}` — `$util.unauthorized()` when
+  `$util.authType() == "User Pool Authorization"` and `challenge_passed != 'true'`. IAM (server) and
+  API-key callers pass through. Works because Amplify sends the **ID token** (which carries the claim)
+  to AppSync for userPool auth. Needs `amplify push` to deploy (review CFN: resolver changes only).
+- IAM: the server principal (`isflex-amplify`) already has Cognito admin access (AdminGetUser confirmed
+  available at runtime) — no new grant needed for `dev`.
+- Verify: claim=false → guarded express route returns 403 + client surfaces the gate (via
+  `openChallengeGate()`/`ChallengeGateHost`); raw userPool `createOnBoardEvent` → `Unauthorized`; pass
+  the gate (token refresh) → both succeed; server IAM writes and apiKey reads unaffected throughout.

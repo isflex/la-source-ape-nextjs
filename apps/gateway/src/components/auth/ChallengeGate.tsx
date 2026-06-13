@@ -134,10 +134,12 @@ const ChallengeGate: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  return (
-    <>
-      {children}
-      {status === "gated" && (
+  // Mutual exclusion: when gated, render the modal INSTEAD OF children, so the
+  // protected app is never in the DOM and can't be revealed by deleting the modal
+  // node. 'checking' and 'passed' both render children (no blank-flash for public
+  // visitors; preserves SSR/hydration parity — SSR initial status is 'checking').
+  if (status === "gated") {
+    return (
         <Modal
           active={true}
           onClose={() => {
@@ -182,9 +184,10 @@ const ChallengeGate: React.FC<{ children: React.ReactNode }> = ({
             </InfoBlock>
           </form>
         </Modal>
-      )}
-    </>
-  );
+    );
+  }
+
+  return children;
 };
 
 export default ChallengeGate;
