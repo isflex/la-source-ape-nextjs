@@ -50,7 +50,7 @@ export default function RoundtableController({
     // Project groups in document order (foulée-meudonnaise, dîner-des-parents,
     // collecte-de-noël). Empty array → reveal helpers below are no-ops.
     const projectGroups = Array.from(
-      root.querySelectorAll<SVGGElement>("#apeProjectsGroup > g"),
+      root.querySelectorAll<SVGGElement>("#apeProjectsGroup > div"),
     );
 
     // views[0] = #label-0, views[k] = stage k's #label-k group.

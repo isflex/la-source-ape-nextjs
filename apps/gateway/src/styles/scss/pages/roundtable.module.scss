@@ -62,15 +62,53 @@
 
 .ape-projets {
   position: absolute;
-  margin-left: -5px;
+  width: 100vw;
+  height: 100%;
   z-index: -1;
+
+  .top-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .bottom-left {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+  .bottom-right {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+  }
+
+  .top-left,
+  .top-right,
+  .bottom-left,
+  .bottom-right {
+    display: none;
+  }
+
+  @media screen and (min-width: '1380px') {
+    .top-left,
+    .top-right,
+    .bottom-left,
+    .bottom-right {
+      display: block;
+    }
+  }
 }
 
 // Project groups are hidden on load and revealed one at a time by the
 // RoundtableController as the auto-cycle advances (`.project-visible` toggled
 // in JS). Hidden-by-default also avoids a flash before the controller mounts.
 .projects {
-  > g {
+  > div {
     opacity: 0;
     visibility: hidden;
     transition:
@@ -78,7 +116,7 @@
       visibility 0s linear 0.8s; // keep hidden until the fade-out finishes
   }
 
-  > g.project-visible {
+  > div.project-visible {
     opacity: 1;
     visibility: visible;
     transition:
