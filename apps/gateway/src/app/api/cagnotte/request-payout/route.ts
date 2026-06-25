@@ -192,7 +192,7 @@ export async function POST(request: NextRequest) {
       {
         amount: amountCents,
         currency: "eur",
-        metadata: { jackpotFormId, userId },
+        metadata: { jackpotFormId, jackpotTitle: jackpotForm.title, userId },
         description: `Cagnotte ${jackpotForm.slug}`,
       },
       {

@@ -33,6 +33,14 @@ export const STRIPE_RATES = {
   card: {
     percentFee: 1.5,      // 1.5%
     fixedFee: 25,         // €0.25 in centimes
+    // Extra percentage POINTS OF THE DONATION added on top of the 1.5% card
+    // rate in the contributor gross-up (e.g. 0.4 → gross up at 1.9%), so the
+    // buffer the platform retains (as application_fee_amount) still covers the
+    // higher real Stripe fee on international/AMEX cards. Same basis as
+    // `percentFee` above — NOT a percentage of the fee. Break-even, not profit.
+    safetyMarginPercent: parseFloat(
+      process.env.NEXT_PUBLIC_STRIPE_CARD_RATE_SAFETY_MARGIN_PERCENT || '0.4',
+    ),
   },
   // International cards
   cardInternational: {
@@ -122,7 +130,10 @@ export function calculateChargeAmount(
       // We need to charge more so that after Stripe takes their cut,
       // the desired amount reaches the recipient
       // Formula: chargeAmount = (desiredAmount + fixedFee) / (1 - percentFee)
-      const percentRate = STRIPE_RATES.card.percentFee / 100;
+      // A small safety margin is folded into the rate so the retained buffer
+      // covers the higher real fee on international/AMEX cards (see STRIPE_RATES).
+      const percentRate =
+        (STRIPE_RATES.card.percentFee + STRIPE_RATES.card.safetyMarginPercent) / 100;
       chargeAmount = Math.ceil(
         (desiredContributionCentimes + STRIPE_RATES.card.fixedFee) / (1 - percentRate)
       );
@@ -215,6 +226,14 @@ export function buildPaymentIntentParams(
   // so it's deducted from their share
   if (config.payInFeePayer === 'recipient') {
     applicationFee += calculation.stripeFee;
+  }
+
+  // If the contributor paid a fee buffer on top of their contribution, that
+  // buffer must stay on the platform (as the application fee) to offset the
+  // Stripe fee Stripe deducts from the platform on this destination charge.
+  // Otherwise the full charge transfers out and the orchestrator goes negative.
+  if (config.payInFeePayer === 'contributor') {
+    applicationFee += calculation.contributorPays;
   }
 
   return {

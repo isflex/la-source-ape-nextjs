@@ -8,6 +8,7 @@ import { logServerError, type ErrorContext } from "@src/lib/server-error-logger"
 import { getStripeSecrets } from "@src/lib/secrets";
 import { mapStripeAccountToConnectFields } from "@src/lib/stripe-connect-sync";
 import { syncContributionFromSession } from "@src/lib/cagnotte-session-sync";
+import { enrichConnectedAccountMetadata } from "@src/lib/cagnotte-transfer-metadata";
 import { applyPayoutResult } from "@src/lib/cagnotte-payout-sync";
 import { debug } from "@flexiness/domain-utils";
 
@@ -93,7 +94,7 @@ export async function POST(request: NextRequest) {
     switch (event.type) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
-        await handleCheckoutCompleted(session);
+        await handleCheckoutCompleted(session, stripe);
         break;
       }
 
@@ -141,9 +142,12 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
+async function handleCheckoutCompleted(session: Stripe.Checkout.Session, stripe: Stripe) {
   try {
     await syncContributionFromSession(client, session);
+    // Stamp the connected-account-visible Stripe objects (Transfer + destination
+    // payment) with jackpotFormId + friendly title. Best-effort and idempotent.
+    await enrichConnectedAccountMetadata(stripe, client, session);
   } catch (error) {
     await logWebhookError(error, "checkout.session.completed", {
       sessionId: session.id,

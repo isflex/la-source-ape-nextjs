@@ -193,6 +193,7 @@ export async function POST(request: NextRequest) {
         metadata: {
           ...piParams.metadata,
           jackpotFormId,
+          jackpotTitle: jackpotForm.title,
           contributionId: contribution.id,
           contributorName,
           contributorEmail,
